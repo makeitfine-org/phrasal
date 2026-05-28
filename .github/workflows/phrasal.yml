@@ -2,13 +2,9 @@ name: Phrasal CI
 
 on:
   push:
-    paths:
-      - 'phrasal/**'
-      - '.github/workflows/phrasal.yml'
+    branches: [main]
   pull_request:
-    paths:
-      - 'phrasal/**'
-      - '.github/workflows/phrasal.yml'
+    branches: [main]
 
 jobs:
   ci:
@@ -23,16 +19,13 @@ jobs:
         with:
           node-version: '20'
           cache: 'npm'
-          cache-dependency-path: phrasal/package-lock.json
+          cache-dependency-path: package-lock.json
 
       - name: Install dependencies
-        working-directory: phrasal
         run: npm install
 
       - name: Run tests
-        working-directory: phrasal
         run: npm run test:run
 
       - name: Build
-        working-directory: phrasal
         run: npm run build
