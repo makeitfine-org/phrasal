@@ -38,6 +38,7 @@ and the page renders blank.
 1. Go to **Settings → Pages** in the `makeitfine-org/phrasal` repo.
 2. Under **Source**, select **GitHub Actions** (not the legacy branch option).
 3. Save. GitHub will now accept deploys triggered by a workflow.
+4. Config in github branch/tag permission: ![img.png](img.png)
 
 ## 3. Create the deploy workflow
 
