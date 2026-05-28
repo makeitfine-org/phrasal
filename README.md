@@ -113,10 +113,10 @@ git tag -a v1.0.1 -m "Release version 1.0.1"
 git push origin v1.0.1
 ```
 
-The `phrasal-deploy.yml` workflow triggers automatically on any `v*.*.*` tag (and
-on every push to `main`). It runs the test suite, builds the app, and deploys to
-Pages. Track progress under the **Actions** tab; the live URL also appears in the
-deploy job summary once it completes.
+The `phrasal-deploy.yml` workflow triggers on any `v*.*.*` tag and verifies the
+tag is on `main` before deploying. It runs the test suite, builds the app, and
+deploys to Pages. Track progress under the **Actions** tab; the live URL also
+appears in the deploy job summary once it completes.
 
 To re-deploy without changing source (e.g. after a Pages outage):
 **Actions → Deploy to GitHub Pages → Run workflow**.

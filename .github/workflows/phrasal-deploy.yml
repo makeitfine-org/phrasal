@@ -2,8 +2,6 @@ name: Deploy to GitHub Pages
 
 on:
   push:
-    branches:
-      - main
     tags:
       - 'v[0-9]+.[0-9]+.[0-9]+'
   workflow_dispatch:
@@ -24,6 +22,13 @@ jobs:
 
     steps:
       - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: Verify tag is on main
+        run: |
+          git fetch origin main
+          git merge-base --is-ancestor ${{ github.sha }} origin/main
 
       - name: Setup Node.js
         uses: actions/setup-node@v4

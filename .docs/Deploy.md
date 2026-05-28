@@ -48,8 +48,6 @@ name: Deploy to GitHub Pages
 
 on:
   push:
-    branches:
-      - main
     tags:
       - 'v[0-9]+.[0-9]+.[0-9]+'
   workflow_dispatch:
@@ -70,6 +68,13 @@ jobs:
 
     steps:
       - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: Verify tag is on main
+        run: |
+          git fetch origin main
+          git merge-base --is-ancestor ${{ github.sha }} origin/main
 
       - name: Setup Node.js
         uses: actions/setup-node@v4
@@ -107,14 +112,15 @@ jobs:
 ```
 
 This workflow:
-- Runs on every push to `main`, on any `v*.*.*` tag, and can be triggered manually from the Actions tab
+- Triggers on any `v*.*.*` tag and can be triggered manually from the Actions tab
+- Verifies the tagged commit is on `main` — tags on other branches are rejected
 - Runs tests before building so a broken build is never deployed
 - Uses the official `actions/upload-pages-artifact` + `actions/deploy-pages` pair,
   which avoids the need for a `gh-pages` branch
 - Exposes the live URL as a deployment link in the Actions summary
 
 > The existing `phrasal.yml` workflow handles CI (test + build) on pull requests.
-> This deploy workflow is separate and runs on pushes to `main` or on version tags.
+> This deploy workflow is separate and only runs when a version tag is pushed.
 
 ## 4. First deploy
 
@@ -129,7 +135,7 @@ appears in the **deploy** job summary and under **Settings → Pages**.
 
 ## 5. Subsequent deploys
 
-Every push to `main` and every `v*.*.*` tag triggers the workflow automatically.
+Every `v*.*.*` tag pushed from the `main` branch triggers the workflow automatically.
 No manual steps required.
 
 To release a new version:
