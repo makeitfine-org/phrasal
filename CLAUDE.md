@@ -1,0 +1,63 @@
+# CLAUDE.md
+
+This file provides guidance to Claude Code (claude.ai/code) when working with code in this repository.
+
+## Commands
+
+```bash
+npm run dev       # dev server at http://localhost:5173
+npm run build     # production build → dist/
+npm run preview   # serve the production build locally
+npm test          # Vitest in watch mode
+npm run test:run  # Vitest one-shot (CI)
+```
+
+## Architecture
+
+Single-page React app (Vite + Tailwind). All state lives in `App.jsx` and is persisted to `localStorage` under the key `phrasalQuizState`.
+
+**Data flow:** `phrasalVerbs.js` → `App.jsx` (state + handlers) → props down to `Header`, `QuizCard`, `Feedback`, `NavigationControls`, `ExcludedModal`, `SearchModal`. No context or global store.
+
+### Key state shape (`App.jsx`)
+
+| State | Type | Notes |
+|---|---|---|
+| `mastered` | `Set<number>` | Indices of correctly answered verbs |
+| `excluded` | `Set<number>` | Indices excluded from the quiz pool |
+| `history` | `HistoryItem[]` | All cards shown this session, in order |
+| `currentIndex` | `number` | Pointer into `history` (enables back navigation) |
+| `darkMode` | `boolean` | Synced to `dark` class on `<html>` |
+
+`HistoryItem`: `{ index: number, inputValue: string, status: 'idle' | 'correct' | 'wrong' }`.
+
+### Verb data format (`src/data/phrasalVerbs.js`)
+
+Each entry in `rawData` is a 5-element tuple:
+
+```js
+[verb, definition, exampleSentence, wordsToHide, isLearned]
+//  0        1             2               3           4
+```
+
+`allVerbs` is `rawData` filtered to `isLearned === false` (index 4). Setting the 5th field to `true` removes a verb from the active quiz pool.
+
+`wordsToHide` (index 3) drives `renderSentenceWithMask` in `src/utils/renderSentence.jsx`, which splits the sentence on a case-insensitive regex (longest match first) and renders matched tokens as clickable masked spans.
+
+The example sentence (index 2) can be a single string or an array of strings — `allVerbs` normalises both to `string[]`.
+
+### Answer checking
+
+Comparison is case-insensitive with parentheses stripped: `cleanUser === cleanCorrect` (both lowercased, trimmed, `[()]` removed).
+
+## Tests
+
+Vitest + `@testing-library/react`. Test files live in `src/__tests__/`. The setup file is `src/__tests__/setup.js` (jest-dom matchers, `scrollIntoView` stub, localStorage mock).
+
+`renderSentenceWithMask` is exported from `src/utils/renderSentence.jsx` (extracted from `App.jsx`) so it can be unit tested directly.
+
+## Workflow Defaults
+
+- Plan mode for any task with 3+ steps or an architectural decision
+- Use **Context7 MCP** proactively for library/API docs — don't wait to be asked
+- Commits: semantic message ≤ 80 chars, no `Co-Authored-By` trailer
+- When compacting, always preserve the full list of modified files and any test commands
