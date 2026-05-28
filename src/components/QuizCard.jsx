@@ -97,13 +97,13 @@ export default function QuizCard({
             <button
               type="button"
               onClick={onIdk}
-              className="bg-amber-500 hover:bg-amber-600 text-white px-6 rounded-lg font-semibold transition-colors shadow-sm"
+              className="bg-amber-500 hover:bg-amber-600 text-white px-2 sm:px-6 rounded-lg font-semibold transition-colors shadow-sm text-sm sm:text-base"
             >
               IDK
             </button>
             <button
               type="submit"
-              className="bg-blue-600 hover:bg-blue-700 text-white px-6 rounded-lg font-semibold transition-colors shadow-sm"
+              className="bg-blue-600 hover:bg-blue-700 text-white px-1 sm:px-6 rounded-lg font-semibold transition-colors shadow-sm text-sm sm:text-base"
             >
               Check
             </button>

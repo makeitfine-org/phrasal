@@ -135,6 +135,21 @@ npm install
 npm run dev        # dev server at http://localhost:5173
 ```
 
+### Serve on local network (access from phone / tablet)
+
+**Dev server:**
+```bash
+npm run dev -- --host   # binds to 0.0.0.0; Vite prints the LAN URL, e.g. http://192.168.x.x:5173
+```
+
+**Production build:**
+```bash
+npm run build
+npx serve -l tcp://0.0.0.0:4173 dist   # accessible at http://192.168.x.x:4173
+```
+
+Find your machine's IP with `ip route get 1` (Linux) or `ipconfig` (Windows).
+
 ### Tests
 
 ```bash
