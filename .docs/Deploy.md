@@ -50,6 +50,8 @@ on:
   push:
     branches:
       - main
+    tags:
+      - 'v[0-9]+.[0-9]+.[0-9]+'
   workflow_dispatch:
 
 permissions:
@@ -105,14 +107,14 @@ jobs:
 ```
 
 This workflow:
-- Runs on every push to `main` and can be triggered manually from the Actions tab
+- Runs on every push to `main`, on any `v*.*.*` tag, and can be triggered manually from the Actions tab
 - Runs tests before building so a broken build is never deployed
 - Uses the official `actions/upload-pages-artifact` + `actions/deploy-pages` pair,
   which avoids the need for a `gh-pages` branch
 - Exposes the live URL as a deployment link in the Actions summary
 
 > The existing `phrasal.yml` workflow handles CI (test + build) on pull requests.
-> This deploy workflow is separate and only runs on pushes to `main`.
+> This deploy workflow is separate and runs on pushes to `main` or on version tags.
 
 ## 4. First deploy
 
@@ -127,7 +129,15 @@ appears in the **deploy** job summary and under **Settings → Pages**.
 
 ## 5. Subsequent deploys
 
-Every push to `main` triggers the workflow automatically. No manual steps required.
+Every push to `main` and every `v*.*.*` tag triggers the workflow automatically.
+No manual steps required.
+
+To release a new version:
+
+```bash
+git tag -a v1.0.1 -m "Release version 1.0.1"
+git push origin v1.0.1
+```
 
 To trigger a deploy without changing any source file (e.g. to re-deploy after
 a Pages outage), use **Actions → Deploy to GitHub Pages → Run workflow**.
