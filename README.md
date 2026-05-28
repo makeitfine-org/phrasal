@@ -98,6 +98,34 @@ Each entry in `rawData` is a 5-element tuple:
 
 ---
 
+## Deployment
+
+The app is deployed to GitHub Pages and publicly accessible at:
+
+**https://makeitfine-org.github.io/phrasal/**
+
+### Releasing a new version
+
+Tag the commit you want to deploy and push the tag:
+
+```bash
+git tag -a v1.0.1 -m "Release version 1.0.1"
+git push origin v1.0.1
+```
+
+The `phrasal-deploy.yml` workflow triggers automatically on any `v*.*.*` tag (and
+on every push to `main`). It runs the test suite, builds the app, and deploys to
+Pages. Track progress under the **Actions** tab; the live URL also appears in the
+deploy job summary once it completes.
+
+To re-deploy without changing source (e.g. after a Pages outage):
+**Actions → Deploy to GitHub Pages → Run workflow**.
+
+> **Prerequisite:** Settings → Pages → Source must be set to **GitHub Actions**
+> in the `makeitfine-org/phrasal` repo before the first deploy.
+
+---
+
 ## Usage
 
 ### Install & run
