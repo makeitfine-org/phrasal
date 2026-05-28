@@ -29,7 +29,7 @@ function renderApp() {
 
 // Helper: get the visible input
 function getInput() {
-  return screen.getByPlaceholderText('Type the phrasal verb here...');
+  return screen.getByPlaceholderText('Type phrasal verb');
 }
 
 describe('App — initial render', () => {

@@ -46,7 +46,7 @@ describe('QuizCard', () => {
 
   it('renders the input field with placeholder text', () => {
     render(<QuizCard {...makeProps()} />);
-    expect(screen.getByPlaceholderText('Type the phrasal verb here...')).toBeInTheDocument();
+    expect(screen.getByPlaceholderText('Type phrasal verb')).toBeInTheDocument();
   });
 
   it('shows IDK and Check buttons when status is "idle"', () => {
@@ -69,19 +69,19 @@ describe('QuizCard', () => {
 
   it('disables the input when status is not "idle"', () => {
     render(<QuizCard {...makeProps({ status: 'correct' })} />);
-    expect(screen.getByPlaceholderText('Type the phrasal verb here...')).toBeDisabled();
+    expect(screen.getByPlaceholderText('Type phrasal verb')).toBeDisabled();
   });
 
   it('does not disable the input when status is "idle"', () => {
     render(<QuizCard {...makeProps({ status: 'idle' })} />);
-    expect(screen.getByPlaceholderText('Type the phrasal verb here...')).not.toBeDisabled();
+    expect(screen.getByPlaceholderText('Type phrasal verb')).not.toBeDisabled();
   });
 
   it('calls onInputChange when the input value changes', async () => {
     const props = makeProps();
     const user = userEvent.setup();
     render(<QuizCard {...props} />);
-    await user.type(screen.getByPlaceholderText('Type the phrasal verb here...'), 'a');
+    await user.type(screen.getByPlaceholderText('Type phrasal verb'), 'a');
     expect(props.onInputChange).toHaveBeenCalled();
   });
 
@@ -157,13 +157,13 @@ describe('QuizCard', () => {
 
   it('applies green border class to input when status is "correct"', () => {
     render(<QuizCard {...makeProps({ status: 'correct' })} />);
-    const input = screen.getByPlaceholderText('Type the phrasal verb here...');
+    const input = screen.getByPlaceholderText('Type phrasal verb');
     expect(input).toHaveClass('border-green-500');
   });
 
   it('applies red border class to input when status is "wrong"', () => {
     render(<QuizCard {...makeProps({ status: 'wrong' })} />);
-    const input = screen.getByPlaceholderText('Type the phrasal verb here...');
+    const input = screen.getByPlaceholderText('Type phrasal verb');
     expect(input).toHaveClass('border-red-500');
   });
 });

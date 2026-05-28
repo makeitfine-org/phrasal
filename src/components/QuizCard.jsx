@@ -82,7 +82,7 @@ export default function QuizCard({
           value={inputValue}
           onChange={(e) => onInputChange(e.target.value)}
           disabled={status !== 'idle'}
-          placeholder="Type the phrasal verb here..."
+          placeholder="Type phrasal verb"
           className={`w-full px-5 py-4 rounded-xl border-2 bg-gray-50 dark:bg-gray-900 text-lg focus:outline-none transition-colors ${
             status === 'idle'
               ? 'border-gray-300 dark:border-gray-700 focus:border-blue-500 dark:focus:border-blue-500 text-gray-900 dark:text-white'
