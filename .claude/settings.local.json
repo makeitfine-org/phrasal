@@ -8,8 +8,9 @@
   },
   "permissions": {
     "allow": [
-      "Bash(git -C /home/eug/dev/projects/my/docs/phrasal remote -v)",
-      "Read(//home/eug/dev/projects/my/docs/.github/workflows/**)"
+      "Bash(git -C /home/eug/dev/projects/my/phrasal remote -v)",
+      "Read(//home/eug/dev/projects/my/phrasal/.github/workflows/**)",
+      "Bash(node -e \"import\\('/home/eug/dev/projects/my/phrasal/src/data/phrasalVerbs.js'\\).then\\(m => console.log\\('total:', m.rawData.length, 'active:', m.allVerbs.length\\)\\)\")"
     ]
   },
   "statusLine": {

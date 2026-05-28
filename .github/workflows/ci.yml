@@ -1,4 +1,4 @@
-name: Phrasal CI
+name: CI
 
 on:
   push:

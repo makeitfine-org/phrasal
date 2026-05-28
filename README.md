@@ -4,7 +4,7 @@ A flashcard-style quiz app for practising English phrasal verbs. Built with Vite
 
 ## Features
 
-- 230+ phrasal verbs with definitions, example sentences, and masked hints
+- 228 phrasal verbs with definitions, example sentences, and masked hints
 - Answer checking with instant correct/wrong feedback
 - Mastered-verb tracking persisted across sessions
 - Exclude verbs from the quiz pool and re-include them at any time
@@ -17,9 +17,6 @@ A flashcard-style quiz app for practising English phrasal verbs. Built with Vite
 
 ---
 
-## Architecture
-## Architecture
-## Architecture
 ## Architecture
 
 ```
@@ -106,7 +103,6 @@ Each entry in `rawData` is a 5-element tuple:
 ### Install & run
 
 ```bash
-cd phrasal
 npm install
 npm run dev        # dev server at http://localhost:5173
 ```
@@ -121,13 +117,13 @@ npm run test:run   # one-shot (CI)
 ### Build for production
 
 ```bash
-npm run build      # output in phrasal/dist/
+npm run build      # output in dist/
 npm run preview    # preview the production build locally
 ```
 
 ### Serve in production
 
-The build output in `phrasal/dist/` is a static site — serve it with any static file server.
+The build output in `dist/` is a static site — serve it with any static file server.
 
 **Node (`serve` package):**
 ```bash
