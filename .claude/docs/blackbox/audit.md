@@ -196,3 +196,15 @@ I plan to make a new release give, so:
 ## 2026-05-29T10:50:40Z
 apply
 ---
+
+## 2026-05-29T11:00:24Z
+If I set reset on the phrasal verb then even if it was marked as mastered it should be unmarked
+---
+
+## 2026-05-29T11:04:45Z
+not work
+---
+
+## 2026-05-29T11:10:38Z
+commit
+---

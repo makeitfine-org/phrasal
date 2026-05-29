@@ -106,7 +106,16 @@ export default function App() {
       next[currentIndex] = { ...next[currentIndex], inputValue: '', status: 'idle' };
       return next;
     });
-  }, [currentIndex]);
+    const verbIndex = history[currentIndex]?.index;
+    if (verbIndex !== undefined) {
+      setMastered(prev => {
+        if (!prev.has(verbIndex)) return prev;
+        const next = new Set(prev);
+        next.delete(verbIndex);
+        return next;
+      });
+    }
+  }, [currentIndex, history]);
 
   const handleIdk = useCallback(() => {
     setHistory(prev => {

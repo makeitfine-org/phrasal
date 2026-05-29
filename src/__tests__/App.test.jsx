@@ -178,6 +178,16 @@ describe('App — resetState', () => {
     await user.click(screen.getByText('Check'));
     expect(screen.getByText('Reset').closest('button')).not.toBeDisabled();
   });
+
+  it('removes verb from mastered when Reset is clicked after a correct answer', async () => {
+    const user = userEvent.setup();
+    renderApp();
+    await user.type(getInput(), 'act out');
+    await user.click(screen.getByText('Check'));
+    expect(screen.getByText('1')).toBeInTheDocument(); // masteredCount = 1
+    await user.click(screen.getByText('Reset').closest('button'));
+    expect(screen.getByText('0')).toBeInTheDocument(); // masteredCount back to 0
+  });
 });
 
 describe('App — navigation', () => {
