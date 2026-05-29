@@ -406,3 +406,17 @@ You don't understand me.
 I mean you should show default error page for 4xx and 5xx errors.
 So if there is error only. You should not show pages for error on home page
 ---
+
+## 2026-05-29T18:29:39Z
+I plan to make a new release give, so:
+- give the next release tag
+- give description for next release
+---
+
+## 2026-05-29T18:30:32Z
+apply
+---
+
+## 2026-05-29T18:36:33Z
+commit all
+---

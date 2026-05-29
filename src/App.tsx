@@ -223,7 +223,7 @@ export default function App() {
       const currentStatus = history[currentIndex]?.status ?? 'idle';
       const key = e.key.toLowerCase();
 
-      if ((e.ctrlKey && key === 'r') || key === '`') {
+      if (key === '`') {
         if (currentStatus !== 'idle') {
           e.preventDefault();
           resetState();
