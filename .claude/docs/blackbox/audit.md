@@ -333,3 +333,19 @@ some words in thist lines a underlined by Intellij idea
 ## 2026-05-29T17:09:45Z
 commit all
 ---
+
+## 2026-05-29T17:18:59Z
+Instead of 'Home' title show favicon.svg image for link to Home page
+---
+
+## 2026-05-29T17:20:34Z
+Add test for that
+---
+
+## 2026-05-29T17:23:04Z
+image isn't shown: show favicon.svg image
+---
+
+## 2026-05-29T17:24:35Z
+commit all
+---

@@ -25,9 +25,10 @@ export default function PageShell({ children }: { children: React.ReactNode }) {
         {!isHome && (
           <Link
             to="/"
-            className="px-3 py-1.5 text-sm font-medium rounded-full bg-gray-200 dark:bg-gray-800 text-gray-700 dark:text-gray-300 hover:bg-gray-300 dark:hover:bg-gray-700 transition-colors shadow-sm border border-gray-300 dark:border-gray-700"
+            className="p-1.5 rounded-full bg-gray-200 dark:bg-gray-800 hover:bg-gray-300 dark:hover:bg-gray-700 transition-colors shadow-sm border border-gray-300 dark:border-gray-700 flex items-center justify-center"
+            title="Move to Home page"
           >
-            Home
+            <img src={`${import.meta.env.BASE_URL}favicon.svg`} alt="Home" className="w-5 h-5" />
           </Link>
         )}
         <button
@@ -35,7 +36,7 @@ export default function PageShell({ children }: { children: React.ReactNode }) {
           className="p-2 bg-gray-200 dark:bg-gray-800 rounded-full text-gray-700 dark:text-gray-300 hover:bg-gray-300 dark:hover:bg-gray-700 transition-colors shadow-sm border border-gray-300 dark:border-gray-700"
           title="Toggle Dark/Light Mode"
         >
-          {darkMode ? <SunIcon /> : <MoonIcon />}
+            {darkMode ? <MoonIcon/> : <SunIcon/>}
         </button>
       </div>
       {children}

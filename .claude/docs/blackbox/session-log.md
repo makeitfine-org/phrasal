@@ -327,3 +327,27 @@
 - .claude/docs/blackbox/session-log.md
 - CLAUDE.md
 <!-- end-snapshot -->
+
+<!-- git-snapshot 2026-05-29T17:19:21Z -->
+- .claude/docs/blackbox/audit.md
+- src/components/PageShell.tsx
+<!-- end-snapshot -->
+
+<!-- git-snapshot 2026-05-29T17:21:02Z -->
+- .claude/docs/blackbox/audit.md
+- .claude/docs/blackbox/session-log.md
+- src/__tests__/PageShell.test.tsx
+- src/components/PageShell.tsx
+<!-- end-snapshot -->
+
+<!-- git-snapshot 2026-05-29T17:24:00Z -->
+- .claude/docs/blackbox/audit.md
+- .claude/docs/blackbox/session-log.md
+- src/__tests__/PageShell.test.tsx
+- src/components/PageShell.tsx
+<!-- end-snapshot -->
+
+<!-- git-snapshot 2026-05-29T17:25:29Z -->
+- .claude/docs/blackbox/audit.md
+- .claude/docs/blackbox/session-log.md
+<!-- end-snapshot -->

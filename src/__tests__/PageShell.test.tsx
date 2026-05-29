@@ -103,6 +103,19 @@ describe('PageShell — Home button', () => {
     renderWithShell('/phrasal-verbs');
     expect(screen.getByRole('link', { name: 'Home' })).toHaveClass('border-gray-300');
   });
+
+  it('Home link shows favicon image instead of text', () => {
+    renderWithShell('/phrasal-verbs');
+    const img = screen.getByRole('img', { name: 'Home' });
+    expect(img).toBeInTheDocument();
+    expect(img).toHaveAttribute('src', '/favicon.svg'); // BASE_URL is '/' in test env
+  });
+
+  it('Home link contains no visible text', () => {
+    renderWithShell('/phrasal-verbs');
+    const link = screen.getByRole('link', { name: 'Home' });
+    expect(link.textContent).toBe('');
+  });
 });
 
 describe('PageShell — button borders', () => {
