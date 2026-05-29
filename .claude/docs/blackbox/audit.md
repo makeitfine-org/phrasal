@@ -34,3 +34,32 @@ Test Files  9 passed (9)
 
 but after changes the amount of passed test reduced, so not all tests are recheck again
 ---
+
+## 2026-05-29T08:37:55Z
+When I do change in, for example, @src/data/phrasalVerbs.js tests rerun but with changes in @src/__tests__/__snapshots__/phrasalVerbs.test.js.snap no test rerun
+---
+
+## 2026-05-29T08:43:39Z
+but when I add a new phrasal verb, the test doesn't fail, but I whant if some phrasal verb isn't covered with snapshot then some test resposible for this checking fails
+---
+
+## 2026-05-29T08:48:10Z
+I'd like to swap @src/__tests__/__snapshots__/phrasalVerbs.test.js.snap to test, which will real time scanned by vite test. a
+---
+
+## 2026-05-29T08:48:53Z
+I'd like to swap @src/__tests__/__snapshots__/phrasalVerbs.test.js.snap to test, which will real time scanned by vite test.
+Also add test that will resposible: if at least any phrasal verb isn't covered by test test then fail.
+---
+
+## 2026-05-29T08:52:49Z
+Also add test that will resposible: if at least any new phrasal verb isn't covered by test test then fail. The new which can be added in the future
+---
+
+## 2026-05-29T08:59:55Z
+I wan't this @src/__tests__/phrasalVerbs.test.js scanned in real time by vita test
+---
+
+## 2026-05-29T09:03:16Z
+commit all
+---

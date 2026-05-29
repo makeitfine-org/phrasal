@@ -1,12 +1,31 @@
 {
   "$schema": "https://json.schemastore.org/claude-code-settings.json",
-  "model": "sonnet",
   "cleanupPeriodDays": 30,
   "env": {
     "CLAUDE_BASH_MAINTAIN_PROJECT_WORKING_DIR": "1",
     "MAX_THINKING_TOKENS": "10000",
     "CLAUDE_CODE_MAX_OUTPUT_TOKENS": "16000"
   },
+  "permissions": {
+    "allow": [
+      "Bash(git -C /home/eug/dev/projects/my/phrasal remote -v)",
+      "Read(//home/eug/dev/projects/my/phrasal/.github/workflows/**)",
+      "Bash(node -e \"import\\('/home/eug/dev/projects/my/phrasal/src/data/phrasalVerbs.js'\\).then\\(m => console.log\\('total:', m.rawData.length, 'active:', m.allVerbs.length\\)\\)\")",
+      "Bash(backlog task *)",
+      "mcp__backlog__task_search",
+      "mcp__backlog__task_create",
+      "mcp__backlog__task_complete",
+      "mcp__backlog__task_edit",
+      "mcp__backlog__get_backlog_instructions",
+      "mcp__backlog__task_view",
+      "mcp__backlog__*_*",
+      "mcp__backlog__*",
+      "Bash(node -e \"import\\('/home/eug/dev/projects/my/phrasal/src/data/phrasalVerbs.js'\\).then\\(m => console.log\\(m.rawData.length\\)\\)\")",
+      "Bash(npx vitest *)",
+      "Bash(node -e ' *)"
+    ]
+  },
+  "model": "sonnet",
   "hooks": {
     "Stop": [
       {
@@ -41,22 +60,6 @@
           }
         ]
       }
-    ]
-  },
-  "permissions": {
-    "allow": [
-      "Bash(git -C /home/eug/dev/projects/my/phrasal remote -v)",
-      "Read(//home/eug/dev/projects/my/phrasal/.github/workflows/**)",
-      "Bash(node -e \"import\\('/home/eug/dev/projects/my/phrasal/src/data/phrasalVerbs.js'\\).then\\(m => console.log\\('total:', m.rawData.length, 'active:', m.allVerbs.length\\)\\)\")",
-      "Bash(backlog task *)",
-      "mcp__backlog__task_search",
-      "mcp__backlog__task_create",
-      "mcp__backlog__task_complete",
-      "mcp__backlog__task_edit",
-      "mcp__backlog__get_backlog_instructions",
-      "mcp__backlog__task_view",
-      "mcp__backlog__*_*",
-      "mcp__backlog__*"
     ]
   },
   "statusLine": {
