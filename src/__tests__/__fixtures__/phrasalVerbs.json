@@ -711,12 +711,22 @@
   },
   {
     "verb": "Give off",
-    "definition": "To emit or produce",
+    "definition": "To emit a physical property such as heat, light, or smell",
     "sentences": [
-      "The flowers give off a pleasant fragrance."
+      "The rotting leaves gave off a terrible smell."
     ],
     "wordsToHide": [
-      "give off"
+      "gave off"
+    ]
+  },
+  {
+    "verb": "Give off",
+    "definition": "To radiate a certain emotional energy or vibe",
+    "sentences": [
+      "She always gives off a very confident vibe."
+    ],
+    "wordsToHide": [
+      "gives off"
     ]
   },
   {
@@ -1656,12 +1666,12 @@
   },
   {
     "verb": "Give out",
-    "definition": "To hand out or distribute something",
+    "definition": "To distribute or hand things out to multiple people",
     "sentences": [
-      "He has a lot of contacts because he gives out his business card to everyone he meets."
+      "The teacher gave out the exam papers to all the students."
     ],
     "wordsToHide": [
-      "gives out"
+      "gave out"
     ]
   },
   {
@@ -1687,9 +1697,19 @@
   },
   {
     "verb": "Give away",
-    "definition": "To hand things out for free",
+    "definition": "To donate or permanently hand something over without charge",
     "sentences": [
-      "When Linda's cat had kittens she gave them all away to good homes."
+      "They decided to give away their old clothes to charity."
+    ],
+    "wordsToHide": [
+      "give away"
+    ]
+  },
+  {
+    "verb": "Give away",
+    "definition": "To accidentally reveal a secret or betray someone",
+    "sentences": [
+      "Her nervous smile gave her away."
     ],
     "wordsToHide": [
       "gave",
@@ -2159,12 +2179,12 @@
   },
   {
     "verb": "Give out",
-    "definition": "To break down or stop working",
+    "definition": "To break down or stop functioning due to exhaustion or overuse",
     "sentences": [
-      "The city had to rebuild the bridge completely because it was about to give out and fall down."
+      "His car engine finally gave out in the middle of nowhere."
     ],
     "wordsToHide": [
-      "give out"
+      "gave out"
     ]
   },
   {
