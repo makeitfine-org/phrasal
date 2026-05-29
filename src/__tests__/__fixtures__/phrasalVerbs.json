@@ -81,12 +81,52 @@
   },
   {
     "verb": "Break away",
-    "definition": "To escape or separate from a group or organization",
+    "definition": "To flee or escape from someone or something physically",
     "sentences": [
-      "The rebel group managed to break away from their captors."
+      "The puppy slipped its leash and tried to break away into the woods."
     ],
     "wordsToHide": [
       "break away"
+    ]
+  },
+  {
+    "verb": "Break away",
+    "definition": "To separate from a larger group or organization",
+    "sentences": [
+      "The cyclist decided to break away from the main pack and pedal ahead."
+    ],
+    "wordsToHide": [
+      "break away"
+    ]
+  },
+  {
+    "verb": "Break down",
+    "definition": "To stop working due to a mechanical or technical failure",
+    "sentences": [
+      "My ten-year-old car finally broke down on the highway this morning."
+    ],
+    "wordsToHide": [
+      "broke down"
+    ]
+  },
+  {
+    "verb": "Break down",
+    "definition": "To lose emotional control and start crying",
+    "sentences": [
+      "When she heard the devastating news, she simply broke down and wept."
+    ],
+    "wordsToHide": [
+      "broke down"
+    ]
+  },
+  {
+    "verb": "Break down",
+    "definition": "To divide complex information into smaller, simpler parts",
+    "sentences": [
+      "Can you break down the quarterly expenses so we can easily see where our money went?"
+    ],
+    "wordsToHide": [
+      "break down"
     ]
   },
   {
@@ -101,22 +141,62 @@
   },
   {
     "verb": "Break off",
+    "definition": "To suddenly stop speaking in the middle of a sentence",
+    "sentences": [
+      "She broke off mid-sentence when the loud thunder rattled the windows."
+    ],
+    "wordsToHide": [
+      "broke off"
+    ]
+  },
+  {
+    "verb": "Break off",
     "definition": "To end a relationship or conversation abruptly",
     "sentences": [
-      "They decided to break off their engagement."
+      "After realizing they were fundamentally incompatible, they decided to break off their engagement."
     ],
     "wordsToHide": [
       "break off"
     ]
   },
   {
-    "verb": "Break out",
-    "definition": "To escape or start suddenly and violently",
+    "verb": "Break off",
+    "definition": "To detach or separate a piece from a larger object",
     "sentences": [
-      "A riot broke out in the city center."
+      "He broke off a small piece of the chocolate bar and handed it to me."
+    ],
+    "wordsToHide": [
+      "broke off"
+    ]
+  },
+  {
+    "verb": "Break out",
+    "definition": "To escape from confinement or captivity",
+    "sentences": [
+      "The notorious thief managed to break out of the high-security prison last night."
+    ],
+    "wordsToHide": [
+      "break out"
+    ]
+  },
+  {
+    "verb": "Break out",
+    "definition": "To start suddenly and spread rapidly",
+    "sentences": [
+      "Panic broke out in the stadium when the fire alarm suddenly sounded."
     ],
     "wordsToHide": [
       "broke out"
+    ]
+  },
+  {
+    "verb": "Break out",
+    "definition": "To develop a skin rash, acne, or other skin irritation",
+    "sentences": [
+      "She tends to break out in hives whenever she eats strawberries."
+    ],
+    "wordsToHide": [
+      "break out"
     ]
   },
   {
@@ -143,10 +223,50 @@
     "verb": "Bring in",
     "definition": "To introduce or earn a certain amount of money",
     "sentences": [
-      "The company hopes to bring in new customers with the marketing campaign."
+      "The new marketing campaign really helped bring in more customers."
     ],
     "wordsToHide": [
       "bring in"
+    ]
+  },
+  {
+    "verb": "Bring in",
+    "definition": "To move something from outside into an indoor space",
+    "sentences": [
+      "It's starting to rain; we need to bring in the patio furniture."
+    ],
+    "wordsToHide": [
+      "bring in"
+    ]
+  },
+  {
+    "verb": "Bring out",
+    "definition": "To carry something from inside to outside",
+    "sentences": [
+      "Let's bring out the cake and sing happy birthday."
+    ],
+    "wordsToHide": [
+      "bring out"
+    ]
+  },
+  {
+    "verb": "Bring out",
+    "definition": "To release or publish something to the public",
+    "sentences": [
+      "The author plans to bring out a new novel next year."
+    ],
+    "wordsToHide": [
+      "bring out"
+    ]
+  },
+  {
+    "verb": "Bring out",
+    "definition": "To make a quality or feature more noticeable or vivid",
+    "sentences": [
+      "That blue shirt really brings out the color of your eyes."
+    ],
+    "wordsToHide": [
+      "brings out"
     ]
   },
   {
@@ -221,9 +341,9 @@
   },
   {
     "verb": "Carry on",
-    "definition": "To continue or proceed with an activity or action",
+    "definition": "To continue with an activity or life in general, often through difficulty",
     "sentences": [
-      "We should carry on with our plans despite the challenges."
+      "Sorry to interrupt, please carry on with your meeting."
     ],
     "wordsToHide": [
       "carry on"
@@ -241,12 +361,62 @@
   },
   {
     "verb": "Catch on",
-    "definition": "To understand or grasp something usually quickly",
+    "definition": "To understand or grasp something, often after a delay",
     "sentences": [
-      "The students caught on to the new concept."
+      "He didn't get the joke at first, but he finally caught on."
     ],
     "wordsToHide": [
       "caught on"
+    ]
+  },
+  {
+    "verb": "Catch on",
+    "definition": "To become widely popular or accepted by many people",
+    "sentences": [
+      "Electric vehicles are really catching on these days."
+    ],
+    "wordsToHide": [
+      "catching on"
+    ]
+  },
+  {
+    "verb": "Catch up",
+    "definition": "To reach the same level or position as someone who is ahead of you",
+    "sentences": [
+      "Walk faster so you can catch up with the group."
+    ],
+    "wordsToHide": [
+      "catch up"
+    ]
+  },
+  {
+    "verb": "Catch up",
+    "definition": "To spend time with someone to hear about what is new in their life",
+    "sentences": [
+      "Let's get coffee and catch up!"
+    ],
+    "wordsToHide": [
+      "catch up"
+    ]
+  },
+  {
+    "verb": "Catch up",
+    "definition": "To complete tasks or work that you have fallen behind on",
+    "sentences": [
+      "I need to catch up on my emails."
+    ],
+    "wordsToHide": [
+      "catch up"
+    ]
+  },
+  {
+    "verb": "Catch up",
+    "definition": "To become deeply absorbed or involved in a situation (usually caught up in)",
+    "sentences": [
+      "She got so caught up in the drama that she lost track of time."
+    ],
+    "wordsToHide": [
+      "caught up"
     ]
   },
   {
@@ -330,6 +500,26 @@
     ]
   },
   {
+    "verb": "Come away",
+    "definition": "To leave a place or experience while retaining a new feeling, impression, or object",
+    "sentences": [
+      "I came away from the seminar feeling inspired."
+    ],
+    "wordsToHide": [
+      "came away"
+    ]
+  },
+  {
+    "verb": "Come away",
+    "definition": "To become detached while still remaining in your hand",
+    "sentences": [
+      "The door handle came away in my hand."
+    ],
+    "wordsToHide": [
+      "came away"
+    ]
+  },
+  {
     "verb": "Come back",
     "definition": "To return to a place or situation",
     "sentences": [
@@ -401,9 +591,9 @@
   },
   {
     "verb": "Come off",
-    "definition": "To succeed or be accomplished",
+    "definition": "To succeed or produce the intended result",
     "sentences": [
-      "The party last night came off really well."
+      "The whole business deal just didn't come off."
     ],
     "wordsToHide": [
       "came off"
@@ -411,12 +601,32 @@
   },
   {
     "verb": "Come off",
-    "definition": "To detach or be removed from something",
+    "definition": "To detach or be removed from a surface",
     "sentences": [
-      "He tried to open the jar but the lid wouldn't come off."
+      "The button came off my coat."
+    ],
+    "wordsToHide": [
+      "came off"
+    ]
+  },
+  {
+    "verb": "Come off",
+    "definition": "To be removed from a hard surface (stains, marks)",
+    "sentences": [
+      "That grease stain just won't come off the kitchen counter."
     ],
     "wordsToHide": [
       "come off"
+    ]
+  },
+  {
+    "verb": "Come off",
+    "definition": "To give a particular impression or come across in a certain way",
+    "sentences": [
+      "He tried to be helpful, but he came off as bossy."
+    ],
+    "wordsToHide": [
+      "came off"
     ]
   },
   {
@@ -433,10 +643,40 @@
     "verb": "Come out",
     "definition": "To be revealed or made public",
     "sentences": [
-      "The truth finally came out after years of speculation."
+      "The truth finally came out in court."
     ],
     "wordsToHide": [
       "came out"
+    ]
+  },
+  {
+    "verb": "Come out",
+    "definition": "To be removed from fabric through washing",
+    "sentences": [
+      "This coffee stain will easily come out in the wash."
+    ],
+    "wordsToHide": [
+      "come out"
+    ]
+  },
+  {
+    "verb": "Come out",
+    "definition": "To emerge from an enclosed space or leave a building",
+    "sentences": [
+      "She just came out of the building."
+    ],
+    "wordsToHide": [
+      "came out"
+    ]
+  },
+  {
+    "verb": "Come out",
+    "definition": "To be published, released, or made available to the public",
+    "sentences": [
+      "The new movie comes out next week."
+    ],
+    "wordsToHide": [
+      "comes out"
     ]
   },
   {
@@ -451,9 +691,19 @@
   },
   {
     "verb": "Come up",
-    "definition": "To arise or occur",
+    "definition": "To arise or occur unexpectedly",
     "sentences": [
-      "A sudden opportunity came up and I couldn't pass it up."
+      "An unexpected problem came up at work, so I have to stay late."
+    ],
+    "wordsToHide": [
+      "came up"
+    ]
+  },
+  {
+    "verb": "Come up",
+    "definition": "To rise or approach (sun, tide, or deadline)",
+    "sentences": [
+      "The sun came up early this morning."
     ],
     "wordsToHide": [
       "came up"
@@ -461,9 +711,9 @@
   },
   {
     "verb": "Come up with",
-    "definition": "To produce or provide something especially an idea or solution",
+    "definition": "To actively generate, invent, or find something that is needed",
     "sentences": [
-      "We need to come up with a plan to solve this problem."
+      "We need to brainstorm and come up with a solution."
     ],
     "wordsToHide": [
       "come up with"
@@ -611,19 +861,39 @@
   },
   {
     "verb": "Get along with",
-    "definition": "To have a harmonious relationship or rapport with someone",
+    "definition": "To have a harmonious, conflict-free relationship with someone",
     "sentences": [
-      "She gets along with her coworkers very well."
+      "I get along with my new coworkers really well."
     ],
     "wordsToHide": [
-      "gets along with"
+      "get along with"
+    ]
+  },
+  {
+    "verb": "Get along with",
+    "definition": "To manage or cope with a situation",
+    "sentences": [
+      "How are you getting along with your studies?"
+    ],
+    "wordsToHide": [
+      "getting along with"
     ]
   },
   {
     "verb": "Get away",
-    "definition": "To escape or go on a vacation",
+    "definition": "To go on a vacation or take a break from your routine",
     "sentences": [
-      "Let's get away from the city and relax at the beach."
+      "I really need to get away for the weekend and relax."
+    ],
+    "wordsToHide": [
+      "get away"
+    ]
+  },
+  {
+    "verb": "Get away",
+    "definition": "To escape from a person or dangerous situation",
+    "sentences": [
+      "The suspect managed to get away from the police."
     ],
     "wordsToHide": [
       "get away"
@@ -651,9 +921,9 @@
   },
   {
     "verb": "Get off",
-    "definition": "To leave or disembark from a vehicle or transportation",
+    "definition": "To disembark from a large vehicle or leave a surface",
     "sentences": [
-      "Please get off the bus at the next stop."
+      "I need to get off the train at the next stop."
     ],
     "wordsToHide": [
       "get off"
@@ -673,7 +943,17 @@
     "verb": "Get on with",
     "definition": "To have a good relationship or get along with someone",
     "sentences": [
-      "I get on with my coworkers."
+      "I get on with my new coworkers really well."
+    ],
+    "wordsToHide": [
+      "get on with"
+    ]
+  },
+  {
+    "verb": "Get on with",
+    "definition": "To continue doing a task or get back to work without delay",
+    "sentences": [
+      "Stop procrastinating and get on with your work."
     ],
     "wordsToHide": [
       "get on with"
@@ -681,12 +961,12 @@
   },
   {
     "verb": "Get out",
-    "definition": "To leave or to remove something",
+    "definition": "To leave an enclosed space or small vehicle",
     "sentences": [
-      "We need to get out of this dangerous situation."
+      "Get out of the house, it's on fire!"
     ],
     "wordsToHide": [
-      "get out"
+      "Get out"
     ]
   },
   {
@@ -801,19 +1081,19 @@
   },
   {
     "verb": "Hand out",
-    "definition": "To distribute or give",
+    "definition": "To distribute or give items to multiple people",
     "sentences": [
-      "The teacher hands out worksheets to the students."
+      "The teacher will hand out the exam papers."
     ],
     "wordsToHide": [
-      "hands out"
+      "hand out"
     ]
   },
   {
     "verb": "Hand in",
-    "definition": "to submit or give something to an authority figure (like a teacher or boss)",
+    "definition": "To submit work or an item to a teacher, boss, or official",
     "sentences": [
-      "Please hand in your final essay by Friday.",
+      "Please hand in your homework by Friday.",
       "I need to hand in my resignation letter."
     ],
     "wordsToHide": [
@@ -862,9 +1142,9 @@
   },
   {
     "verb": "Keep on",
-    "definition": "To continue doing something",
+    "definition": "To continue doing something persistently, usually followed by a gerund (-ing verb)",
     "sentences": [
-      "Don't give up just keep on trying."
+      "If you keep on practicing, you will master it."
     ],
     "wordsToHide": [
       "keep on"
@@ -872,12 +1152,32 @@
   },
   {
     "verb": "Keep up with",
-    "definition": "To maintain the same pace or level as",
+    "definition": "To maintain the same pace or level as someone or something",
     "sentences": [
-      "It's hard to keep up with the latest technological advancements."
+      "It's hard to keep up with all the latest technology."
     ],
     "wordsToHide": [
       "keep up with"
+    ]
+  },
+  {
+    "verb": "Keep up",
+    "definition": "To maintain the same speed or standard as others",
+    "sentences": [
+      "Walk a bit slower, I can't keep up with you!"
+    ],
+    "wordsToHide": [
+      "keep up"
+    ]
+  },
+  {
+    "verb": "Keep up",
+    "definition": "To continue at the same level of performance or quality",
+    "sentences": [
+      "Keep up the good work!"
+    ],
+    "wordsToHide": [
+      "Keep up"
     ]
   },
   {
@@ -1095,9 +1395,9 @@
   },
   {
     "verb": "Pay off",
-    "definition": "To result in success or bring a positive outcome",
+    "definition": "To yield a successful or positive result",
     "sentences": [
-      "All his hard work paid off when he won the competition."
+      "Working hard for that promotion really paid off."
     ],
     "wordsToHide": [
       "paid off"
@@ -1105,29 +1405,59 @@
   },
   {
     "verb": "Pay off",
-    "definition": "To give someone the money owed usually to settle a debt",
+    "definition": "To completely eliminate a debt by making the final payment",
     "sentences": [
-      "He finally paid off his debts and became debt-free."
+      "I am finally going to pay off my student loans this year."
     ],
     "wordsToHide": [
-      "paid off"
+      "pay off"
     ]
   },
   {
     "verb": "Pick out",
-    "definition": "To choose or select something",
+    "definition": "To choose or select something from a range of options",
     "sentences": [
-      "She picked out a beautiful dress for the party."
+      "I need to pick out a new outfit for the wedding."
     ],
     "wordsToHide": [
-      "picked out"
+      "pick out"
+    ]
+  },
+  {
+    "verb": "Pick out",
+    "definition": "To identify or spot someone or something among others",
+    "sentences": [
+      "Can you pick out the best photo from the vacation?"
+    ],
+    "wordsToHide": [
+      "pick out"
     ]
   },
   {
     "verb": "Pick up",
-    "definition": "To collect or gather something or someone",
+    "definition": "To physically lift something from the ground or a surface",
     "sentences": [
-      "Can you pick up some groceries on your way home?"
+      "I need to pick up my jacket from the floor."
+    ],
+    "wordsToHide": [
+      "pick up"
+    ]
+  },
+  {
+    "verb": "Pick up",
+    "definition": "To collect or retrieve something or someone",
+    "sentences": [
+      "Could you pick up the groceries from the store on your way home?"
+    ],
+    "wordsToHide": [
+      "pick up"
+    ]
+  },
+  {
+    "verb": "Pick up",
+    "definition": "To collect someone in a vehicle and take them somewhere",
+    "sentences": [
+      "I will pick you up from the airport at 5 PM."
     ],
     "wordsToHide": [
       "pick up"
@@ -1655,13 +1985,23 @@
   },
   {
     "verb": "Pay back",
-    "definition": "To give someone back money that you owe",
+    "definition": "To return money that you borrowed from someone",
     "sentences": [
-      "Thanks for getting me lunch when I forgot my wallet at home! I'll pay you back tomorrow."
+      "Could you lend me $20 for lunch? I'll pay you back on Friday."
     ],
     "wordsToHide": [
       "pay",
       "back"
+    ]
+  },
+  {
+    "verb": "Pay out",
+    "definition": "To distribute or disburse money from a fund or account",
+    "sentences": [
+      "The insurance company will pay out the claim next week."
+    ],
+    "wordsToHide": [
+      "pay out"
     ]
   },
   {
@@ -1749,6 +2089,16 @@
     ]
   },
   {
+    "verb": "Drop by",
+    "definition": "To make a brief, casual stop at a place while passing through an area",
+    "sentences": [
+      "Feel free to drop by the office if you're in the neighborhood."
+    ],
+    "wordsToHide": [
+      "drop by"
+    ]
+  },
+  {
     "verb": "Drop in",
     "definition": "To visit someone without making an appointment",
     "sentences": [
@@ -1770,12 +2120,12 @@
   },
   {
     "verb": "Take out",
-    "definition": "To remove something like from a pocket or a bag",
+    "definition": "To remove or extract something from a container, place, or person",
     "sentences": [
-      "The children sat at their desks and took out their pens and paper."
+      "Please take out the trash."
     ],
     "wordsToHide": [
-      "took out"
+      "take out"
     ]
   },
   {
@@ -1787,6 +2137,26 @@
     "wordsToHide": [
       "took",
       "out"
+    ]
+  },
+  {
+    "verb": "Take away",
+    "definition": "To remove something from someone so they no longer have access to it",
+    "sentences": [
+      "The teacher had to take away the students' phones."
+    ],
+    "wordsToHide": [
+      "take away"
+    ]
+  },
+  {
+    "verb": "Take away",
+    "definition": "To eliminate or significantly reduce a pain, problem, or feeling",
+    "sentences": [
+      "The painkillers will take away the headache."
+    ],
+    "wordsToHide": [
+      "take away"
     ]
   },
   {
@@ -1853,12 +2223,12 @@
   },
   {
     "verb": "Take off",
-    "definition": "To remove clothing",
+    "definition": "To remove clothing or something worn on the body",
     "sentences": [
-      "She was very happy when she finally got home and took off her shoes. They had been hurting her feet all day!"
+      "Please take off your shoes before coming inside."
     ],
     "wordsToHide": [
-      "took off"
+      "take off"
     ]
   },
   {
@@ -2058,16 +2428,6 @@
     ]
   },
   {
-    "verb": "Come up",
-    "definition": "To think of an idea",
-    "sentences": [
-      "I came up with this idea for a TV show about a woman living with her best friend and daughter. I call it 'Two and a Half Women.'"
-    ],
-    "wordsToHide": [
-      "came up with"
-    ]
-  },
-  {
     "verb": "Drop out",
     "definition": "To quit or stop participating in something",
     "sentences": [
@@ -2099,9 +2459,9 @@
   },
   {
     "verb": "Come up",
-    "definition": "To bring up a topic",
+    "definition": "To be mentioned or brought up in conversation",
     "sentences": [
-      "I wanted to tell her that I got a new job but the chance never came up."
+      "The new project came up during our team meeting."
     ],
     "wordsToHide": [
       "came up"
@@ -2279,12 +2639,32 @@
   },
   {
     "verb": "Take off",
-    "definition": "To leave for a journey",
+    "definition": "For an aircraft to leave the ground and become airborne",
     "sentences": [
-      "The plane will take off in a few minutes."
+      "The airplane is scheduled to take off at 8:00 PM."
     ],
     "wordsToHide": [
       "take off"
+    ]
+  },
+  {
+    "verb": "Take off",
+    "definition": "To leave a place suddenly or in a hurry",
+    "sentences": [
+      "She saw her ex and decided to take off."
+    ],
+    "wordsToHide": [
+      "take off"
+    ]
+  },
+  {
+    "verb": "Take off",
+    "definition": "To suddenly become very successful or popular",
+    "sentences": [
+      "His startup really took off after that investor called."
+    ],
+    "wordsToHide": [
+      "took off"
     ]
   },
   {
