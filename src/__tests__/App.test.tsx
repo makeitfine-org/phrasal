@@ -61,17 +61,6 @@ describe('App — initial render', () => {
     expect(screen.getByText(/Mastered:/).closest('p')).toHaveTextContent('2');
   });
 
-  it('restores darkMode from localStorage and adds dark class to <html>', () => {
-    localStorage.setItem('phrasalQuizState', JSON.stringify({
-      mastered: [],
-      excluded: [],
-      history: [{ index: 0, inputValue: '', status: 'idle' }],
-      currentIndex: 0,
-      darkMode: true,
-    }));
-    renderApp();
-    expect(document.documentElement.classList.contains('dark')).toBe(true);
-  });
 });
 
 describe('App — handleSubmit', () => {
@@ -309,14 +298,6 @@ describe('App — localStorage persistence', () => {
     expect(saved.mastered).toContain(0);
   });
 
-  it('persists darkMode to localStorage after toggle', async () => {
-    const user = userEvent.setup();
-    renderApp();
-    await user.click(screen.getByTitle('Toggle Dark/Light Mode'));
-    const saved = JSON.parse(localStorage.getItem('phrasalQuizState')!);
-    expect(saved.darkMode).toBe(true);
-  });
-
   it('persists currentIndex to localStorage after navigation', async () => {
     localStorage.setItem('phrasalQuizState', JSON.stringify({
       mastered: [], excluded: [],
@@ -331,23 +312,6 @@ describe('App — localStorage persistence', () => {
     await user.click(screen.getByTitle('Next / History Forward'));
     const saved = JSON.parse(localStorage.getItem('phrasalQuizState')!);
     expect(saved.currentIndex).toBe(1);
-  });
-});
-
-describe('App — dark mode', () => {
-  it('adds the dark class to <html> when dark mode is toggled on', async () => {
-    const user = userEvent.setup();
-    renderApp();
-    await user.click(screen.getByTitle('Toggle Dark/Light Mode'));
-    expect(document.documentElement.classList.contains('dark')).toBe(true);
-  });
-
-  it('removes the dark class when switching back to light mode', async () => {
-    const user = userEvent.setup();
-    renderApp();
-    await user.click(screen.getByTitle('Toggle Dark/Light Mode'));
-    await user.click(screen.getByTitle('Toggle Dark/Light Mode'));
-    expect(document.documentElement.classList.contains('dark')).toBe(false);
   });
 });
 

@@ -16,13 +16,11 @@ interface PersistedState {
   excluded?: number[];
   history?: HistoryItem[];
   currentIndex?: number;
-  darkMode?: boolean;
 }
 
 export default function App() {
   const savedState = JSON.parse(localStorage.getItem(STORAGE_KEY) || '{}') as PersistedState;
 
-  const [darkMode, setDarkMode] = useState<boolean>(savedState.darkMode ?? false);
   const [mastered, setMastered] = useState<Set<number>>(new Set(savedState.mastered ?? []));
   const [excluded, setExcluded] = useState<Set<number>>(new Set(savedState.excluded ?? []));
   const [history, setHistory] = useState<HistoryItem[]>(savedState.history ?? []);
@@ -35,24 +33,20 @@ export default function App() {
 
   const inputRef = useRef<HTMLInputElement>(null);
 
-  // Sync dark class to <html> so body background responds
+  // Persist state to localStorage, preserving fields managed by PageShell (e.g. darkMode)
   useEffect(() => {
-    document.documentElement.classList.toggle('dark', darkMode);
-  }, [darkMode]);
-
-  // Persist state to localStorage
-  useEffect(() => {
+    const existing = JSON.parse(localStorage.getItem(STORAGE_KEY) || '{}');
     localStorage.setItem(
       STORAGE_KEY,
       JSON.stringify({
+        ...existing,
         mastered: Array.from(mastered),
         excluded: Array.from(excluded),
         history,
         currentIndex,
-        darkMode,
       })
     );
-  }, [mastered, excluded, history, currentIndex, darkMode]);
+  }, [mastered, excluded, history, currentIndex]);
 
   // Reset reveal on card change
   useEffect(() => {
@@ -286,11 +280,9 @@ export default function App() {
       onTouchEnd={onTouchEnd}
     >
       <Header
-        darkMode={darkMode}
         masteredCount={mastered.size}
         totalCount={allVerbs.length}
         currentIndex={currentIndex}
-        onToggleDark={() => setDarkMode(d => !d)}
         onReset={handleGlobalReset}
         excludedCount={excluded.size}
         onShowExcluded={() => setShowExcludedModal(true)}

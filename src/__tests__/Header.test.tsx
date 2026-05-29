@@ -4,11 +4,9 @@ import Header from '../components/Header';
 
 function makeProps(overrides: Record<string, unknown> = {}) {
   return {
-    darkMode: false,
     masteredCount: 3,
     totalCount: 10,
     currentIndex: 2,
-    onToggleDark: vi.fn(),
     onReset: vi.fn(),
     excludedCount: 0,
     onShowExcluded: vi.fn(),
@@ -47,27 +45,6 @@ describe('Header', () => {
   it('shows "99+" in the badge when excludedCount exceeds 99', () => {
     render(<Header {...makeProps({ excludedCount: 150 })} />);
     expect(screen.getByText('99+')).toBeInTheDocument();
-  });
-
-  it('shows the moon icon when darkMode is false', () => {
-    render(<Header {...makeProps({ darkMode: false })} />);
-    const btn = screen.getByTitle('Toggle Dark/Light Mode');
-    expect(btn).toBeInTheDocument();
-    expect(btn.querySelector('svg')).toBeTruthy();
-  });
-
-  it('shows the sun icon when darkMode is true', () => {
-    render(<Header {...makeProps({ darkMode: true })} />);
-    const btn = screen.getByTitle('Toggle Dark/Light Mode');
-    expect(btn.querySelector('svg')).toBeTruthy();
-  });
-
-  it('calls onToggleDark when the dark-mode button is clicked', async () => {
-    const props = makeProps();
-    const user = userEvent.setup();
-    render(<Header {...props} />);
-    await user.click(screen.getByTitle('Toggle Dark/Light Mode'));
-    expect(props.onToggleDark).toHaveBeenCalledOnce();
   });
 
   it('calls onReset when the reset button is clicked', async () => {

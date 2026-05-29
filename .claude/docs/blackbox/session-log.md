@@ -217,3 +217,20 @@
 - .claude/docs/blackbox/audit.md
 - .claude/docs/blackbox/session-log.md
 <!-- end-snapshot -->
+
+<!-- git-snapshot 2026-05-29T15:14:31Z -->
+- .claude/docs/blackbox/audit.md
+<!-- end-snapshot -->
+
+<!-- git-snapshot 2026-05-29T15:39:39Z -->
+- .claude/docs/blackbox/audit.md
+- .claude/docs/blackbox/session-log.md
+- CLAUDE.md
+- backlog/tasks/task-4 - Shared-layout-routing-tests-and-theme-toggle.md
+- src/App.tsx
+- src/__tests__/App.test.tsx
+- src/__tests__/Header.test.tsx
+- src/components/Header.tsx
+- src/main.tsx
+- src/pages/HomePage.tsx
+<!-- end-snapshot -->

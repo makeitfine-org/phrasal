@@ -1,19 +1,17 @@
 import React from 'react';
-import { SunIcon, MoonIcon, Trash2, EyeOffIcon, SearchIcon } from './Icons';
+import { Trash2, EyeOffIcon, SearchIcon } from './Icons';
 
 interface HeaderProps {
-  darkMode: boolean;
   masteredCount: number;
   totalCount: number;
   currentIndex: number;
-  onToggleDark: () => void;
   onReset: () => void;
   excludedCount: number;
   onShowExcluded: () => void;
   onShowSearch: () => void;
 }
 
-export default function Header({ darkMode, masteredCount, totalCount, currentIndex, onToggleDark, onReset, excludedCount, onShowExcluded, onShowSearch }: HeaderProps) {
+export default function Header({ masteredCount, totalCount, currentIndex, onReset, excludedCount, onShowExcluded, onShowSearch }: HeaderProps) {
   return (
     <div className="flex justify-between items-center mb-8">
       <div>
@@ -58,13 +56,6 @@ export default function Header({ darkMode, masteredCount, totalCount, currentInd
           title="Global Reset - Clear all progress"
         >
           <Trash2 />
-        </button>
-        <button
-          onClick={onToggleDark}
-          className="p-2 bg-gray-200 dark:bg-gray-800 rounded-full text-gray-700 dark:text-gray-300 hover:bg-gray-300 dark:hover:bg-gray-700 transition-colors shadow-sm"
-          title="Toggle Dark/Light Mode"
-        >
-          {darkMode ? <SunIcon /> : <MoonIcon />}
         </button>
       </div>
     </div>

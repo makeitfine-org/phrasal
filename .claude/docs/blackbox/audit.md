@@ -242,3 +242,29 @@ In future it's going to be added other exercises.
 ## 2026-05-29T15:03:31Z
 commit
 ---
+
+## 2026-05-29T15:13:09Z
+Create a backlog.md task (but don't execute it).
+ Extend functionality:
+  1. Add tests for routing and front end page
+  2. Add to be common for all pages:
+    2.1 Switching dark/light themas
+    2.2 Button to return on home page
+  3. Add tests for all this functionality
+---
+
+## 2026-05-29T15:29:54Z
+Implement backlog.md task-4 and all its subtasks
+---
+
+## 2026-05-29T15:42:03Z
+commit all
+---
+
+## 2026-05-29T15:42:38Z
+commit all
+---
+
+## 2026-05-29T15:43:24Z
+commit all
+---

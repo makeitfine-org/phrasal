@@ -1,12 +1,7 @@
-import React, { useEffect } from 'react';
+import React from 'react';
 import { Link } from 'react-router-dom';
 
 export default function HomePage() {
-  useEffect(() => {
-    const saved = JSON.parse(localStorage.getItem('phrasalQuizState') || '{}');
-    document.documentElement.classList.toggle('dark', saved.darkMode ?? false);
-  }, []);
-
   return (
     <div className="min-h-screen bg-gray-50 dark:bg-gray-950 flex flex-col items-center justify-center p-6">
       <h1 className="text-4xl font-bold text-gray-900 dark:text-gray-100 mb-2">
