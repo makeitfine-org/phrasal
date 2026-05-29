@@ -388,3 +388,21 @@ Fix it and write test for that.
 ## 2026-05-29T17:56:55Z
 commit all
 ---
+
+## 2026-05-29T18:00:27Z
+Add tests for reloading each page and check out that no errors appear from Router
+---
+
+## 2026-05-29T18:03:18Z
+Add default pages for '4XX Client Error Codes Reference' and '5XX Server Error Codes Explained'
+---
+
+## 2026-05-29T18:07:14Z
+Also add test '4XX Client Error Codes Reference' and '5XX Server Error Codes Explained', and check the new created pages for 4xx and 5xx errors work.
+---
+
+## 2026-05-29T18:19:32Z
+You don't understand me.
+I mean you should show default error page for 4xx and 5xx errors.
+So if there is error only. You should not show pages for error on home page
+---

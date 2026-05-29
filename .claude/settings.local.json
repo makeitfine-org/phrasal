@@ -24,7 +24,12 @@
       "Bash(npx vitest *)",
       "Bash(node -e ' *)",
       "Bash(npx tsc *)",
-      "Bash(git tag *)"
+      "Bash(git tag *)",
+      "Bash(curl -s http://localhost:5174/)",
+      "Bash(export DISPLAY=:0)",
+      "Bash(which playwright *)",
+      "Bash(npx playwright *)",
+      "Bash(curl -s \"http://localhost:5176/phrasal/http-client-errors\")"
     ]
   },
   "model": "sonnet",
