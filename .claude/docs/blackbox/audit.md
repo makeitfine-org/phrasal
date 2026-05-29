@@ -208,3 +208,7 @@ not work
 ## 2026-05-29T11:10:38Z
 commit
 ---
+
+## 2026-05-29T11:14:56Z
+Create a backlog.md task (but don't execute it) to move project from javascript to typescript. Consider also moveing  jsx to tsx, etc.
+---

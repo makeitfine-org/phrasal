@@ -129,3 +129,7 @@
 - src/App.jsx
 - src/__tests__/App.test.jsx
 <!-- end-snapshot -->
+
+<!-- git-snapshot 2026-05-29T11:19:45Z -->
+- .claude/docs/blackbox/audit.md
+<!-- end-snapshot -->
