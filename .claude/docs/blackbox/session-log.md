@@ -299,3 +299,31 @@
 - src/components/QuizCard.tsx
 - src/components/SearchModal.tsx
 <!-- end-snapshot -->
+
+<!-- git-snapshot 2026-05-29T17:00:53Z -->
+- .claude/docs/blackbox/audit.md
+- index.html
+<!-- end-snapshot -->
+
+<!-- git-snapshot 2026-05-29T17:04:59Z -->
+- .claude/docs/blackbox/audit.md
+- .claude/docs/blackbox/session-log.md
+- index.html
+- public/favicon.svg
+<!-- end-snapshot -->
+
+<!-- git-snapshot 2026-05-29T17:08:54Z -->
+- .claude/docs/blackbox/audit.md
+- .claude/docs/blackbox/session-log.md
+- CLAUDE.md
+- index.html
+- public/favicon.svg
+- src/__tests__/favicon.test.ts
+- tsconfig.json
+<!-- end-snapshot -->
+
+<!-- git-snapshot 2026-05-29T17:09:58Z -->
+- .claude/docs/blackbox/audit.md
+- .claude/docs/blackbox/session-log.md
+- CLAUDE.md
+<!-- end-snapshot -->

@@ -71,7 +71,7 @@ Vitest + `@testing-library/react`. Test files live in `src/__tests__/`. The setu
 
 Before marking any task done:
 1. Every backlog.md task Acceptance Criteria **must** include `npm run test:run` passes
-2. Always add/update tests for new/modified functionality.
+2. Always add/update tests for new/modified functionality
 
 
 <!-- BACKLOG.MD MCP GUIDELINES START -->

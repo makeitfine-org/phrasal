@@ -313,3 +313,23 @@ commit all
 ## 2026-05-29T16:56:22Z
 commit all
 ---
+
+## 2026-05-29T17:00:15Z
+Generate suitable icon and add its link for the application
+---
+
+## 2026-05-29T17:04:29Z
+Add test
+---
+
+## 2026-05-29T17:07:50Z
+import { readFileSync } from 'fs';
+import { resolve } from 'path';
+
+const root = resolve(__dirname, '../../');
+some words in thist lines a underlined by Intellij idea
+---
+
+## 2026-05-29T17:09:45Z
+commit all
+---
