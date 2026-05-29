@@ -1,0 +1,2983 @@
+// Vitest Snapshot v1, https://vitest.dev/guide/snapshot.html
+
+exports[`phrasalVerbs data snapshot > entry 0: Act out 1`] = `
+{
+  "definition": "To perform a role or behavior",
+  "sentences": [
+    "The students acted out a scene from the play.",
+  ],
+  "verb": "Act out",
+  "wordsToHide": [
+    "acted out",
+  ],
+}
+`;
+
+exports[`phrasalVerbs data snapshot > entry 1: Act up 1`] = `
+{
+  "definition": "To behave inappropriately or malfunction",
+  "sentences": [
+    "The computer started to act up and froze.",
+  ],
+  "verb": "Act up",
+  "wordsToHide": [
+    "act up",
+  ],
+}
+`;
+
+exports[`phrasalVerbs data snapshot > entry 2: Ask for 1`] = `
+{
+  "definition": "To request or invite someone to do something",
+  "sentences": [
+    "I'm going to ask for help with this difficult task.",
+  ],
+  "verb": "Ask for",
+  "wordsToHide": [
+    "ask for",
+  ],
+}
+`;
+
+exports[`phrasalVerbs data snapshot > entry 3: Back up 1`] = `
+{
+  "definition": "To support or assist someone or something",
+  "sentences": [
+    "Can you back up your claims with evidence?",
+  ],
+  "verb": "Back up",
+  "wordsToHide": [
+    "back up",
+  ],
+}
+`;
+
+exports[`phrasalVerbs data snapshot > entry 4: Back up 1`] = `
+{
+  "definition": "To reverse or move backward",
+  "sentences": [
+    "Could you back up the car so I can park?",
+  ],
+  "verb": "Back up",
+  "wordsToHide": [
+    "back up",
+  ],
+}
+`;
+
+exports[`phrasalVerbs data snapshot > entry 5: Be cut out for 1`] = `
+{
+  "definition": "To be suited for a particular role or occupation",
+  "sentences": [
+    "She is definitely cut out for a career in medicine.",
+  ],
+  "verb": "Be cut out for",
+  "wordsToHide": [
+    "cut out for",
+  ],
+}
+`;
+
+exports[`phrasalVerbs data snapshot > entry 6: Blow up 1`] = `
+{
+  "definition": "To explode or burst into pieces",
+  "sentences": [
+    "The fireworks will blow up in the sky tonight.",
+  ],
+  "verb": "Blow up",
+  "wordsToHide": [
+    "blow up",
+  ],
+}
+`;
+
+exports[`phrasalVerbs data snapshot > entry 7: Blow up 1`] = `
+{
+  "definition": "To lose one's temper or become angry",
+  "sentences": [
+    "He blew up at his colleague during the meeting.",
+  ],
+  "verb": "Blow up",
+  "wordsToHide": [
+    "blew up",
+  ],
+}
+`;
+
+exports[`phrasalVerbs data snapshot > entry 8: Break away 1`] = `
+{
+  "definition": "To escape or separate from a group or organization",
+  "sentences": [
+    "The rebel group managed to break away from their captors.",
+  ],
+  "verb": "Break away",
+  "wordsToHide": [
+    "break away",
+  ],
+}
+`;
+
+exports[`phrasalVerbs data snapshot > entry 9: Break in 1`] = `
+{
+  "definition": "To enter a building or place forcibly or illegally",
+  "sentences": [
+    "The thief attempted to break in to the house.",
+  ],
+  "verb": "Break in",
+  "wordsToHide": [
+    "break in",
+  ],
+}
+`;
+
+exports[`phrasalVerbs data snapshot > entry 10: Break off 1`] = `
+{
+  "definition": "To end a relationship or conversation abruptly",
+  "sentences": [
+    "They decided to break off their engagement.",
+  ],
+  "verb": "Break off",
+  "wordsToHide": [
+    "break off",
+  ],
+}
+`;
+
+exports[`phrasalVerbs data snapshot > entry 11: Break out 1`] = `
+{
+  "definition": "To escape or start suddenly and violently",
+  "sentences": [
+    "A riot broke out in the city center.",
+  ],
+  "verb": "Break out",
+  "wordsToHide": [
+    "broke out",
+  ],
+}
+`;
+
+exports[`phrasalVerbs data snapshot > entry 12: Break through 1`] = `
+{
+  "definition": "To overcome an obstacle or make a significant achievement",
+  "sentences": [
+    "They managed to break through the language barrier.",
+  ],
+  "verb": "Break through",
+  "wordsToHide": [
+    "break through",
+  ],
+}
+`;
+
+exports[`phrasalVerbs data snapshot > entry 13: Bring along 1`] = `
+{
+  "definition": "To bring someone or something with you",
+  "sentences": [
+    "Don't forget to bring along your passport.",
+  ],
+  "verb": "Bring along",
+  "wordsToHide": [
+    "bring along",
+  ],
+}
+`;
+
+exports[`phrasalVerbs data snapshot > entry 14: Bring in 1`] = `
+{
+  "definition": "To introduce or earn a certain amount of money",
+  "sentences": [
+    "The company hopes to bring in new customers with the marketing campaign.",
+  ],
+  "verb": "Bring in",
+  "wordsToHide": [
+    "bring in",
+  ],
+}
+`;
+
+exports[`phrasalVerbs data snapshot > entry 15: Brush off 1`] = `
+{
+  "definition": "To dismiss or ignore someone or something casually",
+  "sentences": [
+    "He brushed off my suggestion and continued with his plan.",
+  ],
+  "verb": "Brush off",
+  "wordsToHide": [
+    "brushed off",
+  ],
+}
+`;
+
+exports[`phrasalVerbs data snapshot > entry 16: Build on 1`] = `
+{
+  "definition": "To develop or expand on something already existing",
+  "sentences": [
+    "We need to build on the success of our previous project.",
+  ],
+  "verb": "Build on",
+  "wordsToHide": [
+    "build on",
+  ],
+}
+`;
+
+exports[`phrasalVerbs data snapshot > entry 17: Call for 1`] = `
+{
+  "definition": "To require or demand something",
+  "sentences": [
+    "This situation calls for immediate action.",
+  ],
+  "verb": "Call for",
+  "wordsToHide": [
+    "calls for",
+  ],
+}
+`;
+
+exports[`phrasalVerbs data snapshot > entry 18: Call in 1`] = `
+{
+  "definition": "To request someone's presence or services",
+  "sentences": [
+    "The expert was called in to investigate the crime scene.",
+  ],
+  "verb": "Call in",
+  "wordsToHide": [
+    "called in",
+  ],
+}
+`;
+
+exports[`phrasalVerbs data snapshot > entry 19: Call out 1`] = `
+{
+  "definition": "To shout or say something loudly and clearly",
+  "sentences": [
+    "The teacher called out the answer to the question.",
+  ],
+  "verb": "Call out",
+  "wordsToHide": [
+    "called out",
+  ],
+}
+`;
+
+exports[`phrasalVerbs data snapshot > entry 20: Call up 1`] = `
+{
+  "definition": "To make a telephone call",
+  "sentences": [
+    "I'll call up the restaurant and make a reservation.",
+  ],
+  "verb": "Call up",
+  "wordsToHide": [
+    "call up",
+  ],
+}
+`;
+
+exports[`phrasalVerbs data snapshot > entry 21: Carried away 1`] = `
+{
+  "definition": "To become overly excited or emotional in a situation",
+  "sentences": [
+    "She got carried away and spent all her savings on the shopping spree.",
+  ],
+  "verb": "Carried away",
+  "wordsToHide": [
+    "carried away",
+  ],
+}
+`;
+
+exports[`phrasalVerbs data snapshot > entry 22: Carry on 1`] = `
+{
+  "definition": "To continue or proceed with an activity or action",
+  "sentences": [
+    "We should carry on with our plans despite the challenges.",
+  ],
+  "verb": "Carry on",
+  "wordsToHide": [
+    "carry on",
+  ],
+}
+`;
+
+exports[`phrasalVerbs data snapshot > entry 23: Carry out 1`] = `
+{
+  "definition": "To complete or perform a task or action",
+  "sentences": [
+    "We need to carry out a thorough investigation.",
+  ],
+  "verb": "Carry out",
+  "wordsToHide": [
+    "carry out",
+  ],
+}
+`;
+
+exports[`phrasalVerbs data snapshot > entry 24: Catch on 1`] = `
+{
+  "definition": "To understand or grasp something usually quickly",
+  "sentences": [
+    "The students caught on to the new concept.",
+  ],
+  "verb": "Catch on",
+  "wordsToHide": [
+    "caught on",
+  ],
+}
+`;
+
+exports[`phrasalVerbs data snapshot > entry 25: Check off 1`] = `
+{
+  "definition": "To mark or indicate that something has been completed or verified",
+  "sentences": [
+    "I'll check off the items on the list as we go.",
+  ],
+  "verb": "Check off",
+  "wordsToHide": [
+    "check off",
+  ],
+}
+`;
+
+exports[`phrasalVerbs data snapshot > entry 26: Check over 1`] = `
+{
+  "definition": "To review or examine something carefully",
+  "sentences": [
+    "Please check over the document for any errors.",
+  ],
+  "verb": "Check over",
+  "wordsToHide": [
+    "check over",
+  ],
+}
+`;
+
+exports[`phrasalVerbs data snapshot > entry 27: Check up on 1`] = `
+{
+  "definition": "To verify or investigate the condition or progress of something",
+  "sentences": [
+    "The doctor wants to check up on your recovery.",
+  ],
+  "verb": "Check up on",
+  "wordsToHide": [
+    "check up on",
+  ],
+}
+`;
+
+exports[`phrasalVerbs data snapshot > entry 28: Clean out 1`] = `
+{
+  "definition": "To empty or remove the contents of something",
+  "sentences": [
+    "I need to clean out the garage and get rid of old items.",
+  ],
+  "verb": "Clean out",
+  "wordsToHide": [
+    "clean out",
+  ],
+}
+`;
+
+exports[`phrasalVerbs data snapshot > entry 29: Clean up 1`] = `
+{
+  "definition": "To tidy or make something clean and neat",
+  "sentences": [
+    "They need to clean up the room before the guests arrive.",
+  ],
+  "verb": "Clean up",
+  "wordsToHide": [
+    "clean up",
+  ],
+}
+`;
+
+exports[`phrasalVerbs data snapshot > entry 30: Come about 1`] = `
+{
+  "definition": "To happen or occur",
+  "sentences": [
+    "I'm not sure how it came about but I'm glad it did.",
+  ],
+  "verb": "Come about",
+  "wordsToHide": [
+    "came about",
+  ],
+}
+`;
+
+exports[`phrasalVerbs data snapshot > entry 31: Come along 1`] = `
+{
+  "definition": "To make progress or improve",
+  "sentences": [
+    "How is your project coming along?",
+  ],
+  "verb": "Come along",
+  "wordsToHide": [
+    "coming along",
+  ],
+}
+`;
+
+exports[`phrasalVerbs data snapshot > entry 32: Come along 1`] = `
+{
+  "definition": "To accompany or join someone",
+  "sentences": [
+    "Will you come along to the party with me?",
+  ],
+  "verb": "Come along",
+  "wordsToHide": [
+    "come along",
+  ],
+}
+`;
+
+exports[`phrasalVerbs data snapshot > entry 33: Come back 1`] = `
+{
+  "definition": "To return to a place or situation",
+  "sentences": [
+    "He promised to come back and visit us next year.",
+  ],
+  "verb": "Come back",
+  "wordsToHide": [
+    "come back",
+  ],
+}
+`;
+
+exports[`phrasalVerbs data snapshot > entry 34: Come by 1`] = `
+{
+  "definition": "To obtain or acquire something",
+  "sentences": [
+    "I managed to come by some concert tickets for tonight.",
+  ],
+  "verb": "Come by",
+  "wordsToHide": [
+    "come by",
+  ],
+}
+`;
+
+exports[`phrasalVerbs data snapshot > entry 35: Come down 1`] = `
+{
+  "definition": "To move from a higher to a lower position",
+  "sentences": [
+    "The elevator malfunctioned so we had to come down the stairs.",
+  ],
+  "verb": "Come down",
+  "wordsToHide": [
+    "come down",
+  ],
+}
+`;
+
+exports[`phrasalVerbs data snapshot > entry 36: Come down on 1`] = `
+{
+  "definition": "To criticize or reprimand someone heavily",
+  "sentences": [
+    "The boss came down on him for consistently being late to work.",
+  ],
+  "verb": "Come down on",
+  "wordsToHide": [
+    "came down on",
+  ],
+}
+`;
+
+exports[`phrasalVerbs data snapshot > entry 37: Come down with 1`] = `
+{
+  "definition": "To become ill with a particular illness or condition",
+  "sentences": [
+    "She came down with the flu and had to stay home from work.",
+  ],
+  "verb": "Come down with",
+  "wordsToHide": [
+    "came down with",
+  ],
+}
+`;
+
+exports[`phrasalVerbs data snapshot > entry 38: Come forward 1`] = `
+{
+  "definition": "To offer oneself for a task position or help",
+  "sentences": [
+    "If anyone has any information please come forward and speak to the authorities.",
+  ],
+  "verb": "Come forward",
+  "wordsToHide": [
+    "come forward",
+  ],
+}
+`;
+
+exports[`phrasalVerbs data snapshot > entry 39: Come in 1`] = `
+{
+  "definition": "To enter a place",
+  "sentences": [
+    "Please knock before you come in.",
+  ],
+  "verb": "Come in",
+  "wordsToHide": [
+    "come in",
+  ],
+}
+`;
+
+exports[`phrasalVerbs data snapshot > entry 40: Come off 1`] = `
+{
+  "definition": "To succeed or be accomplished",
+  "sentences": [
+    "The party last night came off really well.",
+  ],
+  "verb": "Come off",
+  "wordsToHide": [
+    "came off",
+  ],
+}
+`;
+
+exports[`phrasalVerbs data snapshot > entry 41: Come off 1`] = `
+{
+  "definition": "To detach or be removed from something",
+  "sentences": [
+    "He tried to open the jar but the lid wouldn't come off.",
+  ],
+  "verb": "Come off",
+  "wordsToHide": [
+    "come off",
+  ],
+}
+`;
+
+exports[`phrasalVerbs data snapshot > entry 42: Come on 1`] = `
+{
+  "definition": "To encourage or urge someone",
+  "sentences": [
+    "Come on you can do it!",
+  ],
+  "verb": "Come on",
+  "wordsToHide": [
+    "Come on",
+  ],
+}
+`;
+
+exports[`phrasalVerbs data snapshot > entry 43: Come out 1`] = `
+{
+  "definition": "To be revealed or made public",
+  "sentences": [
+    "The truth finally came out after years of speculation.",
+  ],
+  "verb": "Come out",
+  "wordsToHide": [
+    "came out",
+  ],
+}
+`;
+
+exports[`phrasalVerbs data snapshot > entry 44: Come over 1`] = `
+{
+  "definition": "To visit someone's place",
+  "sentences": [
+    "Why don't you come over to my house this weekend?",
+  ],
+  "verb": "Come over",
+  "wordsToHide": [
+    "come over",
+  ],
+}
+`;
+
+exports[`phrasalVerbs data snapshot > entry 45: Come up 1`] = `
+{
+  "definition": "To arise or occur",
+  "sentences": [
+    "A sudden opportunity came up and I couldn't pass it up.",
+  ],
+  "verb": "Come up",
+  "wordsToHide": [
+    "came up",
+  ],
+}
+`;
+
+exports[`phrasalVerbs data snapshot > entry 46: Come up with 1`] = `
+{
+  "definition": "To produce or provide something especially an idea or solution",
+  "sentences": [
+    "We need to come up with a plan to solve this problem.",
+  ],
+  "verb": "Come up with",
+  "wordsToHide": [
+    "come up with",
+  ],
+}
+`;
+
+exports[`phrasalVerbs data snapshot > entry 47: Count on 1`] = `
+{
+  "definition": "To rely on or trust someone or something",
+  "sentences": [
+    "You can always count on me for support.",
+  ],
+  "verb": "Count on",
+  "wordsToHide": [
+    "count on",
+  ],
+}
+`;
+
+exports[`phrasalVerbs data snapshot > entry 48: Cut down on 1`] = `
+{
+  "definition": "To reduce the amount or quantity of something",
+  "sentences": [
+    "I'm trying to cut down on caffeine.",
+  ],
+  "verb": "Cut down on",
+  "wordsToHide": [
+    "cut down on",
+  ],
+}
+`;
+
+exports[`phrasalVerbs data snapshot > entry 49: Deal with 1`] = `
+{
+  "definition": "To handle or manage a situation or problem",
+  "sentences": [
+    "We need to deal with this issue immediately.",
+  ],
+  "verb": "Deal with",
+  "wordsToHide": [
+    "deal with",
+  ],
+}
+`;
+
+exports[`phrasalVerbs data snapshot > entry 50: Do away with 1`] = `
+{
+  "definition": "To eliminate or get rid of something",
+  "sentences": [
+    "Let's do away with unnecessary paperwork.",
+  ],
+  "verb": "Do away with",
+  "wordsToHide": [
+    "do away with",
+  ],
+}
+`;
+
+exports[`phrasalVerbs data snapshot > entry 51: Do up 1`] = `
+{
+  "definition": "To fasten or decorate something",
+  "sentences": [
+    "She did up her hair and put on a beautiful dress for the party.",
+  ],
+  "verb": "Do up",
+  "wordsToHide": [
+    "did up",
+  ],
+}
+`;
+
+exports[`phrasalVerbs data snapshot > entry 52: Dress up 1`] = `
+{
+  "definition": "To wear formal or fancy clothing for a special occasion",
+  "sentences": [
+    "We should dress up for the wedding.",
+  ],
+  "verb": "Dress up",
+  "wordsToHide": [
+    "dress up",
+  ],
+}
+`;
+
+exports[`phrasalVerbs data snapshot > entry 53: Eat up 1`] = `
+{
+  "definition": "To consume all the food",
+  "sentences": [
+    "He ate up his entire meal in just a few minutes.",
+  ],
+  "verb": "Eat up",
+  "wordsToHide": [
+    "ate up",
+  ],
+}
+`;
+
+exports[`phrasalVerbs data snapshot > entry 54: Fall back on 1`] = `
+{
+  "definition": "To rely on something as a last resort or backup",
+  "sentences": [
+    "If I can't find a job I might fall back on my savings.",
+  ],
+  "verb": "Fall back on",
+  "wordsToHide": [
+    "fall back on",
+  ],
+}
+`;
+
+exports[`phrasalVerbs data snapshot > entry 55: Fall in 1`] = `
+{
+  "definition": "To collapse inward or form a line or formation",
+  "sentences": [
+    "The old building finally fell in after years of neglect.",
+  ],
+  "verb": "Fall in",
+  "wordsToHide": [
+    "fell in",
+  ],
+}
+`;
+
+exports[`phrasalVerbs data snapshot > entry 56: Fall out 1`] = `
+{
+  "definition": "To have a disagreement or argument",
+  "sentences": [
+    "They fell out over a trivial issue and stopped speaking to each other.",
+  ],
+  "verb": "Fall out",
+  "wordsToHide": [
+    "fell out",
+  ],
+}
+`;
+
+exports[`phrasalVerbs data snapshot > entry 57: Fall out 1`] = `
+{
+  "definition": "To unintentionally drop an object",
+  "sentences": [
+    "Her credit card fell out of her pocket.",
+  ],
+  "verb": "Fall out",
+  "wordsToHide": [
+    "fell out",
+  ],
+}
+`;
+
+exports[`phrasalVerbs data snapshot > entry 58: Fall through 1`] = `
+{
+  "definition": "To fail to happen or be completed as planned",
+  "sentences": [
+    "Our plans to go on a trip fell through due to bad weather.",
+  ],
+  "verb": "Fall through",
+  "wordsToHide": [
+    "fell through",
+  ],
+}
+`;
+
+exports[`phrasalVerbs data snapshot > entry 59: Figure out 1`] = `
+{
+  "definition": "To understand or solve something",
+  "sentences": [
+    "She finally figured out the solution to the puzzle.",
+  ],
+  "verb": "Figure out",
+  "wordsToHide": [
+    "figured out",
+  ],
+}
+`;
+
+exports[`phrasalVerbs data snapshot > entry 60: Find out 1`] = `
+{
+  "definition": "To discover or obtain information",
+  "sentences": [
+    "I need to find out what time the meeting starts.",
+  ],
+  "verb": "Find out",
+  "wordsToHide": [
+    "find out",
+  ],
+}
+`;
+
+exports[`phrasalVerbs data snapshot > entry 61: Get along with 1`] = `
+{
+  "definition": "To have a harmonious relationship or rapport with someone",
+  "sentences": [
+    "She gets along with her coworkers very well.",
+  ],
+  "verb": "Get along with",
+  "wordsToHide": [
+    "gets along with",
+  ],
+}
+`;
+
+exports[`phrasalVerbs data snapshot > entry 62: Get away 1`] = `
+{
+  "definition": "To escape or go on a vacation",
+  "sentences": [
+    "Let's get away from the city and relax at the beach.",
+  ],
+  "verb": "Get away",
+  "wordsToHide": [
+    "get away",
+  ],
+}
+`;
+
+exports[`phrasalVerbs data snapshot > entry 63: Get by 1`] = `
+{
+  "definition": "To manage or survive with the available resources or income",
+  "sentences": [
+    "They can get by with their current budget.",
+  ],
+  "verb": "Get by",
+  "wordsToHide": [
+    "get by",
+  ],
+}
+`;
+
+exports[`phrasalVerbs data snapshot > entry 64: Get in 1`] = `
+{
+  "definition": "To enter or arrive at a place",
+  "sentences": [
+    "He needs to get in before the meeting starts.",
+  ],
+  "verb": "Get in",
+  "wordsToHide": [
+    "get in",
+  ],
+}
+`;
+
+exports[`phrasalVerbs data snapshot > entry 65: Get off 1`] = `
+{
+  "definition": "To leave or disembark from a vehicle or transportation",
+  "sentences": [
+    "Please get off the bus at the next stop.",
+  ],
+  "verb": "Get off",
+  "wordsToHide": [
+    "get off",
+  ],
+}
+`;
+
+exports[`phrasalVerbs data snapshot > entry 66: Get on 1`] = `
+{
+  "definition": "To make progress or continue",
+  "sentences": [
+    "He needs to get on with his work.",
+  ],
+  "verb": "Get on",
+  "wordsToHide": [
+    "get on",
+  ],
+}
+`;
+
+exports[`phrasalVerbs data snapshot > entry 67: Get on with 1`] = `
+{
+  "definition": "To have a good relationship or get along with someone",
+  "sentences": [
+    "I get on with my coworkers.",
+  ],
+  "verb": "Get on with",
+  "wordsToHide": [
+    "get on with",
+  ],
+}
+`;
+
+exports[`phrasalVerbs data snapshot > entry 68: Get out 1`] = `
+{
+  "definition": "To leave or to remove something",
+  "sentences": [
+    "We need to get out of this dangerous situation.",
+  ],
+  "verb": "Get out",
+  "wordsToHide": [
+    "get out",
+  ],
+}
+`;
+
+exports[`phrasalVerbs data snapshot > entry 69: Get over 1`] = `
+{
+  "definition": "To recover from an illness or emotional distress",
+  "sentences": [
+    "It took her a long time to get over the loss of her pet.",
+  ],
+  "verb": "Get over",
+  "wordsToHide": [
+    "get over",
+  ],
+}
+`;
+
+exports[`phrasalVerbs data snapshot > entry 70: Get through 1`] = `
+{
+  "definition": "To finish or complete",
+  "sentences": [
+    "I have a lot of work to get through today.",
+  ],
+  "verb": "Get through",
+  "wordsToHide": [
+    "get through",
+  ],
+}
+`;
+
+exports[`phrasalVerbs data snapshot > entry 71: Give off 1`] = `
+{
+  "definition": "To emit or produce",
+  "sentences": [
+    "The flowers give off a pleasant fragrance.",
+  ],
+  "verb": "Give off",
+  "wordsToHide": [
+    "give off",
+  ],
+}
+`;
+
+exports[`phrasalVerbs data snapshot > entry 72: Go away 1`] = `
+{
+  "definition": "To leave or depart",
+  "sentences": [
+    "Can you please go away and leave me alone?",
+  ],
+  "verb": "Go away",
+  "wordsToHide": [
+    "go away",
+  ],
+}
+`;
+
+exports[`phrasalVerbs data snapshot > entry 73: Go back 1`] = `
+{
+  "definition": "To return to a previous location or time",
+  "sentences": [
+    "We go back to visit our hometown every summer.",
+  ],
+  "verb": "Go back",
+  "wordsToHide": [
+    "go back",
+  ],
+}
+`;
+
+exports[`phrasalVerbs data snapshot > entry 74: Go by 1`] = `
+{
+  "definition": "To pass or elapse",
+  "sentences": [
+    "Time goes by so quickly when you're having fun.",
+  ],
+  "verb": "Go by",
+  "wordsToHide": [
+    "goes by",
+  ],
+}
+`;
+
+exports[`phrasalVerbs data snapshot > entry 75: Go on 1`] = `
+{
+  "definition": "To continue or proceed",
+  "sentences": [
+    "Please go on with your presentation.",
+  ],
+  "verb": "Go on",
+  "wordsToHide": [
+    "go on",
+  ],
+}
+`;
+
+exports[`phrasalVerbs data snapshot > entry 76: Go out 1`] = `
+{
+  "definition": "To leave one's place of residence or to socialize for entertainment",
+  "sentences": [
+    "Let's go out for dinner tonight.",
+  ],
+  "verb": "Go out",
+  "wordsToHide": [
+    "go out",
+  ],
+}
+`;
+
+exports[`phrasalVerbs data snapshot > entry 77: Go through 1`] = `
+{
+  "definition": "To experience or endure",
+  "sentences": [
+    "She had to go through a lot of difficulties to achieve her goals.",
+  ],
+  "verb": "Go through",
+  "wordsToHide": [
+    "go through",
+  ],
+}
+`;
+
+exports[`phrasalVerbs data snapshot > entry 78: Go with 1`] = `
+{
+  "definition": "To match or be suitable for",
+  "sentences": [
+    "The red shoes go with my dress perfectly.",
+  ],
+  "verb": "Go with",
+  "wordsToHide": [
+    "go with",
+  ],
+}
+`;
+
+exports[`phrasalVerbs data snapshot > entry 79: Hand out 1`] = `
+{
+  "definition": "To distribute or give",
+  "sentences": [
+    "The teacher hands out worksheets to the students.",
+  ],
+  "verb": "Hand out",
+  "wordsToHide": [
+    "hands out",
+  ],
+}
+`;
+
+exports[`phrasalVerbs data snapshot > entry 80: Hand in 1`] = `
+{
+  "definition": "to submit or give something to an authority figure (like a teacher or boss)",
+  "sentences": [
+    "Please hand in your final essay by Friday.",
+    "I need to hand in my resignation letter.",
+  ],
+  "verb": "Hand in",
+  "wordsToHide": [
+    "hand in",
+  ],
+}
+`;
+
+exports[`phrasalVerbs data snapshot > entry 81: Hang about 1`] = `
+{
+  "definition": "To linger or wait around",
+  "sentences": [
+    "He likes to hang about in the park after school.",
+  ],
+  "verb": "Hang about",
+  "wordsToHide": [
+    "hang about",
+  ],
+}
+`;
+
+exports[`phrasalVerbs data snapshot > entry 82: Hang around 1`] = `
+{
+  "definition": "To spend time in a place without any specific purpose",
+  "sentences": [
+    "We used to hang around the mall when we were teenagers.",
+  ],
+  "verb": "Hang around",
+  "wordsToHide": [
+    "hang around",
+  ],
+}
+`;
+
+exports[`phrasalVerbs data snapshot > entry 83: Hold on 1`] = `
+{
+  "definition": "To wait or remain on the line",
+  "sentences": [
+    "Please hold on while I transfer your call.",
+  ],
+  "verb": "Hold on",
+  "wordsToHide": [
+    "hold on",
+  ],
+}
+`;
+
+exports[`phrasalVerbs data snapshot > entry 84: Keep in 1`] = `
+{
+  "definition": "To retain or maintain something within a confined space or boundary",
+  "sentences": [
+    "He always keeps in his emotions and rarely shows them.",
+  ],
+  "verb": "Keep in",
+  "wordsToHide": [
+    "keeps in",
+  ],
+}
+`;
+
+exports[`phrasalVerbs data snapshot > entry 85: Keep on 1`] = `
+{
+  "definition": "To continue doing something",
+  "sentences": [
+    "Don't give up just keep on trying.",
+  ],
+  "verb": "Keep on",
+  "wordsToHide": [
+    "keep on",
+  ],
+}
+`;
+
+exports[`phrasalVerbs data snapshot > entry 86: Keep up with 1`] = `
+{
+  "definition": "To maintain the same pace or level as",
+  "sentences": [
+    "It's hard to keep up with the latest technological advancements.",
+  ],
+  "verb": "Keep up with",
+  "wordsToHide": [
+    "keep up with",
+  ],
+}
+`;
+
+exports[`phrasalVerbs data snapshot > entry 87: Knock down 1`] = `
+{
+  "definition": "To demolish or destroy",
+  "sentences": [
+    "They plan to knock down the old building and construct a new one.",
+  ],
+  "verb": "Knock down",
+  "wordsToHide": [
+    "knock down",
+  ],
+}
+`;
+
+exports[`phrasalVerbs data snapshot > entry 88: Lay off 1`] = `
+{
+  "definition": "To terminate someone's employment",
+  "sentences": [
+    "The company had to lay off several employees due to financial problems.",
+  ],
+  "verb": "Lay off",
+  "wordsToHide": [
+    "lay off",
+  ],
+}
+`;
+
+exports[`phrasalVerbs data snapshot > entry 89: Leave out 1`] = `
+{
+  "definition": "To omit or exclude",
+  "sentences": [
+    "She accidentally left out an important detail in her report.",
+  ],
+  "verb": "Leave out",
+  "wordsToHide": [
+    "left out",
+  ],
+}
+`;
+
+exports[`phrasalVerbs data snapshot > entry 90: Let down 1`] = `
+{
+  "definition": "To disappoint or fail someone",
+  "sentences": [
+    "He promised to help but he let us down when he didn't show up.",
+  ],
+  "verb": "Let down",
+  "wordsToHide": [
+    "let",
+    "down",
+  ],
+}
+`;
+
+exports[`phrasalVerbs data snapshot > entry 91: Let in 1`] = `
+{
+  "definition": "To allow someone to enter",
+  "sentences": [
+    "Please let me in the room; I forgot my key.",
+  ],
+  "verb": "Let in",
+  "wordsToHide": [
+    "let",
+    "in",
+  ],
+}
+`;
+
+exports[`phrasalVerbs data snapshot > entry 92: Let off 1`] = `
+{
+  "definition": "To release or excuse from a punishment",
+  "sentences": [
+    "The police officer decided to let him off with a warning.",
+  ],
+  "verb": "Let off",
+  "wordsToHide": [
+    "let",
+    "off",
+  ],
+}
+`;
+
+exports[`phrasalVerbs data snapshot > entry 93: Look after 1`] = `
+{
+  "definition": "To take care of or watch over",
+  "sentences": [
+    "She needs to look after her younger siblings while their parents are away.",
+  ],
+  "verb": "Look after",
+  "wordsToHide": [
+    "look after",
+  ],
+}
+`;
+
+exports[`phrasalVerbs data snapshot > entry 94: Look down on 1`] = `
+{
+  "definition": "To view with contempt or consider inferior",
+  "sentences": [
+    "She looks down on people who don't have a college education.",
+  ],
+  "verb": "Look down on",
+  "wordsToHide": [
+    "looks down on",
+  ],
+}
+`;
+
+exports[`phrasalVerbs data snapshot > entry 95: Look forward to 1`] = `
+{
+  "definition": "To anticipate or be excited about",
+  "sentences": [
+    "I'm really looking forward to our vacation next month.",
+  ],
+  "verb": "Look forward to",
+  "wordsToHide": [
+    "looking forward to",
+  ],
+}
+`;
+
+exports[`phrasalVerbs data snapshot > entry 96: Look into 1`] = `
+{
+  "definition": "To investigate or examine",
+  "sentences": [
+    "The authorities will look into the matter and take appropriate action.",
+  ],
+  "verb": "Look into",
+  "wordsToHide": [
+    "look into",
+  ],
+}
+`;
+
+exports[`phrasalVerbs data snapshot > entry 97: Look out for 1`] = `
+{
+  "definition": "To watch or be vigilant for something or someone",
+  "sentences": [
+    "Look out for any signs of danger.",
+  ],
+  "verb": "Look out for",
+  "wordsToHide": [
+    "Look out for",
+  ],
+}
+`;
+
+exports[`phrasalVerbs data snapshot > entry 98: Look up to 1`] = `
+{
+  "definition": "To admire or respect someone",
+  "sentences": [
+    "I look up to my older sister for her achievements.",
+  ],
+  "verb": "Look up to",
+  "wordsToHide": [
+    "look up to",
+  ],
+}
+`;
+
+exports[`phrasalVerbs data snapshot > entry 99: Make out 1`] = `
+{
+  "definition": "To understand or see something unclear or distant",
+  "sentences": [
+    "I can't make out the words on the sign from here.",
+  ],
+  "verb": "Make out",
+  "wordsToHide": [
+    "make out",
+  ],
+}
+`;
+
+exports[`phrasalVerbs data snapshot > entry 100: Make out 1`] = `
+{
+  "definition": "To engage in passionate kissing",
+  "sentences": [
+    "They were caught making out in the park.",
+  ],
+  "verb": "Make out",
+  "wordsToHide": [
+    "making out",
+  ],
+}
+`;
+
+exports[`phrasalVerbs data snapshot > entry 101: Make up 1`] = `
+{
+  "definition": "To invent or create a story or excuse",
+  "sentences": [
+    "He made up a silly excuse for being late.",
+  ],
+  "verb": "Make up",
+  "wordsToHide": [
+    "made up",
+  ],
+}
+`;
+
+exports[`phrasalVerbs data snapshot > entry 102: Make up 1`] = `
+{
+  "definition": "To reconcile or restore a friendly relationship",
+  "sentences": [
+    "After their argument they decided to make up and be friends again.",
+  ],
+  "verb": "Make up",
+  "wordsToHide": [
+    "make up",
+  ],
+}
+`;
+
+exports[`phrasalVerbs data snapshot > entry 103: Mix up 1`] = `
+{
+  "definition": "To confuse or mistake something or someone",
+  "sentences": [
+    "She always mixes up our names.",
+  ],
+  "verb": "Mix up",
+  "wordsToHide": [
+    "mixes up",
+  ],
+}
+`;
+
+exports[`phrasalVerbs data snapshot > entry 104: Pass away 1`] = `
+{
+  "definition": "To die",
+  "sentences": [
+    "Her grandfather passed away last night.",
+  ],
+  "verb": "Pass away",
+  "wordsToHide": [
+    "passed away",
+  ],
+}
+`;
+
+exports[`phrasalVerbs data snapshot > entry 105: Pass on 1`] = `
+{
+  "definition": "To transmit or convey something",
+  "sentences": [
+    "Please pass on the message to the team.",
+  ],
+  "verb": "Pass on",
+  "wordsToHide": [
+    "pass on",
+  ],
+}
+`;
+
+exports[`phrasalVerbs data snapshot > entry 106: Pass out 1`] = `
+{
+  "definition": "To faint or lose consciousness temporarily",
+  "sentences": [
+    "He felt dizzy and passed out during the presentation.",
+  ],
+  "verb": "Pass out",
+  "wordsToHide": [
+    "passed out",
+  ],
+}
+`;
+
+exports[`phrasalVerbs data snapshot > entry 107: Pass up 1`] = `
+{
+  "definition": "To miss or decline an opportunity",
+  "sentences": [
+    "Don't pass up the chance to travel the world.",
+  ],
+  "verb": "Pass up",
+  "wordsToHide": [
+    "pass up",
+  ],
+}
+`;
+
+exports[`phrasalVerbs data snapshot > entry 108: Pay off 1`] = `
+{
+  "definition": "To result in success or bring a positive outcome",
+  "sentences": [
+    "All his hard work paid off when he won the competition.",
+  ],
+  "verb": "Pay off",
+  "wordsToHide": [
+    "paid off",
+  ],
+}
+`;
+
+exports[`phrasalVerbs data snapshot > entry 109: Pay off 1`] = `
+{
+  "definition": "To give someone the money owed usually to settle a debt",
+  "sentences": [
+    "He finally paid off his debts and became debt-free.",
+  ],
+  "verb": "Pay off",
+  "wordsToHide": [
+    "paid off",
+  ],
+}
+`;
+
+exports[`phrasalVerbs data snapshot > entry 110: Pick out 1`] = `
+{
+  "definition": "To choose or select something",
+  "sentences": [
+    "She picked out a beautiful dress for the party.",
+  ],
+  "verb": "Pick out",
+  "wordsToHide": [
+    "picked out",
+  ],
+}
+`;
+
+exports[`phrasalVerbs data snapshot > entry 111: Pick up 1`] = `
+{
+  "definition": "To collect or gather something or someone",
+  "sentences": [
+    "Can you pick up some groceries on your way home?",
+  ],
+  "verb": "Pick up",
+  "wordsToHide": [
+    "pick up",
+  ],
+}
+`;
+
+exports[`phrasalVerbs data snapshot > entry 112: Point out 1`] = `
+{
+  "definition": "To indicate or draw attention to something or someone",
+  "sentences": [
+    "He pointed out the mistake in the report.",
+  ],
+  "verb": "Point out",
+  "wordsToHide": [
+    "pointed out",
+  ],
+}
+`;
+
+exports[`phrasalVerbs data snapshot > entry 113: Pull off 1`] = `
+{
+  "definition": "To succeed in achieving something difficult or impressive",
+  "sentences": [
+    "She pulled off a flawless performance on stage.",
+  ],
+  "verb": "Pull off",
+  "wordsToHide": [
+    "pulled off",
+  ],
+}
+`;
+
+exports[`phrasalVerbs data snapshot > entry 114: Put forward 1`] = `
+{
+  "definition": "To propose or suggest something",
+  "sentences": [
+    "He put forward a new idea for the project.",
+  ],
+  "verb": "Put forward",
+  "wordsToHide": [
+    "put forward",
+  ],
+}
+`;
+
+exports[`phrasalVerbs data snapshot > entry 115: Put off 1`] = `
+{
+  "definition": "To postpone or delay something",
+  "sentences": [
+    "We had to put off the meeting until next week.",
+  ],
+  "verb": "Put off",
+  "wordsToHide": [
+    "put off",
+  ],
+}
+`;
+
+exports[`phrasalVerbs data snapshot > entry 116: Put up with 1`] = `
+{
+  "definition": "To tolerate or endure something",
+  "sentences": [
+    "She had to put up with his constant complaining.",
+  ],
+  "verb": "Put up with",
+  "wordsToHide": [
+    "put up with",
+  ],
+}
+`;
+
+exports[`phrasalVerbs data snapshot > entry 117: Put up 1`] = `
+{
+  "definition": "To assemble or display",
+  "sentences": [
+    "They put up their artwork for the gallery show.",
+  ],
+  "verb": "Put up",
+  "wordsToHide": [
+    "put up",
+  ],
+}
+`;
+
+exports[`phrasalVerbs data snapshot > entry 118: Run away 1`] = `
+{
+  "definition": "To escape or flee from a place or situation",
+  "sentences": [
+    "The child decided to run away from home.",
+  ],
+  "verb": "Run away",
+  "wordsToHide": [
+    "run away",
+  ],
+}
+`;
+
+exports[`phrasalVerbs data snapshot > entry 119: Run into 1`] = `
+{
+  "definition": "To meet or encounter someone by chance",
+  "sentences": [
+    "I ran into an old friend at the grocery store.",
+  ],
+  "verb": "Run into",
+  "wordsToHide": [
+    "ran into",
+  ],
+}
+`;
+
+exports[`phrasalVerbs data snapshot > entry 120: Run off 1`] = `
+{
+  "definition": "To leave quickly or suddenly",
+  "sentences": [
+    "He ran off without saying goodbye.",
+  ],
+  "verb": "Run off",
+  "wordsToHide": [
+    "ran off",
+  ],
+}
+`;
+
+exports[`phrasalVerbs data snapshot > entry 121: Run out (of) 1`] = `
+{
+  "definition": "To use up or exhaust the supply of something",
+  "sentences": [
+    "We ran out of milk so I need to go to the store.",
+  ],
+  "verb": "Run out (of)",
+  "wordsToHide": [
+    "ran out of",
+  ],
+}
+`;
+
+exports[`phrasalVerbs data snapshot > entry 122: Set off 1`] = `
+{
+  "definition": "To start a journey or trip",
+  "sentences": [
+    "We set off early in the morning to avoid traffic.",
+  ],
+  "verb": "Set off",
+  "wordsToHide": [
+    "set off",
+  ],
+}
+`;
+
+exports[`phrasalVerbs data snapshot > entry 123: Set off 1`] = `
+{
+  "definition": "To trigger or initiate something such as a series of events",
+  "sentences": [
+    "Her comments set off a heated debate among the panelists.",
+  ],
+  "verb": "Set off",
+  "wordsToHide": [
+    "set off",
+  ],
+}
+`;
+
+exports[`phrasalVerbs data snapshot > entry 124: Set up 1`] = `
+{
+  "definition": "To establish or arrange something",
+  "sentences": [
+    "They set up a new business together.",
+  ],
+  "verb": "Set up",
+  "wordsToHide": [
+    "set up",
+  ],
+}
+`;
+
+exports[`phrasalVerbs data snapshot > entry 125: Settle down 1`] = `
+{
+  "definition": "To calm down or become established in a stable life",
+  "sentences": [
+    "After traveling for years she decided to settle down in a small town.",
+  ],
+  "verb": "Settle down",
+  "wordsToHide": [
+    "settle down",
+  ],
+}
+`;
+
+exports[`phrasalVerbs data snapshot > entry 126: Settle in 1`] = `
+{
+  "definition": "To become accustomed or get comfortable in a new place",
+  "sentences": [
+    "It took some time for them to settle in their new home.",
+  ],
+  "verb": "Settle in",
+  "wordsToHide": [
+    "settle in",
+  ],
+}
+`;
+
+exports[`phrasalVerbs data snapshot > entry 127: Settle up 1`] = `
+{
+  "definition": "To pay a debt or resolve financial matters",
+  "sentences": [
+    "They need to settle up the bill before leaving the restaurant.",
+  ],
+  "verb": "Settle up",
+  "wordsToHide": [
+    "settle up",
+  ],
+}
+`;
+
+exports[`phrasalVerbs data snapshot > entry 128: Show off 1`] = `
+{
+  "definition": "To display or demonstrate one's skills or possessions",
+  "sentences": [
+    "He loves to show off his new car to everyone.",
+  ],
+  "verb": "Show off",
+  "wordsToHide": [
+    "show off",
+  ],
+}
+`;
+
+exports[`phrasalVerbs data snapshot > entry 129: Show up 1`] = `
+{
+  "definition": "To arrive or appear especially unexpectedly or at a specified time",
+  "sentences": [
+    "She showed up at the party wearing a stunning dress.",
+  ],
+  "verb": "Show up",
+  "wordsToHide": [
+    "showed up",
+  ],
+}
+`;
+
+exports[`phrasalVerbs data snapshot > entry 130: Shut down 1`] = `
+{
+  "definition": "To close or stop the operation of a business or system",
+  "sentences": [
+    "The company decided to shut down its manufacturing plant.",
+  ],
+  "verb": "Shut down",
+  "wordsToHide": [
+    "shut down",
+  ],
+}
+`;
+
+exports[`phrasalVerbs data snapshot > entry 131: Shut down 1`] = `
+{
+  "definition": "To dismiss or reject an idea proposal or argument",
+  "sentences": [
+    "The team leader immediately shut down his suggestion.",
+  ],
+  "verb": "Shut down",
+  "wordsToHide": [
+    "shut down",
+  ],
+}
+`;
+
+exports[`phrasalVerbs data snapshot > entry 132: Sit down 1`] = `
+{
+  "definition": "To take a seat or position oneself comfortably",
+  "sentences": [
+    "Let's sit down and discuss the details of the project.",
+  ],
+  "verb": "Sit down",
+  "wordsToHide": [
+    "sit down",
+  ],
+}
+`;
+
+exports[`phrasalVerbs data snapshot > entry 133: Stand out 1`] = `
+{
+  "definition": "To be noticeably different or exceptional",
+  "sentences": [
+    "Her talent stands out among the other contestants.",
+  ],
+  "verb": "Stand out",
+  "wordsToHide": [
+    "stands out",
+  ],
+}
+`;
+
+exports[`phrasalVerbs data snapshot > entry 134: Stand up to 1`] = `
+{
+  "definition": "To confront or resist someone or something",
+  "sentences": [
+    "He decided to stand up to the bully.",
+  ],
+  "verb": "Stand up to",
+  "wordsToHide": [
+    "stand up to",
+  ],
+}
+`;
+
+exports[`phrasalVerbs data snapshot > entry 135: Stick around 1`] = `
+{
+  "definition": "To remain or stay in a place or situation",
+  "sentences": [
+    "Can you stick around until I finish this task?",
+  ],
+  "verb": "Stick around",
+  "wordsToHide": [
+    "stick around",
+  ],
+}
+`;
+
+exports[`phrasalVerbs data snapshot > entry 136: Take after 1`] = `
+{
+  "definition": "To resemble or have similar traits as someone",
+  "sentences": [
+    "She takes after her mother in terms of looks and personality.",
+  ],
+  "verb": "Take after",
+  "wordsToHide": [
+    "takes after",
+  ],
+}
+`;
+
+exports[`phrasalVerbs data snapshot > entry 137: Take apart 1`] = `
+{
+  "definition": "To disassemble or dismantle something",
+  "sentences": [
+    "We need to take apart the furniture before moving it.",
+  ],
+  "verb": "Take apart",
+  "wordsToHide": [
+    "take apart",
+  ],
+}
+`;
+
+exports[`phrasalVerbs data snapshot > entry 138: Take back 1`] = `
+{
+  "definition": "To retract or withdraw a statement or offer",
+  "sentences": [
+    "I want to take back what I said earlier.",
+  ],
+  "verb": "Take back",
+  "wordsToHide": [
+    "take back",
+  ],
+}
+`;
+
+exports[`phrasalVerbs data snapshot > entry 139: Take back 1`] = `
+{
+  "definition": "To return something to its original location or owner",
+  "sentences": [
+    "Could you please take back this book to the library?",
+  ],
+  "verb": "Take back",
+  "wordsToHide": [
+    "take back",
+  ],
+}
+`;
+
+exports[`phrasalVerbs data snapshot > entry 140: Take down 1`] = `
+{
+  "definition": "To write or record something",
+  "sentences": [
+    "Please take down the important points of the meeting.",
+  ],
+  "verb": "Take down",
+  "wordsToHide": [
+    "take down",
+  ],
+}
+`;
+
+exports[`phrasalVerbs data snapshot > entry 141: Take in 1`] = `
+{
+  "definition": "To understand or comprehend something",
+  "sentences": [
+    "I couldn't take in all the information at once.",
+  ],
+  "verb": "Take in",
+  "wordsToHide": [
+    "take in",
+  ],
+}
+`;
+
+exports[`phrasalVerbs data snapshot > entry 142: Take on 1`] = `
+{
+  "definition": "To undertake or accept a responsibility or challenge",
+  "sentences": [
+    "He decided to take on the project despite the difficulties.",
+  ],
+  "verb": "Take on",
+  "wordsToHide": [
+    "take on",
+  ],
+}
+`;
+
+exports[`phrasalVerbs data snapshot > entry 143: Take over 1`] = `
+{
+  "definition": "To assume control or become dominant",
+  "sentences": [
+    "The new manager will take over the department next week.",
+  ],
+  "verb": "Take over",
+  "wordsToHide": [
+    "take over",
+  ],
+}
+`;
+
+exports[`phrasalVerbs data snapshot > entry 144: Take up 1`] = `
+{
+  "definition": "To start or begin a hobby activity or occupation",
+  "sentences": [
+    "I want to take up playing the piano.",
+  ],
+  "verb": "Take up",
+  "wordsToHide": [
+    "take up",
+  ],
+}
+`;
+
+exports[`phrasalVerbs data snapshot > entry 145: Talk over 1`] = `
+{
+  "definition": "To discuss or consider something with others",
+  "sentences": [
+    "Let's talk over the details of the project.",
+  ],
+  "verb": "Talk over",
+  "wordsToHide": [
+    "talk over",
+  ],
+}
+`;
+
+exports[`phrasalVerbs data snapshot > entry 146: Think over 1`] = `
+{
+  "definition": "To consider or reflect on something",
+  "sentences": [
+    "I need some time to think over your proposal.",
+  ],
+  "verb": "Think over",
+  "wordsToHide": [
+    "think over",
+  ],
+}
+`;
+
+exports[`phrasalVerbs data snapshot > entry 147: Throw away 1`] = `
+{
+  "definition": "To discard or get rid of something",
+  "sentences": [
+    "She decided to throw away the old magazines.",
+  ],
+  "verb": "Throw away",
+  "wordsToHide": [
+    "throw away",
+  ],
+}
+`;
+
+exports[`phrasalVerbs data snapshot > entry 148: Try for 1`] = `
+{
+  "definition": "To attempt to achieve or obtain something",
+  "sentences": [
+    "He will try for a promotion at work.",
+  ],
+  "verb": "Try for",
+  "wordsToHide": [
+    "try for",
+  ],
+}
+`;
+
+exports[`phrasalVerbs data snapshot > entry 149: Try on 1`] = `
+{
+  "definition": "To test or experiment with wearing something",
+  "sentences": [
+    "She wants to try on the dress before buying it.",
+  ],
+  "verb": "Try on",
+  "wordsToHide": [
+    "try on",
+  ],
+}
+`;
+
+exports[`phrasalVerbs data snapshot > entry 150: Try out 1`] = `
+{
+  "definition": "To test or evaluate something",
+  "sentences": [
+    "They decided to try out the new software.",
+  ],
+  "verb": "Try out",
+  "wordsToHide": [
+    "try out",
+  ],
+}
+`;
+
+exports[`phrasalVerbs data snapshot > entry 151: Turn down 1`] = `
+{
+  "definition": "To reject or refuse an offer or request",
+  "sentences": [
+    "She turned down the job offer because of the low salary.",
+  ],
+  "verb": "Turn down",
+  "wordsToHide": [
+    "turned down",
+  ],
+}
+`;
+
+exports[`phrasalVerbs data snapshot > entry 152: Use up 1`] = `
+{
+  "definition": "To deplete or exhaust the supply or quantity of something",
+  "sentences": [
+    "We used up all the printer ink.",
+  ],
+  "verb": "Use up",
+  "wordsToHide": [
+    "used up",
+  ],
+}
+`;
+
+exports[`phrasalVerbs data snapshot > entry 153: Wake up 1`] = `
+{
+  "definition": "To stop sleeping and become conscious",
+  "sentences": [
+    "I usually wake up early in the morning.",
+  ],
+  "verb": "Wake up",
+  "wordsToHide": [
+    "wake up",
+  ],
+}
+`;
+
+exports[`phrasalVerbs data snapshot > entry 154: Walk away 1`] = `
+{
+  "definition": "To leave or abandon a situation or relationship",
+  "sentences": [
+    "He decided to walk away from the argument.",
+  ],
+  "verb": "Walk away",
+  "wordsToHide": [
+    "walk away",
+  ],
+}
+`;
+
+exports[`phrasalVerbs data snapshot > entry 155: Walk out 1`] = `
+{
+  "definition": "To leave suddenly or in protest",
+  "sentences": [
+    "The audience walked out during the boring performance.",
+  ],
+  "verb": "Walk out",
+  "wordsToHide": [
+    "walked out",
+  ],
+}
+`;
+
+exports[`phrasalVerbs data snapshot > entry 156: Watch out 1`] = `
+{
+  "definition": "To be cautious or vigilant",
+  "sentences": [
+    "Watch out for the step it's slippery.",
+  ],
+  "verb": "Watch out",
+  "wordsToHide": [
+    "Watch out",
+  ],
+}
+`;
+
+exports[`phrasalVerbs data snapshot > entry 157: Wear off 1`] = `
+{
+  "definition": "To gradually fade or disappear",
+  "sentences": [
+    "The effects of the medication will wear off in a few hours.",
+  ],
+  "verb": "Wear off",
+  "wordsToHide": [
+    "wear off",
+  ],
+}
+`;
+
+exports[`phrasalVerbs data snapshot > entry 158: Work off 1`] = `
+{
+  "definition": "To eliminate or reduce through physical activity or effort",
+  "sentences": [
+    "I need to work off the extra calories I consumed.",
+  ],
+  "verb": "Work off",
+  "wordsToHide": [
+    "work off",
+  ],
+}
+`;
+
+exports[`phrasalVerbs data snapshot > entry 159: Work up 1`] = `
+{
+  "definition": "To develop or generate a particular feeling or state",
+  "sentences": [
+    "I'm trying to work up the courage to ask her out.",
+  ],
+  "verb": "Work up",
+  "wordsToHide": [
+    "work up",
+  ],
+}
+`;
+
+exports[`phrasalVerbs data snapshot > entry 160: Write down 1`] = `
+{
+  "definition": "To record or write something on paper",
+  "sentences": [
+    "Please write down the important details.",
+  ],
+  "verb": "Write down",
+  "wordsToHide": [
+    "write down",
+  ],
+}
+`;
+
+exports[`phrasalVerbs data snapshot > entry 161: Write off 1`] = `
+{
+  "definition": "To consider something as a loss or failure",
+  "sentences": [
+    "They had to write off the damaged goods.",
+  ],
+  "verb": "Write off",
+  "wordsToHide": [
+    "write off",
+  ],
+}
+`;
+
+exports[`phrasalVerbs data snapshot > entry 162: Write up 1`] = `
+{
+  "definition": "To write a report summary or account of something",
+  "sentences": [
+    "I need to write up the meeting minutes.",
+  ],
+  "verb": "Write up",
+  "wordsToHide": [
+    "write up",
+  ],
+}
+`;
+
+exports[`phrasalVerbs data snapshot > entry 163: Zip up 1`] = `
+{
+  "definition": "To fasten or close a zipper",
+  "sentences": [
+    "She forgot to zip up her jacket before going outside.",
+  ],
+  "verb": "Zip up",
+  "wordsToHide": [
+    "zip up",
+  ],
+}
+`;
+
+exports[`phrasalVerbs data snapshot > entry 164: Pay back 1`] = `
+{
+  "definition": "To give someone back money that you owe",
+  "sentences": [
+    "Thanks for getting me lunch when I forgot my wallet at home! I'll pay you back tomorrow.",
+  ],
+  "verb": "Pay back",
+  "wordsToHide": [
+    "pay",
+    "back",
+  ],
+}
+`;
+
+exports[`phrasalVerbs data snapshot > entry 165: Give out 1`] = `
+{
+  "definition": "To hand out or distribute something",
+  "sentences": [
+    "He has a lot of contacts because he gives out his business card to everyone he meets.",
+  ],
+  "verb": "Give out",
+  "wordsToHide": [
+    "gives out",
+  ],
+}
+`;
+
+exports[`phrasalVerbs data snapshot > entry 166: Look up 1`] = `
+{
+  "definition": "To check the meaning of something",
+  "sentences": [
+    "If you don't know the meaning of a word you should look it up in the dictionary.",
+  ],
+  "verb": "Look up",
+  "wordsToHide": [
+    "look",
+    "up",
+  ],
+}
+`;
+
+exports[`phrasalVerbs data snapshot > entry 167: Give up 1`] = `
+{
+  "definition": "To stop trying; surrender",
+  "sentences": [
+    "After two weeks of trying to build my own table I gave up and just bought one.",
+  ],
+  "verb": "Give up",
+  "wordsToHide": [
+    "gave up",
+  ],
+}
+`;
+
+exports[`phrasalVerbs data snapshot > entry 168: Give away 1`] = `
+{
+  "definition": "To hand things out for free",
+  "sentences": [
+    "When Linda's cat had kittens she gave them all away to good homes.",
+  ],
+  "verb": "Give away",
+  "wordsToHide": [
+    "gave",
+    "away",
+  ],
+}
+`;
+
+exports[`phrasalVerbs data snapshot > entry 169: Hold back 1`] = `
+{
+  "definition": "To stop yourself from doing or saying something",
+  "sentences": [
+    "Amy has a great voice but whenever she's singing in public she feels shy and holds back.",
+  ],
+  "verb": "Hold back",
+  "wordsToHide": [
+    "holds back",
+  ],
+}
+`;
+
+exports[`phrasalVerbs data snapshot > entry 170: Drop off 1`] = `
+{
+  "definition": "To take someone or something somewhere and leave them/it there",
+  "sentences": [
+    "Can you drop me off at the grocery store on your way home?",
+  ],
+  "verb": "Drop off",
+  "wordsToHide": [
+    "drop",
+    "off",
+  ],
+}
+`;
+
+exports[`phrasalVerbs data snapshot > entry 171: Work out 1`] = `
+{
+  "definition": "To come up with a solution or a compromise",
+  "sentences": [
+    "Don't worry I'm sure we can work something out so that everyone is happy.",
+  ],
+  "verb": "Work out",
+  "wordsToHide": [
+    "work",
+    "out",
+  ],
+}
+`;
+
+exports[`phrasalVerbs data snapshot > entry 172: Drop in 1`] = `
+{
+  "definition": "To visit someone without making an appointment",
+  "sentences": [
+    "Drop in to my office anytime.",
+  ],
+  "verb": "Drop in",
+  "wordsToHide": [
+    "Drop in",
+  ],
+}
+`;
+
+exports[`phrasalVerbs data snapshot > entry 173: Check out 1`] = `
+{
+  "definition": "To see or try something out to learn more about it",
+  "sentences": [
+    "Check out my new car!",
+  ],
+  "verb": "Check out",
+  "wordsToHide": [
+    "Check out",
+  ],
+}
+`;
+
+exports[`phrasalVerbs data snapshot > entry 174: Take out 1`] = `
+{
+  "definition": "To remove something like from a pocket or a bag",
+  "sentences": [
+    "The children sat at their desks and took out their pens and paper.",
+  ],
+  "verb": "Take out",
+  "wordsToHide": [
+    "took out",
+  ],
+}
+`;
+
+exports[`phrasalVerbs data snapshot > entry 175: Take out 1`] = `
+{
+  "definition": "To take someone on a date",
+  "sentences": [
+    "He took her out to the most expensive restaurant in the city.",
+  ],
+  "verb": "Take out",
+  "wordsToHide": [
+    "took",
+    "out",
+  ],
+}
+`;
+
+exports[`phrasalVerbs data snapshot > entry 176: Turn on/Turn off 1`] = `
+{
+  "definition": "To switch a machine or light on or off",
+  "sentences": [
+    "Turn off the light I'm trying to sleep!",
+  ],
+  "verb": "Turn on/Turn off",
+  "wordsToHide": [
+    "Turn off",
+  ],
+}
+`;
+
+exports[`phrasalVerbs data snapshot > entry 177: Cheer on 1`] = `
+{
+  "definition": "To support someone through words of encouragement",
+  "sentences": [
+    "Even though Samantha was in last place her brother cheered her on through the entire race.",
+  ],
+  "verb": "Cheer on",
+  "wordsToHide": [
+    "cheered",
+    "on",
+  ],
+}
+`;
+
+exports[`phrasalVerbs data snapshot > entry 178: Fill in 1`] = `
+{
+  "definition": "To do someone else's job temporarily",
+  "sentences": [
+    "Can you fill in for me while I'm on vacation?",
+  ],
+  "verb": "Fill in",
+  "wordsToHide": [
+    "fill in",
+  ],
+}
+`;
+
+exports[`phrasalVerbs data snapshot > entry 179: Put out 1`] = `
+{
+  "definition": "To extinguish a fire",
+  "sentences": [
+    "The firefighters managed to put out the fire before it spread to other houses.",
+  ],
+  "verb": "Put out",
+  "wordsToHide": [
+    "put out",
+  ],
+}
+`;
+
+exports[`phrasalVerbs data snapshot > entry 180: Put out 1`] = `
+{
+  "definition": "To irritate someone by asking them for a favor",
+  "sentences": [
+    "I'd ask you to make me dinner but I don't want to put you out.",
+  ],
+  "verb": "Put out",
+  "wordsToHide": [
+    "put",
+    "out",
+  ],
+}
+`;
+
+exports[`phrasalVerbs data snapshot > entry 181: Put on 1`] = `
+{
+  "definition": "To get your clothes or makeup on",
+  "sentences": [
+    "Every morning she puts on her dress lipstick shoes and hat—in that order.",
+  ],
+  "verb": "Put on",
+  "wordsToHide": [
+    "puts on",
+  ],
+}
+`;
+
+exports[`phrasalVerbs data snapshot > entry 182: Take off 1`] = `
+{
+  "definition": "To remove clothing",
+  "sentences": [
+    "She was very happy when she finally got home and took off her shoes. They had been hurting her feet all day!",
+  ],
+  "verb": "Take off",
+  "wordsToHide": [
+    "took off",
+  ],
+}
+`;
+
+exports[`phrasalVerbs data snapshot > entry 183: Fill out 1`] = `
+{
+  "definition": "To complete a form by providing required information",
+  "sentences": [
+    "Please fill out the application form and submit it by Friday.",
+  ],
+  "verb": "Fill out",
+  "wordsToHide": [
+    "fill out",
+  ],
+}
+`;
+
+exports[`phrasalVerbs data snapshot > entry 184: Cheer up 1`] = `
+{
+  "definition": "To show support to someone who seems sad or to try to make someone happier",
+  "sentences": [
+    "Andrew was having a bad day so his girlfriend cheered him up by taking him out for ice cream.",
+  ],
+  "verb": "Cheer up",
+  "wordsToHide": [
+    "cheered",
+    "up",
+  ],
+}
+`;
+
+exports[`phrasalVerbs data snapshot > entry 185: Cut off 1`] = `
+{
+  "definition": "To interrupt or stop something",
+  "sentences": [
+    "His father is rich but he cut him off without any money of his own.",
+  ],
+  "verb": "Cut off",
+  "wordsToHide": [
+    "cut",
+    "off",
+  ],
+}
+`;
+
+exports[`phrasalVerbs data snapshot > entry 186: Cut out 1`] = `
+{
+  "definition": "To stop it",
+  "sentences": [
+    "Hey cut it out! I was watching that movie so stop changing the channel!",
+  ],
+  "verb": "Cut out",
+  "wordsToHide": [
+    "cut",
+    "out",
+  ],
+}
+`;
+
+exports[`phrasalVerbs data snapshot > entry 187: Call off 1`] = `
+{
+  "definition": "To cancel something",
+  "sentences": [
+    "We had to call off the picnic because of the rain.",
+  ],
+  "verb": "Call off",
+  "wordsToHide": [
+    "call off",
+  ],
+}
+`;
+
+exports[`phrasalVerbs data snapshot > entry 188: Bring up 1`] = `
+{
+  "definition": "To mention something",
+  "sentences": [
+    "Mark was sick and had to miss the party so please don't bring it up I don't want him to feel bad for missing it.",
+  ],
+  "verb": "Bring up",
+  "wordsToHide": [
+    "bring",
+    "up",
+  ],
+}
+`;
+
+exports[`phrasalVerbs data snapshot > entry 189: Bring on 1`] = `
+{
+  "definition": "To cause something to happen usually something negative",
+  "sentences": [
+    "His lung cancer was brought on by years of smoking.",
+  ],
+  "verb": "Bring on",
+  "wordsToHide": [
+    "brought on",
+  ],
+}
+`;
+
+exports[`phrasalVerbs data snapshot > entry 190: Bring it on! 1`] = `
+{
+  "definition": "To accept a challenge with confidence",
+  "sentences": [
+    "You want to have a race? Bring it on! I can beat you!",
+  ],
+  "verb": "Bring it on!",
+  "wordsToHide": [
+    "Bring",
+    "on",
+  ],
+}
+`;
+
+exports[`phrasalVerbs data snapshot > entry 191: Call on 1`] = `
+{
+  "definition": "To visit someone",
+  "sentences": [
+    "I'll call on you this evening to see how you're feeling.",
+  ],
+  "verb": "Call on",
+  "wordsToHide": [
+    "call on",
+  ],
+}
+`;
+
+exports[`phrasalVerbs data snapshot > entry 192: Warm up to 1`] = `
+{
+  "definition": "To start liking someone or something more as you spend more time with them",
+  "sentences": [
+    "The new puppy was scared of my husband when we first got him but he warmed up to him pretty quickly.",
+  ],
+  "verb": "Warm up to",
+  "wordsToHide": [
+    "warmed up to",
+  ],
+}
+`;
+
+exports[`phrasalVerbs data snapshot > entry 193: Come across 1`] = `
+{
+  "definition": "To meet or find by chance",
+  "sentences": [
+    "I was cleaning the attic and I came across my high school uniform. Can you believe it still fits?",
+  ],
+  "verb": "Come across",
+  "wordsToHide": [
+    "came across",
+  ],
+}
+`;
+
+exports[`phrasalVerbs data snapshot > entry 194: Get back at 1`] = `
+{
+  "definition": "To get revenge on someone",
+  "sentences": [
+    "Her ex-husband took her house so she got back at him by taking his dogs.",
+  ],
+  "verb": "Get back at",
+  "wordsToHide": [
+    "got back at",
+  ],
+}
+`;
+
+exports[`phrasalVerbs data snapshot > entry 195: Go out with 1`] = `
+{
+  "definition": "To go on a date with someone",
+  "sentences": [
+    "Sarah was so happy when Peter finally asked her to go out with him!",
+  ],
+  "verb": "Go out with",
+  "wordsToHide": [
+    "go out with",
+  ],
+}
+`;
+
+exports[`phrasalVerbs data snapshot > entry 196: Log in 1`] = `
+{
+  "definition": "To sign in to your account on a website or computer",
+  "sentences": [
+    "Don't forget to log in to your account to learn English better and faster.",
+  ],
+  "verb": "Log in",
+  "wordsToHide": [
+    "log in",
+  ],
+}
+`;
+
+exports[`phrasalVerbs data snapshot > entry 197: Pay for 1`] = `
+{
+  "definition": "To give someone money for a particular purpose",
+  "sentences": [
+    "She used her credit card to pay for the hotel reservation.",
+  ],
+  "verb": "Pay for",
+  "wordsToHide": [
+    "pay for",
+  ],
+}
+`;
+
+exports[`phrasalVerbs data snapshot > entry 198: Pay for 1`] = `
+{
+  "definition": "To suffer because of something you did",
+  "sentences": [
+    "He'll pay for all the problems he caused me by being late today!",
+  ],
+  "verb": "Pay for",
+  "wordsToHide": [
+    "pay for",
+  ],
+}
+`;
+
+exports[`phrasalVerbs data snapshot > entry 199: Fall for 1`] = `
+{
+  "definition": "To fall in love with someone",
+  "sentences": [
+    "He fell for her the moment he saw her.",
+  ],
+  "verb": "Fall for",
+  "wordsToHide": [
+    "fell for",
+  ],
+}
+`;
+
+exports[`phrasalVerbs data snapshot > entry 200: Cut in 1`] = `
+{
+  "definition": "To interrupt a conversation or activity",
+  "sentences": [
+    "The teacher cut him in and asked him to explain the answer to the class.",
+  ],
+  "verb": "Cut in",
+  "wordsToHide": [
+    "cut",
+    "in",
+  ],
+}
+`;
+
+exports[`phrasalVerbs data snapshot > entry 201: Call on 1`] = `
+{
+  "definition": "To use someone's or something's knowledge",
+  "sentences": [
+    "I may need to call on the university's excellent professors in order to answer your question.",
+  ],
+  "verb": "Call on",
+  "wordsToHide": [
+    "call on",
+  ],
+}
+`;
+
+exports[`phrasalVerbs data snapshot > entry 202: Come up 1`] = `
+{
+  "definition": "To think of an idea",
+  "sentences": [
+    "I came up with this idea for a TV show about a woman living with her best friend and daughter. I call it 'Two and a Half Women.'",
+  ],
+  "verb": "Come up",
+  "wordsToHide": [
+    "came up with",
+  ],
+}
+`;
+
+exports[`phrasalVerbs data snapshot > entry 203: Drop out 1`] = `
+{
+  "definition": "To quit or stop participating in something",
+  "sentences": [
+    "She was a straight-A student but she dropped out of college to pursue her dream of becoming an artist.",
+  ],
+  "verb": "Drop out",
+  "wordsToHide": [
+    "dropped out",
+  ],
+}
+`;
+
+exports[`phrasalVerbs data snapshot > entry 204: Log out/Log off 1`] = `
+{
+  "definition": "To sign out of your account",
+  "sentences": [
+    "You should always log out of your accounts when you use a public computer.",
+  ],
+  "verb": "Log out/Log off",
+  "wordsToHide": [
+    "log out",
+  ],
+}
+`;
+
+exports[`phrasalVerbs data snapshot > entry 205: Look out 1`] = `
+{
+  "definition": "To watch out for something",
+  "sentences": [
+    "Look out there's a baseball coming your way!",
+  ],
+  "verb": "Look out",
+  "wordsToHide": [
+    "Look out",
+  ],
+}
+`;
+
+exports[`phrasalVerbs data snapshot > entry 206: Come up 1`] = `
+{
+  "definition": "To bring up a topic",
+  "sentences": [
+    "I wanted to tell her that I got a new job but the chance never came up.",
+  ],
+  "verb": "Come up",
+  "wordsToHide": [
+    "came up",
+  ],
+}
+`;
+
+exports[`phrasalVerbs data snapshot > entry 207: Come up 1`] = `
+{
+  "definition": "When something happens unexpectedly",
+  "sentences": [
+    "I was going to meet my friends for dinner but something came up so I had to cancel.",
+  ],
+  "verb": "Come up",
+  "wordsToHide": [
+    "came up",
+  ],
+}
+`;
+
+exports[`phrasalVerbs data snapshot > entry 208: Come forward 1`] = `
+{
+  "definition": "To volunteer information about something like a crime",
+  "sentences": [
+    "The police are encouraging people to come forward with any information about the kidnapped girl.",
+  ],
+  "verb": "Come forward",
+  "wordsToHide": [
+    "come forward",
+  ],
+}
+`;
+
+exports[`phrasalVerbs data snapshot > entry 209: Check in 1`] = `
+{
+  "definition": "To register at a hotel for a stay",
+  "sentences": [
+    "We haven't checked in at the hotel yet.",
+  ],
+  "verb": "Check in",
+  "wordsToHide": [
+    "checked in",
+  ],
+}
+`;
+
+exports[`phrasalVerbs data snapshot > entry 210: End up 1`] = `
+{
+  "definition": "To eventually be in a particular place or situation",
+  "sentences": [
+    "After driving around for hours we finally ended up at the beach.",
+  ],
+  "verb": "End up",
+  "wordsToHide": [
+    "ended up",
+  ],
+}
+`;
+
+exports[`phrasalVerbs data snapshot > entry 211: Fall apart 1`] = `
+{
+  "definition": "To stop working or break into pieces",
+  "sentences": [
+    "The old chair fell apart when I sat on it.",
+  ],
+  "verb": "Fall apart",
+  "wordsToHide": [
+    "fell apart",
+  ],
+}
+`;
+
+exports[`phrasalVerbs data snapshot > entry 212: Fall down 1`] = `
+{
+  "definition": "To collapse or fall to the ground",
+  "sentences": [
+    "The little girl tripped and fell down the stairs.",
+  ],
+  "verb": "Fall down",
+  "wordsToHide": [
+    "fell down",
+  ],
+}
+`;
+
+exports[`phrasalVerbs data snapshot > entry 213: Fall off 1`] = `
+{
+  "definition": "To decline in quality or quantity",
+  "sentences": [
+    "Sales fell off during the holiday season.",
+  ],
+  "verb": "Fall off",
+  "wordsToHide": [
+    "fell off",
+  ],
+}
+`;
+
+exports[`phrasalVerbs data snapshot > entry 214: Give out 1`] = `
+{
+  "definition": "To break down or stop working",
+  "sentences": [
+    "The city had to rebuild the bridge completely because it was about to give out and fall down.",
+  ],
+  "verb": "Give out",
+  "wordsToHide": [
+    "give out",
+  ],
+}
+`;
+
+exports[`phrasalVerbs data snapshot > entry 215: Go ahead 1`] = `
+{
+  "definition": "To go in front of someone or to give permission",
+  "sentences": [
+    "You can go ahead and start the meeting without me.",
+  ],
+  "verb": "Go ahead",
+  "wordsToHide": [
+    "go ahead",
+  ],
+}
+`;
+
+exports[`phrasalVerbs data snapshot > entry 216: Grow up 1`] = `
+{
+  "definition": "To tell someone to stop acting childish",
+  "sentences": [
+    "Some people tell Steve he needs to grow up but he loves acting like a child.",
+  ],
+  "verb": "Grow up",
+  "wordsToHide": [
+    "grow up",
+  ],
+}
+`;
+
+exports[`phrasalVerbs data snapshot > entry 217: Grow apart 1`] = `
+{
+  "definition": "To get distant from someone like a friend",
+  "sentences": [
+    "When my friend moved to a different country I tried to stay close with her but we slowly grew apart.",
+  ],
+  "verb": "Grow apart",
+  "wordsToHide": [
+    "grew apart",
+  ],
+}
+`;
+
+exports[`phrasalVerbs data snapshot > entry 218: Hang on 1`] = `
+{
+  "definition": "To keep something",
+  "sentences": [
+    "When everyone else was getting fired Paul managed to hang on to his job.",
+  ],
+  "verb": "Hang on",
+  "wordsToHide": [
+    "hang on",
+  ],
+}
+`;
+
+exports[`phrasalVerbs data snapshot > entry 219: Hang out 1`] = `
+{
+  "definition": "To spend time with someone casually",
+  "sentences": [
+    "My friends and I used to hang out in the park after school.",
+  ],
+  "verb": "Hang out",
+  "wordsToHide": [
+    "hang out",
+  ],
+}
+`;
+
+exports[`phrasalVerbs data snapshot > entry 220: Hang up 1`] = `
+{
+  "definition": "To end a phone call especially if before the other person is ready",
+  "sentences": [
+    "I was in the middle of a sentence and he hung up on me! How rude.",
+  ],
+  "verb": "Hang up",
+  "wordsToHide": [
+    "hung up",
+  ],
+}
+`;
+
+exports[`phrasalVerbs data snapshot > entry 221: Hold on 1`] = `
+{
+  "definition": "To hold something tightly",
+  "sentences": [
+    "You'd better hold on to your hat; it's windy out there!",
+  ],
+  "verb": "Hold on",
+  "wordsToHide": [
+    "hold on",
+  ],
+}
+`;
+
+exports[`phrasalVerbs data snapshot > entry 222: Hold on 1`] = `
+{
+  "definition": "To ask someone to wait for a moment",
+  "sentences": [
+    "Hold on I'll be right back.",
+  ],
+  "verb": "Hold on",
+  "wordsToHide": [
+    "Hold on",
+  ],
+}
+`;
+
+exports[`phrasalVerbs data snapshot > entry 223: Give in 1`] = `
+{
+  "definition": "To surrender especially in a fight or argument",
+  "sentences": [
+    "Ben's mother gave in and let him stay out late with his friends.",
+  ],
+  "verb": "Give in",
+  "wordsToHide": [
+    "gave in",
+  ],
+}
+`;
+
+exports[`phrasalVerbs data snapshot > entry 224: Take off 1`] = `
+{
+  "definition": "To leave for a journey",
+  "sentences": [
+    "The plane will take off in a few minutes.",
+  ],
+  "verb": "Take off",
+  "wordsToHide": [
+    "take off",
+  ],
+}
+`;
+
+exports[`phrasalVerbs data snapshot > entry 225: Turn around 1`] = `
+{
+  "definition": "To move so you're facing the opposite direction",
+  "sentences": [
+    "Sally was about to get on the plane but she turned around when someone called her name.",
+  ],
+  "verb": "Turn around",
+  "wordsToHide": [
+    "turned around",
+  ],
+}
+`;
+
+exports[`phrasalVerbs data snapshot > entry 226: Turn up 1`] = `
+{
+  "definition": "When something that was lost is found unexpectedly",
+  "sentences": [
+    "Anything I lose usually turns up under the couch. It's my cat's favorite hiding place.",
+  ],
+  "verb": "Turn up",
+  "wordsToHide": [
+    "turns up",
+  ],
+}
+`;
+
+exports[`phrasalVerbs data snapshot > entry 227: Work out 1`] = `
+{
+  "definition": "To exercise",
+  "sentences": [
+    "I try to work out every morning by repeatedly lifting a heavy donut to my mouth.",
+  ],
+  "verb": "Work out",
+  "wordsToHide": [
+    "work out",
+  ],
+}
+`;
