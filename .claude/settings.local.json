@@ -1,16 +1,62 @@
 {
   "$schema": "https://json.schemastore.org/claude-code-settings.json",
+  "model": "sonnet",
   "cleanupPeriodDays": 30,
   "env": {
     "CLAUDE_BASH_MAINTAIN_PROJECT_WORKING_DIR": "1",
     "MAX_THINKING_TOKENS": "10000",
     "CLAUDE_CODE_MAX_OUTPUT_TOKENS": "16000"
   },
+  "hooks": {
+    "Stop": [
+      {
+        "hooks": [
+          {
+            "type": "command",
+            "command": "$CLAUDE_PROJECT_DIR/.claude/hooks/stop-blackbox-log.sh",
+            "timeout": 10
+          }
+        ]
+      }
+    ],
+    "UserPromptSubmit": [
+      {
+        "hooks": [
+          {
+            "type": "command",
+            "command": "$CLAUDE_PROJECT_DIR/.claude/hooks/prompt-audit-log.sh",
+            "timeout": 5
+          }
+        ]
+      }
+    ],
+    "PostToolUse": [
+      {
+        "matcher": "Write",
+        "hooks": [
+          {
+            "type": "command",
+            "command": "$CLAUDE_PROJECT_DIR/.claude/hooks/save-plan.sh",
+            "timeout": 5
+          }
+        ]
+      }
+    ]
+  },
   "permissions": {
     "allow": [
       "Bash(git -C /home/eug/dev/projects/my/phrasal remote -v)",
       "Read(//home/eug/dev/projects/my/phrasal/.github/workflows/**)",
-      "Bash(node -e \"import\\('/home/eug/dev/projects/my/phrasal/src/data/phrasalVerbs.js'\\).then\\(m => console.log\\('total:', m.rawData.length, 'active:', m.allVerbs.length\\)\\)\")"
+      "Bash(node -e \"import\\('/home/eug/dev/projects/my/phrasal/src/data/phrasalVerbs.js'\\).then\\(m => console.log\\('total:', m.rawData.length, 'active:', m.allVerbs.length\\)\\)\")",
+      "Bash(backlog task *)",
+      "mcp__backlog__task_search",
+      "mcp__backlog__task_create",
+      "mcp__backlog__task_complete",
+      "mcp__backlog__task_edit",
+      "mcp__backlog__get_backlog_instructions",
+      "mcp__backlog__task_view",
+      "mcp__backlog__*_*",
+      "mcp__backlog__*"
     ]
   },
   "statusLine": {
