@@ -20,3 +20,17 @@ verb = "Come up"
 definition =  "To bring up a topic"
 sentences in ["I wanted to tell her that I got a new job but the chance never came up."]
 ---
+
+## 2026-05-29T08:34:26Z
+yes
+---
+
+## 2026-05-29T08:35:30Z
+When I run `npm test` I see:
+Test Files  9 passed (9)
+                                                                                                                   │      Tests  381 passed (381)
+                                                                                                                   │   Start at  10:33:45
+                                                                                                                   │   Duration  2.18s (transform 285ms, setup 430ms, import 1.05s, tests 3.53s, environment 5.46s)
+
+but after changes the amount of passed test reduced, so not all tests are recheck again
+---
