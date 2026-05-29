@@ -3,6 +3,7 @@ import { render, screen } from '@testing-library/react';
 import { MemoryRouter, Routes, Route, Outlet } from 'react-router-dom';
 import App from '../App';
 import HomePage from '../pages/HomePage';
+import NotFoundPage from '../pages/NotFoundPage';
 import PageShell from '../components/PageShell';
 
 vi.mock('../data/phrasalVerbs', () => ({
@@ -15,7 +16,6 @@ vi.mock('../utils/renderSentence', () => ({
   renderSentenceWithMask: vi.fn((sentence: string) => <span>{sentence}</span>),
 }));
 
-// Mirrors the full route tree defined in main.tsx.
 function renderApp(initialPath: string) {
   return render(
     <MemoryRouter initialEntries={[initialPath]}>
@@ -23,6 +23,7 @@ function renderApp(initialPath: string) {
         <Route element={<PageShell><Outlet /></PageShell>}>
           <Route path="/" element={<HomePage />} />
           <Route path="/phrasal-verbs" element={<App />} />
+          <Route path="*" element={<NotFoundPage />} />
         </Route>
       </Routes>
     </MemoryRouter>
@@ -90,5 +91,17 @@ describe('Page reload — router renders correct page, no console errors', () =>
     }));
     renderApp('/phrasal-verbs');
     expect(screen.getByTitle('Move to Home page')).toBeInTheDocument();
+  });
+
+  it('unknown route renders 404 page', () => {
+    renderApp('/this-does-not-exist');
+    expect(screen.getByText('404')).toBeInTheDocument();
+    expect(screen.getByRole('heading', { name: 'Page Not Found' })).toBeInTheDocument();
+  });
+
+  it('unknown route produces no console errors or warnings', () => {
+    renderApp('/this-does-not-exist');
+    expect(errorSpy).not.toHaveBeenCalled();
+    expect(warnSpy).not.toHaveBeenCalled();
   });
 });
