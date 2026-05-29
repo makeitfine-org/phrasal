@@ -420,3 +420,41 @@ apply
 ## 2026-05-29T18:36:33Z
 commit all
 ---
+
+## 2026-05-29T18:37:27Z
+I plan to make a new release give, so:
+- give the next release tag
+- give description for next release
+---
+
+## 2026-05-29T18:38:25Z
+apply
+---
+
+## 2026-05-29T19:19:11Z
+<SearchModal
+          allVerbs={allVerbs}
+          excluded={excluded}
+          onSelect={handleJumpToVerb}
+          onUnexclude={handleUnexcludeAndJump}
+          onClose={() => setShowSearchModal(false)}
+        /> change to search phrasal verbs sort alphabetically
+---
+
+## 2026-05-29T19:20:17Z
+Cover that with the test(s)
+---
+
+## 2026-05-29T19:22:24Z
+execute git add all changes and commit them with suitable message
+---
+
+## 2026-05-29T19:25:54Z
+I plan to make a new release give, so:
+- give the next release tag
+- give description for next release
+---
+
+## 2026-05-29T19:26:22Z
+apply
+---

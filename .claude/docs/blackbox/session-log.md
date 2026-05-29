@@ -400,3 +400,29 @@
 <!-- git-snapshot 2026-05-29T18:29:56Z -->
 - .claude/docs/blackbox/audit.md
 <!-- end-snapshot -->
+
+<!-- git-snapshot 2026-05-29T18:37:42Z -->
+- .claude/docs/blackbox/audit.md
+<!-- end-snapshot -->
+
+<!-- git-snapshot 2026-05-29T19:19:34Z -->
+- .claude/docs/blackbox/audit.md
+- .claude/docs/blackbox/session-log.md
+- src/components/SearchModal.tsx
+<!-- end-snapshot -->
+
+<!-- git-snapshot 2026-05-29T19:20:50Z -->
+- .claude/docs/blackbox/audit.md
+- .claude/docs/blackbox/session-log.md
+- src/__tests__/SearchModal.test.tsx
+- src/components/SearchModal.tsx
+<!-- end-snapshot -->
+
+<!-- git-snapshot 2026-05-29T19:26:14Z -->
+- .claude/docs/blackbox/audit.md
+<!-- end-snapshot -->
+
+<!-- git-snapshot 2026-05-29T19:26:35Z -->
+- .claude/docs/blackbox/audit.md
+- .claude/docs/blackbox/session-log.md
+<!-- end-snapshot -->

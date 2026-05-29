@@ -232,4 +232,28 @@ describe('SearchModal', () => {
     render(<SearchModal {...makeProps()} />);
     expect(screen.getByRole('button')).toHaveClass('border-gray-200');
   });
+
+  it('displays results sorted alphabetically by verb', () => {
+    const unordered: VerbEntry[] = [
+      { verb: 'zoom in', definition: 'def z', sentences: [], wordsToHide: [] },
+      { verb: 'break down', definition: 'def b', sentences: [], wordsToHide: [] },
+      { verb: 'look up', definition: 'def l', sentences: [], wordsToHide: [] },
+    ];
+    render(<SearchModal {...makeProps({ allVerbs: unordered })} />);
+    const items = screen.getAllByRole('listitem').map(li => li.querySelector('.font-semibold')!.textContent);
+    expect(items).toEqual(['break down', 'look up', 'zoom in']);
+  });
+
+  it('sorts filtered results alphabetically', async () => {
+    const unordered: VerbEntry[] = [
+      { verb: 'zone out', definition: 'stop paying attention', sentences: [], wordsToHide: [] },
+      { verb: 'act up', definition: 'behave badly', sentences: [], wordsToHide: [] },
+      { verb: 'burn out', definition: 'exhaust', sentences: [], wordsToHide: [] },
+    ];
+    const user = userEvent.setup();
+    render(<SearchModal {...makeProps({ allVerbs: unordered })} />);
+    await user.type(screen.getByPlaceholderText('Search phrasal verbs...'), 'out');
+    const items = screen.getAllByRole('listitem').map(li => li.querySelector('.font-semibold')!.textContent);
+    expect(items).toEqual(['burn out', 'zone out']);
+  });
 });

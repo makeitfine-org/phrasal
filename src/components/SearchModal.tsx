@@ -40,7 +40,8 @@ export default function SearchModal({ allVerbs, excluded, onSelect, onUnexclude,
       !query.trim() ||
       v.verb.toLowerCase().includes(query.toLowerCase()) ||
       v.definition.toLowerCase().includes(query.toLowerCase())
-    );
+    )
+    .sort((a, b) => a.verb.localeCompare(b.verb));
 
   const handleSelect = (v: SearchResult) => {
     if (v.isExcluded) {
