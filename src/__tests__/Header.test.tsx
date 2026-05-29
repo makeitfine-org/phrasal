@@ -1,8 +1,8 @@
 import { render, screen } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
-import Header from '../components/Header.jsx';
+import Header from '../components/Header';
 
-function makeProps(overrides = {}) {
+function makeProps(overrides: Record<string, unknown> = {}) {
   return {
     darkMode: false,
     masteredCount: 3,
@@ -50,16 +50,14 @@ describe('Header', () => {
   });
 
   it('shows the moon icon when darkMode is false', () => {
-    const { container } = render(<Header {...makeProps({ darkMode: false })} />);
-    // MoonIcon SVG has a specific path; we verify via title attribute on the button
+    render(<Header {...makeProps({ darkMode: false })} />);
     const btn = screen.getByTitle('Toggle Dark/Light Mode');
     expect(btn).toBeInTheDocument();
-    // The button should contain an SVG (either icon)
     expect(btn.querySelector('svg')).toBeTruthy();
   });
 
   it('shows the sun icon when darkMode is true', () => {
-    const { container } = render(<Header {...makeProps({ darkMode: true })} />);
+    render(<Header {...makeProps({ darkMode: true })} />);
     const btn = screen.getByTitle('Toggle Dark/Light Mode');
     expect(btn.querySelector('svg')).toBeTruthy();
   });

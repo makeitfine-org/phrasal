@@ -1,6 +1,12 @@
 import React from 'react';
+import type { Status } from '../types';
 
-export default function Feedback({ status, correctVerb }) {
+interface FeedbackProps {
+  status: Status;
+  correctVerb: string;
+}
+
+export default function Feedback({ status, correctVerb }: FeedbackProps) {
   if (status === 'idle') return null;
 
   return (

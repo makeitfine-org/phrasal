@@ -1,8 +1,8 @@
-import { render, screen, act, within } from '@testing-library/react';
+import { render, screen, within } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
-import App from '../App.jsx';
+import App from '../App';
 
-vi.mock('../data/phrasalVerbs.js', () => ({
+vi.mock('../data/phrasalVerbs', () => ({
   allVerbs: [
     { verb: 'Act out',   definition: 'To perform',  sentences: ['They acted out the scene.'], wordsToHide: ['acted out'] },
     { verb: 'Break out', definition: 'To escape',   sentences: ['A riot broke out.'],          wordsToHide: ['broke out'] },
@@ -10,8 +10,8 @@ vi.mock('../data/phrasalVerbs.js', () => ({
   ],
 }));
 
-vi.mock('../utils/renderSentence.jsx', () => ({
-  renderSentenceWithMask: vi.fn((sentence) => <span>{sentence}</span>),
+vi.mock('../utils/renderSentence', () => ({
+  renderSentenceWithMask: vi.fn((sentence: string) => <span>{sentence}</span>),
 }));
 
 beforeEach(() => {
@@ -88,8 +88,6 @@ describe('App — handleSubmit', () => {
     renderApp();
     await user.type(getInput(), 'Act (out)');
     await user.click(screen.getByText('Check'));
-    // "(out)" stripped → "act out" which should NOT equal "act out" without parens... actually "Act (out)" → "act out" after stripping () and lowercasing
-    // Wait: verb is "Act out", clean = "act out". Input "Act (out)" → lower+strip = "act out". Match!
     expect(screen.getByText('Excellent!')).toBeInTheDocument();
   });
 
@@ -114,9 +112,6 @@ describe('App — handleSubmit', () => {
     renderApp();
     await user.type(getInput(), 'act out');
     await user.click(screen.getByText('Check'));
-    // Try to submit again — but the form is no longer showing the Check button
-    // The input is disabled so typing more is a no-op; the IDK/Check buttons are gone
-    // Status should remain "correct", not flip to "wrong"
     expect(screen.getByText('Excellent!')).toBeInTheDocument();
     expect(screen.queryByText('Not quite!')).not.toBeInTheDocument();
   });
@@ -161,7 +156,7 @@ describe('App — resetState', () => {
     renderApp();
     await user.click(screen.getByText('IDK'));
     expect(screen.getByText('Not quite!')).toBeInTheDocument();
-    await user.click(screen.getByText('Reset').closest('button'));
+    await user.click(screen.getByText('Reset').closest('button')!);
     expect(screen.queryByText('Not quite!')).not.toBeInTheDocument();
     expect(getInput()).not.toBeDisabled();
   });
@@ -185,7 +180,7 @@ describe('App — resetState', () => {
     await user.type(getInput(), 'act out');
     await user.click(screen.getByText('Check'));
     expect(screen.getByText('1')).toBeInTheDocument(); // masteredCount = 1
-    await user.click(screen.getByText('Reset').closest('button'));
+    await user.click(screen.getByText('Reset').closest('button')!);
     expect(screen.getByText('0')).toBeInTheDocument(); // masteredCount back to 0
   });
 });
@@ -197,7 +192,6 @@ describe('App — navigation', () => {
   });
 
   it('Next (history forward) button is disabled when at last card and no remaining', async () => {
-    // Set up state with all 3 verbs in history, currentIndex at last
     localStorage.setItem('phrasalQuizState', JSON.stringify({
       mastered: [],
       excluded: [],
@@ -210,9 +204,7 @@ describe('App — navigation', () => {
       darkMode: false,
     }));
     renderApp();
-    // remainingCount = 0 (all 3 verbs used), at end → Next disabled
     expect(screen.getByTitle('Next / History Forward')).toBeDisabled();
-    // Skip (new card) also disabled
     expect(screen.getByText('Next').closest('button')).toBeDisabled();
   });
 
@@ -255,7 +247,7 @@ describe('App — navigation', () => {
   it('loads a new card when Skip is clicked', async () => {
     const user = userEvent.setup();
     renderApp();
-    await user.click(screen.getByText('Next').closest('button'));
+    await user.click(screen.getByText('Next').closest('button')!);
     expect(screen.getByText(/Question № 2/)).toBeInTheDocument();
   });
 });
@@ -284,16 +276,14 @@ describe('App — handleGlobalReset', () => {
   it('clears state and localStorage after confirming reset', async () => {
     vi.spyOn(window, 'confirm').mockReturnValue(true);
     const user = userEvent.setup();
-    // First answer a question to build state
     renderApp();
     await user.type(getInput(), 'act out');
     await user.click(screen.getByText('Check'));
     expect(screen.getByText('1')).toBeInTheDocument(); // mastered = 1
 
     await user.click(screen.getByTitle('Global Reset - Clear all progress'));
-    // After reset: mastered count back to 0, localStorage has empty mastered
     expect(screen.getByText(/Mastered:/).closest('p')).toHaveTextContent('0');
-    const saved = JSON.parse(localStorage.getItem('phrasalQuizState'));
+    const saved = JSON.parse(localStorage.getItem('phrasalQuizState')!);
     expect(saved.mastered).toEqual([]);
     expect(saved.excluded).toEqual([]);
   });
@@ -305,7 +295,7 @@ describe('App — handleGlobalReset', () => {
     await user.type(getInput(), 'act out');
     await user.click(screen.getByText('Check'));
     await user.click(screen.getByTitle('Global Reset - Clear all progress'));
-    expect(screen.getByText(/Mastered:/).closest('p')).toHaveTextContent('1'); // still mastered = 1
+    expect(screen.getByText(/Mastered:/).closest('p')).toHaveTextContent('1');
   });
 });
 
@@ -315,7 +305,7 @@ describe('App — localStorage persistence', () => {
     renderApp();
     await user.type(getInput(), 'act out');
     await user.click(screen.getByText('Check'));
-    const saved = JSON.parse(localStorage.getItem('phrasalQuizState'));
+    const saved = JSON.parse(localStorage.getItem('phrasalQuizState')!);
     expect(saved.mastered).toContain(0);
   });
 
@@ -323,7 +313,7 @@ describe('App — localStorage persistence', () => {
     const user = userEvent.setup();
     renderApp();
     await user.click(screen.getByTitle('Toggle Dark/Light Mode'));
-    const saved = JSON.parse(localStorage.getItem('phrasalQuizState'));
+    const saved = JSON.parse(localStorage.getItem('phrasalQuizState')!);
     expect(saved.darkMode).toBe(true);
   });
 
@@ -339,7 +329,7 @@ describe('App — localStorage persistence', () => {
     const user = userEvent.setup();
     renderApp();
     await user.click(screen.getByTitle('Next / History Forward'));
-    const saved = JSON.parse(localStorage.getItem('phrasalQuizState'));
+    const saved = JSON.parse(localStorage.getItem('phrasalQuizState')!);
     expect(saved.currentIndex).toBe(1);
   });
 });
@@ -412,7 +402,6 @@ describe('App — keyboard shortcuts', () => {
     renderApp();
     await user.click(screen.getByTitle('View excluded verbs'));
     await user.keyboard('{Escape}');
-    // Escape closes the modal, not triggers IDK
     expect(screen.queryByText('Not quite!')).not.toBeInTheDocument();
   });
 
@@ -420,10 +409,7 @@ describe('App — keyboard shortcuts', () => {
     const user = userEvent.setup();
     renderApp();
     await user.click(screen.getByTitle('Search phrasal verbs'));
-    // ArrowLeft and ArrowRight should not navigate
-    const prevBtn = screen.getByTitle('Previous Question');
     await user.keyboard('{ArrowRight}');
-    // Question number should still be 1 (no navigation happened)
     expect(screen.getByText(/Question № 1/)).toBeInTheDocument();
   });
 });
@@ -470,10 +456,9 @@ describe('App — modals', () => {
     }));
     const user = userEvent.setup();
     renderApp();
-    // Open search, find 'Act out' (index 0) which is in history at position 0
     await user.click(screen.getByTitle('Search phrasal verbs'));
     await user.type(screen.getByPlaceholderText('Search phrasal verbs...'), 'Act out');
-    await user.click(screen.getByText('Act out').closest('li'));
+    await user.click(screen.getByText('Act out').closest('li')!);
     expect(screen.getByText('To perform')).toBeInTheDocument();
     expect(screen.getByText(/Question № 1/)).toBeInTheDocument();
   });
@@ -488,7 +473,7 @@ describe('App — modals', () => {
     renderApp();
     await user.click(screen.getByTitle('Search phrasal verbs'));
     await user.type(screen.getByPlaceholderText('Search phrasal verbs...'), 'Break out');
-    await user.click(screen.getByText('Break out').closest('li'));
+    await user.click(screen.getByText('Break out').closest('li')!);
     expect(screen.getByText('To escape')).toBeInTheDocument();
     expect(screen.getByText(/Question № 2/)).toBeInTheDocument();
   });
@@ -496,7 +481,6 @@ describe('App — modals', () => {
 
 describe('App — session complete', () => {
   it('shows an alert when all verbs have been used', async () => {
-    const alertSpy = vi.spyOn(window, 'alert').mockImplementation(() => {});
     localStorage.setItem('phrasalQuizState', JSON.stringify({
       mastered: [], excluded: [],
       history: [
@@ -508,11 +492,7 @@ describe('App — session complete', () => {
     }));
     const user = userEvent.setup();
     renderApp();
-    // Try to skip — all verbs used, should fire alert
-    await user.click(screen.getByText('Next').closest('button'));
-    // Skip button should be disabled so nothing happens, but if somehow triggered:
-    // The alert would fire. The button is disabled so this is a no-op.
-    // Test that the Skip button is disabled when all verbs are used.
+    await user.click(screen.getByText('Next').closest('button')!);
     expect(screen.getByText('Next').closest('button')).toBeDisabled();
   });
 });

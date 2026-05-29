@@ -1,5 +1,5 @@
 import { render, screen } from '@testing-library/react';
-import Feedback from '../components/Feedback.jsx';
+import Feedback from '../components/Feedback';
 
 describe('Feedback', () => {
   it('renders nothing when status is "idle"', () => {

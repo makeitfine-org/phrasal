@@ -1,8 +1,15 @@
 import { render, screen } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
-import { renderSentenceWithMask } from '../utils/renderSentence.jsx';
+import { renderSentenceWithMask } from '../utils/renderSentence';
 
-function Wrapper({ sentence, wordsToHide, isRevealed, onToggle }) {
+interface WrapperProps {
+  sentence: string;
+  wordsToHide: string[] | null | undefined;
+  isRevealed: boolean;
+  onToggle: () => void;
+}
+
+function Wrapper({ sentence, wordsToHide, isRevealed, onToggle }: WrapperProps) {
   return <div>{renderSentenceWithMask(sentence, wordsToHide, isRevealed, onToggle)}</div>;
 }
 
@@ -49,16 +56,13 @@ describe('renderSentenceWithMask', () => {
   });
 
   it('sorts longer words first to prevent partial overlap shadowing', () => {
-    // "break away" must match before "break" to avoid splitting mid-phrase
     render(<Wrapper sentence="They break away now." wordsToHide={['break', 'break away']} isRevealed={true} onToggle={() => {}} />);
-    // "break away" should be a single masked span, not two separate ones
     expect(screen.getByText('break away')).toBeInTheDocument();
     expect(screen.queryByText('break')).not.toBeInTheDocument();
   });
 
   it('only matches whole words — does not mask partial word matches', () => {
     render(<Wrapper sentence="He breakdown the door." wordsToHide={['break']} isRevealed={false} onToggle={() => {}} />);
-    // "breakdown" should NOT be masked — "break" does not match at a word boundary inside it
     expect(screen.queryByText(/X/)).not.toBeInTheDocument();
   });
 
@@ -97,9 +101,7 @@ describe('renderSentenceWithMask', () => {
   });
 
   it('escapes regex special characters in wordsToHide', () => {
-    // If special chars are not escaped, new RegExp() would throw
     render(<Wrapper sentence="She (act) out well." wordsToHide={['(act)']} isRevealed={true} onToggle={() => {}} />);
-    // Just verify it renders without throwing
     expect(screen.getByText(/She/)).toBeInTheDocument();
   });
 });

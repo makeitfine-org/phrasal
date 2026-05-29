@@ -1,25 +1,44 @@
 import { render, screen } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
-import QuizCard from '../components/QuizCard.jsx';
+import QuizCard from '../components/QuizCard';
+import type { VerbEntry, Status } from '../types';
 
-const mockVerb = {
+const mockVerb: VerbEntry = {
   verb: 'Break out',
   definition: 'To escape or start suddenly',
   sentences: ['A riot broke out in the city.', 'Fire broke out in the building.'],
   wordsToHide: ['broke out'],
 };
 
-const mockRender = vi.fn((sentence) => <span data-testid="sentence">{sentence}</span>);
+const mockRender = vi.fn(
+  (sentence: string, _w: string[] | null | undefined, _r: boolean, _t: () => void) =>
+    <span data-testid="sentence">{sentence}</span>,
+);
 
-function makeProps(overrides = {}) {
+interface CardProps {
+  verb: VerbEntry;
+  status: Status;
+  inputValue: string;
+  revealSentence: boolean;
+  inputRef: React.RefObject<HTMLInputElement | null>;
+  onInputChange: (val: string) => void;
+  onSubmit: (e: React.FormEvent<HTMLFormElement>) => void;
+  onIdk: () => void;
+  onToggleReveal: () => void;
+  renderSentenceWithMask: typeof mockRender;
+  isExcluded: boolean;
+  onToggleExclude: () => void;
+}
+
+function makeProps(overrides: Partial<CardProps> = {}): CardProps {
   return {
     verb: mockVerb,
     status: 'idle',
     inputValue: '',
     revealSentence: false,
-    inputRef: { current: null },
+    inputRef: { current: null } as React.RefObject<HTMLInputElement | null>,
     onInputChange: vi.fn(),
-    onSubmit: vi.fn((e) => e.preventDefault()),
+    onSubmit: vi.fn((e: React.FormEvent<HTMLFormElement>) => e.preventDefault()),
     onIdk: vi.fn(),
     onToggleReveal: vi.fn(),
     renderSentenceWithMask: mockRender,
@@ -150,7 +169,6 @@ describe('QuizCard', () => {
 
   it('sentence section has "hidden" class when isExcluded is true', () => {
     const { container } = render(<QuizCard {...makeProps({ isExcluded: true })} />);
-    // The sentence div contains the sentences; find it by its sibling structure
     const sentenceSection = container.querySelector('.hidden');
     expect(sentenceSection).toBeTruthy();
   });

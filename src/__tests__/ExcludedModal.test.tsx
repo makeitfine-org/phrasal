@@ -1,14 +1,22 @@
 import { render, screen } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
-import ExcludedModal from '../components/ExcludedModal.jsx';
+import ExcludedModal from '../components/ExcludedModal';
+import type { VerbEntry } from '../types';
 
-const allVerbs = [
+const allVerbs: VerbEntry[] = [
   { verb: 'Act out', definition: 'To perform a role', sentences: [], wordsToHide: [] },
   { verb: 'Break out', definition: 'To escape suddenly', sentences: [], wordsToHide: [] },
   { verb: 'Call up', definition: 'To make a phone call', sentences: [], wordsToHide: [] },
 ];
 
-function makeProps(overrides = {}) {
+interface ModalProps {
+  excluded: Set<number>;
+  allVerbs: VerbEntry[];
+  onInclude: (idx: number) => void;
+  onClose: () => void;
+}
+
+function makeProps(overrides: Partial<ModalProps> = {}): ModalProps {
   return {
     excluded: new Set([0, 2]),
     allVerbs,
@@ -86,8 +94,7 @@ describe('ExcludedModal', () => {
     const props = makeProps();
     const user = userEvent.setup();
     const { container } = render(<ExcludedModal {...props} />);
-    // Click the outermost backdrop div (the fixed overlay)
-    await user.click(container.firstChild);
+    await user.click(container.firstChild as Element);
     expect(props.onClose).toHaveBeenCalled();
   });
 
@@ -95,10 +102,9 @@ describe('ExcludedModal', () => {
     const props = makeProps();
     const user = userEvent.setup();
     render(<ExcludedModal {...props} />);
-    // The X button is the close button in the header
     const xButtons = screen.getAllByRole('button');
-    const xBtn = xButtons.find(b => !b.textContent.includes('Include'));
-    await user.click(xBtn);
+    const xBtn = xButtons.find(b => !b.textContent?.includes('Include'));
+    await user.click(xBtn!);
     expect(props.onClose).toHaveBeenCalled();
   });
 

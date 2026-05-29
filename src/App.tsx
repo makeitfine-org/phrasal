@@ -1,30 +1,39 @@
 import React, { useState, useEffect, useRef, useCallback } from 'react';
-import { allVerbs } from './data/phrasalVerbs.js';
-import { renderSentenceWithMask } from './utils/renderSentence.jsx';
-import Header from './components/Header.jsx';
-import QuizCard from './components/QuizCard.jsx';
-import Feedback from './components/Feedback.jsx';
-import NavigationControls from './components/NavigationControls.jsx';
-import ExcludedModal from './components/ExcludedModal.jsx';
-import SearchModal from './components/SearchModal.jsx';
+import { allVerbs } from './data/phrasalVerbs';
+import { renderSentenceWithMask } from './utils/renderSentence';
+import Header from './components/Header';
+import QuizCard from './components/QuizCard';
+import Feedback from './components/Feedback';
+import NavigationControls from './components/NavigationControls';
+import ExcludedModal from './components/ExcludedModal';
+import SearchModal from './components/SearchModal';
+import type { HistoryItem } from './types';
 
 const STORAGE_KEY = 'phrasalQuizState';
 
-export default function App() {
-  const savedState = JSON.parse(localStorage.getItem(STORAGE_KEY) || '{}');
+interface PersistedState {
+  mastered?: number[];
+  excluded?: number[];
+  history?: HistoryItem[];
+  currentIndex?: number;
+  darkMode?: boolean;
+}
 
-  const [darkMode, setDarkMode] = useState(savedState.darkMode || false);
-  const [mastered, setMastered] = useState(new Set(savedState.mastered || []));
-  const [excluded, setExcluded] = useState(new Set(savedState.excluded || []));
-  const [history, setHistory] = useState(savedState.history || []);
-  const [currentIndex, setCurrentIndex] = useState(savedState.currentIndex ?? -1);
+export default function App() {
+  const savedState = JSON.parse(localStorage.getItem(STORAGE_KEY) || '{}') as PersistedState;
+
+  const [darkMode, setDarkMode] = useState<boolean>(savedState.darkMode ?? false);
+  const [mastered, setMastered] = useState<Set<number>>(new Set(savedState.mastered ?? []));
+  const [excluded, setExcluded] = useState<Set<number>>(new Set(savedState.excluded ?? []));
+  const [history, setHistory] = useState<HistoryItem[]>(savedState.history ?? []);
+  const [currentIndex, setCurrentIndex] = useState<number>(savedState.currentIndex ?? -1);
   const [revealSentence, setRevealSentence] = useState(false);
   const [showExcludedModal, setShowExcludedModal] = useState(false);
   const [showSearchModal, setShowSearchModal] = useState(false);
-  const [touchStart, setTouchStart] = useState(null);
-  const [touchEnd, setTouchEnd] = useState(null);
+  const [touchStart, setTouchStart] = useState<number | null>(null);
+  const [touchEnd, setTouchEnd] = useState<number | null>(null);
 
-  const inputRef = useRef(null);
+  const inputRef = useRef<HTMLInputElement>(null);
 
   // Sync dark class to <html> so body background responds
   useEffect(() => {
@@ -60,7 +69,7 @@ export default function App() {
 
   const goToNextUnmastered = useCallback(() => {
     const usedIndices = new Set(history.map(h => h.index));
-    const remaining = [];
+    const remaining: number[] = [];
     for (let i = 0; i < allVerbs.length; i++) {
       if (!usedIndices.has(i) && !excluded.has(i)) remaining.push(i);
     }
@@ -125,7 +134,7 @@ export default function App() {
     });
   }, [currentIndex]);
 
-  const handleSubmit = useCallback((e) => {
+  const handleSubmit = useCallback((e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     const currentItem = history[currentIndex];
     if (!currentItem.inputValue.trim() || currentItem.status !== 'idle') return;
@@ -145,7 +154,7 @@ export default function App() {
     }
   }, [currentIndex, history]);
 
-  const updateInputValue = useCallback((val) => {
+  const updateInputValue = useCallback((val: string) => {
     setHistory(prev => {
       const next = [...prev];
       next[currentIndex] = { ...next[currentIndex], inputValue: val };
@@ -153,7 +162,7 @@ export default function App() {
     });
   }, [currentIndex]);
 
-  const handleToggleExclude = useCallback((verbIndex) => {
+  const handleToggleExclude = useCallback((verbIndex: number) => {
     if (excluded.has(verbIndex)) {
       setExcluded(prev => { const next = new Set(prev); next.delete(verbIndex); return next; });
       return;
@@ -173,7 +182,7 @@ export default function App() {
         .filter(i => !usedIndices.has(i) && !newExcluded.has(i));
       if (remaining.length > 0) {
         const nextIdx = remaining[Math.floor(Math.random() * remaining.length)];
-        const finalHistory = [...newHistory, { index: nextIdx, inputValue: '', status: 'idle' }];
+        const finalHistory = [...newHistory, { index: nextIdx, inputValue: '', status: 'idle' as const }];
         setHistory(finalHistory);
         setCurrentIndex(finalHistory.length - 1);
       } else {
@@ -186,12 +195,12 @@ export default function App() {
     }
   }, [excluded, currentIndex, history]);
 
-  const handleIncludeVerb = useCallback((verbIndex) => {
+  const handleIncludeVerb = useCallback((verbIndex: number) => {
     setExcluded(prev => { const next = new Set(prev); next.delete(verbIndex); return next; });
     setMastered(prev => { const next = new Set(prev); next.delete(verbIndex); return next; });
   }, []);
 
-  const handleJumpToVerb = useCallback((verbIndex) => {
+  const handleJumpToVerb = useCallback((verbIndex: number) => {
     const existingPos = history.findIndex(h => h.index === verbIndex);
     if (existingPos !== -1) {
       setCurrentIndex(existingPos);
@@ -201,7 +210,7 @@ export default function App() {
     }
   }, [history]);
 
-  const handleUnexcludeAndJump = useCallback((verbIndex) => {
+  const handleUnexcludeAndJump = useCallback((verbIndex: number) => {
     setExcluded(prev => { const next = new Set(prev); next.delete(verbIndex); return next; });
     setMastered(prev => { const next = new Set(prev); next.delete(verbIndex); return next; });
     const existingPos = history.findIndex(h => h.index === verbIndex);
@@ -215,7 +224,7 @@ export default function App() {
 
   // Keyboard shortcuts
   useEffect(() => {
-    const handleKeyDown = (e) => {
+    const handleKeyDown = (e: KeyboardEvent) => {
       if (showExcludedModal || showSearchModal) return;
       const currentStatus = history[currentIndex]?.status ?? 'idle';
       const key = e.key.toLowerCase();
@@ -248,11 +257,11 @@ export default function App() {
 
   // Swipe handlers
   const minSwipeDistance = 50;
-  const onTouchStart = (e) => {
+  const onTouchStart = (e: React.TouchEvent<HTMLDivElement>) => {
     setTouchEnd(null);
     setTouchStart(e.targetTouches[0].clientX);
   };
-  const onTouchMove = (e) => setTouchEnd(e.targetTouches[0].clientX);
+  const onTouchMove = (e: React.TouchEvent<HTMLDivElement>) => setTouchEnd(e.targetTouches[0].clientX);
   const onTouchEnd = () => {
     if (!touchStart || !touchEnd) return;
     const distance = touchStart - touchEnd;

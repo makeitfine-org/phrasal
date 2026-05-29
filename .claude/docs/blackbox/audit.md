@@ -212,3 +212,20 @@ commit
 ## 2026-05-29T11:14:56Z
 Create a backlog.md task (but don't execute it) to move project from javascript to typescript. Consider also moveing  jsx to tsx, etc.
 ---
+
+## 2026-05-29T11:25:33Z
+implement backlog.md task-3
+---
+
+## 2026-05-29T13:53:00Z
+did you complete implementing of task-3?
+---
+
+## 2026-05-29T13:58:19Z
+- did you complete implementing of task-3?
+- did you migrate project form javascript to typescript?
+---
+
+## 2026-05-29T13:58:33Z
+commit all
+---

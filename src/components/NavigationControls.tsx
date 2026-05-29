@@ -1,5 +1,17 @@
 import React from 'react';
-import { ChevronLeft, ChevronRight, RotateCcw, SkipForward } from './Icons.jsx';
+import { ChevronLeft, ChevronRight, RotateCcw, SkipForward } from './Icons';
+import type { Status } from '../types';
+
+interface NavigationControlsProps {
+  currentIndex: number;
+  historyLength: number;
+  remainingCount: number;
+  status: Status;
+  onPrev: () => void;
+  onNext: () => void;
+  onReset: () => void;
+  onSkip: () => void;
+}
 
 export default function NavigationControls({
   currentIndex,
@@ -10,7 +22,7 @@ export default function NavigationControls({
   onNext,
   onReset,
   onSkip,
-}) {
+}: NavigationControlsProps) {
   const atStart = currentIndex === 0;
   const atEnd = currentIndex === historyLength - 1 && remainingCount === 0;
   const skipDisabled = remainingCount === 0;

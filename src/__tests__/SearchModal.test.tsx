@@ -1,15 +1,24 @@
 import { render, screen, within } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
-import SearchModal from '../components/SearchModal.jsx';
+import SearchModal from '../components/SearchModal';
+import type { VerbEntry } from '../types';
 
-const allVerbs = Array.from({ length: 20 }, (_, i) => ({
+const allVerbs: VerbEntry[] = Array.from({ length: 20 }, (_, i) => ({
   verb: `Verb ${i}`,
   definition: `Definition number ${i}`,
   sentences: [],
   wordsToHide: [],
 }));
 
-function makeProps(overrides = {}) {
+interface ModalProps {
+  allVerbs: VerbEntry[];
+  excluded: Set<number>;
+  onSelect: (idx: number) => void;
+  onUnexclude: (idx: number) => void;
+  onClose: () => void;
+}
+
+function makeProps(overrides: Partial<ModalProps> = {}): ModalProps {
   return {
     allVerbs,
     excluded: new Set(),
@@ -70,7 +79,7 @@ describe('SearchModal', () => {
     const user = userEvent.setup();
     render(<SearchModal {...props} />);
     await user.type(screen.getByPlaceholderText('Search phrasal verbs...'), 'Verb 0');
-    await user.click(screen.getByText('Verb 0').closest('li'));
+    await user.click(screen.getByText('Verb 0').closest('li')!);
     expect(props.onSelect).toHaveBeenCalledWith(0);
     expect(props.onClose).toHaveBeenCalledOnce();
   });
@@ -97,13 +106,13 @@ describe('SearchModal', () => {
       const user = userEvent.setup();
       render(<SearchModal {...makeProps({ excluded: new Set([3]) })} />);
       await user.click(screen.getByRole('checkbox', { name: /excluded/i }));
-      const item = screen.getByText('Verb 3').closest('li');
+      const item = screen.getByText('Verb 3').closest('li')!;
       expect(within(item).getByText('excluded')).toBeInTheDocument();
     });
 
     it('does not show "excluded" badge on included verbs', () => {
       render(<SearchModal {...makeProps({ excluded: new Set([3]) })} />);
-      const item = screen.getByText('Verb 0').closest('li');
+      const item = screen.getByText('Verb 0').closest('li')!;
       expect(within(item).queryByText('excluded')).not.toBeInTheDocument();
     });
 
@@ -112,7 +121,7 @@ describe('SearchModal', () => {
       const user = userEvent.setup();
       render(<SearchModal {...props} />);
       await user.click(screen.getByRole('checkbox', { name: /excluded/i }));
-      await user.click(screen.getByText('Verb 3').closest('li'));
+      await user.click(screen.getByText('Verb 3').closest('li')!);
       expect(props.onUnexclude).toHaveBeenCalledWith(3);
       expect(props.onClose).toHaveBeenCalledOnce();
       expect(props.onSelect).not.toHaveBeenCalled();
@@ -207,7 +216,7 @@ describe('SearchModal', () => {
     const props = makeProps();
     const user = userEvent.setup();
     const { container } = render(<SearchModal {...props} />);
-    await user.click(container.firstChild);
+    await user.click(container.firstChild as Element);
     expect(props.onClose).toHaveBeenCalled();
   });
 

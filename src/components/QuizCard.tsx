@@ -1,5 +1,26 @@
 import React from 'react';
-import { InfoIcon, LightbulbIcon, PencilIcon } from './Icons.jsx';
+import { InfoIcon, LightbulbIcon, PencilIcon } from './Icons';
+import type { Status, VerbEntry } from '../types';
+
+interface QuizCardProps {
+  verb: VerbEntry;
+  status: Status;
+  inputValue: string;
+  revealSentence: boolean;
+  inputRef: React.RefObject<HTMLInputElement | null>;
+  onInputChange: (val: string) => void;
+  onSubmit: (e: React.FormEvent<HTMLFormElement>) => void;
+  onIdk: () => void;
+  onToggleReveal: () => void;
+  renderSentenceWithMask: (
+    sentence: string,
+    wordsToHide: string[] | null | undefined,
+    isRevealed: boolean,
+    onToggle: () => void,
+  ) => React.ReactNode;
+  isExcluded: boolean;
+  onToggleExclude: () => void;
+}
 
 export default function QuizCard({
   verb,
@@ -14,7 +35,7 @@ export default function QuizCard({
   renderSentenceWithMask,
   isExcluded,
   onToggleExclude,
-}) {
+}: QuizCardProps) {
   const hint = `Starts with the letter "${verb.verb.charAt(0)}".`;
 
   return (

@@ -1,6 +1,11 @@
 import React from 'react';
 
-export function renderSentenceWithMask(sentence, wordsToHide, isRevealed, onToggle) {
+export function renderSentenceWithMask(
+  sentence: string,
+  wordsToHide: string[] | null | undefined,
+  isRevealed: boolean,
+  onToggle: () => void,
+): React.ReactNode {
   if (!wordsToHide || wordsToHide.length === 0) return <span>{sentence}</span>;
 
   const escapedWords = [...wordsToHide]

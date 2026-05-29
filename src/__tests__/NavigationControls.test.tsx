@@ -1,13 +1,14 @@
 import { render, screen } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
-import NavigationControls from '../components/NavigationControls.jsx';
+import NavigationControls from '../components/NavigationControls';
+import type { Status } from '../types';
 
-function makeProps(overrides = {}) {
+function makeProps(overrides: Record<string, unknown> = {}) {
   return {
     currentIndex: 1,
     historyLength: 3,
     remainingCount: 2,
-    status: 'idle',
+    status: 'idle' as Status,
     onPrev: vi.fn(),
     onNext: vi.fn(),
     onReset: vi.fn(),
@@ -87,7 +88,7 @@ describe('NavigationControls', () => {
     const props = makeProps({ status: 'correct' });
     const user = userEvent.setup();
     render(<NavigationControls {...props} />);
-    await user.click(screen.getByText('Reset').closest('button'));
+    await user.click(screen.getByText('Reset').closest('button')!);
     expect(props.onReset).toHaveBeenCalledOnce();
   });
 
@@ -95,7 +96,7 @@ describe('NavigationControls', () => {
     const props = makeProps({ remainingCount: 2 });
     const user = userEvent.setup();
     render(<NavigationControls {...props} />);
-    await user.click(screen.getByText('Next').closest('button'));
+    await user.click(screen.getByText('Next').closest('button')!);
     expect(props.onSkip).toHaveBeenCalledOnce();
   });
 });

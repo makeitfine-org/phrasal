@@ -1,11 +1,19 @@
 import React, { useState, useEffect } from 'react';
-import { XIcon } from './Icons.jsx';
+import { XIcon } from './Icons';
+import type { VerbEntry } from '../types';
 
-export default function ExcludedModal({ excluded, allVerbs, onInclude, onClose }) {
+interface ExcludedModalProps {
+  excluded: Set<number>;
+  allVerbs: VerbEntry[];
+  onInclude: (verbIndex: number) => void;
+  onClose: () => void;
+}
+
+export default function ExcludedModal({ excluded, allVerbs, onInclude, onClose }: ExcludedModalProps) {
   const [searchQuery, setSearchQuery] = useState('');
 
   useEffect(() => {
-    const handler = (e) => { if (e.key === 'Escape') onClose(); };
+    const handler = (e: KeyboardEvent) => { if (e.key === 'Escape') onClose(); };
     window.addEventListener('keydown', handler);
     return () => window.removeEventListener('keydown', handler);
   }, [onClose]);

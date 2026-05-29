@@ -133,3 +133,72 @@
 <!-- git-snapshot 2026-05-29T11:19:45Z -->
 - .claude/docs/blackbox/audit.md
 <!-- end-snapshot -->
+
+## 2026-05-29T13:55:00Z
+### Decisions
+- TASK-3 executed: full JS→TS migration (both sessions combined)
+- Used `vitest/config` (not `vite`) in `vite.config.ts` to type the `test` property
+- Added `src/vite-env.d.ts` for CSS side-effect import typing
+- React 19 `useRef` returns `RefObject<T | null>` — propagated to `QuizCardProps.inputRef`
+- Shared domain types centralised in `src/types.ts` (Status, HistoryItem, RawVerbEntry, VerbEntry)
+### Constraints Stated by User
+- None
+### Files Modified
+- tsconfig.json, tsconfig.node.json — new TypeScript config files
+- src/types.ts — new shared domain types
+- src/vite-env.d.ts — Vite client type reference (CSS import support)
+- src/*.tsx, src/components/*.tsx, src/utils/*.tsx, src/data/*.ts, src/__tests__/*.tsx/.ts — all sources renamed and typed
+- vite.config.ts, tailwind.config.js, index.html, CLAUDE.md — config/docs updated for TS
+### Deferred
+- None
+---
+
+<!-- git-snapshot 2026-05-29T13:56:40Z -->
+- .claude/docs/blackbox/audit.md
+- .claude/docs/blackbox/session-log.md
+- .claude/settings.local.json
+- CLAUDE.md
+- backlog/tasks/task-3 - Migrate-project-from-JavaScript-to-TypeScript.md
+- index.html
+- package-lock.json
+- package.json
+- src/App.tsx
+- src/__tests__/App.test.tsx
+- src/__tests__/ExcludedModal.test.tsx
+- src/__tests__/Feedback.test.tsx
+- src/__tests__/Header.test.tsx
+- src/__tests__/NavigationControls.test.tsx
+- src/__tests__/QuizCard.test.tsx
+- src/__tests__/SearchModal.test.tsx
+- src/__tests__/phrasalVerbs.test.ts
+- src/__tests__/renderSentence.test.tsx
+- src/__tests__/setup.js
+- src/__tests__/setup.ts
+<!-- end-snapshot -->
+
+<!-- git-snapshot 2026-05-29T13:58:27Z -->
+- .claude/docs/blackbox/audit.md
+- .claude/docs/blackbox/session-log.md
+- .claude/settings.local.json
+- CLAUDE.md
+- backlog/tasks/task-3 - Migrate-project-from-JavaScript-to-TypeScript.md
+- index.html
+- package-lock.json
+- package.json
+- src/App.tsx
+- src/__tests__/App.test.tsx
+- src/__tests__/ExcludedModal.test.tsx
+- src/__tests__/Feedback.test.tsx
+- src/__tests__/Header.test.tsx
+- src/__tests__/NavigationControls.test.tsx
+- src/__tests__/QuizCard.test.tsx
+- src/__tests__/SearchModal.test.tsx
+- src/__tests__/phrasalVerbs.test.ts
+- src/__tests__/renderSentence.test.tsx
+- src/__tests__/setup.js
+- src/__tests__/setup.ts
+<!-- end-snapshot -->
+
+<!-- git-snapshot 2026-05-29T13:59:38Z -->
+- .claude/docs/blackbox/audit.md
+<!-- end-snapshot -->

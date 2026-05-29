@@ -22,7 +22,8 @@
       "mcp__backlog__*",
       "Bash(node -e \"import\\('/home/eug/dev/projects/my/phrasal/src/data/phrasalVerbs.js'\\).then\\(m => console.log\\(m.rawData.length\\)\\)\")",
       "Bash(npx vitest *)",
-      "Bash(node -e ' *)"
+      "Bash(node -e ' *)",
+      "Bash(npx tsc *)"
     ]
   },
   "model": "sonnet",

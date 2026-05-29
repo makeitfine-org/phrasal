@@ -14,11 +14,20 @@ npm run test:run  # Vitest one-shot (CI)
 
 ## Architecture
 
-Single-page React app (Vite + Tailwind). All state lives in `App.jsx` and is persisted to `localStorage` under the key `phrasalQuizState`.
+Single-page React + TypeScript app (Vite + Tailwind). All state lives in `App.tsx` and is persisted to `localStorage` under the key `phrasalQuizState`.
 
-**Data flow:** `phrasalVerbs.js` → `App.jsx` (state + handlers) → props down to `Header`, `QuizCard`, `Feedback`, `NavigationControls`, `ExcludedModal`, `SearchModal`. No context or global store.
+**Data flow:** `phrasalVerbs.ts` → `App.tsx` (state + handlers) → props down to `Header`, `QuizCard`, `Feedback`, `NavigationControls`, `ExcludedModal`, `SearchModal`. No context or global store.
 
-### Key state shape (`App.jsx`)
+### Shared types (`src/types.ts`)
+
+| Type | Shape | Notes |
+|---|---|---|
+| `Status` | `'idle' \| 'correct' \| 'wrong'` | Card answer state |
+| `HistoryItem` | `{ index, inputValue, status }` | One card in navigation history |
+| `RawVerbEntry` | 5-tuple `[verb, def, sentence\|string[], wordsToHide[], isLearned]` | Source data shape |
+| `VerbEntry` | `{ verb, definition, sentences, wordsToHide }` | Normalized quiz entry |
+
+### Key state shape (`App.tsx`)
 
 | State | Type | Notes |
 |---|---|---|
@@ -28,22 +37,18 @@ Single-page React app (Vite + Tailwind). All state lives in `App.jsx` and is per
 | `currentIndex` | `number` | Pointer into `history` (enables back navigation) |
 | `darkMode` | `boolean` | Synced to `dark` class on `<html>` |
 
-`HistoryItem`: `{ index: number, inputValue: string, status: 'idle' | 'correct' | 'wrong' }`.
+### Verb data format (`src/data/phrasalVerbs.ts`)
 
-### Verb data format (`src/data/phrasalVerbs.js`)
+Each entry in `rawData` is typed as `RawVerbEntry` (5-element tuple):
 
-Each entry in `rawData` is a 5-element tuple:
-
-```js
+```ts
 [verb, definition, exampleSentence, wordsToHide, isLearned]
 //  0        1             2               3           4
 ```
 
-`allVerbs` is `rawData` filtered to `isLearned === false` (index 4). Setting the 5th field to `true` removes a verb from the active quiz pool.
+`allVerbs: VerbEntry[]` is `rawData` filtered to `isLearned === false` and normalized (sentences always `string[]`). Setting the 5th field to `true` removes a verb from the active quiz pool.
 
-`wordsToHide` (index 3) drives `renderSentenceWithMask` in `src/utils/renderSentence.jsx`, which splits the sentence on a case-insensitive regex (longest match first) and renders matched tokens as clickable masked spans.
-
-The example sentence (index 2) can be a single string or an array of strings — `allVerbs` normalises both to `string[]`.
+`wordsToHide` (index 3) drives `renderSentenceWithMask` in `src/utils/renderSentence.tsx`, which splits the sentence on a case-insensitive regex (longest match first) and renders matched tokens as clickable masked spans.
 
 ### Answer checking
 
@@ -51,9 +56,9 @@ Comparison is case-insensitive with parentheses stripped: `cleanUser === cleanCo
 
 ## Tests
 
-Vitest + `@testing-library/react`. Test files live in `src/__tests__/`. The setup file is `src/__tests__/setup.js` (jest-dom matchers, `scrollIntoView` stub, localStorage mock).
+Vitest + `@testing-library/react`. Test files live in `src/__tests__/`. The setup file is `src/__tests__/setup.ts` (jest-dom matchers, `scrollIntoView` stub, localStorage mock).
 
-`renderSentenceWithMask` is exported from `src/utils/renderSentence.jsx` (extracted from `App.jsx`) so it can be unit tested directly.
+`renderSentenceWithMask` is exported from `src/utils/renderSentence.tsx` (extracted from `App.tsx`) so it can be unit tested directly.
 
 ## Workflow Defaults
 

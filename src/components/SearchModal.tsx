@@ -1,14 +1,25 @@
 import React, { useState, useEffect, useRef } from 'react';
-import { XIcon } from './Icons.jsx';
+import { XIcon } from './Icons';
+import type { VerbEntry } from '../types';
 
-export default function SearchModal({ allVerbs, excluded, onSelect, onUnexclude, onClose }) {
+interface SearchModalProps {
+  allVerbs: VerbEntry[];
+  excluded: Set<number>;
+  onSelect: (verbIndex: number) => void;
+  onUnexclude: (verbIndex: number) => void;
+  onClose: () => void;
+}
+
+type SearchResult = VerbEntry & { index: number; isExcluded: boolean };
+
+export default function SearchModal({ allVerbs, excluded, onSelect, onUnexclude, onClose }: SearchModalProps) {
   const [query, setQuery] = useState('');
   const [showExcluded, setShowExcluded] = useState(false);
   const [selectedIndex, setSelectedIndex] = useState(-1);
-  const listRef = useRef(null);
+  const listRef = useRef<HTMLUListElement>(null);
 
   useEffect(() => {
-    const handler = (e) => { if (e.key === 'Escape') onClose(); };
+    const handler = (e: KeyboardEvent) => { if (e.key === 'Escape') onClose(); };
     window.addEventListener('keydown', handler);
     return () => window.removeEventListener('keydown', handler);
   }, [onClose]);
@@ -17,12 +28,12 @@ export default function SearchModal({ allVerbs, excluded, onSelect, onUnexclude,
 
   useEffect(() => {
     if (selectedIndex >= 0 && listRef.current) {
-      const item = listRef.current.children[selectedIndex];
+      const item = listRef.current.children[selectedIndex] as HTMLElement | undefined;
       if (item) item.scrollIntoView({ block: 'nearest' });
     }
   }, [selectedIndex]);
 
-  const results = allVerbs
+  const results: SearchResult[] = allVerbs
     .map((v, i) => ({ ...v, index: i, isExcluded: excluded.has(i) }))
     .filter(v => showExcluded ? true : !v.isExcluded)
     .filter(v =>
@@ -31,7 +42,7 @@ export default function SearchModal({ allVerbs, excluded, onSelect, onUnexclude,
       v.definition.toLowerCase().includes(query.toLowerCase())
     );
 
-  const handleSelect = (v) => {
+  const handleSelect = (v: SearchResult) => {
     if (v.isExcluded) {
       onUnexclude(v.index);
     } else {
@@ -40,7 +51,7 @@ export default function SearchModal({ allVerbs, excluded, onSelect, onUnexclude,
     onClose();
   };
 
-  const handleKeyDown = (e) => {
+  const handleKeyDown = (e: React.KeyboardEvent<HTMLInputElement>) => {
     if (e.key === 'ArrowDown') {
       e.preventDefault();
       setSelectedIndex(i => Math.min(i + 1, results.length - 1));

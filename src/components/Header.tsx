@@ -1,7 +1,19 @@
 import React from 'react';
-import { SunIcon, MoonIcon, Trash2, EyeOffIcon, SearchIcon } from './Icons.jsx';
+import { SunIcon, MoonIcon, Trash2, EyeOffIcon, SearchIcon } from './Icons';
 
-export default function Header({ darkMode, masteredCount, totalCount, currentIndex, onToggleDark, onReset, excludedCount, onShowExcluded, onShowSearch }) {
+interface HeaderProps {
+  darkMode: boolean;
+  masteredCount: number;
+  totalCount: number;
+  currentIndex: number;
+  onToggleDark: () => void;
+  onReset: () => void;
+  excludedCount: number;
+  onShowExcluded: () => void;
+  onShowSearch: () => void;
+}
+
+export default function Header({ darkMode, masteredCount, totalCount, currentIndex, onToggleDark, onReset, excludedCount, onShowExcluded, onShowSearch }: HeaderProps) {
   return (
     <div className="flex justify-between items-center mb-8">
       <div>

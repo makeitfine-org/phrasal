@@ -1,5 +1,7 @@
+import type { RawVerbEntry, VerbEntry } from '../types';
+
 // Database format: [Verb, Extended Definition, Example Sentence, Exact words to hide, Mastery Status]
-export const rawData = [
+export const rawData: RawVerbEntry[] = [
     ["Act out", "To perform a role or behavior", "The students acted out a scene from the play.", ["acted out"], false],
     ["Act up", "To behave inappropriately or malfunction", "The computer started to act up and froze.", ["act up"], false],
     ["Ask for", "To request or invite someone to do something", "I'm going to ask for help with this difficult task.", ["ask for"], false],
@@ -272,7 +274,7 @@ export const rawData = [
     ["Work out", "To exercise", "I try to work out every morning by repeatedly lifting a heavy donut to my mouth.", ["work out"], false],
 ];
 
-export const allVerbs = rawData
+export const allVerbs: VerbEntry[] = rawData
     .filter(row => !row[4])
     .map(row => ({
         verb: row[0],

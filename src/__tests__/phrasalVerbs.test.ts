@@ -1,7 +1,8 @@
-import { rawData } from '../data/phrasalVerbs.js';
+import { rawData } from '../data/phrasalVerbs';
 import fixture from './__fixtures__/phrasalVerbs.json';
+import type { RawVerbEntry } from '../types';
 
-const normalize = ([verb, definition, sentences, wordsToHide]) => ({
+const normalize = ([verb, definition, sentences, wordsToHide]: RawVerbEntry) => ({
     verb,
     definition,
     sentences: Array.isArray(sentences) ? sentences : [sentences],
