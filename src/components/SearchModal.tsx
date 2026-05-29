@@ -86,7 +86,7 @@ export default function SearchModal({ allVerbs, excluded, onSelect, onUnexclude,
             />
             <button
               onClick={onClose}
-              className="p-2 rounded-full text-gray-500 hover:bg-gray-100 dark:hover:bg-gray-800 transition-colors shrink-0"
+              className="p-2 rounded-full text-gray-500 hover:bg-gray-100 dark:hover:bg-gray-800 transition-colors shrink-0 border border-gray-200 dark:border-gray-700"
             >
               <XIcon />
             </button>

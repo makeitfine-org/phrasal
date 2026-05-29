@@ -288,3 +288,28 @@ Move appropriate backlog md tasks to completed folder
 ## 2026-05-29T15:52:13Z
 commit all
 ---
+
+## 2026-05-29T16:29:32Z
+Create a backlog.md task (but don't execute it).
+Add outline for buttons. Consider dark/light thema. Cover with tests
+---
+
+## 2026-05-29T16:31:02Z
+Complete the backlog task-5
+---
+
+## 2026-05-29T16:44:21Z
+Create a backlog.md task (but don't execute it).Add border beautifull, tiny for buttons. Consider dark/light thema. Cover with tests
+---
+
+## 2026-05-29T16:46:26Z
+Complete the backlog task-5
+---
+
+## 2026-05-29T16:55:06Z
+commit all
+---
+
+## 2026-05-29T16:56:22Z
+commit all
+---

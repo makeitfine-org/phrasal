@@ -227,4 +227,9 @@ describe('SearchModal', () => {
     await user.click(screen.getByRole('button'));
     expect(props.onClose).toHaveBeenCalled();
   });
+
+  it('Close (X) button has subtle border class', () => {
+    render(<SearchModal {...makeProps()} />);
+    expect(screen.getByRole('button')).toHaveClass('border-gray-200');
+  });
 });

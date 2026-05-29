@@ -70,4 +70,19 @@ describe('Header', () => {
     await user.click(screen.getByTitle('Search phrasal verbs'));
     expect(props.onShowSearch).toHaveBeenCalledOnce();
   });
+
+  it('Search button has subtle border class', () => {
+    render(<Header {...makeProps()} />);
+    expect(screen.getByTitle('Search phrasal verbs')).toHaveClass('border-gray-300');
+  });
+
+  it('ExcludedModal trigger has subtle border class', () => {
+    render(<Header {...makeProps()} />);
+    expect(screen.getByTitle('View excluded verbs')).toHaveClass('border-gray-300');
+  });
+
+  it('Reset button has subtle border class', () => {
+    render(<Header {...makeProps()} />);
+    expect(screen.getByTitle('Global Reset - Clear all progress')).toHaveClass('border-gray-300');
+  });
 });

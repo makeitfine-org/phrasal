@@ -33,7 +33,7 @@ export default function NavigationControls({
         <button
           onClick={onPrev}
           disabled={atStart}
-          className={`p-2 rounded-lg flex items-center justify-center transition-colors ${
+          className={`p-2 rounded-lg flex items-center justify-center transition-colors border border-gray-200 dark:border-gray-700 ${
             atStart
               ? 'text-gray-400 dark:text-gray-600 cursor-not-allowed'
               : 'text-gray-700 dark:text-gray-300 hover:bg-gray-200 dark:hover:bg-gray-800'
@@ -45,7 +45,7 @@ export default function NavigationControls({
         <button
           onClick={onNext}
           disabled={atEnd}
-          className={`p-2 rounded-lg flex items-center justify-center transition-colors ${
+          className={`p-2 rounded-lg flex items-center justify-center transition-colors border border-gray-200 dark:border-gray-700 ${
             atEnd
               ? 'text-gray-400 dark:text-gray-600 cursor-not-allowed'
               : 'text-gray-700 dark:text-gray-300 hover:bg-gray-200 dark:hover:bg-gray-800'
@@ -60,10 +60,10 @@ export default function NavigationControls({
         <button
           onClick={onReset}
           disabled={status === 'idle'}
-          className={`flex items-center space-x-1 px-4 py-2 rounded-lg font-medium transition-colors ${
+          className={`flex items-center space-x-1 px-4 py-2 rounded-lg font-medium transition-colors border ${
             status === 'idle'
-              ? 'opacity-50 cursor-not-allowed text-gray-500'
-              : 'bg-gray-200 dark:bg-gray-800 text-gray-800 dark:text-gray-200 hover:bg-gray-300 dark:hover:bg-gray-700'
+              ? 'opacity-50 cursor-not-allowed text-gray-500 border-gray-200 dark:border-gray-700'
+              : 'bg-gray-200 dark:bg-gray-800 text-gray-800 dark:text-gray-200 hover:bg-gray-300 dark:hover:bg-gray-700 border-gray-300 dark:border-gray-700'
           }`}
         >
           <RotateCcw />
@@ -73,10 +73,10 @@ export default function NavigationControls({
         <button
           onClick={onSkip}
           disabled={skipDisabled}
-          className={`flex items-center space-x-1 px-4 py-2 rounded-lg font-medium transition-colors ${
+          className={`flex items-center space-x-1 px-4 py-2 rounded-lg font-medium transition-colors border ${
             skipDisabled
-              ? 'opacity-50 cursor-not-allowed text-gray-500'
-              : 'bg-blue-100 dark:bg-blue-900/40 text-blue-800 dark:text-blue-300 hover:bg-blue-200 dark:hover:bg-blue-800/60'
+              ? 'opacity-50 cursor-not-allowed text-gray-500 border-gray-200 dark:border-gray-700'
+              : 'bg-blue-100 dark:bg-blue-900/40 text-blue-800 dark:text-blue-300 hover:bg-blue-200 dark:hover:bg-blue-800/60 border-blue-300 dark:border-blue-700'
           }`}
         >
           <span>Next</span>

@@ -184,4 +184,24 @@ describe('QuizCard', () => {
     const input = screen.getByPlaceholderText('Type phrasal verb');
     expect(input).toHaveClass('border-red-500');
   });
+
+  it('IDK button has amber border class', () => {
+    render(<QuizCard {...makeProps()} />);
+    expect(screen.getByText('IDK')).toHaveClass('border-amber-600');
+  });
+
+  it('Check button has blue border class', () => {
+    render(<QuizCard {...makeProps()} />);
+    expect(screen.getByText('Check')).toHaveClass('border-blue-700');
+  });
+
+  it('Exclude button has border in non-excluded state', () => {
+    render(<QuizCard {...makeProps({ isExcluded: false })} />);
+    expect(screen.getByText('Exclude')).toHaveClass('border-gray-300');
+  });
+
+  it('Excluded button has border in excluded state', () => {
+    render(<QuizCard {...makeProps({ isExcluded: true })} />);
+    expect(screen.getByText('Excluded')).toHaveClass('border-red-300');
+  });
 });

@@ -99,4 +99,24 @@ describe('NavigationControls', () => {
     await user.click(screen.getByText('Next').closest('button')!);
     expect(props.onSkip).toHaveBeenCalledOnce();
   });
+
+  it('Prev button has subtle border class', () => {
+    render(<NavigationControls {...makeProps({ currentIndex: 1 })} />);
+    expect(screen.getByTitle('Previous Question')).toHaveClass('border-gray-200');
+  });
+
+  it('Next chevron button has subtle border class', () => {
+    render(<NavigationControls {...makeProps()} />);
+    expect(screen.getByTitle('Next / History Forward')).toHaveClass('border-gray-200');
+  });
+
+  it('Reset button (enabled) has border class', () => {
+    render(<NavigationControls {...makeProps({ status: 'correct' })} />);
+    expect(screen.getByText('Reset').closest('button')).toHaveClass('border-gray-300');
+  });
+
+  it('Next/Skip button (enabled) has blue border class', () => {
+    render(<NavigationControls {...makeProps({ remainingCount: 1 })} />);
+    expect(screen.getByText('Next').closest('button')).toHaveClass('border-blue-300');
+  });
 });

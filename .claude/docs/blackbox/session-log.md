@@ -257,3 +257,45 @@
 - backlog/tasks/task-2 - Align-all-phrasalVerbs.js-entries-with-canonical-reference-data-sentences.md
 - backlog/tasks/task-4 - Shared-layout-routing-tests-and-theme-toggle.md
 <!-- end-snapshot -->
+
+<!-- git-snapshot 2026-05-29T16:30:02Z -->
+- .claude/docs/blackbox/audit.md
+- CLAUDE.md
+<!-- end-snapshot -->
+
+<!-- git-snapshot 2026-05-29T16:37:11Z -->
+- .claude/docs/blackbox/audit.md
+- .claude/docs/blackbox/session-log.md
+- CLAUDE.md
+- src/components/ExcludedModal.tsx
+- src/components/Header.tsx
+- src/components/NavigationControls.tsx
+- src/components/PageShell.tsx
+- src/components/QuizCard.tsx
+- src/components/SearchModal.tsx
+- src/index.css
+<!-- end-snapshot -->
+
+<!-- git-snapshot 2026-05-29T16:44:53Z -->
+- .claude/docs/blackbox/audit.md
+- .claude/docs/blackbox/session-log.md
+- CLAUDE.md
+<!-- end-snapshot -->
+
+<!-- git-snapshot 2026-05-29T16:51:39Z -->
+- .claude/docs/blackbox/audit.md
+- .claude/docs/blackbox/session-log.md
+- CLAUDE.md
+- src/__tests__/ExcludedModal.test.tsx
+- src/__tests__/Header.test.tsx
+- src/__tests__/NavigationControls.test.tsx
+- src/__tests__/PageShell.test.tsx
+- src/__tests__/QuizCard.test.tsx
+- src/__tests__/SearchModal.test.tsx
+- src/components/ExcludedModal.tsx
+- src/components/Header.tsx
+- src/components/NavigationControls.tsx
+- src/components/PageShell.tsx
+- src/components/QuizCard.tsx
+- src/components/SearchModal.tsx
+<!-- end-snapshot -->

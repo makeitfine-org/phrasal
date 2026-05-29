@@ -33,14 +33,14 @@ export default function Header({ masteredCount, totalCount, currentIndex, onRese
       <div className="flex space-x-2">
         <button
           onClick={onShowSearch}
-          className="p-2 bg-gray-200 dark:bg-gray-800 rounded-full text-gray-700 dark:text-gray-300 hover:bg-blue-100 dark:hover:bg-blue-900/30 transition-colors shadow-sm"
+          className="p-2 bg-gray-200 dark:bg-gray-800 rounded-full text-gray-700 dark:text-gray-300 hover:bg-blue-100 dark:hover:bg-blue-900/30 transition-colors shadow-sm border border-gray-300 dark:border-gray-700"
           title="Search phrasal verbs"
         >
           <SearchIcon />
         </button>
         <button
           onClick={onShowExcluded}
-          className="p-2 bg-gray-200 dark:bg-gray-800 rounded-full text-orange-600 dark:text-orange-400 hover:bg-orange-100 dark:hover:bg-orange-900/30 transition-colors shadow-sm relative"
+          className="p-2 bg-gray-200 dark:bg-gray-800 rounded-full text-orange-600 dark:text-orange-400 hover:bg-orange-100 dark:hover:bg-orange-900/30 transition-colors shadow-sm relative border border-gray-300 dark:border-gray-700"
           title="View excluded verbs"
         >
           <EyeOffIcon />
@@ -52,7 +52,7 @@ export default function Header({ masteredCount, totalCount, currentIndex, onRese
         </button>
         <button
           onClick={onReset}
-          className="p-2 bg-gray-200 dark:bg-gray-800 rounded-full text-red-600 dark:text-red-400 hover:bg-red-100 dark:hover:bg-red-900/30 transition-colors shadow-sm"
+          className="p-2 bg-gray-200 dark:bg-gray-800 rounded-full text-red-600 dark:text-red-400 hover:bg-red-100 dark:hover:bg-red-900/30 transition-colors shadow-sm border border-gray-300 dark:border-gray-700"
           title="Global Reset - Clear all progress"
         >
           <Trash2 />

@@ -98,4 +98,16 @@ describe('PageShell — Home button', () => {
     renderWithShell('/phrasal-verbs');
     expect(screen.getByRole('link', { name: 'Home' })).toHaveAttribute('href', '/');
   });
+
+  it('Home link has subtle border class', () => {
+    renderWithShell('/phrasal-verbs');
+    expect(screen.getByRole('link', { name: 'Home' })).toHaveClass('border-gray-300');
+  });
+});
+
+describe('PageShell — button borders', () => {
+  it('Dark/Light toggle has subtle border class', () => {
+    renderWithShell('/');
+    expect(screen.getByTitle('Toggle Dark/Light Mode')).toHaveClass('border-gray-300');
+  });
 });

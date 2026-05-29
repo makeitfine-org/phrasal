@@ -25,14 +25,14 @@ export default function PageShell({ children }: { children: React.ReactNode }) {
         {!isHome && (
           <Link
             to="/"
-            className="px-3 py-1.5 text-sm font-medium rounded-full bg-gray-200 dark:bg-gray-800 text-gray-700 dark:text-gray-300 hover:bg-gray-300 dark:hover:bg-gray-700 transition-colors shadow-sm"
+            className="px-3 py-1.5 text-sm font-medium rounded-full bg-gray-200 dark:bg-gray-800 text-gray-700 dark:text-gray-300 hover:bg-gray-300 dark:hover:bg-gray-700 transition-colors shadow-sm border border-gray-300 dark:border-gray-700"
           >
             Home
           </Link>
         )}
         <button
           onClick={() => setDarkMode(d => !d)}
-          className="p-2 bg-gray-200 dark:bg-gray-800 rounded-full text-gray-700 dark:text-gray-300 hover:bg-gray-300 dark:hover:bg-gray-700 transition-colors shadow-sm"
+          className="p-2 bg-gray-200 dark:bg-gray-800 rounded-full text-gray-700 dark:text-gray-300 hover:bg-gray-300 dark:hover:bg-gray-700 transition-colors shadow-sm border border-gray-300 dark:border-gray-700"
           title="Toggle Dark/Light Mode"
         >
           {darkMode ? <SunIcon /> : <MoonIcon />}

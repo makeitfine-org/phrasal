@@ -123,4 +123,16 @@ describe('ExcludedModal', () => {
     await user.click(screen.getByText('Act out'));
     expect(props.onClose).not.toHaveBeenCalled();
   });
+
+  it('Close (X) button has subtle border class', () => {
+    render(<ExcludedModal {...makeProps()} />);
+    const xButton = screen.getAllByRole('button').find(b => !b.textContent?.includes('Include'))!;
+    expect(xButton).toHaveClass('border-gray-200');
+  });
+
+  it('Include buttons have green border class', () => {
+    render(<ExcludedModal {...makeProps()} />);
+    const includes = screen.getAllByText('Include');
+    expect(includes[0]).toHaveClass('border-green-300');
+  });
 });

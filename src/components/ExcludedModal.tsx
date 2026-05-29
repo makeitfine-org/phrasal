@@ -43,7 +43,7 @@ export default function ExcludedModal({ excluded, allVerbs, onInclude, onClose }
           </h2>
           <button
             onClick={onClose}
-            className="p-2 rounded-full text-gray-500 hover:bg-gray-100 dark:hover:bg-gray-800 transition-colors"
+            className="p-2 rounded-full text-gray-500 hover:bg-gray-100 dark:hover:bg-gray-800 transition-colors border border-gray-200 dark:border-gray-700"
           >
             <XIcon />
           </button>
