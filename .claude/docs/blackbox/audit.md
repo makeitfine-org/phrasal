@@ -349,3 +349,21 @@ image isn't shown: show favicon.svg image
 ## 2026-05-29T17:24:35Z
 commit all
 ---
+
+## 2026-05-29T17:31:24Z
+Create a new release with tag and suitable description (analize what was made since last release).
+---
+
+## 2026-05-29T17:35:14Z
+What command did you do for release?
+---
+
+## 2026-05-29T17:36:03Z
+but I didn't set tag 'v0.1.0' when execute 'git tag'
+---
+
+## 2026-05-29T17:42:31Z
+I plan to make a new release give, so:
+- give the next release tag
+- give description for next release
+---
