@@ -367,3 +367,24 @@ I plan to make a new release give, so:
 - give the next release tag
 - give description for next release
 ---
+
+## 2026-05-29T17:45:33Z
+apply
+---
+
+## 2026-05-29T17:46:57Z
+change release v0.2.0 to v0.1.1
+---
+
+## 2026-05-29T17:47:05Z
+apply
+---
+
+## 2026-05-29T17:51:20Z
+after releasing with tag v0.1.1 when I do a refresh on https://makeitfine-org.github.io/phrasal/phrasal-verbs I get 404 error: file:///home/eug/Pictures/Screenshots/Screenshot%20from%202026-05-29%2019-50-06.png
+Fix it and write test for that.
+---
+
+## 2026-05-29T17:56:55Z
+commit all
+---
