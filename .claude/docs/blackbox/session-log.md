@@ -69,3 +69,51 @@
 - .claude/docs/blackbox/session-log.md
 - .claude/settings.local.json
 <!-- end-snapshot -->
+
+<!-- git-snapshot 2026-05-29T09:24:53Z -->
+- .claude/docs/blackbox/audit.md
+- src/data/phrasalVerbs.js
+<!-- end-snapshot -->
+
+<!-- git-snapshot 2026-05-29T09:32:25Z -->
+- .claude/docs/blackbox/audit.md
+- .claude/docs/blackbox/session-log.md
+- src/__tests__/__fixtures__/phrasalVerbs.json
+- src/__tests__/phrasalVerbs.test.js
+- src/data/phrasalVerbs.js
+<!-- end-snapshot -->
+
+<!-- git-snapshot 2026-05-29T09:34:19Z -->
+- .claude/docs/blackbox/audit.md
+- .claude/docs/blackbox/session-log.md
+<!-- end-snapshot -->
+
+<!-- git-snapshot 2026-05-29T10:14:11Z -->
+- .claude/docs/blackbox/audit.md
+- .claude/docs/blackbox/session-log.md
+- src/__tests__/__fixtures__/phrasalVerbs.json
+- src/__tests__/phrasalVerbs.test.js
+- src/data/phrasalVerbs.js
+<!-- end-snapshot -->
+
+<!-- git-snapshot 2026-05-29T10:35:02Z -->
+- .claude/docs/blackbox/audit.md
+- .claude/docs/blackbox/session-log.md
+- src/__tests__/__fixtures__/phrasalVerbs.json
+- src/__tests__/phrasalVerbs.test.js
+- src/data/phrasalVerbs.js
+<!-- end-snapshot -->
+
+<!-- git-snapshot 2026-05-29T10:37:02Z -->
+- .claude/docs/blackbox/audit.md
+- .claude/docs/blackbox/session-log.md
+<!-- end-snapshot -->
+
+<!-- git-snapshot 2026-05-29T10:48:02Z -->
+- .claude/docs/blackbox/audit.md
+<!-- end-snapshot -->
+
+<!-- git-snapshot 2026-05-29T10:50:56Z -->
+- .claude/docs/blackbox/audit.md
+- .claude/docs/blackbox/session-log.md
+<!-- end-snapshot -->

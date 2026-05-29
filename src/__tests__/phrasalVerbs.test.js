@@ -10,7 +10,7 @@ const normalize = ([verb, definition, sentences, wordsToHide]) => ({
 
 describe('phrasalVerbs data', () => {
     test('entry count', () => {
-        expect(rawData.length).toBe(230);
+        expect(rawData.length).toBe(268);
     });
 
     test('all entries match fixture', async () => {
