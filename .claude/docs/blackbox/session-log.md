@@ -202,3 +202,18 @@
 <!-- git-snapshot 2026-05-29T13:59:38Z -->
 - .claude/docs/blackbox/audit.md
 <!-- end-snapshot -->
+
+<!-- git-snapshot 2026-05-29T15:00:33Z -->
+- .claude/docs/blackbox/audit.md
+- .claude/docs/blackbox/plans/2026-05-29 16:50 Plan Add Routing Home Page English Tutorial.md
+- index.html
+- package-lock.json
+- package.json
+- src/main.tsx
+- src/pages/HomePage.tsx
+<!-- end-snapshot -->
+
+<!-- git-snapshot 2026-05-29T15:03:54Z -->
+- .claude/docs/blackbox/audit.md
+- .claude/docs/blackbox/session-log.md
+<!-- end-snapshot -->

@@ -229,3 +229,16 @@ did you complete implementing of task-3?
 ## 2026-05-29T13:58:33Z
 commit all
 ---
+
+## 2026-05-29T14:49:47Z
+Add routing, and:
+- Add a front page with the name of "English tutorial" by route "/"
+- Move the current "Phrasal Verbs" functionality as a link on this front page.
+  Also this link current "Phrasal Verbs" should be now access by route "/phrasal-verbs" instead of "/"
+
+In future it's going to be added other exercises.
+---
+
+## 2026-05-29T15:03:31Z
+commit
+---
