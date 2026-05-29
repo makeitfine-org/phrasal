@@ -268,3 +268,23 @@ commit all
 ## 2026-05-29T15:43:24Z
 commit all
 ---
+
+## 2026-05-29T15:46:23Z
+Why didn't you move some "Done" task into completed?
+---
+
+## 2026-05-29T15:48:39Z
+Check whether task-4 completed?
+---
+
+## 2026-05-29T15:49:34Z
+yes
+---
+
+## 2026-05-29T15:51:04Z
+Move appropriate backlog md tasks to completed folder
+---
+
+## 2026-05-29T15:52:13Z
+commit all
+---

@@ -234,3 +234,26 @@
 - src/main.tsx
 - src/pages/HomePage.tsx
 <!-- end-snapshot -->
+
+<!-- git-snapshot 2026-05-29T15:46:47Z -->
+- .claude/docs/blackbox/audit.md
+<!-- end-snapshot -->
+
+<!-- git-snapshot 2026-05-29T15:48:56Z -->
+- .claude/docs/blackbox/audit.md
+- .claude/docs/blackbox/session-log.md
+<!-- end-snapshot -->
+
+<!-- git-snapshot 2026-05-29T15:49:48Z -->
+- .claude/docs/blackbox/audit.md
+- .claude/docs/blackbox/session-log.md
+- backlog/tasks/task-4 - Shared-layout-routing-tests-and-theme-toggle.md
+<!-- end-snapshot -->
+
+<!-- git-snapshot 2026-05-29T15:51:22Z -->
+- .claude/docs/blackbox/audit.md
+- .claude/docs/blackbox/session-log.md
+- backlog/tasks/task-1 - Extend-phrasalVerbs.js-with-new-entries-and-meanings-from-provided-data.md
+- backlog/tasks/task-2 - Align-all-phrasalVerbs.js-entries-with-canonical-reference-data-sentences.md
+- backlog/tasks/task-4 - Shared-layout-routing-tests-and-theme-toggle.md
+<!-- end-snapshot -->
