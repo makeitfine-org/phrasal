@@ -793,3 +793,11 @@ export const rawData: RawVerbEntry[] = [
 ];
 Do not search the codebase or run tests.
 ---
+
+## 2026-05-30T10:25:02Z
+fix tests
+---
+
+## 2026-05-30T10:30:59Z
+fix tests based on changes in @src/data/phrasalVerbs.ts
+---

@@ -1093,8 +1093,7 @@
     "verb": "Hand in",
     "definition": "To submit work or an item to a teacher, boss, or official",
     "sentences": [
-      "Please hand in your homework by Friday.",
-      "I need to hand in my resignation letter."
+      "Please hand in your homework by Friday."
     ],
     "wordsToHide": [
       "hand in"
@@ -1554,7 +1553,7 @@
     ]
   },
   {
-    "verb": "Run out (of)",
+    "verb": "Run out of",
     "definition": "To use up or exhaust the supply of something",
     "sentences": [
       "We ran out of milk so I need to go to the store."
@@ -2006,7 +2005,7 @@
   },
   {
     "verb": "Give out",
-    "definition": "To distribute or hand things out to multiple people",
+    "definition": "To distribute or hand items to multiple people",
     "sentences": [
       "The teacher gave out the exam papers to all the students."
     ],
@@ -2068,7 +2067,7 @@
   },
   {
     "verb": "Drop off",
-    "definition": "To take someone or something somewhere and leave them/it there",
+    "definition": "To transport someone or something somewhere and leave them there",
     "sentences": [
       "Can you drop me off at the grocery store on your way home?"
     ],
@@ -2110,7 +2109,7 @@
   },
   {
     "verb": "Check out",
-    "definition": "To see or try something out to learn more about it",
+    "definition": "To examine or try something to learn more about it",
     "sentences": [
       "Check out my new car!"
     ],
@@ -2130,7 +2129,7 @@
   },
   {
     "verb": "Take out",
-    "definition": "To take someone on a date",
+    "definition": "To escort someone on a date",
     "sentences": [
       "He took her out to the most expensive restaurant in the city."
     ],
@@ -2160,8 +2159,18 @@
     ]
   },
   {
-    "verb": "Turn on/Turn off",
-    "definition": "To switch a machine or light on or off",
+    "verb": "Turn on",
+    "definition": "To switch a machine or light on",
+    "sentences": [
+      "Turn on the light I'm not trying to sleep!"
+    ],
+    "wordsToHide": [
+      "Turn on"
+    ]
+  },
+  {
+    "verb": "Turn off",
+    "definition": "To switch a machine or light off",
     "sentences": [
       "Turn off the light I'm trying to sleep!"
     ],
@@ -2306,7 +2315,7 @@
     ]
   },
   {
-    "verb": "Bring it on!",
+    "verb": "Bring it on",
     "definition": "To accept a challenge with confidence",
     "sentences": [
       "You want to have a race? Bring it on! I can beat you!"
@@ -2438,7 +2447,7 @@
     ]
   },
   {
-    "verb": "Log out/Log off",
+    "verb": "Log out",
     "definition": "To sign out of your account",
     "sentences": [
       "You should always log out of your accounts when you use a public computer."
@@ -2448,8 +2457,18 @@
     ]
   },
   {
+    "verb": "Log off",
+    "definition": "To sign out of your account",
+    "sentences": [
+      "You should always log off of your accounts when you use a public computer."
+    ],
+    "wordsToHide": [
+      "log off"
+    ]
+  },
+  {
     "verb": "Look out",
-    "definition": "To watch out for something",
+    "definition": "To be vigilant for something",
     "sentences": [
       "Look out there's a baseball coming your way!"
     ],
@@ -2609,7 +2628,7 @@
   },
   {
     "verb": "Hold on",
-    "definition": "To hold something tightly",
+    "definition": "To grasp something tightly",
     "sentences": [
       "You'd better hold on to your hat; it's windy out there!"
     ],

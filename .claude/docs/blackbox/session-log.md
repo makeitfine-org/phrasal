@@ -435,3 +435,9 @@
 - .claude/docs/blackbox/audit.md
 - .claude/docs/blackbox/session-log.md
 <!-- end-snapshot -->
+
+<!-- git-snapshot 2026-05-30T10:32:52Z -->
+- .claude/docs/blackbox/audit.md
+- src/__tests__/__fixtures__/phrasalVerbs.json
+- src/__tests__/phrasalVerbs.test.ts
+<!-- end-snapshot -->
