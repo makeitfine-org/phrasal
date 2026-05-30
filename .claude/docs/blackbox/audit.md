@@ -943,3 +943,92 @@ Cover the functionality with tests
 ## 2026-05-30T16:10:23Z
 git add all changes and commit them with suitable message
 ---
+
+## 2026-05-30T17:24:37Z
+:ld
+---
+
+## 2026-05-30T17:28:43Z
+Create up to 4 backlog.mdtasks (but don't execute them) to sovle the described problem:
+
+Add a new page "Grammar" with route "/grammar"
+When go to Grammar page there should be route to to page "I wish/if only".
+
+This page conatains same elements as "Pharasl Verbs" page but:
+1) "all phrasal verbs", should be named "tutorial".
+
+The "tutorial" content:
+---
+I wish I did
+
+We can use wish + subject + past simple to talk about things that we would like to be different in the present or future (but that are very unlikely or impossible).
+
+
+
+I wish things were different, but this is the way they are.  
+
+We wish we had enough money to help you.
+
+I wish I could be there for you tomorrow.  
+
+I wish I had done
+
+We can use wish + subject + past perfect to talk about things that happened in the past and that we regret (we would have wanted them to be different).
+
+
+
+I wish I hadn’t quit my job two years ago. 
+
+I wish we hadn’t wasted all that money. 
+
+I wish you would do
+
+We can use wish + person/thing + would + infinitive when we talk about situations that annoy us and would like them to change or to stop.
+
+
+
+I wish you would stop biting your nails. I hate it when you do it.
+
+I wish it would stop raining. It’s been three days!
+
+We can NOT use this structure to wish about ourselves:
+
+
+
+I wish I would… 
+
+If only
+
+We can use if only instead of I wish with a very similar meaning. The only difference is that if only is more emphatic.
+
+
+
+If only I was/were a bit taller!*
+
+If only you had followed my advice. 
+
+If only you would make a bit of an effort. You are wasting your life! 
+
+🔍 Note that we can use were instead of was with I/he/she after I wish/if only.
+---
+
+2) Instead of show phrasal verbs show sentences in russion:
+
+Жаль, что я не прочитал ту документацию по Java на прошлой неделе
+Correct answer: I wish I had read that Java documentation last week
+
+Я бы хотел, чтобы мой компьютер перестал так медленно работать
+Correct answer: I wish my computer would stop working so slowly
+
+Если бы только я не забыл сохранить этот файл вчера!
+Correct answer: "If only I hadn't forgotten to save this document yesterday."
+                or
+                "I wish I hadn't forgotten to save this document yesterday."
+
+When check correctness ignore punctuation and be case-insensitive
+
+3) Instead of "Search phrasal verbs" "Search by sentences"
+4) Instead of "View excluded phrasal verbs" "View excluded sentences"
+
+Cover all functionality by tests
+---
