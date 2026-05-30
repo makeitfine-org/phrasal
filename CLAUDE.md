@@ -70,8 +70,9 @@ Vitest + `@testing-library/react`. Test files live in `src/__tests__/`. The setu
 ## Delivery Checklist
 
 Before marking any task done:
-1. Every backlog.md task Acceptance Criteria **must** include `npm run test:run` passes
-2. Always add/update tests for new/modified functionality
+1. Always add/update tests for new/modified functionality
+2. Every backlog.md task Acceptance Criteria **must** include `npm run test:run` passes
+3. Every backlog.md task which extend/modify existence codebase/functionality **must** always extend/modify tests for it.
 
 
 <!-- BACKLOG.MD MCP GUIDELINES START -->
@@ -83,6 +84,8 @@ Before marking any task done:
 This project uses Backlog.md MCP for all task and project management activities.
 
 **CRITICAL GUIDANCE**
+
+- **Task execution**: When asked to work on or complete a backlog task, move it to `in progress` status IMMEDIATELY — before writing any code or taking any implementation steps.
 
 - If your client supports MCP resources, read `backlog://workflow/overview` to understand when and how to use Backlog for this project.
 - If your client only supports tools or the above request fails, call `backlog.get_backlog_instructions()` to load the tool-oriented overview. Use the `instruction` selector when you need `task-creation`, `task-execution`, or `task-finalization`.
