@@ -40,7 +40,7 @@ export default function Header({ masteredCount, totalCount, currentIndex, onRese
         <button
           onClick={onShowExcluded}
           className="p-2 bg-gray-200 dark:bg-gray-800 rounded-full text-orange-600 dark:text-orange-400 hover:bg-orange-100 dark:hover:bg-orange-900/30 transition-colors shadow-sm relative border border-gray-300 dark:border-gray-700"
-          title="View excluded verbs"
+          title="View excluded phrasal verbs"
         >
           <EyeOffIcon />
           {excludedCount > 0 && (
@@ -50,18 +50,18 @@ export default function Header({ masteredCount, totalCount, currentIndex, onRese
           )}
         </button>
         <button
+          onClick={onShowAllVerbs}
+          className="p-2 bg-gray-200 dark:bg-gray-800 rounded-full text-blue-600 dark:text-blue-400 hover:bg-blue-100 dark:hover:bg-blue-900/30 transition-colors shadow-sm border border-gray-300 dark:border-gray-700"
+          title="Browse all phrasal verbs"
+        >
+          <BookOpenIcon />
+        </button>
+        <button
           onClick={onReset}
           className="p-2 bg-gray-200 dark:bg-gray-800 rounded-full text-red-600 dark:text-red-400 hover:bg-red-100 dark:hover:bg-red-900/30 transition-colors shadow-sm border border-gray-300 dark:border-gray-700"
           title="Global Reset - Clear all progress"
         >
           <Trash2 />
-        </button>
-        <button
-          onClick={onShowAllVerbs}
-          className="p-2 bg-gray-200 dark:bg-gray-800 rounded-full text-blue-600 dark:text-blue-400 hover:bg-blue-100 dark:hover:bg-blue-900/30 transition-colors shadow-sm border border-gray-300 dark:border-gray-700"
-          title="Browse all verbs"
-        >
-          <BookOpenIcon />
         </button>
       </div>
     </div>

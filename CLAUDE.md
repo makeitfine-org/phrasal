@@ -70,7 +70,7 @@ Vitest + `@testing-library/react`. Test files live in `src/__tests__/`. The setu
 ## Delivery Checklist
 
 Before marking any task done:
-1. Always add/update tests for new/modified functionality
+1. On adding/modifing/removing any codebase files you **must** always check out all tests pass (`npm run test:run`) on completion.
 2. Every backlog.md task Acceptance Criteria **must** include `npm run test:run` passes
 3. Every backlog.md task which extend/modify existence codebase/functionality **must** always extend/modify tests for it.
 

@@ -923,3 +923,23 @@ Now add search and excluded checkbox to "Browse all verbs" the same way as it do
 ## 2026-05-30T15:24:30Z
 Complete the backlog task-8
 ---
+
+## 2026-05-30T15:59:36Z
+1. Change title "Browse all verbs" on button to "Browse all phrasal verbs"
+2. Change title "View excluded verbs" on button to "View excluded phrasal verbs"
+3. swap "Browse all phrasal verbs" button with "Global Reset"
+---
+
+## 2026-05-30T16:00:12Z
+1. Change title "Browse all verbs" on button to "Browse all phrasal verbs"
+2. Change title "View excluded verbs" on button to "View excluded phrasal verbs"
+3. swap "Browse all phrasal verbs" button with "Global Reset"
+---
+
+## 2026-05-30T16:01:42Z
+Cover the functionality with tests
+---
+
+## 2026-05-30T16:10:23Z
+git add all changes and commit them with suitable message
+---

@@ -240,7 +240,7 @@ describe('App — handleToggleExclude / handleIncludeVerb', () => {
     const user = userEvent.setup();
     renderApp();
     await user.click(screen.getByText('Exclude'));
-    const excludedBtn = screen.getByTitle('View excluded verbs');
+    const excludedBtn = screen.getByTitle('View excluded phrasal verbs');
     expect(within(excludedBtn).getByText('1')).toBeInTheDocument();
   });
 
@@ -248,9 +248,9 @@ describe('App — handleToggleExclude / handleIncludeVerb', () => {
     const user = userEvent.setup();
     renderApp();
     await user.click(screen.getByText('Exclude'));
-    await user.click(screen.getByTitle('View excluded verbs'));
+    await user.click(screen.getByTitle('View excluded phrasal verbs'));
     await user.click(screen.getByText('Include'));
-    const excludedBtn = screen.getByTitle('View excluded verbs');
+    const excludedBtn = screen.getByTitle('View excluded phrasal verbs');
     expect(within(excludedBtn).queryByText('1')).not.toBeInTheDocument();
   });
 });
@@ -385,7 +385,7 @@ describe('App — keyboard shortcuts', () => {
   it('keyboard shortcuts are ignored when ExcludedModal is open', async () => {
     const user = userEvent.setup();
     renderApp();
-    await user.click(screen.getByTitle('View excluded verbs'));
+    await user.click(screen.getByTitle('View excluded phrasal verbs'));
     await user.keyboard('{Escape}');
     expect(screen.queryByText('Not quite!')).not.toBeInTheDocument();
   });
@@ -403,14 +403,14 @@ describe('App — modals', () => {
   it('opens ExcludedModal when excluded button in Header is clicked', async () => {
     const user = userEvent.setup();
     renderApp();
-    await user.click(screen.getByTitle('View excluded verbs'));
+    await user.click(screen.getByTitle('View excluded phrasal verbs'));
     expect(screen.getByText(/Excluded Verbs/)).toBeInTheDocument();
   });
 
   it('closes ExcludedModal when Escape is pressed', async () => {
     const user = userEvent.setup();
     renderApp();
-    await user.click(screen.getByTitle('View excluded verbs'));
+    await user.click(screen.getByTitle('View excluded phrasal verbs'));
     await user.keyboard('{Escape}');
     expect(screen.queryByText(/Excluded Verbs/)).not.toBeInTheDocument();
   });

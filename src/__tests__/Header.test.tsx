@@ -89,7 +89,7 @@ describe('Header', () => {
     const props = makeProps();
     const user = userEvent.setup();
     render(<Header {...props} />);
-    await user.click(screen.getByTitle('View excluded verbs'));
+    await user.click(screen.getByTitle('View excluded phrasal verbs'));
     expect(props.onShowExcluded).toHaveBeenCalledOnce();
   });
 
@@ -108,7 +108,7 @@ describe('Header', () => {
 
   it('ExcludedModal trigger has subtle border class', () => {
     render(<Header {...makeProps()} />);
-    expect(screen.getByTitle('View excluded verbs')).toHaveClass('border-gray-300');
+    expect(screen.getByTitle('View excluded phrasal verbs')).toHaveClass('border-gray-300');
   });
 
   it('Reset button has subtle border class', () => {
@@ -120,12 +120,20 @@ describe('Header', () => {
     const props = makeProps();
     const user = userEvent.setup();
     render(<Header {...props} />);
-    await user.click(screen.getByTitle('Browse all verbs'));
+    await user.click(screen.getByTitle('Browse all phrasal verbs'));
     expect(props.onShowAllVerbs).toHaveBeenCalledOnce();
   });
 
   it('All Verbs button has subtle border class', () => {
     render(<Header {...makeProps()} />);
-    expect(screen.getByTitle('Browse all verbs')).toHaveClass('border-gray-300');
+    expect(screen.getByTitle('Browse all phrasal verbs')).toHaveClass('border-gray-300');
+  });
+
+  it('Browse all phrasal verbs button appears before Global Reset button', () => {
+    render(<Header {...makeProps()} />);
+    const buttons = screen.getAllByRole('button');
+    const browseIdx = buttons.findIndex(b => b.getAttribute('title') === 'Browse all phrasal verbs');
+    const resetIdx = buttons.findIndex(b => b.getAttribute('title') === 'Global Reset - Clear all progress');
+    expect(browseIdx).toBeLessThan(resetIdx);
   });
 });
