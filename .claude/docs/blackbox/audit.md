@@ -1040,3 +1040,11 @@ Implement all these 4 tasks one by one
 ## 2026-05-30T17:49:48Z
 git add all changes and commit them with suitable message
 ---
+
+## 2026-05-30T21:03:08Z
+Check if "Done" tasks in backlog/tasks folder can be moved to completed folder, and move that which can be.
+---
+
+## 2026-05-30T21:06:52Z
+git add all changes and commit them with suitable message
+---
