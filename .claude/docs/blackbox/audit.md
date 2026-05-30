@@ -919,3 +919,7 @@ execute git add all changes and commit them with suitable message
 Create a backlog.md task (but don't execute it):
 Now add search and excluded checkbox to "Browse all verbs" the same way as it done for "Search phrasal verbs" button functionality.
 ---
+
+## 2026-05-30T15:24:30Z
+Complete the backlog task-8
+---

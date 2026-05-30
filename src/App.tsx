@@ -1,5 +1,5 @@
 import React, { useState, useEffect, useRef, useCallback } from 'react';
-import { allVerbs, allVerbsWithLearned } from './data/phrasalVerbs';
+import { allVerbs, verbsForBrowse } from './data/phrasalVerbs';
 import { renderSentenceWithMask } from './utils/renderSentence';
 import Header from './components/Header';
 import QuizCard from './components/QuizCard';
@@ -346,7 +346,8 @@ export default function App() {
       )}
       {showAllVerbsModal && (
         <AllVerbsModal
-          verbs={allVerbsWithLearned}
+          verbs={verbsForBrowse}
+          excluded={excluded}
           onClose={() => setShowAllVerbsModal(false)}
         />
       )}

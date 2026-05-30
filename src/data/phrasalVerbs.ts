@@ -1,4 +1,4 @@
-import type { RawVerbEntry, VerbEntry } from '../types';
+import type { RawVerbEntry, VerbEntry, BrowseVerbEntry } from '../types';
 
 // Database format: [Verb, Extended Definition, Example Sentence, Exact words to hide, Mastery Status]
 export const rawData: RawVerbEntry[] = [
@@ -289,3 +289,14 @@ export const allVerbsWithLearned: VerbEntry[] = rawData.map(row => ({
     sentences: Array.isArray(row[2]) ? row[2] : [row[2]],
     wordsToHide: row[3],
 }));
+
+export const verbsForBrowse: BrowseVerbEntry[] = (() => {
+    let qi = 0;
+    return rawData.map(row => ({
+        verb: row[0],
+        definition: row[1],
+        sentences: Array.isArray(row[2]) ? row[2] : [row[2]],
+        wordsToHide: row[3],
+        quizIndex: !row[4] ? qi++ : undefined,
+    }));
+})();

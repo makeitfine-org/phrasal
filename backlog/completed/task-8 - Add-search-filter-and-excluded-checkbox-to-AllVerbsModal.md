@@ -1,9 +1,10 @@
 ---
 id: TASK-8
 title: Add search filter and excluded checkbox to AllVerbsModal
-status: To Do
+status: Done
 assignee: []
 created_date: '2026-05-30 15:21'
+updated_date: '2026-05-30 15:45'
 labels:
   - enhancement
   - modal
@@ -40,15 +41,15 @@ The "Browse all verbs" modal (`AllVerbsModal`) currently renders all entries as 
 
 ## Acceptance Criteria
 <!-- AC:BEGIN -->
-- [ ] #1 Search input is auto-focused when the modal opens
-- [ ] #2 Typing in the search input filters the list by verb name or definition (case-insensitive substring)
-- [ ] #3 List is sorted alphabetically by verb name
-- [ ] #4 An 'Excluded' checkbox is rendered below the search input, unchecked by default
-- [ ] #5 When unchecked, verbs in the excluded set are hidden from the list
-- [ ] #6 When checked, verbs in the excluded set are shown with an orange 'excluded' badge matching SearchModal style
-- [ ] #7 isLearned entries (not in allVerbs quiz pool) are never hidden by the checkbox and never show the excluded badge
-- [ ] #8 When no verbs match the search query, a 'No matches found' empty state is shown
-- [ ] #9 Escape key still closes the modal
-- [ ] #10 Backdrop click and X button still close the modal
-- [ ] #11 npm run test:run passes
+- [x] #1 Search input is auto-focused when the modal opens
+- [x] #2 Typing in the search input filters the list by verb name or definition (case-insensitive substring)
+- [x] #3 List is sorted alphabetically by verb name
+- [x] #4 An 'Excluded' checkbox is rendered below the search input, unchecked by default
+- [x] #5 When unchecked, verbs in the excluded set are hidden from the list
+- [x] #6 When checked, verbs in the excluded set are shown with an orange 'excluded' badge matching SearchModal style
+- [x] #7 isLearned entries (not in allVerbs quiz pool) are never hidden by the checkbox and never show the excluded badge
+- [x] #8 When no verbs match the search query, a 'No matches found' empty state is shown
+- [x] #9 Escape key still closes the modal
+- [x] #10 Backdrop click and X button still close the modal
+- [x] #11 npm run test:run passes
 <!-- AC:END -->

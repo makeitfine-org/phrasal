@@ -20,3 +20,5 @@ export interface VerbEntry {
   sentences: string[];
   wordsToHide: string[];
 }
+
+export type BrowseVerbEntry = VerbEntry & { quizIndex?: number };
