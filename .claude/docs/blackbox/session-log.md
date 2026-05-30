@@ -520,3 +520,7 @@
 - .claude/docs/blackbox/audit.md
 - src/components/NavigationControls.tsx
 <!-- end-snapshot -->
+
+<!-- git-snapshot 2026-05-30T14:17:14Z -->
+- .claude/docs/blackbox/audit.md
+<!-- end-snapshot -->

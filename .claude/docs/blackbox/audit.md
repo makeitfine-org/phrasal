@@ -877,3 +877,20 @@ execute git add all changes and commit them with suitable message
 ## 2026-05-30T14:06:37Z
 Cover the functionality with tests
 ---
+
+## 2026-05-30T14:10:35Z
+:ld
+---
+
+## 2026-05-30T14:16:45Z
+Create a backlog.md task (but don't execute it):
+  
+  Add next button after "Global Reset".
+  But click on the new button you show all phrasal verbs, its defentions and sentences (take all from rawData of src/data/phrasalVerbs.ts)
+
+Cover the functionality with tests
+---
+
+## 2026-05-30T14:19:19Z
+execute git add all changes and commit them with suitable message
+---
