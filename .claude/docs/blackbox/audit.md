@@ -817,3 +817,21 @@ Remove "Next" button and related functionality.
 ## 2026-05-30T13:11:53Z
 execute git add all changes and commit them with suitable message
 ---
+
+## 2026-05-30T13:24:28Z
+On Phrasl Verbs page:
+Remove words Matered and Questin.
+Instead show 3 numbers: <num1> / <num2> / <num3> 
+where:
+    num1 - mastered
+    num2 - question
+    num3 - total
+---
+
+## 2026-05-30T13:32:01Z
+Cover "The header now shows mastered / question / total — three color-coded numbers with no labels." with tests if it's not covered yet.
+---
+
+## 2026-05-30T13:34:24Z
+execute git add all changes and commit them with suitable message
+---

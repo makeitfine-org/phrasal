@@ -21,15 +21,27 @@ describe('Header', () => {
     expect(screen.getByText('Phrasal Verbs')).toBeInTheDocument();
   });
 
-  it('renders masteredCount and totalCount in the correct format', () => {
-    render(<Header {...makeProps({ masteredCount: 3, totalCount: 10 })} />);
-    expect(screen.getByText('3')).toBeInTheDocument();
-    expect(screen.getByText(/\/ 10/)).toBeInTheDocument();
+  it('renders all three stats as num1 / num2 / num3 with no labels', () => {
+    render(<Header {...makeProps({ masteredCount: 3, currentIndex: 2, totalCount: 10 })} />);
+    const p = screen.getByTestId('mastered-count').closest('p')!;
+    expect(p.textContent).toBe('3 / 3 / 10');
+    expect(p).not.toHaveTextContent('Mastered');
+    expect(p).not.toHaveTextContent('Question');
   });
 
-  it('renders "Question № N" with 1-based currentIndex', () => {
+  it('mastered count is green', () => {
+    render(<Header {...makeProps()} />);
+    expect(screen.getByTestId('mastered-count')).toHaveClass('text-green-600');
+  });
+
+  it('question number is indigo', () => {
+    render(<Header {...makeProps()} />);
+    expect(screen.getByTestId('question-number')).toHaveClass('text-indigo-600');
+  });
+
+  it('renders 1-based question number', () => {
     render(<Header {...makeProps({ currentIndex: 4 })} />);
-    expect(screen.getByText(/Question № 5/)).toBeInTheDocument();
+    expect(screen.getByTestId('question-number')).toHaveTextContent('5');
   });
 
   it('does not render the excluded badge when excludedCount is 0', () => {

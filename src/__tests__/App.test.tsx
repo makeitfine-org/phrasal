@@ -44,9 +44,9 @@ describe('App — initial render', () => {
     expect(screen.getByText('To perform')).toBeInTheDocument();
   });
 
-  it('shows "Question № 1" on first load', () => {
+  it('shows question 1 on first load', () => {
     renderApp();
-    expect(screen.getByText(/Question № 1/)).toBeInTheDocument();
+    expect(screen.getByTestId('question-number')).toHaveTextContent('1');
   });
 
   it('restores mastered count from localStorage on mount', () => {
@@ -58,7 +58,7 @@ describe('App — initial render', () => {
       darkMode: false,
     }));
     renderApp();
-    expect(screen.getByText(/Mastered:/).closest('p')).toHaveTextContent('2');
+    expect(screen.getByTestId('mastered-count')).toHaveTextContent('2');
   });
 
 });
@@ -108,10 +108,10 @@ describe('App — handleSubmit', () => {
   it('increments mastered count in Header after correct answer', async () => {
     const user = userEvent.setup();
     renderApp();
-    expect(screen.getByText(/Mastered:/).closest('p')).toHaveTextContent('0');
+    expect(screen.getByTestId('mastered-count')).toHaveTextContent('0');
     await user.type(getInput(), 'act out');
     await user.click(screen.getByText('Check'));
-    expect(screen.getByText(/Mastered:/).closest('p')).toHaveTextContent('1');
+    expect(screen.getByTestId('mastered-count')).toHaveTextContent('1');
   });
 
   it('does not increment mastered count after wrong answer', async () => {
@@ -119,7 +119,7 @@ describe('App — handleSubmit', () => {
     renderApp();
     await user.type(getInput(), 'wrong');
     await user.click(screen.getByText('Check'));
-    expect(screen.getByText(/Mastered:/).closest('p')).toHaveTextContent('0');
+    expect(screen.getByTestId('mastered-count')).toHaveTextContent('0');
   });
 });
 
@@ -168,9 +168,9 @@ describe('App — resetState', () => {
     renderApp();
     await user.type(getInput(), 'act out');
     await user.click(screen.getByText('Check'));
-    expect(screen.getByText('1')).toBeInTheDocument(); // masteredCount = 1
+    expect(screen.getByTestId('mastered-count')).toHaveTextContent('1');
     await user.click(screen.getByText('Reset').closest('button')!);
-    expect(screen.getByText('0')).toBeInTheDocument(); // masteredCount back to 0
+    expect(screen.getByTestId('mastered-count')).toHaveTextContent('0');
   });
 });
 
@@ -261,10 +261,10 @@ describe('App — handleGlobalReset', () => {
     renderApp();
     await user.type(getInput(), 'act out');
     await user.click(screen.getByText('Check'));
-    expect(screen.getByText('1')).toBeInTheDocument(); // mastered = 1
+    expect(screen.getByTestId('mastered-count')).toHaveTextContent('1');
 
     await user.click(screen.getByTitle('Global Reset - Clear all progress'));
-    expect(screen.getByText(/Mastered:/).closest('p')).toHaveTextContent('0');
+    expect(screen.getByTestId('mastered-count')).toHaveTextContent('0');
     const saved = JSON.parse(localStorage.getItem('phrasalQuizState')!);
     expect(saved.mastered).toEqual([]);
     expect(saved.excluded).toEqual([]);
@@ -277,7 +277,7 @@ describe('App — handleGlobalReset', () => {
     await user.type(getInput(), 'act out');
     await user.click(screen.getByText('Check'));
     await user.click(screen.getByTitle('Global Reset - Clear all progress'));
-    expect(screen.getByText(/Mastered:/).closest('p')).toHaveTextContent('1');
+    expect(screen.getByTestId('mastered-count')).toHaveTextContent('1');
   });
 });
 
@@ -320,7 +320,7 @@ describe('App — keyboard shortcuts', () => {
     const user = userEvent.setup();
     renderApp();
     await user.keyboard('{ArrowRight}');
-    expect(screen.getByText(/Question № 2/)).toBeInTheDocument();
+    expect(screen.getByTestId('question-number')).toHaveTextContent('2');
   });
 
   it('ArrowLeft navigates to previous card', async () => {
@@ -343,7 +343,7 @@ describe('App — keyboard shortcuts', () => {
     renderApp();
     await user.keyboard('{Escape}'); // sets status to wrong
     await user.keyboard('{Enter}');
-    expect(screen.getByText(/Question № 2/)).toBeInTheDocument();
+    expect(screen.getByTestId('question-number')).toHaveTextContent('2');
   });
 
   it('Backtick key resets current card when status is not "idle"', async () => {
@@ -367,7 +367,7 @@ describe('App — keyboard shortcuts', () => {
     renderApp();
     await user.click(screen.getByTitle('Search phrasal verbs'));
     await user.keyboard('{ArrowRight}');
-    expect(screen.getByText(/Question № 1/)).toBeInTheDocument();
+    expect(screen.getByTestId('question-number')).toHaveTextContent('1');
   });
 });
 
@@ -417,7 +417,7 @@ describe('App — modals', () => {
     await user.type(screen.getByPlaceholderText('Search phrasal verbs...'), 'Act out');
     await user.click(screen.getByText('Act out').closest('li')!);
     expect(screen.getByText('To perform')).toBeInTheDocument();
-    expect(screen.getByText(/Question № 1/)).toBeInTheDocument();
+    expect(screen.getByTestId('question-number')).toHaveTextContent('1');
   });
 
   it('handleJumpToVerb: appends new history entry for not-yet-seen verb', async () => {
@@ -432,7 +432,7 @@ describe('App — modals', () => {
     await user.type(screen.getByPlaceholderText('Search phrasal verbs...'), 'Break out');
     await user.click(screen.getByText('Break out').closest('li')!);
     expect(screen.getByText('To escape')).toBeInTheDocument();
-    expect(screen.getByText(/Question № 2/)).toBeInTheDocument();
+    expect(screen.getByTestId('question-number')).toHaveTextContent('2');
   });
 });
 
