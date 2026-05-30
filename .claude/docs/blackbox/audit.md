@@ -864,3 +864,16 @@ Cover the functionality with tests
 ## 2026-05-30T13:55:16Z
 execute git add all changes and commit them with suitable message
 ---
+
+## 2026-05-30T14:04:32Z
+To Make "Reset" button title and its icon to be yellow as "IDK" button background color.
+But only the text and icon to be yellow, but backgound leave as is.
+---
+
+## 2026-05-30T14:06:18Z
+execute git add all changes and commit them with suitable message
+---
+
+## 2026-05-30T14:06:37Z
+Cover the functionality with tests
+---

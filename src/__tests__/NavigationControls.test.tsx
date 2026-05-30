@@ -96,4 +96,19 @@ describe('NavigationControls', () => {
     expect(screen.getByText('Reset').closest('button')).toHaveClass('border-gray-300');
   });
 
+  it('Reset button has amber-500 text color when enabled', () => {
+    render(<NavigationControls {...makeProps({ status: 'correct' })} />);
+    expect(screen.getByText('Reset').closest('button')).toHaveClass('text-amber-500');
+  });
+
+  it('Reset button has amber-500 text color when status is "wrong"', () => {
+    render(<NavigationControls {...makeProps({ status: 'wrong' })} />);
+    expect(screen.getByText('Reset').closest('button')).toHaveClass('text-amber-500');
+  });
+
+  it('Reset button does not have amber-500 text color when disabled (idle)', () => {
+    render(<NavigationControls {...makeProps({ status: 'idle' })} />);
+    expect(screen.getByText('Reset').closest('button')).not.toHaveClass('text-amber-500');
+  });
+
 });

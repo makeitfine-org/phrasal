@@ -515,3 +515,8 @@
 - src/App.tsx
 - src/__tests__/App.test.tsx
 <!-- end-snapshot -->
+
+<!-- git-snapshot 2026-05-30T14:05:00Z -->
+- .claude/docs/blackbox/audit.md
+- src/components/NavigationControls.tsx
+<!-- end-snapshot -->

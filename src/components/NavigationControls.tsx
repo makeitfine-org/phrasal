@@ -60,7 +60,7 @@ export default function NavigationControls({
           className={`flex items-center space-x-1 px-4 py-2 rounded-lg font-medium transition-colors border ${
             status === 'idle'
               ? 'opacity-50 cursor-not-allowed text-gray-500 border-gray-200 dark:border-gray-700'
-              : 'bg-gray-200 dark:bg-gray-800 text-gray-800 dark:text-gray-200 hover:bg-gray-300 dark:hover:bg-gray-700 border-gray-300 dark:border-gray-700'
+              : 'bg-gray-200 dark:bg-gray-800 text-amber-500 hover:bg-gray-300 dark:hover:bg-gray-700 border-gray-300 dark:border-gray-700'
           }`}
         >
           <RotateCcw />
