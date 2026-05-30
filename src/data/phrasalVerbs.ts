@@ -282,3 +282,10 @@ export const allVerbs: VerbEntry[] = rawData
         sentences: Array.isArray(row[2]) ? row[2] : [row[2]],
         wordsToHide: row[3],
     }));
+
+export const allVerbsWithLearned: VerbEntry[] = rawData.map(row => ({
+    verb: row[0],
+    definition: row[1],
+    sentences: Array.isArray(row[2]) ? row[2] : [row[2]],
+    wordsToHide: row[3],
+}));

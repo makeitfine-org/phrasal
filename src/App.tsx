@@ -1,5 +1,5 @@
 import React, { useState, useEffect, useRef, useCallback } from 'react';
-import { allVerbs } from './data/phrasalVerbs';
+import { allVerbs, allVerbsWithLearned } from './data/phrasalVerbs';
 import { renderSentenceWithMask } from './utils/renderSentence';
 import Header from './components/Header';
 import QuizCard from './components/QuizCard';
@@ -7,6 +7,7 @@ import Feedback from './components/Feedback';
 import NavigationControls from './components/NavigationControls';
 import ExcludedModal from './components/ExcludedModal';
 import SearchModal from './components/SearchModal';
+import AllVerbsModal from './components/AllVerbsModal';
 import type { HistoryItem } from './types';
 
 const STORAGE_KEY = 'phrasalQuizState';
@@ -28,6 +29,7 @@ export default function App() {
   const [revealSentence, setRevealSentence] = useState(false);
   const [showExcludedModal, setShowExcludedModal] = useState(false);
   const [showSearchModal, setShowSearchModal] = useState(false);
+  const [showAllVerbsModal, setShowAllVerbsModal] = useState(false);
   const [touchStart, setTouchStart] = useState<number | null>(null);
   const [touchEnd, setTouchEnd] = useState<number | null>(null);
 
@@ -218,7 +220,7 @@ export default function App() {
   // Keyboard shortcuts
   useEffect(() => {
     const handleKeyDown = (e: KeyboardEvent) => {
-      if (showExcludedModal || showSearchModal) return;
+      if (showExcludedModal || showSearchModal || showAllVerbsModal) return;
       const currentStatus = history[currentIndex]?.status ?? 'idle';
       const key = e.key.toLowerCase();
 
@@ -246,7 +248,7 @@ export default function App() {
     };
     window.addEventListener('keydown', handleKeyDown);
     return () => window.removeEventListener('keydown', handleKeyDown);
-  }, [currentIndex, history, resetState, handleIdk, handleNext, handlePrev, showExcludedModal, showSearchModal]);
+  }, [currentIndex, history, resetState, handleIdk, handleNext, handlePrev, showExcludedModal, showSearchModal, showAllVerbsModal]);
 
   // Swipe handlers
   const minSwipeDistance = 50;
@@ -286,6 +288,7 @@ export default function App() {
         excludedCount={excluded.size}
         onShowExcluded={() => setShowExcludedModal(true)}
         onShowSearch={() => setShowSearchModal(true)}
+        onShowAllVerbs={() => setShowAllVerbsModal(true)}
       />
 
       <div className="bg-white dark:bg-gray-850 rounded-2xl shadow-xl overflow-hidden border border-gray-200 dark:border-gray-800 transition-all duration-300">
@@ -339,6 +342,12 @@ export default function App() {
           onSelect={handleJumpToVerb}
           onUnexclude={handleUnexcludeAndJump}
           onClose={() => setShowSearchModal(false)}
+        />
+      )}
+      {showAllVerbsModal && (
+        <AllVerbsModal
+          verbs={allVerbsWithLearned}
+          onClose={() => setShowAllVerbsModal(false)}
         />
       )}
     </div>

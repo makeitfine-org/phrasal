@@ -1,5 +1,5 @@
 import React from 'react';
-import { Trash2, EyeOffIcon, SearchIcon } from './Icons';
+import { Trash2, EyeOffIcon, SearchIcon, BookOpenIcon } from './Icons';
 
 interface HeaderProps {
   masteredCount: number;
@@ -9,9 +9,10 @@ interface HeaderProps {
   excludedCount: number;
   onShowExcluded: () => void;
   onShowSearch: () => void;
+  onShowAllVerbs: () => void;
 }
 
-export default function Header({ masteredCount, totalCount, currentIndex, onReset, excludedCount, onShowExcluded, onShowSearch }: HeaderProps) {
+export default function Header({ masteredCount, totalCount, currentIndex, onReset, excludedCount, onShowExcluded, onShowSearch, onShowAllVerbs }: HeaderProps) {
   return (
     <div className="flex justify-between items-center mb-8">
       <div>
@@ -54,6 +55,13 @@ export default function Header({ masteredCount, totalCount, currentIndex, onRese
           title="Global Reset - Clear all progress"
         >
           <Trash2 />
+        </button>
+        <button
+          onClick={onShowAllVerbs}
+          className="p-2 bg-gray-200 dark:bg-gray-800 rounded-full text-blue-600 dark:text-blue-400 hover:bg-blue-100 dark:hover:bg-blue-900/30 transition-colors shadow-sm border border-gray-300 dark:border-gray-700"
+          title="Browse all verbs"
+        >
+          <BookOpenIcon />
         </button>
       </div>
     </div>

@@ -11,6 +11,7 @@ function makeProps(overrides: Record<string, unknown> = {}) {
     excludedCount: 0,
     onShowExcluded: vi.fn(),
     onShowSearch: vi.fn(),
+    onShowAllVerbs: vi.fn(),
     ...overrides,
   };
 }
@@ -113,5 +114,18 @@ describe('Header', () => {
   it('Reset button has subtle border class', () => {
     render(<Header {...makeProps()} />);
     expect(screen.getByTitle('Global Reset - Clear all progress')).toHaveClass('border-gray-300');
+  });
+
+  it('calls onShowAllVerbs when the All Verbs button is clicked', async () => {
+    const props = makeProps();
+    const user = userEvent.setup();
+    render(<Header {...props} />);
+    await user.click(screen.getByTitle('Browse all verbs'));
+    expect(props.onShowAllVerbs).toHaveBeenCalledOnce();
+  });
+
+  it('All Verbs button has subtle border class', () => {
+    render(<Header {...makeProps()} />);
+    expect(screen.getByTitle('Browse all verbs')).toHaveClass('border-gray-300');
   });
 });

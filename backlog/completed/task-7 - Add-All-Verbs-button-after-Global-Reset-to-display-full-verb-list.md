@@ -1,9 +1,10 @@
 ---
 id: TASK-7
 title: Add "All Verbs" button after Global Reset to display full verb list
-status: To Do
+status: Done
 assignee: []
 created_date: '2026-05-30 14:17'
+updated_date: '2026-05-30 15:16'
 labels:
   - feature
   - ui
@@ -12,6 +13,14 @@ references:
   - src/data/phrasalVerbs.ts
   - src/components/
   - src/App.tsx
+modified_files:
+  - src/components/AllVerbsModal.tsx
+  - src/components/Header.tsx
+  - src/components/Icons.tsx
+  - src/App.tsx
+  - src/data/phrasalVerbs.ts
+  - src/__tests__/AllVerbsModal.test.tsx
+  - src/__tests__/Header.test.tsx
 priority: medium
 ordinal: 2100
 ---
@@ -41,12 +50,18 @@ Add a new button placed immediately after the "Global Reset" button. Clicking it
 
 ## Acceptance Criteria
 <!-- AC:BEGIN -->
-- [ ] #1 "All Verbs" button is visible next to / after the Global Reset button
-- [ ] #2 Clicking the button opens a modal/panel listing ALL rawData entries (including isLearned=true)
-- [ ] #3 Each entry displays: verb, definition, and all example sentences
-- [ ] #4 Modal is dismissible via a close button and the Escape key
-- [ ] #5 Existing quiz flow and Global Reset functionality are unaffected
-- [ ] #6 New component AllVerbsModal (or equivalent) added under src/components/
-- [ ] #7 Tests cover: modal renders all verbs, shows correct verb/definition/sentences, opens and closes correctly
-- [ ] #8 npm run test:run passes
+- [x] #1 "All Verbs" button is visible next to / after the Global Reset button
+- [x] #2 Clicking the button opens a modal/panel listing ALL rawData entries (including isLearned=true)
+- [x] #3 Each entry displays: verb, definition, and all example sentences
+- [x] #4 Modal is dismissible via a close button and the Escape key
+- [x] #5 Existing quiz flow and Global Reset functionality are unaffected
+- [x] #6 New component AllVerbsModal (or equivalent) added under src/components/
+- [x] #7 Tests cover: modal renders all verbs, shows correct verb/definition/sentences, opens and closes correctly
+- [x] #8 npm run test:run passes
 <!-- AC:END -->
+
+## Final Summary
+
+<!-- SECTION:FINAL_SUMMARY:BEGIN -->
+Implemented AllVerbsModal component showing all rawData entries (including isLearned=true). Added BookOpenIcon, allVerbsWithLearned export, wired button into Header after Global Reset, and connected state in App.tsx. 8 new tests; all 229 tests pass.
+<!-- SECTION:FINAL_SUMMARY:END -->
