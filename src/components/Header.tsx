@@ -10,14 +10,18 @@ interface HeaderProps {
   onShowExcluded: () => void;
   onShowSearch: () => void;
   onShowAllVerbs: () => void;
+  title?: string;
+  searchTitle?: string;
+  excludedTitle?: string;
+  allVerbsTitle?: string;
 }
 
-export default function Header({ masteredCount, totalCount, currentIndex, onReset, excludedCount, onShowExcluded, onShowSearch, onShowAllVerbs }: HeaderProps) {
+export default function Header({ masteredCount, totalCount, currentIndex, onReset, excludedCount, onShowExcluded, onShowSearch, onShowAllVerbs, title = 'Phrasal Verbs', searchTitle = 'Search phrasal verbs', excludedTitle = 'View excluded phrasal verbs', allVerbsTitle = 'Browse all phrasal verbs' }: HeaderProps) {
   return (
     <div className="flex justify-between items-center mb-8">
       <div>
         <h1 className="text-3xl font-extrabold tracking-tight text-gray-900 dark:text-white">
-          Phrasal Verbs
+          {title}
         </h1>
         <div className="flex items-center mt-1">
           <p className="text-sm font-medium text-gray-500 dark:text-gray-400">
@@ -33,14 +37,14 @@ export default function Header({ masteredCount, totalCount, currentIndex, onRese
         <button
           onClick={onShowSearch}
           className="p-2 bg-gray-200 dark:bg-gray-800 rounded-full text-gray-700 dark:text-gray-300 hover:bg-blue-100 dark:hover:bg-blue-900/30 transition-colors shadow-sm border border-gray-300 dark:border-gray-700"
-          title="Search phrasal verbs"
+          title={searchTitle}
         >
           <SearchIcon />
         </button>
         <button
           onClick={onShowExcluded}
           className="p-2 bg-gray-200 dark:bg-gray-800 rounded-full text-orange-600 dark:text-orange-400 hover:bg-orange-100 dark:hover:bg-orange-900/30 transition-colors shadow-sm relative border border-gray-300 dark:border-gray-700"
-          title="View excluded phrasal verbs"
+          title={excludedTitle}
         >
           <EyeOffIcon />
           {excludedCount > 0 && (
@@ -52,7 +56,7 @@ export default function Header({ masteredCount, totalCount, currentIndex, onRese
         <button
           onClick={onShowAllVerbs}
           className="p-2 bg-gray-200 dark:bg-gray-800 rounded-full text-blue-600 dark:text-blue-400 hover:bg-blue-100 dark:hover:bg-blue-900/30 transition-colors shadow-sm border border-gray-300 dark:border-gray-700"
-          title="Browse all phrasal verbs"
+          title={allVerbsTitle}
         >
           <BookOpenIcon />
         </button>

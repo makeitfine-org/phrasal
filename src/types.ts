@@ -22,3 +22,8 @@ export interface VerbEntry {
 }
 
 export type BrowseVerbEntry = VerbEntry & { quizIndex?: number };
+
+export interface GrammarEntry {
+  sentence: string;
+  correctAnswers: string[];
+}

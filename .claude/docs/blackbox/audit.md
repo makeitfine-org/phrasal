@@ -1032,3 +1032,11 @@ When check correctness ignore punctuation and be case-insensitive
 
 Cover all functionality by tests
 ---
+
+## 2026-05-30T17:36:05Z
+Implement all these 4 tasks one by one
+---
+
+## 2026-05-30T17:49:48Z
+git add all changes and commit them with suitable message
+---

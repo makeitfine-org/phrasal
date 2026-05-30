@@ -594,3 +594,23 @@
 <!-- git-snapshot 2026-05-30T17:32:18Z -->
 - .claude/docs/blackbox/audit.md
 <!-- end-snapshot -->
+
+<!-- git-snapshot 2026-05-30T17:44:58Z -->
+- .claude/docs/blackbox/audit.md
+- backlog/tasks/task-10 - I-wish-if-only-data-layer-and-answer-checking.md
+- backlog/tasks/task-11 - I-wish-if-only-quiz-page.md
+- backlog/tasks/task-12 - Tutorial-modal-for-I-wish-if-only.md
+- backlog/tasks/task-9 - Grammar-landing-page-and-routing.md
+- src/__tests__/HomePage.test.tsx
+- src/components/ExcludedModal.tsx
+- src/components/Header.tsx
+- src/components/SearchModal.tsx
+- src/main.tsx
+- src/pages/HomePage.tsx
+- src/types.ts
+<!-- end-snapshot -->
+
+<!-- git-snapshot 2026-05-30T17:50:01Z -->
+- .claude/docs/blackbox/audit.md
+- .claude/docs/blackbox/session-log.md
+<!-- end-snapshot -->

@@ -7,9 +7,10 @@ interface ExcludedModalProps {
   allVerbs: VerbEntry[];
   onInclude: (verbIndex: number) => void;
   onClose: () => void;
+  itemLabel?: string;
 }
 
-export default function ExcludedModal({ excluded, allVerbs, onInclude, onClose }: ExcludedModalProps) {
+export default function ExcludedModal({ excluded, allVerbs, onInclude, onClose, itemLabel = 'Verbs' }: ExcludedModalProps) {
   const [searchQuery, setSearchQuery] = useState('');
 
   useEffect(() => {
@@ -39,7 +40,7 @@ export default function ExcludedModal({ excluded, allVerbs, onInclude, onClose }
       >
         <div className="flex justify-between items-center p-5 border-b border-gray-200 dark:border-gray-800">
           <h2 className="text-lg font-bold text-gray-900 dark:text-white">
-            Excluded Verbs ({excluded.size})
+            Excluded {itemLabel} ({excluded.size})
           </h2>
           <button
             onClick={onClose}
@@ -65,7 +66,7 @@ export default function ExcludedModal({ excluded, allVerbs, onInclude, onClose }
         <div className="overflow-y-auto flex-1 p-4 pt-2">
           {excluded.size === 0 ? (
             <p className="text-center text-gray-500 dark:text-gray-400 py-8">
-              No verbs are currently excluded.
+              No {itemLabel.toLowerCase()} are currently excluded.
             </p>
           ) : filteredIndices.length === 0 ? (
             <p className="text-center text-gray-500 dark:text-gray-400 py-8">

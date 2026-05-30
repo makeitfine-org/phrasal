@@ -1,14 +1,21 @@
 ---
 id: TASK-10
 title: I wish/if only data layer and answer-checking
-status: To Do
+status: Done
 assignee: []
 created_date: '2026-05-30 17:31'
+updated_date: '2026-05-30 17:38'
 labels:
   - grammar
   - data
   - answer-checking
 dependencies: []
+modified_files:
+  - src/types.ts
+  - src/data/wishData.ts
+  - src/utils/normalizeAnswer.ts
+  - src/__tests__/wishData.test.ts
+  - src/__tests__/normalizeAnswer.test.ts
 priority: medium
 ordinal: 3100
 ---
@@ -53,10 +60,16 @@ Answer is correct when `correctAnswers.some(a => normalizeAnswer(a) === normaliz
 
 ## Acceptance Criteria
 <!-- AC:BEGIN -->
-- [ ] #1 wishData exports an array of GrammarEntry with at least 3 entries
-- [ ] #2 Each entry has a non-empty sentence string and at least one correctAnswer
-- [ ] #3 normalizeAnswer strips punctuation, collapses whitespace, lowercases
-- [ ] #4 Answer check accepts any of the correctAnswers ignoring punctuation and casing
-- [ ] #5 The sentence with two accepted answers passes for both variants
-- [ ] #6 `npm run test:run` passes
+- [x] #1 wishData exports an array of GrammarEntry with at least 3 entries
+- [x] #2 Each entry has a non-empty sentence string and at least one correctAnswer
+- [x] #3 normalizeAnswer strips punctuation, collapses whitespace, lowercases
+- [x] #4 Answer check accepts any of the correctAnswers ignoring punctuation and casing
+- [x] #5 The sentence with two accepted answers passes for both variants
+- [x] #6 `npm run test:run` passes
 <!-- AC:END -->
+
+## Final Summary
+
+<!-- SECTION:FINAL_SUMMARY:BEGIN -->
+Added GrammarEntry type, wishData with 3 Russian sentences (one with two accepted English answers), and normalizeAnswer/isAnswerCorrect utilities. All 266 tests pass.
+<!-- SECTION:FINAL_SUMMARY:END -->

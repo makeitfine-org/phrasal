@@ -8,11 +8,12 @@ interface SearchModalProps {
   onSelect: (verbIndex: number) => void;
   onUnexclude: (verbIndex: number) => void;
   onClose: () => void;
+  searchPlaceholder?: string;
 }
 
 type SearchResult = VerbEntry & { index: number; isExcluded: boolean };
 
-export default function SearchModal({ allVerbs, excluded, onSelect, onUnexclude, onClose }: SearchModalProps) {
+export default function SearchModal({ allVerbs, excluded, onSelect, onUnexclude, onClose, searchPlaceholder = 'Search phrasal verbs...' }: SearchModalProps) {
   const [query, setQuery] = useState('');
   const [showExcluded, setShowExcluded] = useState(false);
   const [selectedIndex, setSelectedIndex] = useState(-1);
@@ -78,7 +79,7 @@ export default function SearchModal({ allVerbs, excluded, onSelect, onUnexclude,
           <div className="flex items-center gap-3">
             <input
               type="text"
-              placeholder="Search phrasal verbs..."
+              placeholder={searchPlaceholder}
               value={query}
               onChange={e => setQuery(e.target.value)}
               onKeyDown={handleKeyDown}

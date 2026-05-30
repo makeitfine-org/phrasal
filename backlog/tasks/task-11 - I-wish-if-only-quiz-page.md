@@ -1,15 +1,23 @@
 ---
 id: TASK-11
 title: I wish/if only quiz page
-status: To Do
+status: Done
 assignee: []
 created_date: '2026-05-30 17:32'
+updated_date: '2026-05-30 17:43'
 labels:
   - grammar
   - quiz
   - frontend
 dependencies:
   - TASK-10
+modified_files:
+  - src/main.tsx
+  - src/pages/IWishPage.tsx
+  - src/components/Header.tsx
+  - src/components/ExcludedModal.tsx
+  - src/components/SearchModal.tsx
+  - src/__tests__/IWishPage.test.tsx
 priority: medium
 ordinal: 4100
 ---
@@ -41,12 +49,18 @@ Create the full quiz page at `/grammar/i-wish-if-only`, reusing existing quiz UI
 
 ## Acceptance Criteria
 <!-- AC:BEGIN -->
-- [ ] #1 Route /grammar/i-wish-if-only renders the quiz with Russian sentence as prompt
-- [ ] #2 Submitting the correct English answer (with differing punctuation/casing) marks it correct
-- [ ] #3 Submitting a wrong answer marks it wrong and shows the first accepted answer in Feedback
-- [ ] #4 Header shows Tutorial, Search by sentences, and View excluded sentences buttons
-- [ ] #5 Search modal placeholder says 'Search by sentences'
-- [ ] #6 Excluded modal heading/empty-state uses 'sentences' wording
-- [ ] #7 State persists to localStorage under key grammarIWishState
-- [ ] #8 `npm run test:run` passes with no regressions to existing phrasal-verbs tests
+- [x] #1 Route /grammar/i-wish-if-only renders the quiz with Russian sentence as prompt
+- [x] #2 Submitting the correct English answer (with differing punctuation/casing) marks it correct
+- [x] #3 Submitting a wrong answer marks it wrong and shows the first accepted answer in Feedback
+- [x] #4 Header shows Tutorial, Search by sentences, and View excluded sentences buttons
+- [x] #5 Search modal placeholder says 'Search by sentences'
+- [x] #6 Excluded modal heading/empty-state uses 'sentences' wording
+- [x] #7 State persists to localStorage under key grammarIWishState
+- [x] #8 `npm run test:run` passes with no regressions to existing phrasal-verbs tests
 <!-- AC:END -->
+
+## Final Summary
+
+<!-- SECTION:FINAL_SUMMARY:BEGIN -->
+Created IWishPage with full quiz logic using wishData and isAnswerCorrect. Added optional label props to Header (title, searchTitle, excludedTitle, allVerbsTitle), ExcludedModal (itemLabel), and SearchModal (searchPlaceholder). Added route /grammar/i-wish-if-only. All 282 tests pass.
+<!-- SECTION:FINAL_SUMMARY:END -->

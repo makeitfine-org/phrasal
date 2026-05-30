@@ -47,6 +47,17 @@ describe('HomePage', () => {
     renderHomePage();
     expect(screen.getByText('Choose an exercise to practice')).toBeInTheDocument();
   });
+
+  it('renders the Grammar link card', () => {
+    renderHomePage();
+    expect(screen.getByRole('heading', { name: 'Grammar' })).toBeInTheDocument();
+  });
+
+  it('Grammar link points to /grammar', () => {
+    renderHomePage();
+    const link = screen.getByRole('link', { name: /Grammar/i });
+    expect(link).toHaveAttribute('href', '/grammar');
+  });
 });
 
 describe('Routing smoke tests', () => {

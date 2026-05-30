@@ -1,15 +1,20 @@
 ---
 id: TASK-12
 title: Tutorial modal for I wish/if only
-status: To Do
+status: Done
 assignee: []
 created_date: '2026-05-30 17:32'
+updated_date: '2026-05-30 17:44'
 labels:
   - grammar
   - modal
   - frontend
 dependencies:
   - TASK-11
+modified_files:
+  - src/components/TutorialModal.tsx
+  - src/pages/IWishPage.tsx
+  - src/__tests__/TutorialModal.test.tsx
 priority: medium
 ordinal: 5100
 ---
@@ -39,10 +44,16 @@ Each section: heading, rule explanation, 2–3 example sentences, any notes (inc
 
 ## Acceptance Criteria
 <!-- AC:BEGIN -->
-- [ ] #1 TutorialModal renders all 4 section headings
-- [ ] #2 Each section shows its rule text and example sentences
-- [ ] #3 The 'were/was' note is visible
-- [ ] #4 Modal closes on Escape keypress
-- [ ] #5 Modal closes when clicking outside the content box
-- [ ] #6 `npm run test:run` passes
+- [x] #1 TutorialModal renders all 4 section headings
+- [x] #2 Each section shows its rule text and example sentences
+- [x] #3 The 'were/was' note is visible
+- [x] #4 Modal closes on Escape keypress
+- [x] #5 Modal closes when clicking outside the content box
+- [x] #6 `npm run test:run` passes
 <!-- AC:END -->
+
+## Final Summary
+
+<!-- SECTION:FINAL_SUMMARY:BEGIN -->
+Created TutorialModal with all 4 I wish/If only sections (headings, rule text, examples, notes). Wired it into IWishPage replacing the placeholder. All 300 tests pass.
+<!-- SECTION:FINAL_SUMMARY:END -->
