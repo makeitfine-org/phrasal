@@ -32,6 +32,7 @@ export default function App() {
   const [touchEnd, setTouchEnd] = useState<number | null>(null);
 
   const inputRef = useRef<HTMLInputElement>(null);
+  const bootstrapDone = useRef(savedState.history != null && savedState.history.length > 0);
 
   // Persist state to localStorage, preserving fields managed by PageShell (e.g. darkMode)
   useEffect(() => {
@@ -55,7 +56,8 @@ export default function App() {
 
   // Bootstrap first card
   useEffect(() => {
-    if (history.length === 0) {
+    if (history.length === 0 && !bootstrapDone.current) {
+      bootstrapDone.current = true;
       goToNextUnmastered();
     }
   // eslint-disable-next-line react-hooks/exhaustive-deps
@@ -84,6 +86,7 @@ export default function App() {
       setHistory([]);
       setCurrentIndex(-1);
       setShowExcludedModal(false);
+      bootstrapDone.current = false;
     }
   }, []);
 

@@ -851,3 +851,16 @@ Cover the functionality with tests
 ## 2026-05-30T13:42:33Z
 execute git add all changes and commit them with suitable message
 ---
+
+## 2026-05-30T13:47:31Z
+When I open Phrasal verb page in new browser I see "0 / 2 / 270" not "0 / 1 / 270".
+Why? I want to fix it
+---
+
+## 2026-05-30T13:53:09Z
+Cover the functionality with tests
+---
+
+## 2026-05-30T13:55:16Z
+execute git add all changes and commit them with suitable message
+---

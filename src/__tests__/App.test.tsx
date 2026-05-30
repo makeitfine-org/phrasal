@@ -1,3 +1,4 @@
+import React from 'react';
 import { render, screen, within } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
 import App from '../App';
@@ -278,6 +279,33 @@ describe('App — handleGlobalReset', () => {
     await user.click(screen.getByText('Check'));
     await user.click(screen.getByTitle('Global Reset - Clear all progress'));
     expect(screen.getByTestId('mastered-count')).toHaveTextContent('1');
+  });
+});
+
+describe('App — StrictMode bootstrap guard', () => {
+  function renderStrict() {
+    return render(<React.StrictMode><App /></React.StrictMode>);
+  }
+
+  it('shows question 1, not 2, on fresh load under StrictMode', () => {
+    renderStrict();
+    expect(screen.getByTestId('question-number')).toHaveTextContent('1');
+  });
+
+  it('persists exactly one card to history on fresh load under StrictMode', () => {
+    renderStrict();
+    const saved = JSON.parse(localStorage.getItem('phrasalQuizState')!);
+    expect(saved.history).toHaveLength(1);
+  });
+
+  it('re-bootstraps with exactly one card after global reset under StrictMode', async () => {
+    vi.spyOn(window, 'confirm').mockReturnValue(true);
+    const user = userEvent.setup();
+    renderStrict();
+    await user.click(screen.getByTitle('Global Reset - Clear all progress'));
+    expect(screen.getByTestId('question-number')).toHaveTextContent('1');
+    const saved = JSON.parse(localStorage.getItem('phrasalQuizState')!);
+    expect(saved.history).toHaveLength(1);
   });
 });
 
