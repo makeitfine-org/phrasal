@@ -441,3 +441,15 @@
 - src/__tests__/__fixtures__/phrasalVerbs.json
 - src/__tests__/phrasalVerbs.test.ts
 <!-- end-snapshot -->
+
+<!-- git-snapshot 2026-05-30T10:47:13Z -->
+- .claude/docs/blackbox/audit.md
+- src/__tests__/__fixtures__/phrasalVerbs.json
+- src/data/phrasalVerbs.ts
+<!-- end-snapshot -->
+
+<!-- git-snapshot 2026-05-30T10:49:25Z -->
+- .claude/docs/blackbox/audit.md
+- .claude/docs/blackbox/session-log.md
+- backlog/tasks/task-6 - Set-timeout-for-GitHub-Actions-CI-CD.md
+<!-- end-snapshot -->

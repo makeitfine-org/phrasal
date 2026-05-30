@@ -43,7 +43,7 @@ export const rawData: RawVerbEntry[] = [
     ["Catch up", "To reach the same level or position as someone who is ahead of you", "Walk faster so you can catch up with the group.", ["catch up"], false],
     ["Catch up", "To spend time with someone to hear about what is new in their life", "Let's get coffee and catch up!", ["catch up"], false],
     ["Catch up", "To complete tasks or work that you have fallen behind on", "I need to catch up on my emails.", ["catch up"], false],
-    ["Catch up", "To become deeply absorbed or involved in a situation (usually caught up in)", "She got so caught up in the drama that she lost track of time.", ["caught up"], false],
+    ["Catch up", "To become deeply absorbed or involved in a situation", "She got so caught up in the drama that she lost track of time.", ["caught up"], false],
     ["Check off", "To mark or indicate that something has been completed or verified", "I'll check off the items on the list as we go.", ["check off"], false],
     ["Check over", "To review or examine something carefully", "Please check over the document for any errors.", ["check over"], false],
     ["Check up on", "To verify or investigate the condition or progress of something", "The doctor wants to check up on your recovery.", ["check up on"], false],

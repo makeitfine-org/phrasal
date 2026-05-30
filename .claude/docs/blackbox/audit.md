@@ -801,3 +801,11 @@ fix tests
 ## 2026-05-30T10:30:59Z
 fix tests based on changes in @src/data/phrasalVerbs.ts
 ---
+
+## 2026-05-30T10:46:37Z
+fix tests based on changes in @src/data/phrasalVerbs.ts
+---
+
+## 2026-05-30T10:48:50Z
+execute git add all changes and commit them with suitable message
+---
