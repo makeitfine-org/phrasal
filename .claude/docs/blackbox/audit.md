@@ -894,3 +894,28 @@ Cover the functionality with tests
 ## 2026-05-30T14:19:19Z
 execute git add all changes and commit them with suitable message
 ---
+
+## 2026-05-30T15:07:42Z
+Complete the backlog task-7
+---
+
+## 2026-05-30T15:14:43Z
+Did you complete the task?
+---
+
+## 2026-05-30T15:16:03Z
+complete the task without commiting
+---
+
+## 2026-05-30T15:17:13Z
+Did you cover the new functionality with the tests?
+---
+
+## 2026-05-30T15:18:34Z
+execute git add all changes and commit them with suitable message
+---
+
+## 2026-05-30T15:21:05Z
+Create a backlog.md task (but don't execute it):
+Now add search and excluded checkbox to "Browse all verbs" the same way as it done for "Search phrasal verbs" button functionality.
+---

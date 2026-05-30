@@ -524,3 +524,50 @@
 <!-- git-snapshot 2026-05-30T14:17:14Z -->
 - .claude/docs/blackbox/audit.md
 <!-- end-snapshot -->
+
+<!-- git-snapshot 2026-05-30T15:14:53Z -->
+- .claude/docs/blackbox/audit.md
+- src/App.tsx
+- src/__tests__/AllVerbsModal.test.tsx
+- src/__tests__/Header.test.tsx
+- src/components/AllVerbsModal.tsx
+- src/components/Header.tsx
+- src/components/Icons.tsx
+- src/data/phrasalVerbs.ts
+<!-- end-snapshot -->
+
+<!-- git-snapshot 2026-05-30T15:16:30Z -->
+- .claude/docs/blackbox/audit.md
+- .claude/docs/blackbox/session-log.md
+- backlog/tasks/task-7 - Add-All-Verbs-button-after-Global-Reset-to-display-full-verb-list.md
+- src/App.tsx
+- src/__tests__/AllVerbsModal.test.tsx
+- src/__tests__/Header.test.tsx
+- src/components/AllVerbsModal.tsx
+- src/components/Header.tsx
+- src/components/Icons.tsx
+- src/data/phrasalVerbs.ts
+<!-- end-snapshot -->
+
+<!-- git-snapshot 2026-05-30T15:17:47Z -->
+- .claude/docs/blackbox/audit.md
+- .claude/docs/blackbox/session-log.md
+- backlog/completed/task-7 - Add-All-Verbs-button-after-Global-Reset-to-display-full-verb-list.md
+- src/App.tsx
+- src/__tests__/AllVerbsModal.test.tsx
+- src/__tests__/Header.test.tsx
+- src/components/AllVerbsModal.tsx
+- src/components/Header.tsx
+- src/components/Icons.tsx
+- src/data/phrasalVerbs.ts
+<!-- end-snapshot -->
+
+<!-- git-snapshot 2026-05-30T15:19:01Z -->
+- .claude/docs/blackbox/audit.md
+- .claude/docs/blackbox/session-log.md
+<!-- end-snapshot -->
+
+<!-- git-snapshot 2026-05-30T15:21:44Z -->
+- .claude/docs/blackbox/audit.md
+- .claude/docs/blackbox/session-log.md
+<!-- end-snapshot -->
