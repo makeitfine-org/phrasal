@@ -835,3 +835,19 @@ Cover "The header now shows mastered / question / total — three color-coded nu
 ## 2026-05-30T13:34:24Z
 execute git add all changes and commit them with suitable message
 ---
+
+## 2026-05-30T13:39:13Z
+The header now shows mastered / question / total
+when I hover by mouse on:
+mastered - you should show show title: "Mastered"
+question - you should show show title: "Viewed"
+total - you should show show title: "Total"
+---
+
+## 2026-05-30T13:41:24Z
+Cover the functionality with tests
+---
+
+## 2026-05-30T13:42:33Z
+execute git add all changes and commit them with suitable message
+---

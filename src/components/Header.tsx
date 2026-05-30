@@ -20,11 +20,11 @@ export default function Header({ masteredCount, totalCount, currentIndex, onRese
         </h1>
         <div className="flex items-center mt-1">
           <p className="text-sm font-medium text-gray-500 dark:text-gray-400">
-            <span data-testid="mastered-count" className="text-green-600 dark:text-green-400 font-bold">{masteredCount}</span>
+            <span data-testid="mastered-count" title="Mastered" className="text-green-600 dark:text-green-400 font-bold">{masteredCount}</span>
             {' '}/{' '}
-            <span data-testid="question-number" className="text-indigo-600 dark:text-indigo-400 font-bold">{currentIndex + 1}</span>
+            <span data-testid="question-number" title="Viewed" className="text-indigo-600 dark:text-indigo-400 font-bold">{currentIndex + 1}</span>
             {' '}/{' '}
-            <span className="font-bold">{totalCount}</span>
+            <span title="Total" className="font-bold">{totalCount}</span>
           </p>
         </div>
       </div>

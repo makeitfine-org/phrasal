@@ -39,6 +39,23 @@ describe('Header', () => {
     expect(screen.getByTestId('question-number')).toHaveClass('text-indigo-600');
   });
 
+  it('mastered count has title "Mastered"', () => {
+    render(<Header {...makeProps()} />);
+    expect(screen.getByTestId('mastered-count')).toHaveAttribute('title', 'Mastered');
+  });
+
+  it('question number has title "Viewed"', () => {
+    render(<Header {...makeProps()} />);
+    expect(screen.getByTestId('question-number')).toHaveAttribute('title', 'Viewed');
+  });
+
+  it('total count has title "Total"', () => {
+    render(<Header {...makeProps()} />);
+    const p = screen.getByTestId('mastered-count').closest('p')!;
+    const totalSpan = p.querySelector('span:last-child')!;
+    expect(totalSpan).toHaveAttribute('title', 'Total');
+  });
+
   it('renders 1-based question number', () => {
     render(<Header {...makeProps({ currentIndex: 4 })} />);
     expect(screen.getByTestId('question-number')).toHaveTextContent('5');

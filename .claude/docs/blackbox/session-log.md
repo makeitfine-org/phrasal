@@ -486,3 +486,20 @@
 - .claude/docs/blackbox/audit.md
 - .claude/docs/blackbox/session-log.md
 <!-- end-snapshot -->
+
+<!-- git-snapshot 2026-05-30T13:39:23Z -->
+- .claude/docs/blackbox/audit.md
+- src/components/Header.tsx
+<!-- end-snapshot -->
+
+<!-- git-snapshot 2026-05-30T13:41:44Z -->
+- .claude/docs/blackbox/audit.md
+- .claude/docs/blackbox/session-log.md
+- src/__tests__/Header.test.tsx
+- src/components/Header.tsx
+<!-- end-snapshot -->
+
+<!-- git-snapshot 2026-05-30T13:42:53Z -->
+- .claude/docs/blackbox/audit.md
+- .claude/docs/blackbox/session-log.md
+<!-- end-snapshot -->
