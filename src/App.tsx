@@ -99,10 +99,6 @@ export default function App() {
     if (currentIndex > 0) setCurrentIndex(prev => prev - 1);
   }, [currentIndex]);
 
-  const handleSkip = useCallback(() => {
-    goToNextUnmastered();
-  }, [goToNextUnmastered]);
-
   const resetState = useCallback(() => {
     setHistory(prev => {
       const next = [...prev];
@@ -322,7 +318,6 @@ export default function App() {
           onPrev={handlePrev}
           onNext={handleNext}
           onReset={resetState}
-          onSkip={handleSkip}
         />
       </div>
 

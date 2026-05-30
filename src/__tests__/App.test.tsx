@@ -194,7 +194,6 @@ describe('App — navigation', () => {
     }));
     renderApp();
     expect(screen.getByTitle('Next / History Forward')).toBeDisabled();
-    expect(screen.getByText('Next').closest('button')).toBeDisabled();
   });
 
   it('navigates back to previous card when Prev is clicked', async () => {
@@ -233,12 +232,6 @@ describe('App — navigation', () => {
     expect(screen.getByText('To escape')).toBeInTheDocument();
   });
 
-  it('loads a new card when Skip is clicked', async () => {
-    const user = userEvent.setup();
-    renderApp();
-    await user.click(screen.getByText('Next').closest('button')!);
-    expect(screen.getByText(/Question № 2/)).toBeInTheDocument();
-  });
 });
 
 describe('App — handleToggleExclude / handleIncludeVerb', () => {
@@ -443,20 +436,3 @@ describe('App — modals', () => {
   });
 });
 
-describe('App — session complete', () => {
-  it('shows an alert when all verbs have been used', async () => {
-    localStorage.setItem('phrasalQuizState', JSON.stringify({
-      mastered: [], excluded: [],
-      history: [
-        { index: 0, inputValue: '', status: 'idle' },
-        { index: 1, inputValue: '', status: 'idle' },
-        { index: 2, inputValue: '', status: 'idle' },
-      ],
-      currentIndex: 2, darkMode: false,
-    }));
-    const user = userEvent.setup();
-    renderApp();
-    await user.click(screen.getByText('Next').closest('button')!);
-    expect(screen.getByText('Next').closest('button')).toBeDisabled();
-  });
-});

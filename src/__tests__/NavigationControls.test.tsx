@@ -12,7 +12,6 @@ function makeProps(overrides: Record<string, unknown> = {}) {
     onPrev: vi.fn(),
     onNext: vi.fn(),
     onReset: vi.fn(),
-    onSkip: vi.fn(),
     ...overrides,
   };
 }
@@ -58,16 +57,6 @@ describe('NavigationControls', () => {
     expect(screen.getByText('Reset').closest('button')).not.toBeDisabled();
   });
 
-  it('disables the Skip button when remainingCount is 0', () => {
-    render(<NavigationControls {...makeProps({ remainingCount: 0 })} />);
-    expect(screen.getByText('Next').closest('button')).toBeDisabled();
-  });
-
-  it('enables the Skip button when remainingCount > 0', () => {
-    render(<NavigationControls {...makeProps({ remainingCount: 1 })} />);
-    expect(screen.getByText('Next').closest('button')).not.toBeDisabled();
-  });
-
   it('calls onPrev when Prev button is clicked', async () => {
     const props = makeProps({ currentIndex: 1 });
     const user = userEvent.setup();
@@ -92,14 +81,6 @@ describe('NavigationControls', () => {
     expect(props.onReset).toHaveBeenCalledOnce();
   });
 
-  it('calls onSkip when Skip button is clicked', async () => {
-    const props = makeProps({ remainingCount: 2 });
-    const user = userEvent.setup();
-    render(<NavigationControls {...props} />);
-    await user.click(screen.getByText('Next').closest('button')!);
-    expect(props.onSkip).toHaveBeenCalledOnce();
-  });
-
   it('Prev button has subtle border class', () => {
     render(<NavigationControls {...makeProps({ currentIndex: 1 })} />);
     expect(screen.getByTitle('Previous Question')).toHaveClass('border-gray-200');
@@ -115,8 +96,4 @@ describe('NavigationControls', () => {
     expect(screen.getByText('Reset').closest('button')).toHaveClass('border-gray-300');
   });
 
-  it('Next/Skip button (enabled) has blue border class', () => {
-    render(<NavigationControls {...makeProps({ remainingCount: 1 })} />);
-    expect(screen.getByText('Next').closest('button')).toHaveClass('border-blue-300');
-  });
 });
