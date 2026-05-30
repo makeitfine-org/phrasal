@@ -458,3 +458,47 @@ I plan to make a new release give, so:
 ## 2026-05-29T19:26:22Z
 apply
 ---
+
+## 2026-05-29T19:32:26Z
+I plan to make a new release give, so:
+- give the next release tag
+- give description for next release
+---
+
+## 2026-05-29T19:34:13Z
+apply
+---
+
+## 2026-05-30T09:26:32Z
+Fix @src/data/phrasalVerbs.ts rawData:
+- definition and sentence shouldn't contain asked phrasal verb.
+- Definition should not contains special symobls, ",/,(,)" etc.
+---
+for example: 
+["Log out/Log off", "To sign out of your account", "You should always log out of your accounts when you use a public computer.", ["log out"], false],
+may be fixed as:
+["Log out", "To sign out of your account", "You should always log out of your accounts when you use a public computer.", ["log out"], false],
+["Log off", "To sign out of your account", "You should always log off of your accounts when you use a public computer.", ["log off"], false],
+And:
+["Turn on/Turn off", "To switch a machine or light on or off", "Turn off the light I'm trying to sleep!", ["Turn off"], false],
+as
+["Turn on", "To switch a machine or light on", "Turn on the light I'm not trying to sleep!", ["Turn on"], false],
+["Turn off", "To switch a machine or light off", "Turn off the light I'm trying to sleep!", ["Turn off"], false]
+---
+
+## 2026-05-30T09:32:33Z
+Fix @src/data/phrasalVerbs.ts rawData:
+- definition and sentence shouldn't contain asked phrasal verb.
+- Definition should not contains special symobls, ",/,(,)" etc.
+---
+for example: 
+["Log out/Log off", "To sign out of your account", "You should always log out of your accounts when you use a public computer.", ["log out"], false],
+may be fixed as:
+["Log out", "To sign out of your account", "You should always log out of your accounts when you use a public computer.", ["log out"], false],
+["Log off", "To sign out of your account", "You should always log off of your accounts when you use a public computer.", ["log off"], false],
+And:
+["Turn on/Turn off", "To switch a machine or light on or off", "Turn off the light I'm trying to sleep!", ["Turn off"], false],
+as
+["Turn on", "To switch a machine or light on", "Turn on the light I'm not trying to sleep!", ["Turn on"], false],
+["Turn off", "To switch a machine or light off", "Turn off the light I'm trying to sleep!", ["Turn off"], false]
+---

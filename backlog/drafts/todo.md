@@ -49,7 +49,7 @@ I want to implement a User registration by username and password for my applicat
   User password should be strong, not less then 8 symbols and defined by security rules you propose.
 
 ---
-Set timeout for build in `github actions` CI/CD
+✅ Set timeout for build in `github actions` CI/CD
 
 ---
 connect to PC Claude code from phone and handle by approving
