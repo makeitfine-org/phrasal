@@ -61,7 +61,7 @@ export const rawData: RawVerbEntry[] = [
     ["Come down with", "To become ill with a particular illness or condition", "She came down with the flu and had to stay home from work.", ["came down with"], false],
     ["Come forward", "To offer oneself for a task position or help", "If anyone has any information please come forward and speak to the authorities.", ["come forward"], false],
     ["Come in", "To enter a place", "Please knock before you come in.", ["come in"], false],
-    ["Come off", "To succeed or produce the intended result", "The whole business deal just didn't come off.", ["came off"], false],
+    ["Come off", "To succeed or produce the intended result", "The whole business deal just didn't come off.", ["come off"], false],
     ["Come off", "To detach or be removed from a surface", "The button came off my coat.", ["came off"], false],
     ["Come off", "To be removed from a hard surface (stains, marks)", "That grease stain just won't come off the kitchen counter.", ["come off"], false],
     ["Come off", "To give a particular impression or come across in a certain way", "He tried to be helpful, but he came off as bossy.", ["came off"], false],
