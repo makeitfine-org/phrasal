@@ -157,3 +157,15 @@ Yes
 - Add border around frame of each phrasal verb: light for dark thema and dark for light thema.
 Add tests for that all
 ---
+
+## 2026-06-05T12:34:35Z
+For "get" page place "off" separactly on new line on the left and extend/collapse by in that definition.
+---
+
+## 2026-06-05T12:39:51Z
+No, I meant single "off" and by click collapse/extend it and show its content.
+---
+
+## 2026-06-05T12:44:30Z
+git add all changes and commit them with suitable message
+---

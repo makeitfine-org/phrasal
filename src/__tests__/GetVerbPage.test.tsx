@@ -20,9 +20,9 @@ beforeEach(() => {
 });
 
 describe('GetVerbPage', () => {
-  it('renders "Get off" heading', () => {
+  it('renders "Get" heading', () => {
     renderPage();
-    expect(screen.getByRole('heading', { name: 'Get off' })).toBeInTheDocument();
+    expect(screen.getByRole('heading', { name: 'Get' })).toBeInTheDocument();
   });
 
   it('does not render "4 meanings" subtitle', () => {
@@ -118,6 +118,49 @@ describe('GetVerbPage', () => {
       fireEvent.mouseEnter(p);
       expect(p).toHaveAttribute('title', full);
     }
+  });
+
+  // --- "off" section toggle ---
+
+  it('renders "off" section toggle', () => {
+    renderPage();
+    expect(screen.getByText('off')).toBeInTheDocument();
+  });
+
+  it('"off" section starts expanded showing all 4 definitions', () => {
+    renderPage();
+    expect(screen.getByText(/To leave a form of public transport/i)).toBeInTheDocument();
+    expect(screen.getByText(/To finish work/i)).toBeInTheDocument();
+    expect(screen.getByText(/To escape punishment/i)).toBeInTheDocument();
+    expect(screen.getByText(/To send something/i)).toBeInTheDocument();
+  });
+
+  it('clicking "off" collapses all meaning cards', () => {
+    renderPage();
+    fireEvent.click(screen.getByText('off'));
+    expect(screen.queryByText(/To leave a form of public transport/i)).not.toBeInTheDocument();
+    expect(screen.queryByText(/To finish work/i)).not.toBeInTheDocument();
+    expect(screen.queryByText(/To escape punishment/i)).not.toBeInTheDocument();
+    expect(screen.queryByText(/To send something/i)).not.toBeInTheDocument();
+  });
+
+  it('clicking "off" twice restores all meaning cards', () => {
+    renderPage();
+    fireEvent.click(screen.getByText('off'));
+    fireEvent.click(screen.getByText('off'));
+    expect(screen.getByText(/To leave a form of public transport/i)).toBeInTheDocument();
+  });
+
+  it('saves "off" section state to localStorage when collapsed', () => {
+    renderPage();
+    fireEvent.click(screen.getByText('off'));
+    expect(localStorage.getItem('getOff_section_expanded')).toBe('false');
+  });
+
+  it('restores "off" section collapsed state from localStorage', () => {
+    localStorage.setItem('getOff_section_expanded', 'false');
+    renderPage();
+    expect(screen.queryByText(/To leave a form of public transport/i)).not.toBeInTheDocument();
   });
 
   // --- Card border ---
