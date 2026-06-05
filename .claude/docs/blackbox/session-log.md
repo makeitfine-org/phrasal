@@ -238,3 +238,16 @@
 - src/__tests__/GetVerbPage.test.tsx
 - src/pages/get/GetVerbPage.tsx
 <!-- end-snapshot -->
+
+<!-- git-snapshot 2026-06-05T14:11:09Z -->
+- .claude/docs/blackbox/audit.md
+- src/__tests__/GetVerbPage.test.tsx
+- src/pages/get/GetVerbPage.tsx
+<!-- end-snapshot -->
+
+<!-- git-snapshot 2026-06-05T14:11:34Z -->
+- .claude/docs/blackbox/audit.md
+- .claude/docs/blackbox/session-log.md
+- src/__tests__/GetVerbPage.test.tsx
+- src/pages/get/GetVerbPage.tsx
+<!-- end-snapshot -->

@@ -124,6 +124,24 @@ describe('GetVerbPage', () => {
     }
   });
 
+  // --- Section separator ---
+
+  it('renders a horizontal rule separator between off and on sections', () => {
+    renderPage();
+    const hr = document.querySelector('hr');
+    expect(hr).toBeInTheDocument();
+    expect(hr).toHaveClass('border-gray-600');
+  });
+
+  it('separator appears between off and on sections in DOM order', () => {
+    renderPage();
+    const hr = document.querySelector('hr')!;
+    const offSection = getSection('off');
+    const onSection = getSection('on');
+    expect(offSection.compareDocumentPosition(hr) & Node.DOCUMENT_POSITION_FOLLOWING).toBeTruthy();
+    expect(hr.compareDocumentPosition(onSection) & Node.DOCUMENT_POSITION_FOLLOWING).toBeTruthy();
+  });
+
   // --- Section spacing ---
 
   it('"off" section wrapper has mb-5 class', () => {

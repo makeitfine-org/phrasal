@@ -186,6 +186,7 @@ export default function GetVerbPage() {
         </h1>
 
         <Section particle="off" meanings={offMeanings} storageKey="getOff_section_expanded" storageKeyPrefix="getOff" />
+        <hr className="border-gray-600 dark:border-gray-500 my-2" />
         <Section particle="on" meanings={onMeanings} storageKey="getOn_section_expanded" storageKeyPrefix="getOn" />
       </div>
     </div>
