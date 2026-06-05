@@ -501,6 +501,66 @@ describe('GetVerbPage', () => {
     expect(screen.getAllByRole('img')).toHaveLength(4);
   });
 
+  // --- Expanded layout: image first, then number + definition + example ---
+
+  it('collapsed card definition has truncate class', () => {
+    renderPage();
+    const card = getCard(/To leave a form of public transport/i);
+    expect(within(card).getByText(/To leave a form of public transport/i)).toHaveClass('truncate');
+  });
+
+  it('expanded card definition does not have truncate class', () => {
+    renderPage();
+    fireEvent.click(getCard(/To leave a form of public transport/i));
+    const card = getCard(/To leave a form of public transport/i);
+    expect(within(card).getByText(/To leave a form of public transport/i)).not.toHaveClass('truncate');
+  });
+
+  it('expanded card image appears before definition in DOM order', () => {
+    renderPage();
+    fireEvent.click(getCard(/To leave a form of public transport/i));
+    const card = getCard(/To leave a form of public transport/i);
+    const img = within(card).getByRole('img');
+    const def = within(card).getByText(/To leave a form of public transport/i);
+    expect(img.compareDocumentPosition(def) & Node.DOCUMENT_POSITION_FOLLOWING).toBeTruthy();
+  });
+
+  it('expanded card definition appears before example in DOM order', () => {
+    renderPage();
+    fireEvent.click(getCard(/To leave a form of public transport/i));
+    const card = getCard(/To leave a form of public transport/i);
+    const def = within(card).getByText(/To leave a form of public transport/i);
+    const example = within(card).getByText(/"We need to get off the train/i);
+    expect(def.compareDocumentPosition(example) & Node.DOCUMENT_POSITION_FOLLOWING).toBeTruthy();
+  });
+
+  it('collapsed card shows number badge', () => {
+    renderPage();
+    const card = getCard(/To leave a form of public transport/i);
+    expect(within(card).getByText('1')).toBeInTheDocument();
+  });
+
+  it('expanded card number badge appears after image in DOM order', () => {
+    renderPage();
+    fireEvent.click(getCard(/To leave a form of public transport/i));
+    const card = getCard(/To leave a form of public transport/i);
+    const img = within(card).getByRole('img');
+    const badge = within(card).getByText('1');
+    expect(img.compareDocumentPosition(badge) & Node.DOCUMENT_POSITION_FOLLOWING).toBeTruthy();
+  });
+
+  it('collapsed card has no image', () => {
+    renderPage();
+    const card = getCard(/To leave a form of public transport/i);
+    expect(within(card).queryByRole('img')).not.toBeInTheDocument();
+  });
+
+  it('collapsed card has no example text', () => {
+    renderPage();
+    const card = getCard(/To leave a form of public transport/i);
+    expect(within(card).queryByText(/"We need to get off the train/i)).not.toBeInTheDocument();
+  });
+
   // --- localStorage persistence ---
 
   it('saves expanded state to localStorage when a card is expanded', () => {

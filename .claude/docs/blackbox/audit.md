@@ -209,3 +209,35 @@ Do the same as it's for "get off".
 ## 2026-06-05T13:02:28Z
 git add all changes and commit them with suitable message
 ---
+
+## 2026-06-05T13:18:12Z
+for "off", "onn":
+- when extended put num and definition after pic near the example in the bottom
+---
+
+## 2026-06-05T13:18:25Z
+for "off", "onn":
+- when extended put num and definition after pic near the example in the bottom
+---
+
+## 2026-06-05T13:20:12Z
+@src/pages/get/GetVerbPage.tsx
+---
+
+## 2026-06-05T13:20:17Z
+@src/pages/get/GetVerbPage.tsx
+for get phrasal verb "off", "on":
+  - when extended put num and definition after pic near the example in the bottom
+---
+
+## 2026-06-05T13:21:24Z
+leave small space between border and picture dont'stick them
+---
+
+## 2026-06-05T13:22:08Z
+Cover the functionality with tests
+---
+
+## 2026-06-05T13:24:13Z
+git add all changes and commit them with suitable message
+---
