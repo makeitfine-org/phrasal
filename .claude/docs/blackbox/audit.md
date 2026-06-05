@@ -328,3 +328,23 @@ Example: I need to get my expenses application in by Friday.
 
 Do the same as it's for "get off", "get on".
 ---
+
+## 2026-06-05T16:42:51Z
+Get into
+
+To become interested or involved in something:
+Example: I recently got into software development.
+/home/eug/Downloads/iloveimg-compressed/state.png
+
+To enter a specific state or situation:
+Example: The company got into financial trouble last year.
+/home/eug/Downloads/iloveimg-compressed/interest.png
+
+To start a habit:
+Example: I've got into the habit of checking my emails before breakfast.
+/home/eug/Downloads/iloveimg-compressed/hobby.png
+
+---
+
+Do the same as it's for "get off", "get on".
+---

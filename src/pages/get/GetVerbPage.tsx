@@ -184,6 +184,27 @@ const inMeanings: Omit<MeaningProps, 'number' | 'storageKeyPrefix'>[] = [
   },
 ];
 
+const intoMeanings: Omit<MeaningProps, 'number' | 'storageKeyPrefix'>[] = [
+  {
+    definition: 'To become interested or involved in something',
+    example: 'I recently got into software development.',
+    imageSrc: `${base}images/get/into/interest.png`,
+    imageAlt: 'A person becoming interested in software development',
+  },
+  {
+    definition: 'To enter a specific state or situation',
+    example: 'The company got into financial trouble last year.',
+    imageSrc: `${base}images/get/into/state.png`,
+    imageAlt: 'A company in financial trouble',
+  },
+  {
+    definition: 'To start a habit',
+    example: "I've got into the habit of checking my emails before breakfast.",
+    imageSrc: `${base}images/get/into/hobby.png`,
+    imageAlt: 'A person with a morning email-checking habit',
+  },
+];
+
 const upMeanings: Omit<MeaningProps, 'number' | 'storageKeyPrefix'>[] = [
   {
     definition: 'To rise from bed after sleeping',
@@ -269,6 +290,8 @@ export default function GetVerbPage() {
         <Section particle="down" meanings={downMeanings} storageKey="getDown_section_expanded" storageKeyPrefix="getDown" />
         <hr className="border-gray-600 dark:border-gray-500 my-2" />
         <Section particle="in" meanings={inMeanings} storageKey="getIn_section_expanded" storageKeyPrefix="getIn" />
+        <hr className="border-gray-600 dark:border-gray-500 my-2" />
+        <Section particle="into" meanings={intoMeanings} storageKey="getInto_section_expanded" storageKeyPrefix="getInto" />
       </div>
     </div>
   );
