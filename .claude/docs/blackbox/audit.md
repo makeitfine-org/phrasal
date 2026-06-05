@@ -396,3 +396,11 @@ git add all changes and commit them with suitable message
 ## 2026-06-05T17:24:35Z
 git add all changes and commit them with suitable message
 ---
+
+## 2026-06-05T17:46:16Z
+@src/__tests__/GetVerbPage.test.tsx split test semantically into smaller tests and place them in folder @src/__tests__/get_verb_page
+---
+
+## 2026-06-05T17:55:08Z
+git add all changes and commit them with suitable message
+---

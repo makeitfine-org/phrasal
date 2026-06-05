@@ -314,3 +314,13 @@
 - .claude/docs/blackbox/session-log.md
 - .claude/settings.local.json
 <!-- end-snapshot -->
+
+<!-- git-snapshot 2026-06-05T17:54:34Z -->
+- .claude/docs/blackbox/audit.md
+- src/__tests__/GetVerbPage.test.tsx
+<!-- end-snapshot -->
+
+<!-- git-snapshot 2026-06-05T17:55:21Z -->
+- .claude/docs/blackbox/audit.md
+- .claude/docs/blackbox/session-log.md
+<!-- end-snapshot -->
