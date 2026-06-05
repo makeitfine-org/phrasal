@@ -181,3 +181,31 @@ cover that with the tests.
 ## 2026-06-05T12:53:46Z
 git add all changes and commit them with suitable message
 ---
+
+## 2026-06-05T12:55:35Z
+Get on
+
+To step onto a form of public transport:
+Example: Hurry up and get on the bus before it leaves!
+/home/eug/Downloads/transport.png
+
+To make progress or handle a situation:
+Example: How are you getting on with the new Java project?
+/home/eug/Downloads/progress.png
+
+To have a good relationship (often "get on with"):
+Example: I get on very well with my team members.
+/home/eug/Downloads/relationship.png
+
+To continue doing something:
+Example: Let's stop chatting and get on with the meeting.
+/home/eug/Downloads/continue.png
+
+---
+
+Do the same as it's for "get off".
+---
+
+## 2026-06-05T13:02:28Z
+git add all changes and commit them with suitable message
+---

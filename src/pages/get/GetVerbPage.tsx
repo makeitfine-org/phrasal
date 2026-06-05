@@ -6,10 +6,11 @@ interface MeaningProps {
   example: string;
   imageSrc: string;
   imageAlt: string;
+  storageKeyPrefix: string;
 }
 
-function Meaning({ number, definition, example, imageSrc, imageAlt }: MeaningProps) {
-  const storageKey = `getOff_meaning_${number}_collapsed`;
+function Meaning({ number, definition, example, imageSrc, imageAlt, storageKeyPrefix }: MeaningProps) {
+  const storageKey = `${storageKeyPrefix}_meaning_${number}_collapsed`;
   const [collapsed, setCollapsed] = useState(() => {
     const saved = localStorage.getItem(storageKey);
     return saved !== null ? saved === 'true' : true;
@@ -62,7 +63,7 @@ function Meaning({ number, definition, example, imageSrc, imageAlt }: MeaningPro
 
 const base = import.meta.env.BASE_URL;
 
-const meanings: Omit<MeaningProps, 'number'>[] = [
+const offMeanings: Omit<MeaningProps, 'number'>[] = [
   {
     definition: 'To leave a form of public transport (bus, train, plane)',
     example: 'We need to get off the train at the next station.',
@@ -89,20 +90,81 @@ const meanings: Omit<MeaningProps, 'number'>[] = [
   },
 ];
 
-export default function GetVerbPage() {
-  const [offExpanded, setOffExpanded] = useState(() => {
-    const saved = localStorage.getItem('getOff_section_expanded');
+const onMeanings: Omit<MeaningProps, 'number'>[] = [
+  {
+    definition: 'To step onto a form of public transport',
+    example: 'Hurry up and get on the bus before it leaves!',
+    imageSrc: `${base}images/get/on/transport.png`,
+    imageAlt: 'A person boarding a bus',
+  },
+  {
+    definition: 'To make progress or handle a situation',
+    example: 'How are you getting on with the new Java project?',
+    imageSrc: `${base}images/get/on/progress.png`,
+    imageAlt: 'A person making progress on a project',
+  },
+  {
+    definition: 'To have a good relationship (often "get on with")',
+    example: 'I get on very well with my team members.',
+    imageSrc: `${base}images/get/on/relationship.png`,
+    imageAlt: 'Team members having a good relationship',
+  },
+  {
+    definition: 'To continue doing something',
+    example: "Let's stop chatting and get on with the meeting.",
+    imageSrc: `${base}images/get/on/continue.png`,
+    imageAlt: 'People continuing with a meeting',
+  },
+];
+
+function Section({
+  particle,
+  meanings,
+  storageKey,
+  storageKeyPrefix,
+}: {
+  particle: string;
+  meanings: Omit<MeaningProps, 'number' | 'storageKeyPrefix'>[];
+  storageKey: string;
+  storageKeyPrefix: string;
+}) {
+  const [expanded, setExpanded] = useState(() => {
+    const saved = localStorage.getItem(storageKey);
     return saved !== null ? saved === 'true' : true;
   });
 
-  const toggleOff = () => {
-    setOffExpanded(e => {
+  const toggle = () => {
+    setExpanded(e => {
       const next = !e;
-      localStorage.setItem('getOff_section_expanded', String(next));
+      localStorage.setItem(storageKey, String(next));
       return next;
     });
   };
 
+  return (
+    <div className="mb-10">
+      <div
+        className="flex items-center gap-2 cursor-pointer select-none mb-4 px-1"
+        onClick={toggle}
+      >
+        <span className="text-2xl font-bold text-blue-600 dark:text-blue-400">{particle}</span>
+        <span className={`text-blue-600 dark:text-blue-400 text-sm transition-transform duration-200 inline-block ${expanded ? 'rotate-90' : ''}`}>
+          ▶
+        </span>
+      </div>
+
+      {expanded && (
+        <div className="flex flex-col gap-6">
+          {meanings.map((m, i) => (
+            <Meaning key={i} number={i + 1} storageKeyPrefix={storageKeyPrefix} {...m} />
+          ))}
+        </div>
+      )}
+    </div>
+  );
+}
+
+export default function GetVerbPage() {
   return (
     <div className="min-h-screen bg-gray-50 dark:bg-gray-950 px-4 py-10">
       <div className="max-w-[700px] mx-auto">
@@ -110,23 +172,8 @@ export default function GetVerbPage() {
           Get
         </h1>
 
-        <div
-          className="flex items-center gap-2 cursor-pointer select-none mb-4 px-1"
-          onClick={toggleOff}
-        >
-          <span className="text-2xl font-bold text-blue-600 dark:text-blue-400">off</span>
-          <span className={`text-blue-600 dark:text-blue-400 text-sm transition-transform duration-200 inline-block ${offExpanded ? 'rotate-90' : ''}`}>
-            ▶
-          </span>
-        </div>
-
-        {offExpanded && (
-          <div className="flex flex-col gap-6">
-            {meanings.map((m, i) => (
-              <Meaning key={i} number={i + 1} {...m} />
-            ))}
-          </div>
-        )}
+        <Section particle="off" meanings={offMeanings} storageKey="getOff_section_expanded" storageKeyPrefix="getOff" />
+        <Section particle="on" meanings={onMeanings} storageKey="getOn_section_expanded" storageKeyPrefix="getOn" />
       </div>
     </div>
   );
