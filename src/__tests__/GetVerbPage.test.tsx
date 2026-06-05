@@ -17,6 +17,11 @@ describe('GetVerbPage', () => {
     expect(screen.getByRole('heading', { name: 'Get off' })).toBeInTheDocument();
   });
 
+  it('does not render "4 meanings" subtitle', () => {
+    renderPage();
+    expect(screen.queryByText(/4 meanings/i)).not.toBeInTheDocument();
+  });
+
   it('renders all 4 numbered meanings', () => {
     renderPage();
     expect(screen.getByText('1')).toBeInTheDocument();

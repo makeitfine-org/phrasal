@@ -60,3 +60,8 @@ move image from get-off folder to get/off one
 ## 2026-06-05T10:52:12Z
 git add all changes and commit them with suitable message
 ---
+
+## 2026-06-05T10:55:23Z
+- Remove "4 meanings" from get get off page
+- Picture should be shown without hidden some parts.
+---

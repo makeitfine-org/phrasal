@@ -14,7 +14,7 @@ function Meaning({ number, definition, example, imageSrc, imageAlt }: MeaningPro
       <img
         src={imageSrc}
         alt={imageAlt}
-        className="w-full object-cover max-h-64"
+        className="w-full"
       />
       <div className="p-6">
         <div className="flex items-start gap-3 mb-3">
@@ -69,9 +69,7 @@ export default function GetVerbPage() {
         <h1 className="text-4xl font-bold text-gray-900 dark:text-gray-100 mb-1 text-center">
           Get off
         </h1>
-        <p className="text-gray-500 dark:text-gray-400 text-center mb-10">
-          4 meanings
-        </p>
+        <p className="mb-10" />
 
         <div className="flex flex-col gap-6">
           {meanings.map((m, i) => (
