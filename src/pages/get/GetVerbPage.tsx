@@ -155,7 +155,7 @@ function Section({
   };
 
   return (
-    <div className="mb-10">
+    <div className="mb-5">
       <div
         className="flex items-center gap-2 cursor-pointer select-none mb-4 px-1"
         onClick={toggle}

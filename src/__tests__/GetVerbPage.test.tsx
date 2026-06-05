@@ -15,6 +15,10 @@ function getCard(definitionPattern: RegExp) {
   return screen.getByText(definitionPattern).closest('[class*="rounded-2xl"]')!;
 }
 
+function getSection(particle: string) {
+  return screen.getByText(particle).closest('[class*="mb-5"]')!;
+}
+
 beforeEach(() => {
   localStorage.clear();
 });
@@ -118,6 +122,28 @@ describe('GetVerbPage', () => {
       fireEvent.mouseEnter(p);
       expect(p).toHaveAttribute('title', full);
     }
+  });
+
+  // --- Section spacing ---
+
+  it('"off" section wrapper has mb-5 class', () => {
+    renderPage();
+    expect(getSection('off')).toHaveClass('mb-5');
+  });
+
+  it('"on" section wrapper has mb-5 class', () => {
+    renderPage();
+    expect(getSection('on')).toHaveClass('mb-5');
+  });
+
+  it('"off" section wrapper does not have mb-10 class', () => {
+    renderPage();
+    expect(getSection('off')).not.toHaveClass('mb-10');
+  });
+
+  it('"on" section wrapper does not have mb-10 class', () => {
+    renderPage();
+    expect(getSection('on')).not.toHaveClass('mb-10');
   });
 
   // --- "off" section toggle ---
