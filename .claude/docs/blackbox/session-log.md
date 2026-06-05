@@ -446,3 +446,15 @@
 - .claude/docs/blackbox/session-log.md
 - src/__tests__/PhrasalVerbsListPage.test.tsx
 <!-- end-snapshot -->
+
+<!-- git-snapshot 2026-06-05T21:10:06Z -->
+- .claude/docs/blackbox/audit.md
+- src/__tests__/PhrasalVerbsListPage.test.tsx
+- src/main.tsx
+- src/pages/PhrasalVerbsListPage.tsx
+<!-- end-snapshot -->
+
+<!-- git-snapshot 2026-06-05T21:13:16Z -->
+- .claude/docs/blackbox/audit.md
+- .claude/docs/blackbox/session-log.md
+<!-- end-snapshot -->

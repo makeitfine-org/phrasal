@@ -667,3 +667,106 @@ copy tests for 'Copy all "get" phrasal verbs' functionality
 ## 2026-06-05T20:50:13Z
 Cover with the tests 'Copy all "get" phrasal verbs' functionality.
 ---
+
+## 2026-06-05T20:57:52Z
+phrasal verbs:
+
+Make after
+Definition: To chase someone or something.
+
+Example: The security guard made after the shoplifter.
+
+Make away (with)
+Definition: To steal something and escape with it.
+
+Example: Hackers made away with thousands of encrypted passwords.
+
+Make for
+Definition 1: To move directly towards a place.
+
+Example 1: After the meeting ended, we made for the exit.
+
+Definition 2: To help make something possible or produce a specific result.
+
+Example 2: Clear communication makes for a highly effective management team.
+
+Make into
+Definition: To change or transform something into something else.
+
+Example: The developers made the old legacy system into a modern Java application.
+
+Make off (with)
+Definition: To leave quickly, especially in order to escape after doing something wrong.
+
+Example: The thieves made off before the police arrived.
+
+Make out
+Definition 1: To manage to see, hear, or read something with difficulty.
+
+Example 1: I could not make out the error message on the monitor because the screen was too bright.
+
+Definition 2: To understand someone's character or a situation.
+
+Example 2: He is a very quiet team leader; I cannot quite make him out.
+
+Definition 3: To write all the necessary information on an official document (like a check or invoice).
+
+Example 3: Please make the invoice out to the company's head office.
+
+Definition 4: To claim or pretend that something is true.
+
+Example 4: The software vendor made out that their system was completely bug-free.
+
+Definition 5: To progress, perform, or succeed in a situation.
+
+Example 5: How did you make out with the new project timeline?
+
+Definition 6: (Informal) To kiss and touch romantically.
+
+Example 6: The teenagers were making out in the back of the cinema.
+
+Make over
+Definition 1: To change or improve the appearance of someone or something.
+
+Example 1: We made over the entire office space to encourage better collaboration.
+
+Definition 2: To legally transfer ownership of property or money to someone else.
+
+Example 2: The CEO made over his shares to his business partner.
+
+Make up
+Definition 1: To invent a story, excuse, or explanation.
+
+Example 1: He made up an excuse for missing the daily stand-up meeting.
+
+Definition 2: To form the whole of something (to constitute).
+
+Example 2: Senior developers make up 40% of our engineering department.
+
+Definition 3: To become friendly again after an argument.
+
+Example 3: The co-founders argued over the budget, but they made up the next day.
+
+Definition 4: To prepare, build, or arrange something from parts.
+
+Example 4: Can you make up a list of requirements for the new software module?
+
+Make up for
+Definition: To compensate for something bad, missing, or lost.
+
+Example: We worked late on Friday to make up for the time lost during the server crash.
+
+Make with
+Definition: (Slang/Informal) To produce, supply, or give something quickly.
+
+Example: Make with the financial reports, the board is waiting!
+
+---
+
+1) Create "make" link on list page with particals mentioned above phrasal verbs. Take as base "get" link.
+2) Create "make" page with mentioned above phrasal verbs. Take as base "get" page.
+---
+
+## 2026-06-05T21:12:12Z
+git add all changes and commit them with suitable message
+---
