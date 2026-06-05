@@ -192,6 +192,32 @@ describe('GetVerbPage', () => {
     expect(within(offHeader).getByText('▶')).toHaveClass('rotate-90');
   });
 
+  // --- Chevron and text colour (off) ---
+
+  it('off chevron is blue when collapsed', () => {
+    renderPage();
+    fireEvent.click(screen.getByText('off'));
+    const offHeader = screen.getByText('off').closest('div')!;
+    expect(within(offHeader).getByText('▶')).toHaveClass('text-blue-600');
+  });
+
+  it('off chevron is white when expanded', () => {
+    renderPage();
+    const offHeader = screen.getByText('off').closest('div')!;
+    expect(within(offHeader).getByText('▶')).toHaveClass('text-white');
+  });
+
+  it('off particle text is blue when collapsed', () => {
+    renderPage();
+    fireEvent.click(screen.getByText('off'));
+    expect(screen.getByText('off')).toHaveClass('text-blue-600');
+  });
+
+  it('off particle text is white when expanded', () => {
+    renderPage();
+    expect(screen.getByText('off')).toHaveClass('text-white');
+  });
+
   // --- "on" section toggle ---
 
   it('renders "on" section toggle', () => {
@@ -274,6 +300,32 @@ describe('GetVerbPage', () => {
     fireEvent.click(screen.getByText('on'));
     const onHeader = screen.getByText('on').closest('div')!;
     expect(within(onHeader).getByText('▶')).toHaveClass('rotate-90');
+  });
+
+  // --- Chevron and text colour (on) ---
+
+  it('on chevron is blue when collapsed', () => {
+    renderPage();
+    fireEvent.click(screen.getByText('on'));
+    const onHeader = screen.getByText('on').closest('div')!;
+    expect(within(onHeader).getByText('▶')).toHaveClass('text-blue-600');
+  });
+
+  it('on chevron is white when expanded', () => {
+    renderPage();
+    const onHeader = screen.getByText('on').closest('div')!;
+    expect(within(onHeader).getByText('▶')).toHaveClass('text-white');
+  });
+
+  it('on particle text is blue when collapsed', () => {
+    renderPage();
+    fireEvent.click(screen.getByText('on'));
+    expect(screen.getByText('on')).toHaveClass('text-blue-600');
+  });
+
+  it('on particle text is white when expanded', () => {
+    renderPage();
+    expect(screen.getByText('on')).toHaveClass('text-white');
   });
 
   // --- "on" section definitions ---
