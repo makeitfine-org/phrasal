@@ -430,3 +430,19 @@
 - .claude/docs/blackbox/audit.md
 - src/__tests__/get_verb_page/helpers.tsx
 <!-- end-snapshot -->
+
+<!-- git-snapshot 2026-06-05T20:37:27Z -->
+- .claude/docs/blackbox/audit.md
+- src/__tests__/PhrasalVerbsListPage.test.tsx
+- src/pages/PhrasalVerbsListPage.tsx
+<!-- end-snapshot -->
+
+<!-- git-snapshot 2026-06-05T20:48:52Z -->
+- .claude/docs/blackbox/audit.md
+<!-- end-snapshot -->
+
+<!-- git-snapshot 2026-06-05T20:51:40Z -->
+- .claude/docs/blackbox/audit.md
+- .claude/docs/blackbox/session-log.md
+- src/__tests__/PhrasalVerbsListPage.test.tsx
+<!-- end-snapshot -->

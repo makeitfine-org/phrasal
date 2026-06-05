@@ -643,3 +643,27 @@ file:///home/eug/Pictures/Screenshots/Screenshot%20from%202026-06-05%2022-20-04.
 ## 2026-06-05T20:23:24Z
 git add all changes and commit them with suitable message
 ---
+
+## 2026-06-05T20:32:30Z
+on the page "Phrasal Verbs List":
+---
+
+## 2026-06-05T20:35:34Z
+on the page "Phrasal Verbs List":
+- on "get" change "Phrasal verbs formed with "get": get off, get on, get up, and more" to listening all particulars which are on the get page, 
+  for example: "off, on, up ...". 
+  Listen on 2 lines, if no space just show other by hovering
+- Add the capability to copy the "get" words and its particulars
+---
+
+## 2026-06-05T20:40:02Z
+git add all changes and commit them with suitable message
+---
+
+## 2026-06-05T20:48:07Z
+copy tests for 'Copy all "get" phrasal verbs' functionality
+---
+
+## 2026-06-05T20:50:13Z
+Cover with the tests 'Copy all "get" phrasal verbs' functionality.
+---
