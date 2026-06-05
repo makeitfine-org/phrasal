@@ -2,6 +2,7 @@ import React from 'react';
 import { render, screen } from '@testing-library/react';
 import { MemoryRouter, Routes, Route } from 'react-router-dom';
 import HomePage from '../pages/HomePage';
+import PhrasalVerbsPage from '../pages/PhrasalVerbsPage';
 import App from '../App';
 
 vi.mock('../data/phrasalVerbs', () => ({
@@ -66,7 +67,8 @@ describe('Routing smoke tests', () => {
       <MemoryRouter initialEntries={[initialPath]}>
         <Routes>
           <Route path="/" element={<HomePage />} />
-          <Route path="/phrasal-verbs" element={<App />} />
+          <Route path="/phrasal-verbs" element={<PhrasalVerbsPage />} />
+          <Route path="/phrasal-verbs/test-most-popular" element={<App />} />
         </Routes>
       </MemoryRouter>
     );
@@ -77,7 +79,13 @@ describe('Routing smoke tests', () => {
     expect(screen.getByRole('heading', { name: 'English Tutorial' })).toBeInTheDocument();
   });
 
-  it('/phrasal-verbs renders the App component', () => {
+  it('/phrasal-verbs renders the PhrasalVerbsPage hub', () => {
+    renderRoutes('/phrasal-verbs');
+    expect(screen.getByRole('heading', { name: 'Phrasal Verbs' })).toBeInTheDocument();
+    expect(screen.getByRole('link', { name: /Test most popular/i })).toBeInTheDocument();
+  });
+
+  it('/phrasal-verbs/test-most-popular renders the quiz', () => {
     localStorage.setItem('phrasalQuizState', JSON.stringify({
       mastered: [],
       excluded: [],
@@ -85,8 +93,7 @@ describe('Routing smoke tests', () => {
       currentIndex: 0,
       darkMode: false,
     }));
-    renderRoutes('/phrasal-verbs');
-    expect(screen.getByText('Phrasal Verbs')).toBeInTheDocument();
+    renderRoutes('/phrasal-verbs/test-most-popular');
     expect(screen.getByPlaceholderText('Type phrasal verb')).toBeInTheDocument();
   });
 });

@@ -4,6 +4,7 @@ import { BrowserRouter, Routes, Route, Outlet } from 'react-router-dom';
 import App from './App';
 import HomePage from './pages/HomePage';
 import GrammarPage from './pages/GrammarPage';
+import PhrasalVerbsPage from './pages/PhrasalVerbsPage';
 import IWishPage from './pages/IWishPage';
 import NotFoundPage from './pages/NotFoundPage';
 import ErrorBoundary from './components/ErrorBoundary';
@@ -17,7 +18,8 @@ ReactDOM.createRoot(document.getElementById('root')!).render(
         <Routes>
           <Route element={<PageShell><Outlet /></PageShell>}>
             <Route path="/" element={<HomePage />} />
-            <Route path="/phrasal-verbs" element={<App />} />
+            <Route path="/phrasal-verbs" element={<PhrasalVerbsPage />} />
+            <Route path="/phrasal-verbs/test-most-popular" element={<App />} />
             <Route path="/grammar" element={<GrammarPage />} />
             <Route path="/grammar/i-wish-if-only" element={<IWishPage />} />
             <Route path="*" element={<NotFoundPage />} />
