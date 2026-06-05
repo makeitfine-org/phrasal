@@ -382,3 +382,17 @@ instead of 4 the same just use single one
 ## 2026-06-05T17:13:49Z
 git add all changes and commit them with suitable message
 ---
+
+## 2026-06-05T17:18:35Z
+- move "images/get" folder in "phrasal_verbs" one
+- move default.png to upper level of "phrasal_verbs" folder
+---
+
+## 2026-06-05T17:19:08Z
+- move "images/get" folder in "phrasal_verbs/list" one
+- move default.png to upper level of "phrasal_verbs/list" folder
+---
+
+## 2026-06-05T17:24:35Z
+git add all changes and commit them with suitable message
+---

@@ -285,3 +285,32 @@
 - .claude/docs/blackbox/session-log.md
 - .claude/settings.local.json
 <!-- end-snapshot -->
+
+<!-- git-snapshot 2026-06-05T17:22:03Z -->
+- .claude/docs/blackbox/audit.md
+- public/images/get/down/climb_down.png
+- public/images/get/down/focus.png
+- public/images/get/down/sad.png
+- public/images/get/down/write.png
+- public/images/get/in/accepted.png
+- public/images/get/in/arriving.jpg
+- public/images/get/in/car.png
+- public/images/get/in/submit.png
+- public/images/get/into/hobby.png
+- public/images/get/into/interest.png
+- public/images/get/into/state.png
+- public/images/get/off/punishment.png
+- public/images/get/off/send.png
+- public/images/get/off/transport.png
+- public/images/get/off/work.png
+- public/images/get/on/continue.png
+- public/images/get/on/progress.png
+- public/images/get/on/relationship.png
+- public/images/get/on/transport.png
+<!-- end-snapshot -->
+
+<!-- git-snapshot 2026-06-05T17:26:02Z -->
+- .claude/docs/blackbox/audit.md
+- .claude/docs/blackbox/session-log.md
+- .claude/settings.local.json
+<!-- end-snapshot -->

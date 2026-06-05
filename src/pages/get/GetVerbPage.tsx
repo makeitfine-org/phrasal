@@ -80,25 +80,25 @@ const offMeanings: Omit<MeaningProps, 'number' | 'storageKeyPrefix'>[] = [
   {
     definition: 'To leave a form of public transport (bus, train, plane)',
     example: 'We need to get off the train at the next station.',
-    imageSrc: `${base}images/get/off/transport.png`,
+    imageSrc: `${base}images/phrasal_verbs/list/get/off/transport.png`,
     imageAlt: 'People getting off a train at a station',
   },
   {
     definition: 'To finish work',
     example: 'I usually get off work at 5:00 PM.',
-    imageSrc: `${base}images/get/off/work.png`,
+    imageSrc: `${base}images/phrasal_verbs/list/get/off/work.png`,
     imageAlt: 'A person leaving the office at the end of the workday',
   },
   {
     definition: 'To escape punishment',
     example: 'The manager made a huge mistake, but he got off with just a warning.',
-    imageSrc: `${base}images/get/off/punishment.png`,
+    imageSrc: `${base}images/phrasal_verbs/list/get/off/punishment.png`,
     imageAlt: 'A boss giving a warning to an employee',
   },
   {
     definition: 'To send something (like a letter or email)',
     example: 'I will get this report off to the client before the end of the day.',
-    imageSrc: `${base}images/get/off/send.png`,
+    imageSrc: `${base}images/phrasal_verbs/list/get/off/send.png`,
     imageAlt: 'Sending a report by email and by post',
   },
 ];
@@ -107,25 +107,25 @@ const onMeanings: Omit<MeaningProps, 'number' | 'storageKeyPrefix'>[] = [
   {
     definition: 'To step onto a form of public transport',
     example: 'Hurry up and get on the bus before it leaves!',
-    imageSrc: `${base}images/get/on/transport.png`,
+    imageSrc: `${base}images/phrasal_verbs/list/get/on/transport.png`,
     imageAlt: 'A person boarding a bus',
   },
   {
     definition: 'To make progress or handle a situation',
     example: 'How are you getting on with the new Java project?',
-    imageSrc: `${base}images/get/on/progress.png`,
+    imageSrc: `${base}images/phrasal_verbs/list/get/on/progress.png`,
     imageAlt: 'A person making progress on a project',
   },
   {
     definition: 'To have a good relationship (often "get on with")',
     example: 'I get on very well with my team members.',
-    imageSrc: `${base}images/get/on/relationship.png`,
+    imageSrc: `${base}images/phrasal_verbs/list/get/on/relationship.png`,
     imageAlt: 'Team members having a good relationship',
   },
   {
     definition: 'To continue doing something',
     example: "Let's stop chatting and get on with the meeting.",
-    imageSrc: `${base}images/get/on/continue.png`,
+    imageSrc: `${base}images/phrasal_verbs/list/get/on/continue.png`,
     imageAlt: 'People continuing with a meeting',
   },
 ];
@@ -134,25 +134,25 @@ const downMeanings: Omit<MeaningProps, 'number' | 'storageKeyPrefix'>[] = [
   {
     definition: 'To move to a lower position',
     example: 'You need to get down from that ladder before you fall.',
-    imageSrc: `${base}images/get/down/climb_down.png`,
+    imageSrc: `${base}images/phrasal_verbs/list/get/down/climb_down.png`,
     imageAlt: 'A person climbing down a ladder',
   },
   {
     definition: 'To make someone feel sad or depressed',
     example: 'This rainy weather is really getting me down.',
-    imageSrc: `${base}images/get/down/sad.png`,
+    imageSrc: `${base}images/phrasal_verbs/list/get/down/sad.png`,
     imageAlt: 'A person feeling sad and depressed by rainy weather',
   },
   {
     definition: 'To write something',
     example: 'Let me get your contact details down in my notebook.',
-    imageSrc: `${base}images/get/down/write.png`,
+    imageSrc: `${base}images/phrasal_verbs/list/get/down/write.png`,
     imageAlt: 'A person writing contact details in a notebook',
   },
   {
     definition: 'To start focusing on a task seriously (often "get down to")',
     example: "Enough small talk; let's get down to business.",
-    imageSrc: `${base}images/get/down/focus.png`,
+    imageSrc: `${base}images/phrasal_verbs/list/get/down/focus.png`,
     imageAlt: 'People getting down to business in a meeting',
   },
 ];
@@ -161,25 +161,25 @@ const inMeanings: Omit<MeaningProps, 'number' | 'storageKeyPrefix'>[] = [
   {
     definition: 'To enter a car, room, or building',
     example: 'Get in the car, we are going to be late.',
-    imageSrc: `${base}images/get/in/car.png`,
+    imageSrc: `${base}images/phrasal_verbs/list/get/in/car.png`,
     imageAlt: 'A person getting into a car',
   },
   {
     definition: 'To arrive (usually a train, flight, or arriving at home/work)',
     example: 'What time does your flight get in?',
-    imageSrc: `${base}images/get/in/arriving.jpg`,
+    imageSrc: `${base}images/phrasal_verbs/list/get/in/arriving.jpg`,
     imageAlt: 'A flight arriving at an airport',
   },
   {
     definition: 'To be accepted into a school, club, or organization',
     example: 'She applied to a top university and she got in.',
-    imageSrc: `${base}images/get/in/accepted.png`,
+    imageSrc: `${base}images/phrasal_verbs/list/get/in/accepted.png`,
     imageAlt: 'A student receiving an acceptance letter',
   },
   {
     definition: 'To submit something',
     example: 'I need to get my expenses application in by Friday.',
-    imageSrc: `${base}images/get/in/submit.png`,
+    imageSrc: `${base}images/phrasal_verbs/list/get/in/submit.png`,
     imageAlt: 'A person submitting an expenses application',
   },
 ];
@@ -188,19 +188,19 @@ const intoMeanings: Omit<MeaningProps, 'number' | 'storageKeyPrefix'>[] = [
   {
     definition: 'To become interested or involved in something',
     example: 'I recently got into software development.',
-    imageSrc: `${base}images/get/into/interest.png`,
+    imageSrc: `${base}images/phrasal_verbs/list/get/into/interest.png`,
     imageAlt: 'A person becoming interested in software development',
   },
   {
     definition: 'To enter a specific state or situation',
     example: 'The company got into financial trouble last year.',
-    imageSrc: `${base}images/get/into/state.png`,
+    imageSrc: `${base}images/phrasal_verbs/list/get/into/state.png`,
     imageAlt: 'A company in financial trouble',
   },
   {
     definition: 'To start a habit',
     example: "I've got into the habit of checking my emails before breakfast.",
-    imageSrc: `${base}images/get/into/hobby.png`,
+    imageSrc: `${base}images/phrasal_verbs/list/get/into/hobby.png`,
     imageAlt: 'A person with a morning email-checking habit',
   },
 ];
@@ -209,25 +209,25 @@ const outMeanings: Omit<MeaningProps, 'number' | 'storageKeyPrefix'>[] = [
   {
     definition: 'To leave a place or a car',
     example: 'The fire alarm rang, and everyone got out of the building.',
-    imageSrc: `${base}images/get/out/default.png`,
+    imageSrc: `${base}images/phrasal_verbs/list/default.png`,
     imageAlt: 'People leaving a building after a fire alarm',
   },
   {
     definition: 'To become known (usually a secret or hidden information)',
     example: 'The news of the CEO leaving got out to the press.',
-    imageSrc: `${base}images/get/out/default.png`,
+    imageSrc: `${base}images/phrasal_verbs/list/default.png`,
     imageAlt: 'News of a CEO leaving spreading to the press',
   },
   {
     definition: 'To produce or publish something',
     example: 'We need to get this new application out by next month.',
-    imageSrc: `${base}images/get/out/default.png`,
+    imageSrc: `${base}images/phrasal_verbs/list/default.png`,
     imageAlt: 'A team launching a new application',
   },
   {
     definition: 'To avoid doing something you do not want to do (often "get out of")',
     example: 'He tried to get out of doing the presentation, but his boss said no.',
-    imageSrc: `${base}images/get/out/default.png`,
+    imageSrc: `${base}images/phrasal_verbs/list/default.png`,
     imageAlt: 'A person trying to avoid giving a presentation',
   },
 ];
@@ -236,19 +236,19 @@ const upMeanings: Omit<MeaningProps, 'number' | 'storageKeyPrefix'>[] = [
   {
     definition: 'To rise from bed after sleeping',
     example: 'I get up at 6:30 AM every morning.',
-    imageSrc: `${base}images/get/up/bed.png`,
+    imageSrc: `${base}images/phrasal_verbs/list/get/up/bed.png`,
     imageAlt: 'A person getting out of bed in the morning',
   },
   {
     definition: 'To stand up',
     example: 'He got up from his desk to welcome the visitors.',
-    imageSrc: `${base}images/get/up/desk.png`,
+    imageSrc: `${base}images/phrasal_verbs/list/get/up/desk.png`,
     imageAlt: 'A person standing up from their desk',
   },
   {
     definition: 'To organize or arrange something',
     example: 'We need to get up a team to handle this new software update.',
-    imageSrc: `${base}images/get/up/arrange.png`,
+    imageSrc: `${base}images/phrasal_verbs/list/get/up/arrange.png`,
     imageAlt: 'People being organized into a team',
   },
 ];
