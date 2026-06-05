@@ -149,6 +149,40 @@ describe('GetVerbPage — "down" card expand / collapse', () => {
   });
 });
 
+describe('GetVerbPage — "down" collapsed card view', () => {
+  it('collapsed card shows example sentence', () => {
+    renderPage();
+    expandSection('down');
+    const card = getCard(/To move to a lower position/i);
+    expect(within(card).getByText(/"You need to get down from that ladder/i)).toBeInTheDocument();
+  });
+
+  it('collapsed card example has truncate class', () => {
+    renderPage();
+    expandSection('down');
+    const card = getCard(/To move to a lower position/i);
+    expect(within(card).getByText(/"You need to get down from that ladder/i)).toHaveClass('truncate');
+  });
+
+  it('collapsed card example has title attribute with quoted text', () => {
+    renderPage();
+    expandSection('down');
+    const card = getCard(/To move to a lower position/i);
+    expect(within(card).getByText(/"You need to get down from that ladder/i)).toHaveAttribute(
+      'title',
+      '"You need to get down from that ladder before you fall."'
+    );
+  });
+
+  it('expanded card example does not have truncate class', () => {
+    renderPage();
+    expandSection('down');
+    fireEvent.click(getCard(/To move to a lower position/i));
+    const card = getCard(/To move to a lower position/i);
+    expect(within(card).getByText(/"You need to get down from that ladder/i)).not.toHaveClass('truncate');
+  });
+});
+
 describe('GetVerbPage — "down" localStorage persistence', () => {
   it('saves "down" card expanded state to localStorage', () => {
     renderPage();

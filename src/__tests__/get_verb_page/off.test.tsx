@@ -251,7 +251,7 @@ describe('GetVerbPage — "off" card expand / collapse', () => {
     const card = getCard(/To leave a form of public transport/i);
     fireEvent.click(card);
     fireEvent.click(card);
-    expect(screen.queryByText(/"We need to get off the train at the next station\."/i)).not.toBeInTheDocument();
+    expect(within(card).queryByRole('img')).not.toBeInTheDocument();
   });
 
   it('renders all 4 example sentences when all cards are expanded', () => {
@@ -338,11 +338,30 @@ describe('GetVerbPage — "off" expanded card layout', () => {
     expect(within(card).queryByRole('img')).not.toBeInTheDocument();
   });
 
-  it('collapsed card has no example text', () => {
+  it('collapsed card shows example text truncated', () => {
     renderPage();
     expandSection('off');
     const card = getCard(/To leave a form of public transport/i);
-    expect(within(card).queryByText(/"We need to get off the train/i)).not.toBeInTheDocument();
+    expect(within(card).getByText(/"We need to get off the train/i)).toBeInTheDocument();
+    expect(within(card).getByText(/"We need to get off the train/i)).toHaveClass('truncate');
+  });
+
+  it('collapsed card example has title attribute with quoted text', () => {
+    renderPage();
+    expandSection('off');
+    const card = getCard(/To leave a form of public transport/i);
+    expect(within(card).getByText(/"We need to get off the train/i)).toHaveAttribute(
+      'title',
+      '"We need to get off the train at the next station."'
+    );
+  });
+
+  it('expanded card example does not have truncate class', () => {
+    renderPage();
+    expandSection('off');
+    fireEvent.click(getCard(/To leave a form of public transport/i));
+    const card = getCard(/To leave a form of public transport/i);
+    expect(within(card).getByText(/"We need to get off the train/i)).not.toHaveClass('truncate');
   });
 });
 
@@ -374,6 +393,6 @@ describe('GetVerbPage — "off" localStorage persistence', () => {
     localStorage.setItem('getOff_section_expanded', 'true');
     localStorage.setItem('getOff_meaning_1_collapsed', 'false');
     renderPage();
-    expect(screen.queryByText(/"I usually get off work at 5:00 PM\."/i)).not.toBeInTheDocument();
+    expect(within(getCard(/To finish work/i)).queryByRole('img')).not.toBeInTheDocument();
   });
 });

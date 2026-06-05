@@ -152,6 +152,40 @@ describe('GetVerbPage — "up" card expand / collapse', () => {
   });
 });
 
+describe('GetVerbPage — "up" collapsed card view', () => {
+  it('collapsed card shows example sentence', () => {
+    renderPage();
+    expandSection('up');
+    const card = getCard(/To rise from bed after sleeping/i);
+    expect(within(card).getByText(/"I get up at 6:30 AM/i)).toBeInTheDocument();
+  });
+
+  it('collapsed card example has truncate class', () => {
+    renderPage();
+    expandSection('up');
+    const card = getCard(/To rise from bed after sleeping/i);
+    expect(within(card).getByText(/"I get up at 6:30 AM/i)).toHaveClass('truncate');
+  });
+
+  it('collapsed card example has title attribute with quoted text', () => {
+    renderPage();
+    expandSection('up');
+    const card = getCard(/To rise from bed after sleeping/i);
+    expect(within(card).getByText(/"I get up at 6:30 AM/i)).toHaveAttribute(
+      'title',
+      '"I get up at 6:30 AM every morning."'
+    );
+  });
+
+  it('expanded card example does not have truncate class', () => {
+    renderPage();
+    expandSection('up');
+    fireEvent.click(getCard(/To rise from bed after sleeping/i));
+    const card = getCard(/To rise from bed after sleeping/i);
+    expect(within(card).getByText(/"I get up at 6:30 AM/i)).not.toHaveClass('truncate');
+  });
+});
+
 describe('GetVerbPage — "up" localStorage persistence', () => {
   it('saves "up" card expanded state to localStorage', () => {
     renderPage();

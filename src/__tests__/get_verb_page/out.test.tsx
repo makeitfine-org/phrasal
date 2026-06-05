@@ -147,6 +147,40 @@ describe('GetVerbPage — "out" card expand / collapse', () => {
   });
 });
 
+describe('GetVerbPage — "out" collapsed card view', () => {
+  it('collapsed card shows example sentence', () => {
+    renderPage();
+    expandSection('out');
+    const card = getCard(/To leave a place or a car/i);
+    expect(within(card).getByText(/"The fire alarm rang/i)).toBeInTheDocument();
+  });
+
+  it('collapsed card example has truncate class', () => {
+    renderPage();
+    expandSection('out');
+    const card = getCard(/To leave a place or a car/i);
+    expect(within(card).getByText(/"The fire alarm rang/i)).toHaveClass('truncate');
+  });
+
+  it('collapsed card example has title attribute with quoted text', () => {
+    renderPage();
+    expandSection('out');
+    const card = getCard(/To leave a place or a car/i);
+    expect(within(card).getByText(/"The fire alarm rang/i)).toHaveAttribute(
+      'title',
+      '"The fire alarm rang, and everyone got out of the building."'
+    );
+  });
+
+  it('expanded card example does not have truncate class', () => {
+    renderPage();
+    expandSection('out');
+    fireEvent.click(getCard(/To leave a place or a car/i));
+    const card = getCard(/To leave a place or a car/i);
+    expect(within(card).getByText(/"The fire alarm rang/i)).not.toHaveClass('truncate');
+  });
+});
+
 describe('GetVerbPage — "out" localStorage persistence', () => {
   it('saves "out" card expanded state to localStorage', () => {
     renderPage();

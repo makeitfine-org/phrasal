@@ -35,12 +35,20 @@ function Meaning({ number, definition, example, imageSrc, imageAlt, storageKeyPr
             <span className="flex-shrink-0 w-6 h-6 rounded-full bg-blue-600 text-white text-xs font-bold flex items-center justify-center">
               {number}
             </span>
-            <p
-              className="text-gray-800 dark:text-gray-100 text-xl md:text-base font-medium leading-snug truncate"
-              title={definition}
-            >
-              {definition}
-            </p>
+            <div className="min-w-0 flex-1">
+              <p
+                className="text-gray-800 dark:text-gray-100 text-xl md:text-base font-medium leading-snug truncate"
+                title={definition}
+              >
+                {definition}
+              </p>
+              <p
+                className="text-gray-500 dark:text-gray-400 text-xl md:text-sm italic truncate mt-0.5"
+                title={`"${example}"`}
+              >
+                "{example}"
+              </p>
+            </div>
           </div>
         </div>
       ) : (

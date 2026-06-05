@@ -140,6 +140,40 @@ describe('GetVerbPage — "into" card expand / collapse', () => {
   });
 });
 
+describe('GetVerbPage — "into" collapsed card view', () => {
+  it('collapsed card shows example sentence', () => {
+    renderPage();
+    expandSection('into');
+    const card = getCard(/To become interested or involved in something/i);
+    expect(within(card).getByText(/"I recently got into software development/i)).toBeInTheDocument();
+  });
+
+  it('collapsed card example has truncate class', () => {
+    renderPage();
+    expandSection('into');
+    const card = getCard(/To become interested or involved in something/i);
+    expect(within(card).getByText(/"I recently got into software development/i)).toHaveClass('truncate');
+  });
+
+  it('collapsed card example has title attribute with quoted text', () => {
+    renderPage();
+    expandSection('into');
+    const card = getCard(/To become interested or involved in something/i);
+    expect(within(card).getByText(/"I recently got into software development/i)).toHaveAttribute(
+      'title',
+      '"I recently got into software development."'
+    );
+  });
+
+  it('expanded card example does not have truncate class', () => {
+    renderPage();
+    expandSection('into');
+    fireEvent.click(getCard(/To become interested or involved in something/i));
+    const card = getCard(/To become interested or involved in something/i);
+    expect(within(card).getByText(/"I recently got into software development/i)).not.toHaveClass('truncate');
+  });
+});
+
 describe('GetVerbPage — "into" localStorage persistence', () => {
   it('saves "into" card expanded state to localStorage', () => {
     renderPage();

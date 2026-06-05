@@ -197,6 +197,40 @@ describe('GetVerbPage — "on" card expand / collapse', () => {
   });
 });
 
+describe('GetVerbPage — "on" collapsed card view', () => {
+  it('collapsed card shows example sentence', () => {
+    renderPage();
+    expandSection('on');
+    const card = getCard(/To step onto a form of public transport/i);
+    expect(within(card).getByText(/"Hurry up and get on the bus/i)).toBeInTheDocument();
+  });
+
+  it('collapsed card example has truncate class', () => {
+    renderPage();
+    expandSection('on');
+    const card = getCard(/To step onto a form of public transport/i);
+    expect(within(card).getByText(/"Hurry up and get on the bus/i)).toHaveClass('truncate');
+  });
+
+  it('collapsed card example has title attribute with quoted text', () => {
+    renderPage();
+    expandSection('on');
+    const card = getCard(/To step onto a form of public transport/i);
+    expect(within(card).getByText(/"Hurry up and get on the bus/i)).toHaveAttribute(
+      'title',
+      '"Hurry up and get on the bus before it leaves!"'
+    );
+  });
+
+  it('expanded card example does not have truncate class', () => {
+    renderPage();
+    expandSection('on');
+    fireEvent.click(getCard(/To step onto a form of public transport/i));
+    const card = getCard(/To step onto a form of public transport/i);
+    expect(within(card).getByText(/"Hurry up and get on the bus/i)).not.toHaveClass('truncate');
+  });
+});
+
 describe('GetVerbPage — "on" localStorage persistence', () => {
   it('saves "on" card expanded state to localStorage', () => {
     renderPage();

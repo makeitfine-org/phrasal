@@ -424,3 +424,16 @@ Fix test
 ## 2026-06-05T19:14:34Z
 git add all changes and commit them with suitable message
 ---
+
+## 2026-06-05T19:20:26Z
+For the phrasal verbs along with definition also show on the next line the example.
+If it is longer than one line, this example, then just show it fully when the mouse is hoverd on it.
+---
+
+## 2026-06-05T19:25:54Z
+Add tests for that functionality
+---
+
+## 2026-06-05T19:31:30Z
+git add all changes and commit them with suitable message
+---

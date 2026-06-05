@@ -349,3 +349,27 @@
 - .claude/docs/blackbox/audit.md
 - .claude/docs/blackbox/session-log.md
 <!-- end-snapshot -->
+
+<!-- git-snapshot 2026-06-05T19:24:18Z -->
+- .claude/docs/blackbox/audit.md
+- src/__tests__/get_verb_page/off.test.tsx
+- src/pages/get/GetVerbPage.tsx
+<!-- end-snapshot -->
+
+<!-- git-snapshot 2026-06-05T19:28:12Z -->
+- .claude/docs/blackbox/audit.md
+- .claude/docs/blackbox/session-log.md
+- src/__tests__/get_verb_page/down.test.tsx
+- src/__tests__/get_verb_page/in.test.tsx
+- src/__tests__/get_verb_page/into.test.tsx
+- src/__tests__/get_verb_page/off.test.tsx
+- src/__tests__/get_verb_page/on.test.tsx
+- src/__tests__/get_verb_page/out.test.tsx
+- src/__tests__/get_verb_page/up.test.tsx
+- src/pages/get/GetVerbPage.tsx
+<!-- end-snapshot -->
+
+<!-- git-snapshot 2026-06-05T19:31:51Z -->
+- .claude/docs/blackbox/audit.md
+- .claude/docs/blackbox/session-log.md
+<!-- end-snapshot -->

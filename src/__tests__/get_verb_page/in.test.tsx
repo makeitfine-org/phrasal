@@ -147,6 +147,40 @@ describe('GetVerbPage — "in" card expand / collapse', () => {
   });
 });
 
+describe('GetVerbPage — "in" collapsed card view', () => {
+  it('collapsed card shows example sentence', () => {
+    renderPage();
+    expandSection('in');
+    const card = getCard(/To enter a car, room, or building/i);
+    expect(within(card).getByText(/"Get in the car/i)).toBeInTheDocument();
+  });
+
+  it('collapsed card example has truncate class', () => {
+    renderPage();
+    expandSection('in');
+    const card = getCard(/To enter a car, room, or building/i);
+    expect(within(card).getByText(/"Get in the car/i)).toHaveClass('truncate');
+  });
+
+  it('collapsed card example has title attribute with quoted text', () => {
+    renderPage();
+    expandSection('in');
+    const card = getCard(/To enter a car, room, or building/i);
+    expect(within(card).getByText(/"Get in the car/i)).toHaveAttribute(
+      'title',
+      '"Get in the car, we are going to be late."'
+    );
+  });
+
+  it('expanded card example does not have truncate class', () => {
+    renderPage();
+    expandSection('in');
+    fireEvent.click(getCard(/To enter a car, room, or building/i));
+    const card = getCard(/To enter a car, room, or building/i);
+    expect(within(card).getByText(/"Get in the car/i)).not.toHaveClass('truncate');
+  });
+});
+
 describe('GetVerbPage — "in" localStorage persistence', () => {
   it('saves "in" card expanded state to localStorage', () => {
     renderPage();
