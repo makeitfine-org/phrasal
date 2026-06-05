@@ -83,3 +83,25 @@
 - .claude/docs/blackbox/audit.md
 - .claude/docs/blackbox/session-log.md
 <!-- end-snapshot -->
+
+<!-- git-snapshot 2026-06-05T11:05:21Z -->
+- .claude/docs/blackbox/audit.md
+- src/pages/get/GetVerbPage.tsx
+<!-- end-snapshot -->
+
+<!-- git-snapshot 2026-06-05T11:06:01Z -->
+- .claude/docs/blackbox/audit.md
+- .claude/docs/blackbox/session-log.md
+- src/pages/get/GetVerbPage.tsx
+<!-- end-snapshot -->
+
+<!-- git-snapshot 2026-06-05T11:08:52Z -->
+- .claude/docs/blackbox/audit.md
+- .claude/docs/blackbox/session-log.md
+- src/pages/get/GetVerbPage.tsx
+<!-- end-snapshot -->
+
+<!-- git-snapshot 2026-06-05T11:09:32Z -->
+- .claude/docs/blackbox/audit.md
+- .claude/docs/blackbox/session-log.md
+<!-- end-snapshot -->

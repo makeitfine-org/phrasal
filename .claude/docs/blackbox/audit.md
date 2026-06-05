@@ -81,3 +81,19 @@ do not make test font smaller
 ## 2026-06-05T11:03:53Z
 git add all changes and commit them with suitable message
 ---
+
+## 2026-06-05T11:05:00Z
+get test bigger for mobile devices
+---
+
+## 2026-06-05T11:05:50Z
+more bigger
+---
+
+## 2026-06-05T11:08:32Z
+but only for mobile devices for desktop it was good.
+---
+
+## 2026-06-05T11:09:23Z
+commit
+---
