@@ -201,3 +201,34 @@ describe('GetVerbPage — "up" localStorage persistence', () => {
     expect(screen.getByText(/"I get up at 6:30 AM every morning\."/i)).toBeInTheDocument();
   });
 });
+
+describe('GetVerbPage — "up" text selection does not toggle card', () => {
+  afterEach(() => {
+    vi.restoreAllMocks();
+  });
+
+  it('clicking card with text selected does not expand it', () => {
+    vi.spyOn(window, 'getSelection').mockReturnValue({ toString: () => 'selected text' } as Selection);
+    renderPage();
+    expandSection('up');
+    fireEvent.click(getCard(/To rise from bed after sleeping/i));
+    expect(within(getCard(/To rise from bed after sleeping/i)).getByText(/"I get up at 6:30 AM/i)).toHaveClass('truncate');
+  });
+
+  it('clicking expanded card with text selected does not collapse it', () => {
+    renderPage();
+    expandSection('up');
+    fireEvent.click(getCard(/To rise from bed after sleeping/i));
+    vi.spyOn(window, 'getSelection').mockReturnValue({ toString: () => 'selected text' } as Selection);
+    fireEvent.click(getCard(/To rise from bed after sleeping/i));
+    expect(within(getCard(/To rise from bed after sleeping/i)).getByText(/"I get up at 6:30 AM/i)).not.toHaveClass('truncate');
+  });
+
+  it('clicking card with empty selection toggles normally', () => {
+    vi.spyOn(window, 'getSelection').mockReturnValue({ toString: () => '' } as Selection);
+    renderPage();
+    expandSection('up');
+    fireEvent.click(getCard(/To rise from bed after sleeping/i));
+    expect(within(getCard(/To rise from bed after sleeping/i)).getByText(/"I get up at 6:30 AM/i)).not.toHaveClass('truncate');
+  });
+});

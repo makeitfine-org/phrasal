@@ -196,3 +196,34 @@ describe('GetVerbPage — "in" localStorage persistence', () => {
     expect(screen.getByText(/"Get in the car, we are going to be late\."/i)).toBeInTheDocument();
   });
 });
+
+describe('GetVerbPage — "in" text selection does not toggle card', () => {
+  afterEach(() => {
+    vi.restoreAllMocks();
+  });
+
+  it('clicking card with text selected does not expand it', () => {
+    vi.spyOn(window, 'getSelection').mockReturnValue({ toString: () => 'selected text' } as Selection);
+    renderPage();
+    expandSection('in');
+    fireEvent.click(getCard(/To enter a car, room, or building/i));
+    expect(within(getCard(/To enter a car, room, or building/i)).getByText(/"Get in the car/i)).toHaveClass('truncate');
+  });
+
+  it('clicking expanded card with text selected does not collapse it', () => {
+    renderPage();
+    expandSection('in');
+    fireEvent.click(getCard(/To enter a car, room, or building/i));
+    vi.spyOn(window, 'getSelection').mockReturnValue({ toString: () => 'selected text' } as Selection);
+    fireEvent.click(getCard(/To enter a car, room, or building/i));
+    expect(within(getCard(/To enter a car, room, or building/i)).getByText(/"Get in the car/i)).not.toHaveClass('truncate');
+  });
+
+  it('clicking card with empty selection toggles normally', () => {
+    vi.spyOn(window, 'getSelection').mockReturnValue({ toString: () => '' } as Selection);
+    renderPage();
+    expandSection('in');
+    fireEvent.click(getCard(/To enter a car, room, or building/i));
+    expect(within(getCard(/To enter a car, room, or building/i)).getByText(/"Get in the car/i)).not.toHaveClass('truncate');
+  });
+});

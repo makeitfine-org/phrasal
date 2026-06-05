@@ -189,3 +189,34 @@ describe('GetVerbPage — "into" localStorage persistence', () => {
     expect(screen.getByText(/"I recently got into software development\."/i)).toBeInTheDocument();
   });
 });
+
+describe('GetVerbPage — "into" text selection does not toggle card', () => {
+  afterEach(() => {
+    vi.restoreAllMocks();
+  });
+
+  it('clicking card with text selected does not expand it', () => {
+    vi.spyOn(window, 'getSelection').mockReturnValue({ toString: () => 'selected text' } as Selection);
+    renderPage();
+    expandSection('into');
+    fireEvent.click(getCard(/To become interested or involved in something/i));
+    expect(within(getCard(/To become interested or involved in something/i)).getByText(/"I recently got into software development/i)).toHaveClass('truncate');
+  });
+
+  it('clicking expanded card with text selected does not collapse it', () => {
+    renderPage();
+    expandSection('into');
+    fireEvent.click(getCard(/To become interested or involved in something/i));
+    vi.spyOn(window, 'getSelection').mockReturnValue({ toString: () => 'selected text' } as Selection);
+    fireEvent.click(getCard(/To become interested or involved in something/i));
+    expect(within(getCard(/To become interested or involved in something/i)).getByText(/"I recently got into software development/i)).not.toHaveClass('truncate');
+  });
+
+  it('clicking card with empty selection toggles normally', () => {
+    vi.spyOn(window, 'getSelection').mockReturnValue({ toString: () => '' } as Selection);
+    renderPage();
+    expandSection('into');
+    fireEvent.click(getCard(/To become interested or involved in something/i));
+    expect(within(getCard(/To become interested or involved in something/i)).getByText(/"I recently got into software development/i)).not.toHaveClass('truncate');
+  });
+});

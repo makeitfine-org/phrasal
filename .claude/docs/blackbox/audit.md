@@ -615,3 +615,23 @@ Do the same as it's for "get out".
 ## 2026-06-05T19:51:54Z
 Add tests for new added phrasal verbs
 ---
+
+## 2026-06-05T20:06:06Z
+I'd like to be able to copy text on "get" phrasal verb page
+---
+
+## 2026-06-05T20:08:52Z
+When select/copy text don't extend/collapse the frame
+---
+
+## 2026-06-05T20:10:56Z
+Add tests for new added phrasal verbs
+---
+
+## 2026-06-05T20:11:08Z
+Cover the functionality with tests
+---
+
+## 2026-06-05T20:18:24Z
+git add all changes and commit them with suitable message
+---

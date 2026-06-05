@@ -20,6 +20,7 @@ function Meaning({ number, definition, example, imageSrc, imageAlt, storageKeyPr
 
   const toggle = () => {
     if (isDefault) return;
+    if (window.getSelection()?.toString()) return;
     setCollapsed(c => {
       const next = !c;
       localStorage.setItem(storageKey, String(next));
@@ -29,7 +30,7 @@ function Meaning({ number, definition, example, imageSrc, imageAlt, storageKeyPr
 
   return (
     <div
-      className={`bg-white dark:bg-gray-900 rounded-2xl border border-gray-600 dark:border-gray-400 shadow-md overflow-hidden ${isDefault ? 'cursor-default' : 'cursor-pointer'} select-none`}
+      className={`bg-white dark:bg-gray-900 rounded-2xl border border-gray-600 dark:border-gray-400 shadow-md overflow-hidden ${isDefault ? 'cursor-default' : 'cursor-pointer'}`}
       onClick={toggle}
     >
       {collapsed ? (

@@ -402,3 +402,26 @@
 - .claude/docs/blackbox/audit.md
 - .claude/docs/blackbox/session-log.md
 <!-- end-snapshot -->
+
+<!-- git-snapshot 2026-06-05T20:06:51Z -->
+- .claude/docs/blackbox/audit.md
+- src/pages/get/GetVerbPage.tsx
+<!-- end-snapshot -->
+
+<!-- git-snapshot 2026-06-05T20:09:24Z -->
+- .claude/docs/blackbox/audit.md
+- .claude/docs/blackbox/session-log.md
+- src/pages/get/GetVerbPage.tsx
+<!-- end-snapshot -->
+
+<!-- git-snapshot 2026-06-05T20:16:39Z -->
+- .claude/docs/blackbox/audit.md
+- .claude/docs/blackbox/session-log.md
+- src/__tests__/get_verb_page/down.test.tsx
+- src/__tests__/get_verb_page/in.test.tsx
+- src/__tests__/get_verb_page/into.test.tsx
+- src/__tests__/get_verb_page/off.test.tsx
+- src/__tests__/get_verb_page/on.test.tsx
+- src/__tests__/get_verb_page/up.test.tsx
+- src/pages/get/GetVerbPage.tsx
+<!-- end-snapshot -->

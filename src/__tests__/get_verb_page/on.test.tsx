@@ -246,3 +246,34 @@ describe('GetVerbPage — "on" localStorage persistence', () => {
     expect(screen.getByText(/"Hurry up and get on the bus before it leaves!"/i)).toBeInTheDocument();
   });
 });
+
+describe('GetVerbPage — "on" text selection does not toggle card', () => {
+  afterEach(() => {
+    vi.restoreAllMocks();
+  });
+
+  it('clicking card with text selected does not expand it', () => {
+    vi.spyOn(window, 'getSelection').mockReturnValue({ toString: () => 'selected text' } as Selection);
+    renderPage();
+    expandSection('on');
+    fireEvent.click(getCard(/To step onto a form of public transport/i));
+    expect(within(getCard(/To step onto a form of public transport/i)).getByText(/"Hurry up and get on the bus/i)).toHaveClass('truncate');
+  });
+
+  it('clicking expanded card with text selected does not collapse it', () => {
+    renderPage();
+    expandSection('on');
+    fireEvent.click(getCard(/To step onto a form of public transport/i));
+    vi.spyOn(window, 'getSelection').mockReturnValue({ toString: () => 'selected text' } as Selection);
+    fireEvent.click(getCard(/To step onto a form of public transport/i));
+    expect(within(getCard(/To step onto a form of public transport/i)).getByText(/"Hurry up and get on the bus/i)).not.toHaveClass('truncate');
+  });
+
+  it('clicking card with empty selection toggles normally', () => {
+    vi.spyOn(window, 'getSelection').mockReturnValue({ toString: () => '' } as Selection);
+    renderPage();
+    expandSection('on');
+    fireEvent.click(getCard(/To step onto a form of public transport/i));
+    expect(within(getCard(/To step onto a form of public transport/i)).getByText(/"Hurry up and get on the bus/i)).not.toHaveClass('truncate');
+  });
+});

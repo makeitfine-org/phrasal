@@ -198,3 +198,34 @@ describe('GetVerbPage — "down" localStorage persistence', () => {
     expect(screen.getByText(/"You need to get down from that ladder before you fall\."/i)).toBeInTheDocument();
   });
 });
+
+describe('GetVerbPage — "down" text selection does not toggle card', () => {
+  afterEach(() => {
+    vi.restoreAllMocks();
+  });
+
+  it('clicking card with text selected does not expand it', () => {
+    vi.spyOn(window, 'getSelection').mockReturnValue({ toString: () => 'selected text' } as Selection);
+    renderPage();
+    expandSection('down');
+    fireEvent.click(getCard(/To move to a lower position/i));
+    expect(within(getCard(/To move to a lower position/i)).getByText(/"You need to get down from that ladder/i)).toHaveClass('truncate');
+  });
+
+  it('clicking expanded card with text selected does not collapse it', () => {
+    renderPage();
+    expandSection('down');
+    fireEvent.click(getCard(/To move to a lower position/i));
+    vi.spyOn(window, 'getSelection').mockReturnValue({ toString: () => 'selected text' } as Selection);
+    fireEvent.click(getCard(/To move to a lower position/i));
+    expect(within(getCard(/To move to a lower position/i)).getByText(/"You need to get down from that ladder/i)).not.toHaveClass('truncate');
+  });
+
+  it('clicking card with empty selection toggles normally', () => {
+    vi.spyOn(window, 'getSelection').mockReturnValue({ toString: () => '' } as Selection);
+    renderPage();
+    expandSection('down');
+    fireEvent.click(getCard(/To move to a lower position/i));
+    expect(within(getCard(/To move to a lower position/i)).getByText(/"You need to get down from that ladder/i)).not.toHaveClass('truncate');
+  });
+});
