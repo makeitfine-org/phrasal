@@ -1459,7 +1459,8 @@
       "I will pick you up from the airport at 5 PM."
     ],
     "wordsToHide": [
-      "pick up"
+      "pick",
+      "up"
     ]
   },
   {
@@ -2315,7 +2316,7 @@
     ]
   },
   {
-    "verb": "Bring it on",
+    "verb": "Bring on",
     "definition": "To accept a challenge with confidence",
     "sentences": [
       "You want to have a race? Bring it on! I can beat you!"
