@@ -404,3 +404,23 @@ git add all changes and commit them with suitable message
 ## 2026-06-05T17:55:08Z
 git add all changes and commit them with suitable message
 ---
+
+## 2026-06-05T18:45:08Z
+When open first time phrasal verbs have to be collapsed by default
+---
+
+## 2026-06-05T18:46:58Z
+When open first time phrasal verbs have to be collapsed by default
+---
+
+## 2026-06-05T18:50:42Z
+on @src/pages/get/GetVerbPage.tsx change when open first time phrasal verbs have to be collapsed by default
+---
+
+## 2026-06-05T18:52:01Z
+Fix test
+---
+
+## 2026-06-05T19:14:34Z
+git add all changes and commit them with suitable message
+---

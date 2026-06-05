@@ -1,4 +1,4 @@
-import { screen } from '@testing-library/react';
+import { screen, fireEvent } from '@testing-library/react';
 import { renderPage } from './helpers';
 
 beforeEach(() => {
@@ -18,6 +18,7 @@ describe('GetVerbPage — general', () => {
 
   it('renders correct numbered badges across all 7 sections (off:4, on:4, up:3, down:4, in:4, into:3, out:4)', () => {
     renderPage();
+    ['off', 'on', 'up', 'down', 'in', 'into', 'out'].forEach(p => fireEvent.click(screen.getByText(p)));
     expect(screen.getAllByText('1')).toHaveLength(7);
     expect(screen.getAllByText('2')).toHaveLength(7);
     expect(screen.getAllByText('3')).toHaveLength(7);

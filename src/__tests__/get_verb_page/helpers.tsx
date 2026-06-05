@@ -1,5 +1,5 @@
 import React from 'react';
-import { render, screen } from '@testing-library/react';
+import { render, screen, fireEvent } from '@testing-library/react';
 import { MemoryRouter } from 'react-router-dom';
 import GetVerbPage from '../../pages/get/GetVerbPage';
 
@@ -17,4 +17,8 @@ export function getCard(definitionPattern: RegExp) {
 
 export function getSection(particle: string) {
   return screen.getByText(particle).closest('[class*="mb-5"]')!;
+}
+
+export function expandSection(particle: string) {
+  fireEvent.click(screen.getByText(particle));
 }

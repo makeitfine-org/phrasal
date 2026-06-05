@@ -1,5 +1,5 @@
 import { screen, fireEvent, within } from '@testing-library/react';
-import { renderPage, getCard } from './helpers';
+import { renderPage, getCard, expandSection } from './helpers';
 
 beforeEach(() => {
   localStorage.clear();
@@ -11,41 +11,44 @@ describe('GetVerbPage — "in" section toggle', () => {
     expect(screen.getByText('in')).toBeInTheDocument();
   });
 
-  it('"in" section starts expanded showing all 4 definitions', () => {
+  it('"in" section starts collapsed showing no definitions', () => {
     renderPage();
-    expect(screen.getByText(/To enter a car, room, or building/i)).toBeInTheDocument();
-    expect(screen.getByText(/To arrive \(usually a train, flight/i)).toBeInTheDocument();
-    expect(screen.getByText(/To be accepted into a school, club, or organization/i)).toBeInTheDocument();
-    expect(screen.getByText(/To submit something/i)).toBeInTheDocument();
-  });
-
-  it('clicking "in" collapses all "in" meaning cards', () => {
-    renderPage();
-    fireEvent.click(screen.getByText('in'));
     expect(screen.queryByText(/To enter a car, room, or building/i)).not.toBeInTheDocument();
     expect(screen.queryByText(/To arrive \(usually a train, flight/i)).not.toBeInTheDocument();
     expect(screen.queryByText(/To be accepted into a school, club, or organization/i)).not.toBeInTheDocument();
     expect(screen.queryByText(/To submit something/i)).not.toBeInTheDocument();
   });
 
-  it('clicking "in" twice restores all "in" meaning cards', () => {
+  it('clicking "in" expands all "in" meaning cards', () => {
+    renderPage();
+    fireEvent.click(screen.getByText('in'));
+    expect(screen.getByText(/To enter a car, room, or building/i)).toBeInTheDocument();
+    expect(screen.getByText(/To arrive \(usually a train, flight/i)).toBeInTheDocument();
+    expect(screen.getByText(/To be accepted into a school, club, or organization/i)).toBeInTheDocument();
+    expect(screen.getByText(/To submit something/i)).toBeInTheDocument();
+  });
+
+  it('clicking "in" twice collapses all "in" meaning cards', () => {
     renderPage();
     fireEvent.click(screen.getByText('in'));
     fireEvent.click(screen.getByText('in'));
-    expect(screen.getByText(/To enter a car, room, or building/i)).toBeInTheDocument();
+    expect(screen.queryByText(/To enter a car, room, or building/i)).not.toBeInTheDocument();
   });
 
   it('collapsing "in" section does not affect other sections', () => {
     renderPage();
+    expandSection('off');
+    expandSection('down');
+    expandSection('in');
     fireEvent.click(screen.getByText('in'));
     expect(screen.getByText(/To leave a form of public transport/i)).toBeInTheDocument();
     expect(screen.getByText(/To move to a lower position/i)).toBeInTheDocument();
   });
 
-  it('saves "in" section state to localStorage when collapsed', () => {
+  it('saves "in" section state to localStorage when expanded', () => {
     renderPage();
     fireEvent.click(screen.getByText('in'));
-    expect(localStorage.getItem('getIn_section_expanded')).toBe('false');
+    expect(localStorage.getItem('getIn_section_expanded')).toBe('true');
   });
 
   it('restores "in" section collapsed state from localStorage', () => {
@@ -58,38 +61,38 @@ describe('GetVerbPage — "in" section toggle', () => {
 describe('GetVerbPage — "in" chevron and colour', () => {
   it('in chevron has rotate-90 class when expanded', () => {
     renderPage();
+    fireEvent.click(screen.getByText('in'));
     const inHeader = screen.getByText('in').closest('div')!;
     expect(within(inHeader).getByText('▶')).toHaveClass('rotate-90');
   });
 
   it('in chevron does not have rotate-90 class when collapsed', () => {
     renderPage();
-    fireEvent.click(screen.getByText('in'));
     const inHeader = screen.getByText('in').closest('div')!;
     expect(within(inHeader).getByText('▶')).not.toHaveClass('rotate-90');
   });
 
   it('in chevron is blue when collapsed', () => {
     renderPage();
-    fireEvent.click(screen.getByText('in'));
     const inHeader = screen.getByText('in').closest('div')!;
     expect(within(inHeader).getByText('▶')).toHaveClass('text-blue-600');
   });
 
   it('in chevron is white when expanded', () => {
     renderPage();
+    fireEvent.click(screen.getByText('in'));
     const inHeader = screen.getByText('in').closest('div')!;
     expect(within(inHeader).getByText('▶')).toHaveClass('text-white');
   });
 
   it('in particle text is blue when collapsed', () => {
     renderPage();
-    fireEvent.click(screen.getByText('in'));
     expect(screen.getByText('in')).toHaveClass('text-blue-600');
   });
 
   it('in particle text is white when expanded', () => {
     renderPage();
+    fireEvent.click(screen.getByText('in'));
     expect(screen.getByText('in')).toHaveClass('text-white');
   });
 });
@@ -97,6 +100,7 @@ describe('GetVerbPage — "in" chevron and colour', () => {
 describe('GetVerbPage — "in" section definitions', () => {
   it('all 4 "in" definition paragraphs have truncate class', () => {
     renderPage();
+    expandSection('in');
     expect(screen.getByText(/To enter a car, room, or building/i)).toHaveClass('truncate');
     expect(screen.getByText(/To arrive \(usually a train, flight/i)).toHaveClass('truncate');
     expect(screen.getByText(/To be accepted into a school, club, or organization/i)).toHaveClass('truncate');
@@ -105,6 +109,7 @@ describe('GetVerbPage — "in" section definitions', () => {
 
   it('all 4 "in" title attributes contain the full definition text', () => {
     renderPage();
+    expandSection('in');
     expect(screen.getByText(/To enter a car, room, or building/i)).toHaveAttribute('title', 'To enter a car, room, or building');
     expect(screen.getByText(/To arrive \(usually a train, flight/i)).toHaveAttribute('title', 'To arrive (usually a train, flight, or arriving at home/work)');
     expect(screen.getByText(/To be accepted into a school, club, or organization/i)).toHaveAttribute('title', 'To be accepted into a school, club, or organization');
@@ -123,12 +128,14 @@ describe('GetVerbPage — "in" card expand / collapse', () => {
 
   it('expands an "in" card when clicked', () => {
     renderPage();
+    expandSection('in');
     fireEvent.click(getCard(/To enter a car, room, or building/i));
     expect(screen.getByText(/"Get in the car, we are going to be late\."/i)).toBeInTheDocument();
   });
 
   it('renders all 4 "in" example sentences when all cards are expanded', () => {
     renderPage();
+    expandSection('in');
     fireEvent.click(getCard(/To enter a car, room, or building/i));
     fireEvent.click(getCard(/To arrive \(usually a train, flight/i));
     fireEvent.click(getCard(/To be accepted into a school, club, or organization/i));
@@ -143,11 +150,13 @@ describe('GetVerbPage — "in" card expand / collapse', () => {
 describe('GetVerbPage — "in" localStorage persistence', () => {
   it('saves "in" card expanded state to localStorage', () => {
     renderPage();
+    expandSection('in');
     fireEvent.click(getCard(/To enter a car, room, or building/i));
     expect(localStorage.getItem('getIn_meaning_1_collapsed')).toBe('false');
   });
 
   it('restores "in" card expanded state from localStorage on mount', () => {
+    localStorage.setItem('getIn_section_expanded', 'true');
     localStorage.setItem('getIn_meaning_1_collapsed', 'false');
     renderPage();
     expect(screen.getByText(/"Get in the car, we are going to be late\."/i)).toBeInTheDocument();

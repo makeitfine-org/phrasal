@@ -266,7 +266,7 @@ function Section({
 }) {
   const [expanded, setExpanded] = useState(() => {
     const saved = localStorage.getItem(storageKey);
-    return saved !== null ? saved === 'true' : true;
+    return saved !== null ? saved === 'true' : false;
   });
 
   const toggle = () => {
