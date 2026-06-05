@@ -40,7 +40,10 @@ function Meaning({ number, definition, example, imageSrc, imageAlt }: MeaningPro
           <span className="flex-shrink-0 w-6 h-6 rounded-full bg-blue-600 text-white text-xs font-bold flex items-center justify-center">
             {number}
           </span>
-          <p className="text-gray-800 dark:text-gray-100 text-xl md:text-base font-medium leading-snug">
+          <p
+            className="text-gray-800 dark:text-gray-100 text-xl md:text-base font-medium leading-snug truncate"
+            title={definition}
+          >
             {definition}
           </p>
         </div>

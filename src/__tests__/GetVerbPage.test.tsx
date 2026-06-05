@@ -58,6 +58,68 @@ describe('GetVerbPage', () => {
     expect(screen.getByText(/To send something/i)).toBeInTheDocument();
   });
 
+  // --- Single-line truncation + hover tooltip ---
+
+  it('definition paragraph has truncate class', () => {
+    renderPage();
+    expect(screen.getByText(/To leave a form of public transport/i)).toHaveClass('truncate');
+  });
+
+  it('all 4 definition paragraphs have truncate class', () => {
+    renderPage();
+    expect(screen.getByText(/To leave a form of public transport/i)).toHaveClass('truncate');
+    expect(screen.getByText(/To finish work/i)).toHaveClass('truncate');
+    expect(screen.getByText(/To escape punishment/i)).toHaveClass('truncate');
+    expect(screen.getByText(/To send something/i)).toHaveClass('truncate');
+  });
+
+  it('definition paragraph has title attribute with full text', () => {
+    renderPage();
+    expect(screen.getByText(/To leave a form of public transport/i)).toHaveAttribute(
+      'title',
+      'To leave a form of public transport (bus, train, plane)'
+    );
+  });
+
+  it('all 4 title attributes contain the full definition text', () => {
+    renderPage();
+    expect(screen.getByText(/To leave a form of public transport/i)).toHaveAttribute(
+      'title',
+      'To leave a form of public transport (bus, train, plane)'
+    );
+    expect(screen.getByText(/To finish work/i)).toHaveAttribute('title', 'To finish work');
+    expect(screen.getByText(/To escape punishment/i)).toHaveAttribute(
+      'title',
+      'To escape punishment'
+    );
+    expect(screen.getByText(/To send something/i)).toHaveAttribute(
+      'title',
+      'To send something (like a letter or email)'
+    );
+  });
+
+  it('hovering over a definition exposes the full text via title attribute', () => {
+    renderPage();
+    const p = screen.getByText(/To leave a form of public transport/i);
+    fireEvent.mouseEnter(p);
+    expect(p).toHaveAttribute('title', 'To leave a form of public transport (bus, train, plane)');
+  });
+
+  it('title attribute is present on all definitions after mouse enters each one', () => {
+    renderPage();
+    const defs = [
+      { pattern: /To leave a form of public transport/i, full: 'To leave a form of public transport (bus, train, plane)' },
+      { pattern: /To finish work/i, full: 'To finish work' },
+      { pattern: /To escape punishment/i, full: 'To escape punishment' },
+      { pattern: /To send something/i, full: 'To send something (like a letter or email)' },
+    ];
+    for (const { pattern, full } of defs) {
+      const p = screen.getByText(pattern);
+      fireEvent.mouseEnter(p);
+      expect(p).toHaveAttribute('title', full);
+    }
+  });
+
   // --- Collapsed by default ---
 
   it('starts all cards collapsed (no examples visible)', () => {

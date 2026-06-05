@@ -110,3 +110,28 @@ If I click again it should collapse back.
 ## 2026-06-05T11:14:32Z
 git add all changes and commit them with suitable message
 ---
+
+## 2026-06-05T11:16:20Z
+It should emarge collapsed but save state of extended/collapsed if refresh. Also add tests for that
+---
+
+## 2026-06-05T11:18:52Z
+git add all changes and commit them with suitable message
+---
+
+## 2026-06-05T12:05:22Z
+Make for each phrasal verb 2 lines for definition so that it looks the same.
+---
+
+## 2026-06-05T12:06:29Z
+Make for each phrasal verb 1 line for definition so that it looks the same.
+For those longer just show all when hover with mouse.
+---
+
+## 2026-06-05T12:08:20Z
+Write tests for that, and for hovering with mouse
+---
+
+## 2026-06-05T12:09:48Z
+git add all changes and commit them with suitable message
+---
