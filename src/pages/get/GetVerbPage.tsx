@@ -63,7 +63,7 @@ function Meaning({ number, definition, example, imageSrc, imageAlt, storageKeyPr
 
 const base = import.meta.env.BASE_URL;
 
-const offMeanings: Omit<MeaningProps, 'number'>[] = [
+const offMeanings: Omit<MeaningProps, 'number' | 'storageKeyPrefix'>[] = [
   {
     definition: 'To leave a form of public transport (bus, train, plane)',
     example: 'We need to get off the train at the next station.',
@@ -90,7 +90,7 @@ const offMeanings: Omit<MeaningProps, 'number'>[] = [
   },
 ];
 
-const onMeanings: Omit<MeaningProps, 'number'>[] = [
+const onMeanings: Omit<MeaningProps, 'number' | 'storageKeyPrefix'>[] = [
   {
     definition: 'To step onto a form of public transport',
     example: 'Hurry up and get on the bus before it leaves!',
