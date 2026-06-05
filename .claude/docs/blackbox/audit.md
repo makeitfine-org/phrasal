@@ -148,3 +148,12 @@ git add all changes and commit them with suitable message
 ## 2026-06-05T12:15:21Z
 Yes
 ---
+
+## 2026-06-05T12:15:57Z
+Yes
+---
+
+## 2026-06-05T12:17:17Z
+- Add border around frame of each phrasal verb: light for dark thema and dark for light thema.
+Add tests for that all
+---

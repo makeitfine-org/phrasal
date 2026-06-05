@@ -160,3 +160,12 @@
 - .claude/docs/blackbox/audit.md
 - .claude/docs/blackbox/session-log.md
 <!-- end-snapshot -->
+
+<!-- git-snapshot 2026-06-05T12:15:59Z -->
+- .claude/docs/blackbox/audit.md
+<!-- end-snapshot -->
+
+<!-- git-snapshot 2026-06-05T12:18:38Z -->
+- .claude/docs/blackbox/audit.md
+- .claude/docs/blackbox/session-log.md
+<!-- end-snapshot -->

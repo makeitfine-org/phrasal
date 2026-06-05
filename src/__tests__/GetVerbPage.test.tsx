@@ -120,6 +120,34 @@ describe('GetVerbPage', () => {
     }
   });
 
+  // --- Card border ---
+
+  it('meaning card has dark border class for light theme', () => {
+    renderPage();
+    expect(getCard(/To leave a form of public transport/i)).toHaveClass('border-gray-600');
+  });
+
+  it('meaning card has light border class for dark theme', () => {
+    renderPage();
+    expect(getCard(/To leave a form of public transport/i)).toHaveClass('dark:border-gray-400');
+  });
+
+  it('all 4 cards have dark border class for light theme', () => {
+    renderPage();
+    expect(getCard(/To leave a form of public transport/i)).toHaveClass('border-gray-600');
+    expect(getCard(/To finish work/i)).toHaveClass('border-gray-600');
+    expect(getCard(/To escape punishment/i)).toHaveClass('border-gray-600');
+    expect(getCard(/To send something/i)).toHaveClass('border-gray-600');
+  });
+
+  it('all 4 cards have light border class for dark theme', () => {
+    renderPage();
+    expect(getCard(/To leave a form of public transport/i)).toHaveClass('dark:border-gray-400');
+    expect(getCard(/To finish work/i)).toHaveClass('dark:border-gray-400');
+    expect(getCard(/To escape punishment/i)).toHaveClass('dark:border-gray-400');
+    expect(getCard(/To send something/i)).toHaveClass('dark:border-gray-400');
+  });
+
   // --- Collapsed by default ---
 
   it('starts all cards collapsed (no examples visible)', () => {
