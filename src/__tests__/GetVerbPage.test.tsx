@@ -34,11 +34,11 @@ describe('GetVerbPage', () => {
     expect(screen.queryByText(/4 meanings/i)).not.toBeInTheDocument();
   });
 
-  it('renders all 4 numbered meanings for each section (8 numbered badges total)', () => {
+  it('renders correct numbered badges across all 3 sections (off:4, on:4, up:3)', () => {
     renderPage();
-    expect(screen.getAllByText('1')).toHaveLength(2);
-    expect(screen.getAllByText('2')).toHaveLength(2);
-    expect(screen.getAllByText('3')).toHaveLength(2);
+    expect(screen.getAllByText('1')).toHaveLength(3);
+    expect(screen.getAllByText('2')).toHaveLength(3);
+    expect(screen.getAllByText('3')).toHaveLength(3);
     expect(screen.getAllByText('4')).toHaveLength(2);
   });
 
@@ -124,22 +124,36 @@ describe('GetVerbPage', () => {
     }
   });
 
-  // --- Section separator ---
+  // --- Section separators ---
 
-  it('renders a horizontal rule separator between off and on sections', () => {
+  it('renders two horizontal rule separators', () => {
     renderPage();
-    const hr = document.querySelector('hr');
-    expect(hr).toBeInTheDocument();
-    expect(hr).toHaveClass('border-gray-600');
+    expect(document.querySelectorAll('hr')).toHaveLength(2);
   });
 
-  it('separator appears between off and on sections in DOM order', () => {
+  it('both separators have border-gray-600 class', () => {
     renderPage();
-    const hr = document.querySelector('hr')!;
+    document.querySelectorAll('hr').forEach(hr => {
+      expect(hr).toHaveClass('border-gray-600');
+    });
+  });
+
+  it('first separator appears between off and on sections in DOM order', () => {
+    renderPage();
+    const [hr1] = document.querySelectorAll('hr');
     const offSection = getSection('off');
     const onSection = getSection('on');
-    expect(offSection.compareDocumentPosition(hr) & Node.DOCUMENT_POSITION_FOLLOWING).toBeTruthy();
-    expect(hr.compareDocumentPosition(onSection) & Node.DOCUMENT_POSITION_FOLLOWING).toBeTruthy();
+    expect(offSection.compareDocumentPosition(hr1) & Node.DOCUMENT_POSITION_FOLLOWING).toBeTruthy();
+    expect(hr1.compareDocumentPosition(onSection) & Node.DOCUMENT_POSITION_FOLLOWING).toBeTruthy();
+  });
+
+  it('second separator appears between on and up sections in DOM order', () => {
+    renderPage();
+    const [, hr2] = document.querySelectorAll('hr');
+    const onSection = getSection('on');
+    const upSection = getSection('up');
+    expect(onSection.compareDocumentPosition(hr2) & Node.DOCUMENT_POSITION_FOLLOWING).toBeTruthy();
+    expect(hr2.compareDocumentPosition(upSection) & Node.DOCUMENT_POSITION_FOLLOWING).toBeTruthy();
   });
 
   // --- Section spacing ---
@@ -603,6 +617,162 @@ describe('GetVerbPage', () => {
     renderPage();
     const card = getCard(/To leave a form of public transport/i);
     expect(within(card).queryByText(/"We need to get off the train/i)).not.toBeInTheDocument();
+  });
+
+  // --- "up" section toggle ---
+
+  it('renders "up" section toggle', () => {
+    renderPage();
+    expect(screen.getByText('up')).toBeInTheDocument();
+  });
+
+  it('"up" section starts expanded showing all 3 definitions', () => {
+    renderPage();
+    expect(screen.getByText(/To rise from bed after sleeping/i)).toBeInTheDocument();
+    expect(screen.getByText(/To stand up/i)).toBeInTheDocument();
+    expect(screen.getByText(/To organize or arrange something/i)).toBeInTheDocument();
+  });
+
+  it('clicking "up" collapses all "up" meaning cards', () => {
+    renderPage();
+    fireEvent.click(screen.getByText('up'));
+    expect(screen.queryByText(/To rise from bed after sleeping/i)).not.toBeInTheDocument();
+    expect(screen.queryByText(/To stand up/i)).not.toBeInTheDocument();
+    expect(screen.queryByText(/To organize or arrange something/i)).not.toBeInTheDocument();
+  });
+
+  it('clicking "up" twice restores all "up" meaning cards', () => {
+    renderPage();
+    fireEvent.click(screen.getByText('up'));
+    fireEvent.click(screen.getByText('up'));
+    expect(screen.getByText(/To rise from bed after sleeping/i)).toBeInTheDocument();
+  });
+
+  it('collapsing "up" section does not affect "off" or "on" sections', () => {
+    renderPage();
+    fireEvent.click(screen.getByText('up'));
+    expect(screen.getByText(/To leave a form of public transport/i)).toBeInTheDocument();
+    expect(screen.getByText(/To step onto a form of public transport/i)).toBeInTheDocument();
+  });
+
+  it('saves "up" section state to localStorage when collapsed', () => {
+    renderPage();
+    fireEvent.click(screen.getByText('up'));
+    expect(localStorage.getItem('getUp_section_expanded')).toBe('false');
+  });
+
+  it('restores "up" section collapsed state from localStorage', () => {
+    localStorage.setItem('getUp_section_expanded', 'false');
+    renderPage();
+    expect(screen.queryByText(/To rise from bed after sleeping/i)).not.toBeInTheDocument();
+  });
+
+  // --- Chevron direction (up) ---
+
+  it('up chevron is ▶ character', () => {
+    renderPage();
+    const upHeader = screen.getByText('up').closest('div')!;
+    expect(within(upHeader).getByText('▶')).toBeInTheDocument();
+  });
+
+  it('up chevron has rotate-90 class when expanded', () => {
+    renderPage();
+    const upHeader = screen.getByText('up').closest('div')!;
+    expect(within(upHeader).getByText('▶')).toHaveClass('rotate-90');
+  });
+
+  it('up chevron does not have rotate-90 class when collapsed', () => {
+    renderPage();
+    fireEvent.click(screen.getByText('up'));
+    const upHeader = screen.getByText('up').closest('div')!;
+    expect(within(upHeader).getByText('▶')).not.toHaveClass('rotate-90');
+  });
+
+  // --- Chevron and text colour (up) ---
+
+  it('up chevron is blue when collapsed', () => {
+    renderPage();
+    fireEvent.click(screen.getByText('up'));
+    const upHeader = screen.getByText('up').closest('div')!;
+    expect(within(upHeader).getByText('▶')).toHaveClass('text-blue-600');
+  });
+
+  it('up chevron is white when expanded', () => {
+    renderPage();
+    const upHeader = screen.getByText('up').closest('div')!;
+    expect(within(upHeader).getByText('▶')).toHaveClass('text-white');
+  });
+
+  it('up particle text is blue when collapsed', () => {
+    renderPage();
+    fireEvent.click(screen.getByText('up'));
+    expect(screen.getByText('up')).toHaveClass('text-blue-600');
+  });
+
+  it('up particle text is white when expanded', () => {
+    renderPage();
+    expect(screen.getByText('up')).toHaveClass('text-white');
+  });
+
+  // --- "up" section definitions ---
+
+  it('all 3 "up" definition paragraphs have truncate class', () => {
+    renderPage();
+    expect(screen.getByText(/To rise from bed after sleeping/i)).toHaveClass('truncate');
+    expect(screen.getByText(/To stand up/i)).toHaveClass('truncate');
+    expect(screen.getByText(/To organize or arrange something/i)).toHaveClass('truncate');
+  });
+
+  it('all 3 "up" title attributes contain the full definition text', () => {
+    renderPage();
+    expect(screen.getByText(/To rise from bed after sleeping/i)).toHaveAttribute(
+      'title',
+      'To rise from bed after sleeping'
+    );
+    expect(screen.getByText(/To stand up/i)).toHaveAttribute('title', 'To stand up');
+    expect(screen.getByText(/To organize or arrange something/i)).toHaveAttribute(
+      'title',
+      'To organize or arrange something'
+    );
+  });
+
+  // --- "up" expand / collapse ---
+
+  it('"up" cards start collapsed (no examples visible)', () => {
+    renderPage();
+    expect(screen.queryByText(/"I get up at 6:30 AM every morning\."/i)).not.toBeInTheDocument();
+    expect(screen.queryByText(/"He got up from his desk to welcome the visitors\."/i)).not.toBeInTheDocument();
+    expect(screen.queryByText(/"We need to get up a team to handle this new software update\."/i)).not.toBeInTheDocument();
+  });
+
+  it('expands an "up" card when clicked', () => {
+    renderPage();
+    fireEvent.click(getCard(/To rise from bed after sleeping/i));
+    expect(screen.getByText(/"I get up at 6:30 AM every morning\."/i)).toBeInTheDocument();
+  });
+
+  it('renders all 3 "up" example sentences when all cards are expanded', () => {
+    renderPage();
+    fireEvent.click(getCard(/To rise from bed after sleeping/i));
+    fireEvent.click(getCard(/To stand up/i));
+    fireEvent.click(getCard(/To organize or arrange something/i));
+    expect(screen.getByText(/"I get up at 6:30 AM every morning\."/i)).toBeInTheDocument();
+    expect(screen.getByText(/"He got up from his desk to welcome the visitors\."/i)).toBeInTheDocument();
+    expect(screen.getByText(/"We need to get up a team to handle this new software update\."/i)).toBeInTheDocument();
+  });
+
+  // --- "up" localStorage persistence ---
+
+  it('saves "up" card expanded state to localStorage', () => {
+    renderPage();
+    fireEvent.click(getCard(/To rise from bed after sleeping/i));
+    expect(localStorage.getItem('getUp_meaning_1_collapsed')).toBe('false');
+  });
+
+  it('restores "up" card expanded state from localStorage on mount', () => {
+    localStorage.setItem('getUp_meaning_1_collapsed', 'false');
+    renderPage();
+    expect(screen.getByText(/"I get up at 6:30 AM every morning\."/i)).toBeInTheDocument();
   });
 
   // --- localStorage persistence ---

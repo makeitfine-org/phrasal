@@ -265,3 +265,22 @@ Add white line separator between "off" and "on". It should be tiny
 ## 2026-06-05T14:11:46Z
 git add all changes and commit them with suitable message
 ---
+
+## 2026-06-05T14:23:03Z
+Get up
+To rise from bed after sleeping:
+Example: I get up at 6:30 AM every morning.
+/home/eug/Downloads/iloveimg-compressed/bad.png
+/home/eug/Downloads/iloveimg-compressed/desk.png
+
+To stand up:
+Example: He got up from his desk to welcome the visitors.
+
+To organize or arrange something:
+Example: We need to get up a team to handle this new software update.
+/home/eug/Downloads/iloveimg-compressed/arrange.png
+
+---
+
+Do the same as it's for "get off", "get on".
+---

@@ -130,6 +130,27 @@ const onMeanings: Omit<MeaningProps, 'number' | 'storageKeyPrefix'>[] = [
   },
 ];
 
+const upMeanings: Omit<MeaningProps, 'number' | 'storageKeyPrefix'>[] = [
+  {
+    definition: 'To rise from bed after sleeping',
+    example: 'I get up at 6:30 AM every morning.',
+    imageSrc: `${base}images/get/up/bed.png`,
+    imageAlt: 'A person getting out of bed in the morning',
+  },
+  {
+    definition: 'To stand up',
+    example: 'He got up from his desk to welcome the visitors.',
+    imageSrc: `${base}images/get/up/desk.png`,
+    imageAlt: 'A person standing up from their desk',
+  },
+  {
+    definition: 'To organize or arrange something',
+    example: 'We need to get up a team to handle this new software update.',
+    imageSrc: `${base}images/get/up/arrange.png`,
+    imageAlt: 'People being organized into a team',
+  },
+];
+
 function Section({
   particle,
   meanings,
@@ -188,6 +209,8 @@ export default function GetVerbPage() {
         <Section particle="off" meanings={offMeanings} storageKey="getOff_section_expanded" storageKeyPrefix="getOff" />
         <hr className="border-gray-600 dark:border-gray-500 my-2" />
         <Section particle="on" meanings={onMeanings} storageKey="getOn_section_expanded" storageKeyPrefix="getOn" />
+        <hr className="border-gray-600 dark:border-gray-500 my-2" />
+        <Section particle="up" meanings={upMeanings} storageKey="getUp_section_expanded" storageKeyPrefix="getUp" />
       </div>
     </div>
   );
