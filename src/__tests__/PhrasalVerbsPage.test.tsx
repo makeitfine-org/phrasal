@@ -32,4 +32,15 @@ describe('PhrasalVerbsPage', () => {
     const link = screen.getByRole('link', { name: /Test most popular/i });
     expect(link).toHaveAttribute('href', '/phrasal-verbs/test-most-popular');
   });
+
+  it('renders the "List" topic card', () => {
+    renderPhrasalVerbsPage();
+    expect(screen.getByRole('heading', { name: 'List' })).toBeInTheDocument();
+  });
+
+  it('"List" link points to /phrasal-verbs/list', () => {
+    renderPhrasalVerbsPage();
+    const link = screen.getByRole('link', { name: /List/i });
+    expect(link).toHaveAttribute('href', '/phrasal-verbs/list');
+  });
 });

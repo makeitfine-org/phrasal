@@ -27,3 +27,28 @@ Move there that "Phrasal Verbs" quiz.
 ## 2026-06-05T09:17:57Z
 git add all changes and commit them with suitable message
 ---
+
+## 2026-06-05T10:09:26Z
+Inside the "Phrasal verbs" page create sub-page "list", and inside list create page "Get".
+For the "Get" create page with definitions/examples/pictures I'll provide you:
+Get off
+1. To leave a form of public transport (bus, train, plane):
+Example: We need to get off the train at the next station.
+/home/eug/Downloads/Gemini_Generated_Image_s9u56js9u56js9u5.png
+
+2. To finish work:
+Example: I usually get off work at 5:00 PM.
+/home/eug/Downloads/Gemini_Generated_Image_s9u56js9u56js9u5 (1).png
+
+3. To escape punishment:
+Example: The manager made a huge mistake, but he got off with just a warning.
+/home/eug/Downloads/Gemini_Generated_Image_s9u56js9u56js9u5 (2).png
+
+4. To send something (like a letter or email):
+Example: I will get this report off to the client before the end of the day.
+/home/eug/Downloads/Gemini_Generated_Image_s9u56js9u56js9u5 (3).png
+---
+
+## 2026-06-05T10:19:10Z
+git add all changes and commit them with suitable message
+---

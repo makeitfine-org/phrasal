@@ -27,3 +27,17 @@
 - .claude/docs/blackbox/audit.md
 - .claude/docs/blackbox/session-log.md
 <!-- end-snapshot -->
+
+<!-- git-snapshot 2026-06-05T10:16:21Z -->
+- .claude/docs/blackbox/audit.md
+- .claude/settings.local.json
+- src/__tests__/PhrasalVerbsPage.test.tsx
+- src/main.tsx
+- src/pages/PhrasalVerbsPage.tsx
+<!-- end-snapshot -->
+
+<!-- git-snapshot 2026-06-05T10:19:39Z -->
+- .claude/docs/blackbox/audit.md
+- .claude/docs/blackbox/session-log.md
+- .claude/settings.local.json
+<!-- end-snapshot -->
