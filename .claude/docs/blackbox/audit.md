@@ -284,3 +284,47 @@ Example: We need to get up a team to handle this new software update.
 
 Do the same as it's for "get off", "get on".
 ---
+
+## 2026-06-05T15:36:27Z
+Get down
+
+To move to a lower position:
+Example: You need to get down from that ladder before you fall.
+/home/eug/Downloads/iloveimg-compressed/climb_down.png
+
+To make someone feel sad or depressed:
+Example: This rainy weather is really getting me down.
+/home/eug/Downloads/Done pics/down/sad.png
+
+To write something:
+Example: Let me get your contact details down in my notebook.
+/home/eug/Downloads/Done pics/down/write.png
+
+To start focusing on a task seriously (often "get down to"):
+Example: Enough small talk; let's get down to business.
+/home/eug/Downloads/Done pics/down/focus.png
+
+
+
+Get in
+
+To enter a car, room, or building:
+Example: Get in the car, we are going to be late.
+/home/eug/Downloads/iloveimg-compressed/car.png
+
+To arrive (usually a train, flight, or arriving at home/work):
+Example: What time does your flight get in?
+/home/eug/Downloads/iloveimg-compressed/arriving.jpg
+
+To be accepted into a school, club, or organization:
+Example: She applied to a top university and she got in.
+/home/eug/Downloads/Done pics/in/accepted.png
+
+To submit something:
+Example: I need to get my expenses application in by Friday.
+/home/eug/Downloads/Done pics/in/submit.png
+
+---
+
+Do the same as it's for "get off", "get on".
+---

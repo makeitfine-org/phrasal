@@ -130,6 +130,60 @@ const onMeanings: Omit<MeaningProps, 'number' | 'storageKeyPrefix'>[] = [
   },
 ];
 
+const downMeanings: Omit<MeaningProps, 'number' | 'storageKeyPrefix'>[] = [
+  {
+    definition: 'To move to a lower position',
+    example: 'You need to get down from that ladder before you fall.',
+    imageSrc: `${base}images/get/down/climb_down.png`,
+    imageAlt: 'A person climbing down a ladder',
+  },
+  {
+    definition: 'To make someone feel sad or depressed',
+    example: 'This rainy weather is really getting me down.',
+    imageSrc: `${base}images/get/down/sad.png`,
+    imageAlt: 'A person feeling sad and depressed by rainy weather',
+  },
+  {
+    definition: 'To write something',
+    example: 'Let me get your contact details down in my notebook.',
+    imageSrc: `${base}images/get/down/write.png`,
+    imageAlt: 'A person writing contact details in a notebook',
+  },
+  {
+    definition: 'To start focusing on a task seriously (often "get down to")',
+    example: "Enough small talk; let's get down to business.",
+    imageSrc: `${base}images/get/down/focus.png`,
+    imageAlt: 'People getting down to business in a meeting',
+  },
+];
+
+const inMeanings: Omit<MeaningProps, 'number' | 'storageKeyPrefix'>[] = [
+  {
+    definition: 'To enter a car, room, or building',
+    example: 'Get in the car, we are going to be late.',
+    imageSrc: `${base}images/get/in/car.png`,
+    imageAlt: 'A person getting into a car',
+  },
+  {
+    definition: 'To arrive (usually a train, flight, or arriving at home/work)',
+    example: 'What time does your flight get in?',
+    imageSrc: `${base}images/get/in/arriving.jpg`,
+    imageAlt: 'A flight arriving at an airport',
+  },
+  {
+    definition: 'To be accepted into a school, club, or organization',
+    example: 'She applied to a top university and she got in.',
+    imageSrc: `${base}images/get/in/accepted.png`,
+    imageAlt: 'A student receiving an acceptance letter',
+  },
+  {
+    definition: 'To submit something',
+    example: 'I need to get my expenses application in by Friday.',
+    imageSrc: `${base}images/get/in/submit.png`,
+    imageAlt: 'A person submitting an expenses application',
+  },
+];
+
 const upMeanings: Omit<MeaningProps, 'number' | 'storageKeyPrefix'>[] = [
   {
     definition: 'To rise from bed after sleeping',
@@ -211,6 +265,10 @@ export default function GetVerbPage() {
         <Section particle="on" meanings={onMeanings} storageKey="getOn_section_expanded" storageKeyPrefix="getOn" />
         <hr className="border-gray-600 dark:border-gray-500 my-2" />
         <Section particle="up" meanings={upMeanings} storageKey="getUp_section_expanded" storageKeyPrefix="getUp" />
+        <hr className="border-gray-600 dark:border-gray-500 my-2" />
+        <Section particle="down" meanings={downMeanings} storageKey="getDown_section_expanded" storageKeyPrefix="getDown" />
+        <hr className="border-gray-600 dark:border-gray-500 my-2" />
+        <Section particle="in" meanings={inMeanings} storageKey="getIn_section_expanded" storageKeyPrefix="getIn" />
       </div>
     </div>
   );

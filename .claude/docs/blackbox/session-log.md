@@ -251,3 +251,12 @@
 - src/__tests__/GetVerbPage.test.tsx
 - src/pages/get/GetVerbPage.tsx
 <!-- end-snapshot -->
+
+<!-- git-snapshot 2026-06-05T15:16:30Z -->
+- .claude/docs/blackbox/audit.md
+<!-- end-snapshot -->
+
+<!-- git-snapshot 2026-06-05T16:05:03Z -->
+- .claude/docs/blackbox/audit.md
+- .claude/docs/blackbox/session-log.md
+<!-- end-snapshot -->
