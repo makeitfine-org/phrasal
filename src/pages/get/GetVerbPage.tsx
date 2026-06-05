@@ -16,16 +16,16 @@ function Meaning({ number, definition, example, imageSrc, imageAlt }: MeaningPro
         alt={imageAlt}
         className="w-full"
       />
-      <div className="p-6">
-        <div className="flex items-start gap-3 mb-3">
-          <span className="flex-shrink-0 w-7 h-7 rounded-full bg-blue-600 text-white text-sm font-bold flex items-center justify-center">
+      <div className="p-4">
+        <div className="flex items-start gap-2 mb-2">
+          <span className="flex-shrink-0 w-6 h-6 rounded-full bg-blue-600 text-white text-xs font-bold flex items-center justify-center">
             {number}
           </span>
           <p className="text-gray-800 dark:text-gray-100 font-medium leading-snug">
             {definition}
           </p>
         </div>
-        <p className="text-gray-500 dark:text-gray-400 text-sm italic pl-10">
+        <p className="text-gray-500 dark:text-gray-400 text-sm italic pl-8">
           "{example}"
         </p>
       </div>
@@ -65,7 +65,7 @@ const meanings: Omit<MeaningProps, 'number'>[] = [
 export default function GetVerbPage() {
   return (
     <div className="min-h-screen bg-gray-50 dark:bg-gray-950 px-4 py-10">
-      <div className="max-w-2xl mx-auto">
+      <div className="max-w-sm mx-auto">
         <h1 className="text-4xl font-bold text-gray-900 dark:text-gray-100 mb-1 text-center">
           Get off
         </h1>

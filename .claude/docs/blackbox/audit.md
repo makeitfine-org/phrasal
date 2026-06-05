@@ -65,3 +65,19 @@ git add all changes and commit them with suitable message
 - Remove "4 meanings" from get get off page
 - Picture should be shown without hidden some parts.
 ---
+
+## 2026-06-05T10:57:28Z
+pictures are now 500x500 adope to that.
+---
+
+## 2026-06-05T10:59:25Z
+make smaller the all frame for the pic/defintion/example
+---
+
+## 2026-06-05T11:00:41Z
+do not make test font smaller
+---
+
+## 2026-06-05T11:03:53Z
+git add all changes and commit them with suitable message
+---
