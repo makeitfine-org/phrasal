@@ -39,25 +39,25 @@ const meanings: Omit<MeaningProps, 'number'>[] = [
   {
     definition: 'To leave a form of public transport (bus, train, plane)',
     example: 'We need to get off the train at the next station.',
-    imageSrc: `${base}images/get-off/transport.png`,
+    imageSrc: `${base}images/get/off/transport.png`,
     imageAlt: 'People getting off a train at a station',
   },
   {
     definition: 'To finish work',
     example: 'I usually get off work at 5:00 PM.',
-    imageSrc: `${base}images/get-off/work.png`,
+    imageSrc: `${base}images/get/off/work.png`,
     imageAlt: 'A person leaving the office at the end of the workday',
   },
   {
     definition: 'To escape punishment',
     example: 'The manager made a huge mistake, but he got off with just a warning.',
-    imageSrc: `${base}images/get-off/punishment.png`,
+    imageSrc: `${base}images/get/off/punishment.png`,
     imageAlt: 'A boss giving a warning to an employee',
   },
   {
     definition: 'To send something (like a letter or email)',
     example: 'I will get this report off to the client before the end of the day.',
-    imageSrc: `${base}images/get-off/send.png`,
+    imageSrc: `${base}images/get/off/send.png`,
     imageAlt: 'Sending a report by email and by post',
   },
 ];

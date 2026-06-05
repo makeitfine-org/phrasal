@@ -41,3 +41,17 @@
 - .claude/docs/blackbox/session-log.md
 - .claude/settings.local.json
 <!-- end-snapshot -->
+
+<!-- git-snapshot 2026-06-05T10:51:43Z -->
+- .claude/docs/blackbox/audit.md
+- public/images/get-off/punishment.png
+- public/images/get-off/send.png
+- public/images/get-off/transport.png
+- public/images/get-off/work.png
+- src/pages/get/GetVerbPage.tsx
+<!-- end-snapshot -->
+
+<!-- git-snapshot 2026-06-05T10:52:28Z -->
+- .claude/docs/blackbox/audit.md
+- .claude/docs/blackbox/session-log.md
+<!-- end-snapshot -->
