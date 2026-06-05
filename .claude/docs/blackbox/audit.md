@@ -437,3 +437,181 @@ Add tests for that functionality
 ## 2026-06-05T19:31:30Z
 git add all changes and commit them with suitable message
 ---
+
+## 2026-06-05T19:37:24Z
+For the phrasal verbs that have default.png as the picture don't show it by clicking on its frame. Do nothing by clicking on that frame.
+---
+
+## 2026-06-05T19:41:42Z
+Cover the functionality with tests
+---
+
+## 2026-06-05T19:45:12Z
+git add all changes and commit them with suitable message
+---
+
+## 2026-06-05T19:46:52Z
+Get away
+To escape:
+
+Example: The thief got away before the police arrived.
+
+To go on a holiday or take a break:
+
+Example: We are hoping to get away to the mountains for the weekend.
+
+To do something wrong without being punished (often "get away with"):
+
+Example: He lied about his sales numbers, but he won't get away with it.
+
+Get across
+(Note: "Get cross" simply means to become angry. "Get across" is the phrasal verb.)
+
+To communicate an idea successfully so people understand it:
+
+Example: The leader got her vision across perfectly during the presentation.
+
+To physically cross a road, river, or space:
+
+Example: We need to get across the street.
+
+Get forward
+To move to the front (often used in sports to describe attacking):
+
+Example: The team's defenders need to get forward to help score a goal.
+
+Get back
+To return to a place or a state:
+
+Example: When did you get back from your business trip?
+
+To have something returned to you:
+
+Example: I finally got my laptop back from the IT department.
+
+To return to a previous activity (often "get back to"):
+
+Example: I'll answer that question later; let's get back to the main topic.
+
+To take revenge on someone (often "get back at"):
+
+Example: She wants to get back at her competitor by launching a better product.
+
+Get by
+To manage to survive or do something with limited money, knowledge, or resources:
+
+Example: My Spanish isn't perfect, but I know enough to get by.
+
+Example: The budget is tight, but the department will get by.
+
+To physically move past someone:
+
+Example: Excuse me, could you move a little so I can get by?
+
+Get together
+To meet socially:
+
+Example: Let's get together for a coffee next week.
+
+To organize your thoughts, life, or things (often "get your act together"):
+
+Example: If he wants a promotion, he needs to get his act together and work harder.
+
+Get with
+To understand or adapt to modern trends or new rules (informal):
+
+Example: You need to get with the new management strategy, or you will be left behind.
+
+Get over
+To recover from an illness, a shock, or a bad emotional experience:
+
+Example: It took him two weeks to get over the flu.
+
+To overcome a problem or difficulty:
+
+Example: We need to get over this technical issue before the software launches.
+
+To finish something unpleasant so you don't have to worry about it (often "get it over with"):
+
+Example: I hate performance reviews, but let's just do it and get it over with.
+
+Get ahead
+To be successful and make progress in your career or life:
+
+Example: She reads a lot of business books because she wants to get ahead in her career.
+
+Get after
+To urge, remind, or scold someone to do something they are supposed to do:
+
+Example: I need to get after the developers to finish writing the code.
+
+To chase someone or something:
+
+Example: The dog got after the cat.
+
+Get behind
+To fail to do work or pay bills on schedule:
+
+Example: I was sick for a week, and I got behind on my emails.
+
+To support a person, idea, or project:
+
+Example: The whole team got behind the new manager's plan.
+
+Get through
+To finish a difficult task or survive a difficult period:
+
+Example: We just need to get through this busy week, and then we can relax.
+
+To make contact by telephone:
+
+Example: I tried to call customer service, but I couldn't get through.
+
+To make someone understand something (often "get through to"):
+
+Example: I've explained the risks, but I just can't get through to him.
+
+Get about / Get around / Get round
+(Note: These are very similar and often used interchangeably, though "round" is more common in British English).
+
+To travel to different places:
+
+Example: We used the subway to get around the city.
+
+To find a way to avoid a rule or solve a problem:
+
+Example: The programmers found a clever way to get around the security block.
+
+To spread (usually news or rumors):
+
+Example: Word gets around fast in this office.
+
+To finally do something you have delayed doing (often "get around to"):
+
+Example: I will get around to updating my resume this weekend.
+
+Get to
+To arrive at a destination:
+
+Example: What time did you get to the office this morning?
+
+To have the opportunity to do something:
+
+Example: Because of my job, I get to travel all over the world.
+
+To annoy or upset someone:
+
+Example: The constant complaining is really getting to me.
+
+To begin an action (often "get to work"):
+
+Example: The break is over; let's get to work.
+
+---
+
+Do the same as it's for "get out".
+---
+
+## 2026-06-05T19:51:54Z
+Add tests for new added phrasal verbs
+---
