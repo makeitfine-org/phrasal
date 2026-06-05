@@ -161,6 +161,7 @@ bin/
 out/
 !**/src/main/**/out/
 !**/src/test/**/out/
+!public/images/**/out/
 
 ### NetBeans ###
 /nbproject/private/

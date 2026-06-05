@@ -348,3 +348,37 @@ Example: I've got into the habit of checking my emails before breakfast.
 
 Do the same as it's for "get off", "get on".
 ---
+
+## 2026-06-05T17:04:07Z
+Get out
+
+To leave a place or a car:
+Example: The fire alarm rang, and everyone got out of the building.
+
+To become known (usually a secret or hidden information):
+Example: The news of the CEO leaving got out to the press.
+
+To produce or publish something:
+Example: We need to get this new application out by next month.
+
+To avoid doing something you do not want to do (often "get out of"):
+Example: He tried to get out of doing the presentation, but his boss said no.
+
+---
+
+Do the same as it's for "get off", "get on".
+As base picture just use:
+/home/eug/Downloads/pw.png
+---
+
+## 2026-06-05T17:09:43Z
+change that png pictures to [Image #4]
+---
+
+## 2026-06-05T17:10:37Z
+instead of 4 the same just use single one
+---
+
+## 2026-06-05T17:13:49Z
+git add all changes and commit them with suitable message
+---

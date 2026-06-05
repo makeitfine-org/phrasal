@@ -264,3 +264,24 @@
 <!-- git-snapshot 2026-06-05T16:46:52Z -->
 - .claude/docs/blackbox/audit.md
 <!-- end-snapshot -->
+
+<!-- git-snapshot 2026-06-05T17:09:55Z -->
+- .claude/docs/blackbox/audit.md
+- .claude/settings.local.json
+- src/__tests__/GetVerbPage.test.tsx
+- src/pages/get/GetVerbPage.tsx
+<!-- end-snapshot -->
+
+<!-- git-snapshot 2026-06-05T17:11:24Z -->
+- .claude/docs/blackbox/audit.md
+- .claude/docs/blackbox/session-log.md
+- .claude/settings.local.json
+- src/__tests__/GetVerbPage.test.tsx
+- src/pages/get/GetVerbPage.tsx
+<!-- end-snapshot -->
+
+<!-- git-snapshot 2026-06-05T17:15:17Z -->
+- .claude/docs/blackbox/audit.md
+- .claude/docs/blackbox/session-log.md
+- .claude/settings.local.json
+<!-- end-snapshot -->

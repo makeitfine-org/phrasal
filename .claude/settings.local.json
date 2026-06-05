@@ -35,7 +35,8 @@
       "Bash(cp \"/home/eug/Downloads/Gemini_Generated_Image_s9u56js9u56js9u5 \\(2\\).png\" /home/eug/dev/projects/my/phrasal/public/images/get-off/punishment.png)",
       "Bash(cp \"/home/eug/Downloads/Gemini_Generated_Image_s9u56js9u56js9u5 \\(3\\).png\" /home/eug/dev/projects/my/phrasal/public/images/get-off/send.png)",
       "Bash(curl -s -o /dev/null -w \"%{http_code}\" \"http://localhost:5200/phrasal/images/get-off/transport.png\")",
-      "Bash(pkill -f \"vite.*5200\")"
+      "Bash(pkill -f \"vite.*5200\")",
+      "Bash(cp /home/eug/Downloads/* /home/eug/dev/projects/my/phrasal/*)"
     ]
   },
   "model": "sonnet",

@@ -205,6 +205,33 @@ const intoMeanings: Omit<MeaningProps, 'number' | 'storageKeyPrefix'>[] = [
   },
 ];
 
+const outMeanings: Omit<MeaningProps, 'number' | 'storageKeyPrefix'>[] = [
+  {
+    definition: 'To leave a place or a car',
+    example: 'The fire alarm rang, and everyone got out of the building.',
+    imageSrc: `${base}images/get/out/default.png`,
+    imageAlt: 'People leaving a building after a fire alarm',
+  },
+  {
+    definition: 'To become known (usually a secret or hidden information)',
+    example: 'The news of the CEO leaving got out to the press.',
+    imageSrc: `${base}images/get/out/default.png`,
+    imageAlt: 'News of a CEO leaving spreading to the press',
+  },
+  {
+    definition: 'To produce or publish something',
+    example: 'We need to get this new application out by next month.',
+    imageSrc: `${base}images/get/out/default.png`,
+    imageAlt: 'A team launching a new application',
+  },
+  {
+    definition: 'To avoid doing something you do not want to do (often "get out of")',
+    example: 'He tried to get out of doing the presentation, but his boss said no.',
+    imageSrc: `${base}images/get/out/default.png`,
+    imageAlt: 'A person trying to avoid giving a presentation',
+  },
+];
+
 const upMeanings: Omit<MeaningProps, 'number' | 'storageKeyPrefix'>[] = [
   {
     definition: 'To rise from bed after sleeping',
@@ -292,6 +319,8 @@ export default function GetVerbPage() {
         <Section particle="in" meanings={inMeanings} storageKey="getIn_section_expanded" storageKeyPrefix="getIn" />
         <hr className="border-gray-600 dark:border-gray-500 my-2" />
         <Section particle="into" meanings={intoMeanings} storageKey="getInto_section_expanded" storageKeyPrefix="getInto" />
+        <hr className="border-gray-600 dark:border-gray-500 my-2" />
+        <Section particle="out" meanings={outMeanings} storageKey="getOut_section_expanded" storageKeyPrefix="getOut" />
       </div>
     </div>
   );
