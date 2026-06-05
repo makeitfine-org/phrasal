@@ -363,6 +363,14 @@ describe('GetVerbPage — "off" expanded card layout', () => {
     const card = getCard(/To leave a form of public transport/i);
     expect(within(card).getByText(/"We need to get off the train/i)).not.toHaveClass('truncate');
   });
+
+  it('off card has cursor-pointer class (real image, expandable)', () => {
+    renderPage();
+    expandSection('off');
+    const card = getCard(/To leave a form of public transport/i);
+    expect(card).toHaveClass('cursor-pointer');
+    expect(card).not.toHaveClass('cursor-default');
+  });
 });
 
 describe('GetVerbPage — "off" localStorage persistence', () => {

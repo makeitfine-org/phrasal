@@ -126,20 +126,15 @@ describe('GetVerbPage — "out" card expand / collapse', () => {
     expect(screen.queryByText(/"He tried to get out of doing the presentation, but his boss said no\."/i)).not.toBeInTheDocument();
   });
 
-  it('expands an "out" card when clicked', () => {
+  it('example is visible in collapsed view without clicking', () => {
     renderPage();
     expandSection('out');
-    fireEvent.click(getCard(/To leave a place or a car/i));
     expect(screen.getByText(/"The fire alarm rang, and everyone got out of the building\."/i)).toBeInTheDocument();
   });
 
-  it('renders all 4 "out" example sentences when all cards are expanded', () => {
+  it('all 4 "out" example sentences visible without expanding cards', () => {
     renderPage();
     expandSection('out');
-    fireEvent.click(getCard(/To leave a place or a car/i));
-    fireEvent.click(getCard(/To become known/i));
-    fireEvent.click(getCard(/To produce or publish something/i));
-    fireEvent.click(getCard(/To avoid doing something you do not want to do/i));
     expect(screen.getByText(/"The fire alarm rang, and everyone got out of the building\."/i)).toBeInTheDocument();
     expect(screen.getByText(/"The news of the CEO leaving got out to the press\."/i)).toBeInTheDocument();
     expect(screen.getByText(/"We need to get this new application out by next month\."/i)).toBeInTheDocument();
@@ -172,27 +167,56 @@ describe('GetVerbPage — "out" collapsed card view', () => {
     );
   });
 
-  it('expanded card example does not have truncate class', () => {
+  it('clicking "out" card does not remove truncate class (no image to show)', () => {
     renderPage();
     expandSection('out');
     fireEvent.click(getCard(/To leave a place or a car/i));
     const card = getCard(/To leave a place or a car/i);
-    expect(within(card).getByText(/"The fire alarm rang/i)).not.toHaveClass('truncate');
+    expect(within(card).getByText(/"The fire alarm rang/i)).toHaveClass('truncate');
+  });
+});
+
+describe('GetVerbPage — "out" non-expandable cards (default image)', () => {
+  it('out card has cursor-default class', () => {
+    renderPage();
+    expandSection('out');
+    const card = getCard(/To leave a place or a car/i);
+    expect(card).toHaveClass('cursor-default');
+    expect(card).not.toHaveClass('cursor-pointer');
+  });
+
+  it('clicking "out" card never renders an image', () => {
+    renderPage();
+    expandSection('out');
+    fireEvent.click(getCard(/To leave a place or a car/i));
+    const card = getCard(/To leave a place or a car/i);
+    expect(within(card).queryByRole('img')).not.toBeInTheDocument();
+  });
+
+  it('no "out" card ever renders an image regardless of clicks', () => {
+    renderPage();
+    expandSection('out');
+    fireEvent.click(getCard(/To leave a place or a car/i));
+    fireEvent.click(getCard(/To become known/i));
+    fireEvent.click(getCard(/To produce or publish something/i));
+    fireEvent.click(getCard(/To avoid doing something you do not want to do/i));
+    expect(screen.queryAllByRole('img')).toHaveLength(0);
   });
 });
 
 describe('GetVerbPage — "out" localStorage persistence', () => {
-  it('saves "out" card expanded state to localStorage', () => {
+  it('clicking "out" card does not save to localStorage', () => {
     renderPage();
     expandSection('out');
     fireEvent.click(getCard(/To leave a place or a car/i));
-    expect(localStorage.getItem('getOut_meaning_1_collapsed')).toBe('false');
+    expect(localStorage.getItem('getOut_meaning_1_collapsed')).toBeNull();
   });
 
-  it('restores "out" card expanded state from localStorage on mount', () => {
+  it('ignores localStorage expanded state for default image cards', () => {
     localStorage.setItem('getOut_section_expanded', 'true');
     localStorage.setItem('getOut_meaning_1_collapsed', 'false');
     renderPage();
-    expect(screen.getByText(/"The fire alarm rang, and everyone got out of the building\."/i)).toBeInTheDocument();
+    const card = getCard(/To leave a place or a car/i);
+    expect(within(card).getByText(/"The fire alarm rang/i)).toHaveClass('truncate');
   });
 });
