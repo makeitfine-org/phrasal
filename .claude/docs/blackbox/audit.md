@@ -635,3 +635,11 @@ Cover the functionality with tests
 ## 2026-06-05T20:18:24Z
 git add all changes and commit them with suitable message
 ---
+
+## 2026-06-05T20:20:24Z
+file:///home/eug/Pictures/Screenshots/Screenshot%20from%202026-06-05%2022-20-04.png Fix that
+---
+
+## 2026-06-05T20:23:24Z
+git add all changes and commit them with suitable message
+---

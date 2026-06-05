@@ -425,3 +425,8 @@
 - src/__tests__/get_verb_page/up.test.tsx
 - src/pages/get/GetVerbPage.tsx
 <!-- end-snapshot -->
+
+<!-- git-snapshot 2026-06-05T20:21:26Z -->
+- .claude/docs/blackbox/audit.md
+- src/__tests__/get_verb_page/helpers.tsx
+<!-- end-snapshot -->

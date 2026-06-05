@@ -12,7 +12,7 @@ export function renderPage() {
 }
 
 export function getCard(definitionPattern: RegExp) {
-  return screen.getByText(definitionPattern).closest('[class*="rounded-2xl"]')!;
+  return screen.getByText(definitionPattern).closest('[class*="rounded-2xl"]') as HTMLElement;
 }
 
 export function getSection(particle: string) {
