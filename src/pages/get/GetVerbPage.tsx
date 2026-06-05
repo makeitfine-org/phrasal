@@ -29,11 +29,13 @@ function Meaning({ number, definition, example, imageSrc, imageAlt }: MeaningPro
       onClick={toggle}
     >
       {!collapsed && (
-        <img
-          src={imageSrc}
-          alt={imageAlt}
-          className="w-full"
-        />
+        <div className="flex justify-center p-4">
+          <img
+            src={imageSrc}
+            alt={imageAlt}
+            className="max-w-sm w-full border border-gray-200 dark:border-gray-700 rounded-xl"
+          />
+        </div>
       )}
       <div className="p-4">
         <div className={`flex items-start gap-2 ${collapsed ? '' : 'mb-2'}`}>
@@ -89,7 +91,7 @@ const meanings: Omit<MeaningProps, 'number'>[] = [
 export default function GetVerbPage() {
   return (
     <div className="min-h-screen bg-gray-50 dark:bg-gray-950 px-4 py-10">
-      <div className="max-w-sm mx-auto">
+      <div className="max-w-[700px] mx-auto">
         <h1 className="text-4xl font-bold text-gray-900 dark:text-gray-100 mb-1 text-center">
           Get off
         </h1>

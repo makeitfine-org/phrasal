@@ -135,3 +135,16 @@ Write tests for that, and for hovering with mouse
 ## 2026-06-05T12:09:48Z
 git add all changes and commit them with suitable message
 ---
+
+## 2026-06-05T12:12:58Z
+Make default with not 500 but 700.
+But don't increase picture, just make for it a border around
+---
+
+## 2026-06-05T12:14:38Z
+git add all changes and commit them with suitable message
+---
+
+## 2026-06-05T12:15:21Z
+Yes
+---
