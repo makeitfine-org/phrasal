@@ -9,12 +9,24 @@ interface MeaningProps {
 }
 
 function Meaning({ number, definition, example, imageSrc, imageAlt }: MeaningProps) {
-  const [collapsed, setCollapsed] = useState(false);
+  const storageKey = `getOff_meaning_${number}_collapsed`;
+  const [collapsed, setCollapsed] = useState(() => {
+    const saved = localStorage.getItem(storageKey);
+    return saved !== null ? saved === 'true' : true;
+  });
+
+  const toggle = () => {
+    setCollapsed(c => {
+      const next = !c;
+      localStorage.setItem(storageKey, String(next));
+      return next;
+    });
+  };
 
   return (
     <div
       className="bg-white dark:bg-gray-900 rounded-2xl border border-gray-200 dark:border-gray-800 shadow-md overflow-hidden cursor-pointer select-none"
-      onClick={() => setCollapsed(c => !c)}
+      onClick={toggle}
     >
       {!collapsed && (
         <img
