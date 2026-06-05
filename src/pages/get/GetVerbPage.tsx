@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 
 interface MeaningProps {
   number: number;
@@ -9,15 +9,22 @@ interface MeaningProps {
 }
 
 function Meaning({ number, definition, example, imageSrc, imageAlt }: MeaningProps) {
+  const [collapsed, setCollapsed] = useState(false);
+
   return (
-    <div className="bg-white dark:bg-gray-900 rounded-2xl border border-gray-200 dark:border-gray-800 shadow-md overflow-hidden">
-      <img
-        src={imageSrc}
-        alt={imageAlt}
-        className="w-full"
-      />
+    <div
+      className="bg-white dark:bg-gray-900 rounded-2xl border border-gray-200 dark:border-gray-800 shadow-md overflow-hidden cursor-pointer select-none"
+      onClick={() => setCollapsed(c => !c)}
+    >
+      {!collapsed && (
+        <img
+          src={imageSrc}
+          alt={imageAlt}
+          className="w-full"
+        />
+      )}
       <div className="p-4">
-        <div className="flex items-start gap-2 mb-2">
+        <div className={`flex items-start gap-2 ${collapsed ? '' : 'mb-2'}`}>
           <span className="flex-shrink-0 w-6 h-6 rounded-full bg-blue-600 text-white text-xs font-bold flex items-center justify-center">
             {number}
           </span>
@@ -25,9 +32,11 @@ function Meaning({ number, definition, example, imageSrc, imageAlt }: MeaningPro
             {definition}
           </p>
         </div>
-        <p className="text-gray-500 dark:text-gray-400 text-xl md:text-sm italic pl-8">
-          "{example}"
-        </p>
+        {!collapsed && (
+          <p className="text-gray-500 dark:text-gray-400 text-xl md:text-sm italic pl-8">
+            "{example}"
+          </p>
+        )}
       </div>
     </div>
   );

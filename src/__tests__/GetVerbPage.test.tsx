@@ -1,5 +1,5 @@
 import React from 'react';
-import { render, screen } from '@testing-library/react';
+import { render, screen, fireEvent } from '@testing-library/react';
 import { MemoryRouter } from 'react-router-dom';
 import GetVerbPage from '../pages/get/GetVerbPage';
 
@@ -62,5 +62,22 @@ describe('GetVerbPage', () => {
     renderPage();
     const images = screen.getAllByRole('img');
     expect(images).toHaveLength(4);
+  });
+
+  it('collapses a card (hides image and example) when clicked', () => {
+    renderPage();
+    const exampleText = screen.getByText(/"We need to get off the train at the next station\."/i);
+    // click the card — the card is the parent of the example
+    fireEvent.click(exampleText.closest('[class*="rounded-2xl"]')!);
+    expect(screen.queryByText(/"We need to get off the train at the next station\."/i)).not.toBeInTheDocument();
+  });
+
+  it('expands a collapsed card when clicked again', () => {
+    renderPage();
+    const exampleText = screen.getByText(/"We need to get off the train at the next station\."/i);
+    const card = exampleText.closest('[class*="rounded-2xl"]')!;
+    fireEvent.click(card);
+    fireEvent.click(card);
+    expect(screen.getByText(/"We need to get off the train at the next station\."/i)).toBeInTheDocument();
   });
 });

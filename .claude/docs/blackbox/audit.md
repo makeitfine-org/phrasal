@@ -97,3 +97,16 @@ but only for mobile devices for desktop it was good.
 ## 2026-06-05T11:09:23Z
 commit
 ---
+
+## 2026-06-05T11:12:03Z
+When I click on frame (pic/defintion/example etc.) of any phrasal verb it shoul be collapse to just definition, for example (4 To send something (like a letter or email).
+---
+
+## 2026-06-05T11:12:20Z
+When I click on frame (pic/defintion/example etc.) of any phrasal verb it shoul be collapse to just definition, for example (4 To send something (like a letter or email).
+If I click again it should collapse back.
+---
+
+## 2026-06-05T11:14:32Z
+git add all changes and commit them with suitable message
+---
