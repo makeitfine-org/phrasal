@@ -458,3 +458,7 @@
 - .claude/docs/blackbox/audit.md
 - .claude/docs/blackbox/session-log.md
 <!-- end-snapshot -->
+
+<!-- git-snapshot 2026-06-05T21:37:47Z -->
+- .claude/docs/blackbox/audit.md
+<!-- end-snapshot -->

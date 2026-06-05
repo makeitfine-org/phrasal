@@ -8,6 +8,7 @@ import PhrasalVerbsPage from './pages/PhrasalVerbsPage';
 import PhrasalVerbsListPage from './pages/PhrasalVerbsListPage';
 import GetVerbPage from './pages/get/GetVerbPage';
 import MakeVerbPage from './pages/make/MakeVerbPage';
+import PutVerbPage from './pages/put/PutVerbPage';
 import IWishPage from './pages/IWishPage';
 import NotFoundPage from './pages/NotFoundPage';
 import ErrorBoundary from './components/ErrorBoundary';
@@ -26,6 +27,7 @@ ReactDOM.createRoot(document.getElementById('root')!).render(
             <Route path="/phrasal-verbs/list" element={<PhrasalVerbsListPage />} />
             <Route path="/phrasal-verbs/list/get" element={<GetVerbPage />} />
             <Route path="/phrasal-verbs/list/make" element={<MakeVerbPage />} />
+            <Route path="/phrasal-verbs/list/put" element={<PutVerbPage />} />
             <Route path="/grammar" element={<GrammarPage />} />
             <Route path="/grammar/i-wish-if-only" element={<IWishPage />} />
             <Route path="*" element={<NotFoundPage />} />

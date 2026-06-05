@@ -770,3 +770,230 @@ Example: Make with the financial reports, the board is waiting!
 ## 2026-06-05T21:12:12Z
 git add all changes and commit them with suitable message
 ---
+
+## 2026-06-05T21:18:45Z
+Put off
+To delay or postpone:
+
+Example: We have to put off the sprint planning meeting until tomorrow.
+
+To make someone not want to do something or dislike something:
+
+Example: The complex code architecture put me off learning Java at first.
+
+To distract someone:
+
+Example: Please be quiet; your talking is putting me off my work.
+
+Put on
+To dress oneself:
+
+Example: I put on my suit for the management interview.
+
+To organize a performance or event:
+
+Example: The company put on a great training event for new developers.
+
+To gain weight:
+
+Example: He put on three kilos during the holidays.
+
+To turn on a machine or appliance:
+
+Example: Could you put the projector on for the presentation?
+
+To pretend to have a feeling or attitude:
+
+Example: She isn't really angry; she's just putting it on.
+
+Put up
+To build or erect something:
+
+Example: They put up a new office building in Warsaw.
+
+To increase prices or rates:
+
+Example: The software provider put up their subscription fees.
+
+To provide accommodation for someone:
+
+Example: I can put you up at my apartment while you are visiting for the conference.
+
+To offer resistance or fight:
+
+Example: The competitor put up a strong fight for the market share.
+
+Put down
+To write something:
+
+Example: Let me put down your contact details.
+
+To criticize or humiliate someone:
+
+Example: A good leader never puts down their team members.
+
+To pay a deposit:
+
+Example: We put down a 10% deposit for the new office space.
+
+To suppress a rebellion by force:
+
+Example: The government quickly put down the protests.
+
+To euthanize an animal:
+
+Example: The vet had to put down the sick dog.
+
+(Put down to) To attribute a cause to something:
+
+Example: I put the project's success down to excellent teamwork.
+
+Put in
+To spend time or effort on something:
+
+Example: The development team put in 50 hours a week to finish the Java update.
+
+To install an appliance or system:
+
+Example: We are putting in a new server system today.
+
+To officially submit a request or document:
+
+Example: I put in a request for more holiday time.
+
+To interrupt a conversation:
+
+Example: "I think we should test the code first," the junior developer put in.
+
+Put into
+To invest time, money, or effort into a project:
+
+Example: The company put a lot of money into research and development.
+
+To express something in words:
+
+Example: It is hard to put this complex business strategy into simple words.
+
+Put out
+To extinguish a fire or a cigarette:
+
+Example: The fire alarm rang, but they quickly put out the small fire.
+
+To publish or release something:
+
+Example: The team put out a new version of the app last night.
+
+To inconvenience someone:
+
+Example: I hope it doesn't put you out if we move the meeting to 5 PM.
+
+To place something outside (like trash):
+
+Example: Don't forget to put out the recycling bins.
+
+Put away
+To store things in their correct place:
+
+Example: Please put away those files when you finish reading them.
+
+To save money for the future:
+
+Example: She puts away a portion of her salary every month for retirement.
+
+To send someone to prison or a mental hospital (informal):
+
+Example: The judge put him away for ten years for fraud.
+
+To eat or drink a large amount:
+
+Example: He can really put away a lot of coffee during a coding session.
+
+Put across / Put over
+To explain an idea clearly so people understand it:
+
+Example: The CEO put his vision across very well during the meeting. (Or: put over).
+
+Put forward
+To suggest an idea, plan, or person for consideration:
+
+Example: The manager put forward a new agile framework for the team.
+
+To change a clock to a later time:
+
+Example: Don't forget to put your clocks forward in the spring.
+
+Put back
+To return something to its original place:
+
+Example: Please put the laptop back in the cabinet.
+
+To delay an event:
+
+Example: The product launch was put back to November.
+
+To change a clock to an earlier time:
+
+Example: We put the clocks back one hour in the autumn.
+
+Put by
+To save money for the future (similar to put away):
+
+Example: I try to put by some money each month for a new computer.
+
+Put together
+To assemble the parts of something:
+
+Example: We need to put together the new office furniture.
+
+To organize or create a group or plan:
+
+Example: The HR director put together an excellent leadership training program.
+
+Put with
+(Put up with) To tolerate or accept a difficult situation without complaining:
+
+Example: As a project manager, you have to put up with unexpected delays.
+(Note: "Put with" alone is not a phrasal verb, it always takes "up" first).
+
+Put ahead
+To give someone an advantage:
+
+Example: Learning Java will really put you ahead in the job market.
+
+Put behind
+To forget about a bad experience and move on:
+
+Example: We lost a big client, but we need to put it behind us and focus on the future.
+
+Put through
+To connect someone on the telephone:
+
+Example: Please hold the line, I will put you through to the IT department.
+
+To make someone experience something very difficult:
+
+Example: The tough interview process really put the candidates through a lot of stress.
+
+To successfully complete a business transaction or law:
+
+Example: We finally managed to put the deal through.
+
+Put about / Put around / Put round
+To spread a rumor or false story:
+
+Example: Someone is putting it about that the company is going bankrupt.
+
+Put to
+To suggest an idea or a question to someone directly:
+
+Example: I put it to the board of directors, but they rejected the idea.
+
+To cause trouble or expense:
+
+Example: Moving the server room put us to a lot of trouble.
+
+---
+
+1) Create "put" link on list page with particals mentioned above phrasal verbs. Take as base "get" link.
+2) Create "put" page with mentioned above phrasal verbs. Take as base "get" page.
+---

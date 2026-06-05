@@ -1,5 +1,5 @@
 import React from 'react';
-import { render, screen, fireEvent } from '@testing-library/react';
+import { render, screen, fireEvent, within } from '@testing-library/react';
 import { MemoryRouter, Routes, Route, useLocation } from 'react-router-dom';
 import PhrasalVerbsListPage from '../pages/PhrasalVerbsListPage';
 
@@ -23,6 +23,7 @@ function renderPageWithRoutes() {
         <Route path="/phrasal-verbs/list" element={<><PhrasalVerbsListPage /><LocationSpy /></>} />
         <Route path="/phrasal-verbs/list/get" element={<LocationSpy />} />
         <Route path="/phrasal-verbs/list/make" element={<LocationSpy />} />
+        <Route path="/phrasal-verbs/list/put" element={<LocationSpy />} />
       </Routes>
     </MemoryRouter>
   );
@@ -38,6 +39,12 @@ const ALL_MAKE_PARTICLES = [
   'after', 'away (with)', 'for', 'into', 'off (with)', 'out', 'over', 'up', 'up for', 'with',
 ];
 
+const ALL_PUT_PARTICLES = [
+  'off', 'on', 'up', 'down', 'in', 'into', 'out', 'away', 'across / over',
+  'forward', 'back', 'by', 'together', 'with', 'ahead', 'behind', 'through',
+  'about / around / round', 'to',
+];
+
 describe('PhrasalVerbsListPage', () => {
   it('renders "Phrasal Verbs List" heading', () => {
     renderPage();
@@ -51,7 +58,7 @@ describe('PhrasalVerbsListPage', () => {
 
   it('"Get" link points to /phrasal-verbs/list/get', () => {
     renderPage();
-    const link = screen.getByRole('link', { name: /Get/i });
+    const link = screen.getByRole('heading', { name: 'Get' }).closest('a')!;
     expect(link).toHaveAttribute('href', '/phrasal-verbs/list/get');
   });
 
@@ -65,23 +72,37 @@ describe('PhrasalVerbsListPage', () => {
     const link = screen.getByRole('link', { name: /Make/i });
     expect(link).toHaveAttribute('href', '/phrasal-verbs/list/make');
   });
+
+  it('renders the "Put" card', () => {
+    renderPage();
+    expect(screen.getByRole('heading', { name: 'Put' })).toBeInTheDocument();
+  });
+
+  it('"Put" link points to /phrasal-verbs/list/put', () => {
+    renderPage();
+    const link = screen.getByRole('link', { name: /Put/i });
+    expect(link).toHaveAttribute('href', '/phrasal-verbs/list/put');
+  });
 });
 
 describe('PhrasalVerbsListPage — particles subtitle', () => {
   it('shows particles text in subtitle', () => {
     renderPage();
-    expect(screen.getByText(/off, on, up/i)).toBeInTheDocument();
+    const getCard = screen.getByRole('heading', { name: 'Get' }).closest('a')!;
+    expect(within(getCard).getByText(/off, on, up/i)).toBeInTheDocument();
   });
 
   it('subtitle has line-clamp-2 class', () => {
     renderPage();
-    const subtitle = screen.getByText(/off, on, up/i);
+    const getCard = screen.getByRole('heading', { name: 'Get' }).closest('a')!;
+    const subtitle = within(getCard).getByText(/off, on, up/i);
     expect(subtitle).toHaveClass('line-clamp-2');
   });
 
   it('subtitle title attribute contains all particles', () => {
     renderPage();
-    const subtitle = screen.getByText(/off, on, up/i);
+    const getCard = screen.getByRole('heading', { name: 'Get' }).closest('a')!;
+    const subtitle = within(getCard).getByText(/off, on, up/i);
     expect(subtitle).toHaveAttribute('title', expect.stringContaining('about / around'));
     expect(subtitle).toHaveAttribute('title', expect.stringContaining('through'));
   });
@@ -235,6 +256,95 @@ describe('PhrasalVerbsListPage — make copy button', () => {
   it('clicking make copy button does not navigate to make page', () => {
     renderPageWithRoutes();
     fireEvent.click(screen.getByRole('button', { name: /copy all "make" phrasal verbs/i }));
+    expect(screen.getByTestId('location').textContent).toBe('/phrasal-verbs/list');
+  });
+});
+
+describe('PhrasalVerbsListPage — Put particles subtitle', () => {
+  it('shows put particles text in subtitle', () => {
+    renderPage();
+    const putCard = screen.getByRole('heading', { name: 'Put' }).closest('a')!;
+    expect(within(putCard).getByText(/off, on, up/i)).toBeInTheDocument();
+  });
+
+  it('put subtitle has line-clamp-2 class', () => {
+    renderPage();
+    const putCard = screen.getByRole('heading', { name: 'Put' }).closest('a')!;
+    const subtitle = within(putCard).getByText(/off, on, up/i);
+    expect(subtitle).toHaveClass('line-clamp-2');
+  });
+
+  it('put subtitle title attribute contains all particles', () => {
+    renderPage();
+    const putCard = screen.getByRole('heading', { name: 'Put' }).closest('a')!;
+    const subtitle = within(putCard).getByText(/off, on, up/i);
+    expect(subtitle).toHaveAttribute('title', expect.stringContaining('about / around / round'));
+    expect(subtitle).toHaveAttribute('title', expect.stringContaining('through'));
+  });
+});
+
+describe('PhrasalVerbsListPage — put copy button', () => {
+  beforeEach(() => {
+    Object.assign(navigator, {
+      clipboard: { writeText: vi.fn().mockResolvedValue(undefined) },
+    });
+  });
+
+  afterEach(() => {
+    vi.restoreAllMocks();
+    vi.useRealTimers();
+  });
+
+  it('renders a put copy button', () => {
+    renderPage();
+    expect(screen.getByRole('button', { name: /copy all "put" phrasal verbs/i })).toBeInTheDocument();
+  });
+
+  it('put copy button title is \'Copy all "put" phrasal verbs\' before click', () => {
+    renderPage();
+    expect(screen.getByRole('button', { name: /copy all "put" phrasal verbs/i }))
+      .toHaveAttribute('title', 'Copy all "put" phrasal verbs');
+  });
+
+  it('clipboard receives all 19 put particles as "put X" forms in order', () => {
+    renderPage();
+    fireEvent.click(screen.getByRole('button', { name: /copy all "put" phrasal verbs/i }));
+    const expected = ALL_PUT_PARTICLES.map(p => `put ${p}`).join(', ');
+    expect(navigator.clipboard.writeText).toHaveBeenCalledWith(expected);
+  });
+
+  it('clipboard content contains every put particle', () => {
+    renderPage();
+    fireEvent.click(screen.getByRole('button', { name: /copy all "put" phrasal verbs/i }));
+    const written = (navigator.clipboard.writeText as ReturnType<typeof vi.fn>).mock.calls[0][0] as string;
+    for (const p of ALL_PUT_PARTICLES) {
+      expect(written).toContain(`put ${p}`);
+    }
+  });
+
+  it('put copy button shows "Copied!" title after click', async () => {
+    renderPage();
+    fireEvent.click(screen.getByRole('button', { name: /copy all "put" phrasal verbs/i }));
+    await vi.waitFor(() => {
+      expect(screen.getByRole('button', { name: /copied!/i }))
+        .toHaveAttribute('title', 'Copied!');
+    });
+  });
+
+  it('put copy button reverts to original title after 1500 ms', async () => {
+    vi.useFakeTimers();
+    renderPage();
+    fireEvent.click(screen.getByRole('button', { name: /copy all "put" phrasal verbs/i }));
+    await vi.waitFor(() => expect(screen.getByRole('button', { name: /copied!/i })).toBeInTheDocument());
+    vi.advanceTimersByTime(1500);
+    await vi.waitFor(() => {
+      expect(screen.getByRole('button', { name: /copy all "put" phrasal verbs/i })).toBeInTheDocument();
+    });
+  });
+
+  it('clicking put copy button does not navigate to put page', () => {
+    renderPageWithRoutes();
+    fireEvent.click(screen.getByRole('button', { name: /copy all "put" phrasal verbs/i }));
     expect(screen.getByTestId('location').textContent).toBe('/phrasal-verbs/list');
   });
 });
