@@ -163,6 +163,31 @@ describe('GetVerbPage', () => {
     expect(screen.queryByText(/To leave a form of public transport/i)).not.toBeInTheDocument();
   });
 
+  // --- Chevron direction ---
+
+  it('chevron is ▶ character', () => {
+    renderPage();
+    expect(screen.getByText('▶')).toBeInTheDocument();
+  });
+
+  it('chevron has rotate-90 class when expanded', () => {
+    renderPage();
+    expect(screen.getByText('▶')).toHaveClass('rotate-90');
+  });
+
+  it('chevron does not have rotate-90 class when collapsed', () => {
+    renderPage();
+    fireEvent.click(screen.getByText('off'));
+    expect(screen.getByText('▶')).not.toHaveClass('rotate-90');
+  });
+
+  it('chevron regains rotate-90 class when re-expanded', () => {
+    renderPage();
+    fireEvent.click(screen.getByText('off'));
+    fireEvent.click(screen.getByText('off'));
+    expect(screen.getByText('▶')).toHaveClass('rotate-90');
+  });
+
   // --- Card border ---
 
   it('meaning card has dark border class for light theme', () => {

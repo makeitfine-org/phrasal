@@ -115,8 +115,8 @@ export default function GetVerbPage() {
           onClick={toggleOff}
         >
           <span className="text-2xl font-bold text-blue-600 dark:text-blue-400">off</span>
-          <span className={`text-blue-600 dark:text-blue-400 text-sm transition-transform duration-200 ${offExpanded ? 'rotate-180' : ''}`}>
-            ▼
+          <span className={`text-blue-600 dark:text-blue-400 text-sm transition-transform duration-200 inline-block ${offExpanded ? 'rotate-90' : ''}`}>
+            ▶
           </span>
         </div>
 

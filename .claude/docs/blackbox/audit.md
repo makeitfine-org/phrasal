@@ -169,3 +169,15 @@ No, I meant single "off" and by click collapse/extend it and show its content.
 ## 2026-06-05T12:44:30Z
 git add all changes and commit them with suitable message
 ---
+
+## 2026-06-05T12:51:12Z
+Show that triangle near "off" by sharp angle down when extended and by sharp angle right when collapse
+---
+
+## 2026-06-05T12:53:02Z
+cover that with the tests.
+---
+
+## 2026-06-05T12:53:46Z
+git add all changes and commit them with suitable message
+---
