@@ -264,6 +264,252 @@ const upMeanings: Omit<MeaningProps, 'number' | 'storageKeyPrefix'>[] = [
   },
 ];
 
+const awayMeanings: Omit<MeaningProps, 'number' | 'storageKeyPrefix'>[] = [
+  {
+    definition: 'To escape',
+    example: 'The thief got away before the police arrived.',
+    imageSrc: `${base}images/phrasal_verbs/list/default.png`,
+    imageAlt: 'A thief escaping before police arrive',
+  },
+  {
+    definition: 'To go on a holiday or take a break',
+    example: 'We are hoping to get away to the mountains for the weekend.',
+    imageSrc: `${base}images/phrasal_verbs/list/default.png`,
+    imageAlt: 'A family going on a holiday to the mountains',
+  },
+  {
+    definition: 'To do something wrong without being punished (often "get away with")',
+    example: "He lied about his sales numbers, but he won't get away with it.",
+    imageSrc: `${base}images/phrasal_verbs/list/default.png`,
+    imageAlt: 'A person lying about sales numbers without consequences',
+  },
+];
+
+const acrossMeanings: Omit<MeaningProps, 'number' | 'storageKeyPrefix'>[] = [
+  {
+    definition: 'To communicate an idea successfully so people understand it',
+    example: 'The leader got her vision across perfectly during the presentation.',
+    imageSrc: `${base}images/phrasal_verbs/list/default.png`,
+    imageAlt: 'A leader communicating their vision during a presentation',
+  },
+  {
+    definition: 'To physically cross a road, river, or space',
+    example: 'We need to get across the street.',
+    imageSrc: `${base}images/phrasal_verbs/list/default.png`,
+    imageAlt: 'People crossing a street',
+  },
+];
+
+const forwardMeanings: Omit<MeaningProps, 'number' | 'storageKeyPrefix'>[] = [
+  {
+    definition: 'To move to the front (often used in sports to describe attacking)',
+    example: "The team's defenders need to get forward to help score a goal.",
+    imageSrc: `${base}images/phrasal_verbs/list/default.png`,
+    imageAlt: 'Defenders moving forward to help score a goal',
+  },
+];
+
+const backMeanings: Omit<MeaningProps, 'number' | 'storageKeyPrefix'>[] = [
+  {
+    definition: 'To return to a place or a state',
+    example: 'When did you get back from your business trip?',
+    imageSrc: `${base}images/phrasal_verbs/list/default.png`,
+    imageAlt: 'A person returning from a business trip',
+  },
+  {
+    definition: 'To have something returned to you',
+    example: 'I finally got my laptop back from the IT department.',
+    imageSrc: `${base}images/phrasal_verbs/list/default.png`,
+    imageAlt: 'A person getting their laptop back from IT',
+  },
+  {
+    definition: 'To return to a previous activity (often "get back to")',
+    example: "I'll answer that question later; let's get back to the main topic.",
+    imageSrc: `${base}images/phrasal_verbs/list/default.png`,
+    imageAlt: 'People getting back to the main topic in a meeting',
+  },
+  {
+    definition: 'To take revenge on someone (often "get back at")',
+    example: 'She wants to get back at her competitor by launching a better product.',
+    imageSrc: `${base}images/phrasal_verbs/list/default.png`,
+    imageAlt: 'A person planning to outperform a competitor',
+  },
+];
+
+const byMeanings: Omit<MeaningProps, 'number' | 'storageKeyPrefix'>[] = [
+  {
+    definition: 'To manage to survive or do something with limited money, knowledge, or resources',
+    example: "My Spanish isn't perfect, but I know enough to get by.",
+    imageSrc: `${base}images/phrasal_verbs/list/default.png`,
+    imageAlt: 'A person managing with limited resources',
+  },
+  {
+    definition: 'To physically move past someone',
+    example: 'Excuse me, could you move a little so I can get by?',
+    imageSrc: `${base}images/phrasal_verbs/list/default.png`,
+    imageAlt: 'A person trying to move past someone in a corridor',
+  },
+];
+
+const togetherMeanings: Omit<MeaningProps, 'number' | 'storageKeyPrefix'>[] = [
+  {
+    definition: 'To meet socially',
+    example: "Let's get together for a coffee next week.",
+    imageSrc: `${base}images/phrasal_verbs/list/default.png`,
+    imageAlt: 'Friends meeting for coffee',
+  },
+  {
+    definition: 'To organize your thoughts, life, or things (often "get your act together")',
+    example: 'If he wants a promotion, he needs to get his act together and work harder.',
+    imageSrc: `${base}images/phrasal_verbs/list/default.png`,
+    imageAlt: 'A person organizing their work and thoughts',
+  },
+];
+
+const withMeanings: Omit<MeaningProps, 'number' | 'storageKeyPrefix'>[] = [
+  {
+    definition: 'To understand or adapt to modern trends or new rules (informal)',
+    example: 'You need to get with the new management strategy, or you will be left behind.',
+    imageSrc: `${base}images/phrasal_verbs/list/default.png`,
+    imageAlt: 'A person adapting to a new management strategy',
+  },
+];
+
+const overMeanings: Omit<MeaningProps, 'number' | 'storageKeyPrefix'>[] = [
+  {
+    definition: 'To recover from an illness, a shock, or a bad emotional experience',
+    example: 'It took him two weeks to get over the flu.',
+    imageSrc: `${base}images/phrasal_verbs/list/default.png`,
+    imageAlt: 'A person recovering from the flu',
+  },
+  {
+    definition: 'To overcome a problem or difficulty',
+    example: 'We need to get over this technical issue before the software launches.',
+    imageSrc: `${base}images/phrasal_verbs/list/default.png`,
+    imageAlt: 'A team overcoming a technical issue',
+  },
+  {
+    definition: 'To finish something unpleasant so you don\'t have to worry about it (often "get it over with")',
+    example: "I hate performance reviews, but let's just do it and get it over with.",
+    imageSrc: `${base}images/phrasal_verbs/list/default.png`,
+    imageAlt: 'A person finishing an unpleasant performance review',
+  },
+];
+
+const aheadMeanings: Omit<MeaningProps, 'number' | 'storageKeyPrefix'>[] = [
+  {
+    definition: 'To be successful and make progress in your career or life',
+    example: 'She reads a lot of business books because she wants to get ahead in her career.',
+    imageSrc: `${base}images/phrasal_verbs/list/default.png`,
+    imageAlt: 'A person reading business books to advance their career',
+  },
+];
+
+const afterMeanings: Omit<MeaningProps, 'number' | 'storageKeyPrefix'>[] = [
+  {
+    definition: 'To urge, remind, or scold someone to do something they are supposed to do',
+    example: 'I need to get after the developers to finish writing the code.',
+    imageSrc: `${base}images/phrasal_verbs/list/default.png`,
+    imageAlt: 'A manager urging developers to finish their work',
+  },
+  {
+    definition: 'To chase someone or something',
+    example: 'The dog got after the cat.',
+    imageSrc: `${base}images/phrasal_verbs/list/default.png`,
+    imageAlt: 'A dog chasing a cat',
+  },
+];
+
+const behindMeanings: Omit<MeaningProps, 'number' | 'storageKeyPrefix'>[] = [
+  {
+    definition: 'To fall behind schedule or fail to keep up with work or payments',
+    example: 'I was sick for a week, and I got behind on my emails.',
+    imageSrc: `${base}images/phrasal_verbs/list/default.png`,
+    imageAlt: 'A person falling behind on their emails after being sick',
+  },
+  {
+    definition: 'To support a person, idea, or project',
+    example: "The whole team got behind the new manager's plan.",
+    imageSrc: `${base}images/phrasal_verbs/list/default.png`,
+    imageAlt: "A team supporting their manager's plan",
+  },
+];
+
+const throughMeanings: Omit<MeaningProps, 'number' | 'storageKeyPrefix'>[] = [
+  {
+    definition: 'To finish a difficult task or survive a difficult period',
+    example: 'We just need to get through this busy week, and then we can relax.',
+    imageSrc: `${base}images/phrasal_verbs/list/default.png`,
+    imageAlt: 'People getting through a busy work week',
+  },
+  {
+    definition: 'To make contact by telephone',
+    example: "I tried to call customer service, but I couldn't get through.",
+    imageSrc: `${base}images/phrasal_verbs/list/default.png`,
+    imageAlt: 'A person unable to reach customer service by phone',
+  },
+  {
+    definition: 'To make someone understand something (often "get through to")',
+    example: "I've explained the risks, but I just can't get through to him.",
+    imageSrc: `${base}images/phrasal_verbs/list/default.png`,
+    imageAlt: 'A person trying to make someone understand the risks',
+  },
+];
+
+const aboutAroundMeanings: Omit<MeaningProps, 'number' | 'storageKeyPrefix'>[] = [
+  {
+    definition: 'To travel to different places',
+    example: 'We used the subway to get around the city.',
+    imageSrc: `${base}images/phrasal_verbs/list/default.png`,
+    imageAlt: 'People using the subway to travel around a city',
+  },
+  {
+    definition: 'To find a way to avoid a rule or solve a problem',
+    example: 'The programmers found a clever way to get around the security block.',
+    imageSrc: `${base}images/phrasal_verbs/list/default.png`,
+    imageAlt: 'Programmers finding a way around a security block',
+  },
+  {
+    definition: 'To spread (usually news or rumors)',
+    example: 'Word gets around fast in this office.',
+    imageSrc: `${base}images/phrasal_verbs/list/default.png`,
+    imageAlt: 'News spreading quickly through an office',
+  },
+  {
+    definition: 'To finally do something you have delayed doing (often "get around to")',
+    example: 'I will get around to updating my resume this weekend.',
+    imageSrc: `${base}images/phrasal_verbs/list/default.png`,
+    imageAlt: 'A person finally updating their resume',
+  },
+];
+
+const toMeanings: Omit<MeaningProps, 'number' | 'storageKeyPrefix'>[] = [
+  {
+    definition: 'To arrive at a destination',
+    example: 'What time did you get to the office this morning?',
+    imageSrc: `${base}images/phrasal_verbs/list/default.png`,
+    imageAlt: 'A person arriving at the office in the morning',
+  },
+  {
+    definition: 'To have the opportunity to do something',
+    example: 'Because of my job, I get to travel all over the world.',
+    imageSrc: `${base}images/phrasal_verbs/list/default.png`,
+    imageAlt: 'A person traveling all over the world for their job',
+  },
+  {
+    definition: 'To annoy or upset someone',
+    example: 'The constant complaining is really getting to me.',
+    imageSrc: `${base}images/phrasal_verbs/list/default.png`,
+    imageAlt: 'A person being annoyed by constant complaining',
+  },
+  {
+    definition: 'To begin an action (often "get to work")',
+    example: "The break is over; let's get to work.",
+    imageSrc: `${base}images/phrasal_verbs/list/default.png`,
+    imageAlt: 'People getting back to work after a break',
+  },
+];
+
 function Section({
   particle,
   meanings,
@@ -332,6 +578,34 @@ export default function GetVerbPage() {
         <Section particle="into" meanings={intoMeanings} storageKey="getInto_section_expanded" storageKeyPrefix="getInto" />
         <hr className="border-gray-600 dark:border-gray-500 my-2" />
         <Section particle="out" meanings={outMeanings} storageKey="getOut_section_expanded" storageKeyPrefix="getOut" />
+        <hr className="border-gray-600 dark:border-gray-500 my-2" />
+        <Section particle="away" meanings={awayMeanings} storageKey="getAway_section_expanded" storageKeyPrefix="getAway" />
+        <hr className="border-gray-600 dark:border-gray-500 my-2" />
+        <Section particle="across" meanings={acrossMeanings} storageKey="getAcross_section_expanded" storageKeyPrefix="getAcross" />
+        <hr className="border-gray-600 dark:border-gray-500 my-2" />
+        <Section particle="forward" meanings={forwardMeanings} storageKey="getForward_section_expanded" storageKeyPrefix="getForward" />
+        <hr className="border-gray-600 dark:border-gray-500 my-2" />
+        <Section particle="back" meanings={backMeanings} storageKey="getBack_section_expanded" storageKeyPrefix="getBack" />
+        <hr className="border-gray-600 dark:border-gray-500 my-2" />
+        <Section particle="by" meanings={byMeanings} storageKey="getBy_section_expanded" storageKeyPrefix="getBy" />
+        <hr className="border-gray-600 dark:border-gray-500 my-2" />
+        <Section particle="together" meanings={togetherMeanings} storageKey="getTogether_section_expanded" storageKeyPrefix="getTogether" />
+        <hr className="border-gray-600 dark:border-gray-500 my-2" />
+        <Section particle="with" meanings={withMeanings} storageKey="getWith_section_expanded" storageKeyPrefix="getWith" />
+        <hr className="border-gray-600 dark:border-gray-500 my-2" />
+        <Section particle="over" meanings={overMeanings} storageKey="getOver_section_expanded" storageKeyPrefix="getOver" />
+        <hr className="border-gray-600 dark:border-gray-500 my-2" />
+        <Section particle="ahead" meanings={aheadMeanings} storageKey="getAhead_section_expanded" storageKeyPrefix="getAhead" />
+        <hr className="border-gray-600 dark:border-gray-500 my-2" />
+        <Section particle="after" meanings={afterMeanings} storageKey="getAfter_section_expanded" storageKeyPrefix="getAfter" />
+        <hr className="border-gray-600 dark:border-gray-500 my-2" />
+        <Section particle="behind" meanings={behindMeanings} storageKey="getBehind_section_expanded" storageKeyPrefix="getBehind" />
+        <hr className="border-gray-600 dark:border-gray-500 my-2" />
+        <Section particle="through" meanings={throughMeanings} storageKey="getThrough_section_expanded" storageKeyPrefix="getThrough" />
+        <hr className="border-gray-600 dark:border-gray-500 my-2" />
+        <Section particle="about / around" meanings={aboutAroundMeanings} storageKey="getAboutAround_section_expanded" storageKeyPrefix="getAboutAround" />
+        <hr className="border-gray-600 dark:border-gray-500 my-2" />
+        <Section particle="to" meanings={toMeanings} storageKey="getTo_section_expanded" storageKeyPrefix="getTo" />
       </div>
     </div>
   );

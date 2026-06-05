@@ -5,9 +5,9 @@ beforeEach(() => {
 });
 
 describe('GetVerbPage — section separators', () => {
-  it('renders six horizontal rule separators', () => {
+  it('renders twenty horizontal rule separators', () => {
     renderPage();
-    expect(document.querySelectorAll('hr')).toHaveLength(6);
+    expect(document.querySelectorAll('hr')).toHaveLength(20);
   });
 
   it('all separators have border-gray-600 class', () => {
