@@ -60,25 +60,25 @@ const upMeanings: MeaningData[] = [
   {
     definition: 'To start a new activity or hobby',
     example: 'He took up golf to relax after work.',
-    imageSrc: `${base}images/phrasal_verbs/list/default.png`,
+    imageSrc: `${base}images/phrasal_verbs/list/take/up/start_hobby.png`,
     imageAlt: 'A person starting to play golf',
   },
   {
     definition: 'To use or fill an amount of time or space',
     example: 'These large files take up too much space on the server.',
-    imageSrc: `${base}images/phrasal_verbs/list/default.png`,
+    imageSrc: `${base}images/phrasal_verbs/list/take/up/occupy_space.png`,
     imageAlt: 'Large files filling up server storage space',
   },
   {
     definition: "To accept an offer that has been made (often 'take someone up on')",
     example: 'I will take you up on that job offer.',
-    imageSrc: `${base}images/phrasal_verbs/list/default.png`,
+    imageSrc: `${base}images/phrasal_verbs/list/take/up/accept_offer.png`,
     imageAlt: 'A person accepting a job offer',
   },
   {
     definition: 'To shorten a piece of clothing',
     example: 'I need to take up these trousers; they are too long.',
-    imageSrc: `${base}images/phrasal_verbs/list/default.png`,
+    imageSrc: `${base}images/phrasal_verbs/list/take/up/shorten_clothes.png`,
     imageAlt: 'A tailor shortening a pair of trousers',
   },
 ];
