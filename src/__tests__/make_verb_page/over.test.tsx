@@ -1,6 +1,6 @@
 import { screen, fireEvent, within } from '@testing-library/react';
 import { renderPage, getCard, expandSection } from './helpers';
-import { describeChevronAndColour, describeSectionToggle } from '../verbPage/sharedSectionTests';
+import { describeChevronAndColour, describeSectionToggle, describeDefaultImageCards } from '../verbPage/sharedSectionTests';
 
 const LABEL = 'MakeVerbPage';
 
@@ -40,19 +40,12 @@ describe('MakeVerbPage — "over" section definitions', () => {
   });
 });
 
-describe('MakeVerbPage — "over" card view (default image)', () => {
+describe('MakeVerbPage — "over" card view', () => {
   it('both examples visible without expanding cards', () => {
     renderPage();
     expandSection('over');
     expect(screen.getByText(/"We made over the entire office space/i)).toBeInTheDocument();
     expect(screen.getByText(/"The CEO made over his shares/i)).toBeInTheDocument();
-  });
-
-  it('cards have cursor-default class', () => {
-    renderPage();
-    expandSection('over');
-    expect(getCard(/To change or improve the appearance/i)).toHaveClass('cursor-default');
-    expect(getCard(/To legally transfer ownership/i)).toHaveClass('cursor-default');
   });
 
   it('clicking cards does not render images', () => {
@@ -63,3 +56,5 @@ describe('MakeVerbPage — "over" card view (default image)', () => {
     expect(screen.queryAllByRole('img')).toHaveLength(0);
   });
 });
+
+describeDefaultImageCards(LABEL, 'over', 'makeOver', /To change or improve the appearance/i, /"We made over the entire office space/i, renderPage, getCard);

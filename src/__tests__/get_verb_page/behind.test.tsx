@@ -1,6 +1,6 @@
 import { screen, fireEvent, within } from '@testing-library/react';
 import { renderPage, getCard, expandSection } from './helpers';
-import { describeChevronAndColour, describeSectionToggle } from '../verbPage/sharedSectionTests';
+import { describeChevronAndColour, describeSectionToggle, describeDefaultImageCards } from '../verbPage/sharedSectionTests';
 
 const LABEL = 'GetVerbPage';
 
@@ -49,50 +49,4 @@ describe('GetVerbPage — "behind" card expand / collapse', () => {
   });
 });
 
-describe('GetVerbPage — "behind" non-expandable cards (default image)', () => {
-  it('behind card has cursor-default class', () => {
-    renderPage();
-    expandSection('behind');
-    const card = getCard(/To fall behind schedule/i);
-    expect(card).toHaveClass('cursor-default');
-    expect(card).not.toHaveClass('cursor-pointer');
-  });
-
-  it('clicking "behind" card never renders an image', () => {
-    renderPage();
-    expandSection('behind');
-    fireEvent.click(getCard(/To fall behind schedule/i));
-    expect(within(getCard(/To fall behind schedule/i)).queryByRole('img')).not.toBeInTheDocument();
-  });
-
-  it('no "behind" card ever renders an image regardless of clicks', () => {
-    renderPage();
-    expandSection('behind');
-    fireEvent.click(getCard(/To fall behind schedule/i));
-    fireEvent.click(getCard(/To support a person, idea, or project/i));
-    expect(screen.queryAllByRole('img')).toHaveLength(0);
-  });
-
-  it('clicking "behind" card does not remove truncate class', () => {
-    renderPage();
-    expandSection('behind');
-    fireEvent.click(getCard(/To fall behind schedule/i));
-    expect(within(getCard(/To fall behind schedule/i)).getByText(/"I was sick for a week/i)).toHaveClass('truncate');
-  });
-});
-
-describe('GetVerbPage — "behind" localStorage persistence', () => {
-  it('clicking "behind" card does not save to localStorage', () => {
-    renderPage();
-    expandSection('behind');
-    fireEvent.click(getCard(/To fall behind schedule/i));
-    expect(localStorage.getItem('getBehind_meaning_1_collapsed')).toBeNull();
-  });
-
-  it('ignores localStorage expanded state for default image cards', () => {
-    localStorage.setItem('getBehind_section_expanded', 'true');
-    localStorage.setItem('getBehind_meaning_1_collapsed', 'false');
-    renderPage();
-    expect(within(getCard(/To fall behind schedule/i)).getByText(/"I was sick for a week/i)).toHaveClass('truncate');
-  });
-});
+describeDefaultImageCards(LABEL, 'behind', 'getBehind', /To fall behind schedule/i, /"I was sick for a week/i, renderPage, getCard);

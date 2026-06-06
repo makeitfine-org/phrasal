@@ -1,6 +1,6 @@
 import { screen, fireEvent, within } from '@testing-library/react';
 import { renderPage, getCard, expandSection } from './helpers';
-import { describeChevronAndColour, describeSectionToggle } from '../verbPage/sharedSectionTests';
+import { describeChevronAndColour, describeSectionToggle, describeDefaultImageCards } from '../verbPage/sharedSectionTests';
 
 const LABEL = 'PutVerbPage';
 
@@ -22,21 +22,13 @@ describe('PutVerbPage — "off" section definitions', () => {
   });
 });
 
-describe('PutVerbPage — "off" card view (default image)', () => {
+describe('PutVerbPage — "off" card view', () => {
   it('all examples visible without expanding cards', () => {
     renderPage();
     expandSection('off');
     expect(screen.getByText(/"We have to put off the sprint planning meeting until tomorrow\."/i)).toBeInTheDocument();
     expect(screen.getByText(/"The complex code architecture put me off learning Java at first\."/i)).toBeInTheDocument();
     expect(screen.getByText(/"Please be quiet; your talking is putting me off my work\."/i)).toBeInTheDocument();
-  });
-
-  it('all cards have cursor-default class', () => {
-    renderPage();
-    expandSection('off');
-    expect(getCard(/To delay or postpone something/i)).toHaveClass('cursor-default');
-    expect(getCard(/To make someone not want to do something/i)).toHaveClass('cursor-default');
-    expect(getCard(/To distract someone/i)).toHaveClass('cursor-default');
   });
 
   it('clicking cards does not render images', () => {
@@ -48,3 +40,5 @@ describe('PutVerbPage — "off" card view (default image)', () => {
     expect(screen.queryAllByRole('img')).toHaveLength(0);
   });
 });
+
+describeDefaultImageCards(LABEL, 'off', 'putOff', /To delay or postpone something/i, /"We have to put off the sprint planning/i, renderPage, getCard);

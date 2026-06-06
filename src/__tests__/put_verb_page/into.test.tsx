@@ -1,6 +1,6 @@
 import { screen, fireEvent, within } from '@testing-library/react';
 import { renderPage, getCard, expandSection } from './helpers';
-import { describeChevronAndColour, describeSectionToggle } from '../verbPage/sharedSectionTests';
+import { describeChevronAndColour, describeSectionToggle, describeDefaultImageCards } from '../verbPage/sharedSectionTests';
 
 const LABEL = 'PutVerbPage';
 
@@ -12,19 +12,12 @@ describeSectionToggle(LABEL, 'into', 'putInto_section_expanded', /To invest time
 
 describeChevronAndColour(LABEL, 'into', renderPage);
 
-describe('PutVerbPage — "into" card view (default image)', () => {
+describe('PutVerbPage — "into" card view', () => {
   it('both examples visible without expanding cards', () => {
     renderPage();
     expandSection('into');
     expect(screen.getByText(/"The company put a lot of money into research and development\."/i)).toBeInTheDocument();
     expect(screen.getByText(/"It is hard to put this complex business strategy into simple words\."/i)).toBeInTheDocument();
-  });
-
-  it('cards have cursor-default class', () => {
-    renderPage();
-    expandSection('into');
-    expect(getCard(/To invest time, money, or effort into a project/i)).toHaveClass('cursor-default');
-    expect(getCard(/To express something in words/i)).toHaveClass('cursor-default');
   });
 
   it('clicking cards does not render images', () => {
@@ -35,3 +28,5 @@ describe('PutVerbPage — "into" card view (default image)', () => {
     expect(screen.queryAllByRole('img')).toHaveLength(0);
   });
 });
+
+describeDefaultImageCards(LABEL, 'into', 'putInto', /To invest time, money, or effort into a project/i, /"The company put a lot of money into/i, renderPage, getCard);

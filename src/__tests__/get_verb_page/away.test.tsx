@@ -1,6 +1,6 @@
 import { screen, fireEvent, within } from '@testing-library/react';
 import { renderPage, getCard, expandSection } from './helpers';
-import { describeChevronAndColour, describeSectionToggle } from '../verbPage/sharedSectionTests';
+import { describeChevronAndColour, describeSectionToggle, describeDefaultImageCards } from '../verbPage/sharedSectionTests';
 
 const LABEL = 'GetVerbPage';
 
@@ -50,51 +50,4 @@ describe('GetVerbPage — "away" card expand / collapse', () => {
   });
 });
 
-describe('GetVerbPage — "away" non-expandable cards (default image)', () => {
-  it('away card has cursor-default class', () => {
-    renderPage();
-    expandSection('away');
-    const card = getCard(/To escape/i);
-    expect(card).toHaveClass('cursor-default');
-    expect(card).not.toHaveClass('cursor-pointer');
-  });
-
-  it('clicking "away" card never renders an image', () => {
-    renderPage();
-    expandSection('away');
-    fireEvent.click(getCard(/To escape/i));
-    expect(within(getCard(/To escape/i)).queryByRole('img')).not.toBeInTheDocument();
-  });
-
-  it('no "away" card ever renders an image regardless of clicks', () => {
-    renderPage();
-    expandSection('away');
-    fireEvent.click(getCard(/To escape/i));
-    fireEvent.click(getCard(/To go on a holiday or take a break/i));
-    fireEvent.click(getCard(/To do something wrong without being punished/i));
-    expect(screen.queryAllByRole('img')).toHaveLength(0);
-  });
-
-  it('clicking "away" card does not remove truncate class', () => {
-    renderPage();
-    expandSection('away');
-    fireEvent.click(getCard(/To escape/i));
-    expect(within(getCard(/To escape/i)).getByText(/"The thief got away/i)).toHaveClass('truncate');
-  });
-});
-
-describe('GetVerbPage — "away" localStorage persistence', () => {
-  it('clicking "away" card does not save to localStorage', () => {
-    renderPage();
-    expandSection('away');
-    fireEvent.click(getCard(/To escape/i));
-    expect(localStorage.getItem('getAway_meaning_1_collapsed')).toBeNull();
-  });
-
-  it('ignores localStorage expanded state for default image cards', () => {
-    localStorage.setItem('getAway_section_expanded', 'true');
-    localStorage.setItem('getAway_meaning_1_collapsed', 'false');
-    renderPage();
-    expect(within(getCard(/To escape/i)).getByText(/"The thief got away/i)).toHaveClass('truncate');
-  });
-});
+describeDefaultImageCards(LABEL, 'away', 'getAway', /To escape/i, /"The thief got away/i, renderPage, getCard);

@@ -1,6 +1,6 @@
 import { screen, fireEvent, within } from '@testing-library/react';
 import { renderPage, getCard, expandSection } from './helpers';
-import { describeChevronAndColour, describeSectionToggle } from '../verbPage/sharedSectionTests';
+import { describeChevronAndColour, describeSectionToggle, describeDefaultImageCards } from '../verbPage/sharedSectionTests';
 
 const LABEL = 'PutVerbPage';
 
@@ -12,7 +12,7 @@ describeSectionToggle(LABEL, 'up', 'putUp_section_expanded', /To build or erect 
 
 describeChevronAndColour(LABEL, 'up', renderPage);
 
-describe('PutVerbPage — "up" card view (default image)', () => {
+describe('PutVerbPage — "up" card view', () => {
   it('all examples visible without expanding cards', () => {
     renderPage();
     expandSection('up');
@@ -20,15 +20,6 @@ describe('PutVerbPage — "up" card view (default image)', () => {
     expect(screen.getByText(/"The software provider put up their subscription fees\."/i)).toBeInTheDocument();
     expect(screen.getByText(/"I can put you up at my apartment/i)).toBeInTheDocument();
     expect(screen.getByText(/"The competitor put up a strong fight for the market share\."/i)).toBeInTheDocument();
-  });
-
-  it('all cards have cursor-default class', () => {
-    renderPage();
-    expandSection('up');
-    expect(getCard(/To build or erect something/i)).toHaveClass('cursor-default');
-    expect(getCard(/To increase prices or rates/i)).toHaveClass('cursor-default');
-    expect(getCard(/To provide accommodation for someone/i)).toHaveClass('cursor-default');
-    expect(getCard(/To offer resistance or fight back/i)).toHaveClass('cursor-default');
   });
 
   it('clicking cards does not render images', () => {
@@ -41,3 +32,5 @@ describe('PutVerbPage — "up" card view (default image)', () => {
     expect(screen.queryAllByRole('img')).toHaveLength(0);
   });
 });
+
+describeDefaultImageCards(LABEL, 'up', 'putUp', /To build or erect something/i, /"They put up a new office building/i, renderPage, getCard);

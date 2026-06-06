@@ -1,6 +1,6 @@
 import { screen, fireEvent, within } from '@testing-library/react';
 import { renderPage, getCard, expandSection } from './helpers';
-import { describeChevronAndColour, describeSectionToggle } from '../verbPage/sharedSectionTests';
+import { describeChevronAndColour, describeSectionToggle, describeDefaultImageCards } from '../verbPage/sharedSectionTests';
 
 const LABEL = 'MakeVerbPage';
 
@@ -22,18 +22,11 @@ describe(`${LABEL} — "off (with)" section independence`, () => {
 
 describeChevronAndColour(LABEL, 'off (with)', renderPage);
 
-describe('MakeVerbPage — "off (with)" card view (default image)', () => {
+describe('MakeVerbPage — "off (with)" card view', () => {
   it('example is visible without expanding card', () => {
     renderPage();
     expandSection('off (with)');
     expect(screen.getByText(/"The thieves made off before the police arrived\."/i)).toBeInTheDocument();
-  });
-
-  it('card has cursor-default class', () => {
-    renderPage();
-    expandSection('off (with)');
-    const card = getCard(/To leave quickly, especially to escape/i);
-    expect(card).toHaveClass('cursor-default');
   });
 
   it('clicking card does not render an image', () => {
@@ -42,11 +35,6 @@ describe('MakeVerbPage — "off (with)" card view (default image)', () => {
     fireEvent.click(getCard(/To leave quickly, especially to escape/i));
     expect(within(getCard(/To leave quickly, especially to escape/i)).queryByRole('img')).not.toBeInTheDocument();
   });
-
-  it('clicking card does not save to localStorage', () => {
-    renderPage();
-    expandSection('off (with)');
-    fireEvent.click(getCard(/To leave quickly, especially to escape/i));
-    expect(localStorage.getItem('makeOff_meaning_1_collapsed')).toBeNull();
-  });
 });
+
+describeDefaultImageCards(LABEL, 'off (with)', 'makeOff', /To leave quickly, especially to escape/i, /"The thieves made off/i, renderPage, getCard);

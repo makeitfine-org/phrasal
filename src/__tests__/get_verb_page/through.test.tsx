@@ -1,6 +1,6 @@
 import { screen, fireEvent, within } from '@testing-library/react';
 import { renderPage, getCard, expandSection } from './helpers';
-import { describeChevronAndColour, describeSectionToggle } from '../verbPage/sharedSectionTests';
+import { describeChevronAndColour, describeSectionToggle, describeDefaultImageCards } from '../verbPage/sharedSectionTests';
 
 const LABEL = 'GetVerbPage';
 
@@ -56,51 +56,4 @@ describe('GetVerbPage — "through" card expand / collapse', () => {
   });
 });
 
-describe('GetVerbPage — "through" non-expandable cards (default image)', () => {
-  it('through card has cursor-default class', () => {
-    renderPage();
-    expandSection('through');
-    const card = getCard(/To finish a difficult task or survive a difficult period/i);
-    expect(card).toHaveClass('cursor-default');
-    expect(card).not.toHaveClass('cursor-pointer');
-  });
-
-  it('clicking "through" card never renders an image', () => {
-    renderPage();
-    expandSection('through');
-    fireEvent.click(getCard(/To finish a difficult task or survive a difficult period/i));
-    expect(within(getCard(/To finish a difficult task or survive a difficult period/i)).queryByRole('img')).not.toBeInTheDocument();
-  });
-
-  it('no "through" card ever renders an image regardless of clicks', () => {
-    renderPage();
-    expandSection('through');
-    fireEvent.click(getCard(/To finish a difficult task or survive a difficult period/i));
-    fireEvent.click(getCard(/To make contact by telephone/i));
-    fireEvent.click(getCard(/To make someone understand something/i));
-    expect(screen.queryAllByRole('img')).toHaveLength(0);
-  });
-
-  it('clicking "through" card does not remove truncate class', () => {
-    renderPage();
-    expandSection('through');
-    fireEvent.click(getCard(/To finish a difficult task or survive a difficult period/i));
-    expect(within(getCard(/To finish a difficult task or survive a difficult period/i)).getByText(/"We just need to get through/i)).toHaveClass('truncate');
-  });
-});
-
-describe('GetVerbPage — "through" localStorage persistence', () => {
-  it('clicking "through" card does not save to localStorage', () => {
-    renderPage();
-    expandSection('through');
-    fireEvent.click(getCard(/To finish a difficult task or survive a difficult period/i));
-    expect(localStorage.getItem('getThrough_meaning_1_collapsed')).toBeNull();
-  });
-
-  it('ignores localStorage expanded state for default image cards', () => {
-    localStorage.setItem('getThrough_section_expanded', 'true');
-    localStorage.setItem('getThrough_meaning_1_collapsed', 'false');
-    renderPage();
-    expect(within(getCard(/To finish a difficult task or survive a difficult period/i)).getByText(/"We just need to get through/i)).toHaveClass('truncate');
-  });
-});
+describeDefaultImageCards(LABEL, 'through', 'getThrough', /To finish a difficult task or survive a difficult period/i, /"We just need to get through/i, renderPage, getCard);

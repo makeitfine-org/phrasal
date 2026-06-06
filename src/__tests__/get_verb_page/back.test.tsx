@@ -1,6 +1,6 @@
 import { screen, fireEvent, within } from '@testing-library/react';
 import { renderPage, getCard, expandSection } from './helpers';
-import { describeChevronAndColour, describeSectionToggle } from '../verbPage/sharedSectionTests';
+import { describeChevronAndColour, describeSectionToggle, describeDefaultImageCards } from '../verbPage/sharedSectionTests';
 
 const LABEL = 'GetVerbPage';
 
@@ -51,52 +51,4 @@ describe('GetVerbPage — "back" card expand / collapse', () => {
   });
 });
 
-describe('GetVerbPage — "back" non-expandable cards (default image)', () => {
-  it('back card has cursor-default class', () => {
-    renderPage();
-    expandSection('back');
-    const card = getCard(/To return to a place or a state/i);
-    expect(card).toHaveClass('cursor-default');
-    expect(card).not.toHaveClass('cursor-pointer');
-  });
-
-  it('clicking "back" card never renders an image', () => {
-    renderPage();
-    expandSection('back');
-    fireEvent.click(getCard(/To return to a place or a state/i));
-    expect(within(getCard(/To return to a place or a state/i)).queryByRole('img')).not.toBeInTheDocument();
-  });
-
-  it('no "back" card ever renders an image regardless of clicks', () => {
-    renderPage();
-    expandSection('back');
-    fireEvent.click(getCard(/To return to a place or a state/i));
-    fireEvent.click(getCard(/To have something returned to you/i));
-    fireEvent.click(getCard(/To return to a previous activity/i));
-    fireEvent.click(getCard(/To take revenge on someone/i));
-    expect(screen.queryAllByRole('img')).toHaveLength(0);
-  });
-
-  it('clicking "back" card does not remove truncate class', () => {
-    renderPage();
-    expandSection('back');
-    fireEvent.click(getCard(/To return to a place or a state/i));
-    expect(within(getCard(/To return to a place or a state/i)).getByText(/"When did you get back/i)).toHaveClass('truncate');
-  });
-});
-
-describe('GetVerbPage — "back" localStorage persistence', () => {
-  it('clicking "back" card does not save to localStorage', () => {
-    renderPage();
-    expandSection('back');
-    fireEvent.click(getCard(/To return to a place or a state/i));
-    expect(localStorage.getItem('getBack_meaning_1_collapsed')).toBeNull();
-  });
-
-  it('ignores localStorage expanded state for default image cards', () => {
-    localStorage.setItem('getBack_section_expanded', 'true');
-    localStorage.setItem('getBack_meaning_1_collapsed', 'false');
-    renderPage();
-    expect(within(getCard(/To return to a place or a state/i)).getByText(/"When did you get back/i)).toHaveClass('truncate');
-  });
-});
+describeDefaultImageCards(LABEL, 'back', 'getBack', /To return to a place or a state/i, /"When did you get back/i, renderPage, getCard);

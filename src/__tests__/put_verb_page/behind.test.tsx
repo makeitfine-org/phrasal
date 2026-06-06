@@ -1,6 +1,6 @@
 import { screen, fireEvent, within } from '@testing-library/react';
 import { renderPage, getCard, expandSection } from './helpers';
-import { describeChevronAndColour, describeSectionToggle } from '../verbPage/sharedSectionTests';
+import { describeChevronAndColour, describeSectionToggle, describeDefaultImageCards } from '../verbPage/sharedSectionTests';
 
 const LABEL = 'PutVerbPage';
 
@@ -12,17 +12,11 @@ describeSectionToggle(LABEL, 'behind', 'putBehind_section_expanded', /To forget 
 
 describeChevronAndColour(LABEL, 'behind', renderPage);
 
-describe('PutVerbPage — "behind" card view (default image)', () => {
+describe('PutVerbPage — "behind" card view', () => {
   it('example visible without expanding card', () => {
     renderPage();
     expandSection('behind');
     expect(screen.getByText(/"We lost a big client, but we need to put it behind us/i)).toBeInTheDocument();
-  });
-
-  it('card has cursor-default class', () => {
-    renderPage();
-    expandSection('behind');
-    expect(getCard(/To forget about a bad experience and move on/i)).toHaveClass('cursor-default');
   });
 
   it('clicking card does not render an image', () => {
@@ -32,3 +26,5 @@ describe('PutVerbPage — "behind" card view (default image)', () => {
     expect(screen.queryAllByRole('img')).toHaveLength(0);
   });
 });
+
+describeDefaultImageCards(LABEL, 'behind', 'putBehind', /To forget about a bad experience and move on/i, /"We lost a big client, but we need to put it behind us/i, renderPage, getCard);

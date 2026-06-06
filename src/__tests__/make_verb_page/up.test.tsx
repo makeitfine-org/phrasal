@@ -1,6 +1,6 @@
 import { screen, fireEvent, within } from '@testing-library/react';
 import { renderPage, getCard, expandSection } from './helpers';
-import { describeChevronAndColour, describeSectionToggle } from '../verbPage/sharedSectionTests';
+import { describeChevronAndColour, describeSectionToggle, describeDefaultImageCards } from '../verbPage/sharedSectionTests';
 
 const LABEL = 'MakeVerbPage';
 
@@ -48,7 +48,7 @@ describe('MakeVerbPage — "up" section definitions', () => {
   });
 });
 
-describe('MakeVerbPage — "up" card view (default image)', () => {
+describe('MakeVerbPage — "up" card view', () => {
   it('all 4 examples visible without expanding cards', () => {
     renderPage();
     expandSection('up');
@@ -56,15 +56,6 @@ describe('MakeVerbPage — "up" card view (default image)', () => {
     expect(screen.getByText(/"Senior developers make up 40% of our engineering department\."/i)).toBeInTheDocument();
     expect(screen.getByText(/"The co-founders argued over the budget, but they made up the next day\."/i)).toBeInTheDocument();
     expect(screen.getByText(/"Can you make up a list of requirements for the new software module\?"/i)).toBeInTheDocument();
-  });
-
-  it('all cards have cursor-default class', () => {
-    renderPage();
-    expandSection('up');
-    expect(getCard(/To invent a story, excuse, or explanation/i)).toHaveClass('cursor-default');
-    expect(getCard(/To form the whole of something/i)).toHaveClass('cursor-default');
-    expect(getCard(/To become friendly again after an argument/i)).toHaveClass('cursor-default');
-    expect(getCard(/To prepare, build, or arrange something from parts/i)).toHaveClass('cursor-default');
   });
 
   it('no "up" card ever renders an image regardless of clicks', () => {
@@ -76,11 +67,6 @@ describe('MakeVerbPage — "up" card view (default image)', () => {
     fireEvent.click(getCard(/To prepare, build, or arrange something from parts/i));
     expect(screen.queryAllByRole('img')).toHaveLength(0);
   });
-
-  it('clicking card does not save to localStorage', () => {
-    renderPage();
-    expandSection('up');
-    fireEvent.click(getCard(/To invent a story, excuse, or explanation/i));
-    expect(localStorage.getItem('makeUp_meaning_1_collapsed')).toBeNull();
-  });
 });
+
+describeDefaultImageCards(LABEL, 'up', 'makeUp', /To invent a story, excuse, or explanation/i, /"He made up an excuse/i, renderPage, getCard);

@@ -1,6 +1,6 @@
 import { screen, fireEvent, within } from '@testing-library/react';
 import { renderPage, getCard, expandSection } from './helpers';
-import { describeChevronAndColour, describeSectionToggle } from '../verbPage/sharedSectionTests';
+import { describeChevronAndColour, describeSectionToggle, describeDefaultImageCards } from '../verbPage/sharedSectionTests';
 
 const LABEL = 'GetVerbPage';
 
@@ -56,51 +56,4 @@ describe('GetVerbPage — "over" card expand / collapse', () => {
   });
 });
 
-describe('GetVerbPage — "over" non-expandable cards (default image)', () => {
-  it('over card has cursor-default class', () => {
-    renderPage();
-    expandSection('over');
-    const card = getCard(/To recover from an illness/i);
-    expect(card).toHaveClass('cursor-default');
-    expect(card).not.toHaveClass('cursor-pointer');
-  });
-
-  it('clicking "over" card never renders an image', () => {
-    renderPage();
-    expandSection('over');
-    fireEvent.click(getCard(/To recover from an illness/i));
-    expect(within(getCard(/To recover from an illness/i)).queryByRole('img')).not.toBeInTheDocument();
-  });
-
-  it('no "over" card ever renders an image regardless of clicks', () => {
-    renderPage();
-    expandSection('over');
-    fireEvent.click(getCard(/To recover from an illness/i));
-    fireEvent.click(getCard(/To overcome a problem or difficulty/i));
-    fireEvent.click(getCard(/To finish something unpleasant/i));
-    expect(screen.queryAllByRole('img')).toHaveLength(0);
-  });
-
-  it('clicking "over" card does not remove truncate class', () => {
-    renderPage();
-    expandSection('over');
-    fireEvent.click(getCard(/To recover from an illness/i));
-    expect(within(getCard(/To recover from an illness/i)).getByText(/"It took him two weeks/i)).toHaveClass('truncate');
-  });
-});
-
-describe('GetVerbPage — "over" localStorage persistence', () => {
-  it('clicking "over" card does not save to localStorage', () => {
-    renderPage();
-    expandSection('over');
-    fireEvent.click(getCard(/To recover from an illness/i));
-    expect(localStorage.getItem('getOver_meaning_1_collapsed')).toBeNull();
-  });
-
-  it('ignores localStorage expanded state for default image cards', () => {
-    localStorage.setItem('getOver_section_expanded', 'true');
-    localStorage.setItem('getOver_meaning_1_collapsed', 'false');
-    renderPage();
-    expect(within(getCard(/To recover from an illness/i)).getByText(/"It took him two weeks/i)).toHaveClass('truncate');
-  });
-});
+describeDefaultImageCards(LABEL, 'over', 'getOver', /To recover from an illness/i, /"It took him two weeks/i, renderPage, getCard);

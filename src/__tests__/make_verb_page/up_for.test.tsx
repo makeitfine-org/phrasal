@@ -1,6 +1,6 @@
 import { screen, fireEvent, within } from '@testing-library/react';
 import { renderPage, getCard, expandSection } from './helpers';
-import { describeChevronAndColour, describeSectionToggle } from '../verbPage/sharedSectionTests';
+import { describeChevronAndColour, describeSectionToggle, describeDefaultImageCards } from '../verbPage/sharedSectionTests';
 
 const LABEL = 'MakeVerbPage';
 
@@ -22,18 +22,11 @@ describe(`${LABEL} — "up for" section independence`, () => {
 
 describeChevronAndColour(LABEL, 'up for', renderPage);
 
-describe('MakeVerbPage — "up for" card view (default image)', () => {
+describe('MakeVerbPage — "up for" card view', () => {
   it('example is visible without expanding card', () => {
     renderPage();
     expandSection('up for');
     expect(screen.getByText(/"We worked late on Friday to make up for the time lost/i)).toBeInTheDocument();
-  });
-
-  it('card has cursor-default class', () => {
-    renderPage();
-    expandSection('up for');
-    const card = getCard(/To compensate for something bad, missing, or lost/i);
-    expect(card).toHaveClass('cursor-default');
   });
 
   it('clicking card does not render an image', () => {
@@ -42,11 +35,6 @@ describe('MakeVerbPage — "up for" card view (default image)', () => {
     fireEvent.click(getCard(/To compensate for something bad, missing, or lost/i));
     expect(within(getCard(/To compensate for something bad, missing, or lost/i)).queryByRole('img')).not.toBeInTheDocument();
   });
-
-  it('clicking card does not save to localStorage', () => {
-    renderPage();
-    expandSection('up for');
-    fireEvent.click(getCard(/To compensate for something bad, missing, or lost/i));
-    expect(localStorage.getItem('makeUpFor_meaning_1_collapsed')).toBeNull();
-  });
 });
+
+describeDefaultImageCards(LABEL, 'up for', 'makeUpFor', /To compensate for something bad, missing, or lost/i, /"We worked late on Friday to make up for/i, renderPage, getCard);

@@ -1,6 +1,6 @@
 import { screen, fireEvent, within } from '@testing-library/react';
 import { renderPage, getCard, expandSection } from './helpers';
-import { describeChevronAndColour, describeSectionToggle } from '../verbPage/sharedSectionTests';
+import { describeChevronAndColour, describeSectionToggle, describeDefaultImageCards } from '../verbPage/sharedSectionTests';
 
 const LABEL = 'GetVerbPage';
 
@@ -54,52 +54,4 @@ describe('GetVerbPage — "about / around" card expand / collapse', () => {
   });
 });
 
-describe('GetVerbPage — "about / around" non-expandable cards (default image)', () => {
-  it('card has cursor-default class', () => {
-    renderPage();
-    expandSection('about / around');
-    const card = getCard(/To travel to different places/i);
-    expect(card).toHaveClass('cursor-default');
-    expect(card).not.toHaveClass('cursor-pointer');
-  });
-
-  it('clicking card never renders an image', () => {
-    renderPage();
-    expandSection('about / around');
-    fireEvent.click(getCard(/To travel to different places/i));
-    expect(within(getCard(/To travel to different places/i)).queryByRole('img')).not.toBeInTheDocument();
-  });
-
-  it('no card ever renders an image regardless of clicks', () => {
-    renderPage();
-    expandSection('about / around');
-    fireEvent.click(getCard(/To travel to different places/i));
-    fireEvent.click(getCard(/To find a way to avoid a rule/i));
-    fireEvent.click(getCard(/To spread \(usually news or rumors\)/i));
-    fireEvent.click(getCard(/To finally do something you have delayed/i));
-    expect(screen.queryAllByRole('img')).toHaveLength(0);
-  });
-
-  it('clicking card does not remove truncate class', () => {
-    renderPage();
-    expandSection('about / around');
-    fireEvent.click(getCard(/To travel to different places/i));
-    expect(within(getCard(/To travel to different places/i)).getByText(/"We used the subway/i)).toHaveClass('truncate');
-  });
-});
-
-describe('GetVerbPage — "about / around" localStorage persistence', () => {
-  it('clicking card does not save to localStorage', () => {
-    renderPage();
-    expandSection('about / around');
-    fireEvent.click(getCard(/To travel to different places/i));
-    expect(localStorage.getItem('getAboutAround_meaning_1_collapsed')).toBeNull();
-  });
-
-  it('ignores localStorage expanded state for default image cards', () => {
-    localStorage.setItem('getAboutAround_section_expanded', 'true');
-    localStorage.setItem('getAboutAround_meaning_1_collapsed', 'false');
-    renderPage();
-    expect(within(getCard(/To travel to different places/i)).getByText(/"We used the subway/i)).toHaveClass('truncate');
-  });
-});
+describeDefaultImageCards(LABEL, 'about / around', 'getAboutAround', /To travel to different places/i, /"We used the subway/i, renderPage, getCard);

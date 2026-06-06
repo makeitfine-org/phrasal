@@ -104,3 +104,59 @@ export function describeChevronAndColour(
     });
   });
 }
+
+export function describeDefaultImageCards(
+  label: string,
+  particle: string,
+  storageKeyPrefix: string,
+  firstDef: RegExp,
+  firstExample: RegExp,
+  renderPage: () => void,
+  getCard: (pattern: RegExp) => HTMLElement,
+) {
+  describe(`${label} — "${particle}" expandable cards without image`, () => {
+    it(`"${particle}" card has cursor-pointer class`, () => {
+      renderPage();
+      fireEvent.click(screen.getByText(particle));
+      const card = getCard(firstDef);
+      expect(card).toHaveClass('cursor-pointer');
+      expect(card).not.toHaveClass('cursor-default');
+    });
+
+    it(`clicking "${particle}" card expands it (removes truncate from example)`, () => {
+      renderPage();
+      fireEvent.click(screen.getByText(particle));
+      fireEvent.click(getCard(firstDef));
+      expect(within(getCard(firstDef)).getByText(firstExample)).not.toHaveClass('truncate');
+    });
+
+    it(`clicking expanded "${particle}" card collapses it (restores truncate)`, () => {
+      renderPage();
+      fireEvent.click(screen.getByText(particle));
+      fireEvent.click(getCard(firstDef));
+      fireEvent.click(getCard(firstDef));
+      expect(within(getCard(firstDef)).getByText(firstExample)).toHaveClass('truncate');
+    });
+
+    it(`no "${particle}" card ever renders an image regardless of clicks`, () => {
+      renderPage();
+      fireEvent.click(screen.getByText(particle));
+      fireEvent.click(getCard(firstDef));
+      expect(within(getCard(firstDef)).queryByRole('img')).not.toBeInTheDocument();
+    });
+
+    it(`clicking "${particle}" card saves collapsed state to localStorage`, () => {
+      renderPage();
+      fireEvent.click(screen.getByText(particle));
+      fireEvent.click(getCard(firstDef));
+      expect(localStorage.getItem(`${storageKeyPrefix}_meaning_1_collapsed`)).toBe('false');
+    });
+
+    it(`restores "${particle}" card expanded state from localStorage`, () => {
+      localStorage.setItem(`${storageKeyPrefix}_meaning_1_collapsed`, 'false');
+      renderPage();
+      fireEvent.click(screen.getByText(particle));
+      expect(within(getCard(firstDef)).getByText(firstExample)).not.toHaveClass('truncate');
+    });
+  });
+}

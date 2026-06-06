@@ -1,6 +1,6 @@
 import { screen, fireEvent, within } from '@testing-library/react';
 import { renderPage, getCard, expandSection } from './helpers';
-import { describeChevronAndColour, describeSectionToggle } from '../verbPage/sharedSectionTests';
+import { describeChevronAndColour, describeSectionToggle, describeDefaultImageCards } from '../verbPage/sharedSectionTests';
 
 const LABEL = 'MakeVerbPage';
 
@@ -42,19 +42,12 @@ describe('MakeVerbPage — "for" section definitions', () => {
   });
 });
 
-describe('MakeVerbPage — "for" card view (default image)', () => {
+describe('MakeVerbPage — "for" card view', () => {
   it('both examples visible without expanding cards', () => {
     renderPage();
     expandSection('for');
     expect(screen.getByText(/"After the meeting ended, we made for the exit\."/i)).toBeInTheDocument();
     expect(screen.getByText(/"Clear communication makes for a highly effective management team\."/i)).toBeInTheDocument();
-  });
-
-  it('card has cursor-default class', () => {
-    renderPage();
-    expandSection('for');
-    const card = getCard(/To move directly towards a place/i);
-    expect(card).toHaveClass('cursor-default');
   });
 
   it('card example has title attribute with quoted text', () => {
@@ -71,11 +64,6 @@ describe('MakeVerbPage — "for" card view (default image)', () => {
     fireEvent.click(getCard(/To move directly towards a place/i));
     expect(within(getCard(/To move directly towards a place/i)).queryByRole('img')).not.toBeInTheDocument();
   });
-
-  it('clicking card does not save to localStorage', () => {
-    renderPage();
-    expandSection('for');
-    fireEvent.click(getCard(/To move directly towards a place/i));
-    expect(localStorage.getItem('makeFor_meaning_1_collapsed')).toBeNull();
-  });
 });
+
+describeDefaultImageCards(LABEL, 'for', 'makeFor', /To move directly towards a place/i, /"After the meeting ended, we made for the exit/i, renderPage, getCard);

@@ -1,6 +1,6 @@
 import { screen, fireEvent, within } from '@testing-library/react';
 import { renderPage, getCard, expandSection } from './helpers';
-import { describeChevronAndColour, describeSectionToggle } from '../verbPage/sharedSectionTests';
+import { describeChevronAndColour, describeSectionToggle, describeDefaultImageCards } from '../verbPage/sharedSectionTests';
 
 const LABEL = 'PutVerbPage';
 
@@ -25,7 +25,7 @@ describe('PutVerbPage — "down" section definitions', () => {
   });
 });
 
-describe('PutVerbPage — "down" card view (default image)', () => {
+describe('PutVerbPage — "down" card view', () => {
   it('all 6 examples visible without expanding cards', () => {
     renderPage();
     expandSection('down');
@@ -35,17 +35,6 @@ describe('PutVerbPage — "down" card view (default image)', () => {
     expect(screen.getByText(/"The government quickly put down the protests\."/i)).toBeInTheDocument();
     expect(screen.getByText(/"The vet had to put down the sick dog\."/i)).toBeInTheDocument();
     expect(screen.getByText(/"I put the project's success down to excellent teamwork\."/i)).toBeInTheDocument();
-  });
-
-  it('all cards have cursor-default class', () => {
-    renderPage();
-    expandSection('down');
-    expect(getCard(/To write something down/i)).toHaveClass('cursor-default');
-    expect(getCard(/To criticize or humiliate someone/i)).toHaveClass('cursor-default');
-    expect(getCard(/To pay a deposit/i)).toHaveClass('cursor-default');
-    expect(getCard(/To suppress a rebellion or protest by force/i)).toHaveClass('cursor-default');
-    expect(getCard(/To euthanize an animal/i)).toHaveClass('cursor-default');
-    expect(getCard(/To attribute a cause to something/i)).toHaveClass('cursor-default');
   });
 
   it('no "down" card renders an image regardless of clicks', () => {
@@ -60,3 +49,5 @@ describe('PutVerbPage — "down" card view (default image)', () => {
     expect(screen.queryAllByRole('img')).toHaveLength(0);
   });
 });
+
+describeDefaultImageCards(LABEL, 'down', 'putDown', /To write something down/i, /"Let me put down your contact details/i, renderPage, getCard);

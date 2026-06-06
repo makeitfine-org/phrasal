@@ -514,3 +514,31 @@
 - .claude/docs/blackbox/audit.md
 - .claude/settings.local.json
 <!-- end-snapshot -->
+
+<!-- git-snapshot 2026-06-06T08:17:03Z -->
+- .claude/docs/blackbox/audit.md
+- src/__tests__/get_verb_page/about_around.test.tsx
+- src/__tests__/get_verb_page/across.test.tsx
+- src/__tests__/get_verb_page/after.test.tsx
+- src/__tests__/get_verb_page/ahead.test.tsx
+- src/__tests__/get_verb_page/away.test.tsx
+- src/__tests__/get_verb_page/back.test.tsx
+- src/__tests__/get_verb_page/behind.test.tsx
+- src/__tests__/get_verb_page/by.test.tsx
+- src/__tests__/get_verb_page/forward.test.tsx
+- src/__tests__/get_verb_page/out.test.tsx
+- src/__tests__/get_verb_page/over.test.tsx
+- src/__tests__/get_verb_page/through.test.tsx
+- src/__tests__/get_verb_page/to.test.tsx
+- src/__tests__/get_verb_page/together.test.tsx
+- src/__tests__/get_verb_page/with.test.tsx
+- src/__tests__/make_verb_page/after.test.tsx
+- src/__tests__/make_verb_page/away.test.tsx
+- src/__tests__/make_verb_page/for.test.tsx
+- src/__tests__/make_verb_page/into.test.tsx
+<!-- end-snapshot -->
+
+<!-- git-snapshot 2026-06-06T08:20:10Z -->
+- .claude/docs/blackbox/audit.md
+- .claude/docs/blackbox/session-log.md
+<!-- end-snapshot -->

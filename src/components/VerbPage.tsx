@@ -23,13 +23,11 @@ function Meaning({ number, definition, example, imageSrc, imageAlt, storageKeyPr
   const isDefault = imageSrc.endsWith('default.png');
   const storageKey = `${storageKeyPrefix}_meaning_${number}_collapsed`;
   const [collapsed, setCollapsed] = useState(() => {
-    if (isDefault) return true;
     const saved = localStorage.getItem(storageKey);
     return saved !== null ? saved === 'true' : true;
   });
 
   const toggle = () => {
-    if (isDefault) return;
     if (window.getSelection()?.toString()) return;
     setCollapsed(c => {
       const next = !c;
@@ -40,7 +38,7 @@ function Meaning({ number, definition, example, imageSrc, imageAlt, storageKeyPr
 
   return (
     <div
-      className={`bg-white dark:bg-gray-900 rounded-2xl border border-gray-600 dark:border-gray-400 shadow-md overflow-hidden ${isDefault ? 'cursor-default' : 'cursor-pointer'}`}
+      className="bg-white dark:bg-gray-900 rounded-2xl border border-gray-600 dark:border-gray-400 shadow-md overflow-hidden cursor-pointer"
       onClick={toggle}
     >
       {collapsed ? (
@@ -67,13 +65,15 @@ function Meaning({ number, definition, example, imageSrc, imageAlt, storageKeyPr
         </div>
       ) : (
         <div className="p-4 pt-3">
-          <div className="flex justify-center mb-3">
-            <img
-              src={imageSrc}
-              alt={imageAlt}
-              className="max-w-sm w-full border border-gray-200 dark:border-gray-700 rounded-xl"
-            />
-          </div>
+          {!isDefault && (
+            <div className="flex justify-center mb-3">
+              <img
+                src={imageSrc}
+                alt={imageAlt}
+                className="max-w-sm w-full border border-gray-200 dark:border-gray-700 rounded-xl"
+              />
+            </div>
+          )}
           <div>
             <div className="flex items-start gap-2 mb-2">
               <span className="flex-shrink-0 w-6 h-6 rounded-full bg-blue-600 text-white text-xs font-bold flex items-center justify-center">

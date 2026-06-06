@@ -1,6 +1,6 @@
 import { screen, fireEvent, within } from '@testing-library/react';
 import { renderPage, getCard, expandSection } from './helpers';
-import { describeChevronAndColour, describeSectionToggle } from '../verbPage/sharedSectionTests';
+import { describeChevronAndColour, describeSectionToggle, describeDefaultImageCards } from '../verbPage/sharedSectionTests';
 
 const LABEL = 'GetVerbPage';
 
@@ -46,50 +46,4 @@ describe('GetVerbPage — "together" card expand / collapse', () => {
   });
 });
 
-describe('GetVerbPage — "together" non-expandable cards (default image)', () => {
-  it('together card has cursor-default class', () => {
-    renderPage();
-    expandSection('together');
-    const card = getCard(/To meet socially/i);
-    expect(card).toHaveClass('cursor-default');
-    expect(card).not.toHaveClass('cursor-pointer');
-  });
-
-  it('clicking "together" card never renders an image', () => {
-    renderPage();
-    expandSection('together');
-    fireEvent.click(getCard(/To meet socially/i));
-    expect(within(getCard(/To meet socially/i)).queryByRole('img')).not.toBeInTheDocument();
-  });
-
-  it('no "together" card ever renders an image regardless of clicks', () => {
-    renderPage();
-    expandSection('together');
-    fireEvent.click(getCard(/To meet socially/i));
-    fireEvent.click(getCard(/To organize your thoughts/i));
-    expect(screen.queryAllByRole('img')).toHaveLength(0);
-  });
-
-  it('clicking "together" card does not remove truncate class', () => {
-    renderPage();
-    expandSection('together');
-    fireEvent.click(getCard(/To meet socially/i));
-    expect(within(getCard(/To meet socially/i)).getByText(/"Let's get together/i)).toHaveClass('truncate');
-  });
-});
-
-describe('GetVerbPage — "together" localStorage persistence', () => {
-  it('clicking "together" card does not save to localStorage', () => {
-    renderPage();
-    expandSection('together');
-    fireEvent.click(getCard(/To meet socially/i));
-    expect(localStorage.getItem('getTogether_meaning_1_collapsed')).toBeNull();
-  });
-
-  it('ignores localStorage expanded state for default image cards', () => {
-    localStorage.setItem('getTogether_section_expanded', 'true');
-    localStorage.setItem('getTogether_meaning_1_collapsed', 'false');
-    renderPage();
-    expect(within(getCard(/To meet socially/i)).getByText(/"Let's get together/i)).toHaveClass('truncate');
-  });
-});
+describeDefaultImageCards(LABEL, 'together', 'getTogether', /To meet socially/i, /"Let's get together/i, renderPage, getCard);

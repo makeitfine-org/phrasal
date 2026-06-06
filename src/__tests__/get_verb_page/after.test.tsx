@@ -1,6 +1,6 @@
 import { screen, fireEvent, within } from '@testing-library/react';
 import { renderPage, getCard, expandSection } from './helpers';
-import { describeChevronAndColour, describeSectionToggle } from '../verbPage/sharedSectionTests';
+import { describeChevronAndColour, describeSectionToggle, describeDefaultImageCards } from '../verbPage/sharedSectionTests';
 
 const LABEL = 'GetVerbPage';
 
@@ -49,50 +49,4 @@ describe('GetVerbPage — "after" card expand / collapse', () => {
   });
 });
 
-describe('GetVerbPage — "after" non-expandable cards (default image)', () => {
-  it('after card has cursor-default class', () => {
-    renderPage();
-    expandSection('after');
-    const card = getCard(/To urge, remind, or scold someone/i);
-    expect(card).toHaveClass('cursor-default');
-    expect(card).not.toHaveClass('cursor-pointer');
-  });
-
-  it('clicking "after" card never renders an image', () => {
-    renderPage();
-    expandSection('after');
-    fireEvent.click(getCard(/To urge, remind, or scold someone/i));
-    expect(within(getCard(/To urge, remind, or scold someone/i)).queryByRole('img')).not.toBeInTheDocument();
-  });
-
-  it('no "after" card ever renders an image regardless of clicks', () => {
-    renderPage();
-    expandSection('after');
-    fireEvent.click(getCard(/To urge, remind, or scold someone/i));
-    fireEvent.click(getCard(/To chase someone or something/i));
-    expect(screen.queryAllByRole('img')).toHaveLength(0);
-  });
-
-  it('clicking "after" card does not remove truncate class', () => {
-    renderPage();
-    expandSection('after');
-    fireEvent.click(getCard(/To urge, remind, or scold someone/i));
-    expect(within(getCard(/To urge, remind, or scold someone/i)).getByText(/"I need to get after the developers/i)).toHaveClass('truncate');
-  });
-});
-
-describe('GetVerbPage — "after" localStorage persistence', () => {
-  it('clicking "after" card does not save to localStorage', () => {
-    renderPage();
-    expandSection('after');
-    fireEvent.click(getCard(/To urge, remind, or scold someone/i));
-    expect(localStorage.getItem('getAfter_meaning_1_collapsed')).toBeNull();
-  });
-
-  it('ignores localStorage expanded state for default image cards', () => {
-    localStorage.setItem('getAfter_section_expanded', 'true');
-    localStorage.setItem('getAfter_meaning_1_collapsed', 'false');
-    renderPage();
-    expect(within(getCard(/To urge, remind, or scold someone/i)).getByText(/"I need to get after the developers/i)).toHaveClass('truncate');
-  });
-});
+describeDefaultImageCards(LABEL, 'after', 'getAfter', /To urge, remind, or scold someone/i, /"I need to get after the developers/i, renderPage, getCard);

@@ -1,6 +1,6 @@
 import { screen, fireEvent, within } from '@testing-library/react';
 import { renderPage, getCard, expandSection } from './helpers';
-import { describeChevronAndColour, describeSectionToggle } from '../verbPage/sharedSectionTests';
+import { describeChevronAndColour, describeSectionToggle, describeDefaultImageCards } from '../verbPage/sharedSectionTests';
 
 const LABEL = 'MakeVerbPage';
 
@@ -37,7 +37,7 @@ describe('MakeVerbPage — "after" section definitions', () => {
   });
 });
 
-describe('MakeVerbPage — "after" card view (default image)', () => {
+describe('MakeVerbPage — "after" card view', () => {
   it('example is visible without expanding card', () => {
     renderPage();
     expandSection('after');
@@ -59,25 +59,12 @@ describe('MakeVerbPage — "after" card view (default image)', () => {
       .toHaveAttribute('title', '"The security guard made after the shoplifter."');
   });
 
-  it('card has cursor-default class', () => {
-    renderPage();
-    expandSection('after');
-    const card = getCard(/To chase someone or something/i);
-    expect(card).toHaveClass('cursor-default');
-    expect(card).not.toHaveClass('cursor-pointer');
-  });
-
   it('clicking card does not render an image', () => {
     renderPage();
     expandSection('after');
     fireEvent.click(getCard(/To chase someone or something/i));
     expect(within(getCard(/To chase someone or something/i)).queryByRole('img')).not.toBeInTheDocument();
   });
-
-  it('clicking card does not save to localStorage', () => {
-    renderPage();
-    expandSection('after');
-    fireEvent.click(getCard(/To chase someone or something/i));
-    expect(localStorage.getItem('makeAfter_meaning_1_collapsed')).toBeNull();
-  });
 });
+
+describeDefaultImageCards(LABEL, 'after', 'makeAfter', /To chase someone or something/i, /"The security guard made after/i, renderPage, getCard);

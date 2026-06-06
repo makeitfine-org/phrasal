@@ -1,6 +1,6 @@
 import { screen, fireEvent, within } from '@testing-library/react';
 import { renderPage, getCard, expandSection } from './helpers';
-import { describeChevronAndColour, describeSectionToggle } from '../verbPage/sharedSectionTests';
+import { describeChevronAndColour, describeSectionToggle, describeDefaultImageCards } from '../verbPage/sharedSectionTests';
 
 const LABEL = 'GetVerbPage';
 
@@ -51,52 +51,4 @@ describe('GetVerbPage — "to" card expand / collapse', () => {
   });
 });
 
-describe('GetVerbPage — "to" non-expandable cards (default image)', () => {
-  it('to card has cursor-default class', () => {
-    renderPage();
-    expandSection('to');
-    const card = getCard(/To arrive at a destination/i);
-    expect(card).toHaveClass('cursor-default');
-    expect(card).not.toHaveClass('cursor-pointer');
-  });
-
-  it('clicking "to" card never renders an image', () => {
-    renderPage();
-    expandSection('to');
-    fireEvent.click(getCard(/To arrive at a destination/i));
-    expect(within(getCard(/To arrive at a destination/i)).queryByRole('img')).not.toBeInTheDocument();
-  });
-
-  it('no "to" card ever renders an image regardless of clicks', () => {
-    renderPage();
-    expandSection('to');
-    fireEvent.click(getCard(/To arrive at a destination/i));
-    fireEvent.click(getCard(/To have the opportunity to do something/i));
-    fireEvent.click(getCard(/To annoy or upset someone/i));
-    fireEvent.click(getCard(/To begin an action/i));
-    expect(screen.queryAllByRole('img')).toHaveLength(0);
-  });
-
-  it('clicking "to" card does not remove truncate class', () => {
-    renderPage();
-    expandSection('to');
-    fireEvent.click(getCard(/To arrive at a destination/i));
-    expect(within(getCard(/To arrive at a destination/i)).getByText(/"What time did you get to the office/i)).toHaveClass('truncate');
-  });
-});
-
-describe('GetVerbPage — "to" localStorage persistence', () => {
-  it('clicking "to" card does not save to localStorage', () => {
-    renderPage();
-    expandSection('to');
-    fireEvent.click(getCard(/To arrive at a destination/i));
-    expect(localStorage.getItem('getTo_meaning_1_collapsed')).toBeNull();
-  });
-
-  it('ignores localStorage expanded state for default image cards', () => {
-    localStorage.setItem('getTo_section_expanded', 'true');
-    localStorage.setItem('getTo_meaning_1_collapsed', 'false');
-    renderPage();
-    expect(within(getCard(/To arrive at a destination/i)).getByText(/"What time did you get to the office/i)).toHaveClass('truncate');
-  });
-});
+describeDefaultImageCards(LABEL, 'to', 'getTo', /To arrive at a destination/i, /"What time did you get to the office/i, renderPage, getCard);

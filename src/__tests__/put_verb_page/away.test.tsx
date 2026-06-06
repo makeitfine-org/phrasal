@@ -1,6 +1,6 @@
 import { screen, fireEvent, within } from '@testing-library/react';
 import { renderPage, getCard, expandSection } from './helpers';
-import { describeChevronAndColour, describeSectionToggle } from '../verbPage/sharedSectionTests';
+import { describeChevronAndColour, describeSectionToggle, describeDefaultImageCards } from '../verbPage/sharedSectionTests';
 
 const LABEL = 'PutVerbPage';
 
@@ -12,7 +12,7 @@ describeSectionToggle(LABEL, 'away', 'putAway_section_expanded', /To store thing
 
 describeChevronAndColour(LABEL, 'away', renderPage);
 
-describe('PutVerbPage — "away" card view (default image)', () => {
+describe('PutVerbPage — "away" card view', () => {
   it('all examples visible without expanding cards', () => {
     renderPage();
     expandSection('away');
@@ -22,15 +22,6 @@ describe('PutVerbPage — "away" card view (default image)', () => {
     expect(screen.getByText(/"He can really put away a lot of coffee during a coding session\."/i)).toBeInTheDocument();
   });
 
-  it('all cards have cursor-default class', () => {
-    renderPage();
-    expandSection('away');
-    expect(getCard(/To store things in their correct place/i)).toHaveClass('cursor-default');
-    expect(getCard(/To save money for the future/i)).toHaveClass('cursor-default');
-    expect(getCard(/To send someone to prison or a mental hospital/i)).toHaveClass('cursor-default');
-    expect(getCard(/To eat or drink a large amount/i)).toHaveClass('cursor-default');
-  });
-
   it('clicking cards does not render images', () => {
     renderPage();
     expandSection('away');
@@ -38,3 +29,5 @@ describe('PutVerbPage — "away" card view (default image)', () => {
     expect(screen.queryAllByRole('img')).toHaveLength(0);
   });
 });
+
+describeDefaultImageCards(LABEL, 'away', 'putAway', /To store things in their correct place/i, /"Please put away those files/i, renderPage, getCard);

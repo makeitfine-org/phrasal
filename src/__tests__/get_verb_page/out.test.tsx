@@ -1,6 +1,6 @@
 import { screen, fireEvent, within } from '@testing-library/react';
 import { renderPage, getCard, expandSection } from './helpers';
-import { describeChevronAndColour, describeSectionToggle } from '../verbPage/sharedSectionTests';
+import { describeChevronAndColour, describeSectionToggle, describeDefaultImageCards } from '../verbPage/sharedSectionTests';
 
 const LABEL = 'GetVerbPage';
 
@@ -94,56 +94,6 @@ describe('GetVerbPage — "out" collapsed card view', () => {
     );
   });
 
-  it('clicking "out" card does not remove truncate class (no image to show)', () => {
-    renderPage();
-    expandSection('out');
-    fireEvent.click(getCard(/To leave a place or a car/i));
-    const card = getCard(/To leave a place or a car/i);
-    expect(within(card).getByText(/"The fire alarm rang/i)).toHaveClass('truncate');
-  });
 });
 
-describe('GetVerbPage — "out" non-expandable cards (default image)', () => {
-  it('out card has cursor-default class', () => {
-    renderPage();
-    expandSection('out');
-    const card = getCard(/To leave a place or a car/i);
-    expect(card).toHaveClass('cursor-default');
-    expect(card).not.toHaveClass('cursor-pointer');
-  });
-
-  it('clicking "out" card never renders an image', () => {
-    renderPage();
-    expandSection('out');
-    fireEvent.click(getCard(/To leave a place or a car/i));
-    const card = getCard(/To leave a place or a car/i);
-    expect(within(card).queryByRole('img')).not.toBeInTheDocument();
-  });
-
-  it('no "out" card ever renders an image regardless of clicks', () => {
-    renderPage();
-    expandSection('out');
-    fireEvent.click(getCard(/To leave a place or a car/i));
-    fireEvent.click(getCard(/To become known/i));
-    fireEvent.click(getCard(/To produce or publish something/i));
-    fireEvent.click(getCard(/To avoid doing something you do not want to do/i));
-    expect(screen.queryAllByRole('img')).toHaveLength(0);
-  });
-});
-
-describe('GetVerbPage — "out" localStorage persistence', () => {
-  it('clicking "out" card does not save to localStorage', () => {
-    renderPage();
-    expandSection('out');
-    fireEvent.click(getCard(/To leave a place or a car/i));
-    expect(localStorage.getItem('getOut_meaning_1_collapsed')).toBeNull();
-  });
-
-  it('ignores localStorage expanded state for default image cards', () => {
-    localStorage.setItem('getOut_section_expanded', 'true');
-    localStorage.setItem('getOut_meaning_1_collapsed', 'false');
-    renderPage();
-    const card = getCard(/To leave a place or a car/i);
-    expect(within(card).getByText(/"The fire alarm rang/i)).toHaveClass('truncate');
-  });
-});
+describeDefaultImageCards(LABEL, 'out', 'getOut', /To leave a place or a car/i, /"The fire alarm rang/i, renderPage, getCard);

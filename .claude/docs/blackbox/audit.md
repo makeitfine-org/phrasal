@@ -1022,3 +1022,160 @@ Use changes in current `git status`.
 ## 2026-06-06T07:39:54Z
 git add all changes and commit them with suitable message
 ---
+
+## 2026-06-06T07:47:12Z
+For listed phrasal verbs with default.png don't donwload and show that image and even <img>, but on click to frame just extend/collapse the phrasal verb content.
+Cover the functionality with tests.
+---
+
+## 2026-06-06T08:19:52Z
+git add all changes and commit them with suitable message
+---
+
+## 2026-06-06T08:25:25Z
+Take off
+Remove (clothing): "Please take off your shoes inside the house."
+
+Leave the ground (planes): "The flight will take off in ten minutes."
+
+Become successful quickly (business/ideas): "Her new software company really took off this year."
+
+Leave suddenly (informal): "He took off before the meeting ended."
+
+Not go to work: "I need to take a few days off to rest."
+
+Take on
+Accept work or responsibility: "I cannot take on any new projects right now."
+
+Hire someone: "The company is taking on fifty new developers."
+
+Compete against: "Our team will take on the market leader next year."
+
+Take up
+Start a new activity or hobby: "He took up golf to relax after work."
+
+Occupy time or space: "These large files take up too much space on the server."
+
+Accept an offer: "I will take you up on that job offer."
+
+Shorten clothes: "I need to take up these trousers; they are too long."
+
+Take down
+Write notes: "Please take down the main points of the presentation."
+
+Remove from a high place or dismantle: "We need to take down the old website."
+
+Defeat or humiliate: "The journalist's report took down the corrupt manager."
+
+Take in
+Understand and remember information: "The technical manual was very hard to take in."
+
+Provide shelter: "She took in a dog from the street."
+
+Deceive or trick (usually passive): "Many people were taken in by the email scam."
+
+Make clothes smaller: "I lost weight, so I had to take in my suits."
+
+Take into
+Mainly used in the idiom: Take into account / consideration (consider): "We must take the budget into account before making a decision."
+
+Take out
+Remove something: "Please take the trash out."
+
+Invite someone somewhere and pay: "I would like to take you out for dinner."
+
+Obtain an official service (loan/insurance): "The business took out a large bank loan."
+
+Destroy or kill (informal): "The virus took out the entire IT system."
+
+Special phrase: Take it out on someone (treat someone badly because you are angry): "I know you are stressed, but do not take it out on your team."
+
+Take away
+Remove or subtract: "If you take away the marketing costs, the profit is high."
+
+Confiscate (take without permission): "The teacher took away his mobile phone."
+
+Buy food to eat elsewhere: "We bought a pizza to take away."
+
+Learn a main message (Noun: a takeaway): "What did you take away from that leadership seminar?"
+
+Take cross / across
+Literal use only: To physically guide someone or something across a space. "She took the blind man across the street."
+
+Take forward
+Develop or progress a plan: "We need a new manager to take this project forward."
+
+Take back
+Return something you bought: "The laptop was broken, so I took it back to the store."
+
+Admit you said something wrong: "I take back what I said; you were right."
+
+Make someone remember the past: "Hearing that old song takes me back to my university days."
+
+Accept someone back into a relationship or job: "The company took him back after he finished his studies."
+
+Take for
+Mistake someone's identity or character: "Do you take me for a fool?"
+
+Special phrase: Take for granted (fail to appreciate): "A good leader never takes their employees for granted."
+
+Take by
+Mainly used in idioms:
+
+Take by surprise (happen unexpectedly): "The sudden market crash took us by surprise."
+
+Take by storm (become very successful quickly): "The new app took the world by storm."
+
+Take together
+Consider as a group: "Taken together, these three software modules form a powerful system."
+
+Take with
+Be attracted to or impressed by (usually passive): "I was very taken with his presentation on Agile management."
+
+Take without
+Literal use only: To physically take an item without something else. "I will take the coffee without sugar."
+
+Take apart
+Separate into pieces (dismantle): "The engineer took the machine apart to fix it."
+
+Criticize heavily or defeat easily: "The director took my business plan apart."
+
+Take over
+Gain control of a company or situation: "A larger corporation wants to take over our business."
+
+Replace someone in a task: "I am tired. Can you take over driving?"
+
+Take ahead
+Literal use only: To physically carry something to the front. No standard phrasal verb.
+
+Take after
+Look or behave like an older family member: "She takes after her father; they both love mathematics."
+
+Take behind
+Literal use only: To physically move something to the back. No standard phrasal verb.
+
+Take through
+Explain a process step-by-step: "Let me take you through the new software setup."
+
+Take about
+Literal use only: To require a certain amount of time/effort. "It will take about two hours."
+
+Take around / round
+Show someone a place: "Welcome to the headquarters. I will take you around."
+
+Take to
+Start liking someone or something quickly: "The team took to the new manager immediately."
+
+Start a new habit (often negative): "Because of stress, he took to drinking coffee late at night."
+
+Take against
+Start disliking someone without a clear reason: "I do not know why, but she took against me from my first day in the office."
+
+---
+
+1) Create "take" link on list page with particals mentioned above phrasal verbs. 
+   Take as the base "get" link.
+2) Create "take" page with mentioned above phrasal verbs. 
+   Take as the base "get" page.
+3) Cover the functionality with tests
+---

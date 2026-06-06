@@ -1,6 +1,6 @@
 import { screen, fireEvent, within } from '@testing-library/react';
 import { renderPage, getCard, expandSection } from './helpers';
-import { describeChevronAndColour, describeSectionToggle } from '../verbPage/sharedSectionTests';
+import { describeChevronAndColour, describeSectionToggle, describeDefaultImageCards } from '../verbPage/sharedSectionTests';
 
 const LABEL = 'PutVerbPage';
 
@@ -12,7 +12,7 @@ describeSectionToggle(LABEL, 'out', 'putOut_section_expanded', /To extinguish a 
 
 describeChevronAndColour(LABEL, 'out', renderPage);
 
-describe('PutVerbPage — "out" card view (default image)', () => {
+describe('PutVerbPage — "out" card view', () => {
   it('all examples visible without expanding cards', () => {
     renderPage();
     expandSection('out');
@@ -20,15 +20,6 @@ describe('PutVerbPage — "out" card view (default image)', () => {
     expect(screen.getByText(/"The team put out a new version of the app last night\."/i)).toBeInTheDocument();
     expect(screen.getByText(/"I hope it doesn't put you out if we move the meeting to 5 PM\."/i)).toBeInTheDocument();
     expect(screen.getByText(/"Don't forget to put out the recycling bins\."/i)).toBeInTheDocument();
-  });
-
-  it('all cards have cursor-default class', () => {
-    renderPage();
-    expandSection('out');
-    expect(getCard(/To extinguish a fire or a cigarette/i)).toHaveClass('cursor-default');
-    expect(getCard(/To publish or release something/i)).toHaveClass('cursor-default');
-    expect(getCard(/To inconvenience someone/i)).toHaveClass('cursor-default');
-    expect(getCard(/To place something outside/i)).toHaveClass('cursor-default');
   });
 
   it('clicking cards does not render images', () => {
@@ -41,3 +32,5 @@ describe('PutVerbPage — "out" card view (default image)', () => {
     expect(screen.queryAllByRole('img')).toHaveLength(0);
   });
 });
+
+describeDefaultImageCards(LABEL, 'out', 'putOut', /To extinguish a fire or a cigarette/i, /"The fire alarm rang, but they quickly put out/i, renderPage, getCard);

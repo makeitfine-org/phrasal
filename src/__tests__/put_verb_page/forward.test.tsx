@@ -1,6 +1,6 @@
 import { screen, fireEvent, within } from '@testing-library/react';
 import { renderPage, getCard, expandSection } from './helpers';
-import { describeChevronAndColour, describeSectionToggle } from '../verbPage/sharedSectionTests';
+import { describeChevronAndColour, describeSectionToggle, describeDefaultImageCards } from '../verbPage/sharedSectionTests';
 
 const LABEL = 'PutVerbPage';
 
@@ -12,19 +12,12 @@ describeSectionToggle(LABEL, 'forward', 'putForward_section_expanded', /To sugge
 
 describeChevronAndColour(LABEL, 'forward', renderPage);
 
-describe('PutVerbPage — "forward" card view (default image)', () => {
+describe('PutVerbPage — "forward" card view', () => {
   it('both examples visible without expanding cards', () => {
     renderPage();
     expandSection('forward');
     expect(screen.getByText(/"The manager put forward a new agile framework for the team\."/i)).toBeInTheDocument();
     expect(screen.getByText(/"Don't forget to put your clocks forward in the spring\."/i)).toBeInTheDocument();
-  });
-
-  it('cards have cursor-default class', () => {
-    renderPage();
-    expandSection('forward');
-    expect(getCard(/To suggest an idea, plan, or person for consideration/i)).toHaveClass('cursor-default');
-    expect(getCard(/To change a clock to a later time/i)).toHaveClass('cursor-default');
   });
 
   it('clicking cards does not render images', () => {
@@ -35,3 +28,5 @@ describe('PutVerbPage — "forward" card view (default image)', () => {
     expect(screen.queryAllByRole('img')).toHaveLength(0);
   });
 });
+
+describeDefaultImageCards(LABEL, 'forward', 'putForward', /To suggest an idea, plan, or person for consideration/i, /"The manager put forward a new agile/i, renderPage, getCard);

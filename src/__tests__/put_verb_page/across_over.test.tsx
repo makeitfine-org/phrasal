@@ -1,6 +1,6 @@
 import { screen, fireEvent, within } from '@testing-library/react';
 import { renderPage, getCard, expandSection } from './helpers';
-import { describeChevronAndColour, describeSectionToggle } from '../verbPage/sharedSectionTests';
+import { describeChevronAndColour, describeSectionToggle, describeDefaultImageCards } from '../verbPage/sharedSectionTests';
 
 const LABEL = 'PutVerbPage';
 
@@ -12,17 +12,11 @@ describeSectionToggle(LABEL, 'across / over', 'putAcrossOver_section_expanded', 
 
 describeChevronAndColour(LABEL, 'across / over', renderPage);
 
-describe('PutVerbPage — "across / over" card view (default image)', () => {
+describe('PutVerbPage — "across / over" card view', () => {
   it('example visible without expanding card', () => {
     renderPage();
     expandSection('across / over');
     expect(screen.getByText(/"The CEO put his vision across very well during the meeting\."/i)).toBeInTheDocument();
-  });
-
-  it('card has cursor-default class', () => {
-    renderPage();
-    expandSection('across / over');
-    expect(getCard(/To explain an idea clearly so people understand it/i)).toHaveClass('cursor-default');
   });
 
   it('clicking card does not render an image', () => {
@@ -32,3 +26,5 @@ describe('PutVerbPage — "across / over" card view (default image)', () => {
     expect(screen.queryAllByRole('img')).toHaveLength(0);
   });
 });
+
+describeDefaultImageCards(LABEL, 'across / over', 'putAcrossOver', /To explain an idea clearly so people understand it/i, /"The CEO put his vision across/i, renderPage, getCard);

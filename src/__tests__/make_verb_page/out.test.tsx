@@ -1,6 +1,6 @@
 import { screen, fireEvent, within } from '@testing-library/react';
 import { renderPage, getCard, expandSection } from './helpers';
-import { describeChevronAndColour, describeSectionToggle } from '../verbPage/sharedSectionTests';
+import { describeChevronAndColour, describeSectionToggle, describeDefaultImageCards } from '../verbPage/sharedSectionTests';
 
 const LABEL = 'MakeVerbPage';
 
@@ -54,7 +54,7 @@ describe('MakeVerbPage — "out" section definitions', () => {
   });
 });
 
-describe('MakeVerbPage — "out" card view (default image)', () => {
+describe('MakeVerbPage — "out" card view', () => {
   it('all 6 examples visible without expanding cards', () => {
     renderPage();
     expandSection('out');
@@ -64,12 +64,6 @@ describe('MakeVerbPage — "out" card view (default image)', () => {
     expect(screen.getByText(/"The software vendor made out/i)).toBeInTheDocument();
     expect(screen.getByText(/"How did you make out with/i)).toBeInTheDocument();
     expect(screen.getByText(/"The teenagers were making out/i)).toBeInTheDocument();
-  });
-
-  it('first "out" card has cursor-default class', () => {
-    renderPage();
-    expandSection('out');
-    expect(getCard(/To manage to see, hear, or read something with difficulty/i)).toHaveClass('cursor-default');
   });
 
   it('no "out" card ever renders an image regardless of clicks', () => {
@@ -84,13 +78,6 @@ describe('MakeVerbPage — "out" card view (default image)', () => {
     expect(screen.queryAllByRole('img')).toHaveLength(0);
   });
 
-  it('clicking card does not save to localStorage', () => {
-    renderPage();
-    expandSection('out');
-    fireEvent.click(getCard(/To manage to see, hear, or read something with difficulty/i));
-    expect(localStorage.getItem('makeOut_meaning_1_collapsed')).toBeNull();
-  });
-
   it('card example has title attribute with quoted text', () => {
     renderPage();
     expandSection('out');
@@ -99,3 +86,5 @@ describe('MakeVerbPage — "out" card view (default image)', () => {
       .toHaveAttribute('title', '"I could not make out the error message on the monitor because the screen was too bright."');
   });
 });
+
+describeDefaultImageCards(LABEL, 'out', 'makeOut', /To manage to see, hear, or read something with difficulty/i, /"I could not make out the error message/i, renderPage, getCard);

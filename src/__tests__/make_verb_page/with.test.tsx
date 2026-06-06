@@ -1,6 +1,6 @@
 import { screen, fireEvent, within } from '@testing-library/react';
 import { renderPage, getCard, expandSection } from './helpers';
-import { describeChevronAndColour, describeSectionToggle } from '../verbPage/sharedSectionTests';
+import { describeChevronAndColour, describeSectionToggle, describeDefaultImageCards } from '../verbPage/sharedSectionTests';
 
 const LABEL = 'MakeVerbPage';
 
@@ -22,18 +22,11 @@ describe(`${LABEL} — "with" section independence`, () => {
 
 describeChevronAndColour(LABEL, 'with', renderPage);
 
-describe('MakeVerbPage — "with" card view (default image)', () => {
+describe('MakeVerbPage — "with" card view', () => {
   it('example is visible without expanding card', () => {
     renderPage();
     expandSection('with');
     expect(screen.getByText(/"Make with the financial reports, the board is waiting!"/i)).toBeInTheDocument();
-  });
-
-  it('card has cursor-default class', () => {
-    renderPage();
-    expandSection('with');
-    const card = getCard(/To produce, supply, or give something quickly/i);
-    expect(card).toHaveClass('cursor-default');
   });
 
   it('clicking card does not render an image', () => {
@@ -43,3 +36,5 @@ describe('MakeVerbPage — "with" card view (default image)', () => {
     expect(within(getCard(/To produce, supply, or give something quickly/i)).queryByRole('img')).not.toBeInTheDocument();
   });
 });
+
+describeDefaultImageCards(LABEL, 'with', 'makeWith', /To produce, supply, or give something quickly/i, /"Make with the financial reports/i, renderPage, getCard);

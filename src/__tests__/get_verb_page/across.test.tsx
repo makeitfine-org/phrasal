@@ -1,6 +1,6 @@
 import { screen, fireEvent, within } from '@testing-library/react';
 import { renderPage, getCard, expandSection } from './helpers';
-import { describeChevronAndColour, describeSectionToggle } from '../verbPage/sharedSectionTests';
+import { describeChevronAndColour, describeSectionToggle, describeDefaultImageCards } from '../verbPage/sharedSectionTests';
 
 const LABEL = 'GetVerbPage';
 
@@ -49,50 +49,4 @@ describe('GetVerbPage — "across" card expand / collapse', () => {
   });
 });
 
-describe('GetVerbPage — "across" non-expandable cards (default image)', () => {
-  it('across card has cursor-default class', () => {
-    renderPage();
-    expandSection('across');
-    const card = getCard(/To communicate an idea successfully/i);
-    expect(card).toHaveClass('cursor-default');
-    expect(card).not.toHaveClass('cursor-pointer');
-  });
-
-  it('clicking "across" card never renders an image', () => {
-    renderPage();
-    expandSection('across');
-    fireEvent.click(getCard(/To communicate an idea successfully/i));
-    expect(within(getCard(/To communicate an idea successfully/i)).queryByRole('img')).not.toBeInTheDocument();
-  });
-
-  it('no "across" card ever renders an image regardless of clicks', () => {
-    renderPage();
-    expandSection('across');
-    fireEvent.click(getCard(/To communicate an idea successfully/i));
-    fireEvent.click(getCard(/To physically cross a road/i));
-    expect(screen.queryAllByRole('img')).toHaveLength(0);
-  });
-
-  it('clicking "across" card does not remove truncate class', () => {
-    renderPage();
-    expandSection('across');
-    fireEvent.click(getCard(/To communicate an idea successfully/i));
-    expect(within(getCard(/To communicate an idea successfully/i)).getByText(/"The leader got her vision across/i)).toHaveClass('truncate');
-  });
-});
-
-describe('GetVerbPage — "across" localStorage persistence', () => {
-  it('clicking "across" card does not save to localStorage', () => {
-    renderPage();
-    expandSection('across');
-    fireEvent.click(getCard(/To communicate an idea successfully/i));
-    expect(localStorage.getItem('getAcross_meaning_1_collapsed')).toBeNull();
-  });
-
-  it('ignores localStorage expanded state for default image cards', () => {
-    localStorage.setItem('getAcross_section_expanded', 'true');
-    localStorage.setItem('getAcross_meaning_1_collapsed', 'false');
-    renderPage();
-    expect(within(getCard(/To communicate an idea successfully/i)).getByText(/"The leader got her vision across/i)).toHaveClass('truncate');
-  });
-});
+describeDefaultImageCards(LABEL, 'across', 'getAcross', /To communicate an idea successfully/i, /"The leader got her vision across/i, renderPage, getCard);

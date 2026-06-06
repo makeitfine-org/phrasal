@@ -1,6 +1,6 @@
 import { screen, fireEvent, within } from '@testing-library/react';
 import { renderPage, getCard, expandSection } from './helpers';
-import { describeChevronAndColour, describeSectionToggle } from '../verbPage/sharedSectionTests';
+import { describeChevronAndColour, describeSectionToggle, describeDefaultImageCards } from '../verbPage/sharedSectionTests';
 
 const LABEL = 'PutVerbPage';
 
@@ -12,7 +12,7 @@ describeSectionToggle(LABEL, 'on', 'putOn_section_expanded', /To dress oneself i
 
 describeChevronAndColour(LABEL, 'on', renderPage);
 
-describe('PutVerbPage — "on" card view (default image)', () => {
+describe('PutVerbPage — "on" card view', () => {
   it('all 5 examples visible without expanding cards', () => {
     renderPage();
     expandSection('on');
@@ -21,16 +21,6 @@ describe('PutVerbPage — "on" card view (default image)', () => {
     expect(screen.getByText(/"He put on three kilos during the holidays\."/i)).toBeInTheDocument();
     expect(screen.getByText(/"Could you put the projector on for the presentation\?"/i)).toBeInTheDocument();
     expect(screen.getByText(/"She isn't really angry; she's just putting it on\."/i)).toBeInTheDocument();
-  });
-
-  it('all cards have cursor-default class', () => {
-    renderPage();
-    expandSection('on');
-    expect(getCard(/To dress oneself in clothing/i)).toHaveClass('cursor-default');
-    expect(getCard(/To organize a performance or event/i)).toHaveClass('cursor-default');
-    expect(getCard(/To gain weight/i)).toHaveClass('cursor-default');
-    expect(getCard(/To turn on a machine or appliance/i)).toHaveClass('cursor-default');
-    expect(getCard(/To pretend to have a feeling or attitude/i)).toHaveClass('cursor-default');
   });
 
   it('no "on" card renders an image regardless of clicks', () => {
@@ -44,3 +34,5 @@ describe('PutVerbPage — "on" card view (default image)', () => {
     expect(screen.queryAllByRole('img')).toHaveLength(0);
   });
 });
+
+describeDefaultImageCards(LABEL, 'on', 'putOn', /To dress oneself in clothing/i, /"I put on my suit/i, renderPage, getCard);
