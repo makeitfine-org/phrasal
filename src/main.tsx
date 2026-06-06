@@ -10,6 +10,7 @@ import GetVerbPage from './pages/get/GetVerbPage';
 import MakeVerbPage from './pages/make/MakeVerbPage';
 import PutVerbPage from './pages/put/PutVerbPage';
 import TakeVerbPage from './pages/take/TakeVerbPage';
+import GiveVerbPage from './pages/give/GiveVerbPage';
 import IWishPage from './pages/IWishPage';
 import NotFoundPage from './pages/NotFoundPage';
 import ErrorBoundary from './components/ErrorBoundary';
@@ -30,6 +31,7 @@ ReactDOM.createRoot(document.getElementById('root')!).render(
             <Route path="/phrasal-verbs/list/make" element={<MakeVerbPage />} />
             <Route path="/phrasal-verbs/list/put" element={<PutVerbPage />} />
             <Route path="/phrasal-verbs/list/take" element={<TakeVerbPage />} />
+            <Route path="/phrasal-verbs/list/give" element={<GiveVerbPage />} />
             <Route path="/grammar" element={<GrammarPage />} />
             <Route path="/grammar/i-wish-if-only" element={<IWishPage />} />
             <Route path="*" element={<NotFoundPage />} />
