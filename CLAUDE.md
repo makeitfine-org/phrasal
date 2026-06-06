@@ -66,6 +66,7 @@ Vitest + `@testing-library/react`. Test files live in `src/__tests__/`. The setu
 - Use **Context7 MCP** proactively for library/API docs — don't wait to be asked
 - Commits: semantic message ≤ 80 chars, no `Co-Authored-By` trailer
 - When compacting, always preserve the full list of modified files and any test commands
+- Don't change docs/blackbox/archive-*.md files
 
 ## Delivery Checklist
 
