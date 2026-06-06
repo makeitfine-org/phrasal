@@ -1187,3 +1187,77 @@ completed?
 ## 2026-06-06T08:40:38Z
 git add all changes and commit them with suitable message
 ---
+
+## 2026-06-06T12:19:44Z
+Add images for the phrasal verbs brought up:
+
+Take off
+
+Remove (clothing): "Please take off your shoes inside the house."
+/home/eug/Downloads/Done pics/take/off/take off - Remove (clothing).png
+
+Leave the ground (planes): "The flight will take off in ten minutes."
+/home/eug/Downloads/Done pics/take/off/take off - Leave the ground (planes).png
+
+Become successful quickly (business/ideas): "Her new software company really took off this year."
+/home/eug/Downloads/Done pics/take/off/take off - Become successful quickly (business, ideas).png
+
+Leave suddenly (informal): "He took off before the meeting ended."
+/home/eug/Downloads/Done pics/take/off/Leave suddenly (informal).png
+
+Not go to work: "I need to take a few days off to rest."
+/home/eug/Downloads/Done pics/take/off/take off - Not go to work.png
+---
+
+## 2026-06-06T12:20:14Z
+Add images for the phrasal verbs brought up:
+
+Take off
+
+Remove (clothing): "Please take off your shoes inside the house."
+/home/eug/Downloads/Done pics/take/off/take off - Remove (clothing).png
+
+Leave the ground (planes): "The flight will take off in ten minutes."
+/home/eug/Downloads/Done pics/take/off/take off - Leave the ground (planes).png
+
+Become successful quickly (business/ideas): "Her new software company really took off this year."
+/home/eug/Downloads/Done pics/take/off/take off - Become successful quickly (business, ideas).png
+
+Leave suddenly (informal): "He took off before the meeting ended."
+/home/eug/Downloads/Done pics/take/off/Leave suddenly (informal).png
+
+Not go to work: "I need to take a few days off to rest."
+/home/eug/Downloads/Done pics/take/off/take off - Not go to work.png
+
+
+Cover the changes with tests
+---
+
+## 2026-06-06T12:46:47Z
+Add images for the phrasal verbs brought up:
+
+Take off
+
+Remove (clothing): "Please take off your shoes inside the house."
+/home/eug/Downloads/Done pics/take/off/take off - Remove (clothing).png
+
+Leave the ground (planes): "The flight will take off in ten minutes."
+/home/eug/Downloads/Done pics/take/off/take off - Leave the ground (planes).png
+
+Become successful quickly (business/ideas): "Her new software company really took off this year."
+/home/eug/Downloads/Done pics/take/off/take off - Become successful quickly (business, ideas).png
+
+Leave suddenly (informal): "He took off before the meeting ended."
+/home/eug/Downloads/Done pics/take/off/Leave suddenly (informal).png
+
+Not go to work: "I need to take a few days off to rest."
+/home/eug/Downloads/Done pics/take/off/take off - Not go to work.png
+
+As an example see how it's done for example in "Get off" with image.
+
+Cover the changes with tests
+---
+
+## 2026-06-06T13:02:43Z
+git add all changes and commit them with suitable message
+---

@@ -6,31 +6,31 @@ const offMeanings: MeaningData[] = [
   {
     definition: 'To remove clothing or accessories',
     example: 'Please take off your shoes inside the house.',
-    imageSrc: `${base}images/phrasal_verbs/list/default.png`,
+    imageSrc: `${base}images/phrasal_verbs/list/take/off/clothing.png`,
     imageAlt: 'A person removing their shoes at the door',
   },
   {
     definition: 'To leave the ground and begin flying',
     example: 'The flight will take off in ten minutes.',
-    imageSrc: `${base}images/phrasal_verbs/list/default.png`,
+    imageSrc: `${base}images/phrasal_verbs/list/take/off/planes.png`,
     imageAlt: 'An aeroplane taking off from a runway',
   },
   {
     definition: 'To become very successful very quickly (business or ideas)',
     example: 'Her new software company really took off this year.',
-    imageSrc: `${base}images/phrasal_verbs/list/default.png`,
+    imageSrc: `${base}images/phrasal_verbs/list/take/off/business.png`,
     imageAlt: 'A fast-growing software company',
   },
   {
     definition: 'To leave quickly or without warning (informal)',
     example: 'He took off before the meeting ended.',
-    imageSrc: `${base}images/phrasal_verbs/list/default.png`,
+    imageSrc: `${base}images/phrasal_verbs/list/take/off/leave_suddenly.png`,
     imageAlt: 'A person leaving a meeting early without warning',
   },
   {
     definition: 'To have time away from work',
     example: 'I need to take a few days off to rest.',
-    imageSrc: `${base}images/phrasal_verbs/list/default.png`,
+    imageSrc: `${base}images/phrasal_verbs/list/take/off/days_off.png`,
     imageAlt: 'A person resting at home on days off work',
   },
 ];

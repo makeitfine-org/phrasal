@@ -570,3 +570,16 @@
 - .claude/docs/blackbox/audit.md
 - .claude/docs/blackbox/session-log.md
 <!-- end-snapshot -->
+
+<!-- git-snapshot 2026-06-06T12:48:55Z -->
+- .claude/docs/blackbox/audit.md
+- .claude/settings.local.json
+- src/__tests__/take_verb_page/off.test.tsx
+- src/pages/take/TakeVerbPage.tsx
+<!-- end-snapshot -->
+
+<!-- git-snapshot 2026-06-06T13:03:20Z -->
+- .claude/docs/blackbox/audit.md
+- .claude/docs/blackbox/session-log.md
+- .claude/settings.local.json
+<!-- end-snapshot -->

@@ -39,7 +39,13 @@
       "Bash(cp /home/eug/Downloads/* /home/eug/dev/projects/my/phrasal/*)",
       "Bash(git -C /home/eug/dev/projects/my/phrasal status)",
       "Bash(git -C /home/eug/dev/projects/my/phrasal diff --stat)",
-      "Bash(python3 *)"
+      "Bash(python3 *)",
+      "Bash(xargs cat)",
+      "Bash(cp \"/home/eug/Downloads/Done pics/take/off/take off - Remove \\(clothing\\).png\" /home/eug/dev/projects/my/phrasal/public/images/phrasal_verbs/list/take/off/clothing.png)",
+      "Bash(cp \"/home/eug/Downloads/Done pics/take/off/take off - Leave the ground \\(planes\\).png\" /home/eug/dev/projects/my/phrasal/public/images/phrasal_verbs/list/take/off/planes.png)",
+      "Bash(cp \"/home/eug/Downloads/Done pics/take/off/take off - Become successful quickly \\(business, ideas\\).png\" /home/eug/dev/projects/my/phrasal/public/images/phrasal_verbs/list/take/off/business.png)",
+      "Bash(cp \"/home/eug/Downloads/Done pics/take/off/Leave suddenly \\(informal\\).png\" /home/eug/dev/projects/my/phrasal/public/images/phrasal_verbs/list/take/off/leave_suddenly.png)",
+      "Bash(cp \"/home/eug/Downloads/Done pics/take/off/take off - Not go to work.png\" /home/eug/dev/projects/my/phrasal/public/images/phrasal_verbs/list/take/off/days_off.png)"
     ]
   },
   "model": "sonnet",
