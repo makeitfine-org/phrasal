@@ -17,10 +17,18 @@ const PUT_PARTICLES = [
   'about / around / round', 'to',
 ];
 
+const TAKE_PARTICLES = [
+  'off', 'on', 'up', 'down', 'in', 'into', 'out', 'away', 'cross / across',
+  'forward', 'back', 'for', 'by', 'together', 'with', 'without', 'apart',
+  'over', 'ahead', 'after', 'behind', 'through', 'about', 'around / round',
+  'to', 'against',
+];
+
 export default function PhrasalVerbsListPage() {
   const [copied, setCopied] = useState(false);
   const [makeCopied, setMakeCopied] = useState(false);
   const [putCopied, setPutCopied] = useState(false);
+  const [takeCopied, setTakeCopied] = useState(false);
 
   const handleCopy = (e: React.MouseEvent) => {
     e.preventDefault();
@@ -56,6 +64,18 @@ export default function PhrasalVerbsListPage() {
   };
 
   const putParticlesText = PUT_PARTICLES.join(', ');
+
+  const handleTakeCopy = (e: React.MouseEvent) => {
+    e.preventDefault();
+    e.stopPropagation();
+    const text = TAKE_PARTICLES.map(p => `take ${p}`).join(', ');
+    navigator.clipboard.writeText(text).then(() => {
+      setTakeCopied(true);
+      setTimeout(() => setTakeCopied(false), 1500);
+    });
+  };
+
+  const takeParticlesText = TAKE_PARTICLES.join(', ');
 
   return (
     <div className="min-h-screen bg-gray-50 dark:bg-gray-950 flex flex-col items-center justify-center p-6">
@@ -146,6 +166,36 @@ export default function PhrasalVerbsListPage() {
             title={putCopied ? 'Copied!' : 'Copy all "put" phrasal verbs'}
           >
             {putCopied ? (
+              <svg xmlns="http://www.w3.org/2000/svg" className="w-4 h-4 text-green-500" viewBox="0 0 20 20" fill="currentColor">
+                <path fillRule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clipRule="evenodd" />
+              </svg>
+            ) : (
+              <svg xmlns="http://www.w3.org/2000/svg" className="w-4 h-4" viewBox="0 0 20 20" fill="currentColor">
+                <path d="M8 3a1 1 0 011-1h2a1 1 0 110 2H9a1 1 0 01-1-1z" />
+                <path d="M6 3a2 2 0 00-2 2v11a2 2 0 002 2h8a2 2 0 002-2V5a2 2 0 00-2-2 3 3 0 01-3 3H9a3 3 0 01-3-3z" />
+              </svg>
+            )}
+          </button>
+        </Link>
+        <Link
+          to="/phrasal-verbs/list/take"
+          className="relative block rounded-2xl border border-gray-200 dark:border-gray-800 bg-white dark:bg-gray-900 shadow-md hover:shadow-lg transition-shadow p-6 pr-12"
+        >
+          <h2 className="text-xl font-semibold text-gray-900 dark:text-gray-100 mb-1">
+            Take
+          </h2>
+          <p
+            className="text-sm text-gray-500 dark:text-gray-400 line-clamp-2"
+            title={takeParticlesText}
+          >
+            {takeParticlesText}
+          </p>
+          <button
+            onClick={handleTakeCopy}
+            className="absolute top-4 right-4 p-1.5 rounded-lg text-gray-400 hover:text-gray-600 dark:hover:text-gray-200 hover:bg-gray-100 dark:hover:bg-gray-800 transition-colors"
+            title={takeCopied ? 'Copied!' : 'Copy all "take" phrasal verbs'}
+          >
+            {takeCopied ? (
               <svg xmlns="http://www.w3.org/2000/svg" className="w-4 h-4 text-green-500" viewBox="0 0 20 20" fill="currentColor">
                 <path fillRule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clipRule="evenodd" />
               </svg>

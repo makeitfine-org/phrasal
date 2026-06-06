@@ -542,3 +542,31 @@
 - .claude/docs/blackbox/audit.md
 - .claude/docs/blackbox/session-log.md
 <!-- end-snapshot -->
+
+<!-- git-snapshot 2026-06-06T08:39:53Z -->
+- .claude/docs/blackbox/audit.md
+- src/__tests__/PhrasalVerbsListPage.test.tsx
+- src/__tests__/take_verb_page/about.test.tsx
+- src/__tests__/take_verb_page/after.test.tsx
+- src/__tests__/take_verb_page/against.test.tsx
+- src/__tests__/take_verb_page/ahead.test.tsx
+- src/__tests__/take_verb_page/apart.test.tsx
+- src/__tests__/take_verb_page/around_round.test.tsx
+- src/__tests__/take_verb_page/away.test.tsx
+- src/__tests__/take_verb_page/back.test.tsx
+- src/__tests__/take_verb_page/behind.test.tsx
+- src/__tests__/take_verb_page/by.test.tsx
+- src/__tests__/take_verb_page/cross_across.test.tsx
+- src/__tests__/take_verb_page/down.test.tsx
+- src/__tests__/take_verb_page/for.test.tsx
+- src/__tests__/take_verb_page/forward.test.tsx
+- src/__tests__/take_verb_page/general.test.tsx
+- src/__tests__/take_verb_page/helpers.tsx
+- src/__tests__/take_verb_page/in.test.tsx
+- src/__tests__/take_verb_page/into.test.tsx
+<!-- end-snapshot -->
+
+<!-- git-snapshot 2026-06-06T08:40:50Z -->
+- .claude/docs/blackbox/audit.md
+- .claude/docs/blackbox/session-log.md
+<!-- end-snapshot -->

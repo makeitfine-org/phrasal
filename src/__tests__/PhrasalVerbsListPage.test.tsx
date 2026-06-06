@@ -24,6 +24,7 @@ function renderPageWithRoutes() {
         <Route path="/phrasal-verbs/list/get" element={<LocationSpy />} />
         <Route path="/phrasal-verbs/list/make" element={<LocationSpy />} />
         <Route path="/phrasal-verbs/list/put" element={<LocationSpy />} />
+        <Route path="/phrasal-verbs/list/take" element={<LocationSpy />} />
       </Routes>
     </MemoryRouter>
   );
@@ -43,6 +44,13 @@ const ALL_PUT_PARTICLES = [
   'off', 'on', 'up', 'down', 'in', 'into', 'out', 'away', 'across / over',
   'forward', 'back', 'by', 'together', 'with', 'ahead', 'behind', 'through',
   'about / around / round', 'to',
+];
+
+const ALL_TAKE_PARTICLES = [
+  'off', 'on', 'up', 'down', 'in', 'into', 'out', 'away', 'cross / across',
+  'forward', 'back', 'for', 'by', 'together', 'with', 'without', 'apart',
+  'over', 'ahead', 'after', 'behind', 'through', 'about', 'around / round',
+  'to', 'against',
 ];
 
 describe('PhrasalVerbsListPage', () => {
@@ -345,6 +353,109 @@ describe('PhrasalVerbsListPage — put copy button', () => {
   it('clicking put copy button does not navigate to put page', () => {
     renderPageWithRoutes();
     fireEvent.click(screen.getByRole('button', { name: /copy all "put" phrasal verbs/i }));
+    expect(screen.getByTestId('location').textContent).toBe('/phrasal-verbs/list');
+  });
+});
+
+describe('PhrasalVerbsListPage — Take card', () => {
+  it('renders the "Take" card', () => {
+    renderPage();
+    expect(screen.getByRole('heading', { name: 'Take' })).toBeInTheDocument();
+  });
+
+  it('"Take" link points to /phrasal-verbs/list/take', () => {
+    renderPage();
+    const link = screen.getByRole('link', { name: /Take/i });
+    expect(link).toHaveAttribute('href', '/phrasal-verbs/list/take');
+  });
+});
+
+describe('PhrasalVerbsListPage — Take particles subtitle', () => {
+  it('shows take particles text in subtitle', () => {
+    renderPage();
+    const takeCard = screen.getByRole('heading', { name: 'Take' }).closest('a')!;
+    expect(within(takeCard).getByText(/off, on, up/i)).toBeInTheDocument();
+  });
+
+  it('take subtitle has line-clamp-2 class', () => {
+    renderPage();
+    const takeCard = screen.getByRole('heading', { name: 'Take' }).closest('a')!;
+    const subtitle = within(takeCard).getByText(/off, on, up/i);
+    expect(subtitle).toHaveClass('line-clamp-2');
+  });
+
+  it('take subtitle title attribute contains all particles', () => {
+    renderPage();
+    const takeCard = screen.getByRole('heading', { name: 'Take' }).closest('a')!;
+    const subtitle = within(takeCard).getByText(/off, on, up/i);
+    expect(subtitle).toHaveAttribute('title', expect.stringContaining('cross / across'));
+    expect(subtitle).toHaveAttribute('title', expect.stringContaining('around / round'));
+    expect(subtitle).toHaveAttribute('title', expect.stringContaining('against'));
+  });
+});
+
+describe('PhrasalVerbsListPage — take copy button', () => {
+  beforeEach(() => {
+    Object.assign(navigator, {
+      clipboard: { writeText: vi.fn().mockResolvedValue(undefined) },
+    });
+  });
+
+  afterEach(() => {
+    vi.restoreAllMocks();
+    vi.useRealTimers();
+  });
+
+  it('renders a take copy button', () => {
+    renderPage();
+    expect(screen.getByRole('button', { name: /copy all "take" phrasal verbs/i })).toBeInTheDocument();
+  });
+
+  it('take copy button title is \'Copy all "take" phrasal verbs\' before click', () => {
+    renderPage();
+    expect(screen.getByRole('button', { name: /copy all "take" phrasal verbs/i }))
+      .toHaveAttribute('title', 'Copy all "take" phrasal verbs');
+  });
+
+  it('clipboard receives all 26 take particles as "take X" forms in order', () => {
+    renderPage();
+    fireEvent.click(screen.getByRole('button', { name: /copy all "take" phrasal verbs/i }));
+    const expected = ALL_TAKE_PARTICLES.map(p => `take ${p}`).join(', ');
+    expect(navigator.clipboard.writeText).toHaveBeenCalledWith(expected);
+  });
+
+  it('clipboard content contains every take particle', () => {
+    renderPage();
+    fireEvent.click(screen.getByRole('button', { name: /copy all "take" phrasal verbs/i }));
+    const written = (navigator.clipboard.writeText as ReturnType<typeof vi.fn>).mock.calls[0][0] as string;
+    for (const p of ALL_TAKE_PARTICLES) {
+      expect(written).toContain(`take ${p}`);
+    }
+  });
+
+  it('take copy button shows "Copied!" title after click', async () => {
+    renderPage();
+    fireEvent.click(screen.getByRole('button', { name: /copy all "take" phrasal verbs/i }));
+    await vi.waitFor(() => {
+      expect(screen.getByRole('button', { name: /copied!/i }))
+        .toHaveAttribute('title', 'Copied!');
+    });
+  });
+
+  it('take copy button reverts to original title after 1500 ms', async () => {
+    vi.useFakeTimers();
+    renderPage();
+    fireEvent.click(screen.getByRole('button', { name: /copy all "take" phrasal verbs/i }));
+    await vi.waitFor(() => expect(screen.getByRole('button', { name: /copied!/i })).toBeInTheDocument());
+    vi.advanceTimersByTime(1500);
+    await vi.waitFor(() => {
+      expect(screen.getByRole('button', { name: /copy all "take" phrasal verbs/i })).toBeInTheDocument();
+    });
+  });
+
+  it('clicking take copy button does not navigate to take page', () => {
+    renderPageWithRoutes();
+    fireEvent.click(screen.getByRole('button', { name: /copy all "take" phrasal verbs/i }));
     expect(screen.getByTestId('location').textContent).toBe('/phrasal-verbs/list');
   });
 });
