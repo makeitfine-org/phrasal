@@ -1279,3 +1279,44 @@ Compete against: "Our team will take on the market leader next year."
 As an example see how it's done for example in "Get off" with image.
 Cover the changes with tests.
 ---
+
+## 2026-06-06T13:20:13Z
+Add images for the phrasal verbs brought up:
+---
+Take up
+
+Start a new activity or hobby: "He took up golf to relax after work."
+/home/eug/Downloads/Done pics/take/up/take up - Start a new activity or hobby.png
+
+Occupy time or space: "These large files take up too much space on the server."
+/home/eug/Downloads/Done pics/take/up/take up - Occupy time or space.png
+
+Accept an offer: "I will take you up on that job offer."
+/home/eug/Downloads/Done pics/take/up/take up - Accept an offer.png
+
+Shorten clothes: "I need to take up these trousers; they are too long."
+/home/eug/Downloads/Done pics/take/up/take up - Shorten clothes.png
+---
+As an example see how it's done for example in "Get off" with image.
+Cover the changes with tests.
+---
+
+## 2026-06-06T13:31:39Z
+When click on any listed phrasal verb the distance between lines of definition and example increased a little, 
+frame of the phrasal verb content also becomes higher and lines of defintion and example becomes closer to the up and down border.
+Make that stop shifting.
+screan before click: file:///home/eug/Pictures/Screenshots/Screenshot%20from%202026-06-06%2015-28-54.png
+screnn after click: file:///home/eug/Pictures/Screenshots/Screenshot%20from%202026-06-06%2015-29-13.png
+---
+
+## 2026-06-06T13:39:51Z
+Cover the functionality with tests
+---
+
+## 2026-06-06T13:44:20Z
+git add all changes and commit them with suitable message
+---
+
+## 2026-06-06T13:46:23Z
+git add all changes and commit them with suitable message
+---

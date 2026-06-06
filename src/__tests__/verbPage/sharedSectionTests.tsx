@@ -105,6 +105,59 @@ export function describeChevronAndColour(
   });
 }
 
+export function describeMeaningCardLayout(
+  label: string,
+  particle: string,
+  firstDef: RegExp,
+  firstExample: RegExp,
+  renderPage: () => void,
+  getCard: (pattern: RegExp) => HTMLElement,
+) {
+  describe(`${label} — "${particle}" card layout consistency`, () => {
+    it(`collapsed card inner wrapper has p-4 class`, () => {
+      renderPage();
+      fireEvent.click(screen.getByText(particle));
+      const inner = getCard(firstDef).firstElementChild as HTMLElement;
+      expect(inner).toHaveClass('p-4');
+    });
+
+    it(`expanded card inner wrapper has p-4 class (no pt-3 shift)`, () => {
+      renderPage();
+      fireEvent.click(screen.getByText(particle));
+      fireEvent.click(getCard(firstDef));
+      const inner = getCard(firstDef).firstElementChild as HTMLElement;
+      expect(inner).toHaveClass('p-4');
+      expect(inner).not.toHaveClass('pt-3');
+    });
+
+    it(`collapsed card example has mt-0.5 class`, () => {
+      renderPage();
+      fireEvent.click(screen.getByText(particle));
+      expect(within(getCard(firstDef)).getByText(firstExample)).toHaveClass('mt-0.5');
+    });
+
+    it(`expanded card example has mt-0.5 class (spacing unchanged on expand)`, () => {
+      renderPage();
+      fireEvent.click(screen.getByText(particle));
+      fireEvent.click(getCard(firstDef));
+      expect(within(getCard(firstDef)).getByText(firstExample)).toHaveClass('mt-0.5');
+    });
+
+    it(`collapsed card example does not have pl-8 class`, () => {
+      renderPage();
+      fireEvent.click(screen.getByText(particle));
+      expect(within(getCard(firstDef)).getByText(firstExample)).not.toHaveClass('pl-8');
+    });
+
+    it(`expanded card example does not have pl-8 class`, () => {
+      renderPage();
+      fireEvent.click(screen.getByText(particle));
+      fireEvent.click(getCard(firstDef));
+      expect(within(getCard(firstDef)).getByText(firstExample)).not.toHaveClass('pl-8');
+    });
+  });
+}
+
 export function describeDefaultImageCards(
   label: string,
   particle: string,

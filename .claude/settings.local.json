@@ -48,7 +48,11 @@
       "Bash(cp \"/home/eug/Downloads/Done pics/take/off/take off - Not go to work.png\" /home/eug/dev/projects/my/phrasal/public/images/phrasal_verbs/list/take/off/days_off.png)",
       "Bash(cp \"/home/eug/Downloads/Done pics/take/on/take on - Accept work or responsibility.png\" /home/eug/dev/projects/my/phrasal/public/images/phrasal_verbs/list/take/on/accept_work.png)",
       "Bash(cp \"/home/eug/Downloads/Done pics/take/on/take on - Hire someone.png\" /home/eug/dev/projects/my/phrasal/public/images/phrasal_verbs/list/take/on/hire_someone.png)",
-      "Bash(cp \"/home/eug/Downloads/Done pics/take/on/take on - Compete against.png\" /home/eug/dev/projects/my/phrasal/public/images/phrasal_verbs/list/take/on/compete_against.png)"
+      "Bash(cp \"/home/eug/Downloads/Done pics/take/on/take on - Compete against.png\" /home/eug/dev/projects/my/phrasal/public/images/phrasal_verbs/list/take/on/compete_against.png)",
+      "Bash(cp \"/home/eug/Downloads/Done pics/take/up/take up - Start a new activity or hobby.png\" /home/eug/dev/projects/my/phrasal/public/images/phrasal_verbs/list/take/up/start_hobby.png)",
+      "Bash(cp \"/home/eug/Downloads/Done pics/take/up/take up - Occupy time or space.png\" /home/eug/dev/projects/my/phrasal/public/images/phrasal_verbs/list/take/up/occupy_space.png)",
+      "Bash(cp \"/home/eug/Downloads/Done pics/take/up/take up - Accept an offer.png\" /home/eug/dev/projects/my/phrasal/public/images/phrasal_verbs/list/take/up/accept_offer.png)",
+      "Bash(cp \"/home/eug/Downloads/Done pics/take/up/take up - Shorten clothes.png\" /home/eug/dev/projects/my/phrasal/public/images/phrasal_verbs/list/take/up/shorten_clothes.png)"
     ]
   },
   "model": "sonnet",

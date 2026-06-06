@@ -41,57 +41,36 @@ function Meaning({ number, definition, example, imageSrc, imageAlt, storageKeyPr
       className="bg-white dark:bg-gray-900 rounded-2xl border border-gray-600 dark:border-gray-400 shadow-md overflow-hidden cursor-pointer"
       onClick={toggle}
     >
-      {collapsed ? (
-        <div className="p-4">
-          <div className="flex items-start gap-2">
-            <span className="flex-shrink-0 w-6 h-6 rounded-full bg-blue-600 text-white text-xs font-bold flex items-center justify-center">
-              {number}
-            </span>
-            <div className="min-w-0 flex-1">
-              <p
-                className="text-gray-800 dark:text-gray-100 text-xl md:text-base font-medium leading-snug truncate"
-                title={definition}
-              >
-                {definition}
-              </p>
-              <p
-                className="text-gray-500 dark:text-gray-400 text-xl md:text-sm italic truncate mt-0.5"
-                title={`"${example}"`}
-              >
-                "{example}"
-              </p>
-            </div>
+      <div className="p-4">
+        {!collapsed && !isDefault && (
+          <div className="flex justify-center mb-3">
+            <img
+              src={imageSrc}
+              alt={imageAlt}
+              className="max-w-sm w-full border border-gray-200 dark:border-gray-700 rounded-xl"
+            />
           </div>
-        </div>
-      ) : (
-        <div className="p-4 pt-3">
-          {!isDefault && (
-            <div className="flex justify-center mb-3">
-              <img
-                src={imageSrc}
-                alt={imageAlt}
-                className="max-w-sm w-full border border-gray-200 dark:border-gray-700 rounded-xl"
-              />
-            </div>
-          )}
-          <div>
-            <div className="flex items-start gap-2 mb-2">
-              <span className="flex-shrink-0 w-6 h-6 rounded-full bg-blue-600 text-white text-xs font-bold flex items-center justify-center">
-                {number}
-              </span>
-              <p
-                className="text-gray-800 dark:text-gray-100 text-xl md:text-base font-medium leading-snug"
-                title={definition}
-              >
-                {definition}
-              </p>
-            </div>
-            <p className="text-gray-500 dark:text-gray-400 text-xl md:text-sm italic pl-8">
+        )}
+        <div className="flex items-start gap-2">
+          <span className="flex-shrink-0 w-6 h-6 rounded-full bg-blue-600 text-white text-xs font-bold flex items-center justify-center">
+            {number}
+          </span>
+          <div className="min-w-0 flex-1">
+            <p
+              className={`text-gray-800 dark:text-gray-100 text-xl md:text-base font-medium leading-snug${collapsed ? ' truncate' : ''}`}
+              title={definition}
+            >
+              {definition}
+            </p>
+            <p
+              className={`text-gray-500 dark:text-gray-400 text-xl md:text-sm italic mt-0.5${collapsed ? ' truncate' : ''}`}
+              title={`"${example}"`}
+            >
               "{example}"
             </p>
           </div>
         </div>
-      )}
+      </div>
     </div>
   );
 }

@@ -1,6 +1,6 @@
 import { screen } from '@testing-library/react';
 import { renderPage, getCard, expandSection } from './helpers';
-import { describeChevronAndColour, describeSectionToggle, describeDefaultImageCards } from '../verbPage/sharedSectionTests';
+import { describeChevronAndColour, describeSectionToggle, describeDefaultImageCards, describeMeaningCardLayout } from '../verbPage/sharedSectionTests';
 
 const LABEL = 'TakeVerbPage';
 
@@ -27,3 +27,5 @@ describeSectionToggle(LABEL, 'by', 'takeBy_section_expanded', /To happen unexpec
 describeChevronAndColour(LABEL, 'by', renderPage);
 
 describeDefaultImageCards(LABEL, 'by', 'takeBy', /To happen unexpectedly/i, /"The sudden market crash took us by surprise/i, renderPage, getCard);
+
+describeMeaningCardLayout(LABEL, 'by', /To happen unexpectedly/i, /"The sudden market crash took us by surprise/i, renderPage, getCard);

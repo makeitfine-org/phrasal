@@ -67,6 +67,7 @@ Vitest + `@testing-library/react`. Test files live in `src/__tests__/`. The setu
 - Commits: semantic message ≤ 80 chars, no `Co-Authored-By` trailer
 - When compacting, always preserve the full list of modified files and any test commands
 - Don't change docs/blackbox/archive-*.md files
+- Don't delete anything from docs/blackbox/plans folder
 
 ## Delivery Checklist
 

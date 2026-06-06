@@ -588,3 +588,29 @@
 - .claude/docs/blackbox/audit.md
 - .claude/settings.local.json
 <!-- end-snapshot -->
+
+<!-- git-snapshot 2026-06-06T13:23:06Z -->
+- .claude/docs/blackbox/audit.md
+- .claude/settings.local.json
+<!-- end-snapshot -->
+
+<!-- git-snapshot 2026-06-06T13:37:16Z -->
+- .claude/docs/blackbox/audit.md
+- .claude/docs/blackbox/plans/2026-06-06 09:32 Context.md
+- .claude/docs/blackbox/session-log.md
+- .claude/settings.local.json
+- src/components/VerbPage.tsx
+<!-- end-snapshot -->
+
+<!-- git-snapshot 2026-06-06T13:43:47Z -->
+- .claude/docs/blackbox/audit.md
+- .claude/docs/blackbox/plans/2026-06-06 09:32 Context.md
+- .claude/docs/blackbox/plans/2026-06-06 15:34 Context.md
+- .claude/docs/blackbox/session-log.md
+- .claude/settings.local.json
+- CLAUDE.md
+- src/__tests__/take_verb_page/by.test.tsx
+- src/__tests__/take_verb_page/off.test.tsx
+- src/__tests__/verbPage/sharedSectionTests.tsx
+- src/components/VerbPage.tsx
+<!-- end-snapshot -->

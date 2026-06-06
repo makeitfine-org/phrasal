@@ -1,6 +1,6 @@
 import { screen, fireEvent, within } from '@testing-library/react';
 import { renderPage, getCard, expandSection } from './helpers';
-import { describeChevronAndColour, describeSectionToggle } from '../verbPage/sharedSectionTests';
+import { describeChevronAndColour, describeSectionToggle, describeMeaningCardLayout } from '../verbPage/sharedSectionTests';
 
 const LABEL = 'TakeVerbPage';
 
@@ -53,6 +53,8 @@ describe('TakeVerbPage — "off" section definitions', () => {
 describeSectionToggle(LABEL, 'off', 'takeOff_section_expanded', /To remove clothing or accessories/i, renderPage);
 
 describeChevronAndColour(LABEL, 'off', renderPage);
+
+describeMeaningCardLayout(LABEL, 'off', /To remove clothing or accessories/i, /"Please take off your shoes/i, renderPage, getCard);
 
 describe('TakeVerbPage — "off" card expand / collapse', () => {
   it('starts all cards collapsed (no examples visible)', () => {
