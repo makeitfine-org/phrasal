@@ -1,94 +1,8 @@
-import React, { useState } from 'react';
-
-interface MeaningProps {
-  number: number;
-  definition: string;
-  example: string;
-  imageSrc: string;
-  imageAlt: string;
-  storageKeyPrefix: string;
-}
-
-function Meaning({ number, definition, example, imageSrc, imageAlt, storageKeyPrefix }: MeaningProps) {
-  const isDefault = imageSrc.endsWith('default.png');
-  const storageKey = `${storageKeyPrefix}_meaning_${number}_collapsed`;
-  const [collapsed, setCollapsed] = useState(() => {
-    if (isDefault) return true;
-    const saved = localStorage.getItem(storageKey);
-    return saved !== null ? saved === 'true' : true;
-  });
-
-  const toggle = () => {
-    if (isDefault) return;
-    if (window.getSelection()?.toString()) return;
-    setCollapsed(c => {
-      const next = !c;
-      localStorage.setItem(storageKey, String(next));
-      return next;
-    });
-  };
-
-  return (
-    <div
-      className={`bg-white dark:bg-gray-900 rounded-2xl border border-gray-600 dark:border-gray-400 shadow-md overflow-hidden ${isDefault ? 'cursor-default' : 'cursor-pointer'}`}
-      onClick={toggle}
-    >
-      {collapsed ? (
-        <div className="p-4">
-          <div className="flex items-start gap-2">
-            <span className="flex-shrink-0 w-6 h-6 rounded-full bg-blue-600 text-white text-xs font-bold flex items-center justify-center">
-              {number}
-            </span>
-            <div className="min-w-0 flex-1">
-              <p
-                className="text-gray-800 dark:text-gray-100 text-xl md:text-base font-medium leading-snug truncate"
-                title={definition}
-              >
-                {definition}
-              </p>
-              <p
-                className="text-gray-500 dark:text-gray-400 text-xl md:text-sm italic truncate mt-0.5"
-                title={`"${example}"`}
-              >
-                "{example}"
-              </p>
-            </div>
-          </div>
-        </div>
-      ) : (
-        <div className="p-4 pt-3">
-          <div className="flex justify-center mb-3">
-            <img
-              src={imageSrc}
-              alt={imageAlt}
-              className="max-w-sm w-full border border-gray-200 dark:border-gray-700 rounded-xl"
-            />
-          </div>
-          <div>
-            <div className="flex items-start gap-2 mb-2">
-              <span className="flex-shrink-0 w-6 h-6 rounded-full bg-blue-600 text-white text-xs font-bold flex items-center justify-center">
-                {number}
-              </span>
-              <p
-                className="text-gray-800 dark:text-gray-100 text-xl md:text-base font-medium leading-snug"
-                title={definition}
-              >
-                {definition}
-              </p>
-            </div>
-            <p className="text-gray-500 dark:text-gray-400 text-xl md:text-sm italic pl-8">
-              "{example}"
-            </p>
-          </div>
-        </div>
-      )}
-    </div>
-  );
-}
+import VerbPageLayout, { MeaningData, SectionData } from '../../components/VerbPage';
 
 const base = import.meta.env.BASE_URL;
 
-const afterMeanings: Omit<MeaningProps, 'number' | 'storageKeyPrefix'>[] = [
+const afterMeanings: MeaningData[] = [
   {
     definition: 'To chase someone or something',
     example: 'The security guard made after the shoplifter.',
@@ -97,7 +11,7 @@ const afterMeanings: Omit<MeaningProps, 'number' | 'storageKeyPrefix'>[] = [
   },
 ];
 
-const awayMeanings: Omit<MeaningProps, 'number' | 'storageKeyPrefix'>[] = [
+const awayMeanings: MeaningData[] = [
   {
     definition: 'To steal something and escape with it (make away with)',
     example: 'Hackers made away with thousands of encrypted passwords.',
@@ -106,7 +20,7 @@ const awayMeanings: Omit<MeaningProps, 'number' | 'storageKeyPrefix'>[] = [
   },
 ];
 
-const forMeanings: Omit<MeaningProps, 'number' | 'storageKeyPrefix'>[] = [
+const forMeanings: MeaningData[] = [
   {
     definition: 'To move directly towards a place',
     example: 'After the meeting ended, we made for the exit.',
@@ -121,7 +35,7 @@ const forMeanings: Omit<MeaningProps, 'number' | 'storageKeyPrefix'>[] = [
   },
 ];
 
-const intoMeanings: Omit<MeaningProps, 'number' | 'storageKeyPrefix'>[] = [
+const intoMeanings: MeaningData[] = [
   {
     definition: 'To change or transform something into something else',
     example: 'The developers made the old legacy system into a modern Java application.',
@@ -130,7 +44,7 @@ const intoMeanings: Omit<MeaningProps, 'number' | 'storageKeyPrefix'>[] = [
   },
 ];
 
-const offMeanings: Omit<MeaningProps, 'number' | 'storageKeyPrefix'>[] = [
+const offMeanings: MeaningData[] = [
   {
     definition: 'To leave quickly, especially to escape after doing something wrong (make off with)',
     example: 'The thieves made off before the police arrived.',
@@ -139,7 +53,7 @@ const offMeanings: Omit<MeaningProps, 'number' | 'storageKeyPrefix'>[] = [
   },
 ];
 
-const outMeanings: Omit<MeaningProps, 'number' | 'storageKeyPrefix'>[] = [
+const outMeanings: MeaningData[] = [
   {
     definition: 'To manage to see, hear, or read something with difficulty',
     example: 'I could not make out the error message on the monitor because the screen was too bright.',
@@ -178,7 +92,7 @@ const outMeanings: Omit<MeaningProps, 'number' | 'storageKeyPrefix'>[] = [
   },
 ];
 
-const overMeanings: Omit<MeaningProps, 'number' | 'storageKeyPrefix'>[] = [
+const overMeanings: MeaningData[] = [
   {
     definition: 'To change or improve the appearance of someone or something',
     example: 'We made over the entire office space to encourage better collaboration.',
@@ -193,7 +107,7 @@ const overMeanings: Omit<MeaningProps, 'number' | 'storageKeyPrefix'>[] = [
   },
 ];
 
-const upMeanings: Omit<MeaningProps, 'number' | 'storageKeyPrefix'>[] = [
+const upMeanings: MeaningData[] = [
   {
     definition: 'To invent a story, excuse, or explanation',
     example: 'He made up an excuse for missing the daily stand-up meeting.',
@@ -220,7 +134,7 @@ const upMeanings: Omit<MeaningProps, 'number' | 'storageKeyPrefix'>[] = [
   },
 ];
 
-const upForMeanings: Omit<MeaningProps, 'number' | 'storageKeyPrefix'>[] = [
+const upForMeanings: MeaningData[] = [
   {
     definition: 'To compensate for something bad, missing, or lost',
     example: 'We worked late on Friday to make up for the time lost during the server crash.',
@@ -229,7 +143,7 @@ const upForMeanings: Omit<MeaningProps, 'number' | 'storageKeyPrefix'>[] = [
   },
 ];
 
-const withMeanings: Omit<MeaningProps, 'number' | 'storageKeyPrefix'>[] = [
+const withMeanings: MeaningData[] = [
   {
     definition: 'To produce, supply, or give something quickly (slang/informal)',
     example: 'Make with the financial reports, the board is waiting!',
@@ -238,81 +152,19 @@ const withMeanings: Omit<MeaningProps, 'number' | 'storageKeyPrefix'>[] = [
   },
 ];
 
-function Section({
-  particle,
-  meanings,
-  storageKey,
-  storageKeyPrefix,
-}: {
-  particle: string;
-  meanings: Omit<MeaningProps, 'number' | 'storageKeyPrefix'>[];
-  storageKey: string;
-  storageKeyPrefix: string;
-}) {
-  const [expanded, setExpanded] = useState(() => {
-    const saved = localStorage.getItem(storageKey);
-    return saved !== null ? saved === 'true' : false;
-  });
-
-  const toggle = () => {
-    setExpanded(e => {
-      const next = !e;
-      localStorage.setItem(storageKey, String(next));
-      return next;
-    });
-  };
-
-  return (
-    <div className="mb-5">
-      <div
-        className="flex items-center gap-2 cursor-pointer select-none mb-4 px-1"
-        onClick={toggle}
-      >
-        <span className={`text-sm transition-transform duration-200 inline-block ${expanded ? 'rotate-90 text-white' : 'text-blue-600 dark:text-blue-400'}`}>
-          ▶
-        </span>
-        <span className={`text-2xl font-bold ${expanded ? 'text-white' : 'text-blue-600 dark:text-blue-400'}`}>{particle}</span>
-      </div>
-
-      {expanded && (
-        <div className="flex flex-col gap-6">
-          {meanings.map((m, i) => (
-            <Meaning key={i} number={i + 1} storageKeyPrefix={storageKeyPrefix} {...m} />
-          ))}
-        </div>
-      )}
-    </div>
-  );
-}
+const sections: SectionData[] = [
+  { particle: 'after', storageKey: 'makeAfter_section_expanded', storageKeyPrefix: 'makeAfter', meanings: afterMeanings },
+  { particle: 'away (with)', storageKey: 'makeAway_section_expanded', storageKeyPrefix: 'makeAway', meanings: awayMeanings },
+  { particle: 'for', storageKey: 'makeFor_section_expanded', storageKeyPrefix: 'makeFor', meanings: forMeanings },
+  { particle: 'into', storageKey: 'makeInto_section_expanded', storageKeyPrefix: 'makeInto', meanings: intoMeanings },
+  { particle: 'off (with)', storageKey: 'makeOff_section_expanded', storageKeyPrefix: 'makeOff', meanings: offMeanings },
+  { particle: 'out', storageKey: 'makeOut_section_expanded', storageKeyPrefix: 'makeOut', meanings: outMeanings },
+  { particle: 'over', storageKey: 'makeOver_section_expanded', storageKeyPrefix: 'makeOver', meanings: overMeanings },
+  { particle: 'up', storageKey: 'makeUp_section_expanded', storageKeyPrefix: 'makeUp', meanings: upMeanings },
+  { particle: 'up for', storageKey: 'makeUpFor_section_expanded', storageKeyPrefix: 'makeUpFor', meanings: upForMeanings },
+  { particle: 'with', storageKey: 'makeWith_section_expanded', storageKeyPrefix: 'makeWith', meanings: withMeanings },
+];
 
 export default function MakeVerbPage() {
-  return (
-    <div className="min-h-screen bg-gray-50 dark:bg-gray-950 px-4 py-10">
-      <div className="max-w-[700px] mx-auto">
-        <h1 className="text-4xl font-bold text-gray-900 dark:text-gray-100 mb-6 text-center">
-          Make
-        </h1>
-
-        <Section particle="after" meanings={afterMeanings} storageKey="makeAfter_section_expanded" storageKeyPrefix="makeAfter" />
-        <hr className="border-gray-600 dark:border-gray-500 my-2" />
-        <Section particle="away (with)" meanings={awayMeanings} storageKey="makeAway_section_expanded" storageKeyPrefix="makeAway" />
-        <hr className="border-gray-600 dark:border-gray-500 my-2" />
-        <Section particle="for" meanings={forMeanings} storageKey="makeFor_section_expanded" storageKeyPrefix="makeFor" />
-        <hr className="border-gray-600 dark:border-gray-500 my-2" />
-        <Section particle="into" meanings={intoMeanings} storageKey="makeInto_section_expanded" storageKeyPrefix="makeInto" />
-        <hr className="border-gray-600 dark:border-gray-500 my-2" />
-        <Section particle="off (with)" meanings={offMeanings} storageKey="makeOff_section_expanded" storageKeyPrefix="makeOff" />
-        <hr className="border-gray-600 dark:border-gray-500 my-2" />
-        <Section particle="out" meanings={outMeanings} storageKey="makeOut_section_expanded" storageKeyPrefix="makeOut" />
-        <hr className="border-gray-600 dark:border-gray-500 my-2" />
-        <Section particle="over" meanings={overMeanings} storageKey="makeOver_section_expanded" storageKeyPrefix="makeOver" />
-        <hr className="border-gray-600 dark:border-gray-500 my-2" />
-        <Section particle="up" meanings={upMeanings} storageKey="makeUp_section_expanded" storageKeyPrefix="makeUp" />
-        <hr className="border-gray-600 dark:border-gray-500 my-2" />
-        <Section particle="up for" meanings={upForMeanings} storageKey="makeUpFor_section_expanded" storageKeyPrefix="makeUpFor" />
-        <hr className="border-gray-600 dark:border-gray-500 my-2" />
-        <Section particle="with" meanings={withMeanings} storageKey="makeWith_section_expanded" storageKeyPrefix="makeWith" />
-      </div>
-    </div>
-  );
+  return <VerbPageLayout title="Make" sections={sections} />;
 }

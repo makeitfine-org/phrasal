@@ -997,3 +997,13 @@ Example: Moving the server room put us to a lot of trouble.
 1) Create "put" link on list page with particals mentioned above phrasal verbs. Take as base "get" link.
 2) Create "put" page with mentioned above phrasal verbs. Take as base "get" page.
 ---
+
+## 2026-06-06T06:21:59Z
+For listed phrasal verbs with default.png image delete img tag with that pic and don't show that, but on click to frame just extend/collapse the phrasal verb content.
+Consider test they must be passed.
+---
+
+## 2026-06-06T06:30:44Z
+For all listed phrasal verbs pages (like "get", "put", etc) create template and use that buy substitution the current.
+It will be use for preventing code duplicating.
+---

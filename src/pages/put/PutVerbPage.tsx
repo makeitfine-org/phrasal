@@ -1,94 +1,8 @@
-import React, { useState } from 'react';
-
-interface MeaningProps {
-  number: number;
-  definition: string;
-  example: string;
-  imageSrc: string;
-  imageAlt: string;
-  storageKeyPrefix: string;
-}
-
-function Meaning({ number, definition, example, imageSrc, imageAlt, storageKeyPrefix }: MeaningProps) {
-  const isDefault = imageSrc.endsWith('default.png');
-  const storageKey = `${storageKeyPrefix}_meaning_${number}_collapsed`;
-  const [collapsed, setCollapsed] = useState(() => {
-    if (isDefault) return true;
-    const saved = localStorage.getItem(storageKey);
-    return saved !== null ? saved === 'true' : true;
-  });
-
-  const toggle = () => {
-    if (isDefault) return;
-    if (window.getSelection()?.toString()) return;
-    setCollapsed(c => {
-      const next = !c;
-      localStorage.setItem(storageKey, String(next));
-      return next;
-    });
-  };
-
-  return (
-    <div
-      className={`bg-white dark:bg-gray-900 rounded-2xl border border-gray-600 dark:border-gray-400 shadow-md overflow-hidden ${isDefault ? 'cursor-default' : 'cursor-pointer'}`}
-      onClick={toggle}
-    >
-      {collapsed ? (
-        <div className="p-4">
-          <div className="flex items-start gap-2">
-            <span className="flex-shrink-0 w-6 h-6 rounded-full bg-blue-600 text-white text-xs font-bold flex items-center justify-center">
-              {number}
-            </span>
-            <div className="min-w-0 flex-1">
-              <p
-                className="text-gray-800 dark:text-gray-100 text-xl md:text-base font-medium leading-snug truncate"
-                title={definition}
-              >
-                {definition}
-              </p>
-              <p
-                className="text-gray-500 dark:text-gray-400 text-xl md:text-sm italic truncate mt-0.5"
-                title={`"${example}"`}
-              >
-                "{example}"
-              </p>
-            </div>
-          </div>
-        </div>
-      ) : (
-        <div className="p-4 pt-3">
-          <div className="flex justify-center mb-3">
-            <img
-              src={imageSrc}
-              alt={imageAlt}
-              className="max-w-sm w-full border border-gray-200 dark:border-gray-700 rounded-xl"
-            />
-          </div>
-          <div>
-            <div className="flex items-start gap-2 mb-2">
-              <span className="flex-shrink-0 w-6 h-6 rounded-full bg-blue-600 text-white text-xs font-bold flex items-center justify-center">
-                {number}
-              </span>
-              <p
-                className="text-gray-800 dark:text-gray-100 text-xl md:text-base font-medium leading-snug"
-                title={definition}
-              >
-                {definition}
-              </p>
-            </div>
-            <p className="text-gray-500 dark:text-gray-400 text-xl md:text-sm italic pl-8">
-              "{example}"
-            </p>
-          </div>
-        </div>
-      )}
-    </div>
-  );
-}
+import VerbPageLayout, { MeaningData, SectionData } from '../../components/VerbPage';
 
 const base = import.meta.env.BASE_URL;
 
-const offMeanings: Omit<MeaningProps, 'number' | 'storageKeyPrefix'>[] = [
+const offMeanings: MeaningData[] = [
   {
     definition: 'To delay or postpone something',
     example: 'We have to put off the sprint planning meeting until tomorrow.',
@@ -109,7 +23,7 @@ const offMeanings: Omit<MeaningProps, 'number' | 'storageKeyPrefix'>[] = [
   },
 ];
 
-const onMeanings: Omit<MeaningProps, 'number' | 'storageKeyPrefix'>[] = [
+const onMeanings: MeaningData[] = [
   {
     definition: 'To dress oneself in clothing',
     example: 'I put on my suit for the management interview.',
@@ -142,7 +56,7 @@ const onMeanings: Omit<MeaningProps, 'number' | 'storageKeyPrefix'>[] = [
   },
 ];
 
-const upMeanings: Omit<MeaningProps, 'number' | 'storageKeyPrefix'>[] = [
+const upMeanings: MeaningData[] = [
   {
     definition: 'To build or erect something',
     example: 'They put up a new office building in Warsaw.',
@@ -169,7 +83,7 @@ const upMeanings: Omit<MeaningProps, 'number' | 'storageKeyPrefix'>[] = [
   },
 ];
 
-const downMeanings: Omit<MeaningProps, 'number' | 'storageKeyPrefix'>[] = [
+const downMeanings: MeaningData[] = [
   {
     definition: 'To write something down',
     example: 'Let me put down your contact details.',
@@ -208,7 +122,7 @@ const downMeanings: Omit<MeaningProps, 'number' | 'storageKeyPrefix'>[] = [
   },
 ];
 
-const inMeanings: Omit<MeaningProps, 'number' | 'storageKeyPrefix'>[] = [
+const inMeanings: MeaningData[] = [
   {
     definition: 'To spend time or effort on something',
     example: 'The development team put in 50 hours a week to finish the Java update.',
@@ -235,7 +149,7 @@ const inMeanings: Omit<MeaningProps, 'number' | 'storageKeyPrefix'>[] = [
   },
 ];
 
-const intoMeanings: Omit<MeaningProps, 'number' | 'storageKeyPrefix'>[] = [
+const intoMeanings: MeaningData[] = [
   {
     definition: 'To invest time, money, or effort into a project',
     example: 'The company put a lot of money into research and development.',
@@ -250,7 +164,7 @@ const intoMeanings: Omit<MeaningProps, 'number' | 'storageKeyPrefix'>[] = [
   },
 ];
 
-const outMeanings: Omit<MeaningProps, 'number' | 'storageKeyPrefix'>[] = [
+const outMeanings: MeaningData[] = [
   {
     definition: 'To extinguish a fire or a cigarette',
     example: 'The fire alarm rang, but they quickly put out the small fire.',
@@ -277,7 +191,7 @@ const outMeanings: Omit<MeaningProps, 'number' | 'storageKeyPrefix'>[] = [
   },
 ];
 
-const awayMeanings: Omit<MeaningProps, 'number' | 'storageKeyPrefix'>[] = [
+const awayMeanings: MeaningData[] = [
   {
     definition: 'To store things in their correct place',
     example: 'Please put away those files when you finish reading them.',
@@ -304,7 +218,7 @@ const awayMeanings: Omit<MeaningProps, 'number' | 'storageKeyPrefix'>[] = [
   },
 ];
 
-const acrossOverMeanings: Omit<MeaningProps, 'number' | 'storageKeyPrefix'>[] = [
+const acrossOverMeanings: MeaningData[] = [
   {
     definition: 'To explain an idea clearly so people understand it (put across / put over)',
     example: 'The CEO put his vision across very well during the meeting.',
@@ -313,7 +227,7 @@ const acrossOverMeanings: Omit<MeaningProps, 'number' | 'storageKeyPrefix'>[] = 
   },
 ];
 
-const forwardMeanings: Omit<MeaningProps, 'number' | 'storageKeyPrefix'>[] = [
+const forwardMeanings: MeaningData[] = [
   {
     definition: 'To suggest an idea, plan, or person for consideration',
     example: 'The manager put forward a new agile framework for the team.',
@@ -328,7 +242,7 @@ const forwardMeanings: Omit<MeaningProps, 'number' | 'storageKeyPrefix'>[] = [
   },
 ];
 
-const backMeanings: Omit<MeaningProps, 'number' | 'storageKeyPrefix'>[] = [
+const backMeanings: MeaningData[] = [
   {
     definition: 'To return something to its original place',
     example: 'Please put the laptop back in the cabinet.',
@@ -349,7 +263,7 @@ const backMeanings: Omit<MeaningProps, 'number' | 'storageKeyPrefix'>[] = [
   },
 ];
 
-const byMeanings: Omit<MeaningProps, 'number' | 'storageKeyPrefix'>[] = [
+const byMeanings: MeaningData[] = [
   {
     definition: 'To save money for the future',
     example: 'I try to put by some money each month for a new computer.',
@@ -358,7 +272,7 @@ const byMeanings: Omit<MeaningProps, 'number' | 'storageKeyPrefix'>[] = [
   },
 ];
 
-const togetherMeanings: Omit<MeaningProps, 'number' | 'storageKeyPrefix'>[] = [
+const togetherMeanings: MeaningData[] = [
   {
     definition: 'To assemble the parts of something',
     example: 'We need to put together the new office furniture.',
@@ -373,7 +287,7 @@ const togetherMeanings: Omit<MeaningProps, 'number' | 'storageKeyPrefix'>[] = [
   },
 ];
 
-const withMeanings: Omit<MeaningProps, 'number' | 'storageKeyPrefix'>[] = [
+const withMeanings: MeaningData[] = [
   {
     definition: 'To tolerate or accept a difficult situation without complaining (put up with)',
     example: 'As a project manager, you have to put up with unexpected delays.',
@@ -382,7 +296,7 @@ const withMeanings: Omit<MeaningProps, 'number' | 'storageKeyPrefix'>[] = [
   },
 ];
 
-const aheadMeanings: Omit<MeaningProps, 'number' | 'storageKeyPrefix'>[] = [
+const aheadMeanings: MeaningData[] = [
   {
     definition: 'To give someone an advantage over others',
     example: 'Learning Java will really put you ahead in the job market.',
@@ -391,7 +305,7 @@ const aheadMeanings: Omit<MeaningProps, 'number' | 'storageKeyPrefix'>[] = [
   },
 ];
 
-const behindMeanings: Omit<MeaningProps, 'number' | 'storageKeyPrefix'>[] = [
+const behindMeanings: MeaningData[] = [
   {
     definition: 'To forget about a bad experience and move on',
     example: 'We lost a big client, but we need to put it behind us and focus on the future.',
@@ -400,7 +314,7 @@ const behindMeanings: Omit<MeaningProps, 'number' | 'storageKeyPrefix'>[] = [
   },
 ];
 
-const throughMeanings: Omit<MeaningProps, 'number' | 'storageKeyPrefix'>[] = [
+const throughMeanings: MeaningData[] = [
   {
     definition: 'To connect someone on the telephone',
     example: 'Please hold the line, I will put you through to the IT department.',
@@ -421,7 +335,7 @@ const throughMeanings: Omit<MeaningProps, 'number' | 'storageKeyPrefix'>[] = [
   },
 ];
 
-const aboutAroundRoundMeanings: Omit<MeaningProps, 'number' | 'storageKeyPrefix'>[] = [
+const aboutAroundRoundMeanings: MeaningData[] = [
   {
     definition: 'To spread a rumour or false story (put about / put around / put round)',
     example: 'Someone is putting it about that the company is going bankrupt.',
@@ -430,7 +344,7 @@ const aboutAroundRoundMeanings: Omit<MeaningProps, 'number' | 'storageKeyPrefix'
   },
 ];
 
-const toMeanings: Omit<MeaningProps, 'number' | 'storageKeyPrefix'>[] = [
+const toMeanings: MeaningData[] = [
   {
     definition: 'To suggest an idea or a question to someone directly',
     example: 'I put it to the board of directors, but they rejected the idea.',
@@ -445,99 +359,28 @@ const toMeanings: Omit<MeaningProps, 'number' | 'storageKeyPrefix'>[] = [
   },
 ];
 
-function Section({
-  particle,
-  meanings,
-  storageKey,
-  storageKeyPrefix,
-}: {
-  particle: string;
-  meanings: Omit<MeaningProps, 'number' | 'storageKeyPrefix'>[];
-  storageKey: string;
-  storageKeyPrefix: string;
-}) {
-  const [expanded, setExpanded] = useState(() => {
-    const saved = localStorage.getItem(storageKey);
-    return saved !== null ? saved === 'true' : false;
-  });
-
-  const toggle = () => {
-    setExpanded(e => {
-      const next = !e;
-      localStorage.setItem(storageKey, String(next));
-      return next;
-    });
-  };
-
-  return (
-    <div className="mb-5">
-      <div
-        className="flex items-center gap-2 cursor-pointer select-none mb-4 px-1"
-        onClick={toggle}
-      >
-        <span className={`text-sm transition-transform duration-200 inline-block ${expanded ? 'rotate-90 text-white' : 'text-blue-600 dark:text-blue-400'}`}>
-          ▶
-        </span>
-        <span className={`text-2xl font-bold ${expanded ? 'text-white' : 'text-blue-600 dark:text-blue-400'}`}>{particle}</span>
-      </div>
-
-      {expanded && (
-        <div className="flex flex-col gap-6">
-          {meanings.map((m, i) => (
-            <Meaning key={i} number={i + 1} storageKeyPrefix={storageKeyPrefix} {...m} />
-          ))}
-        </div>
-      )}
-    </div>
-  );
-}
+const sections: SectionData[] = [
+  { particle: 'off', storageKey: 'putOff_section_expanded', storageKeyPrefix: 'putOff', meanings: offMeanings },
+  { particle: 'on', storageKey: 'putOn_section_expanded', storageKeyPrefix: 'putOn', meanings: onMeanings },
+  { particle: 'up', storageKey: 'putUp_section_expanded', storageKeyPrefix: 'putUp', meanings: upMeanings },
+  { particle: 'down', storageKey: 'putDown_section_expanded', storageKeyPrefix: 'putDown', meanings: downMeanings },
+  { particle: 'in', storageKey: 'putIn_section_expanded', storageKeyPrefix: 'putIn', meanings: inMeanings },
+  { particle: 'into', storageKey: 'putInto_section_expanded', storageKeyPrefix: 'putInto', meanings: intoMeanings },
+  { particle: 'out', storageKey: 'putOut_section_expanded', storageKeyPrefix: 'putOut', meanings: outMeanings },
+  { particle: 'away', storageKey: 'putAway_section_expanded', storageKeyPrefix: 'putAway', meanings: awayMeanings },
+  { particle: 'across / over', storageKey: 'putAcrossOver_section_expanded', storageKeyPrefix: 'putAcrossOver', meanings: acrossOverMeanings },
+  { particle: 'forward', storageKey: 'putForward_section_expanded', storageKeyPrefix: 'putForward', meanings: forwardMeanings },
+  { particle: 'back', storageKey: 'putBack_section_expanded', storageKeyPrefix: 'putBack', meanings: backMeanings },
+  { particle: 'by', storageKey: 'putBy_section_expanded', storageKeyPrefix: 'putBy', meanings: byMeanings },
+  { particle: 'together', storageKey: 'putTogether_section_expanded', storageKeyPrefix: 'putTogether', meanings: togetherMeanings },
+  { particle: 'with', storageKey: 'putWith_section_expanded', storageKeyPrefix: 'putWith', meanings: withMeanings },
+  { particle: 'ahead', storageKey: 'putAhead_section_expanded', storageKeyPrefix: 'putAhead', meanings: aheadMeanings },
+  { particle: 'behind', storageKey: 'putBehind_section_expanded', storageKeyPrefix: 'putBehind', meanings: behindMeanings },
+  { particle: 'through', storageKey: 'putThrough_section_expanded', storageKeyPrefix: 'putThrough', meanings: throughMeanings },
+  { particle: 'about / around / round', storageKey: 'putAboutAroundRound_section_expanded', storageKeyPrefix: 'putAboutAroundRound', meanings: aboutAroundRoundMeanings },
+  { particle: 'to', storageKey: 'putTo_section_expanded', storageKeyPrefix: 'putTo', meanings: toMeanings },
+];
 
 export default function PutVerbPage() {
-  return (
-    <div className="min-h-screen bg-gray-50 dark:bg-gray-950 px-4 py-10">
-      <div className="max-w-[700px] mx-auto">
-        <h1 className="text-4xl font-bold text-gray-900 dark:text-gray-100 mb-6 text-center">
-          Put
-        </h1>
-
-        <Section particle="off" meanings={offMeanings} storageKey="putOff_section_expanded" storageKeyPrefix="putOff" />
-        <hr className="border-gray-600 dark:border-gray-500 my-2" />
-        <Section particle="on" meanings={onMeanings} storageKey="putOn_section_expanded" storageKeyPrefix="putOn" />
-        <hr className="border-gray-600 dark:border-gray-500 my-2" />
-        <Section particle="up" meanings={upMeanings} storageKey="putUp_section_expanded" storageKeyPrefix="putUp" />
-        <hr className="border-gray-600 dark:border-gray-500 my-2" />
-        <Section particle="down" meanings={downMeanings} storageKey="putDown_section_expanded" storageKeyPrefix="putDown" />
-        <hr className="border-gray-600 dark:border-gray-500 my-2" />
-        <Section particle="in" meanings={inMeanings} storageKey="putIn_section_expanded" storageKeyPrefix="putIn" />
-        <hr className="border-gray-600 dark:border-gray-500 my-2" />
-        <Section particle="into" meanings={intoMeanings} storageKey="putInto_section_expanded" storageKeyPrefix="putInto" />
-        <hr className="border-gray-600 dark:border-gray-500 my-2" />
-        <Section particle="out" meanings={outMeanings} storageKey="putOut_section_expanded" storageKeyPrefix="putOut" />
-        <hr className="border-gray-600 dark:border-gray-500 my-2" />
-        <Section particle="away" meanings={awayMeanings} storageKey="putAway_section_expanded" storageKeyPrefix="putAway" />
-        <hr className="border-gray-600 dark:border-gray-500 my-2" />
-        <Section particle="across / over" meanings={acrossOverMeanings} storageKey="putAcrossOver_section_expanded" storageKeyPrefix="putAcrossOver" />
-        <hr className="border-gray-600 dark:border-gray-500 my-2" />
-        <Section particle="forward" meanings={forwardMeanings} storageKey="putForward_section_expanded" storageKeyPrefix="putForward" />
-        <hr className="border-gray-600 dark:border-gray-500 my-2" />
-        <Section particle="back" meanings={backMeanings} storageKey="putBack_section_expanded" storageKeyPrefix="putBack" />
-        <hr className="border-gray-600 dark:border-gray-500 my-2" />
-        <Section particle="by" meanings={byMeanings} storageKey="putBy_section_expanded" storageKeyPrefix="putBy" />
-        <hr className="border-gray-600 dark:border-gray-500 my-2" />
-        <Section particle="together" meanings={togetherMeanings} storageKey="putTogether_section_expanded" storageKeyPrefix="putTogether" />
-        <hr className="border-gray-600 dark:border-gray-500 my-2" />
-        <Section particle="with" meanings={withMeanings} storageKey="putWith_section_expanded" storageKeyPrefix="putWith" />
-        <hr className="border-gray-600 dark:border-gray-500 my-2" />
-        <Section particle="ahead" meanings={aheadMeanings} storageKey="putAhead_section_expanded" storageKeyPrefix="putAhead" />
-        <hr className="border-gray-600 dark:border-gray-500 my-2" />
-        <Section particle="behind" meanings={behindMeanings} storageKey="putBehind_section_expanded" storageKeyPrefix="putBehind" />
-        <hr className="border-gray-600 dark:border-gray-500 my-2" />
-        <Section particle="through" meanings={throughMeanings} storageKey="putThrough_section_expanded" storageKeyPrefix="putThrough" />
-        <hr className="border-gray-600 dark:border-gray-500 my-2" />
-        <Section particle="about / around / round" meanings={aboutAroundRoundMeanings} storageKey="putAboutAroundRound_section_expanded" storageKeyPrefix="putAboutAroundRound" />
-        <hr className="border-gray-600 dark:border-gray-500 my-2" />
-        <Section particle="to" meanings={toMeanings} storageKey="putTo_section_expanded" storageKeyPrefix="putTo" />
-      </div>
-    </div>
-  );
+  return <VerbPageLayout title="Put" sections={sections} />;
 }

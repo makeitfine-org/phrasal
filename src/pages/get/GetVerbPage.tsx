@@ -1,94 +1,8 @@
-import React, { useState } from 'react';
-
-interface MeaningProps {
-  number: number;
-  definition: string;
-  example: string;
-  imageSrc: string;
-  imageAlt: string;
-  storageKeyPrefix: string;
-}
-
-function Meaning({ number, definition, example, imageSrc, imageAlt, storageKeyPrefix }: MeaningProps) {
-  const isDefault = imageSrc.endsWith('default.png');
-  const storageKey = `${storageKeyPrefix}_meaning_${number}_collapsed`;
-  const [collapsed, setCollapsed] = useState(() => {
-    if (isDefault) return true;
-    const saved = localStorage.getItem(storageKey);
-    return saved !== null ? saved === 'true' : true;
-  });
-
-  const toggle = () => {
-    if (isDefault) return;
-    if (window.getSelection()?.toString()) return;
-    setCollapsed(c => {
-      const next = !c;
-      localStorage.setItem(storageKey, String(next));
-      return next;
-    });
-  };
-
-  return (
-    <div
-      className={`bg-white dark:bg-gray-900 rounded-2xl border border-gray-600 dark:border-gray-400 shadow-md overflow-hidden ${isDefault ? 'cursor-default' : 'cursor-pointer'}`}
-      onClick={toggle}
-    >
-      {collapsed ? (
-        <div className="p-4">
-          <div className="flex items-start gap-2">
-            <span className="flex-shrink-0 w-6 h-6 rounded-full bg-blue-600 text-white text-xs font-bold flex items-center justify-center">
-              {number}
-            </span>
-            <div className="min-w-0 flex-1">
-              <p
-                className="text-gray-800 dark:text-gray-100 text-xl md:text-base font-medium leading-snug truncate"
-                title={definition}
-              >
-                {definition}
-              </p>
-              <p
-                className="text-gray-500 dark:text-gray-400 text-xl md:text-sm italic truncate mt-0.5"
-                title={`"${example}"`}
-              >
-                "{example}"
-              </p>
-            </div>
-          </div>
-        </div>
-      ) : (
-        <div className="p-4 pt-3">
-          <div className="flex justify-center mb-3">
-            <img
-              src={imageSrc}
-              alt={imageAlt}
-              className="max-w-sm w-full border border-gray-200 dark:border-gray-700 rounded-xl"
-            />
-          </div>
-          <div>
-            <div className="flex items-start gap-2 mb-2">
-              <span className="flex-shrink-0 w-6 h-6 rounded-full bg-blue-600 text-white text-xs font-bold flex items-center justify-center">
-                {number}
-              </span>
-              <p
-                className="text-gray-800 dark:text-gray-100 text-xl md:text-base font-medium leading-snug"
-                title={definition}
-              >
-                {definition}
-              </p>
-            </div>
-            <p className="text-gray-500 dark:text-gray-400 text-xl md:text-sm italic pl-8">
-              "{example}"
-            </p>
-          </div>
-        </div>
-      )}
-    </div>
-  );
-}
+import VerbPageLayout, { MeaningData, SectionData } from '../../components/VerbPage';
 
 const base = import.meta.env.BASE_URL;
 
-const offMeanings: Omit<MeaningProps, 'number' | 'storageKeyPrefix'>[] = [
+const offMeanings: MeaningData[] = [
   {
     definition: 'To leave a form of public transport (bus, train, plane)',
     example: 'We need to get off the train at the next station.',
@@ -115,7 +29,7 @@ const offMeanings: Omit<MeaningProps, 'number' | 'storageKeyPrefix'>[] = [
   },
 ];
 
-const onMeanings: Omit<MeaningProps, 'number' | 'storageKeyPrefix'>[] = [
+const onMeanings: MeaningData[] = [
   {
     definition: 'To step onto a form of public transport',
     example: 'Hurry up and get on the bus before it leaves!',
@@ -142,7 +56,7 @@ const onMeanings: Omit<MeaningProps, 'number' | 'storageKeyPrefix'>[] = [
   },
 ];
 
-const downMeanings: Omit<MeaningProps, 'number' | 'storageKeyPrefix'>[] = [
+const downMeanings: MeaningData[] = [
   {
     definition: 'To move to a lower position',
     example: 'You need to get down from that ladder before you fall.',
@@ -169,7 +83,7 @@ const downMeanings: Omit<MeaningProps, 'number' | 'storageKeyPrefix'>[] = [
   },
 ];
 
-const inMeanings: Omit<MeaningProps, 'number' | 'storageKeyPrefix'>[] = [
+const inMeanings: MeaningData[] = [
   {
     definition: 'To enter a car, room, or building',
     example: 'Get in the car, we are going to be late.',
@@ -196,7 +110,7 @@ const inMeanings: Omit<MeaningProps, 'number' | 'storageKeyPrefix'>[] = [
   },
 ];
 
-const intoMeanings: Omit<MeaningProps, 'number' | 'storageKeyPrefix'>[] = [
+const intoMeanings: MeaningData[] = [
   {
     definition: 'To become interested or involved in something',
     example: 'I recently got into software development.',
@@ -217,7 +131,7 @@ const intoMeanings: Omit<MeaningProps, 'number' | 'storageKeyPrefix'>[] = [
   },
 ];
 
-const outMeanings: Omit<MeaningProps, 'number' | 'storageKeyPrefix'>[] = [
+const outMeanings: MeaningData[] = [
   {
     definition: 'To leave a place or a car',
     example: 'The fire alarm rang, and everyone got out of the building.',
@@ -244,7 +158,7 @@ const outMeanings: Omit<MeaningProps, 'number' | 'storageKeyPrefix'>[] = [
   },
 ];
 
-const upMeanings: Omit<MeaningProps, 'number' | 'storageKeyPrefix'>[] = [
+const upMeanings: MeaningData[] = [
   {
     definition: 'To rise from bed after sleeping',
     example: 'I get up at 6:30 AM every morning.',
@@ -265,7 +179,7 @@ const upMeanings: Omit<MeaningProps, 'number' | 'storageKeyPrefix'>[] = [
   },
 ];
 
-const awayMeanings: Omit<MeaningProps, 'number' | 'storageKeyPrefix'>[] = [
+const awayMeanings: MeaningData[] = [
   {
     definition: 'To escape',
     example: 'The thief got away before the police arrived.',
@@ -286,7 +200,7 @@ const awayMeanings: Omit<MeaningProps, 'number' | 'storageKeyPrefix'>[] = [
   },
 ];
 
-const acrossMeanings: Omit<MeaningProps, 'number' | 'storageKeyPrefix'>[] = [
+const acrossMeanings: MeaningData[] = [
   {
     definition: 'To communicate an idea successfully so people understand it',
     example: 'The leader got her vision across perfectly during the presentation.',
@@ -301,7 +215,7 @@ const acrossMeanings: Omit<MeaningProps, 'number' | 'storageKeyPrefix'>[] = [
   },
 ];
 
-const forwardMeanings: Omit<MeaningProps, 'number' | 'storageKeyPrefix'>[] = [
+const forwardMeanings: MeaningData[] = [
   {
     definition: 'To move to the front (often used in sports to describe attacking)',
     example: "The team's defenders need to get forward to help score a goal.",
@@ -310,7 +224,7 @@ const forwardMeanings: Omit<MeaningProps, 'number' | 'storageKeyPrefix'>[] = [
   },
 ];
 
-const backMeanings: Omit<MeaningProps, 'number' | 'storageKeyPrefix'>[] = [
+const backMeanings: MeaningData[] = [
   {
     definition: 'To return to a place or a state',
     example: 'When did you get back from your business trip?',
@@ -337,7 +251,7 @@ const backMeanings: Omit<MeaningProps, 'number' | 'storageKeyPrefix'>[] = [
   },
 ];
 
-const byMeanings: Omit<MeaningProps, 'number' | 'storageKeyPrefix'>[] = [
+const byMeanings: MeaningData[] = [
   {
     definition: 'To manage to survive or do something with limited money, knowledge, or resources',
     example: "My Spanish isn't perfect, but I know enough to get by.",
@@ -352,7 +266,7 @@ const byMeanings: Omit<MeaningProps, 'number' | 'storageKeyPrefix'>[] = [
   },
 ];
 
-const togetherMeanings: Omit<MeaningProps, 'number' | 'storageKeyPrefix'>[] = [
+const togetherMeanings: MeaningData[] = [
   {
     definition: 'To meet socially',
     example: "Let's get together for a coffee next week.",
@@ -367,7 +281,7 @@ const togetherMeanings: Omit<MeaningProps, 'number' | 'storageKeyPrefix'>[] = [
   },
 ];
 
-const withMeanings: Omit<MeaningProps, 'number' | 'storageKeyPrefix'>[] = [
+const withMeanings: MeaningData[] = [
   {
     definition: 'To understand or adapt to modern trends or new rules (informal)',
     example: 'You need to get with the new management strategy, or you will be left behind.',
@@ -376,7 +290,7 @@ const withMeanings: Omit<MeaningProps, 'number' | 'storageKeyPrefix'>[] = [
   },
 ];
 
-const overMeanings: Omit<MeaningProps, 'number' | 'storageKeyPrefix'>[] = [
+const overMeanings: MeaningData[] = [
   {
     definition: 'To recover from an illness, a shock, or a bad emotional experience',
     example: 'It took him two weeks to get over the flu.',
@@ -397,7 +311,7 @@ const overMeanings: Omit<MeaningProps, 'number' | 'storageKeyPrefix'>[] = [
   },
 ];
 
-const aheadMeanings: Omit<MeaningProps, 'number' | 'storageKeyPrefix'>[] = [
+const aheadMeanings: MeaningData[] = [
   {
     definition: 'To be successful and make progress in your career or life',
     example: 'She reads a lot of business books because she wants to get ahead in her career.',
@@ -406,7 +320,7 @@ const aheadMeanings: Omit<MeaningProps, 'number' | 'storageKeyPrefix'>[] = [
   },
 ];
 
-const afterMeanings: Omit<MeaningProps, 'number' | 'storageKeyPrefix'>[] = [
+const afterMeanings: MeaningData[] = [
   {
     definition: 'To urge, remind, or scold someone to do something they are supposed to do',
     example: 'I need to get after the developers to finish writing the code.',
@@ -421,7 +335,7 @@ const afterMeanings: Omit<MeaningProps, 'number' | 'storageKeyPrefix'>[] = [
   },
 ];
 
-const behindMeanings: Omit<MeaningProps, 'number' | 'storageKeyPrefix'>[] = [
+const behindMeanings: MeaningData[] = [
   {
     definition: 'To fall behind schedule or fail to keep up with work or payments',
     example: 'I was sick for a week, and I got behind on my emails.',
@@ -436,7 +350,7 @@ const behindMeanings: Omit<MeaningProps, 'number' | 'storageKeyPrefix'>[] = [
   },
 ];
 
-const throughMeanings: Omit<MeaningProps, 'number' | 'storageKeyPrefix'>[] = [
+const throughMeanings: MeaningData[] = [
   {
     definition: 'To finish a difficult task or survive a difficult period',
     example: 'We just need to get through this busy week, and then we can relax.',
@@ -457,7 +371,7 @@ const throughMeanings: Omit<MeaningProps, 'number' | 'storageKeyPrefix'>[] = [
   },
 ];
 
-const aboutAroundMeanings: Omit<MeaningProps, 'number' | 'storageKeyPrefix'>[] = [
+const aboutAroundMeanings: MeaningData[] = [
   {
     definition: 'To travel to different places',
     example: 'We used the subway to get around the city.',
@@ -484,7 +398,7 @@ const aboutAroundMeanings: Omit<MeaningProps, 'number' | 'storageKeyPrefix'>[] =
   },
 ];
 
-const toMeanings: Omit<MeaningProps, 'number' | 'storageKeyPrefix'>[] = [
+const toMeanings: MeaningData[] = [
   {
     definition: 'To arrive at a destination',
     example: 'What time did you get to the office this morning?',
@@ -511,103 +425,30 @@ const toMeanings: Omit<MeaningProps, 'number' | 'storageKeyPrefix'>[] = [
   },
 ];
 
-function Section({
-  particle,
-  meanings,
-  storageKey,
-  storageKeyPrefix,
-}: {
-  particle: string;
-  meanings: Omit<MeaningProps, 'number' | 'storageKeyPrefix'>[];
-  storageKey: string;
-  storageKeyPrefix: string;
-}) {
-  const [expanded, setExpanded] = useState(() => {
-    const saved = localStorage.getItem(storageKey);
-    return saved !== null ? saved === 'true' : false;
-  });
-
-  const toggle = () => {
-    setExpanded(e => {
-      const next = !e;
-      localStorage.setItem(storageKey, String(next));
-      return next;
-    });
-  };
-
-  return (
-    <div className="mb-5">
-      <div
-        className="flex items-center gap-2 cursor-pointer select-none mb-4 px-1"
-        onClick={toggle}
-      >
-        <span className={`text-sm transition-transform duration-200 inline-block ${expanded ? 'rotate-90 text-white' : 'text-blue-600 dark:text-blue-400'}`}>
-          ▶
-        </span>
-        <span className={`text-2xl font-bold ${expanded ? 'text-white' : 'text-blue-600 dark:text-blue-400'}`}>{particle}</span>
-      </div>
-
-      {expanded && (
-        <div className="flex flex-col gap-6">
-          {meanings.map((m, i) => (
-            <Meaning key={i} number={i + 1} storageKeyPrefix={storageKeyPrefix} {...m} />
-          ))}
-        </div>
-      )}
-    </div>
-  );
-}
+const sections: SectionData[] = [
+  { particle: 'off', storageKey: 'getOff_section_expanded', storageKeyPrefix: 'getOff', meanings: offMeanings },
+  { particle: 'on', storageKey: 'getOn_section_expanded', storageKeyPrefix: 'getOn', meanings: onMeanings },
+  { particle: 'up', storageKey: 'getUp_section_expanded', storageKeyPrefix: 'getUp', meanings: upMeanings },
+  { particle: 'down', storageKey: 'getDown_section_expanded', storageKeyPrefix: 'getDown', meanings: downMeanings },
+  { particle: 'in', storageKey: 'getIn_section_expanded', storageKeyPrefix: 'getIn', meanings: inMeanings },
+  { particle: 'into', storageKey: 'getInto_section_expanded', storageKeyPrefix: 'getInto', meanings: intoMeanings },
+  { particle: 'out', storageKey: 'getOut_section_expanded', storageKeyPrefix: 'getOut', meanings: outMeanings },
+  { particle: 'away', storageKey: 'getAway_section_expanded', storageKeyPrefix: 'getAway', meanings: awayMeanings },
+  { particle: 'across', storageKey: 'getAcross_section_expanded', storageKeyPrefix: 'getAcross', meanings: acrossMeanings },
+  { particle: 'forward', storageKey: 'getForward_section_expanded', storageKeyPrefix: 'getForward', meanings: forwardMeanings },
+  { particle: 'back', storageKey: 'getBack_section_expanded', storageKeyPrefix: 'getBack', meanings: backMeanings },
+  { particle: 'by', storageKey: 'getBy_section_expanded', storageKeyPrefix: 'getBy', meanings: byMeanings },
+  { particle: 'together', storageKey: 'getTogether_section_expanded', storageKeyPrefix: 'getTogether', meanings: togetherMeanings },
+  { particle: 'with', storageKey: 'getWith_section_expanded', storageKeyPrefix: 'getWith', meanings: withMeanings },
+  { particle: 'over', storageKey: 'getOver_section_expanded', storageKeyPrefix: 'getOver', meanings: overMeanings },
+  { particle: 'ahead', storageKey: 'getAhead_section_expanded', storageKeyPrefix: 'getAhead', meanings: aheadMeanings },
+  { particle: 'after', storageKey: 'getAfter_section_expanded', storageKeyPrefix: 'getAfter', meanings: afterMeanings },
+  { particle: 'behind', storageKey: 'getBehind_section_expanded', storageKeyPrefix: 'getBehind', meanings: behindMeanings },
+  { particle: 'through', storageKey: 'getThrough_section_expanded', storageKeyPrefix: 'getThrough', meanings: throughMeanings },
+  { particle: 'about / around', storageKey: 'getAboutAround_section_expanded', storageKeyPrefix: 'getAboutAround', meanings: aboutAroundMeanings },
+  { particle: 'to', storageKey: 'getTo_section_expanded', storageKeyPrefix: 'getTo', meanings: toMeanings },
+];
 
 export default function GetVerbPage() {
-  return (
-    <div className="min-h-screen bg-gray-50 dark:bg-gray-950 px-4 py-10">
-      <div className="max-w-[700px] mx-auto">
-        <h1 className="text-4xl font-bold text-gray-900 dark:text-gray-100 mb-6 text-center">
-          Get
-        </h1>
-
-        <Section particle="off" meanings={offMeanings} storageKey="getOff_section_expanded" storageKeyPrefix="getOff" />
-        <hr className="border-gray-600 dark:border-gray-500 my-2" />
-        <Section particle="on" meanings={onMeanings} storageKey="getOn_section_expanded" storageKeyPrefix="getOn" />
-        <hr className="border-gray-600 dark:border-gray-500 my-2" />
-        <Section particle="up" meanings={upMeanings} storageKey="getUp_section_expanded" storageKeyPrefix="getUp" />
-        <hr className="border-gray-600 dark:border-gray-500 my-2" />
-        <Section particle="down" meanings={downMeanings} storageKey="getDown_section_expanded" storageKeyPrefix="getDown" />
-        <hr className="border-gray-600 dark:border-gray-500 my-2" />
-        <Section particle="in" meanings={inMeanings} storageKey="getIn_section_expanded" storageKeyPrefix="getIn" />
-        <hr className="border-gray-600 dark:border-gray-500 my-2" />
-        <Section particle="into" meanings={intoMeanings} storageKey="getInto_section_expanded" storageKeyPrefix="getInto" />
-        <hr className="border-gray-600 dark:border-gray-500 my-2" />
-        <Section particle="out" meanings={outMeanings} storageKey="getOut_section_expanded" storageKeyPrefix="getOut" />
-        <hr className="border-gray-600 dark:border-gray-500 my-2" />
-        <Section particle="away" meanings={awayMeanings} storageKey="getAway_section_expanded" storageKeyPrefix="getAway" />
-        <hr className="border-gray-600 dark:border-gray-500 my-2" />
-        <Section particle="across" meanings={acrossMeanings} storageKey="getAcross_section_expanded" storageKeyPrefix="getAcross" />
-        <hr className="border-gray-600 dark:border-gray-500 my-2" />
-        <Section particle="forward" meanings={forwardMeanings} storageKey="getForward_section_expanded" storageKeyPrefix="getForward" />
-        <hr className="border-gray-600 dark:border-gray-500 my-2" />
-        <Section particle="back" meanings={backMeanings} storageKey="getBack_section_expanded" storageKeyPrefix="getBack" />
-        <hr className="border-gray-600 dark:border-gray-500 my-2" />
-        <Section particle="by" meanings={byMeanings} storageKey="getBy_section_expanded" storageKeyPrefix="getBy" />
-        <hr className="border-gray-600 dark:border-gray-500 my-2" />
-        <Section particle="together" meanings={togetherMeanings} storageKey="getTogether_section_expanded" storageKeyPrefix="getTogether" />
-        <hr className="border-gray-600 dark:border-gray-500 my-2" />
-        <Section particle="with" meanings={withMeanings} storageKey="getWith_section_expanded" storageKeyPrefix="getWith" />
-        <hr className="border-gray-600 dark:border-gray-500 my-2" />
-        <Section particle="over" meanings={overMeanings} storageKey="getOver_section_expanded" storageKeyPrefix="getOver" />
-        <hr className="border-gray-600 dark:border-gray-500 my-2" />
-        <Section particle="ahead" meanings={aheadMeanings} storageKey="getAhead_section_expanded" storageKeyPrefix="getAhead" />
-        <hr className="border-gray-600 dark:border-gray-500 my-2" />
-        <Section particle="after" meanings={afterMeanings} storageKey="getAfter_section_expanded" storageKeyPrefix="getAfter" />
-        <hr className="border-gray-600 dark:border-gray-500 my-2" />
-        <Section particle="behind" meanings={behindMeanings} storageKey="getBehind_section_expanded" storageKeyPrefix="getBehind" />
-        <hr className="border-gray-600 dark:border-gray-500 my-2" />
-        <Section particle="through" meanings={throughMeanings} storageKey="getThrough_section_expanded" storageKeyPrefix="getThrough" />
-        <hr className="border-gray-600 dark:border-gray-500 my-2" />
-        <Section particle="about / around" meanings={aboutAroundMeanings} storageKey="getAboutAround_section_expanded" storageKeyPrefix="getAboutAround" />
-        <hr className="border-gray-600 dark:border-gray-500 my-2" />
-        <Section particle="to" meanings={toMeanings} storageKey="getTo_section_expanded" storageKeyPrefix="getTo" />
-      </div>
-    </div>
-  );
+  return <VerbPageLayout title="Get" sections={sections} />;
 }
