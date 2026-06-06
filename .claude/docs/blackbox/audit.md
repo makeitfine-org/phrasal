@@ -1667,3 +1667,249 @@ To be unfavorable to someone (especially in sports or legal cases): The final ve
 ## 2026-06-06T15:45:52Z
 git add all changes and commit them with suitable message
 ---
+
+## 2026-06-06T15:59:03Z
+Come about
+Definition: To happen or occur, especially in a way that is not planned.
+
+Example: "How did this bug in the Java code come about?"
+
+Come across
+Definition 1: To find or meet something or someone by chance.
+
+Example: "I came across an excellent article on Agile leadership yesterday."
+
+Definition 2: To give a specific impression to others.
+
+Example: "She comes across as a very confident and capable manager."
+
+Come after
+Definition 1: To chase or pursue someone (often to punish them or take something).
+
+Example: "If we break the NDA, the client’s legal team will come after us."
+
+Definition 2: To follow in time or order.
+
+Example: "Phase two of the project comes after the initial testing."
+
+Come against
+(Note: Almost always used with "up" as come up against)
+
+Definition: To face a difficult problem or strong opposition.
+
+Example: "We came up against several security issues during deployment."
+
+Come ahead
+(Often used as come out ahead)
+
+Definition: To finish in a winning, profitable, or advantageous position.
+
+Example: "Despite the economic crisis, our company came out ahead of the competition."
+
+Come apart
+Definition: To break into pieces or fail completely.
+
+Example: "The legacy system is so old that its architecture is starting to come apart."
+
+Come around / Come round
+Definition 1: To change your opinion to agree with someone else.
+
+Example: "He didn't like the new Java framework at first, but he came around after seeing the performance tests."
+
+Definition 2: To visit someone at their home or desk.
+
+Example: "The CEO is coming around to our department later this afternoon."
+
+Definition 3: To regain consciousness (wake up after fainting).
+
+Example: "He fainted from the heat, but he came round quickly."
+
+Come away
+Definition 1: To leave a place or situation with a specific feeling, idea, or result.
+
+Example: "I came away from the strategy meeting feeling very optimistic about Q3."
+
+Definition 2: To separate or detach from something.
+
+Example: "The back cover of the laptop just came away in my hands."
+
+Come back
+Definition 1: To return to a place, state, or topic.
+
+Example: "Let's come back to the budget discussion after lunch."
+
+Definition 2: To become popular or fashionable again.
+
+Example: "Older, hierarchical management styles are not likely to come back."
+
+Come behind
+Definition: To follow closely or to rank lower than something else in a list.
+
+Example: "In the market share report, our main product comes behind theirs."
+
+Come by
+Definition 1: To get or obtain something, especially something that is rare or hard to find.
+
+Example: "Experienced Senior Java Developers are hard to come by these days."
+
+Definition 2: To make a short, casual visit.
+
+Example: "Please come by my office when you have a moment."
+
+Come down
+Definition 1: To fall or decrease (prices, levels, etc.).
+
+Example: "Our cloud hosting costs have finally come down this month."
+
+Definition 2: To make a firm decision or support a specific side (come down on the side of).
+
+Example: "The leadership team came down on the side of investing in AI."
+
+Come for
+Definition: To arrive in order to collect someone or something.
+
+Example: "The courier will come for the signed contracts at 3:00 PM."
+
+Come forward
+Definition: To offer help, information, or take responsibility.
+
+Example: "We need two volunteers to come forward and lead the new internal project."
+
+Come in
+Definition 1: To enter a room or building.
+
+Example: "Please come in and take a seat."
+
+Definition 2: To become relevant or involved in a situation (where do I come in?).
+
+Example: "The backend is finished, so this is where the frontend team comes in."
+
+Definition 3: To arrive (news, money, results).
+
+Example: "The Q2 revenue reports just came in."
+
+Come into
+Definition 1: To inherit money or property.
+
+Example: "He came into a lot of money and started his own software firm."
+
+Definition 2: To become a factor or take effect.
+
+Example: "When designing this application, data privacy regulations must come into play."
+
+Come off
+Definition 1: To happen successfully or go exactly as planned.
+
+Example: "The software launch came off without a single major bug."
+
+Definition 2: To detach or be removed from something.
+
+Example: "The label came off the server box, so we don't know the serial number."
+
+Come on
+Definition 1: To start functioning (machines, systems, lights).
+
+Example: "When the power failed, the backup servers came on automatically."
+
+Definition 2: To make progress or improve.
+
+Example: "The junior developer’s coding skills are really coming on."
+
+Definition 3: Used to encourage someone to hurry up, try harder, or stop being unreasonable.
+
+Example: "Come on, we can finish this sprint today if we focus!"
+
+Come out
+Definition 1: To be published, released, or made available to the public.
+
+Example: "The next version of the Java Development Kit comes out next month."
+
+Definition 2: To become known (often secrets or truth).
+
+Example: "It eventually came out that the project was severely underfunded."
+
+Definition 3: To be removed (like a stain).
+
+Example: "The coffee stain won't come out of the carpet."
+
+Come over
+Definition 1: To visit someone's house, office, or country.
+
+Example: "The regional manager is coming over from London next week."
+
+Definition 2: To affect someone suddenly with a strong feeling.
+
+Example: "A sudden wave of panic came over him before his presentation to the board."
+
+Come through
+Definition 1: To successfully complete or survive a difficult situation.
+
+Example: "Thanks to strong leadership, the company came through the financial crisis."
+
+Definition 2: To deliver what was promised or expected.
+
+Example: "The engineering team came through with the bug fix right before the deadline."
+
+Definition 3: To be approved or to arrive (official documents, messages).
+
+Example: "My visa approval finally came through."
+
+Come to
+Definition 1: To reach a total amount.
+
+Example: "The total cost for the new software licenses comes to $15,000."
+
+Definition 2: To reach a state, decision, or situation.
+
+Example: "After hours of negotiation, we finally came to an agreement."
+
+Definition 3: To regain consciousness.
+
+Example: "When he came to in the hospital, he asked for his laptop."
+
+Definition 4: Concerning a specific topic (when it comes to).
+
+Example: "When it comes to team management, communication is the most important skill."
+
+Come together
+Definition 1: To unite as a group for a common purpose.
+
+Example: "The entire IT department came together to resolve the server outage."
+
+Definition 2: To begin to form a coherent, successful whole.
+
+Example: "After weeks of messy coding, the final application is finally coming together."
+
+Come up
+Definition 1: To be mentioned or discussed in conversation.
+
+Example: "The topic of remote work came up during the board meeting."
+
+Definition 2: To happen unexpectedly (often causing a problem).
+
+Example: "I have to cancel our 1-on-1 meeting; something urgent has come up."
+
+Definition 3: To approach in time.
+
+Example: "We need to prepare; the final project deadline is coming up fast."
+
+Come with
+Definition: To be included as part of a product, package, or deal.
+
+Example: "The enterprise software license comes with 24/7 technical support."
+
+Come without
+(Often used purely as the verb "come" + the preposition "without")
+
+Definition: To lack a feature or item that is normally included.
+
+Example: "The basic version of the app comes without the advanced analytics dashboard."
+
+---
+
+1) Create "take" link on list page with particals mentioned above phrasal verbs. 
+   Take as the base "get" link.
+2) Create "take" page with mentioned above phrasal verbs. 
+   Take as the base "get" page.
+3) Cover the functionality with tests
+---

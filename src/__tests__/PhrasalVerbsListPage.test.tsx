@@ -27,6 +27,7 @@ function renderPageWithRoutes() {
         <Route path="/phrasal-verbs/list/take" element={<LocationSpy />} />
         <Route path="/phrasal-verbs/list/give" element={<LocationSpy />} />
         <Route path="/phrasal-verbs/list/go" element={<LocationSpy />} />
+        <Route path="/phrasal-verbs/list/come" element={<LocationSpy />} />
       </Routes>
     </MemoryRouter>
   );
@@ -576,6 +577,12 @@ describe('PhrasalVerbsListPage — give copy button', () => {
   });
 });
 
+const ALL_COME_PARTICLES = [
+  'about', 'across', 'after', 'against', 'ahead', 'apart', 'around / round',
+  'away', 'back', 'behind', 'by', 'down', 'for', 'forward', 'in', 'into',
+  'off', 'on', 'out', 'over', 'through', 'to', 'together', 'up', 'with', 'without',
+];
+
 describe('PhrasalVerbsListPage — Go card', () => {
   it('renders the "Go" card', () => {
     renderPage();
@@ -675,6 +682,109 @@ describe('PhrasalVerbsListPage — go copy button', () => {
   it('clicking go copy button does not navigate to go page', () => {
     renderPageWithRoutes();
     fireEvent.click(screen.getByRole('button', { name: /copy all "go" phrasal verbs/i }));
+    expect(screen.getByTestId('location').textContent).toBe('/phrasal-verbs/list');
+  });
+});
+
+describe('PhrasalVerbsListPage — Come card', () => {
+  it('renders the "Come" card', () => {
+    renderPage();
+    expect(screen.getByRole('heading', { name: 'Come' })).toBeInTheDocument();
+  });
+
+  it('"Come" link points to /phrasal-verbs/list/come', () => {
+    renderPage();
+    const link = screen.getByRole('link', { name: /Come/i });
+    expect(link).toHaveAttribute('href', '/phrasal-verbs/list/come');
+  });
+});
+
+describe('PhrasalVerbsListPage — Come particles subtitle', () => {
+  it('shows come particles text in subtitle', () => {
+    renderPage();
+    const comeCard = screen.getByRole('heading', { name: 'Come' }).closest('a')!;
+    expect(within(comeCard).getByText(/about, across, after/i)).toBeInTheDocument();
+  });
+
+  it('come subtitle has line-clamp-2 class', () => {
+    renderPage();
+    const comeCard = screen.getByRole('heading', { name: 'Come' }).closest('a')!;
+    const subtitle = within(comeCard).getByText(/about, across, after/i);
+    expect(subtitle).toHaveClass('line-clamp-2');
+  });
+
+  it('come subtitle title attribute contains unique particles', () => {
+    renderPage();
+    const comeCard = screen.getByRole('heading', { name: 'Come' }).closest('a')!;
+    const subtitle = within(comeCard).getByText(/about, across, after/i);
+    expect(subtitle).toHaveAttribute('title', expect.stringContaining('around / round'));
+    expect(subtitle).toHaveAttribute('title', expect.stringContaining('without'));
+    expect(subtitle).toHaveAttribute('title', expect.stringContaining('through'));
+  });
+});
+
+describe('PhrasalVerbsListPage — come copy button', () => {
+  beforeEach(() => {
+    Object.assign(navigator, {
+      clipboard: { writeText: vi.fn().mockResolvedValue(undefined) },
+    });
+  });
+
+  afterEach(() => {
+    vi.restoreAllMocks();
+    vi.useRealTimers();
+  });
+
+  it('renders a come copy button', () => {
+    renderPage();
+    expect(screen.getByRole('button', { name: /copy all "come" phrasal verbs/i })).toBeInTheDocument();
+  });
+
+  it('come copy button title is \'Copy all "come" phrasal verbs\' before click', () => {
+    renderPage();
+    expect(screen.getByRole('button', { name: /copy all "come" phrasal verbs/i }))
+      .toHaveAttribute('title', 'Copy all "come" phrasal verbs');
+  });
+
+  it('clipboard receives all 26 come particles as "come X" forms in order', () => {
+    renderPage();
+    fireEvent.click(screen.getByRole('button', { name: /copy all "come" phrasal verbs/i }));
+    const expected = ALL_COME_PARTICLES.map(p => `come ${p}`).join(', ');
+    expect(navigator.clipboard.writeText).toHaveBeenCalledWith(expected);
+  });
+
+  it('clipboard content contains every come particle', () => {
+    renderPage();
+    fireEvent.click(screen.getByRole('button', { name: /copy all "come" phrasal verbs/i }));
+    const written = (navigator.clipboard.writeText as ReturnType<typeof vi.fn>).mock.calls[0][0] as string;
+    for (const p of ALL_COME_PARTICLES) {
+      expect(written).toContain(`come ${p}`);
+    }
+  });
+
+  it('come copy button shows "Copied!" title after click', async () => {
+    renderPage();
+    fireEvent.click(screen.getByRole('button', { name: /copy all "come" phrasal verbs/i }));
+    await vi.waitFor(() => {
+      expect(screen.getByRole('button', { name: /copied!/i }))
+        .toHaveAttribute('title', 'Copied!');
+    });
+  });
+
+  it('come copy button reverts to original title after 1500 ms', async () => {
+    vi.useFakeTimers();
+    renderPage();
+    fireEvent.click(screen.getByRole('button', { name: /copy all "come" phrasal verbs/i }));
+    await vi.waitFor(() => expect(screen.getByRole('button', { name: /copied!/i })).toBeInTheDocument());
+    vi.advanceTimersByTime(1500);
+    await vi.waitFor(() => {
+      expect(screen.getByRole('button', { name: /copy all "come" phrasal verbs/i })).toBeInTheDocument();
+    });
+  });
+
+  it('clicking come copy button does not navigate to come page', () => {
+    renderPageWithRoutes();
+    fireEvent.click(screen.getByRole('button', { name: /copy all "come" phrasal verbs/i }));
     expect(screen.getByTestId('location').textContent).toBe('/phrasal-verbs/list');
   });
 });
