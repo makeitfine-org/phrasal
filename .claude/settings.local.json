@@ -45,7 +45,10 @@
       "Bash(cp \"/home/eug/Downloads/Done pics/take/off/take off - Leave the ground \\(planes\\).png\" /home/eug/dev/projects/my/phrasal/public/images/phrasal_verbs/list/take/off/planes.png)",
       "Bash(cp \"/home/eug/Downloads/Done pics/take/off/take off - Become successful quickly \\(business, ideas\\).png\" /home/eug/dev/projects/my/phrasal/public/images/phrasal_verbs/list/take/off/business.png)",
       "Bash(cp \"/home/eug/Downloads/Done pics/take/off/Leave suddenly \\(informal\\).png\" /home/eug/dev/projects/my/phrasal/public/images/phrasal_verbs/list/take/off/leave_suddenly.png)",
-      "Bash(cp \"/home/eug/Downloads/Done pics/take/off/take off - Not go to work.png\" /home/eug/dev/projects/my/phrasal/public/images/phrasal_verbs/list/take/off/days_off.png)"
+      "Bash(cp \"/home/eug/Downloads/Done pics/take/off/take off - Not go to work.png\" /home/eug/dev/projects/my/phrasal/public/images/phrasal_verbs/list/take/off/days_off.png)",
+      "Bash(cp \"/home/eug/Downloads/Done pics/take/on/take on - Accept work or responsibility.png\" /home/eug/dev/projects/my/phrasal/public/images/phrasal_verbs/list/take/on/accept_work.png)",
+      "Bash(cp \"/home/eug/Downloads/Done pics/take/on/take on - Hire someone.png\" /home/eug/dev/projects/my/phrasal/public/images/phrasal_verbs/list/take/on/hire_someone.png)",
+      "Bash(cp \"/home/eug/Downloads/Done pics/take/on/take on - Compete against.png\" /home/eug/dev/projects/my/phrasal/public/images/phrasal_verbs/list/take/on/compete_against.png)"
     ]
   },
   "model": "sonnet",

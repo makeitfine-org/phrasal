@@ -39,19 +39,19 @@ const onMeanings: MeaningData[] = [
   {
     definition: 'To accept or take responsibility for work or a task',
     example: 'I cannot take on any new projects right now.',
-    imageSrc: `${base}images/phrasal_verbs/list/default.png`,
+    imageSrc: `${base}images/phrasal_verbs/list/take/on/accept_work.png`,
     imageAlt: 'A person declining extra project responsibilities',
   },
   {
     definition: 'To employ or hire someone',
     example: 'The company is taking on fifty new developers.',
-    imageSrc: `${base}images/phrasal_verbs/list/default.png`,
+    imageSrc: `${base}images/phrasal_verbs/list/take/on/hire_someone.png`,
     imageAlt: 'A company hiring new developers',
   },
   {
     definition: 'To compete or fight against someone',
     example: 'Our team will take on the market leader next year.',
-    imageSrc: `${base}images/phrasal_verbs/list/default.png`,
+    imageSrc: `${base}images/phrasal_verbs/list/take/on/compete_against.png`,
     imageAlt: 'Two teams competing in a business challenge',
   },
 ];

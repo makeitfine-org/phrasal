@@ -1261,3 +1261,21 @@ Cover the changes with tests
 ## 2026-06-06T13:02:43Z
 git add all changes and commit them with suitable message
 ---
+
+## 2026-06-06T13:05:22Z
+Add images for the phrasal verbs brought up:
+---
+Take on
+
+Accept work or responsibility: "I cannot take on any new projects right now."
+/home/eug/Downloads/Done pics/take/on/take on - Accept work or responsibility.png
+
+Hire someone: "The company is taking on fifty new developers."
+/home/eug/Downloads/Done pics/take/on/take on - Hire someone.png
+
+Compete against: "Our team will take on the market leader next year."
+/home/eug/Downloads/Done pics/take/on/take on - Compete against.png
+---
+As an example see how it's done for example in "Get off" with image.
+Cover the changes with tests.
+---
