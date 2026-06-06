@@ -164,3 +164,6 @@ Prompt which created 2 pane
    - `up -d --no-deps app` — recreates only the backend container using the new image; --no-deps prevents docker compose from touching postgres, keycloak, frontend, etc.
 
    docker images --format "table {{.Repository}}\t{{.Tag}}\t{{.CreatedAt}}"
+
+9. Release:
+   Analyze and show me new relase tag with description and step how to create it.

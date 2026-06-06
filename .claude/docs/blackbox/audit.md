@@ -1320,3 +1320,350 @@ git add all changes and commit them with suitable message
 ## 2026-06-06T13:46:23Z
 git add all changes and commit them with suitable message
 ---
+
+## 2026-06-06T13:55:47Z
+1. Give away
+To provide something for free (as a gift or promotion).
+
+Example: The software company is giving away free trials to new users.
+
+To reveal a secret or hidden information.
+
+Example: Please don't give away our negotiation strategy to the competitors.
+
+To betray someone or accidentally show their true identity/feelings.
+
+Example: He tried to hide his frustration, but his tone of voice gave him away.
+
+To formally hand over a bride at a wedding.
+
+Example: Her father gave her away at the ceremony.
+
+2. Give back
+To return something to its original owner.
+
+Example: You must give back the company laptop when you leave the job.
+
+To contribute to society or a community after achieving success.
+
+Example: The successful manager likes to give back by mentoring junior developers.
+
+3. Give in
+To finally agree to what someone wants after initially refusing (yield/surrender).
+
+Example: Management finally gave in to the workers' demands for flexible hours.
+
+To hand over or submit a document (mainly British English).
+
+Example: Please give in your project reports by Friday afternoon.
+
+4. Give in to / Give into
+To stop resisting a feeling, desire, or pressure.
+
+Example: The company gave in to market pressure and lowered its prices.
+
+5. Give off
+To produce or emit something physical (like heat, light, a smell) or an invisible feeling (a vibe/energy).
+
+Example: The server room gives off a lot of heat.
+
+Example: The new team leader gives off a very confident energy.
+
+6. Give on / Give onto
+To open in the direction of, or provide a view of (used for doors, windows, or rooms).
+
+Example: The CEO’s office has large windows that give onto the city skyline.
+
+7. Give out
+To distribute something to a group of people.
+
+Example: They were giving out informational flyers at the business conference.
+
+To stop working or fail completely (used for machines, supplies, or body parts).
+
+Example: We couldn't finish the presentation because the projector's lamp gave out.
+
+To make information public.
+
+Example: The HR department will give out the details of the new health plan tomorrow.
+
+8. Give over
+To hand over control, responsibility, or possession of something.
+
+Example: The founder gave over control of the daily operations to the new CEO.
+
+To dedicate time or space to a specific purpose (usually passive: be given over to).
+
+Example: The afternoon meeting was given over to brainstorming new Java applications.
+
+To stop doing something annoying (mainly British informal).
+
+Example: Oh, give over! Stop complaining about the minor bugs in the code.
+
+9. Give up
+To stop trying to do something or accept defeat (surrender).
+
+Example: The coding problem was incredibly difficult, but the developer didn't give up.
+
+To stop doing a regular habit.
+
+Example: I decided to give up drinking coffee late in the afternoon.
+
+To part with something valuable or give away your time.
+
+Example: We had to give up our weekend to finish the software release on time.
+
+To surrender yourself to the authorities.
+
+Example: The hacker finally gave himself up to the police.
+
+10. Give (it) up for
+To applaud or clap for someone (used to welcome a speaker or performer).
+
+Example: Let's give it up for our keynote speaker!
+
+11. Give with
+To provide or tell information (Informal/Slang).
+
+Example: Come on, give with the details! What happened during the board meeting?
+
+---
+
+1) Create "take" link on list page with particals mentioned above phrasal verbs. 
+   Take as the base "get" link.
+2) Create "take" page with mentioned above phrasal verbs. 
+   Take as the base "get" page.
+3) Cover the functionality with tests
+---
+
+## 2026-06-06T14:14:44Z
+git add all changes and commit them with suitable message
+---
+
+## 2026-06-06T14:20:37Z
+Analyze and show me new relase tag with description and step how to create it.
+---
+
+## 2026-06-06T14:24:30Z
+run step 2
+---
+
+## 2026-06-06T14:24:45Z
+run step 3
+---
+
+## 2026-06-06T14:36:59Z
+For any listed phrasal verb image download that image only on first click on it, not when the page is downloaded.
+---
+
+## 2026-06-06T14:52:57Z
+When I refresh page, I'm in a listed phrasal verbs. does the image of the fragile group or a downloaded or it's... it is taken from the local cache or the browser computer.
+---
+
+## 2026-06-06T14:53:03Z
+When I refresh page, I'm in a listed phrasal verbs. does the image of the fragile group or a downloaded or it's... it is taken from the local cache or the browser computer?
+---
+
+## 2026-06-06T14:56:25Z
+Go off
+To explode or fire (a weapon): The bomb went off in the city center.
+
+To make a sudden loud noise (an alarm): My morning alarm went off at 6:00 AM.
+
+To stop working or power down: The lights went off during the storm.
+
+To spoil or go bad (food): This milk smells like it has gone off.
+
+To happen in a specific way: The software presentation went off without any problems.
+
+To stop liking someone or something: I used to love Java, but I’ve gone off it recently.
+
+To leave a place: The manager went off to a meeting.
+
+Go on
+To continue: Please go on with your code explanation; I am listening.
+
+To happen: What is going on in the server room?
+
+To start operating (power, lights): The backup generator went on automatically.
+
+To talk too much about something: He goes on and on about his leadership skills.
+
+To proceed to do something next: After fixing the bug, she went on to optimize the database.
+
+To base an opinion on something: We don't have much data to go on.
+
+Go up
+To increase or rise: Software licensing prices have gone up this year.
+
+To be built or constructed: New office buildings are going up in the business district.
+
+To explode or catch fire: The old factory went up in flames.
+
+Go down
+To decrease or fall: Our server error rates went down last month.
+
+To stop working (computers/systems): The entire network went down for two hours.
+
+To be remembered in a certain way: He will go down in history as a great CEO.
+
+To be received by an audience: The new management policy did not go down well with the team.
+
+To set (the sun): We finished work just as the sun was going down.
+
+Go in
+To enter a place: The door is open, so you can go in.
+
+To be understood or remembered: The complex instructions just didn't go in.
+
+To become hidden (the sun): It suddenly got cold when the sun went in behind a cloud.
+
+Go into
+To discuss or explain in detail: Let’s not go into the budget problems right now.
+
+To enter a specific profession or business: She decided to go into project management.
+
+To crash or collide with: The car lost control and went into a tree.
+
+To enter a specific state or condition: The company went into liquidation.
+
+Go out
+To leave home for a social event: We are going out for dinner to celebrate the launch.
+
+To stop burning or shining (fire/lights): The fire went out because we forgot to add wood.
+
+To be published, broadcast, or sent: The team email went out yesterday.
+
+To become unfashionable: That style of UI design went out years ago.
+
+To have a romantic relationship: They have been going out for two years.
+
+Go away
+To leave a place or person: Please go away, I need to focus on my work.
+
+To disappear or fade: The error message went away when I restarted the application.
+
+To leave home for a holiday: We are going away to the mountains for the weekend.
+
+Go cross / across
+To move to the other side: We need to go across the street to reach the client's office.
+
+(Note: "go across" is highly literal; "come across" or "get across" are more common idiomatically).
+
+Go forward
+To progress or advance: We are going forward with the new business strategy.
+
+To move clocks ahead: The clocks go forward in the spring.
+
+Go back
+To return to a place or state: I need to go back to the office; I forgot my laptop.
+
+To have existed since a specific time: This legacy code goes back to 2010.
+
+To break a promise (go back on): The vendor went back on their promise to deliver the software today.
+
+Go for
+To choose or select: I will go for the standard Java framework instead of the experimental one.
+
+To try to achieve something: If you want that promotion, you should go for it!
+
+To attack someone physically or verbally: The dog suddenly went for the mailman.
+
+To apply equally to someone else: The rules are strict, and that goes for managers, too.
+
+Go by
+To pass (time): As the years went by, the technology improved significantly.
+
+To base a decision on something or follow rules: If we go by the manual, this should take two hours.
+
+To be known by a specific name: His name is Robert, but he goes by Bob.
+
+Go together
+To look or sound good in combination: The new logo and the brand colors go together perfectly.
+
+To frequently accompany each other: High risk and high reward usually go together in business.
+
+Go with
+To match or suit something: That font doesn't go with the website's professional design.
+
+To choose or accept an idea/offer: We decided to go with the second marketing proposal.
+
+To accompany someone: I’m going to the conference; do you want to go with me?
+
+Go without
+To manage or live without something you usually have: The budget is tight, so we will have to go without the extra monitors this year.
+
+Go apart
+(Note: "Go apart" is not a standard English phrasal verb. The correct verbs for this concept are "fall apart" [to break into pieces or fail] or "grow apart" [to slowly stop having a close relationship]).
+
+Go over
+To review, check, or examine something carefully: Let's go over the project requirements one more time.
+
+To move toward someone or something: I will go over to the IT department to ask for help.
+
+To be received in a specific way: His joke didn't go over very well during the serious meeting.
+
+Go ahead
+To start or proceed with an action: We have the budget, so we can go ahead with the development.
+
+To move in front of someone: You go ahead, I will catch up with you in a minute.
+
+Go after
+To try to catch or stop someone: The police went after the thief.
+
+To try to achieve or get something (like a job or goal): She is going after a leadership role in the company.
+
+Go behind
+To go to the back of something: The cat went behind the sofa.
+
+To do something secretly without someone's permission (go behind someone's back): He went behind the manager's back and changed the server configurations.
+
+Go through
+To experience a difficult situation: The company went through a tough financial period last year.
+
+To search or examine carefully: I need to go through my emails to find the invoice.
+
+To be officially approved or completed: The merger finally went through yesterday.
+
+To use up a supply of something: We go through a lot of coffee in the developers' room.
+
+To practice or rehearse: Let's go through the presentation one more time.
+
+Go about
+To begin to tackle a task or problem: I don't know how to go about fixing this complex bug.
+
+To behave or do things in a normal way: Despite the bad news, they went about their daily work.
+
+Go around / round
+To circulate or spread (illness or news): There is a rumor going around about a new software release.
+
+To be enough for everyone to have a share: Are there enough printed reports to go around?
+
+To visit someone at their location: I'll go around to his desk later to discuss the code.
+
+To spin or rotate: The wheels go around.
+
+Go to
+To start a specific action or state: After 12 hours of coding, I finally went to sleep.
+
+To be given or assigned to: All the extra project funds will go to the marketing team.
+
+(Note: While mostly a standard verb + preposition, in phrases like "go to war" or "go to pieces," it functions as a set expression).
+
+Go against
+To oppose or disagree with: Implementing this feature goes against our main design principles.
+
+To be unfavorable to someone (especially in sports or legal cases): The final verdict went against the company.
+
+---
+
+1) Create "take" link on list page with particals mentioned above phrasal verbs. 
+   Take as the base "get" link.
+2) Create "take" page with mentioned above phrasal verbs. 
+   Take as the base "get" page.
+3) Cover the functionality with tests
+---
+
+## 2026-06-06T15:45:52Z
+git add all changes and commit them with suitable message
+---

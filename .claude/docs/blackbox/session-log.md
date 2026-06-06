@@ -614,3 +614,59 @@
 - src/__tests__/verbPage/sharedSectionTests.tsx
 - src/components/VerbPage.tsx
 <!-- end-snapshot -->
+
+<!-- git-snapshot 2026-06-06T14:12:45Z -->
+- .claude/docs/blackbox/audit.md
+- blackbox/session-log.md
+- src/__tests__/PhrasalVerbsListPage.test.tsx
+- src/main.tsx
+- src/pages/PhrasalVerbsListPage.tsx
+<!-- end-snapshot -->
+
+<!-- git-snapshot 2026-06-06T14:14:58Z -->
+- .claude/docs/blackbox/audit.md
+- .claude/docs/blackbox/session-log.md
+<!-- end-snapshot -->
+
+<!-- git-snapshot 2026-06-06T14:21:05Z -->
+- .claude/docs/blackbox/audit.md
+- .claude/docs/blackbox/plans/2026-06-06 15:58 Plan Add Give Verb Page.md
+- .claude/docs/blackbox/session-log.md
+- .docs/notes.md
+<!-- end-snapshot -->
+
+<!-- git-snapshot 2026-06-06T14:24:41Z -->
+- .claude/docs/blackbox/audit.md
+- .claude/docs/blackbox/plans/2026-06-06 15:58 Plan Add Give Verb Page.md
+- .claude/docs/blackbox/session-log.md
+- .docs/notes.md
+<!-- end-snapshot -->
+
+<!-- git-snapshot 2026-06-06T14:24:52Z -->
+- .claude/docs/blackbox/audit.md
+- .claude/docs/blackbox/plans/2026-06-06 15:58 Plan Add Give Verb Page.md
+- .claude/docs/blackbox/session-log.md
+- .docs/notes.md
+<!-- end-snapshot -->
+
+<!-- git-snapshot 2026-06-06T14:44:08Z -->
+- .claude/docs/blackbox/audit.md
+- .claude/docs/blackbox/plans/2026-06-06 15:58 Plan Add Give Verb Page.md
+- .claude/docs/blackbox/session-log.md
+- .docs/notes.md
+- src/__tests__/verbPage/sharedSectionTests.tsx
+- src/components/VerbPage.tsx
+<!-- end-snapshot -->
+
+<!-- git-snapshot 2026-06-06T14:53:14Z -->
+- .claude/docs/blackbox/audit.md
+- .claude/docs/blackbox/plans/2026-06-06 15:58 Plan Add Give Verb Page.md
+- .claude/docs/blackbox/session-log.md
+- .docs/notes.md
+<!-- end-snapshot -->
+
+<!-- git-snapshot 2026-06-06T15:46:04Z -->
+- .claude/docs/blackbox/audit.md
+- .claude/docs/blackbox/session-log.md
+- .docs/notes.md
+<!-- end-snapshot -->
