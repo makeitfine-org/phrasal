@@ -1,62 +1,16 @@
 import { screen, fireEvent, within } from '@testing-library/react';
 import { renderPage, getCard, expandSection } from './helpers';
+import { describeChevronAndColour, describeSectionToggle } from '../verbPage/sharedSectionTests';
+
+const LABEL = 'PutVerbPage';
 
 beforeEach(() => {
   localStorage.clear();
 });
 
-describe('PutVerbPage — "back" section toggle', () => {
-  it('renders "back" section toggle', () => {
-    renderPage();
-    expect(screen.getByText('back')).toBeInTheDocument();
-  });
+describeSectionToggle(LABEL, 'back', 'putBack_section_expanded', /To return something to its original place/i, renderPage);
 
-  it('"back" section starts collapsed', () => {
-    renderPage();
-    expect(screen.queryByText(/To return something to its original place/i)).not.toBeInTheDocument();
-  });
-
-  it('clicking "back" expands all 3 "back" meaning cards', () => {
-    renderPage();
-    fireEvent.click(screen.getByText('back'));
-    expect(screen.getByText(/To return something to its original place/i)).toBeInTheDocument();
-    expect(screen.getByText(/To delay an event or appointment/i)).toBeInTheDocument();
-    expect(screen.getByText(/To change a clock to an earlier time/i)).toBeInTheDocument();
-  });
-
-  it('clicking "back" twice collapses meaning cards', () => {
-    renderPage();
-    fireEvent.click(screen.getByText('back'));
-    fireEvent.click(screen.getByText('back'));
-    expect(screen.queryByText(/To return something to its original place/i)).not.toBeInTheDocument();
-  });
-
-  it('saves "back" section state to localStorage when expanded', () => {
-    renderPage();
-    fireEvent.click(screen.getByText('back'));
-    expect(localStorage.getItem('putBack_section_expanded')).toBe('true');
-  });
-});
-
-describe('PutVerbPage — "back" chevron and colour', () => {
-  it('back chevron has rotate-90 class when expanded', () => {
-    renderPage();
-    fireEvent.click(screen.getByText('back'));
-    const header = screen.getByText('back').closest('div')!;
-    expect(within(header).getByText('▶')).toHaveClass('rotate-90');
-  });
-
-  it('back particle text is blue when collapsed', () => {
-    renderPage();
-    expect(screen.getByText('back')).toHaveClass('text-blue-600');
-  });
-
-  it('back particle text is white when expanded', () => {
-    renderPage();
-    fireEvent.click(screen.getByText('back'));
-    expect(screen.getByText('back')).toHaveClass('text-white');
-  });
-});
+describeChevronAndColour(LABEL, 'back', renderPage);
 
 describe('PutVerbPage — "back" card view (default image)', () => {
   it('all examples visible without expanding cards', () => {

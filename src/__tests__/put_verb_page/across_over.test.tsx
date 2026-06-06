@@ -1,66 +1,16 @@
 import { screen, fireEvent, within } from '@testing-library/react';
 import { renderPage, getCard, expandSection } from './helpers';
+import { describeChevronAndColour, describeSectionToggle } from '../verbPage/sharedSectionTests';
+
+const LABEL = 'PutVerbPage';
 
 beforeEach(() => {
   localStorage.clear();
 });
 
-describe('PutVerbPage — "across / over" section toggle', () => {
-  it('renders "across / over" section toggle', () => {
-    renderPage();
-    expect(screen.getByText('across / over')).toBeInTheDocument();
-  });
+describeSectionToggle(LABEL, 'across / over', 'putAcrossOver_section_expanded', /To explain an idea clearly so people understand it/i, renderPage);
 
-  it('"across / over" section starts collapsed', () => {
-    renderPage();
-    expect(screen.queryByText(/To explain an idea clearly so people understand it/i)).not.toBeInTheDocument();
-  });
-
-  it('clicking "across / over" expands meaning card', () => {
-    renderPage();
-    fireEvent.click(screen.getByText('across / over'));
-    expect(screen.getByText(/To explain an idea clearly so people understand it/i)).toBeInTheDocument();
-  });
-
-  it('clicking "across / over" twice collapses meaning card', () => {
-    renderPage();
-    fireEvent.click(screen.getByText('across / over'));
-    fireEvent.click(screen.getByText('across / over'));
-    expect(screen.queryByText(/To explain an idea clearly so people understand it/i)).not.toBeInTheDocument();
-  });
-
-  it('saves "across / over" section state to localStorage when expanded', () => {
-    renderPage();
-    fireEvent.click(screen.getByText('across / over'));
-    expect(localStorage.getItem('putAcrossOver_section_expanded')).toBe('true');
-  });
-
-  it('restores "across / over" section collapsed state from localStorage', () => {
-    localStorage.setItem('putAcrossOver_section_expanded', 'false');
-    renderPage();
-    expect(screen.queryByText(/To explain an idea clearly so people understand it/i)).not.toBeInTheDocument();
-  });
-});
-
-describe('PutVerbPage — "across / over" chevron and colour', () => {
-  it('across / over chevron has rotate-90 class when expanded', () => {
-    renderPage();
-    fireEvent.click(screen.getByText('across / over'));
-    const header = screen.getByText('across / over').closest('div')!;
-    expect(within(header).getByText('▶')).toHaveClass('rotate-90');
-  });
-
-  it('across / over particle text is blue when collapsed', () => {
-    renderPage();
-    expect(screen.getByText('across / over')).toHaveClass('text-blue-600');
-  });
-
-  it('across / over particle text is white when expanded', () => {
-    renderPage();
-    fireEvent.click(screen.getByText('across / over'));
-    expect(screen.getByText('across / over')).toHaveClass('text-white');
-  });
-});
+describeChevronAndColour(LABEL, 'across / over', renderPage);
 
 describe('PutVerbPage — "across / over" card view (default image)', () => {
   it('example visible without expanding card', () => {

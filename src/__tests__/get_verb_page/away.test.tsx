@@ -1,89 +1,16 @@
 import { screen, fireEvent, within } from '@testing-library/react';
 import { renderPage, getCard, expandSection } from './helpers';
+import { describeChevronAndColour, describeSectionToggle } from '../verbPage/sharedSectionTests';
+
+const LABEL = 'GetVerbPage';
 
 beforeEach(() => {
   localStorage.clear();
 });
 
-describe('GetVerbPage — "away" section toggle', () => {
-  it('renders "away" section toggle', () => {
-    renderPage();
-    expect(screen.getByText('away')).toBeInTheDocument();
-  });
+describeSectionToggle(LABEL, 'away', 'getAway_section_expanded', /To escape/i, renderPage);
 
-  it('"away" section starts collapsed showing no definitions', () => {
-    renderPage();
-    expect(screen.queryByText(/To escape/i)).not.toBeInTheDocument();
-    expect(screen.queryByText(/To go on a holiday or take a break/i)).not.toBeInTheDocument();
-    expect(screen.queryByText(/To do something wrong without being punished/i)).not.toBeInTheDocument();
-  });
-
-  it('clicking "away" expands all meaning cards', () => {
-    renderPage();
-    fireEvent.click(screen.getByText('away'));
-    expect(screen.getByText(/To escape/i)).toBeInTheDocument();
-    expect(screen.getByText(/To go on a holiday or take a break/i)).toBeInTheDocument();
-    expect(screen.getByText(/To do something wrong without being punished/i)).toBeInTheDocument();
-  });
-
-  it('clicking "away" twice collapses all meaning cards', () => {
-    renderPage();
-    fireEvent.click(screen.getByText('away'));
-    fireEvent.click(screen.getByText('away'));
-    expect(screen.queryByText(/To escape/i)).not.toBeInTheDocument();
-  });
-
-  it('saves "away" section state to localStorage when expanded', () => {
-    renderPage();
-    fireEvent.click(screen.getByText('away'));
-    expect(localStorage.getItem('getAway_section_expanded')).toBe('true');
-  });
-
-  it('restores "away" section collapsed state from localStorage', () => {
-    localStorage.setItem('getAway_section_expanded', 'false');
-    renderPage();
-    expect(screen.queryByText(/To escape/i)).not.toBeInTheDocument();
-  });
-});
-
-describe('GetVerbPage — "away" chevron and colour', () => {
-  it('away chevron has rotate-90 class when expanded', () => {
-    renderPage();
-    fireEvent.click(screen.getByText('away'));
-    const header = screen.getByText('away').closest('div')!;
-    expect(within(header).getByText('▶')).toHaveClass('rotate-90');
-  });
-
-  it('away chevron does not have rotate-90 class when collapsed', () => {
-    renderPage();
-    const header = screen.getByText('away').closest('div')!;
-    expect(within(header).getByText('▶')).not.toHaveClass('rotate-90');
-  });
-
-  it('away chevron is blue when collapsed', () => {
-    renderPage();
-    const header = screen.getByText('away').closest('div')!;
-    expect(within(header).getByText('▶')).toHaveClass('text-blue-600');
-  });
-
-  it('away chevron is white when expanded', () => {
-    renderPage();
-    fireEvent.click(screen.getByText('away'));
-    const header = screen.getByText('away').closest('div')!;
-    expect(within(header).getByText('▶')).toHaveClass('text-white');
-  });
-
-  it('away particle text is blue when collapsed', () => {
-    renderPage();
-    expect(screen.getByText('away')).toHaveClass('text-blue-600');
-  });
-
-  it('away particle text is white when expanded', () => {
-    renderPage();
-    fireEvent.click(screen.getByText('away'));
-    expect(screen.getByText('away')).toHaveClass('text-white');
-  });
-});
+describeChevronAndColour(LABEL, 'away', renderPage);
 
 describe('GetVerbPage — "away" section definitions', () => {
   it('all 3 "away" definition paragraphs have truncate class', () => {

@@ -1,91 +1,16 @@
 import { screen, fireEvent, within } from '@testing-library/react';
 import { renderPage, getCard, expandSection } from './helpers';
+import { describeChevronAndColour, describeSectionToggle } from '../verbPage/sharedSectionTests';
+
+const LABEL = 'GetVerbPage';
 
 beforeEach(() => {
   localStorage.clear();
 });
 
-describe('GetVerbPage — "to" section toggle', () => {
-  it('renders "to" section toggle', () => {
-    renderPage();
-    expect(screen.getByText('to')).toBeInTheDocument();
-  });
+describeSectionToggle(LABEL, 'to', 'getTo_section_expanded', /To arrive at a destination/i, renderPage);
 
-  it('"to" section starts collapsed showing no definitions', () => {
-    renderPage();
-    expect(screen.queryByText(/To arrive at a destination/i)).not.toBeInTheDocument();
-    expect(screen.queryByText(/To have the opportunity to do something/i)).not.toBeInTheDocument();
-    expect(screen.queryByText(/To annoy or upset someone/i)).not.toBeInTheDocument();
-    expect(screen.queryByText(/To begin an action/i)).not.toBeInTheDocument();
-  });
-
-  it('clicking "to" expands all meaning cards', () => {
-    renderPage();
-    fireEvent.click(screen.getByText('to'));
-    expect(screen.getByText(/To arrive at a destination/i)).toBeInTheDocument();
-    expect(screen.getByText(/To have the opportunity to do something/i)).toBeInTheDocument();
-    expect(screen.getByText(/To annoy or upset someone/i)).toBeInTheDocument();
-    expect(screen.getByText(/To begin an action/i)).toBeInTheDocument();
-  });
-
-  it('clicking "to" twice collapses all meaning cards', () => {
-    renderPage();
-    fireEvent.click(screen.getByText('to'));
-    fireEvent.click(screen.getByText('to'));
-    expect(screen.queryByText(/To arrive at a destination/i)).not.toBeInTheDocument();
-  });
-
-  it('saves "to" section state to localStorage when expanded', () => {
-    renderPage();
-    fireEvent.click(screen.getByText('to'));
-    expect(localStorage.getItem('getTo_section_expanded')).toBe('true');
-  });
-
-  it('restores "to" section collapsed state from localStorage', () => {
-    localStorage.setItem('getTo_section_expanded', 'false');
-    renderPage();
-    expect(screen.queryByText(/To arrive at a destination/i)).not.toBeInTheDocument();
-  });
-});
-
-describe('GetVerbPage — "to" chevron and colour', () => {
-  it('to chevron has rotate-90 class when expanded', () => {
-    renderPage();
-    fireEvent.click(screen.getByText('to'));
-    const header = screen.getByText('to').closest('div')!;
-    expect(within(header).getByText('▶')).toHaveClass('rotate-90');
-  });
-
-  it('to chevron does not have rotate-90 class when collapsed', () => {
-    renderPage();
-    const header = screen.getByText('to').closest('div')!;
-    expect(within(header).getByText('▶')).not.toHaveClass('rotate-90');
-  });
-
-  it('to chevron is blue when collapsed', () => {
-    renderPage();
-    const header = screen.getByText('to').closest('div')!;
-    expect(within(header).getByText('▶')).toHaveClass('text-blue-600');
-  });
-
-  it('to chevron is white when expanded', () => {
-    renderPage();
-    fireEvent.click(screen.getByText('to'));
-    const header = screen.getByText('to').closest('div')!;
-    expect(within(header).getByText('▶')).toHaveClass('text-white');
-  });
-
-  it('to particle text is blue when collapsed', () => {
-    renderPage();
-    expect(screen.getByText('to')).toHaveClass('text-blue-600');
-  });
-
-  it('to particle text is white when expanded', () => {
-    renderPage();
-    fireEvent.click(screen.getByText('to'));
-    expect(screen.getByText('to')).toHaveClass('text-white');
-  });
-});
+describeChevronAndColour(LABEL, 'to', renderPage);
 
 describe('GetVerbPage — "to" section definitions', () => {
   it('all 4 "to" definition paragraphs have truncate class', () => {

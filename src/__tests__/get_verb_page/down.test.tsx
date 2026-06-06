@@ -1,40 +1,16 @@
 import { screen, fireEvent, within } from '@testing-library/react';
 import { renderPage, getCard, expandSection } from './helpers';
+import { describeChevronAndColour, describeSectionToggle } from '../verbPage/sharedSectionTests';
+
+const LABEL = 'GetVerbPage';
 
 beforeEach(() => {
   localStorage.clear();
 });
 
-describe('GetVerbPage — "down" section toggle', () => {
-  it('renders "down" section toggle', () => {
-    renderPage();
-    expect(screen.getByText('down')).toBeInTheDocument();
-  });
+describeSectionToggle(LABEL, 'down', 'getDown_section_expanded', /To move to a lower position/i, renderPage);
 
-  it('"down" section starts collapsed showing no definitions', () => {
-    renderPage();
-    expect(screen.queryByText(/To move to a lower position/i)).not.toBeInTheDocument();
-    expect(screen.queryByText(/To make someone feel sad or depressed/i)).not.toBeInTheDocument();
-    expect(screen.queryByText(/To write something/i)).not.toBeInTheDocument();
-    expect(screen.queryByText(/To start focusing on a task seriously/i)).not.toBeInTheDocument();
-  });
-
-  it('clicking "down" expands all "down" meaning cards', () => {
-    renderPage();
-    fireEvent.click(screen.getByText('down'));
-    expect(screen.getByText(/To move to a lower position/i)).toBeInTheDocument();
-    expect(screen.getByText(/To make someone feel sad or depressed/i)).toBeInTheDocument();
-    expect(screen.getByText(/To write something/i)).toBeInTheDocument();
-    expect(screen.getByText(/To start focusing on a task seriously/i)).toBeInTheDocument();
-  });
-
-  it('clicking "down" twice collapses all "down" meaning cards', () => {
-    renderPage();
-    fireEvent.click(screen.getByText('down'));
-    fireEvent.click(screen.getByText('down'));
-    expect(screen.queryByText(/To move to a lower position/i)).not.toBeInTheDocument();
-  });
-
+describe(`${LABEL} — "down" section independence`, () => {
   it('collapsing "down" section does not affect "off", "on", or "up" sections', () => {
     renderPage();
     expandSection('off');
@@ -46,58 +22,9 @@ describe('GetVerbPage — "down" section toggle', () => {
     expect(screen.getByText(/To step onto a form of public transport/i)).toBeInTheDocument();
     expect(screen.getByText(/To rise from bed after sleeping/i)).toBeInTheDocument();
   });
-
-  it('saves "down" section state to localStorage when expanded', () => {
-    renderPage();
-    fireEvent.click(screen.getByText('down'));
-    expect(localStorage.getItem('getDown_section_expanded')).toBe('true');
-  });
-
-  it('restores "down" section collapsed state from localStorage', () => {
-    localStorage.setItem('getDown_section_expanded', 'false');
-    renderPage();
-    expect(screen.queryByText(/To move to a lower position/i)).not.toBeInTheDocument();
-  });
 });
 
-describe('GetVerbPage — "down" chevron and colour', () => {
-  it('down chevron has rotate-90 class when expanded', () => {
-    renderPage();
-    fireEvent.click(screen.getByText('down'));
-    const downHeader = screen.getByText('down').closest('div')!;
-    expect(within(downHeader).getByText('▶')).toHaveClass('rotate-90');
-  });
-
-  it('down chevron does not have rotate-90 class when collapsed', () => {
-    renderPage();
-    const downHeader = screen.getByText('down').closest('div')!;
-    expect(within(downHeader).getByText('▶')).not.toHaveClass('rotate-90');
-  });
-
-  it('down chevron is blue when collapsed', () => {
-    renderPage();
-    const downHeader = screen.getByText('down').closest('div')!;
-    expect(within(downHeader).getByText('▶')).toHaveClass('text-blue-600');
-  });
-
-  it('down chevron is white when expanded', () => {
-    renderPage();
-    fireEvent.click(screen.getByText('down'));
-    const downHeader = screen.getByText('down').closest('div')!;
-    expect(within(downHeader).getByText('▶')).toHaveClass('text-white');
-  });
-
-  it('down particle text is blue when collapsed', () => {
-    renderPage();
-    expect(screen.getByText('down')).toHaveClass('text-blue-600');
-  });
-
-  it('down particle text is white when expanded', () => {
-    renderPage();
-    fireEvent.click(screen.getByText('down'));
-    expect(screen.getByText('down')).toHaveClass('text-white');
-  });
-});
+describeChevronAndColour(LABEL, 'down', renderPage);
 
 describe('GetVerbPage — "down" section definitions', () => {
   it('all 4 "down" definition paragraphs have truncate class', () => {

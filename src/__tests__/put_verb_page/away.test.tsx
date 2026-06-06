@@ -1,69 +1,16 @@
 import { screen, fireEvent, within } from '@testing-library/react';
 import { renderPage, getCard, expandSection } from './helpers';
+import { describeChevronAndColour, describeSectionToggle } from '../verbPage/sharedSectionTests';
+
+const LABEL = 'PutVerbPage';
 
 beforeEach(() => {
   localStorage.clear();
 });
 
-describe('PutVerbPage — "away" section toggle', () => {
-  it('renders "away" section toggle', () => {
-    renderPage();
-    expect(screen.getByText('away')).toBeInTheDocument();
-  });
+describeSectionToggle(LABEL, 'away', 'putAway_section_expanded', /To store things in their correct place/i, renderPage);
 
-  it('"away" section starts collapsed', () => {
-    renderPage();
-    expect(screen.queryByText(/To store things in their correct place/i)).not.toBeInTheDocument();
-  });
-
-  it('clicking "away" expands all 4 "away" meaning cards', () => {
-    renderPage();
-    fireEvent.click(screen.getByText('away'));
-    expect(screen.getByText(/To store things in their correct place/i)).toBeInTheDocument();
-    expect(screen.getByText(/To save money for the future/i)).toBeInTheDocument();
-    expect(screen.getByText(/To send someone to prison or a mental hospital/i)).toBeInTheDocument();
-    expect(screen.getByText(/To eat or drink a large amount/i)).toBeInTheDocument();
-  });
-
-  it('clicking "away" twice collapses meaning cards', () => {
-    renderPage();
-    fireEvent.click(screen.getByText('away'));
-    fireEvent.click(screen.getByText('away'));
-    expect(screen.queryByText(/To store things in their correct place/i)).not.toBeInTheDocument();
-  });
-
-  it('saves "away" section state to localStorage when expanded', () => {
-    renderPage();
-    fireEvent.click(screen.getByText('away'));
-    expect(localStorage.getItem('putAway_section_expanded')).toBe('true');
-  });
-
-  it('restores "away" section collapsed state from localStorage', () => {
-    localStorage.setItem('putAway_section_expanded', 'false');
-    renderPage();
-    expect(screen.queryByText(/To store things in their correct place/i)).not.toBeInTheDocument();
-  });
-});
-
-describe('PutVerbPage — "away" chevron and colour', () => {
-  it('away chevron has rotate-90 class when expanded', () => {
-    renderPage();
-    fireEvent.click(screen.getByText('away'));
-    const header = screen.getByText('away').closest('div')!;
-    expect(within(header).getByText('▶')).toHaveClass('rotate-90');
-  });
-
-  it('away particle text is blue when collapsed', () => {
-    renderPage();
-    expect(screen.getByText('away')).toHaveClass('text-blue-600');
-  });
-
-  it('away particle text is white when expanded', () => {
-    renderPage();
-    fireEvent.click(screen.getByText('away'));
-    expect(screen.getByText('away')).toHaveClass('text-white');
-  });
-});
+describeChevronAndColour(LABEL, 'away', renderPage);
 
 describe('PutVerbPage — "away" card view (default image)', () => {
   it('all examples visible without expanding cards', () => {

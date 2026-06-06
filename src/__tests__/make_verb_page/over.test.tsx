@@ -1,36 +1,16 @@
 import { screen, fireEvent, within } from '@testing-library/react';
 import { renderPage, getCard, expandSection } from './helpers';
+import { describeChevronAndColour, describeSectionToggle } from '../verbPage/sharedSectionTests';
+
+const LABEL = 'MakeVerbPage';
 
 beforeEach(() => {
   localStorage.clear();
 });
 
-describe('MakeVerbPage — "over" section toggle', () => {
-  it('renders "over" section toggle', () => {
-    renderPage();
-    expect(screen.getByText('over')).toBeInTheDocument();
-  });
+describeSectionToggle(LABEL, 'over', 'makeOver_section_expanded', /To change or improve the appearance/i, renderPage);
 
-  it('"over" section starts collapsed showing no definitions', () => {
-    renderPage();
-    expect(screen.queryByText(/To change or improve the appearance/i)).not.toBeInTheDocument();
-    expect(screen.queryByText(/To legally transfer ownership/i)).not.toBeInTheDocument();
-  });
-
-  it('clicking "over" expands all "over" meaning cards', () => {
-    renderPage();
-    fireEvent.click(screen.getByText('over'));
-    expect(screen.getByText(/To change or improve the appearance/i)).toBeInTheDocument();
-    expect(screen.getByText(/To legally transfer ownership/i)).toBeInTheDocument();
-  });
-
-  it('clicking "over" twice collapses all "over" meaning cards', () => {
-    renderPage();
-    fireEvent.click(screen.getByText('over'));
-    fireEvent.click(screen.getByText('over'));
-    expect(screen.queryByText(/To change or improve the appearance/i)).not.toBeInTheDocument();
-  });
-
+describe(`${LABEL} — "over" section independence`, () => {
   it('collapsing "over" section does not affect other sections', () => {
     renderPage();
     expandSection('for');
@@ -38,39 +18,9 @@ describe('MakeVerbPage — "over" section toggle', () => {
     fireEvent.click(screen.getByText('over'));
     expect(screen.getByText(/To move directly towards a place/i)).toBeInTheDocument();
   });
-
-  it('saves "over" section state to localStorage when expanded', () => {
-    renderPage();
-    fireEvent.click(screen.getByText('over'));
-    expect(localStorage.getItem('makeOver_section_expanded')).toBe('true');
-  });
-
-  it('restores "over" section collapsed state from localStorage', () => {
-    localStorage.setItem('makeOver_section_expanded', 'false');
-    renderPage();
-    expect(screen.queryByText(/To change or improve the appearance/i)).not.toBeInTheDocument();
-  });
 });
 
-describe('MakeVerbPage — "over" chevron and colour', () => {
-  it('over chevron has rotate-90 class when expanded', () => {
-    renderPage();
-    fireEvent.click(screen.getByText('over'));
-    const header = screen.getByText('over').closest('div')!;
-    expect(within(header).getByText('▶')).toHaveClass('rotate-90');
-  });
-
-  it('over particle text is blue when collapsed', () => {
-    renderPage();
-    expect(screen.getByText('over')).toHaveClass('text-blue-600');
-  });
-
-  it('over particle text is white when expanded', () => {
-    renderPage();
-    fireEvent.click(screen.getByText('over'));
-    expect(screen.getByText('over')).toHaveClass('text-white');
-  });
-});
+describeChevronAndColour(LABEL, 'over', renderPage);
 
 describe('MakeVerbPage — "over" section definitions', () => {
   it('all 2 "over" definition paragraphs have truncate class', () => {

@@ -1,40 +1,16 @@
 import { screen, fireEvent, within } from '@testing-library/react';
 import { renderPage, getCard, expandSection } from './helpers';
+import { describeChevronAndColour, describeSectionToggle } from '../verbPage/sharedSectionTests';
+
+const LABEL = 'MakeVerbPage';
 
 beforeEach(() => {
   localStorage.clear();
 });
 
-describe('MakeVerbPage — "up" section toggle', () => {
-  it('renders "up" section toggle', () => {
-    renderPage();
-    expect(screen.getByText('up')).toBeInTheDocument();
-  });
+describeSectionToggle(LABEL, 'up', 'makeUp_section_expanded', /To invent a story, excuse, or explanation/i, renderPage);
 
-  it('"up" section starts collapsed showing no definitions', () => {
-    renderPage();
-    expect(screen.queryByText(/To invent a story, excuse, or explanation/i)).not.toBeInTheDocument();
-    expect(screen.queryByText(/To form the whole of something/i)).not.toBeInTheDocument();
-    expect(screen.queryByText(/To become friendly again after an argument/i)).not.toBeInTheDocument();
-    expect(screen.queryByText(/To prepare, build, or arrange something from parts/i)).not.toBeInTheDocument();
-  });
-
-  it('clicking "up" expands all 4 "up" meaning cards', () => {
-    renderPage();
-    fireEvent.click(screen.getByText('up'));
-    expect(screen.getByText(/To invent a story, excuse, or explanation/i)).toBeInTheDocument();
-    expect(screen.getByText(/To form the whole of something/i)).toBeInTheDocument();
-    expect(screen.getByText(/To become friendly again after an argument/i)).toBeInTheDocument();
-    expect(screen.getByText(/To prepare, build, or arrange something from parts/i)).toBeInTheDocument();
-  });
-
-  it('clicking "up" twice collapses all "up" meaning cards', () => {
-    renderPage();
-    fireEvent.click(screen.getByText('up'));
-    fireEvent.click(screen.getByText('up'));
-    expect(screen.queryByText(/To invent a story, excuse, or explanation/i)).not.toBeInTheDocument();
-  });
-
+describe(`${LABEL} — "up" section independence`, () => {
   it('collapsing "up" section does not affect other sections', () => {
     renderPage();
     expandSection('for');
@@ -44,45 +20,9 @@ describe('MakeVerbPage — "up" section toggle', () => {
     expect(screen.getByText(/To move directly towards a place/i)).toBeInTheDocument();
     expect(screen.getByText(/To manage to see, hear, or read something with difficulty/i)).toBeInTheDocument();
   });
-
-  it('saves "up" section state to localStorage when expanded', () => {
-    renderPage();
-    fireEvent.click(screen.getByText('up'));
-    expect(localStorage.getItem('makeUp_section_expanded')).toBe('true');
-  });
-
-  it('restores "up" section collapsed state from localStorage', () => {
-    localStorage.setItem('makeUp_section_expanded', 'false');
-    renderPage();
-    expect(screen.queryByText(/To invent a story, excuse, or explanation/i)).not.toBeInTheDocument();
-  });
 });
 
-describe('MakeVerbPage — "up" chevron and colour', () => {
-  it('up chevron has rotate-90 class when expanded', () => {
-    renderPage();
-    fireEvent.click(screen.getByText('up'));
-    const header = screen.getByText('up').closest('div')!;
-    expect(within(header).getByText('▶')).toHaveClass('rotate-90');
-  });
-
-  it('up chevron does not have rotate-90 class when collapsed', () => {
-    renderPage();
-    const header = screen.getByText('up').closest('div')!;
-    expect(within(header).getByText('▶')).not.toHaveClass('rotate-90');
-  });
-
-  it('up particle text is blue when collapsed', () => {
-    renderPage();
-    expect(screen.getByText('up')).toHaveClass('text-blue-600');
-  });
-
-  it('up particle text is white when expanded', () => {
-    renderPage();
-    fireEvent.click(screen.getByText('up'));
-    expect(screen.getByText('up')).toHaveClass('text-white');
-  });
-});
+describeChevronAndColour(LABEL, 'up', renderPage);
 
 describe('MakeVerbPage — "up" section definitions', () => {
   it('all 4 "up" definition paragraphs have truncate class', () => {

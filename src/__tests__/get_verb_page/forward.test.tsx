@@ -1,85 +1,16 @@
 import { screen, fireEvent, within } from '@testing-library/react';
 import { renderPage, getCard, expandSection } from './helpers';
+import { describeChevronAndColour, describeSectionToggle } from '../verbPage/sharedSectionTests';
+
+const LABEL = 'GetVerbPage';
 
 beforeEach(() => {
   localStorage.clear();
 });
 
-describe('GetVerbPage — "forward" section toggle', () => {
-  it('renders "forward" section toggle', () => {
-    renderPage();
-    expect(screen.getByText('forward')).toBeInTheDocument();
-  });
+describeSectionToggle(LABEL, 'forward', 'getForward_section_expanded', /To move to the front/i, renderPage);
 
-  it('"forward" section starts collapsed showing no definitions', () => {
-    renderPage();
-    expect(screen.queryByText(/To move to the front/i)).not.toBeInTheDocument();
-  });
-
-  it('clicking "forward" expands all meaning cards', () => {
-    renderPage();
-    fireEvent.click(screen.getByText('forward'));
-    expect(screen.getByText(/To move to the front/i)).toBeInTheDocument();
-  });
-
-  it('clicking "forward" twice collapses all meaning cards', () => {
-    renderPage();
-    fireEvent.click(screen.getByText('forward'));
-    fireEvent.click(screen.getByText('forward'));
-    expect(screen.queryByText(/To move to the front/i)).not.toBeInTheDocument();
-  });
-
-  it('saves "forward" section state to localStorage when expanded', () => {
-    renderPage();
-    fireEvent.click(screen.getByText('forward'));
-    expect(localStorage.getItem('getForward_section_expanded')).toBe('true');
-  });
-
-  it('restores "forward" section collapsed state from localStorage', () => {
-    localStorage.setItem('getForward_section_expanded', 'false');
-    renderPage();
-    expect(screen.queryByText(/To move to the front/i)).not.toBeInTheDocument();
-  });
-});
-
-describe('GetVerbPage — "forward" chevron and colour', () => {
-  it('forward chevron has rotate-90 class when expanded', () => {
-    renderPage();
-    fireEvent.click(screen.getByText('forward'));
-    const header = screen.getByText('forward').closest('div')!;
-    expect(within(header).getByText('▶')).toHaveClass('rotate-90');
-  });
-
-  it('forward chevron does not have rotate-90 class when collapsed', () => {
-    renderPage();
-    const header = screen.getByText('forward').closest('div')!;
-    expect(within(header).getByText('▶')).not.toHaveClass('rotate-90');
-  });
-
-  it('forward chevron is blue when collapsed', () => {
-    renderPage();
-    const header = screen.getByText('forward').closest('div')!;
-    expect(within(header).getByText('▶')).toHaveClass('text-blue-600');
-  });
-
-  it('forward chevron is white when expanded', () => {
-    renderPage();
-    fireEvent.click(screen.getByText('forward'));
-    const header = screen.getByText('forward').closest('div')!;
-    expect(within(header).getByText('▶')).toHaveClass('text-white');
-  });
-
-  it('forward particle text is blue when collapsed', () => {
-    renderPage();
-    expect(screen.getByText('forward')).toHaveClass('text-blue-600');
-  });
-
-  it('forward particle text is white when expanded', () => {
-    renderPage();
-    fireEvent.click(screen.getByText('forward'));
-    expect(screen.getByText('forward')).toHaveClass('text-white');
-  });
-});
+describeChevronAndColour(LABEL, 'forward', renderPage);
 
 describe('GetVerbPage — "forward" section definitions', () => {
   it('"forward" definition paragraph has truncate class', () => {

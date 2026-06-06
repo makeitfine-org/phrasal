@@ -1,61 +1,16 @@
 import { screen, fireEvent, within } from '@testing-library/react';
 import { renderPage, getCard, expandSection } from './helpers';
+import { describeChevronAndColour, describeSectionToggle } from '../verbPage/sharedSectionTests';
+
+const LABEL = 'PutVerbPage';
 
 beforeEach(() => {
   localStorage.clear();
 });
 
-describe('PutVerbPage — "to" section toggle', () => {
-  it('renders "to" section toggle', () => {
-    renderPage();
-    expect(screen.getByText('to')).toBeInTheDocument();
-  });
+describeSectionToggle(LABEL, 'to', 'putTo_section_expanded', /To suggest an idea or a question to someone directly/i, renderPage);
 
-  it('"to" section starts collapsed', () => {
-    renderPage();
-    expect(screen.queryByText(/To suggest an idea or a question to someone directly/i)).not.toBeInTheDocument();
-  });
-
-  it('clicking "to" expands meaning cards', () => {
-    renderPage();
-    fireEvent.click(screen.getByText('to'));
-    expect(screen.getByText(/To suggest an idea or a question to someone directly/i)).toBeInTheDocument();
-    expect(screen.getByText(/To cause trouble or expense for someone/i)).toBeInTheDocument();
-  });
-
-  it('clicking "to" twice collapses meaning cards', () => {
-    renderPage();
-    fireEvent.click(screen.getByText('to'));
-    fireEvent.click(screen.getByText('to'));
-    expect(screen.queryByText(/To suggest an idea or a question to someone directly/i)).not.toBeInTheDocument();
-  });
-
-  it('saves "to" section state to localStorage when expanded', () => {
-    renderPage();
-    fireEvent.click(screen.getByText('to'));
-    expect(localStorage.getItem('putTo_section_expanded')).toBe('true');
-  });
-});
-
-describe('PutVerbPage — "to" chevron and colour', () => {
-  it('to chevron has rotate-90 class when expanded', () => {
-    renderPage();
-    fireEvent.click(screen.getByText('to'));
-    const header = screen.getByText('to').closest('div')!;
-    expect(within(header).getByText('▶')).toHaveClass('rotate-90');
-  });
-
-  it('to particle text is blue when collapsed', () => {
-    renderPage();
-    expect(screen.getByText('to')).toHaveClass('text-blue-600');
-  });
-
-  it('to particle text is white when expanded', () => {
-    renderPage();
-    fireEvent.click(screen.getByText('to'));
-    expect(screen.getByText('to')).toHaveClass('text-white');
-  });
-});
+describeChevronAndColour(LABEL, 'to', renderPage);
 
 describe('PutVerbPage — "to" card view (default image)', () => {
   it('both examples visible without expanding cards', () => {

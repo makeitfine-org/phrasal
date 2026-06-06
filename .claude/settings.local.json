@@ -38,7 +38,8 @@
       "Bash(pkill -f \"vite.*5200\")",
       "Bash(cp /home/eug/Downloads/* /home/eug/dev/projects/my/phrasal/*)",
       "Bash(git -C /home/eug/dev/projects/my/phrasal status)",
-      "Bash(git -C /home/eug/dev/projects/my/phrasal diff --stat)"
+      "Bash(git -C /home/eug/dev/projects/my/phrasal diff --stat)",
+      "Bash(python3 *)"
     ]
   },
   "model": "sonnet",

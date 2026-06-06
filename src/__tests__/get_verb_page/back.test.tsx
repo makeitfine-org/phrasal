@@ -1,91 +1,16 @@
 import { screen, fireEvent, within } from '@testing-library/react';
 import { renderPage, getCard, expandSection } from './helpers';
+import { describeChevronAndColour, describeSectionToggle } from '../verbPage/sharedSectionTests';
+
+const LABEL = 'GetVerbPage';
 
 beforeEach(() => {
   localStorage.clear();
 });
 
-describe('GetVerbPage — "back" section toggle', () => {
-  it('renders "back" section toggle', () => {
-    renderPage();
-    expect(screen.getByText('back')).toBeInTheDocument();
-  });
+describeSectionToggle(LABEL, 'back', 'getBack_section_expanded', /To return to a place or a state/i, renderPage);
 
-  it('"back" section starts collapsed showing no definitions', () => {
-    renderPage();
-    expect(screen.queryByText(/To return to a place or a state/i)).not.toBeInTheDocument();
-    expect(screen.queryByText(/To have something returned to you/i)).not.toBeInTheDocument();
-    expect(screen.queryByText(/To return to a previous activity/i)).not.toBeInTheDocument();
-    expect(screen.queryByText(/To take revenge on someone/i)).not.toBeInTheDocument();
-  });
-
-  it('clicking "back" expands all meaning cards', () => {
-    renderPage();
-    fireEvent.click(screen.getByText('back'));
-    expect(screen.getByText(/To return to a place or a state/i)).toBeInTheDocument();
-    expect(screen.getByText(/To have something returned to you/i)).toBeInTheDocument();
-    expect(screen.getByText(/To return to a previous activity/i)).toBeInTheDocument();
-    expect(screen.getByText(/To take revenge on someone/i)).toBeInTheDocument();
-  });
-
-  it('clicking "back" twice collapses all meaning cards', () => {
-    renderPage();
-    fireEvent.click(screen.getByText('back'));
-    fireEvent.click(screen.getByText('back'));
-    expect(screen.queryByText(/To return to a place or a state/i)).not.toBeInTheDocument();
-  });
-
-  it('saves "back" section state to localStorage when expanded', () => {
-    renderPage();
-    fireEvent.click(screen.getByText('back'));
-    expect(localStorage.getItem('getBack_section_expanded')).toBe('true');
-  });
-
-  it('restores "back" section collapsed state from localStorage', () => {
-    localStorage.setItem('getBack_section_expanded', 'false');
-    renderPage();
-    expect(screen.queryByText(/To return to a place or a state/i)).not.toBeInTheDocument();
-  });
-});
-
-describe('GetVerbPage — "back" chevron and colour', () => {
-  it('back chevron has rotate-90 class when expanded', () => {
-    renderPage();
-    fireEvent.click(screen.getByText('back'));
-    const header = screen.getByText('back').closest('div')!;
-    expect(within(header).getByText('▶')).toHaveClass('rotate-90');
-  });
-
-  it('back chevron does not have rotate-90 class when collapsed', () => {
-    renderPage();
-    const header = screen.getByText('back').closest('div')!;
-    expect(within(header).getByText('▶')).not.toHaveClass('rotate-90');
-  });
-
-  it('back chevron is blue when collapsed', () => {
-    renderPage();
-    const header = screen.getByText('back').closest('div')!;
-    expect(within(header).getByText('▶')).toHaveClass('text-blue-600');
-  });
-
-  it('back chevron is white when expanded', () => {
-    renderPage();
-    fireEvent.click(screen.getByText('back'));
-    const header = screen.getByText('back').closest('div')!;
-    expect(within(header).getByText('▶')).toHaveClass('text-white');
-  });
-
-  it('back particle text is blue when collapsed', () => {
-    renderPage();
-    expect(screen.getByText('back')).toHaveClass('text-blue-600');
-  });
-
-  it('back particle text is white when expanded', () => {
-    renderPage();
-    fireEvent.click(screen.getByText('back'));
-    expect(screen.getByText('back')).toHaveClass('text-white');
-  });
-});
+describeChevronAndColour(LABEL, 'back', renderPage);
 
 describe('GetVerbPage — "back" section definitions', () => {
   it('all 4 "back" definition paragraphs have truncate class', () => {

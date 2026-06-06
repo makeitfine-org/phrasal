@@ -1,87 +1,16 @@
 import { screen, fireEvent, within } from '@testing-library/react';
 import { renderPage, getCard, expandSection } from './helpers';
+import { describeChevronAndColour, describeSectionToggle } from '../verbPage/sharedSectionTests';
+
+const LABEL = 'GetVerbPage';
 
 beforeEach(() => {
   localStorage.clear();
 });
 
-describe('GetVerbPage — "behind" section toggle', () => {
-  it('renders "behind" section toggle', () => {
-    renderPage();
-    expect(screen.getByText('behind')).toBeInTheDocument();
-  });
+describeSectionToggle(LABEL, 'behind', 'getBehind_section_expanded', /To fall behind schedule/i, renderPage);
 
-  it('"behind" section starts collapsed showing no definitions', () => {
-    renderPage();
-    expect(screen.queryByText(/To fall behind schedule/i)).not.toBeInTheDocument();
-    expect(screen.queryByText(/To support a person, idea, or project/i)).not.toBeInTheDocument();
-  });
-
-  it('clicking "behind" expands all meaning cards', () => {
-    renderPage();
-    fireEvent.click(screen.getByText('behind'));
-    expect(screen.getByText(/To fall behind schedule/i)).toBeInTheDocument();
-    expect(screen.getByText(/To support a person, idea, or project/i)).toBeInTheDocument();
-  });
-
-  it('clicking "behind" twice collapses all meaning cards', () => {
-    renderPage();
-    fireEvent.click(screen.getByText('behind'));
-    fireEvent.click(screen.getByText('behind'));
-    expect(screen.queryByText(/To fall behind schedule/i)).not.toBeInTheDocument();
-  });
-
-  it('saves "behind" section state to localStorage when expanded', () => {
-    renderPage();
-    fireEvent.click(screen.getByText('behind'));
-    expect(localStorage.getItem('getBehind_section_expanded')).toBe('true');
-  });
-
-  it('restores "behind" section collapsed state from localStorage', () => {
-    localStorage.setItem('getBehind_section_expanded', 'false');
-    renderPage();
-    expect(screen.queryByText(/To fall behind schedule/i)).not.toBeInTheDocument();
-  });
-});
-
-describe('GetVerbPage — "behind" chevron and colour', () => {
-  it('behind chevron has rotate-90 class when expanded', () => {
-    renderPage();
-    fireEvent.click(screen.getByText('behind'));
-    const header = screen.getByText('behind').closest('div')!;
-    expect(within(header).getByText('▶')).toHaveClass('rotate-90');
-  });
-
-  it('behind chevron does not have rotate-90 class when collapsed', () => {
-    renderPage();
-    const header = screen.getByText('behind').closest('div')!;
-    expect(within(header).getByText('▶')).not.toHaveClass('rotate-90');
-  });
-
-  it('behind chevron is blue when collapsed', () => {
-    renderPage();
-    const header = screen.getByText('behind').closest('div')!;
-    expect(within(header).getByText('▶')).toHaveClass('text-blue-600');
-  });
-
-  it('behind chevron is white when expanded', () => {
-    renderPage();
-    fireEvent.click(screen.getByText('behind'));
-    const header = screen.getByText('behind').closest('div')!;
-    expect(within(header).getByText('▶')).toHaveClass('text-white');
-  });
-
-  it('behind particle text is blue when collapsed', () => {
-    renderPage();
-    expect(screen.getByText('behind')).toHaveClass('text-blue-600');
-  });
-
-  it('behind particle text is white when expanded', () => {
-    renderPage();
-    fireEvent.click(screen.getByText('behind'));
-    expect(screen.getByText('behind')).toHaveClass('text-white');
-  });
-});
+describeChevronAndColour(LABEL, 'behind', renderPage);
 
 describe('GetVerbPage — "behind" section definitions', () => {
   it('all 2 "behind" definition paragraphs have truncate class', () => {

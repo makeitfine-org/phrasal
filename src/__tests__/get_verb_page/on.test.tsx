@@ -1,40 +1,16 @@
 import { screen, fireEvent, within } from '@testing-library/react';
 import { renderPage, getCard, expandSection } from './helpers';
+import { describeChevronAndColour, describeSectionToggle } from '../verbPage/sharedSectionTests';
+
+const LABEL = 'GetVerbPage';
 
 beforeEach(() => {
   localStorage.clear();
 });
 
-describe('GetVerbPage — "on" section toggle', () => {
-  it('renders "on" section toggle', () => {
-    renderPage();
-    expect(screen.getByText('on')).toBeInTheDocument();
-  });
+describeSectionToggle(LABEL, 'on', 'getOn_section_expanded', /To step onto a form of public transport/i, renderPage);
 
-  it('"on" section starts collapsed showing no definitions', () => {
-    renderPage();
-    expect(screen.queryByText(/To step onto a form of public transport/i)).not.toBeInTheDocument();
-    expect(screen.queryByText(/To make progress or handle a situation/i)).not.toBeInTheDocument();
-    expect(screen.queryByText(/To have a good relationship/i)).not.toBeInTheDocument();
-    expect(screen.queryByText(/To continue doing something/i)).not.toBeInTheDocument();
-  });
-
-  it('clicking "on" expands all "on" meaning cards', () => {
-    renderPage();
-    fireEvent.click(screen.getByText('on'));
-    expect(screen.getByText(/To step onto a form of public transport/i)).toBeInTheDocument();
-    expect(screen.getByText(/To make progress or handle a situation/i)).toBeInTheDocument();
-    expect(screen.getByText(/To have a good relationship/i)).toBeInTheDocument();
-    expect(screen.getByText(/To continue doing something/i)).toBeInTheDocument();
-  });
-
-  it('clicking "on" twice collapses all "on" meaning cards', () => {
-    renderPage();
-    fireEvent.click(screen.getByText('on'));
-    fireEvent.click(screen.getByText('on'));
-    expect(screen.queryByText(/To step onto a form of public transport/i)).not.toBeInTheDocument();
-  });
-
+describe(`${LABEL} — "on" section independence`, () => {
   it('collapsing "on" section does not affect "off" section', () => {
     renderPage();
     expandSection('off');
@@ -42,7 +18,6 @@ describe('GetVerbPage — "on" section toggle', () => {
     fireEvent.click(screen.getByText('on'));
     expect(screen.getByText(/To leave a form of public transport/i)).toBeInTheDocument();
   });
-
   it('collapsing "off" section does not affect "on" section', () => {
     renderPage();
     expandSection('on');
@@ -50,73 +25,9 @@ describe('GetVerbPage — "on" section toggle', () => {
     fireEvent.click(screen.getByText('off'));
     expect(screen.getByText(/To step onto a form of public transport/i)).toBeInTheDocument();
   });
-
-  it('saves "on" section state to localStorage when expanded', () => {
-    renderPage();
-    fireEvent.click(screen.getByText('on'));
-    expect(localStorage.getItem('getOn_section_expanded')).toBe('true');
-  });
-
-  it('restores "on" section collapsed state from localStorage', () => {
-    localStorage.setItem('getOn_section_expanded', 'false');
-    renderPage();
-    expect(screen.queryByText(/To step onto a form of public transport/i)).not.toBeInTheDocument();
-  });
 });
 
-describe('GetVerbPage — "on" chevron and colour', () => {
-  it('on chevron is ▶ character', () => {
-    renderPage();
-    const onHeader = screen.getByText('on').closest('div')!;
-    expect(within(onHeader).getByText('▶')).toBeInTheDocument();
-  });
-
-  it('on chevron has rotate-90 class when expanded', () => {
-    renderPage();
-    fireEvent.click(screen.getByText('on'));
-    const onHeader = screen.getByText('on').closest('div')!;
-    expect(within(onHeader).getByText('▶')).toHaveClass('rotate-90');
-  });
-
-  it('on chevron does not have rotate-90 class when collapsed', () => {
-    renderPage();
-    const onHeader = screen.getByText('on').closest('div')!;
-    expect(within(onHeader).getByText('▶')).not.toHaveClass('rotate-90');
-  });
-
-  it('on chevron regains rotate-90 class when re-expanded', () => {
-    renderPage();
-    fireEvent.click(screen.getByText('on'));
-    fireEvent.click(screen.getByText('on'));
-    fireEvent.click(screen.getByText('on'));
-    const onHeader = screen.getByText('on').closest('div')!;
-    expect(within(onHeader).getByText('▶')).toHaveClass('rotate-90');
-  });
-
-  it('on chevron is blue when collapsed', () => {
-    renderPage();
-    const onHeader = screen.getByText('on').closest('div')!;
-    expect(within(onHeader).getByText('▶')).toHaveClass('text-blue-600');
-  });
-
-  it('on chevron is white when expanded', () => {
-    renderPage();
-    fireEvent.click(screen.getByText('on'));
-    const onHeader = screen.getByText('on').closest('div')!;
-    expect(within(onHeader).getByText('▶')).toHaveClass('text-white');
-  });
-
-  it('on particle text is blue when collapsed', () => {
-    renderPage();
-    expect(screen.getByText('on')).toHaveClass('text-blue-600');
-  });
-
-  it('on particle text is white when expanded', () => {
-    renderPage();
-    fireEvent.click(screen.getByText('on'));
-    expect(screen.getByText('on')).toHaveClass('text-white');
-  });
-});
+describeChevronAndColour(LABEL, 'on', renderPage);
 
 describe('GetVerbPage — "on" section definitions', () => {
   it('all 4 "on" definition paragraphs have truncate class', () => {

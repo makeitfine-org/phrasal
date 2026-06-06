@@ -1,67 +1,16 @@
 import { screen, fireEvent, within } from '@testing-library/react';
 import { renderPage, getCard, expandSection } from './helpers';
+import { describeChevronAndColour, describeSectionToggle } from '../verbPage/sharedSectionTests';
+
+const LABEL = 'PutVerbPage';
 
 beforeEach(() => {
   localStorage.clear();
 });
 
-describe('PutVerbPage — "into" section toggle', () => {
-  it('renders "into" section toggle', () => {
-    renderPage();
-    expect(screen.getByText('into')).toBeInTheDocument();
-  });
+describeSectionToggle(LABEL, 'into', 'putInto_section_expanded', /To invest time, money, or effort into a project/i, renderPage);
 
-  it('"into" section starts collapsed', () => {
-    renderPage();
-    expect(screen.queryByText(/To invest time, money, or effort into a project/i)).not.toBeInTheDocument();
-  });
-
-  it('clicking "into" expands meaning cards', () => {
-    renderPage();
-    fireEvent.click(screen.getByText('into'));
-    expect(screen.getByText(/To invest time, money, or effort into a project/i)).toBeInTheDocument();
-    expect(screen.getByText(/To express something in words/i)).toBeInTheDocument();
-  });
-
-  it('clicking "into" twice collapses meaning cards', () => {
-    renderPage();
-    fireEvent.click(screen.getByText('into'));
-    fireEvent.click(screen.getByText('into'));
-    expect(screen.queryByText(/To invest time, money, or effort into a project/i)).not.toBeInTheDocument();
-  });
-
-  it('saves "into" section state to localStorage when expanded', () => {
-    renderPage();
-    fireEvent.click(screen.getByText('into'));
-    expect(localStorage.getItem('putInto_section_expanded')).toBe('true');
-  });
-
-  it('restores "into" section collapsed state from localStorage', () => {
-    localStorage.setItem('putInto_section_expanded', 'false');
-    renderPage();
-    expect(screen.queryByText(/To invest time, money, or effort into a project/i)).not.toBeInTheDocument();
-  });
-});
-
-describe('PutVerbPage — "into" chevron and colour', () => {
-  it('into chevron has rotate-90 class when expanded', () => {
-    renderPage();
-    fireEvent.click(screen.getByText('into'));
-    const header = screen.getByText('into').closest('div')!;
-    expect(within(header).getByText('▶')).toHaveClass('rotate-90');
-  });
-
-  it('into particle text is blue when collapsed', () => {
-    renderPage();
-    expect(screen.getByText('into')).toHaveClass('text-blue-600');
-  });
-
-  it('into particle text is white when expanded', () => {
-    renderPage();
-    fireEvent.click(screen.getByText('into'));
-    expect(screen.getByText('into')).toHaveClass('text-white');
-  });
-});
+describeChevronAndColour(LABEL, 'into', renderPage);
 
 describe('PutVerbPage — "into" card view (default image)', () => {
   it('both examples visible without expanding cards', () => {

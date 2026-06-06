@@ -1,71 +1,16 @@
 import { screen, fireEvent, within } from '@testing-library/react';
 import { renderPage, getCard, expandSection } from './helpers';
+import { describeChevronAndColour, describeSectionToggle } from '../verbPage/sharedSectionTests';
+
+const LABEL = 'PutVerbPage';
 
 beforeEach(() => {
   localStorage.clear();
 });
 
-describe('PutVerbPage — "down" section toggle', () => {
-  it('renders "down" section toggle', () => {
-    renderPage();
-    expect(screen.getByText('down')).toBeInTheDocument();
-  });
+describeSectionToggle(LABEL, 'down', 'putDown_section_expanded', /To write something down/i, renderPage);
 
-  it('"down" section starts collapsed', () => {
-    renderPage();
-    expect(screen.queryByText(/To write something down/i)).not.toBeInTheDocument();
-  });
-
-  it('clicking "down" expands all 6 "down" meaning cards', () => {
-    renderPage();
-    fireEvent.click(screen.getByText('down'));
-    expect(screen.getByText(/To write something down/i)).toBeInTheDocument();
-    expect(screen.getByText(/To criticize or humiliate someone/i)).toBeInTheDocument();
-    expect(screen.getByText(/To pay a deposit/i)).toBeInTheDocument();
-    expect(screen.getByText(/To suppress a rebellion or protest by force/i)).toBeInTheDocument();
-    expect(screen.getByText(/To euthanize an animal/i)).toBeInTheDocument();
-    expect(screen.getByText(/To attribute a cause to something/i)).toBeInTheDocument();
-  });
-
-  it('clicking "down" twice collapses meaning cards', () => {
-    renderPage();
-    fireEvent.click(screen.getByText('down'));
-    fireEvent.click(screen.getByText('down'));
-    expect(screen.queryByText(/To write something down/i)).not.toBeInTheDocument();
-  });
-
-  it('saves "down" section state to localStorage when expanded', () => {
-    renderPage();
-    fireEvent.click(screen.getByText('down'));
-    expect(localStorage.getItem('putDown_section_expanded')).toBe('true');
-  });
-
-  it('restores "down" section collapsed state from localStorage', () => {
-    localStorage.setItem('putDown_section_expanded', 'false');
-    renderPage();
-    expect(screen.queryByText(/To write something down/i)).not.toBeInTheDocument();
-  });
-});
-
-describe('PutVerbPage — "down" chevron and colour', () => {
-  it('down chevron has rotate-90 class when expanded', () => {
-    renderPage();
-    fireEvent.click(screen.getByText('down'));
-    const header = screen.getByText('down').closest('div')!;
-    expect(within(header).getByText('▶')).toHaveClass('rotate-90');
-  });
-
-  it('down particle text is blue when collapsed', () => {
-    renderPage();
-    expect(screen.getByText('down')).toHaveClass('text-blue-600');
-  });
-
-  it('down particle text is white when expanded', () => {
-    renderPage();
-    fireEvent.click(screen.getByText('down'));
-    expect(screen.getByText('down')).toHaveClass('text-white');
-  });
-});
+describeChevronAndColour(LABEL, 'down', renderPage);
 
 describe('PutVerbPage — "down" section definitions', () => {
   it('all 6 "down" definition paragraphs have truncate class', () => {

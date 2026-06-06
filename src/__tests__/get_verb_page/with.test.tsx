@@ -1,85 +1,16 @@
 import { screen, fireEvent, within } from '@testing-library/react';
 import { renderPage, getCard, expandSection } from './helpers';
+import { describeChevronAndColour, describeSectionToggle } from '../verbPage/sharedSectionTests';
+
+const LABEL = 'GetVerbPage';
 
 beforeEach(() => {
   localStorage.clear();
 });
 
-describe('GetVerbPage — "with" section toggle', () => {
-  it('renders "with" section toggle', () => {
-    renderPage();
-    expect(screen.getByText('with')).toBeInTheDocument();
-  });
+describeSectionToggle(LABEL, 'with', 'getWith_section_expanded', /To understand or adapt to modern trends/i, renderPage);
 
-  it('"with" section starts collapsed showing no definitions', () => {
-    renderPage();
-    expect(screen.queryByText(/To understand or adapt to modern trends/i)).not.toBeInTheDocument();
-  });
-
-  it('clicking "with" expands all meaning cards', () => {
-    renderPage();
-    fireEvent.click(screen.getByText('with'));
-    expect(screen.getByText(/To understand or adapt to modern trends/i)).toBeInTheDocument();
-  });
-
-  it('clicking "with" twice collapses all meaning cards', () => {
-    renderPage();
-    fireEvent.click(screen.getByText('with'));
-    fireEvent.click(screen.getByText('with'));
-    expect(screen.queryByText(/To understand or adapt to modern trends/i)).not.toBeInTheDocument();
-  });
-
-  it('saves "with" section state to localStorage when expanded', () => {
-    renderPage();
-    fireEvent.click(screen.getByText('with'));
-    expect(localStorage.getItem('getWith_section_expanded')).toBe('true');
-  });
-
-  it('restores "with" section collapsed state from localStorage', () => {
-    localStorage.setItem('getWith_section_expanded', 'false');
-    renderPage();
-    expect(screen.queryByText(/To understand or adapt to modern trends/i)).not.toBeInTheDocument();
-  });
-});
-
-describe('GetVerbPage — "with" chevron and colour', () => {
-  it('with chevron has rotate-90 class when expanded', () => {
-    renderPage();
-    fireEvent.click(screen.getByText('with'));
-    const header = screen.getByText('with').closest('div')!;
-    expect(within(header).getByText('▶')).toHaveClass('rotate-90');
-  });
-
-  it('with chevron does not have rotate-90 class when collapsed', () => {
-    renderPage();
-    const header = screen.getByText('with').closest('div')!;
-    expect(within(header).getByText('▶')).not.toHaveClass('rotate-90');
-  });
-
-  it('with chevron is blue when collapsed', () => {
-    renderPage();
-    const header = screen.getByText('with').closest('div')!;
-    expect(within(header).getByText('▶')).toHaveClass('text-blue-600');
-  });
-
-  it('with chevron is white when expanded', () => {
-    renderPage();
-    fireEvent.click(screen.getByText('with'));
-    const header = screen.getByText('with').closest('div')!;
-    expect(within(header).getByText('▶')).toHaveClass('text-white');
-  });
-
-  it('with particle text is blue when collapsed', () => {
-    renderPage();
-    expect(screen.getByText('with')).toHaveClass('text-blue-600');
-  });
-
-  it('with particle text is white when expanded', () => {
-    renderPage();
-    fireEvent.click(screen.getByText('with'));
-    expect(screen.getByText('with')).toHaveClass('text-white');
-  });
-});
+describeChevronAndColour(LABEL, 'with', renderPage);
 
 describe('GetVerbPage — "with" section definitions', () => {
   it('"with" definition paragraph has truncate class', () => {

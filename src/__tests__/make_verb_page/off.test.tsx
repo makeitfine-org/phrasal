@@ -1,34 +1,16 @@
 import { screen, fireEvent, within } from '@testing-library/react';
 import { renderPage, getCard, expandSection } from './helpers';
+import { describeChevronAndColour, describeSectionToggle } from '../verbPage/sharedSectionTests';
+
+const LABEL = 'MakeVerbPage';
 
 beforeEach(() => {
   localStorage.clear();
 });
 
-describe('MakeVerbPage — "off (with)" section toggle', () => {
-  it('renders "off (with)" section toggle', () => {
-    renderPage();
-    expect(screen.getByText('off (with)')).toBeInTheDocument();
-  });
+describeSectionToggle(LABEL, 'off (with)', 'makeOff_section_expanded', /To leave quickly, especially to escape/i, renderPage);
 
-  it('"off (with)" section starts collapsed showing no definitions', () => {
-    renderPage();
-    expect(screen.queryByText(/To leave quickly, especially to escape/i)).not.toBeInTheDocument();
-  });
-
-  it('clicking "off (with)" expands meaning cards', () => {
-    renderPage();
-    fireEvent.click(screen.getByText('off (with)'));
-    expect(screen.getByText(/To leave quickly, especially to escape/i)).toBeInTheDocument();
-  });
-
-  it('clicking "off (with)" twice collapses meaning cards', () => {
-    renderPage();
-    fireEvent.click(screen.getByText('off (with)'));
-    fireEvent.click(screen.getByText('off (with)'));
-    expect(screen.queryByText(/To leave quickly, especially to escape/i)).not.toBeInTheDocument();
-  });
-
+describe(`${LABEL} — "off (with)" section independence`, () => {
   it('collapsing "off (with)" section does not affect other sections', () => {
     renderPage();
     expandSection('for');
@@ -36,45 +18,9 @@ describe('MakeVerbPage — "off (with)" section toggle', () => {
     fireEvent.click(screen.getByText('off (with)'));
     expect(screen.getByText(/To move directly towards a place/i)).toBeInTheDocument();
   });
-
-  it('saves "off (with)" section state to localStorage when expanded', () => {
-    renderPage();
-    fireEvent.click(screen.getByText('off (with)'));
-    expect(localStorage.getItem('makeOff_section_expanded')).toBe('true');
-  });
-
-  it('restores "off (with)" section collapsed state from localStorage', () => {
-    localStorage.setItem('makeOff_section_expanded', 'false');
-    renderPage();
-    expect(screen.queryByText(/To leave quickly, especially to escape/i)).not.toBeInTheDocument();
-  });
 });
 
-describe('MakeVerbPage — "off (with)" chevron and colour', () => {
-  it('off chevron has rotate-90 class when expanded', () => {
-    renderPage();
-    fireEvent.click(screen.getByText('off (with)'));
-    const header = screen.getByText('off (with)').closest('div')!;
-    expect(within(header).getByText('▶')).toHaveClass('rotate-90');
-  });
-
-  it('off chevron does not have rotate-90 class when collapsed', () => {
-    renderPage();
-    const header = screen.getByText('off (with)').closest('div')!;
-    expect(within(header).getByText('▶')).not.toHaveClass('rotate-90');
-  });
-
-  it('off particle text is blue when collapsed', () => {
-    renderPage();
-    expect(screen.getByText('off (with)')).toHaveClass('text-blue-600');
-  });
-
-  it('off particle text is white when expanded', () => {
-    renderPage();
-    fireEvent.click(screen.getByText('off (with)'));
-    expect(screen.getByText('off (with)')).toHaveClass('text-white');
-  });
-});
+describeChevronAndColour(LABEL, 'off (with)', renderPage);
 
 describe('MakeVerbPage — "off (with)" card view (default image)', () => {
   it('example is visible without expanding card', () => {

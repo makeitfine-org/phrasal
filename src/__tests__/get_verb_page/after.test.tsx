@@ -1,87 +1,16 @@
 import { screen, fireEvent, within } from '@testing-library/react';
 import { renderPage, getCard, expandSection } from './helpers';
+import { describeChevronAndColour, describeSectionToggle } from '../verbPage/sharedSectionTests';
+
+const LABEL = 'GetVerbPage';
 
 beforeEach(() => {
   localStorage.clear();
 });
 
-describe('GetVerbPage — "after" section toggle', () => {
-  it('renders "after" section toggle', () => {
-    renderPage();
-    expect(screen.getByText('after')).toBeInTheDocument();
-  });
+describeSectionToggle(LABEL, 'after', 'getAfter_section_expanded', /To urge, remind, or scold someone/i, renderPage);
 
-  it('"after" section starts collapsed showing no definitions', () => {
-    renderPage();
-    expect(screen.queryByText(/To urge, remind, or scold someone/i)).not.toBeInTheDocument();
-    expect(screen.queryByText(/To chase someone or something/i)).not.toBeInTheDocument();
-  });
-
-  it('clicking "after" expands all meaning cards', () => {
-    renderPage();
-    fireEvent.click(screen.getByText('after'));
-    expect(screen.getByText(/To urge, remind, or scold someone/i)).toBeInTheDocument();
-    expect(screen.getByText(/To chase someone or something/i)).toBeInTheDocument();
-  });
-
-  it('clicking "after" twice collapses all meaning cards', () => {
-    renderPage();
-    fireEvent.click(screen.getByText('after'));
-    fireEvent.click(screen.getByText('after'));
-    expect(screen.queryByText(/To urge, remind, or scold someone/i)).not.toBeInTheDocument();
-  });
-
-  it('saves "after" section state to localStorage when expanded', () => {
-    renderPage();
-    fireEvent.click(screen.getByText('after'));
-    expect(localStorage.getItem('getAfter_section_expanded')).toBe('true');
-  });
-
-  it('restores "after" section collapsed state from localStorage', () => {
-    localStorage.setItem('getAfter_section_expanded', 'false');
-    renderPage();
-    expect(screen.queryByText(/To urge, remind, or scold someone/i)).not.toBeInTheDocument();
-  });
-});
-
-describe('GetVerbPage — "after" chevron and colour', () => {
-  it('after chevron has rotate-90 class when expanded', () => {
-    renderPage();
-    fireEvent.click(screen.getByText('after'));
-    const header = screen.getByText('after').closest('div')!;
-    expect(within(header).getByText('▶')).toHaveClass('rotate-90');
-  });
-
-  it('after chevron does not have rotate-90 class when collapsed', () => {
-    renderPage();
-    const header = screen.getByText('after').closest('div')!;
-    expect(within(header).getByText('▶')).not.toHaveClass('rotate-90');
-  });
-
-  it('after chevron is blue when collapsed', () => {
-    renderPage();
-    const header = screen.getByText('after').closest('div')!;
-    expect(within(header).getByText('▶')).toHaveClass('text-blue-600');
-  });
-
-  it('after chevron is white when expanded', () => {
-    renderPage();
-    fireEvent.click(screen.getByText('after'));
-    const header = screen.getByText('after').closest('div')!;
-    expect(within(header).getByText('▶')).toHaveClass('text-white');
-  });
-
-  it('after particle text is blue when collapsed', () => {
-    renderPage();
-    expect(screen.getByText('after')).toHaveClass('text-blue-600');
-  });
-
-  it('after particle text is white when expanded', () => {
-    renderPage();
-    fireEvent.click(screen.getByText('after'));
-    expect(screen.getByText('after')).toHaveClass('text-white');
-  });
-});
+describeChevronAndColour(LABEL, 'after', renderPage);
 
 describe('GetVerbPage — "after" section definitions', () => {
   it('all 2 "after" definition paragraphs have truncate class', () => {

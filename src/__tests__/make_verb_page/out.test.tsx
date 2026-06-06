@@ -1,44 +1,16 @@
 import { screen, fireEvent, within } from '@testing-library/react';
 import { renderPage, getCard, expandSection } from './helpers';
+import { describeChevronAndColour, describeSectionToggle } from '../verbPage/sharedSectionTests';
+
+const LABEL = 'MakeVerbPage';
 
 beforeEach(() => {
   localStorage.clear();
 });
 
-describe('MakeVerbPage — "out" section toggle', () => {
-  it('renders "out" section toggle', () => {
-    renderPage();
-    expect(screen.getByText('out')).toBeInTheDocument();
-  });
+describeSectionToggle(LABEL, 'out', 'makeOut_section_expanded', /To manage to see, hear, or read something with difficulty/i, renderPage);
 
-  it('"out" section starts collapsed showing no definitions', () => {
-    renderPage();
-    expect(screen.queryByText(/To manage to see, hear, or read something with difficulty/i)).not.toBeInTheDocument();
-    expect(screen.queryByText(/To understand someone's character/i)).not.toBeInTheDocument();
-    expect(screen.queryByText(/To write all the necessary information on an official document/i)).not.toBeInTheDocument();
-    expect(screen.queryByText(/To claim or pretend that something is true/i)).not.toBeInTheDocument();
-    expect(screen.queryByText(/To progress, perform, or succeed in a situation/i)).not.toBeInTheDocument();
-    expect(screen.queryByText(/To kiss and touch romantically/i)).not.toBeInTheDocument();
-  });
-
-  it('clicking "out" expands all 6 "out" meaning cards', () => {
-    renderPage();
-    fireEvent.click(screen.getByText('out'));
-    expect(screen.getByText(/To manage to see, hear, or read something with difficulty/i)).toBeInTheDocument();
-    expect(screen.getByText(/To understand someone's character/i)).toBeInTheDocument();
-    expect(screen.getByText(/To write all the necessary information on an official document/i)).toBeInTheDocument();
-    expect(screen.getByText(/To claim or pretend that something is true/i)).toBeInTheDocument();
-    expect(screen.getByText(/To progress, perform, or succeed in a situation/i)).toBeInTheDocument();
-    expect(screen.getByText(/To kiss and touch romantically/i)).toBeInTheDocument();
-  });
-
-  it('clicking "out" twice collapses all "out" meaning cards', () => {
-    renderPage();
-    fireEvent.click(screen.getByText('out'));
-    fireEvent.click(screen.getByText('out'));
-    expect(screen.queryByText(/To manage to see, hear, or read something with difficulty/i)).not.toBeInTheDocument();
-  });
-
+describe(`${LABEL} — "out" section independence`, () => {
   it('collapsing "out" section does not affect other sections', () => {
     renderPage();
     expandSection('for');
@@ -48,45 +20,9 @@ describe('MakeVerbPage — "out" section toggle', () => {
     expect(screen.getByText(/To move directly towards a place/i)).toBeInTheDocument();
     expect(screen.getByText(/To change or transform something into something else/i)).toBeInTheDocument();
   });
-
-  it('saves "out" section state to localStorage when expanded', () => {
-    renderPage();
-    fireEvent.click(screen.getByText('out'));
-    expect(localStorage.getItem('makeOut_section_expanded')).toBe('true');
-  });
-
-  it('restores "out" section collapsed state from localStorage', () => {
-    localStorage.setItem('makeOut_section_expanded', 'false');
-    renderPage();
-    expect(screen.queryByText(/To manage to see, hear, or read something with difficulty/i)).not.toBeInTheDocument();
-  });
 });
 
-describe('MakeVerbPage — "out" chevron and colour', () => {
-  it('out chevron has rotate-90 class when expanded', () => {
-    renderPage();
-    fireEvent.click(screen.getByText('out'));
-    const header = screen.getByText('out').closest('div')!;
-    expect(within(header).getByText('▶')).toHaveClass('rotate-90');
-  });
-
-  it('out chevron does not have rotate-90 class when collapsed', () => {
-    renderPage();
-    const header = screen.getByText('out').closest('div')!;
-    expect(within(header).getByText('▶')).not.toHaveClass('rotate-90');
-  });
-
-  it('out particle text is blue when collapsed', () => {
-    renderPage();
-    expect(screen.getByText('out')).toHaveClass('text-blue-600');
-  });
-
-  it('out particle text is white when expanded', () => {
-    renderPage();
-    fireEvent.click(screen.getByText('out'));
-    expect(screen.getByText('out')).toHaveClass('text-white');
-  });
-});
+describeChevronAndColour(LABEL, 'out', renderPage);
 
 describe('MakeVerbPage — "out" section definitions', () => {
   it('all 6 "out" definition paragraphs have truncate class', () => {

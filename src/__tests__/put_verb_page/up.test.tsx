@@ -1,69 +1,16 @@
 import { screen, fireEvent, within } from '@testing-library/react';
 import { renderPage, getCard, expandSection } from './helpers';
+import { describeChevronAndColour, describeSectionToggle } from '../verbPage/sharedSectionTests';
+
+const LABEL = 'PutVerbPage';
 
 beforeEach(() => {
   localStorage.clear();
 });
 
-describe('PutVerbPage — "up" section toggle', () => {
-  it('renders "up" section toggle', () => {
-    renderPage();
-    expect(screen.getByText('up')).toBeInTheDocument();
-  });
+describeSectionToggle(LABEL, 'up', 'putUp_section_expanded', /To build or erect something/i, renderPage);
 
-  it('"up" section starts collapsed', () => {
-    renderPage();
-    expect(screen.queryByText(/To build or erect something/i)).not.toBeInTheDocument();
-  });
-
-  it('clicking "up" expands all 4 "up" meaning cards', () => {
-    renderPage();
-    fireEvent.click(screen.getByText('up'));
-    expect(screen.getByText(/To build or erect something/i)).toBeInTheDocument();
-    expect(screen.getByText(/To increase prices or rates/i)).toBeInTheDocument();
-    expect(screen.getByText(/To provide accommodation for someone/i)).toBeInTheDocument();
-    expect(screen.getByText(/To offer resistance or fight back/i)).toBeInTheDocument();
-  });
-
-  it('clicking "up" twice collapses meaning cards', () => {
-    renderPage();
-    fireEvent.click(screen.getByText('up'));
-    fireEvent.click(screen.getByText('up'));
-    expect(screen.queryByText(/To build or erect something/i)).not.toBeInTheDocument();
-  });
-
-  it('saves "up" section state to localStorage when expanded', () => {
-    renderPage();
-    fireEvent.click(screen.getByText('up'));
-    expect(localStorage.getItem('putUp_section_expanded')).toBe('true');
-  });
-
-  it('restores "up" section collapsed state from localStorage', () => {
-    localStorage.setItem('putUp_section_expanded', 'false');
-    renderPage();
-    expect(screen.queryByText(/To build or erect something/i)).not.toBeInTheDocument();
-  });
-});
-
-describe('PutVerbPage — "up" chevron and colour', () => {
-  it('up chevron has rotate-90 class when expanded', () => {
-    renderPage();
-    fireEvent.click(screen.getByText('up'));
-    const header = screen.getByText('up').closest('div')!;
-    expect(within(header).getByText('▶')).toHaveClass('rotate-90');
-  });
-
-  it('up particle text is blue when collapsed', () => {
-    renderPage();
-    expect(screen.getByText('up')).toHaveClass('text-blue-600');
-  });
-
-  it('up particle text is white when expanded', () => {
-    renderPage();
-    fireEvent.click(screen.getByText('up'));
-    expect(screen.getByText('up')).toHaveClass('text-white');
-  });
-});
+describeChevronAndColour(LABEL, 'up', renderPage);
 
 describe('PutVerbPage — "up" card view (default image)', () => {
   it('all examples visible without expanding cards', () => {

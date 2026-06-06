@@ -1,34 +1,16 @@
 import { screen, fireEvent, within } from '@testing-library/react';
 import { renderPage, getCard, expandSection } from './helpers';
+import { describeChevronAndColour, describeSectionToggle } from '../verbPage/sharedSectionTests';
+
+const LABEL = 'MakeVerbPage';
 
 beforeEach(() => {
   localStorage.clear();
 });
 
-describe('MakeVerbPage — "away (with)" section toggle', () => {
-  it('renders "away (with)" section toggle', () => {
-    renderPage();
-    expect(screen.getByText('away (with)')).toBeInTheDocument();
-  });
+describeSectionToggle(LABEL, 'away (with)', 'makeAway_section_expanded', /To steal something and escape with it/i, renderPage);
 
-  it('"away (with)" section starts collapsed showing no definitions', () => {
-    renderPage();
-    expect(screen.queryByText(/To steal something and escape with it/i)).not.toBeInTheDocument();
-  });
-
-  it('clicking "away (with)" expands meaning cards', () => {
-    renderPage();
-    fireEvent.click(screen.getByText('away (with)'));
-    expect(screen.getByText(/To steal something and escape with it/i)).toBeInTheDocument();
-  });
-
-  it('clicking "away (with)" twice collapses meaning cards', () => {
-    renderPage();
-    fireEvent.click(screen.getByText('away (with)'));
-    fireEvent.click(screen.getByText('away (with)'));
-    expect(screen.queryByText(/To steal something and escape with it/i)).not.toBeInTheDocument();
-  });
-
+describe(`${LABEL} — "away (with)" section independence`, () => {
   it('collapsing "away (with)" section does not affect other sections', () => {
     renderPage();
     expandSection('for');
@@ -36,45 +18,9 @@ describe('MakeVerbPage — "away (with)" section toggle', () => {
     fireEvent.click(screen.getByText('away (with)'));
     expect(screen.getByText(/To move directly towards a place/i)).toBeInTheDocument();
   });
-
-  it('saves "away (with)" section state to localStorage when expanded', () => {
-    renderPage();
-    fireEvent.click(screen.getByText('away (with)'));
-    expect(localStorage.getItem('makeAway_section_expanded')).toBe('true');
-  });
-
-  it('restores "away (with)" section collapsed state from localStorage', () => {
-    localStorage.setItem('makeAway_section_expanded', 'false');
-    renderPage();
-    expect(screen.queryByText(/To steal something and escape with it/i)).not.toBeInTheDocument();
-  });
 });
 
-describe('MakeVerbPage — "away (with)" chevron and colour', () => {
-  it('away chevron has rotate-90 class when expanded', () => {
-    renderPage();
-    fireEvent.click(screen.getByText('away (with)'));
-    const header = screen.getByText('away (with)').closest('div')!;
-    expect(within(header).getByText('▶')).toHaveClass('rotate-90');
-  });
-
-  it('away chevron does not have rotate-90 class when collapsed', () => {
-    renderPage();
-    const header = screen.getByText('away (with)').closest('div')!;
-    expect(within(header).getByText('▶')).not.toHaveClass('rotate-90');
-  });
-
-  it('away particle text is blue when collapsed', () => {
-    renderPage();
-    expect(screen.getByText('away (with)')).toHaveClass('text-blue-600');
-  });
-
-  it('away particle text is white when expanded', () => {
-    renderPage();
-    fireEvent.click(screen.getByText('away (with)'));
-    expect(screen.getByText('away (with)')).toHaveClass('text-white');
-  });
-});
+describeChevronAndColour(LABEL, 'away (with)', renderPage);
 
 describe('MakeVerbPage — "away (with)" card view (default image)', () => {
   it('example is visible without expanding card', () => {

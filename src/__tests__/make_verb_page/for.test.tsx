@@ -1,36 +1,16 @@
 import { screen, fireEvent, within } from '@testing-library/react';
 import { renderPage, getCard, expandSection } from './helpers';
+import { describeChevronAndColour, describeSectionToggle } from '../verbPage/sharedSectionTests';
+
+const LABEL = 'MakeVerbPage';
 
 beforeEach(() => {
   localStorage.clear();
 });
 
-describe('MakeVerbPage — "for" section toggle', () => {
-  it('renders "for" section toggle', () => {
-    renderPage();
-    expect(screen.getByText('for')).toBeInTheDocument();
-  });
+describeSectionToggle(LABEL, 'for', 'makeFor_section_expanded', /To move directly towards a place/i, renderPage);
 
-  it('"for" section starts collapsed showing no definitions', () => {
-    renderPage();
-    expect(screen.queryByText(/To move directly towards a place/i)).not.toBeInTheDocument();
-    expect(screen.queryByText(/To help make something possible/i)).not.toBeInTheDocument();
-  });
-
-  it('clicking "for" expands all "for" meaning cards', () => {
-    renderPage();
-    fireEvent.click(screen.getByText('for'));
-    expect(screen.getByText(/To move directly towards a place/i)).toBeInTheDocument();
-    expect(screen.getByText(/To help make something possible/i)).toBeInTheDocument();
-  });
-
-  it('clicking "for" twice collapses all "for" meaning cards', () => {
-    renderPage();
-    fireEvent.click(screen.getByText('for'));
-    fireEvent.click(screen.getByText('for'));
-    expect(screen.queryByText(/To move directly towards a place/i)).not.toBeInTheDocument();
-  });
-
+describe(`${LABEL} — "for" section independence`, () => {
   it('collapsing "for" section does not affect other sections', () => {
     renderPage();
     expandSection('after');
@@ -40,45 +20,9 @@ describe('MakeVerbPage — "for" section toggle', () => {
     expect(screen.getByText(/To chase someone or something/i)).toBeInTheDocument();
     expect(screen.getByText(/To manage to see, hear, or read something with difficulty/i)).toBeInTheDocument();
   });
-
-  it('saves "for" section state to localStorage when expanded', () => {
-    renderPage();
-    fireEvent.click(screen.getByText('for'));
-    expect(localStorage.getItem('makeFor_section_expanded')).toBe('true');
-  });
-
-  it('restores "for" section collapsed state from localStorage', () => {
-    localStorage.setItem('makeFor_section_expanded', 'false');
-    renderPage();
-    expect(screen.queryByText(/To move directly towards a place/i)).not.toBeInTheDocument();
-  });
 });
 
-describe('MakeVerbPage — "for" chevron and colour', () => {
-  it('for chevron has rotate-90 class when expanded', () => {
-    renderPage();
-    fireEvent.click(screen.getByText('for'));
-    const header = screen.getByText('for').closest('div')!;
-    expect(within(header).getByText('▶')).toHaveClass('rotate-90');
-  });
-
-  it('for chevron does not have rotate-90 class when collapsed', () => {
-    renderPage();
-    const header = screen.getByText('for').closest('div')!;
-    expect(within(header).getByText('▶')).not.toHaveClass('rotate-90');
-  });
-
-  it('for particle text is blue when collapsed', () => {
-    renderPage();
-    expect(screen.getByText('for')).toHaveClass('text-blue-600');
-  });
-
-  it('for particle text is white when expanded', () => {
-    renderPage();
-    fireEvent.click(screen.getByText('for'));
-    expect(screen.getByText('for')).toHaveClass('text-white');
-  });
-});
+describeChevronAndColour(LABEL, 'for', renderPage);
 
 describe('MakeVerbPage — "for" section definitions', () => {
   it('all 2 "for" definition paragraphs have truncate class', () => {

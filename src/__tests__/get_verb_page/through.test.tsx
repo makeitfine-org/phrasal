@@ -1,89 +1,16 @@
 import { screen, fireEvent, within } from '@testing-library/react';
 import { renderPage, getCard, expandSection } from './helpers';
+import { describeChevronAndColour, describeSectionToggle } from '../verbPage/sharedSectionTests';
+
+const LABEL = 'GetVerbPage';
 
 beforeEach(() => {
   localStorage.clear();
 });
 
-describe('GetVerbPage — "through" section toggle', () => {
-  it('renders "through" section toggle', () => {
-    renderPage();
-    expect(screen.getByText('through')).toBeInTheDocument();
-  });
+describeSectionToggle(LABEL, 'through', 'getThrough_section_expanded', /To finish a difficult task or survive a difficult period/i, renderPage);
 
-  it('"through" section starts collapsed showing no definitions', () => {
-    renderPage();
-    expect(screen.queryByText(/To finish a difficult task or survive a difficult period/i)).not.toBeInTheDocument();
-    expect(screen.queryByText(/To make contact by telephone/i)).not.toBeInTheDocument();
-    expect(screen.queryByText(/To make someone understand something/i)).not.toBeInTheDocument();
-  });
-
-  it('clicking "through" expands all meaning cards', () => {
-    renderPage();
-    fireEvent.click(screen.getByText('through'));
-    expect(screen.getByText(/To finish a difficult task or survive a difficult period/i)).toBeInTheDocument();
-    expect(screen.getByText(/To make contact by telephone/i)).toBeInTheDocument();
-    expect(screen.getByText(/To make someone understand something/i)).toBeInTheDocument();
-  });
-
-  it('clicking "through" twice collapses all meaning cards', () => {
-    renderPage();
-    fireEvent.click(screen.getByText('through'));
-    fireEvent.click(screen.getByText('through'));
-    expect(screen.queryByText(/To finish a difficult task or survive a difficult period/i)).not.toBeInTheDocument();
-  });
-
-  it('saves "through" section state to localStorage when expanded', () => {
-    renderPage();
-    fireEvent.click(screen.getByText('through'));
-    expect(localStorage.getItem('getThrough_section_expanded')).toBe('true');
-  });
-
-  it('restores "through" section collapsed state from localStorage', () => {
-    localStorage.setItem('getThrough_section_expanded', 'false');
-    renderPage();
-    expect(screen.queryByText(/To finish a difficult task or survive a difficult period/i)).not.toBeInTheDocument();
-  });
-});
-
-describe('GetVerbPage — "through" chevron and colour', () => {
-  it('through chevron has rotate-90 class when expanded', () => {
-    renderPage();
-    fireEvent.click(screen.getByText('through'));
-    const header = screen.getByText('through').closest('div')!;
-    expect(within(header).getByText('▶')).toHaveClass('rotate-90');
-  });
-
-  it('through chevron does not have rotate-90 class when collapsed', () => {
-    renderPage();
-    const header = screen.getByText('through').closest('div')!;
-    expect(within(header).getByText('▶')).not.toHaveClass('rotate-90');
-  });
-
-  it('through chevron is blue when collapsed', () => {
-    renderPage();
-    const header = screen.getByText('through').closest('div')!;
-    expect(within(header).getByText('▶')).toHaveClass('text-blue-600');
-  });
-
-  it('through chevron is white when expanded', () => {
-    renderPage();
-    fireEvent.click(screen.getByText('through'));
-    const header = screen.getByText('through').closest('div')!;
-    expect(within(header).getByText('▶')).toHaveClass('text-white');
-  });
-
-  it('through particle text is blue when collapsed', () => {
-    renderPage();
-    expect(screen.getByText('through')).toHaveClass('text-blue-600');
-  });
-
-  it('through particle text is white when expanded', () => {
-    renderPage();
-    fireEvent.click(screen.getByText('through'));
-    expect(screen.getByText('through')).toHaveClass('text-white');
-  });
-});
+describeChevronAndColour(LABEL, 'through', renderPage);
 
 describe('GetVerbPage — "through" section definitions', () => {
   it('all 3 "through" definition paragraphs have truncate class', () => {

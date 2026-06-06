@@ -1,85 +1,16 @@
 import { screen, fireEvent, within } from '@testing-library/react';
 import { renderPage, getCard, expandSection } from './helpers';
+import { describeChevronAndColour, describeSectionToggle } from '../verbPage/sharedSectionTests';
+
+const LABEL = 'GetVerbPage';
 
 beforeEach(() => {
   localStorage.clear();
 });
 
-describe('GetVerbPage — "ahead" section toggle', () => {
-  it('renders "ahead" section toggle', () => {
-    renderPage();
-    expect(screen.getByText('ahead')).toBeInTheDocument();
-  });
+describeSectionToggle(LABEL, 'ahead', 'getAhead_section_expanded', /To be successful and make progress/i, renderPage);
 
-  it('"ahead" section starts collapsed showing no definitions', () => {
-    renderPage();
-    expect(screen.queryByText(/To be successful and make progress/i)).not.toBeInTheDocument();
-  });
-
-  it('clicking "ahead" expands all meaning cards', () => {
-    renderPage();
-    fireEvent.click(screen.getByText('ahead'));
-    expect(screen.getByText(/To be successful and make progress/i)).toBeInTheDocument();
-  });
-
-  it('clicking "ahead" twice collapses all meaning cards', () => {
-    renderPage();
-    fireEvent.click(screen.getByText('ahead'));
-    fireEvent.click(screen.getByText('ahead'));
-    expect(screen.queryByText(/To be successful and make progress/i)).not.toBeInTheDocument();
-  });
-
-  it('saves "ahead" section state to localStorage when expanded', () => {
-    renderPage();
-    fireEvent.click(screen.getByText('ahead'));
-    expect(localStorage.getItem('getAhead_section_expanded')).toBe('true');
-  });
-
-  it('restores "ahead" section collapsed state from localStorage', () => {
-    localStorage.setItem('getAhead_section_expanded', 'false');
-    renderPage();
-    expect(screen.queryByText(/To be successful and make progress/i)).not.toBeInTheDocument();
-  });
-});
-
-describe('GetVerbPage — "ahead" chevron and colour', () => {
-  it('ahead chevron has rotate-90 class when expanded', () => {
-    renderPage();
-    fireEvent.click(screen.getByText('ahead'));
-    const header = screen.getByText('ahead').closest('div')!;
-    expect(within(header).getByText('▶')).toHaveClass('rotate-90');
-  });
-
-  it('ahead chevron does not have rotate-90 class when collapsed', () => {
-    renderPage();
-    const header = screen.getByText('ahead').closest('div')!;
-    expect(within(header).getByText('▶')).not.toHaveClass('rotate-90');
-  });
-
-  it('ahead chevron is blue when collapsed', () => {
-    renderPage();
-    const header = screen.getByText('ahead').closest('div')!;
-    expect(within(header).getByText('▶')).toHaveClass('text-blue-600');
-  });
-
-  it('ahead chevron is white when expanded', () => {
-    renderPage();
-    fireEvent.click(screen.getByText('ahead'));
-    const header = screen.getByText('ahead').closest('div')!;
-    expect(within(header).getByText('▶')).toHaveClass('text-white');
-  });
-
-  it('ahead particle text is blue when collapsed', () => {
-    renderPage();
-    expect(screen.getByText('ahead')).toHaveClass('text-blue-600');
-  });
-
-  it('ahead particle text is white when expanded', () => {
-    renderPage();
-    fireEvent.click(screen.getByText('ahead'));
-    expect(screen.getByText('ahead')).toHaveClass('text-white');
-  });
-});
+describeChevronAndColour(LABEL, 'ahead', renderPage);
 
 describe('GetVerbPage — "ahead" section definitions', () => {
   it('"ahead" definition paragraph has truncate class', () => {

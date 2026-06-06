@@ -1,34 +1,16 @@
 import { screen, fireEvent, within } from '@testing-library/react';
 import { renderPage, getCard, expandSection } from './helpers';
+import { describeChevronAndColour, describeSectionToggle } from '../verbPage/sharedSectionTests';
+
+const LABEL = 'MakeVerbPage';
 
 beforeEach(() => {
   localStorage.clear();
 });
 
-describe('MakeVerbPage — "after" section toggle', () => {
-  it('renders "after" section toggle', () => {
-    renderPage();
-    expect(screen.getByText('after')).toBeInTheDocument();
-  });
+describeSectionToggle(LABEL, 'after', 'makeAfter_section_expanded', /To chase someone or something/i, renderPage);
 
-  it('"after" section starts collapsed showing no definitions', () => {
-    renderPage();
-    expect(screen.queryByText(/To chase someone or something/i)).not.toBeInTheDocument();
-  });
-
-  it('clicking "after" expands "after" meaning cards', () => {
-    renderPage();
-    fireEvent.click(screen.getByText('after'));
-    expect(screen.getByText(/To chase someone or something/i)).toBeInTheDocument();
-  });
-
-  it('clicking "after" twice collapses "after" meaning cards', () => {
-    renderPage();
-    fireEvent.click(screen.getByText('after'));
-    fireEvent.click(screen.getByText('after'));
-    expect(screen.queryByText(/To chase someone or something/i)).not.toBeInTheDocument();
-  });
-
+describe(`${LABEL} — "after" section independence`, () => {
   it('collapsing "after" section does not affect other sections', () => {
     renderPage();
     expandSection('for');
@@ -36,58 +18,9 @@ describe('MakeVerbPage — "after" section toggle', () => {
     fireEvent.click(screen.getByText('after'));
     expect(screen.getByText(/To move directly towards a place/i)).toBeInTheDocument();
   });
-
-  it('saves "after" section state to localStorage when expanded', () => {
-    renderPage();
-    fireEvent.click(screen.getByText('after'));
-    expect(localStorage.getItem('makeAfter_section_expanded')).toBe('true');
-  });
-
-  it('restores "after" section collapsed state from localStorage', () => {
-    localStorage.setItem('makeAfter_section_expanded', 'false');
-    renderPage();
-    expect(screen.queryByText(/To chase someone or something/i)).not.toBeInTheDocument();
-  });
 });
 
-describe('MakeVerbPage — "after" chevron and colour', () => {
-  it('after chevron has rotate-90 class when expanded', () => {
-    renderPage();
-    fireEvent.click(screen.getByText('after'));
-    const header = screen.getByText('after').closest('div')!;
-    expect(within(header).getByText('▶')).toHaveClass('rotate-90');
-  });
-
-  it('after chevron does not have rotate-90 class when collapsed', () => {
-    renderPage();
-    const header = screen.getByText('after').closest('div')!;
-    expect(within(header).getByText('▶')).not.toHaveClass('rotate-90');
-  });
-
-  it('after chevron is blue when collapsed', () => {
-    renderPage();
-    const header = screen.getByText('after').closest('div')!;
-    expect(within(header).getByText('▶')).toHaveClass('text-blue-600');
-  });
-
-  it('after chevron is white when expanded', () => {
-    renderPage();
-    fireEvent.click(screen.getByText('after'));
-    const header = screen.getByText('after').closest('div')!;
-    expect(within(header).getByText('▶')).toHaveClass('text-white');
-  });
-
-  it('after particle text is blue when collapsed', () => {
-    renderPage();
-    expect(screen.getByText('after')).toHaveClass('text-blue-600');
-  });
-
-  it('after particle text is white when expanded', () => {
-    renderPage();
-    fireEvent.click(screen.getByText('after'));
-    expect(screen.getByText('after')).toHaveClass('text-white');
-  });
-});
+describeChevronAndColour(LABEL, 'after', renderPage);
 
 describe('MakeVerbPage — "after" section definitions', () => {
   it('"after" definition paragraph has truncate class', () => {

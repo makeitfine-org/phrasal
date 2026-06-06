@@ -1,38 +1,16 @@
 import { screen, fireEvent, within } from '@testing-library/react';
 import { renderPage, getCard, expandSection } from './helpers';
+import { describeChevronAndColour, describeSectionToggle } from '../verbPage/sharedSectionTests';
+
+const LABEL = 'GetVerbPage';
 
 beforeEach(() => {
   localStorage.clear();
 });
 
-describe('GetVerbPage — "up" section toggle', () => {
-  it('renders "up" section toggle', () => {
-    renderPage();
-    expect(screen.getByText('up')).toBeInTheDocument();
-  });
+describeSectionToggle(LABEL, 'up', 'getUp_section_expanded', /To rise from bed after sleeping/i, renderPage);
 
-  it('"up" section starts collapsed showing no definitions', () => {
-    renderPage();
-    expect(screen.queryByText(/To rise from bed after sleeping/i)).not.toBeInTheDocument();
-    expect(screen.queryByText(/To stand up/i)).not.toBeInTheDocument();
-    expect(screen.queryByText(/To organize or arrange something/i)).not.toBeInTheDocument();
-  });
-
-  it('clicking "up" expands all "up" meaning cards', () => {
-    renderPage();
-    fireEvent.click(screen.getByText('up'));
-    expect(screen.getByText(/To rise from bed after sleeping/i)).toBeInTheDocument();
-    expect(screen.getByText(/To stand up/i)).toBeInTheDocument();
-    expect(screen.getByText(/To organize or arrange something/i)).toBeInTheDocument();
-  });
-
-  it('clicking "up" twice collapses all "up" meaning cards', () => {
-    renderPage();
-    fireEvent.click(screen.getByText('up'));
-    fireEvent.click(screen.getByText('up'));
-    expect(screen.queryByText(/To rise from bed after sleeping/i)).not.toBeInTheDocument();
-  });
-
+describe(`${LABEL} — "up" section independence`, () => {
   it('collapsing "up" section does not affect "off" or "on" sections', () => {
     renderPage();
     expandSection('off');
@@ -42,64 +20,9 @@ describe('GetVerbPage — "up" section toggle', () => {
     expect(screen.getByText(/To leave a form of public transport/i)).toBeInTheDocument();
     expect(screen.getByText(/To step onto a form of public transport/i)).toBeInTheDocument();
   });
-
-  it('saves "up" section state to localStorage when expanded', () => {
-    renderPage();
-    fireEvent.click(screen.getByText('up'));
-    expect(localStorage.getItem('getUp_section_expanded')).toBe('true');
-  });
-
-  it('restores "up" section collapsed state from localStorage', () => {
-    localStorage.setItem('getUp_section_expanded', 'false');
-    renderPage();
-    expect(screen.queryByText(/To rise from bed after sleeping/i)).not.toBeInTheDocument();
-  });
 });
 
-describe('GetVerbPage — "up" chevron and colour', () => {
-  it('up chevron is ▶ character', () => {
-    renderPage();
-    const upHeader = screen.getByText('up').closest('div')!;
-    expect(within(upHeader).getByText('▶')).toBeInTheDocument();
-  });
-
-  it('up chevron has rotate-90 class when expanded', () => {
-    renderPage();
-    fireEvent.click(screen.getByText('up'));
-    const upHeader = screen.getByText('up').closest('div')!;
-    expect(within(upHeader).getByText('▶')).toHaveClass('rotate-90');
-  });
-
-  it('up chevron does not have rotate-90 class when collapsed', () => {
-    renderPage();
-    const upHeader = screen.getByText('up').closest('div')!;
-    expect(within(upHeader).getByText('▶')).not.toHaveClass('rotate-90');
-  });
-
-  it('up chevron is blue when collapsed', () => {
-    renderPage();
-    const upHeader = screen.getByText('up').closest('div')!;
-    expect(within(upHeader).getByText('▶')).toHaveClass('text-blue-600');
-  });
-
-  it('up chevron is white when expanded', () => {
-    renderPage();
-    fireEvent.click(screen.getByText('up'));
-    const upHeader = screen.getByText('up').closest('div')!;
-    expect(within(upHeader).getByText('▶')).toHaveClass('text-white');
-  });
-
-  it('up particle text is blue when collapsed', () => {
-    renderPage();
-    expect(screen.getByText('up')).toHaveClass('text-blue-600');
-  });
-
-  it('up particle text is white when expanded', () => {
-    renderPage();
-    fireEvent.click(screen.getByText('up'));
-    expect(screen.getByText('up')).toHaveClass('text-white');
-  });
-});
+describeChevronAndColour(LABEL, 'up', renderPage);
 
 describe('GetVerbPage — "up" section definitions', () => {
   it('all 3 "up" definition paragraphs have truncate class', () => {

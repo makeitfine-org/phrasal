@@ -1,62 +1,16 @@
 import { screen, fireEvent, within } from '@testing-library/react';
 import { renderPage, getCard, expandSection } from './helpers';
+import { describeChevronAndColour, describeSectionToggle } from '../verbPage/sharedSectionTests';
+
+const LABEL = 'PutVerbPage';
 
 beforeEach(() => {
   localStorage.clear();
 });
 
-describe('PutVerbPage — "through" section toggle', () => {
-  it('renders "through" section toggle', () => {
-    renderPage();
-    expect(screen.getByText('through')).toBeInTheDocument();
-  });
+describeSectionToggle(LABEL, 'through', 'putThrough_section_expanded', /To connect someone on the telephone/i, renderPage);
 
-  it('"through" section starts collapsed', () => {
-    renderPage();
-    expect(screen.queryByText(/To connect someone on the telephone/i)).not.toBeInTheDocument();
-  });
-
-  it('clicking "through" expands all 3 "through" meaning cards', () => {
-    renderPage();
-    fireEvent.click(screen.getByText('through'));
-    expect(screen.getByText(/To connect someone on the telephone/i)).toBeInTheDocument();
-    expect(screen.getByText(/To make someone experience something very difficult/i)).toBeInTheDocument();
-    expect(screen.getByText(/To successfully complete a business transaction or proposal/i)).toBeInTheDocument();
-  });
-
-  it('clicking "through" twice collapses meaning cards', () => {
-    renderPage();
-    fireEvent.click(screen.getByText('through'));
-    fireEvent.click(screen.getByText('through'));
-    expect(screen.queryByText(/To connect someone on the telephone/i)).not.toBeInTheDocument();
-  });
-
-  it('saves "through" section state to localStorage when expanded', () => {
-    renderPage();
-    fireEvent.click(screen.getByText('through'));
-    expect(localStorage.getItem('putThrough_section_expanded')).toBe('true');
-  });
-});
-
-describe('PutVerbPage — "through" chevron and colour', () => {
-  it('through chevron has rotate-90 class when expanded', () => {
-    renderPage();
-    fireEvent.click(screen.getByText('through'));
-    const header = screen.getByText('through').closest('div')!;
-    expect(within(header).getByText('▶')).toHaveClass('rotate-90');
-  });
-
-  it('through particle text is blue when collapsed', () => {
-    renderPage();
-    expect(screen.getByText('through')).toHaveClass('text-blue-600');
-  });
-
-  it('through particle text is white when expanded', () => {
-    renderPage();
-    fireEvent.click(screen.getByText('through'));
-    expect(screen.getByText('through')).toHaveClass('text-white');
-  });
-});
+describeChevronAndColour(LABEL, 'through', renderPage);
 
 describe('PutVerbPage — "through" card view (default image)', () => {
   it('all examples visible without expanding cards', () => {

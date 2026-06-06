@@ -1,89 +1,16 @@
 import { screen, fireEvent, within } from '@testing-library/react';
 import { renderPage, getCard, expandSection } from './helpers';
+import { describeChevronAndColour, describeSectionToggle } from '../verbPage/sharedSectionTests';
+
+const LABEL = 'GetVerbPage';
 
 beforeEach(() => {
   localStorage.clear();
 });
 
-describe('GetVerbPage — "over" section toggle', () => {
-  it('renders "over" section toggle', () => {
-    renderPage();
-    expect(screen.getByText('over')).toBeInTheDocument();
-  });
+describeSectionToggle(LABEL, 'over', 'getOver_section_expanded', /To recover from an illness/i, renderPage);
 
-  it('"over" section starts collapsed showing no definitions', () => {
-    renderPage();
-    expect(screen.queryByText(/To recover from an illness/i)).not.toBeInTheDocument();
-    expect(screen.queryByText(/To overcome a problem or difficulty/i)).not.toBeInTheDocument();
-    expect(screen.queryByText(/To finish something unpleasant/i)).not.toBeInTheDocument();
-  });
-
-  it('clicking "over" expands all meaning cards', () => {
-    renderPage();
-    fireEvent.click(screen.getByText('over'));
-    expect(screen.getByText(/To recover from an illness/i)).toBeInTheDocument();
-    expect(screen.getByText(/To overcome a problem or difficulty/i)).toBeInTheDocument();
-    expect(screen.getByText(/To finish something unpleasant/i)).toBeInTheDocument();
-  });
-
-  it('clicking "over" twice collapses all meaning cards', () => {
-    renderPage();
-    fireEvent.click(screen.getByText('over'));
-    fireEvent.click(screen.getByText('over'));
-    expect(screen.queryByText(/To recover from an illness/i)).not.toBeInTheDocument();
-  });
-
-  it('saves "over" section state to localStorage when expanded', () => {
-    renderPage();
-    fireEvent.click(screen.getByText('over'));
-    expect(localStorage.getItem('getOver_section_expanded')).toBe('true');
-  });
-
-  it('restores "over" section collapsed state from localStorage', () => {
-    localStorage.setItem('getOver_section_expanded', 'false');
-    renderPage();
-    expect(screen.queryByText(/To recover from an illness/i)).not.toBeInTheDocument();
-  });
-});
-
-describe('GetVerbPage — "over" chevron and colour', () => {
-  it('over chevron has rotate-90 class when expanded', () => {
-    renderPage();
-    fireEvent.click(screen.getByText('over'));
-    const header = screen.getByText('over').closest('div')!;
-    expect(within(header).getByText('▶')).toHaveClass('rotate-90');
-  });
-
-  it('over chevron does not have rotate-90 class when collapsed', () => {
-    renderPage();
-    const header = screen.getByText('over').closest('div')!;
-    expect(within(header).getByText('▶')).not.toHaveClass('rotate-90');
-  });
-
-  it('over chevron is blue when collapsed', () => {
-    renderPage();
-    const header = screen.getByText('over').closest('div')!;
-    expect(within(header).getByText('▶')).toHaveClass('text-blue-600');
-  });
-
-  it('over chevron is white when expanded', () => {
-    renderPage();
-    fireEvent.click(screen.getByText('over'));
-    const header = screen.getByText('over').closest('div')!;
-    expect(within(header).getByText('▶')).toHaveClass('text-white');
-  });
-
-  it('over particle text is blue when collapsed', () => {
-    renderPage();
-    expect(screen.getByText('over')).toHaveClass('text-blue-600');
-  });
-
-  it('over particle text is white when expanded', () => {
-    renderPage();
-    fireEvent.click(screen.getByText('over'));
-    expect(screen.getByText('over')).toHaveClass('text-white');
-  });
-});
+describeChevronAndColour(LABEL, 'over', renderPage);
 
 describe('GetVerbPage — "over" section definitions', () => {
   it('all 3 "over" definition paragraphs have truncate class', () => {

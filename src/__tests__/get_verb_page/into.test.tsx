@@ -1,38 +1,16 @@
 import { screen, fireEvent, within } from '@testing-library/react';
 import { renderPage, getCard, expandSection } from './helpers';
+import { describeChevronAndColour, describeSectionToggle } from '../verbPage/sharedSectionTests';
+
+const LABEL = 'GetVerbPage';
 
 beforeEach(() => {
   localStorage.clear();
 });
 
-describe('GetVerbPage — "into" section toggle', () => {
-  it('renders "into" section toggle', () => {
-    renderPage();
-    expect(screen.getByText('into')).toBeInTheDocument();
-  });
+describeSectionToggle(LABEL, 'into', 'getInto_section_expanded', /To become interested or involved in something/i, renderPage);
 
-  it('"into" section starts collapsed showing no definitions', () => {
-    renderPage();
-    expect(screen.queryByText(/To become interested or involved in something/i)).not.toBeInTheDocument();
-    expect(screen.queryByText(/To enter a specific state or situation/i)).not.toBeInTheDocument();
-    expect(screen.queryByText(/To start a habit/i)).not.toBeInTheDocument();
-  });
-
-  it('clicking "into" expands all "into" meaning cards', () => {
-    renderPage();
-    fireEvent.click(screen.getByText('into'));
-    expect(screen.getByText(/To become interested or involved in something/i)).toBeInTheDocument();
-    expect(screen.getByText(/To enter a specific state or situation/i)).toBeInTheDocument();
-    expect(screen.getByText(/To start a habit/i)).toBeInTheDocument();
-  });
-
-  it('clicking "into" twice collapses all "into" meaning cards', () => {
-    renderPage();
-    fireEvent.click(screen.getByText('into'));
-    fireEvent.click(screen.getByText('into'));
-    expect(screen.queryByText(/To become interested or involved in something/i)).not.toBeInTheDocument();
-  });
-
+describe(`${LABEL} — "into" section independence`, () => {
   it('collapsing "into" section does not affect other sections', () => {
     renderPage();
     expandSection('off');
@@ -42,58 +20,9 @@ describe('GetVerbPage — "into" section toggle', () => {
     expect(screen.getByText(/To leave a form of public transport/i)).toBeInTheDocument();
     expect(screen.getByText(/To enter a car, room, or building/i)).toBeInTheDocument();
   });
-
-  it('saves "into" section state to localStorage when expanded', () => {
-    renderPage();
-    fireEvent.click(screen.getByText('into'));
-    expect(localStorage.getItem('getInto_section_expanded')).toBe('true');
-  });
-
-  it('restores "into" section collapsed state from localStorage', () => {
-    localStorage.setItem('getInto_section_expanded', 'false');
-    renderPage();
-    expect(screen.queryByText(/To become interested or involved in something/i)).not.toBeInTheDocument();
-  });
 });
 
-describe('GetVerbPage — "into" chevron and colour', () => {
-  it('into chevron has rotate-90 class when expanded', () => {
-    renderPage();
-    fireEvent.click(screen.getByText('into'));
-    const intoHeader = screen.getByText('into').closest('div')!;
-    expect(within(intoHeader).getByText('▶')).toHaveClass('rotate-90');
-  });
-
-  it('into chevron does not have rotate-90 class when collapsed', () => {
-    renderPage();
-    const intoHeader = screen.getByText('into').closest('div')!;
-    expect(within(intoHeader).getByText('▶')).not.toHaveClass('rotate-90');
-  });
-
-  it('into chevron is blue when collapsed', () => {
-    renderPage();
-    const intoHeader = screen.getByText('into').closest('div')!;
-    expect(within(intoHeader).getByText('▶')).toHaveClass('text-blue-600');
-  });
-
-  it('into chevron is white when expanded', () => {
-    renderPage();
-    fireEvent.click(screen.getByText('into'));
-    const intoHeader = screen.getByText('into').closest('div')!;
-    expect(within(intoHeader).getByText('▶')).toHaveClass('text-white');
-  });
-
-  it('into particle text is blue when collapsed', () => {
-    renderPage();
-    expect(screen.getByText('into')).toHaveClass('text-blue-600');
-  });
-
-  it('into particle text is white when expanded', () => {
-    renderPage();
-    fireEvent.click(screen.getByText('into'));
-    expect(screen.getByText('into')).toHaveClass('text-white');
-  });
-});
+describeChevronAndColour(LABEL, 'into', renderPage);
 
 describe('GetVerbPage — "into" section definitions', () => {
   it('all 3 "into" definition paragraphs have truncate class', () => {

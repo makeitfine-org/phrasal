@@ -1,5 +1,8 @@
 import { screen, fireEvent, within } from '@testing-library/react';
 import { renderPage, getCard, expandSection } from './helpers';
+import { describeChevronAndColour, describeSectionToggle } from '../verbPage/sharedSectionTests';
+
+const LABEL = 'GetVerbPage';
 
 beforeEach(() => {
   localStorage.clear();
@@ -88,102 +91,9 @@ describe('GetVerbPage — "off" section definitions', () => {
   });
 });
 
-describe('GetVerbPage — "off" section toggle', () => {
-  it('renders "off" section toggle', () => {
-    renderPage();
-    expect(screen.getByText('off')).toBeInTheDocument();
-  });
+describeSectionToggle(LABEL, 'off', 'getOff_section_expanded', /To leave a form of public transport/i, renderPage);
 
-  it('"off" section starts collapsed showing no definitions', () => {
-    renderPage();
-    expect(screen.queryByText(/To leave a form of public transport/i)).not.toBeInTheDocument();
-    expect(screen.queryByText(/To finish work/i)).not.toBeInTheDocument();
-    expect(screen.queryByText(/To escape punishment/i)).not.toBeInTheDocument();
-    expect(screen.queryByText(/To send something/i)).not.toBeInTheDocument();
-  });
-
-  it('clicking "off" expands all meaning cards', () => {
-    renderPage();
-    fireEvent.click(screen.getByText('off'));
-    expect(screen.getByText(/To leave a form of public transport/i)).toBeInTheDocument();
-    expect(screen.getByText(/To finish work/i)).toBeInTheDocument();
-    expect(screen.getByText(/To escape punishment/i)).toBeInTheDocument();
-    expect(screen.getByText(/To send something/i)).toBeInTheDocument();
-  });
-
-  it('clicking "off" twice collapses all meaning cards', () => {
-    renderPage();
-    fireEvent.click(screen.getByText('off'));
-    fireEvent.click(screen.getByText('off'));
-    expect(screen.queryByText(/To leave a form of public transport/i)).not.toBeInTheDocument();
-  });
-
-  it('saves "off" section state to localStorage when expanded', () => {
-    renderPage();
-    fireEvent.click(screen.getByText('off'));
-    expect(localStorage.getItem('getOff_section_expanded')).toBe('true');
-  });
-
-  it('restores "off" section collapsed state from localStorage', () => {
-    localStorage.setItem('getOff_section_expanded', 'false');
-    renderPage();
-    expect(screen.queryByText(/To leave a form of public transport/i)).not.toBeInTheDocument();
-  });
-});
-
-describe('GetVerbPage — "off" chevron and colour', () => {
-  it('off chevron is ▶ character', () => {
-    renderPage();
-    const offHeader = screen.getByText('off').closest('div')!;
-    expect(within(offHeader).getByText('▶')).toBeInTheDocument();
-  });
-
-  it('off chevron has rotate-90 class when expanded', () => {
-    renderPage();
-    fireEvent.click(screen.getByText('off'));
-    const offHeader = screen.getByText('off').closest('div')!;
-    expect(within(offHeader).getByText('▶')).toHaveClass('rotate-90');
-  });
-
-  it('off chevron does not have rotate-90 class when collapsed', () => {
-    renderPage();
-    const offHeader = screen.getByText('off').closest('div')!;
-    expect(within(offHeader).getByText('▶')).not.toHaveClass('rotate-90');
-  });
-
-  it('off chevron regains rotate-90 class when re-expanded', () => {
-    renderPage();
-    fireEvent.click(screen.getByText('off'));
-    fireEvent.click(screen.getByText('off'));
-    fireEvent.click(screen.getByText('off'));
-    const offHeader = screen.getByText('off').closest('div')!;
-    expect(within(offHeader).getByText('▶')).toHaveClass('rotate-90');
-  });
-
-  it('off chevron is blue when collapsed', () => {
-    renderPage();
-    const offHeader = screen.getByText('off').closest('div')!;
-    expect(within(offHeader).getByText('▶')).toHaveClass('text-blue-600');
-  });
-
-  it('off chevron is white when expanded', () => {
-    renderPage();
-    fireEvent.click(screen.getByText('off'));
-    const offHeader = screen.getByText('off').closest('div')!;
-    expect(within(offHeader).getByText('▶')).toHaveClass('text-white');
-  });
-
-  it('off particle text is blue when collapsed', () => {
-    renderPage();
-    expect(screen.getByText('off')).toHaveClass('text-blue-600');
-  });
-
-  it('off particle text is white when expanded', () => {
-    renderPage();
-    fireEvent.click(screen.getByText('off'));
-    expect(screen.getByText('off')).toHaveClass('text-white');
-  });
-});
+describeChevronAndColour(LABEL, 'off', renderPage);
 
 describe('GetVerbPage — "off" card borders', () => {
   it('meaning card has dark border class for light theme', () => {

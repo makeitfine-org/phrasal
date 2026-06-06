@@ -1,60 +1,16 @@
 import { screen, fireEvent, within } from '@testing-library/react';
 import { renderPage, getCard, expandSection } from './helpers';
+import { describeChevronAndColour, describeSectionToggle } from '../verbPage/sharedSectionTests';
+
+const LABEL = 'PutVerbPage';
 
 beforeEach(() => {
   localStorage.clear();
 });
 
-describe('PutVerbPage — "ahead" section toggle', () => {
-  it('renders "ahead" section toggle', () => {
-    renderPage();
-    expect(screen.getByText('ahead')).toBeInTheDocument();
-  });
+describeSectionToggle(LABEL, 'ahead', 'putAhead_section_expanded', /To give someone an advantage over others/i, renderPage);
 
-  it('"ahead" section starts collapsed', () => {
-    renderPage();
-    expect(screen.queryByText(/To give someone an advantage over others/i)).not.toBeInTheDocument();
-  });
-
-  it('clicking "ahead" expands meaning card', () => {
-    renderPage();
-    fireEvent.click(screen.getByText('ahead'));
-    expect(screen.getByText(/To give someone an advantage over others/i)).toBeInTheDocument();
-  });
-
-  it('clicking "ahead" twice collapses meaning card', () => {
-    renderPage();
-    fireEvent.click(screen.getByText('ahead'));
-    fireEvent.click(screen.getByText('ahead'));
-    expect(screen.queryByText(/To give someone an advantage over others/i)).not.toBeInTheDocument();
-  });
-
-  it('saves "ahead" section state to localStorage when expanded', () => {
-    renderPage();
-    fireEvent.click(screen.getByText('ahead'));
-    expect(localStorage.getItem('putAhead_section_expanded')).toBe('true');
-  });
-});
-
-describe('PutVerbPage — "ahead" chevron and colour', () => {
-  it('ahead chevron has rotate-90 class when expanded', () => {
-    renderPage();
-    fireEvent.click(screen.getByText('ahead'));
-    const header = screen.getByText('ahead').closest('div')!;
-    expect(within(header).getByText('▶')).toHaveClass('rotate-90');
-  });
-
-  it('ahead particle text is blue when collapsed', () => {
-    renderPage();
-    expect(screen.getByText('ahead')).toHaveClass('text-blue-600');
-  });
-
-  it('ahead particle text is white when expanded', () => {
-    renderPage();
-    fireEvent.click(screen.getByText('ahead'));
-    expect(screen.getByText('ahead')).toHaveClass('text-white');
-  });
-});
+describeChevronAndColour(LABEL, 'ahead', renderPage);
 
 describe('PutVerbPage — "ahead" card view (default image)', () => {
   it('example visible without expanding card', () => {

@@ -466,3 +466,51 @@
 <!-- git-snapshot 2026-06-06T06:38:51Z -->
 - .claude/docs/blackbox/audit.md
 <!-- end-snapshot -->
+
+## 2026-06-06T09:34:00Z
+### Decisions
+- Created shared test factory `src/__tests__/verbPage/helpers.tsx` with `createVerbPageHelpers(PageComponent)` returning renderPage/getCard/getSection/expandSection
+- Created shared test factories `src/__tests__/verbPage/sharedSectionTests.tsx` with `describeSectionToggle` (6 tests) and `describeChevronAndColour` (8 tests)
+- Transformed all 50 particle test files across get/make/put verb page test dirs to use the factories
+- Cross-section independence tests (16 files: 6 get, 10 make) extracted into separate `describe('...section independence', ...)` blocks
+- All 1467 tests pass after transformation
+### Constraints Stated by User
+- Use existing git status changes (shared templates already existed from prior session)
+### Files Modified
+- src/__tests__/verbPage/helpers.tsx — new shared createVerbPageHelpers factory
+- src/__tests__/verbPage/sharedSectionTests.tsx — new describeSectionToggle and describeChevronAndColour factories
+- src/__tests__/get_verb_page/helpers.tsx — delegates to createVerbPageHelpers(GetVerbPage)
+- src/__tests__/make_verb_page/helpers.tsx — delegates to createVerbPageHelpers(MakeVerbPage)
+- src/__tests__/put_verb_page/helpers.tsx — delegates to createVerbPageHelpers(PutVerbPage)
+- src/__tests__/{get,make,put}_verb_page/*.test.tsx — all 50 particle files refactored (toggle + chevron blocks replaced with factory calls)
+### Deferred
+- None
+---
+
+<!-- git-snapshot 2026-06-06T07:35:18Z -->
+- .claude/docs/blackbox/audit.md
+- .claude/docs/blackbox/session-log.md
+- .claude/settings.local.json
+- src/__tests__/get_verb_page/about_around.test.tsx
+- src/__tests__/get_verb_page/across.test.tsx
+- src/__tests__/get_verb_page/after.test.tsx
+- src/__tests__/get_verb_page/ahead.test.tsx
+- src/__tests__/get_verb_page/away.test.tsx
+- src/__tests__/get_verb_page/back.test.tsx
+- src/__tests__/get_verb_page/behind.test.tsx
+- src/__tests__/get_verb_page/by.test.tsx
+- src/__tests__/get_verb_page/down.test.tsx
+- src/__tests__/get_verb_page/forward.test.tsx
+- src/__tests__/get_verb_page/helpers.tsx
+- src/__tests__/get_verb_page/in.test.tsx
+- src/__tests__/get_verb_page/into.test.tsx
+- src/__tests__/get_verb_page/off.test.tsx
+- src/__tests__/get_verb_page/on.test.tsx
+- src/__tests__/get_verb_page/out.test.tsx
+- src/__tests__/get_verb_page/over.test.tsx
+<!-- end-snapshot -->
+
+<!-- git-snapshot 2026-06-06T07:41:37Z -->
+- .claude/docs/blackbox/audit.md
+- .claude/settings.local.json
+<!-- end-snapshot -->

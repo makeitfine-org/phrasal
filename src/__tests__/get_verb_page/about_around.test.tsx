@@ -1,91 +1,16 @@
 import { screen, fireEvent, within } from '@testing-library/react';
 import { renderPage, getCard, expandSection } from './helpers';
+import { describeChevronAndColour, describeSectionToggle } from '../verbPage/sharedSectionTests';
+
+const LABEL = 'GetVerbPage';
 
 beforeEach(() => {
   localStorage.clear();
 });
 
-describe('GetVerbPage — "about / around" section toggle', () => {
-  it('renders "about / around" section toggle', () => {
-    renderPage();
-    expect(screen.getByText('about / around')).toBeInTheDocument();
-  });
+describeSectionToggle(LABEL, 'about / around', 'getAboutAround_section_expanded', /To travel to different places/i, renderPage);
 
-  it('"about / around" section starts collapsed showing no definitions', () => {
-    renderPage();
-    expect(screen.queryByText(/To travel to different places/i)).not.toBeInTheDocument();
-    expect(screen.queryByText(/To find a way to avoid a rule/i)).not.toBeInTheDocument();
-    expect(screen.queryByText(/To spread \(usually news or rumors\)/i)).not.toBeInTheDocument();
-    expect(screen.queryByText(/To finally do something you have delayed/i)).not.toBeInTheDocument();
-  });
-
-  it('clicking "about / around" expands all meaning cards', () => {
-    renderPage();
-    fireEvent.click(screen.getByText('about / around'));
-    expect(screen.getByText(/To travel to different places/i)).toBeInTheDocument();
-    expect(screen.getByText(/To find a way to avoid a rule/i)).toBeInTheDocument();
-    expect(screen.getByText(/To spread \(usually news or rumors\)/i)).toBeInTheDocument();
-    expect(screen.getByText(/To finally do something you have delayed/i)).toBeInTheDocument();
-  });
-
-  it('clicking "about / around" twice collapses all meaning cards', () => {
-    renderPage();
-    fireEvent.click(screen.getByText('about / around'));
-    fireEvent.click(screen.getByText('about / around'));
-    expect(screen.queryByText(/To travel to different places/i)).not.toBeInTheDocument();
-  });
-
-  it('saves "about / around" section state to localStorage when expanded', () => {
-    renderPage();
-    fireEvent.click(screen.getByText('about / around'));
-    expect(localStorage.getItem('getAboutAround_section_expanded')).toBe('true');
-  });
-
-  it('restores "about / around" section collapsed state from localStorage', () => {
-    localStorage.setItem('getAboutAround_section_expanded', 'false');
-    renderPage();
-    expect(screen.queryByText(/To travel to different places/i)).not.toBeInTheDocument();
-  });
-});
-
-describe('GetVerbPage — "about / around" chevron and colour', () => {
-  it('"about / around" chevron has rotate-90 class when expanded', () => {
-    renderPage();
-    fireEvent.click(screen.getByText('about / around'));
-    const header = screen.getByText('about / around').closest('div')!;
-    expect(within(header).getByText('▶')).toHaveClass('rotate-90');
-  });
-
-  it('"about / around" chevron does not have rotate-90 class when collapsed', () => {
-    renderPage();
-    const header = screen.getByText('about / around').closest('div')!;
-    expect(within(header).getByText('▶')).not.toHaveClass('rotate-90');
-  });
-
-  it('"about / around" chevron is blue when collapsed', () => {
-    renderPage();
-    const header = screen.getByText('about / around').closest('div')!;
-    expect(within(header).getByText('▶')).toHaveClass('text-blue-600');
-  });
-
-  it('"about / around" chevron is white when expanded', () => {
-    renderPage();
-    fireEvent.click(screen.getByText('about / around'));
-    const header = screen.getByText('about / around').closest('div')!;
-    expect(within(header).getByText('▶')).toHaveClass('text-white');
-  });
-
-  it('"about / around" particle text is blue when collapsed', () => {
-    renderPage();
-    expect(screen.getByText('about / around')).toHaveClass('text-blue-600');
-  });
-
-  it('"about / around" particle text is white when expanded', () => {
-    renderPage();
-    fireEvent.click(screen.getByText('about / around'));
-    expect(screen.getByText('about / around')).toHaveClass('text-white');
-  });
-});
+describeChevronAndColour(LABEL, 'about / around', renderPage);
 
 describe('GetVerbPage — "about / around" section definitions', () => {
   it('all 4 definition paragraphs have truncate class', () => {

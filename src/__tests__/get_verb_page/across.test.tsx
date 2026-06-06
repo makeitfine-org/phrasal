@@ -1,87 +1,16 @@
 import { screen, fireEvent, within } from '@testing-library/react';
 import { renderPage, getCard, expandSection } from './helpers';
+import { describeChevronAndColour, describeSectionToggle } from '../verbPage/sharedSectionTests';
+
+const LABEL = 'GetVerbPage';
 
 beforeEach(() => {
   localStorage.clear();
 });
 
-describe('GetVerbPage — "across" section toggle', () => {
-  it('renders "across" section toggle', () => {
-    renderPage();
-    expect(screen.getByText('across')).toBeInTheDocument();
-  });
+describeSectionToggle(LABEL, 'across', 'getAcross_section_expanded', /To communicate an idea successfully/i, renderPage);
 
-  it('"across" section starts collapsed showing no definitions', () => {
-    renderPage();
-    expect(screen.queryByText(/To communicate an idea successfully/i)).not.toBeInTheDocument();
-    expect(screen.queryByText(/To physically cross a road/i)).not.toBeInTheDocument();
-  });
-
-  it('clicking "across" expands all meaning cards', () => {
-    renderPage();
-    fireEvent.click(screen.getByText('across'));
-    expect(screen.getByText(/To communicate an idea successfully/i)).toBeInTheDocument();
-    expect(screen.getByText(/To physically cross a road/i)).toBeInTheDocument();
-  });
-
-  it('clicking "across" twice collapses all meaning cards', () => {
-    renderPage();
-    fireEvent.click(screen.getByText('across'));
-    fireEvent.click(screen.getByText('across'));
-    expect(screen.queryByText(/To communicate an idea successfully/i)).not.toBeInTheDocument();
-  });
-
-  it('saves "across" section state to localStorage when expanded', () => {
-    renderPage();
-    fireEvent.click(screen.getByText('across'));
-    expect(localStorage.getItem('getAcross_section_expanded')).toBe('true');
-  });
-
-  it('restores "across" section collapsed state from localStorage', () => {
-    localStorage.setItem('getAcross_section_expanded', 'false');
-    renderPage();
-    expect(screen.queryByText(/To communicate an idea successfully/i)).not.toBeInTheDocument();
-  });
-});
-
-describe('GetVerbPage — "across" chevron and colour', () => {
-  it('across chevron has rotate-90 class when expanded', () => {
-    renderPage();
-    fireEvent.click(screen.getByText('across'));
-    const header = screen.getByText('across').closest('div')!;
-    expect(within(header).getByText('▶')).toHaveClass('rotate-90');
-  });
-
-  it('across chevron does not have rotate-90 class when collapsed', () => {
-    renderPage();
-    const header = screen.getByText('across').closest('div')!;
-    expect(within(header).getByText('▶')).not.toHaveClass('rotate-90');
-  });
-
-  it('across chevron is blue when collapsed', () => {
-    renderPage();
-    const header = screen.getByText('across').closest('div')!;
-    expect(within(header).getByText('▶')).toHaveClass('text-blue-600');
-  });
-
-  it('across chevron is white when expanded', () => {
-    renderPage();
-    fireEvent.click(screen.getByText('across'));
-    const header = screen.getByText('across').closest('div')!;
-    expect(within(header).getByText('▶')).toHaveClass('text-white');
-  });
-
-  it('across particle text is blue when collapsed', () => {
-    renderPage();
-    expect(screen.getByText('across')).toHaveClass('text-blue-600');
-  });
-
-  it('across particle text is white when expanded', () => {
-    renderPage();
-    fireEvent.click(screen.getByText('across'));
-    expect(screen.getByText('across')).toHaveClass('text-white');
-  });
-});
+describeChevronAndColour(LABEL, 'across', renderPage);
 
 describe('GetVerbPage — "across" section definitions', () => {
   it('all 2 "across" definition paragraphs have truncate class', () => {

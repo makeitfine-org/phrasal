@@ -1,61 +1,16 @@
 import { screen, fireEvent, within } from '@testing-library/react';
 import { renderPage, getCard, expandSection } from './helpers';
+import { describeChevronAndColour, describeSectionToggle } from '../verbPage/sharedSectionTests';
+
+const LABEL = 'PutVerbPage';
 
 beforeEach(() => {
   localStorage.clear();
 });
 
-describe('PutVerbPage — "together" section toggle', () => {
-  it('renders "together" section toggle', () => {
-    renderPage();
-    expect(screen.getByText('together')).toBeInTheDocument();
-  });
+describeSectionToggle(LABEL, 'together', 'putTogether_section_expanded', /To assemble the parts of something/i, renderPage);
 
-  it('"together" section starts collapsed', () => {
-    renderPage();
-    expect(screen.queryByText(/To assemble the parts of something/i)).not.toBeInTheDocument();
-  });
-
-  it('clicking "together" expands meaning cards', () => {
-    renderPage();
-    fireEvent.click(screen.getByText('together'));
-    expect(screen.getByText(/To assemble the parts of something/i)).toBeInTheDocument();
-    expect(screen.getByText(/To organize or create a group or plan/i)).toBeInTheDocument();
-  });
-
-  it('clicking "together" twice collapses meaning cards', () => {
-    renderPage();
-    fireEvent.click(screen.getByText('together'));
-    fireEvent.click(screen.getByText('together'));
-    expect(screen.queryByText(/To assemble the parts of something/i)).not.toBeInTheDocument();
-  });
-
-  it('saves "together" section state to localStorage when expanded', () => {
-    renderPage();
-    fireEvent.click(screen.getByText('together'));
-    expect(localStorage.getItem('putTogether_section_expanded')).toBe('true');
-  });
-});
-
-describe('PutVerbPage — "together" chevron and colour', () => {
-  it('together chevron has rotate-90 class when expanded', () => {
-    renderPage();
-    fireEvent.click(screen.getByText('together'));
-    const header = screen.getByText('together').closest('div')!;
-    expect(within(header).getByText('▶')).toHaveClass('rotate-90');
-  });
-
-  it('together particle text is blue when collapsed', () => {
-    renderPage();
-    expect(screen.getByText('together')).toHaveClass('text-blue-600');
-  });
-
-  it('together particle text is white when expanded', () => {
-    renderPage();
-    fireEvent.click(screen.getByText('together'));
-    expect(screen.getByText('together')).toHaveClass('text-white');
-  });
-});
+describeChevronAndColour(LABEL, 'together', renderPage);
 
 describe('PutVerbPage — "together" card view (default image)', () => {
   it('both examples visible without expanding cards', () => {

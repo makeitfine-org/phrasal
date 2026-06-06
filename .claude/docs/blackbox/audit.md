@@ -1007,3 +1007,18 @@ Consider test they must be passed.
 For all listed phrasal verbs pages (like "get", "put", etc) create template and use that buy substitution the current.
 It will be use for preventing code duplicating.
 ---
+
+## 2026-06-06T06:41:05Z
+Also for all listed phrasal verbs pages (like "get", "put", etc) create test template and use that buy substitution the current ones.
+It will be use for preventing code duplicating.
+---
+
+## 2026-06-06T07:29:57Z
+Also for all listed phrasal verbs pages create tests template and use that buy substitution the current ones in folders: @src/__tests__/make_verb_page, @src/__tests__/get_verb_page/ @src/__tests__/put_verb_page/.
+It will be use for preventing code duplicating.
+Use changes in current `git status`.
+---
+
+## 2026-06-06T07:39:54Z
+git add all changes and commit them with suitable message
+---
