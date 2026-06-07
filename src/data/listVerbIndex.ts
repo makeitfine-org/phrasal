@@ -10,6 +10,7 @@ import { sections as comeSections } from '../pages/come/ComeVerbPage';
 export interface ListSearchEntry {
   verb: string;
   definition: string;
+  searchText: string;
   route: string;
   storageKey: string;
   sectionId: string;
@@ -19,6 +20,7 @@ function buildEntries(sections: SectionData[], baseVerb: string, route: string):
   return sections.map(s => ({
     verb: `${baseVerb} ${s.particle}`,
     definition: s.meanings[0].definition,
+    searchText: s.meanings.map(m => `${m.definition} ${m.example}`).join(' '),
     route,
     storageKey: s.storageKey,
     sectionId: s.storageKeyPrefix,

@@ -31,7 +31,7 @@ export default function ListSearchModal({ onSelect, onClose }: ListSearchModalPr
     .filter(e =>
       !query.trim() ||
       e.verb.toLowerCase().includes(query.toLowerCase()) ||
-      e.definition.toLowerCase().includes(query.toLowerCase())
+      e.searchText.toLowerCase().includes(query.toLowerCase())
     )
     .sort((a, b) => a.verb.localeCompare(b.verb));
 

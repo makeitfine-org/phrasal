@@ -6,10 +6,10 @@ import type { ListSearchEntry } from '../data/listVerbIndex';
 
 vi.mock('../data/listVerbIndex', () => ({
   listVerbIndex: [
-    { verb: 'Get off', definition: 'To leave a form of public transport', route: '/phrasal-verbs/list/get', storageKey: 'getOff_section_expanded', sectionId: 'getOff' },
-    { verb: 'Get on', definition: 'To board a vehicle', route: '/phrasal-verbs/list/get', storageKey: 'getOn_section_expanded', sectionId: 'getOn' },
-    { verb: 'Make up', definition: 'To invent a story or lie', route: '/phrasal-verbs/list/make', storageKey: 'makeUp_section_expanded', sectionId: 'makeUp' },
-    { verb: 'Put off', definition: 'To postpone or delay', route: '/phrasal-verbs/list/put', storageKey: 'putOff_section_expanded', sectionId: 'putOff' },
+    { verb: 'Get off', definition: 'To leave a form of public transport', searchText: 'To leave a form of public transport She got off the bus', route: '/phrasal-verbs/list/get', storageKey: 'getOff_section_expanded', sectionId: 'getOff' },
+    { verb: 'Get on', definition: 'To board a vehicle', searchText: 'To board a vehicle He got on the train', route: '/phrasal-verbs/list/get', storageKey: 'getOn_section_expanded', sectionId: 'getOn' },
+    { verb: 'Make up', definition: 'To invent a story or lie', searchText: 'To invent a story or lie She made up an excuse To reconcile after a quarrel They made up after the fight', route: '/phrasal-verbs/list/make', storageKey: 'makeUp_section_expanded', sectionId: 'makeUp' },
+    { verb: 'Put off', definition: 'To postpone or delay', searchText: 'To postpone or delay They put off the meeting To disgust or repel The smell put him off', route: '/phrasal-verbs/list/put', storageKey: 'putOff_section_expanded', sectionId: 'putOff' },
   ] as ListSearchEntry[],
 }));
 
@@ -136,5 +136,21 @@ describe('ListSearchModal', () => {
     const items = screen.getAllByRole('listitem');
     const highlighted = items.filter(i => i.classList.contains('bg-blue-100'));
     expect(highlighted).toHaveLength(0);
+  });
+
+  it('finds entry by a non-first meaning definition in searchText', async () => {
+    const user = userEvent.setup();
+    render(<ListSearchModal onSelect={vi.fn()} onClose={vi.fn()} />);
+    await user.type(screen.getByPlaceholderText('Search phrasal verbs...'), 'reconcile');
+    expect(screen.getByText('Make up')).toBeInTheDocument();
+    expect(screen.getAllByRole('listitem')).toHaveLength(1);
+  });
+
+  it('finds entry by an example sentence word in searchText', async () => {
+    const user = userEvent.setup();
+    render(<ListSearchModal onSelect={vi.fn()} onClose={vi.fn()} />);
+    await user.type(screen.getByPlaceholderText('Search phrasal verbs...'), 'disgust');
+    expect(screen.getByText('Put off')).toBeInTheDocument();
+    expect(screen.getAllByRole('listitem')).toHaveLength(1);
   });
 });

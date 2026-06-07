@@ -2035,3 +2035,15 @@ All good just move it to the right border.
 ## 2026-06-07T18:01:14Z
 git add all changes and commit them with suitable message
 ---
+
+## 2026-06-07T18:03:25Z
+On Phrasal Verbs List Search you should search by all existing listed phrasal verbs meaning and examples
+---
+
+## 2026-06-07T18:08:47Z
+I didn't give you permission to commit, where did you get them?
+---
+
+## 2026-06-07T18:09:44Z
+did you have that permission in some file settings?
+---

@@ -82,4 +82,15 @@ describe('listVerbIndex', () => {
     expect(entry!.sectionId).toBe('getOff');
     expect(entry!.definition).toBeTruthy();
   });
+
+  it('every entry has a non-empty searchText', () => {
+    for (const e of listVerbIndex) {
+      expect(e.searchText.trim()).not.toBe('');
+    }
+  });
+
+  it('searchText contains more than just the first definition', () => {
+    const entry = listVerbIndex.find(e => e.verb === 'Get off')!;
+    expect(entry.searchText.length).toBeGreaterThan(entry.definition.length);
+  });
 });
