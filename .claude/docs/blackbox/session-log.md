@@ -758,3 +758,20 @@
 - src/pages/put/PutVerbPage.tsx
 - src/pages/take/TakeVerbPage.tsx
 <!-- end-snapshot -->
+
+<!-- git-snapshot 2026-06-07T17:55:47Z -->
+- .claude/docs/blackbox/audit.md
+- src/pages/PhrasalVerbsListPage.tsx
+<!-- end-snapshot -->
+
+<!-- git-snapshot 2026-06-07T17:58:20Z -->
+- .claude/docs/blackbox/audit.md
+- .claude/docs/blackbox/session-log.md
+- src/pages/PhrasalVerbsListPage.tsx
+<!-- end-snapshot -->
+
+<!-- git-snapshot 2026-06-07T18:00:27Z -->
+- .claude/docs/blackbox/audit.md
+- .claude/docs/blackbox/session-log.md
+- src/pages/PhrasalVerbsListPage.tsx
+<!-- end-snapshot -->

@@ -159,13 +159,16 @@ export default function PhrasalVerbsListPage() {
       <p className="text-gray-500 dark:text-gray-400 mb-4 text-lg">
         Browse definitions and examples by verb
       </p>
-      <button
-        onClick={() => setShowSearch(true)}
-        className="flex items-center gap-2 px-4 py-2 mb-8 rounded-xl border border-gray-300 dark:border-gray-700 bg-white dark:bg-gray-900 text-gray-600 dark:text-gray-300 hover:border-blue-400 dark:hover:border-blue-500 hover:text-blue-600 dark:hover:text-blue-400 transition-colors text-sm"
-      >
-        <SearchIcon />
-        Search phrasal verbs
-      </button>
+      <div className="w-full max-w-sm mb-6 flex justify-end">
+        <button
+          onClick={() => setShowSearch(true)}
+          className="p-2 bg-gray-200 dark:bg-gray-800 rounded-full text-gray-700 dark:text-gray-300 hover:bg-blue-100 dark:hover:bg-blue-900/30 transition-colors shadow-sm border border-gray-300 dark:border-gray-700"
+          title="Search phrasal verbs"
+          aria-label="Search phrasal verbs"
+        >
+          <SearchIcon />
+        </button>
+      </div>
 
       <div className="flex flex-col gap-4 w-full max-w-sm">
         <Link

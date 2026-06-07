@@ -2018,3 +2018,20 @@ On "phrasal-verbs/list" page add search by functionality as it's done on "phrasa
 ## 2026-06-07T17:48:24Z
 git add all changes and commit them with suitable message
 ---
+
+## 2026-06-07T17:53:49Z
+Make the search button of Phrasal Verbs Lists the same look as it's for Quiz Phrasal Verbs "Search phrasal verbs". 
+And this search button on the right edge of the boundary
+---
+
+## 2026-06-07T17:57:06Z
+It should be place where it was but shifted to the left border
+---
+
+## 2026-06-07T18:00:12Z
+All good just move it to the right border.
+---
+
+## 2026-06-07T18:01:14Z
+git add all changes and commit them with suitable message
+---
