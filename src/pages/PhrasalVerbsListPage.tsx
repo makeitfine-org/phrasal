@@ -165,7 +165,7 @@ export default function PhrasalVerbsListPage() {
             {particleNamesText}
           </p>
         </Link>
-        <hr className="border-gray-200 dark:border-gray-700" />
+        <hr className="border-gray-600 dark:border-gray-500" />
         <Link
           to="/phrasal-verbs/list/get"
           className="relative block rounded-2xl border border-gray-200 dark:border-gray-800 bg-white dark:bg-gray-900 shadow-md hover:shadow-lg transition-shadow p-6 pr-12"

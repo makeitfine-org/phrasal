@@ -851,4 +851,16 @@ describe('PhrasalVerbsListPage — Particles divider', () => {
     expect(hr?.tagName).toBe('HR');
     expect(container.querySelector('hr')).toBeInTheDocument();
   });
+
+  it('hr has light-theme border class border-gray-600', () => {
+    const { container } = renderPage();
+    const hr = container.querySelector('hr')!;
+    expect(hr).toHaveClass('border-gray-600');
+  });
+
+  it('hr has dark-theme border class dark:border-gray-500', () => {
+    const { container } = renderPage();
+    const hr = container.querySelector('hr')!;
+    expect(hr).toHaveClass('dark:border-gray-500');
+  });
 });

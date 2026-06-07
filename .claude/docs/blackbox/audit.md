@@ -1978,3 +1978,15 @@ or agreement."
 2) Create "Particles" page with mentioned above descriptons.    
 3) Cover the functionality with tests
 ---
+
+## 2026-06-07T12:28:48Z
+The tiny line on List page after Particles should be changed based on thema (dark/light) the same way it's done for any phrasal verb line separatord.
+---
+
+## 2026-06-07T12:30:31Z
+Cover this functionality with tests
+---
+
+## 2026-06-07T12:32:05Z
+git add all changes and commit them with suitable message
+---

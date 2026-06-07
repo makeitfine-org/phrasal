@@ -680,3 +680,20 @@
 - .claude/docs/blackbox/session-log.md
 - README.md
 <!-- end-snapshot -->
+
+<!-- git-snapshot 2026-06-07T12:30:20Z -->
+- .claude/docs/blackbox/audit.md
+- src/pages/PhrasalVerbsListPage.tsx
+<!-- end-snapshot -->
+
+<!-- git-snapshot 2026-06-07T12:31:25Z -->
+- .claude/docs/blackbox/audit.md
+- .claude/docs/blackbox/session-log.md
+- src/__tests__/PhrasalVerbsListPage.test.tsx
+- src/pages/PhrasalVerbsListPage.tsx
+<!-- end-snapshot -->
+
+<!-- git-snapshot 2026-06-07T12:32:50Z -->
+- .claude/docs/blackbox/audit.md
+- .claude/docs/blackbox/session-log.md
+<!-- end-snapshot -->
