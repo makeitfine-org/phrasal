@@ -1,6 +1,13 @@
 import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
 
+const PARTICLE_NAMES = [
+  'off', 'on', 'up', 'down', 'in', 'into', 'out', 'away', 'cross / across',
+  'forward', 'back', 'for', 'by', 'together', 'with', 'without', 'apart',
+  'over', 'ahead', 'after', 'behind', 'through', 'about', 'around / round',
+  'to', 'against', 'along',
+];
+
 const GET_PARTICLES = [
   'off', 'on', 'up', 'down', 'in', 'into', 'out', 'away', 'across',
   'forward', 'back', 'by', 'together', 'with', 'over', 'ahead', 'after',
@@ -132,6 +139,7 @@ export default function PhrasalVerbsListPage() {
   };
 
   const comeParticlesText = COME_PARTICLES.join(', ');
+  const particleNamesText = PARTICLE_NAMES.join(', ');
 
   return (
     <div className="min-h-screen bg-gray-50 dark:bg-gray-950 flex flex-col items-center justify-center p-6">
@@ -143,6 +151,21 @@ export default function PhrasalVerbsListPage() {
       </p>
 
       <div className="flex flex-col gap-4 w-full max-w-sm">
+        <Link
+          to="/phrasal-verbs/particles"
+          className="block rounded-2xl border border-gray-200 dark:border-gray-800 bg-white dark:bg-gray-900 shadow-md hover:shadow-lg transition-shadow p-6"
+        >
+          <h2 className="text-xl font-semibold text-gray-900 dark:text-gray-100 mb-1">
+            Particles
+          </h2>
+          <p
+            className="text-sm text-gray-500 dark:text-gray-400 line-clamp-2"
+            title={particleNamesText}
+          >
+            {particleNamesText}
+          </p>
+        </Link>
+        <hr className="border-gray-200 dark:border-gray-700" />
         <Link
           to="/phrasal-verbs/list/get"
           className="relative block rounded-2xl border border-gray-200 dark:border-gray-800 bg-white dark:bg-gray-900 shadow-md hover:shadow-lg transition-shadow p-6 pr-12"

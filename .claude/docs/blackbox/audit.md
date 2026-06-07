@@ -1913,3 +1913,68 @@ Example: "The basic version of the app comes without the advanced analytics dash
    Take as the base "get" page.
 3) Cover the functionality with tests
 ---
+
+## 2026-06-06T17:18:10Z
+Analyze and show me new relase tag with description and step how to create it.
+---
+
+## 2026-06-07T12:18:39Z
+off    "indicates breaking contact between two 
+things, moving away from a surface, or stopping a process."
+on    "the exact opposite of ""off."" It indicates attachment, 
+continuation, activation, or starting a process."
+up    "indicates completion, improvement, increase, creation, or 
+physical upward movement"
+down    "indicates reduction, lowering, stopping, restriction, or 
+completing something on paper"
+in    "indicates inclusion, entry, penetration, submission, or 
+movement toward the interior of a space, system, or group"
+into    transformation, deep entry, intense investigation, or crash involvemen
+out    "indicates exclusion, exit, extension, public release, 
+fading away, or doing something completely to the very end"
+away    "indicates continuous action, complete disappearance, 
+moving to a safe distance, or giving things to others freely"
+cross / across    "indicates movement from one side to another, 
+intersecting paths, or clear communication that bridges a gap"
+forward    "indicates advancement, progression toward the future, 
+anticipation, or sending something onward to a next stage or recipient"
+back    return, retreat, retaliation, or looking at the past
+for    "indicates purpose, substitution, destination, representation, or seeking
+a specific target. It answers the question ""why"" or ""what is the goal."""
+by    "proximity (passing near something), survival (managing with limited 
+resources), brief visits, or passive adherence to rules"
+together    "unification, connection, collaboration, organization, or combining 
+individual parts into a single whole"
+with    "indicates accompaniment, agreement, handling a situation, sharing 
+an emotion, or possessing a specific trait"
+without    "indicates deprivation, managing a lack of something, 
+skipping an action, or excluding an item"
+apart    "indicates separation, disintegration, division, or breaking into smaller 
+pieces"
+over    "indicates repetition, transition across a boundary, visual inspection, 
+falling, or complete control and dominance"
+ahead    "indicates future planning, moving forward in time or space, 
+or gaining an advantage and being successful"
+after    indicates pursuit, caretaking, imitation, or tracking a timeline
+behind    "indicates falling back in progress, leaving something at 
+a previous location, supporting someone, or hidden motives"
+through    "indicates completion from beginning to end, endurance during 
+a difficult time, penetration across a barrier, or deep inspection"
+about    "indicates aimless movement, proximity, a shift in direction, 
+or a topic of focus"
+around / round    "circular motion, casual or aimless activity, bypassing an obstacle, 
+changing your mind, or spreading to many people"
+to    "direction, alignment, attachment, awakening, or a direct response 
+to a person or thing"
+against    "opposition, physical contact or leaning, comparison, or preparation 
+for an upcoming problem"
+along    "indicate either forward movement/progress, accompaniment, 
+or agreement."
+
+---
+
+1) Create "Particles" link on list page with particals mentioned above phrasal verbs.
+   Place it at the top of Phrasal Verbs List page and add tiny line below.     
+2) Create "Particles" page with mentioned above descriptons.    
+3) Cover the functionality with tests
+---

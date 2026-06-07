@@ -670,3 +670,13 @@
 - .claude/docs/blackbox/session-log.md
 - .docs/notes.md
 <!-- end-snapshot -->
+
+<!-- git-snapshot 2026-06-06T17:18:23Z -->
+- .claude/docs/blackbox/audit.md
+<!-- end-snapshot -->
+
+<!-- git-snapshot 2026-06-07T12:26:43Z -->
+- .claude/docs/blackbox/audit.md
+- .claude/docs/blackbox/session-log.md
+- README.md
+<!-- end-snapshot -->

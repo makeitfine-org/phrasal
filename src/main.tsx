@@ -13,6 +13,7 @@ import TakeVerbPage from './pages/take/TakeVerbPage';
 import GiveVerbPage from './pages/give/GiveVerbPage';
 import GoVerbPage from './pages/go/GoVerbPage';
 import ComeVerbPage from './pages/come/ComeVerbPage';
+import ParticlesPage from './pages/particles/ParticlesPage';
 import IWishPage from './pages/IWishPage';
 import NotFoundPage from './pages/NotFoundPage';
 import ErrorBoundary from './components/ErrorBoundary';
@@ -28,6 +29,7 @@ ReactDOM.createRoot(document.getElementById('root')!).render(
             <Route path="/" element={<HomePage />} />
             <Route path="/phrasal-verbs" element={<PhrasalVerbsPage />} />
             <Route path="/phrasal-verbs/test-most-popular" element={<App />} />
+            <Route path="/phrasal-verbs/particles" element={<ParticlesPage />} />
             <Route path="/phrasal-verbs/list" element={<PhrasalVerbsListPage />} />
             <Route path="/phrasal-verbs/list/get" element={<GetVerbPage />} />
             <Route path="/phrasal-verbs/list/make" element={<MakeVerbPage />} />

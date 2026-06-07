@@ -28,6 +28,7 @@ function renderPageWithRoutes() {
         <Route path="/phrasal-verbs/list/give" element={<LocationSpy />} />
         <Route path="/phrasal-verbs/list/go" element={<LocationSpy />} />
         <Route path="/phrasal-verbs/list/come" element={<LocationSpy />} />
+        <Route path="/phrasal-verbs/particles" element={<LocationSpy />} />
       </Routes>
     </MemoryRouter>
   );
@@ -786,5 +787,68 @@ describe('PhrasalVerbsListPage — come copy button', () => {
     renderPageWithRoutes();
     fireEvent.click(screen.getByRole('button', { name: /copy all "come" phrasal verbs/i }));
     expect(screen.getByTestId('location').textContent).toBe('/phrasal-verbs/list');
+  });
+});
+
+const ALL_PARTICLE_NAMES = [
+  'off', 'on', 'up', 'down', 'in', 'into', 'out', 'away', 'cross / across',
+  'forward', 'back', 'for', 'by', 'together', 'with', 'without', 'apart',
+  'over', 'ahead', 'after', 'behind', 'through', 'about', 'around / round',
+  'to', 'against', 'along',
+];
+
+describe('PhrasalVerbsListPage — Particles card', () => {
+  it('renders the "Particles" card', () => {
+    renderPage();
+    expect(screen.getByRole('heading', { name: 'Particles' })).toBeInTheDocument();
+  });
+
+  it('"Particles" link points to /phrasal-verbs/particles', () => {
+    renderPage();
+    const link = screen.getByRole('heading', { name: 'Particles' }).closest('a')!;
+    expect(link).toHaveAttribute('href', '/phrasal-verbs/particles');
+  });
+});
+
+describe('PhrasalVerbsListPage — Particles subtitle', () => {
+  it('shows particles names text in subtitle', () => {
+    renderPage();
+    const particlesCard = screen.getByRole('heading', { name: 'Particles' }).closest('a')!;
+    expect(within(particlesCard).getByText(/off, on, up/i)).toBeInTheDocument();
+  });
+
+  it('particles subtitle has line-clamp-2 class', () => {
+    renderPage();
+    const particlesCard = screen.getByRole('heading', { name: 'Particles' }).closest('a')!;
+    const subtitle = within(particlesCard).getByText(/off, on, up/i);
+    expect(subtitle).toHaveClass('line-clamp-2');
+  });
+
+  it('particles subtitle title attribute contains representative particles', () => {
+    renderPage();
+    const particlesCard = screen.getByRole('heading', { name: 'Particles' }).closest('a')!;
+    const subtitle = within(particlesCard).getByText(/off, on, up/i);
+    expect(subtitle).toHaveAttribute('title', expect.stringContaining('cross / across'));
+    expect(subtitle).toHaveAttribute('title', expect.stringContaining('around / round'));
+    expect(subtitle).toHaveAttribute('title', expect.stringContaining('along'));
+  });
+
+  it('particles subtitle title attribute contains all 27 particle names', () => {
+    renderPage();
+    const particlesCard = screen.getByRole('heading', { name: 'Particles' }).closest('a')!;
+    const subtitle = within(particlesCard).getByText(/off, on, up/i);
+    for (const name of ALL_PARTICLE_NAMES) {
+      expect(subtitle).toHaveAttribute('title', expect.stringContaining(name));
+    }
+  });
+});
+
+describe('PhrasalVerbsListPage — Particles divider', () => {
+  it('renders an hr separator after the Particles card', () => {
+    const { container } = renderPage();
+    const particlesCard = screen.getByRole('heading', { name: 'Particles' }).closest('a')!;
+    const hr = particlesCard.nextElementSibling;
+    expect(hr?.tagName).toBe('HR');
+    expect(container.querySelector('hr')).toBeInTheDocument();
   });
 });

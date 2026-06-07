@@ -106,7 +106,7 @@ The app is deployed to GitHub Pages and publicly accessible at:
 
 ### Releasing a new version
 
-Tag the commit you want to deploy and push the tag:
+Tag the commit you want to deploy and push the tag:8
 
 ```bash
 git tag -a v1.0.1 -m "Release version 1.0.1"
