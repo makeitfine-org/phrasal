@@ -716,3 +716,45 @@
 - src/__tests__/PhrasalVerbsPage.test.tsx
 - src/pages/PhrasalVerbsPage.tsx
 <!-- end-snapshot -->
+
+## 2026-06-07T19:45:00Z
+### Decisions
+- Added search functionality to `/phrasal-verbs/list` page mirroring quiz SearchModal behavior
+- Search data sourced by exporting `sections` from each verb page and aggregating in `listVerbIndex.ts`
+- Navigation on select: pre-writes localStorage to force-expand section, then navigate with router state `{ scrollTo: sectionId }`; VerbPageLayout scrolls on mount
+- Created `ListSearchModal` (simplified SearchModal without quiz-specific excluded/unexclude logic)
+### Constraints Stated by User
+- None explicitly stated
+### Files Modified
+- src/pages/get/GetVerbPage.tsx — export sections
+- src/pages/make/MakeVerbPage.tsx — export sections
+- src/pages/put/PutVerbPage.tsx — export sections
+- src/pages/take/TakeVerbPage.tsx — export sections
+- src/pages/give/GiveVerbPage.tsx — export sections
+- src/pages/go/GoVerbPage.tsx — export sections
+- src/pages/come/ComeVerbPage.tsx — export sections
+- src/data/listVerbIndex.ts — new: aggregates all verb page sections into searchable ListSearchEntry[]
+- src/components/ListSearchModal.tsx — new: search modal for list page (no quiz concepts)
+- src/components/VerbPage.tsx — add id to Section div; VerbPageLayout scrolls to section on router state
+- src/pages/PhrasalVerbsListPage.tsx — search button + ListSearchModal + navigate-on-select
+- src/__tests__/listVerbIndex.test.ts — new: 13 tests for index integrity
+- src/__tests__/ListSearchModal.test.tsx — new: 13 tests for modal behavior
+- src/__tests__/PhrasalVerbsListPage.test.tsx — 6 new search tests
+### Deferred
+- None
+---
+
+<!-- git-snapshot 2026-06-07T17:44:22Z -->
+- .claude/docs/blackbox/audit.md
+- .claude/docs/blackbox/session-log.md
+- src/__tests__/PhrasalVerbsListPage.test.tsx
+- src/components/VerbPage.tsx
+- src/pages/PhrasalVerbsListPage.tsx
+- src/pages/come/ComeVerbPage.tsx
+- src/pages/get/GetVerbPage.tsx
+- src/pages/give/GiveVerbPage.tsx
+- src/pages/go/GoVerbPage.tsx
+- src/pages/make/MakeVerbPage.tsx
+- src/pages/put/PutVerbPage.tsx
+- src/pages/take/TakeVerbPage.tsx
+<!-- end-snapshot -->

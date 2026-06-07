@@ -1,4 +1,5 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
+import { useLocation } from 'react-router-dom';
 
 export interface MeaningData {
   definition: string;
@@ -90,7 +91,7 @@ function Section({ particle, meanings, storageKey, storageKeyPrefix }: SectionDa
   };
 
   return (
-    <div className="mb-5">
+    <div id={storageKeyPrefix} className="mb-5">
       <div
         className="flex items-center gap-2 cursor-pointer select-none mb-4 px-1"
         onClick={toggle}
@@ -113,6 +114,15 @@ function Section({ particle, meanings, storageKey, storageKeyPrefix }: SectionDa
 }
 
 export default function VerbPageLayout({ title, sections }: { title: string; sections: SectionData[] }) {
+  const location = useLocation();
+
+  useEffect(() => {
+    const target = (location.state as { scrollTo?: string } | null)?.scrollTo;
+    if (!target) return;
+    const el = document.getElementById(target);
+    if (el) el.scrollIntoView({ block: 'start' });
+  }, []);
+
   return (
     <div className="min-h-screen bg-gray-50 dark:bg-gray-950 px-4 py-10">
       <div className="max-w-[700px] mx-auto">

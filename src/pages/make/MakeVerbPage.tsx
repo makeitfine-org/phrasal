@@ -152,7 +152,7 @@ const withMeanings: MeaningData[] = [
   },
 ];
 
-const sections: SectionData[] = [
+export const sections: SectionData[] = [
   { particle: 'after', storageKey: 'makeAfter_section_expanded', storageKeyPrefix: 'makeAfter', meanings: afterMeanings },
   { particle: 'away (with)', storageKey: 'makeAway_section_expanded', storageKeyPrefix: 'makeAway', meanings: awayMeanings },
   { particle: 'for', storageKey: 'makeFor_section_expanded', storageKeyPrefix: 'makeFor', meanings: forMeanings },

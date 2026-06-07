@@ -173,7 +173,7 @@ const withMeanings: MeaningData[] = [
   },
 ];
 
-const sections: SectionData[] = [
+export const sections: SectionData[] = [
   { particle: 'away', storageKey: 'giveAway_section_expanded', storageKeyPrefix: 'giveAway', meanings: awayMeanings },
   { particle: 'back', storageKey: 'giveBack_section_expanded', storageKeyPrefix: 'giveBack', meanings: backMeanings },
   { particle: 'in', storageKey: 'giveIn_section_expanded', storageKeyPrefix: 'giveIn', meanings: inMeanings },

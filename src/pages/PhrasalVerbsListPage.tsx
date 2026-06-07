@@ -1,5 +1,8 @@
 import React, { useState } from 'react';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
+import { SearchIcon } from '../components/Icons';
+import ListSearchModal from '../components/ListSearchModal';
+import type { ListSearchEntry } from '../data/listVerbIndex';
 
 const PARTICLE_NAMES = [
   'off', 'on', 'up', 'down', 'in', 'into', 'out', 'away', 'cross / across',
@@ -49,6 +52,8 @@ const TAKE_PARTICLES = [
 ];
 
 export default function PhrasalVerbsListPage() {
+  const navigate = useNavigate();
+  const [showSearch, setShowSearch] = useState(false);
   const [copied, setCopied] = useState(false);
   const [makeCopied, setMakeCopied] = useState(false);
   const [putCopied, setPutCopied] = useState(false);
@@ -141,14 +146,26 @@ export default function PhrasalVerbsListPage() {
   const comeParticlesText = COME_PARTICLES.join(', ');
   const particleNamesText = PARTICLE_NAMES.join(', ');
 
+  const handleSearchSelect = (entry: ListSearchEntry) => {
+    localStorage.setItem(entry.storageKey, 'true');
+    navigate(entry.route, { state: { scrollTo: entry.sectionId } });
+  };
+
   return (
     <div className="min-h-screen bg-gray-50 dark:bg-gray-950 flex flex-col items-center justify-center p-6">
       <h1 className="text-4xl font-bold text-gray-900 dark:text-gray-100 mb-2">
         Phrasal Verbs List
       </h1>
-      <p className="text-gray-500 dark:text-gray-400 mb-10 text-lg">
+      <p className="text-gray-500 dark:text-gray-400 mb-4 text-lg">
         Browse definitions and examples by verb
       </p>
+      <button
+        onClick={() => setShowSearch(true)}
+        className="flex items-center gap-2 px-4 py-2 mb-8 rounded-xl border border-gray-300 dark:border-gray-700 bg-white dark:bg-gray-900 text-gray-600 dark:text-gray-300 hover:border-blue-400 dark:hover:border-blue-500 hover:text-blue-600 dark:hover:text-blue-400 transition-colors text-sm"
+      >
+        <SearchIcon />
+        Search phrasal verbs
+      </button>
 
       <div className="flex flex-col gap-4 w-full max-w-sm">
         <Link
@@ -377,6 +394,12 @@ export default function PhrasalVerbsListPage() {
           </button>
         </Link>
       </div>
+      {showSearch && (
+        <ListSearchModal
+          onSelect={handleSearchSelect}
+          onClose={() => setShowSearch(false)}
+        />
+      )}
     </div>
   );
 }

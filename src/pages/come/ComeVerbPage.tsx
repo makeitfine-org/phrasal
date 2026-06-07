@@ -386,7 +386,7 @@ const withoutMeanings: MeaningData[] = [
   },
 ];
 
-const sections: SectionData[] = [
+export const sections: SectionData[] = [
   { particle: 'about', storageKey: 'comeAbout_section_expanded', storageKeyPrefix: 'comeAbout', meanings: aboutMeanings },
   { particle: 'across', storageKey: 'comeAcross_section_expanded', storageKeyPrefix: 'comeAcross', meanings: acrossMeanings },
   { particle: 'after', storageKey: 'comeAfter_section_expanded', storageKeyPrefix: 'comeAfter', meanings: afterMeanings },

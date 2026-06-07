@@ -2007,3 +2007,14 @@ run steps: 1, 2, 3, 4
 ## 2026-06-07T17:29:08Z
 git add all changes and commit them with suitable message
 ---
+
+## 2026-06-07T17:32:00Z
+On "phrasal-verbs/list" page add search by functionality as it's done on "phrasal-verbs/test-most-popular" for "Search phrasal verbs" functionality.
+- So when bagen to enter it's searching by all phrasal verbs from the "Phrasal Verbs List" matches
+- If choose move to the page of the phrasal verb and open the toggle list of that phrasal verbs
+  and scrolling to that (focusing)
+---
+
+## 2026-06-07T17:48:24Z
+git add all changes and commit them with suitable message
+---

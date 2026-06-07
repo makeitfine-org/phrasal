@@ -1,5 +1,6 @@
 import React from 'react';
 import { render, screen, fireEvent, within } from '@testing-library/react';
+import userEvent from '@testing-library/user-event';
 import { MemoryRouter, Routes, Route, useLocation } from 'react-router-dom';
 import PhrasalVerbsListPage from '../pages/PhrasalVerbsListPage';
 
@@ -840,6 +841,47 @@ describe('PhrasalVerbsListPage — Particles subtitle', () => {
     for (const name of ALL_PARTICLE_NAMES) {
       expect(subtitle).toHaveAttribute('title', expect.stringContaining(name));
     }
+  });
+});
+
+describe('PhrasalVerbsListPage — Search', () => {
+  it('renders a "Search phrasal verbs" button', () => {
+    renderPage();
+    expect(screen.getByRole('button', { name: /search phrasal verbs/i })).toBeInTheDocument();
+  });
+
+  it('search button opens the ListSearchModal', async () => {
+    const user = userEvent.setup();
+    renderPage();
+    await user.click(screen.getByRole('button', { name: /search phrasal verbs/i }));
+    expect(screen.getByPlaceholderText('Search phrasal verbs...')).toBeInTheDocument();
+  });
+
+  it('modal closes when Escape is pressed', async () => {
+    const user = userEvent.setup();
+    renderPage();
+    await user.click(screen.getByRole('button', { name: /search phrasal verbs/i }));
+    await user.keyboard('{Escape}');
+    expect(screen.queryByPlaceholderText('Search phrasal verbs...')).not.toBeInTheDocument();
+  });
+
+  it('selecting a verb navigates to its route', async () => {
+    const user = userEvent.setup();
+    renderPageWithRoutes();
+    await user.click(screen.getByRole('button', { name: /search phrasal verbs/i }));
+    const input = screen.getByPlaceholderText('Search phrasal verbs...');
+    await user.type(input, 'get off');
+    await user.click(screen.getByText('Get off').closest('li')!);
+    expect(screen.getByTestId('location').textContent).toBe('/phrasal-verbs/list/get');
+  });
+
+  it('selecting a verb sets the section localStorage key to true', async () => {
+    const user = userEvent.setup();
+    renderPageWithRoutes();
+    await user.click(screen.getByRole('button', { name: /search phrasal verbs/i }));
+    await user.type(screen.getByPlaceholderText('Search phrasal verbs...'), 'get off');
+    await user.click(screen.getByText('Get off').closest('li')!);
+    expect(localStorage.getItem('getOff_section_expanded')).toBe('true');
   });
 });
 

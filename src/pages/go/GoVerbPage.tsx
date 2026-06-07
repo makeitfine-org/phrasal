@@ -551,7 +551,7 @@ const againstMeanings: MeaningData[] = [
   },
 ];
 
-const sections: SectionData[] = [
+export const sections: SectionData[] = [
   { particle: 'off', storageKey: 'goOff_section_expanded', storageKeyPrefix: 'goOff', meanings: offMeanings },
   { particle: 'on', storageKey: 'goOn_section_expanded', storageKeyPrefix: 'goOn', meanings: onMeanings },
   { particle: 'up', storageKey: 'goUp_section_expanded', storageKeyPrefix: 'goUp', meanings: upMeanings },

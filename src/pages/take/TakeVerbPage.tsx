@@ -410,7 +410,7 @@ const againstMeanings: MeaningData[] = [
   },
 ];
 
-const sections: SectionData[] = [
+export const sections: SectionData[] = [
   { particle: 'off', storageKey: 'takeOff_section_expanded', storageKeyPrefix: 'takeOff', meanings: offMeanings },
   { particle: 'on', storageKey: 'takeOn_section_expanded', storageKeyPrefix: 'takeOn', meanings: onMeanings },
   { particle: 'up', storageKey: 'takeUp_section_expanded', storageKeyPrefix: 'takeUp', meanings: upMeanings },
