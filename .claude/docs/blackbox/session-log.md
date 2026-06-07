@@ -789,3 +789,26 @@
 - .claude/docs/blackbox/audit.md
 - .claude/docs/blackbox/session-log.md
 <!-- end-snapshot -->
+
+<!-- git-snapshot 2026-06-07T18:20:36Z -->
+- .claude/docs/blackbox/audit.md
+- src/__tests__/ListSearchModal.test.tsx
+- src/__tests__/listVerbIndex.test.ts
+- src/components/ListSearchModal.tsx
+- src/data/listVerbIndex.ts
+<!-- end-snapshot -->
+
+<!-- git-snapshot 2026-06-07T18:29:13Z -->
+- .claude/docs/blackbox/audit.md
+- .claude/docs/blackbox/session-log.md
+- src/__tests__/ListSearchModal.test.tsx
+- src/__tests__/PhrasalVerbsListPage.test.tsx
+- src/__tests__/listVerbIndex.test.ts
+- src/components/ListSearchModal.tsx
+- src/data/listVerbIndex.ts
+<!-- end-snapshot -->
+
+<!-- git-snapshot 2026-06-07T18:39:02Z -->
+- .claude/docs/blackbox/audit.md
+- .claude/docs/blackbox/session-log.md
+<!-- end-snapshot -->

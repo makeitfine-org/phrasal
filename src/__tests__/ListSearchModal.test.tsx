@@ -6,10 +6,13 @@ import type { ListSearchEntry } from '../data/listVerbIndex';
 
 vi.mock('../data/listVerbIndex', () => ({
   listVerbIndex: [
-    { verb: 'Get off', definition: 'To leave a form of public transport', searchText: 'To leave a form of public transport She got off the bus', route: '/phrasal-verbs/list/get', storageKey: 'getOff_section_expanded', sectionId: 'getOff' },
-    { verb: 'Get on', definition: 'To board a vehicle', searchText: 'To board a vehicle He got on the train', route: '/phrasal-verbs/list/get', storageKey: 'getOn_section_expanded', sectionId: 'getOn' },
-    { verb: 'Make up', definition: 'To invent a story or lie', searchText: 'To invent a story or lie She made up an excuse To reconcile after a quarrel They made up after the fight', route: '/phrasal-verbs/list/make', storageKey: 'makeUp_section_expanded', sectionId: 'makeUp' },
-    { verb: 'Put off', definition: 'To postpone or delay', searchText: 'To postpone or delay They put off the meeting To disgust or repel The smell put him off', route: '/phrasal-verbs/list/put', storageKey: 'putOff_section_expanded', sectionId: 'putOff' },
+    { verb: 'Get off', definition: 'To leave a form of public transport', example: 'She got off the bus', route: '/phrasal-verbs/list/get', storageKey: 'getOff_section_expanded', sectionId: 'getOff', entryId: 'getOff_0' },
+    { verb: 'Get off', definition: 'To finish work', example: 'She got off early', route: '/phrasal-verbs/list/get', storageKey: 'getOff_section_expanded', sectionId: 'getOff', entryId: 'getOff_1' },
+    { verb: 'Get on', definition: 'To board a vehicle', example: 'He got on the train', route: '/phrasal-verbs/list/get', storageKey: 'getOn_section_expanded', sectionId: 'getOn', entryId: 'getOn_0' },
+    { verb: 'Make up', definition: 'To invent a story or lie', example: 'She made up an excuse', route: '/phrasal-verbs/list/make', storageKey: 'makeUp_section_expanded', sectionId: 'makeUp', entryId: 'makeUp_0' },
+    { verb: 'Make up', definition: 'To reconcile after a quarrel', example: 'They made up after the fight', route: '/phrasal-verbs/list/make', storageKey: 'makeUp_section_expanded', sectionId: 'makeUp', entryId: 'makeUp_1' },
+    { verb: 'Put off', definition: 'To postpone or delay', example: 'They put off the meeting', route: '/phrasal-verbs/list/put', storageKey: 'putOff_section_expanded', sectionId: 'putOff', entryId: 'putOff_0' },
+    { verb: 'Put off', definition: 'To disgust or repel', example: 'The smell put him off', route: '/phrasal-verbs/list/put', storageKey: 'putOff_section_expanded', sectionId: 'putOff', entryId: 'putOff_1' },
   ] as ListSearchEntry[],
 }));
 
@@ -21,23 +24,28 @@ describe('ListSearchModal', () => {
 
   it('shows all entries when query is empty', () => {
     render(<ListSearchModal onSelect={vi.fn()} onClose={vi.fn()} />);
-    expect(screen.getAllByRole('listitem')).toHaveLength(4);
+    expect(screen.getAllByRole('listitem')).toHaveLength(7);
   });
 
   it('filters results by verb name', async () => {
     const user = userEvent.setup();
     render(<ListSearchModal onSelect={vi.fn()} onClose={vi.fn()} />);
     await user.type(screen.getByPlaceholderText('Search phrasal verbs...'), 'get');
-    const items = screen.getAllByRole('listitem');
-    expect(items).toHaveLength(2);
-    expect(screen.getByText('Get off')).toBeInTheDocument();
-    expect(screen.getByText('Get on')).toBeInTheDocument();
+    expect(screen.getAllByRole('listitem')).toHaveLength(3);
   });
 
   it('filters results by definition', async () => {
     const user = userEvent.setup();
     render(<ListSearchModal onSelect={vi.fn()} onClose={vi.fn()} />);
     await user.type(screen.getByPlaceholderText('Search phrasal verbs...'), 'postpone');
+    expect(screen.getByText('Put off')).toBeInTheDocument();
+    expect(screen.getAllByRole('listitem')).toHaveLength(1);
+  });
+
+  it('filters results by example sentence', async () => {
+    const user = userEvent.setup();
+    render(<ListSearchModal onSelect={vi.fn()} onClose={vi.fn()} />);
+    await user.type(screen.getByPlaceholderText('Search phrasal verbs...'), 'smell');
     expect(screen.getByText('Put off')).toBeInTheDocument();
     expect(screen.getAllByRole('listitem')).toHaveLength(1);
   });
@@ -52,7 +60,13 @@ describe('ListSearchModal', () => {
   it('shows results sorted alphabetically by verb', () => {
     render(<ListSearchModal onSelect={vi.fn()} onClose={vi.fn()} />);
     const items = screen.getAllByRole('listitem').map(li => li.querySelector('.font-semibold')!.textContent);
-    expect(items).toEqual(['Get off', 'Get on', 'Make up', 'Put off']);
+    expect(items).toEqual(['Get off', 'Get off', 'Get on', 'Make up', 'Make up', 'Put off', 'Put off']);
+  });
+
+  it('displays definition and example for each entry', () => {
+    render(<ListSearchModal onSelect={vi.fn()} onClose={vi.fn()} />);
+    expect(screen.getByText('To leave a form of public transport')).toBeInTheDocument();
+    expect(screen.getByText('"She got off the bus"')).toBeInTheDocument();
   });
 
   it('calls onSelect and onClose when a result is clicked', async () => {
@@ -60,7 +74,8 @@ describe('ListSearchModal', () => {
     const onClose = vi.fn();
     const user = userEvent.setup();
     render(<ListSearchModal onSelect={onSelect} onClose={onClose} />);
-    await user.click(screen.getByText('Get off').closest('li')!);
+    await user.type(screen.getByPlaceholderText('Search phrasal verbs...'), 'get off');
+    await user.click(screen.getAllByText('Get off')[0].closest('li')!);
     expect(onSelect).toHaveBeenCalledWith(
       expect.objectContaining({ verb: 'Get off', sectionId: 'getOff' })
     );
@@ -138,7 +153,7 @@ describe('ListSearchModal', () => {
     expect(highlighted).toHaveLength(0);
   });
 
-  it('finds entry by a non-first meaning definition in searchText', async () => {
+  it('finds entry by a non-first meaning definition', async () => {
     const user = userEvent.setup();
     render(<ListSearchModal onSelect={vi.fn()} onClose={vi.fn()} />);
     await user.type(screen.getByPlaceholderText('Search phrasal verbs...'), 'reconcile');
@@ -146,7 +161,7 @@ describe('ListSearchModal', () => {
     expect(screen.getAllByRole('listitem')).toHaveLength(1);
   });
 
-  it('finds entry by an example sentence word in searchText', async () => {
+  it('finds entry by a word in the example sentence', async () => {
     const user = userEvent.setup();
     render(<ListSearchModal onSelect={vi.fn()} onClose={vi.fn()} />);
     await user.type(screen.getByPlaceholderText('Search phrasal verbs...'), 'disgust');

@@ -27,11 +27,13 @@ export default function ListSearchModal({ onSelect, onClose }: ListSearchModalPr
     }
   }, [selectedIndex]);
 
+  const q = query.toLowerCase().trim();
   const results: ListSearchEntry[] = listVerbIndex
     .filter(e =>
-      !query.trim() ||
-      e.verb.toLowerCase().includes(query.toLowerCase()) ||
-      e.searchText.toLowerCase().includes(query.toLowerCase())
+      !q ||
+      e.verb.toLowerCase().includes(q) ||
+      e.definition.toLowerCase().includes(q) ||
+      e.example.toLowerCase().includes(q)
     )
     .sort((a, b) => a.verb.localeCompare(b.verb));
 
@@ -89,7 +91,7 @@ export default function ListSearchModal({ onSelect, onClose }: ListSearchModalPr
             <ul ref={listRef}>
               {results.map((entry, i) => (
                 <li
-                  key={entry.sectionId}
+                  key={entry.entryId}
                   onClick={() => handleSelect(entry)}
                   className={`flex flex-col px-4 py-3 cursor-pointer border-b border-gray-100 dark:border-gray-800 last:border-0 transition-colors ${
                     i === selectedIndex
@@ -99,6 +101,7 @@ export default function ListSearchModal({ onSelect, onClose }: ListSearchModalPr
                 >
                   <span className="font-semibold text-gray-900 dark:text-white">{entry.verb}</span>
                   <span className="text-sm text-gray-500 dark:text-gray-400 mt-0.5">{entry.definition}</span>
+                  <span className="text-sm text-gray-400 dark:text-gray-500 mt-0.5 italic">"{entry.example}"</span>
                 </li>
               ))}
             </ul>

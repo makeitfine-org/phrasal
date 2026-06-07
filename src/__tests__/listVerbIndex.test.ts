@@ -30,6 +30,12 @@ describe('listVerbIndex', () => {
     }
   });
 
+  it('every entry has a non-empty example', () => {
+    for (const e of listVerbIndex) {
+      expect(e.example.trim()).not.toBe('');
+    }
+  });
+
   it('every entry has a non-empty route', () => {
     for (const e of listVerbIndex) {
       expect(e.route.trim()).not.toBe('');
@@ -45,6 +51,12 @@ describe('listVerbIndex', () => {
   it('every entry has a non-empty sectionId', () => {
     for (const e of listVerbIndex) {
       expect(e.sectionId.trim()).not.toBe('');
+    }
+  });
+
+  it('every entry has a non-empty entryId', () => {
+    for (const e of listVerbIndex) {
+      expect(e.entryId.trim()).not.toBe('');
     }
   });
 
@@ -69,28 +81,24 @@ describe('listVerbIndex', () => {
     }
   });
 
-  it('all sectionIds are unique (no duplicate section IDs)', () => {
-    const ids = listVerbIndex.map(e => e.sectionId);
+  it('all entryIds are unique', () => {
+    const ids = listVerbIndex.map(e => e.entryId);
     expect(new Set(ids).size).toBe(ids.length);
   });
 
-  it('contains "Get off" entry with correct fields', () => {
-    const entry = listVerbIndex.find(e => e.verb === 'Get off');
-    expect(entry).toBeDefined();
-    expect(entry!.route).toBe('/phrasal-verbs/list/get');
-    expect(entry!.storageKey).toBe('getOff_section_expanded');
-    expect(entry!.sectionId).toBe('getOff');
-    expect(entry!.definition).toBeTruthy();
+  it('contains "Get off" entries with multiple meanings', () => {
+    const entries = listVerbIndex.filter(e => e.verb === 'Get off');
+    expect(entries.length).toBeGreaterThan(1);
+    expect(entries[0].route).toBe('/phrasal-verbs/list/get');
+    expect(entries[0].storageKey).toBe('getOff_section_expanded');
+    expect(entries[0].sectionId).toBe('getOff');
+    expect(entries[0].definition.trim()).not.toBe('');
+    expect(entries[0].example.trim()).not.toBe('');
   });
 
-  it('every entry has a non-empty searchText', () => {
-    for (const e of listVerbIndex) {
-      expect(e.searchText.trim()).not.toBe('');
-    }
-  });
-
-  it('searchText contains more than just the first definition', () => {
-    const entry = listVerbIndex.find(e => e.verb === 'Get off')!;
-    expect(entry.searchText.length).toBeGreaterThan(entry.definition.length);
+  it('entryId encodes the sectionId and meaning index', () => {
+    const entries = listVerbIndex.filter(e => e.verb === 'Get off');
+    expect(entries[0].entryId).toBe('getOff_0');
+    expect(entries[1].entryId).toBe('getOff_1');
   });
 });

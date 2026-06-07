@@ -10,21 +10,25 @@ import { sections as comeSections } from '../pages/come/ComeVerbPage';
 export interface ListSearchEntry {
   verb: string;
   definition: string;
-  searchText: string;
+  example: string;
   route: string;
   storageKey: string;
   sectionId: string;
+  entryId: string;
 }
 
 function buildEntries(sections: SectionData[], baseVerb: string, route: string): ListSearchEntry[] {
-  return sections.map(s => ({
-    verb: `${baseVerb} ${s.particle}`,
-    definition: s.meanings[0].definition,
-    searchText: s.meanings.map(m => `${m.definition} ${m.example}`).join(' '),
-    route,
-    storageKey: s.storageKey,
-    sectionId: s.storageKeyPrefix,
-  }));
+  return sections.flatMap(s =>
+    s.meanings.map((m, i) => ({
+      verb: `${baseVerb} ${s.particle}`,
+      definition: m.definition,
+      example: m.example,
+      route,
+      storageKey: s.storageKey,
+      sectionId: s.storageKeyPrefix,
+      entryId: `${s.storageKeyPrefix}_${i}`,
+    }))
+  );
 }
 
 export const listVerbIndex: ListSearchEntry[] = [

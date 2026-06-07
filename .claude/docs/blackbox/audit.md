@@ -2047,3 +2047,19 @@ I didn't give you permission to commit, where did you get them?
 ## 2026-06-07T18:09:44Z
 did you have that permission in some file settings?
 ---
+
+## 2026-06-07T18:17:06Z
+- When I search on Phrasal Verbs List Search you show only on definition, for example for "get off":
+  file:///home/eug/Pictures/Screenshots/Screenshot%20from%202026-06-07%2020-13-33.png
+  but you should show on "get off" definition.
+  Also you have to search matches by all existing listed phrasal verbs definitions and its examples
+---
+
+## 2026-06-07T18:24:43Z
+but you should in search phrasal verb definitions not in scope, by one for each search row.
+Also show its example below.
+---
+
+## 2026-06-07T18:38:38Z
+git add all changes and commit them with suitable message
+---

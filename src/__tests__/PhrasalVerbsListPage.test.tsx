@@ -871,7 +871,7 @@ describe('PhrasalVerbsListPage — Search', () => {
     await user.click(screen.getByRole('button', { name: /search phrasal verbs/i }));
     const input = screen.getByPlaceholderText('Search phrasal verbs...');
     await user.type(input, 'get off');
-    await user.click(screen.getByText('Get off').closest('li')!);
+    await user.click(screen.getAllByText('Get off')[0].closest('li')!);
     expect(screen.getByTestId('location').textContent).toBe('/phrasal-verbs/list/get');
   });
 
@@ -880,7 +880,7 @@ describe('PhrasalVerbsListPage — Search', () => {
     renderPageWithRoutes();
     await user.click(screen.getByRole('button', { name: /search phrasal verbs/i }));
     await user.type(screen.getByPlaceholderText('Search phrasal verbs...'), 'get off');
-    await user.click(screen.getByText('Get off').closest('li')!);
+    await user.click(screen.getAllByText('Get off')[0].closest('li')!);
     expect(localStorage.getItem('getOff_section_expanded')).toBe('true');
   });
 });
