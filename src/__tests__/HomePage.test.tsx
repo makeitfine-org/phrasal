@@ -82,7 +82,7 @@ describe('Routing smoke tests', () => {
   it('/phrasal-verbs renders the PhrasalVerbsPage hub', () => {
     renderRoutes('/phrasal-verbs');
     expect(screen.getByRole('heading', { name: 'Phrasal Verbs' })).toBeInTheDocument();
-    expect(screen.getByRole('link', { name: /Test most popular/i })).toBeInTheDocument();
+    expect(screen.getByRole('link', { name: /Quiz most popular/i })).toBeInTheDocument();
   });
 
   it('/phrasal-verbs/test-most-popular renders the quiz', () => {

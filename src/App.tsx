@@ -281,6 +281,7 @@ export default function App() {
       onTouchEnd={onTouchEnd}
     >
       <Header
+        title="Quiz Phrasal Verbs"
         masteredCount={mastered.size}
         totalCount={allVerbs.length}
         currentIndex={currentIndex}

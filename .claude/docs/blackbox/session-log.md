@@ -697,3 +697,22 @@
 - .claude/docs/blackbox/audit.md
 - .claude/docs/blackbox/session-log.md
 <!-- end-snapshot -->
+
+<!-- git-snapshot 2026-06-07T12:35:00Z -->
+- .claude/docs/blackbox/audit.md
+<!-- end-snapshot -->
+
+<!-- git-snapshot 2026-06-07T12:38:27Z -->
+- .claude/docs/blackbox/audit.md
+- .claude/docs/blackbox/session-log.md
+<!-- end-snapshot -->
+
+<!-- git-snapshot 2026-06-07T17:25:46Z -->
+- .claude/docs/blackbox/audit.md
+- .claude/docs/blackbox/session-log.md
+- src/App.tsx
+- src/__tests__/App.test.tsx
+- src/__tests__/HomePage.test.tsx
+- src/__tests__/PhrasalVerbsPage.test.tsx
+- src/pages/PhrasalVerbsPage.tsx
+<!-- end-snapshot -->

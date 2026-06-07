@@ -22,14 +22,14 @@ describe('PhrasalVerbsPage', () => {
     expect(screen.getByText('Choose a topic to practice')).toBeInTheDocument();
   });
 
-  it('renders the "Test most popular" topic card', () => {
+  it('renders the "Quiz most popular" topic card', () => {
     renderPhrasalVerbsPage();
-    expect(screen.getByRole('heading', { name: 'Test most popular' })).toBeInTheDocument();
+    expect(screen.getByRole('heading', { name: 'Quiz most popular' })).toBeInTheDocument();
   });
 
-  it('"Test most popular" link points to /phrasal-verbs/test-most-popular', () => {
+  it('"Quiz most popular" link points to /phrasal-verbs/test-most-popular', () => {
     renderPhrasalVerbsPage();
-    const link = screen.getByRole('link', { name: /Test most popular/i });
+    const link = screen.getByRole('link', { name: /Quiz most popular/i });
     expect(link).toHaveAttribute('href', '/phrasal-verbs/test-most-popular');
   });
 

@@ -36,7 +36,7 @@ function getInput() {
 describe('App — initial render', () => {
   it('renders without crashing when localStorage is empty', () => {
     renderApp();
-    expect(screen.getByText('Phrasal Verbs')).toBeInTheDocument();
+    expect(screen.getByText('Quiz Phrasal Verbs')).toBeInTheDocument();
   });
 
   it('shows a verb definition after bootstrapping', () => {

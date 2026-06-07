@@ -1990,3 +1990,20 @@ Cover this functionality with tests
 ## 2026-06-07T12:32:05Z
 git add all changes and commit them with suitable message
 ---
+
+## 2026-06-07T12:34:46Z
+Analyze and show me new relase tag with description and step how to create it.
+---
+
+## 2026-06-07T12:36:59Z
+run steps: 1, 2, 3, 4
+---
+
+## 2026-06-07T17:22:13Z
+- Change "Test most popular" to "Quiz most popular" on "/phrasal-verbs" page
+- Change "Phrasal Verbs" to "Quiz Phrasal Verbs" on "/phrasal-verbs/test-most-popular" page
+---
+
+## 2026-06-07T17:29:08Z
+git add all changes and commit them with suitable message
+---
