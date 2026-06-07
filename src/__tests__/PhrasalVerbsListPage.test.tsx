@@ -4,6 +4,8 @@ import userEvent from '@testing-library/user-event';
 import { MemoryRouter, Routes, Route, useLocation } from 'react-router-dom';
 import PhrasalVerbsListPage from '../pages/PhrasalVerbsListPage';
 
+beforeEach(() => localStorage.clear());
+
 function renderPage() {
   return render(
     <MemoryRouter>
@@ -33,6 +35,10 @@ function renderPageWithRoutes() {
       </Routes>
     </MemoryRouter>
   );
+}
+
+function expandCard(key: string) {
+  fireEvent.click(screen.getByTestId(`verb-card-${key}`));
 }
 
 const ALL_PARTICLES = [
@@ -109,24 +115,70 @@ describe('PhrasalVerbsListPage', () => {
   });
 });
 
-describe('PhrasalVerbsListPage — particles subtitle', () => {
-  it('shows particles text in subtitle', () => {
+describe('PhrasalVerbsListPage — expand/collapse', () => {
+  it('hides particles text by default', () => {
     renderPage();
-    const getCard = screen.getByRole('heading', { name: 'Get' }).closest('a')!;
-    expect(within(getCard).getByText(/off, on, up/i)).toBeInTheDocument();
+    expect(screen.queryByText(/off, on, up, down, in, into, out, away, across/i)).not.toBeInTheDocument();
   });
 
-  it('subtitle has line-clamp-2 class', () => {
+  it('shows particles text after clicking the card', () => {
     renderPage();
-    const getCard = screen.getByRole('heading', { name: 'Get' }).closest('a')!;
-    const subtitle = within(getCard).getByText(/off, on, up/i);
-    expect(subtitle).toHaveClass('line-clamp-2');
+    expandCard('get');
+    expect(within(screen.getByTestId('verb-card-get')).getByText(/off, on, up/i)).toBeInTheDocument();
+  });
+
+  it('hides particles text again after second click', () => {
+    renderPage();
+    expandCard('get');
+    expandCard('get');
+    expect(within(screen.getByTestId('verb-card-get')).queryByText(/off, on, up/i)).not.toBeInTheDocument();
+  });
+
+  it('saves expanded state to localStorage', () => {
+    renderPage();
+    expandCard('get');
+    const saved = JSON.parse(localStorage.getItem('verbListExpanded') ?? '[]') as string[];
+    expect(saved).toContain('get');
+  });
+
+  it('removes key from localStorage when collapsed', () => {
+    renderPage();
+    expandCard('get');
+    expandCard('get');
+    const saved = JSON.parse(localStorage.getItem('verbListExpanded') ?? '[]') as string[];
+    expect(saved).not.toContain('get');
+  });
+
+  it('restores expanded state from localStorage on render', () => {
+    localStorage.setItem('verbListExpanded', JSON.stringify(['make']));
+    renderPage();
+    expect(within(screen.getByTestId('verb-card-make')).getByText(/after, away \(with\)/i)).toBeInTheDocument();
+  });
+
+  it('expanding one card does not expand another', () => {
+    renderPage();
+    expandCard('get');
+    expect(within(screen.getByTestId('verb-card-put')).queryByText(/off, on, up/i)).not.toBeInTheDocument();
+  });
+
+  it('clicking the verb link does not toggle expand', () => {
+    renderPage();
+    fireEvent.click(screen.getByRole('heading', { name: 'Get' }).closest('a')!);
+    expect(within(screen.getByTestId('verb-card-get')).queryByText(/off, on, up/i)).not.toBeInTheDocument();
+  });
+});
+
+describe('PhrasalVerbsListPage — particles subtitle', () => {
+  it('shows particles text in subtitle after expand', () => {
+    renderPage();
+    expandCard('get');
+    expect(within(screen.getByTestId('verb-card-get')).getByText(/off, on, up/i)).toBeInTheDocument();
   });
 
   it('subtitle title attribute contains all particles', () => {
     renderPage();
-    const getCard = screen.getByRole('heading', { name: 'Get' }).closest('a')!;
-    const subtitle = within(getCard).getByText(/off, on, up/i);
+    expandCard('get');
+    const subtitle = within(screen.getByTestId('verb-card-get')).getByText(/off, on, up/i);
     expect(subtitle).toHaveAttribute('title', expect.stringContaining('about / around'));
     expect(subtitle).toHaveAttribute('title', expect.stringContaining('through'));
   });
@@ -144,19 +196,27 @@ describe('PhrasalVerbsListPage — copy button', () => {
     vi.useRealTimers();
   });
 
-  it('renders a copy button', () => {
+  it('renders a copy button when expanded', () => {
     renderPage();
+    expandCard('get');
     expect(screen.getByRole('button', { name: /copy all "get" phrasal verbs/i })).toBeInTheDocument();
+  });
+
+  it('copy button is not visible when collapsed', () => {
+    renderPage();
+    expect(screen.queryByRole('button', { name: /copy all "get" phrasal verbs/i })).not.toBeInTheDocument();
   });
 
   it('copy button title is "Copy all \\"get\\" phrasal verbs" before click', () => {
     renderPage();
+    expandCard('get');
     expect(screen.getByRole('button', { name: /copy all "get" phrasal verbs/i }))
       .toHaveAttribute('title', 'Copy all "get" phrasal verbs');
   });
 
   it('clipboard receives all 21 particles as "get X" forms in order', () => {
     renderPage();
+    expandCard('get');
     fireEvent.click(screen.getByRole('button', { name: /copy all "get" phrasal verbs/i }));
     const expected = ALL_PARTICLES.map(p => `get ${p}`).join(', ');
     expect(navigator.clipboard.writeText).toHaveBeenCalledWith(expected);
@@ -164,6 +224,7 @@ describe('PhrasalVerbsListPage — copy button', () => {
 
   it('clipboard content contains every particle', () => {
     renderPage();
+    expandCard('get');
     fireEvent.click(screen.getByRole('button', { name: /copy all "get" phrasal verbs/i }));
     const written = (navigator.clipboard.writeText as ReturnType<typeof vi.fn>).mock.calls[0][0] as string;
     for (const p of ALL_PARTICLES) {
@@ -173,6 +234,7 @@ describe('PhrasalVerbsListPage — copy button', () => {
 
   it('copy button shows "Copied!" title after click', async () => {
     renderPage();
+    expandCard('get');
     fireEvent.click(screen.getByRole('button', { name: /copy all "get" phrasal verbs/i }));
     await vi.waitFor(() => {
       expect(screen.getByRole('button', { name: /copied!/i }))
@@ -183,6 +245,7 @@ describe('PhrasalVerbsListPage — copy button', () => {
   it('copy button reverts to original title after 1500 ms', async () => {
     vi.useFakeTimers();
     renderPage();
+    expandCard('get');
     fireEvent.click(screen.getByRole('button', { name: /copy all "get" phrasal verbs/i }));
     await vi.waitFor(() => expect(screen.getByRole('button', { name: /copied!/i })).toBeInTheDocument());
     vi.advanceTimersByTime(1500);
@@ -193,26 +256,30 @@ describe('PhrasalVerbsListPage — copy button', () => {
 
   it('clicking copy button does not navigate to get page', () => {
     renderPageWithRoutes();
+    expandCard('get');
     fireEvent.click(screen.getByRole('button', { name: /copy all "get" phrasal verbs/i }));
     expect(screen.getByTestId('location').textContent).toBe('/phrasal-verbs/list');
+  });
+
+  it('clicking copy button does not collapse the card', () => {
+    renderPage();
+    expandCard('get');
+    fireEvent.click(screen.getByRole('button', { name: /copy all "get" phrasal verbs/i }));
+    expect(within(screen.getByTestId('verb-card-get')).getByText(/off, on, up/i)).toBeInTheDocument();
   });
 });
 
 describe('PhrasalVerbsListPage — Make particles subtitle', () => {
-  it('shows make particles text in subtitle', () => {
+  it('shows make particles text in subtitle after expand', () => {
     renderPage();
-    expect(screen.getByText(/after, away \(with\)/i)).toBeInTheDocument();
-  });
-
-  it('make subtitle has line-clamp-2 class', () => {
-    renderPage();
-    const subtitle = screen.getByText(/after, away \(with\)/i);
-    expect(subtitle).toHaveClass('line-clamp-2');
+    expandCard('make');
+    expect(within(screen.getByTestId('verb-card-make')).getByText(/after, away \(with\)/i)).toBeInTheDocument();
   });
 
   it('make subtitle title attribute contains all particles', () => {
     renderPage();
-    const subtitle = screen.getByText(/after, away \(with\)/i);
+    expandCard('make');
+    const subtitle = within(screen.getByTestId('verb-card-make')).getByText(/after, away \(with\)/i);
     expect(subtitle).toHaveAttribute('title', expect.stringContaining('up for'));
     expect(subtitle).toHaveAttribute('title', expect.stringContaining('off (with)'));
   });
@@ -230,19 +297,22 @@ describe('PhrasalVerbsListPage — make copy button', () => {
     vi.useRealTimers();
   });
 
-  it('renders a make copy button', () => {
+  it('renders a make copy button when expanded', () => {
     renderPage();
+    expandCard('make');
     expect(screen.getByRole('button', { name: /copy all "make" phrasal verbs/i })).toBeInTheDocument();
   });
 
   it('make copy button title is \'Copy all "make" phrasal verbs\' before click', () => {
     renderPage();
+    expandCard('make');
     expect(screen.getByRole('button', { name: /copy all "make" phrasal verbs/i }))
       .toHaveAttribute('title', 'Copy all "make" phrasal verbs');
   });
 
   it('clipboard receives all 10 make particles as "make X" forms in order', () => {
     renderPage();
+    expandCard('make');
     fireEvent.click(screen.getByRole('button', { name: /copy all "make" phrasal verbs/i }));
     const expected = ALL_MAKE_PARTICLES.map(p => `make ${p}`).join(', ');
     expect(navigator.clipboard.writeText).toHaveBeenCalledWith(expected);
@@ -250,6 +320,7 @@ describe('PhrasalVerbsListPage — make copy button', () => {
 
   it('clipboard content contains every make particle', () => {
     renderPage();
+    expandCard('make');
     fireEvent.click(screen.getByRole('button', { name: /copy all "make" phrasal verbs/i }));
     const written = (navigator.clipboard.writeText as ReturnType<typeof vi.fn>).mock.calls[0][0] as string;
     for (const p of ALL_MAKE_PARTICLES) {
@@ -259,6 +330,7 @@ describe('PhrasalVerbsListPage — make copy button', () => {
 
   it('make copy button shows "Copied!" title after click', async () => {
     renderPage();
+    expandCard('make');
     fireEvent.click(screen.getByRole('button', { name: /copy all "make" phrasal verbs/i }));
     await vi.waitFor(() => {
       expect(screen.getByRole('button', { name: /copied!/i }))
@@ -269,6 +341,7 @@ describe('PhrasalVerbsListPage — make copy button', () => {
   it('make copy button reverts to original title after 1500 ms', async () => {
     vi.useFakeTimers();
     renderPage();
+    expandCard('make');
     fireEvent.click(screen.getByRole('button', { name: /copy all "make" phrasal verbs/i }));
     await vi.waitFor(() => expect(screen.getByRole('button', { name: /copied!/i })).toBeInTheDocument());
     vi.advanceTimersByTime(1500);
@@ -279,29 +352,23 @@ describe('PhrasalVerbsListPage — make copy button', () => {
 
   it('clicking make copy button does not navigate to make page', () => {
     renderPageWithRoutes();
+    expandCard('make');
     fireEvent.click(screen.getByRole('button', { name: /copy all "make" phrasal verbs/i }));
     expect(screen.getByTestId('location').textContent).toBe('/phrasal-verbs/list');
   });
 });
 
 describe('PhrasalVerbsListPage — Put particles subtitle', () => {
-  it('shows put particles text in subtitle', () => {
+  it('shows put particles text in subtitle after expand', () => {
     renderPage();
-    const putCard = screen.getByRole('heading', { name: 'Put' }).closest('a')!;
-    expect(within(putCard).getByText(/off, on, up/i)).toBeInTheDocument();
-  });
-
-  it('put subtitle has line-clamp-2 class', () => {
-    renderPage();
-    const putCard = screen.getByRole('heading', { name: 'Put' }).closest('a')!;
-    const subtitle = within(putCard).getByText(/off, on, up/i);
-    expect(subtitle).toHaveClass('line-clamp-2');
+    expandCard('put');
+    expect(within(screen.getByTestId('verb-card-put')).getByText(/off, on, up/i)).toBeInTheDocument();
   });
 
   it('put subtitle title attribute contains all particles', () => {
     renderPage();
-    const putCard = screen.getByRole('heading', { name: 'Put' }).closest('a')!;
-    const subtitle = within(putCard).getByText(/off, on, up/i);
+    expandCard('put');
+    const subtitle = within(screen.getByTestId('verb-card-put')).getByText(/off, on, up/i);
     expect(subtitle).toHaveAttribute('title', expect.stringContaining('about / around / round'));
     expect(subtitle).toHaveAttribute('title', expect.stringContaining('through'));
   });
@@ -319,19 +386,22 @@ describe('PhrasalVerbsListPage — put copy button', () => {
     vi.useRealTimers();
   });
 
-  it('renders a put copy button', () => {
+  it('renders a put copy button when expanded', () => {
     renderPage();
+    expandCard('put');
     expect(screen.getByRole('button', { name: /copy all "put" phrasal verbs/i })).toBeInTheDocument();
   });
 
   it('put copy button title is \'Copy all "put" phrasal verbs\' before click', () => {
     renderPage();
+    expandCard('put');
     expect(screen.getByRole('button', { name: /copy all "put" phrasal verbs/i }))
       .toHaveAttribute('title', 'Copy all "put" phrasal verbs');
   });
 
   it('clipboard receives all 19 put particles as "put X" forms in order', () => {
     renderPage();
+    expandCard('put');
     fireEvent.click(screen.getByRole('button', { name: /copy all "put" phrasal verbs/i }));
     const expected = ALL_PUT_PARTICLES.map(p => `put ${p}`).join(', ');
     expect(navigator.clipboard.writeText).toHaveBeenCalledWith(expected);
@@ -339,6 +409,7 @@ describe('PhrasalVerbsListPage — put copy button', () => {
 
   it('clipboard content contains every put particle', () => {
     renderPage();
+    expandCard('put');
     fireEvent.click(screen.getByRole('button', { name: /copy all "put" phrasal verbs/i }));
     const written = (navigator.clipboard.writeText as ReturnType<typeof vi.fn>).mock.calls[0][0] as string;
     for (const p of ALL_PUT_PARTICLES) {
@@ -348,6 +419,7 @@ describe('PhrasalVerbsListPage — put copy button', () => {
 
   it('put copy button shows "Copied!" title after click', async () => {
     renderPage();
+    expandCard('put');
     fireEvent.click(screen.getByRole('button', { name: /copy all "put" phrasal verbs/i }));
     await vi.waitFor(() => {
       expect(screen.getByRole('button', { name: /copied!/i }))
@@ -358,6 +430,7 @@ describe('PhrasalVerbsListPage — put copy button', () => {
   it('put copy button reverts to original title after 1500 ms', async () => {
     vi.useFakeTimers();
     renderPage();
+    expandCard('put');
     fireEvent.click(screen.getByRole('button', { name: /copy all "put" phrasal verbs/i }));
     await vi.waitFor(() => expect(screen.getByRole('button', { name: /copied!/i })).toBeInTheDocument());
     vi.advanceTimersByTime(1500);
@@ -368,6 +441,7 @@ describe('PhrasalVerbsListPage — put copy button', () => {
 
   it('clicking put copy button does not navigate to put page', () => {
     renderPageWithRoutes();
+    expandCard('put');
     fireEvent.click(screen.getByRole('button', { name: /copy all "put" phrasal verbs/i }));
     expect(screen.getByTestId('location').textContent).toBe('/phrasal-verbs/list');
   });
@@ -387,23 +461,16 @@ describe('PhrasalVerbsListPage — Take card', () => {
 });
 
 describe('PhrasalVerbsListPage — Take particles subtitle', () => {
-  it('shows take particles text in subtitle', () => {
+  it('shows take particles text in subtitle after expand', () => {
     renderPage();
-    const takeCard = screen.getByRole('heading', { name: 'Take' }).closest('a')!;
-    expect(within(takeCard).getByText(/off, on, up/i)).toBeInTheDocument();
-  });
-
-  it('take subtitle has line-clamp-2 class', () => {
-    renderPage();
-    const takeCard = screen.getByRole('heading', { name: 'Take' }).closest('a')!;
-    const subtitle = within(takeCard).getByText(/off, on, up/i);
-    expect(subtitle).toHaveClass('line-clamp-2');
+    expandCard('take');
+    expect(within(screen.getByTestId('verb-card-take')).getByText(/off, on, up/i)).toBeInTheDocument();
   });
 
   it('take subtitle title attribute contains all particles', () => {
     renderPage();
-    const takeCard = screen.getByRole('heading', { name: 'Take' }).closest('a')!;
-    const subtitle = within(takeCard).getByText(/off, on, up/i);
+    expandCard('take');
+    const subtitle = within(screen.getByTestId('verb-card-take')).getByText(/off, on, up/i);
     expect(subtitle).toHaveAttribute('title', expect.stringContaining('cross / across'));
     expect(subtitle).toHaveAttribute('title', expect.stringContaining('around / round'));
     expect(subtitle).toHaveAttribute('title', expect.stringContaining('against'));
@@ -422,19 +489,22 @@ describe('PhrasalVerbsListPage — take copy button', () => {
     vi.useRealTimers();
   });
 
-  it('renders a take copy button', () => {
+  it('renders a take copy button when expanded', () => {
     renderPage();
+    expandCard('take');
     expect(screen.getByRole('button', { name: /copy all "take" phrasal verbs/i })).toBeInTheDocument();
   });
 
   it('take copy button title is \'Copy all "take" phrasal verbs\' before click', () => {
     renderPage();
+    expandCard('take');
     expect(screen.getByRole('button', { name: /copy all "take" phrasal verbs/i }))
       .toHaveAttribute('title', 'Copy all "take" phrasal verbs');
   });
 
   it('clipboard receives all 26 take particles as "take X" forms in order', () => {
     renderPage();
+    expandCard('take');
     fireEvent.click(screen.getByRole('button', { name: /copy all "take" phrasal verbs/i }));
     const expected = ALL_TAKE_PARTICLES.map(p => `take ${p}`).join(', ');
     expect(navigator.clipboard.writeText).toHaveBeenCalledWith(expected);
@@ -442,6 +512,7 @@ describe('PhrasalVerbsListPage — take copy button', () => {
 
   it('clipboard content contains every take particle', () => {
     renderPage();
+    expandCard('take');
     fireEvent.click(screen.getByRole('button', { name: /copy all "take" phrasal verbs/i }));
     const written = (navigator.clipboard.writeText as ReturnType<typeof vi.fn>).mock.calls[0][0] as string;
     for (const p of ALL_TAKE_PARTICLES) {
@@ -451,6 +522,7 @@ describe('PhrasalVerbsListPage — take copy button', () => {
 
   it('take copy button shows "Copied!" title after click', async () => {
     renderPage();
+    expandCard('take');
     fireEvent.click(screen.getByRole('button', { name: /copy all "take" phrasal verbs/i }));
     await vi.waitFor(() => {
       expect(screen.getByRole('button', { name: /copied!/i }))
@@ -461,6 +533,7 @@ describe('PhrasalVerbsListPage — take copy button', () => {
   it('take copy button reverts to original title after 1500 ms', async () => {
     vi.useFakeTimers();
     renderPage();
+    expandCard('take');
     fireEvent.click(screen.getByRole('button', { name: /copy all "take" phrasal verbs/i }));
     await vi.waitFor(() => expect(screen.getByRole('button', { name: /copied!/i })).toBeInTheDocument());
     vi.advanceTimersByTime(1500);
@@ -471,6 +544,7 @@ describe('PhrasalVerbsListPage — take copy button', () => {
 
   it('clicking take copy button does not navigate to take page', () => {
     renderPageWithRoutes();
+    expandCard('take');
     fireEvent.click(screen.getByRole('button', { name: /copy all "take" phrasal verbs/i }));
     expect(screen.getByTestId('location').textContent).toBe('/phrasal-verbs/list');
   });
@@ -490,23 +564,16 @@ describe('PhrasalVerbsListPage — Give card', () => {
 });
 
 describe('PhrasalVerbsListPage — Give particles subtitle', () => {
-  it('shows give particles text in subtitle', () => {
+  it('shows give particles text in subtitle after expand', () => {
     renderPage();
-    const giveCard = screen.getByRole('heading', { name: 'Give' }).closest('a')!;
-    expect(within(giveCard).getByText(/away, back, in/i)).toBeInTheDocument();
-  });
-
-  it('give subtitle has line-clamp-2 class', () => {
-    renderPage();
-    const giveCard = screen.getByRole('heading', { name: 'Give' }).closest('a')!;
-    const subtitle = within(giveCard).getByText(/away, back, in/i);
-    expect(subtitle).toHaveClass('line-clamp-2');
+    expandCard('give');
+    expect(within(screen.getByTestId('verb-card-give')).getByText(/away, back, in/i)).toBeInTheDocument();
   });
 
   it('give subtitle title attribute contains all particles', () => {
     renderPage();
-    const giveCard = screen.getByRole('heading', { name: 'Give' }).closest('a')!;
-    const subtitle = within(giveCard).getByText(/away, back, in/i);
+    expandCard('give');
+    const subtitle = within(screen.getByTestId('verb-card-give')).getByText(/away, back, in/i);
     expect(subtitle).toHaveAttribute('title', expect.stringContaining('on / onto'));
     expect(subtitle).toHaveAttribute('title', expect.stringContaining('(it) up for'));
     expect(subtitle).toHaveAttribute('title', expect.stringContaining('with'));
@@ -525,19 +592,22 @@ describe('PhrasalVerbsListPage — give copy button', () => {
     vi.useRealTimers();
   });
 
-  it('renders a give copy button', () => {
+  it('renders a give copy button when expanded', () => {
     renderPage();
+    expandCard('give');
     expect(screen.getByRole('button', { name: /copy all "give" phrasal verbs/i })).toBeInTheDocument();
   });
 
   it('give copy button title is \'Copy all "give" phrasal verbs\' before click', () => {
     renderPage();
+    expandCard('give');
     expect(screen.getByRole('button', { name: /copy all "give" phrasal verbs/i }))
       .toHaveAttribute('title', 'Copy all "give" phrasal verbs');
   });
 
   it('clipboard receives all 11 give particles as "give X" forms in order', () => {
     renderPage();
+    expandCard('give');
     fireEvent.click(screen.getByRole('button', { name: /copy all "give" phrasal verbs/i }));
     const expected = ALL_GIVE_PARTICLES.map(p => `give ${p}`).join(', ');
     expect(navigator.clipboard.writeText).toHaveBeenCalledWith(expected);
@@ -545,6 +615,7 @@ describe('PhrasalVerbsListPage — give copy button', () => {
 
   it('clipboard content contains every give particle', () => {
     renderPage();
+    expandCard('give');
     fireEvent.click(screen.getByRole('button', { name: /copy all "give" phrasal verbs/i }));
     const written = (navigator.clipboard.writeText as ReturnType<typeof vi.fn>).mock.calls[0][0] as string;
     for (const p of ALL_GIVE_PARTICLES) {
@@ -554,6 +625,7 @@ describe('PhrasalVerbsListPage — give copy button', () => {
 
   it('give copy button shows "Copied!" title after click', async () => {
     renderPage();
+    expandCard('give');
     fireEvent.click(screen.getByRole('button', { name: /copy all "give" phrasal verbs/i }));
     await vi.waitFor(() => {
       expect(screen.getByRole('button', { name: /copied!/i }))
@@ -564,6 +636,7 @@ describe('PhrasalVerbsListPage — give copy button', () => {
   it('give copy button reverts to original title after 1500 ms', async () => {
     vi.useFakeTimers();
     renderPage();
+    expandCard('give');
     fireEvent.click(screen.getByRole('button', { name: /copy all "give" phrasal verbs/i }));
     await vi.waitFor(() => expect(screen.getByRole('button', { name: /copied!/i })).toBeInTheDocument());
     vi.advanceTimersByTime(1500);
@@ -574,6 +647,7 @@ describe('PhrasalVerbsListPage — give copy button', () => {
 
   it('clicking give copy button does not navigate to give page', () => {
     renderPageWithRoutes();
+    expandCard('give');
     fireEvent.click(screen.getByRole('button', { name: /copy all "give" phrasal verbs/i }));
     expect(screen.getByTestId('location').textContent).toBe('/phrasal-verbs/list');
   });
@@ -599,23 +673,16 @@ describe('PhrasalVerbsListPage — Go card', () => {
 });
 
 describe('PhrasalVerbsListPage — Go particles subtitle', () => {
-  it('shows go particles text in subtitle', () => {
+  it('shows go particles text in subtitle after expand', () => {
     renderPage();
-    const goCard = screen.getByRole('heading', { name: 'Go' }).closest('a')!;
-    expect(within(goCard).getByText(/off, on, up/i)).toBeInTheDocument();
-  });
-
-  it('go subtitle has line-clamp-2 class', () => {
-    renderPage();
-    const goCard = screen.getByRole('heading', { name: 'Go' }).closest('a')!;
-    const subtitle = within(goCard).getByText(/off, on, up/i);
-    expect(subtitle).toHaveClass('line-clamp-2');
+    expandCard('go');
+    expect(within(screen.getByTestId('verb-card-go')).getByText(/off, on, up/i)).toBeInTheDocument();
   });
 
   it('go subtitle title attribute contains all particles', () => {
     renderPage();
-    const goCard = screen.getByRole('heading', { name: 'Go' }).closest('a')!;
-    const subtitle = within(goCard).getByText(/off, on, up/i);
+    expandCard('go');
+    const subtitle = within(screen.getByTestId('verb-card-go')).getByText(/off, on, up/i);
     expect(subtitle).toHaveAttribute('title', expect.stringContaining('around / round'));
     expect(subtitle).toHaveAttribute('title', expect.stringContaining('against'));
     expect(subtitle).toHaveAttribute('title', expect.stringContaining('through'));
@@ -634,19 +701,22 @@ describe('PhrasalVerbsListPage — go copy button', () => {
     vi.useRealTimers();
   });
 
-  it('renders a go copy button', () => {
+  it('renders a go copy button when expanded', () => {
     renderPage();
+    expandCard('go');
     expect(screen.getByRole('button', { name: /copy all "go" phrasal verbs/i })).toBeInTheDocument();
   });
 
   it('go copy button title is \'Copy all "go" phrasal verbs\' before click', () => {
     renderPage();
+    expandCard('go');
     expect(screen.getByRole('button', { name: /copy all "go" phrasal verbs/i }))
       .toHaveAttribute('title', 'Copy all "go" phrasal verbs');
   });
 
   it('clipboard receives all 25 go particles as "go X" forms in order', () => {
     renderPage();
+    expandCard('go');
     fireEvent.click(screen.getByRole('button', { name: /copy all "go" phrasal verbs/i }));
     const expected = ALL_GO_PARTICLES.map(p => `go ${p}`).join(', ');
     expect(navigator.clipboard.writeText).toHaveBeenCalledWith(expected);
@@ -654,6 +724,7 @@ describe('PhrasalVerbsListPage — go copy button', () => {
 
   it('clipboard content contains every go particle', () => {
     renderPage();
+    expandCard('go');
     fireEvent.click(screen.getByRole('button', { name: /copy all "go" phrasal verbs/i }));
     const written = (navigator.clipboard.writeText as ReturnType<typeof vi.fn>).mock.calls[0][0] as string;
     for (const p of ALL_GO_PARTICLES) {
@@ -663,6 +734,7 @@ describe('PhrasalVerbsListPage — go copy button', () => {
 
   it('go copy button shows "Copied!" title after click', async () => {
     renderPage();
+    expandCard('go');
     fireEvent.click(screen.getByRole('button', { name: /copy all "go" phrasal verbs/i }));
     await vi.waitFor(() => {
       expect(screen.getByRole('button', { name: /copied!/i }))
@@ -673,6 +745,7 @@ describe('PhrasalVerbsListPage — go copy button', () => {
   it('go copy button reverts to original title after 1500 ms', async () => {
     vi.useFakeTimers();
     renderPage();
+    expandCard('go');
     fireEvent.click(screen.getByRole('button', { name: /copy all "go" phrasal verbs/i }));
     await vi.waitFor(() => expect(screen.getByRole('button', { name: /copied!/i })).toBeInTheDocument());
     vi.advanceTimersByTime(1500);
@@ -683,6 +756,7 @@ describe('PhrasalVerbsListPage — go copy button', () => {
 
   it('clicking go copy button does not navigate to go page', () => {
     renderPageWithRoutes();
+    expandCard('go');
     fireEvent.click(screen.getByRole('button', { name: /copy all "go" phrasal verbs/i }));
     expect(screen.getByTestId('location').textContent).toBe('/phrasal-verbs/list');
   });
@@ -702,23 +776,16 @@ describe('PhrasalVerbsListPage — Come card', () => {
 });
 
 describe('PhrasalVerbsListPage — Come particles subtitle', () => {
-  it('shows come particles text in subtitle', () => {
+  it('shows come particles text in subtitle after expand', () => {
     renderPage();
-    const comeCard = screen.getByRole('heading', { name: 'Come' }).closest('a')!;
-    expect(within(comeCard).getByText(/about, across, after/i)).toBeInTheDocument();
-  });
-
-  it('come subtitle has line-clamp-2 class', () => {
-    renderPage();
-    const comeCard = screen.getByRole('heading', { name: 'Come' }).closest('a')!;
-    const subtitle = within(comeCard).getByText(/about, across, after/i);
-    expect(subtitle).toHaveClass('line-clamp-2');
+    expandCard('come');
+    expect(within(screen.getByTestId('verb-card-come')).getByText(/about, across, after/i)).toBeInTheDocument();
   });
 
   it('come subtitle title attribute contains unique particles', () => {
     renderPage();
-    const comeCard = screen.getByRole('heading', { name: 'Come' }).closest('a')!;
-    const subtitle = within(comeCard).getByText(/about, across, after/i);
+    expandCard('come');
+    const subtitle = within(screen.getByTestId('verb-card-come')).getByText(/about, across, after/i);
     expect(subtitle).toHaveAttribute('title', expect.stringContaining('around / round'));
     expect(subtitle).toHaveAttribute('title', expect.stringContaining('without'));
     expect(subtitle).toHaveAttribute('title', expect.stringContaining('through'));
@@ -737,19 +804,22 @@ describe('PhrasalVerbsListPage — come copy button', () => {
     vi.useRealTimers();
   });
 
-  it('renders a come copy button', () => {
+  it('renders a come copy button when expanded', () => {
     renderPage();
+    expandCard('come');
     expect(screen.getByRole('button', { name: /copy all "come" phrasal verbs/i })).toBeInTheDocument();
   });
 
   it('come copy button title is \'Copy all "come" phrasal verbs\' before click', () => {
     renderPage();
+    expandCard('come');
     expect(screen.getByRole('button', { name: /copy all "come" phrasal verbs/i }))
       .toHaveAttribute('title', 'Copy all "come" phrasal verbs');
   });
 
   it('clipboard receives all 26 come particles as "come X" forms in order', () => {
     renderPage();
+    expandCard('come');
     fireEvent.click(screen.getByRole('button', { name: /copy all "come" phrasal verbs/i }));
     const expected = ALL_COME_PARTICLES.map(p => `come ${p}`).join(', ');
     expect(navigator.clipboard.writeText).toHaveBeenCalledWith(expected);
@@ -757,6 +827,7 @@ describe('PhrasalVerbsListPage — come copy button', () => {
 
   it('clipboard content contains every come particle', () => {
     renderPage();
+    expandCard('come');
     fireEvent.click(screen.getByRole('button', { name: /copy all "come" phrasal verbs/i }));
     const written = (navigator.clipboard.writeText as ReturnType<typeof vi.fn>).mock.calls[0][0] as string;
     for (const p of ALL_COME_PARTICLES) {
@@ -766,6 +837,7 @@ describe('PhrasalVerbsListPage — come copy button', () => {
 
   it('come copy button shows "Copied!" title after click', async () => {
     renderPage();
+    expandCard('come');
     fireEvent.click(screen.getByRole('button', { name: /copy all "come" phrasal verbs/i }));
     await vi.waitFor(() => {
       expect(screen.getByRole('button', { name: /copied!/i }))
@@ -776,6 +848,7 @@ describe('PhrasalVerbsListPage — come copy button', () => {
   it('come copy button reverts to original title after 1500 ms', async () => {
     vi.useFakeTimers();
     renderPage();
+    expandCard('come');
     fireEvent.click(screen.getByRole('button', { name: /copy all "come" phrasal verbs/i }));
     await vi.waitFor(() => expect(screen.getByRole('button', { name: /copied!/i })).toBeInTheDocument());
     vi.advanceTimersByTime(1500);
@@ -786,6 +859,7 @@ describe('PhrasalVerbsListPage — come copy button', () => {
 
   it('clicking come copy button does not navigate to come page', () => {
     renderPageWithRoutes();
+    expandCard('come');
     fireEvent.click(screen.getByRole('button', { name: /copy all "come" phrasal verbs/i }));
     expect(screen.getByTestId('location').textContent).toBe('/phrasal-verbs/list');
   });

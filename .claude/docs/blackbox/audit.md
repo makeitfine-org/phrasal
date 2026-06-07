@@ -2063,3 +2063,25 @@ Also show its example below.
 ## 2026-06-07T18:38:38Z
 git add all changes and commit them with suitable message
 ---
+
+## 2026-06-07T18:41:26Z
+Analyze and show me new relase tag with description and step how to create it.
+---
+
+## 2026-06-07T18:43:32Z
+run steps: 2, 3 but previously change v0.3.2 to v0.4.0
+---
+
+## 2026-06-07T18:43:57Z
+run steps: 4
+---
+
+## 2026-06-07T18:52:30Z
+After release on incognito page I see: file:///home/eug/Pictures/Screenshots/Screenshot%20from%202026-06-07%2020-50-21.png,
+But on browser without incognito I see old release (I've even cleaned cookies): file:///home/eug/Pictures/Screenshots/Screenshot%20from%202026-06-07%2020-51-41.png
+---
+
+## 2026-06-07T22:05:25Z
+on the Phrasal Verbs List page show only base verb, for example "Get", "Put", and on click incread/decrease size to show/hide particles. 
+Save state of showing/hiding.
+---

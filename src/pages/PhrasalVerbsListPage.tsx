@@ -51,99 +51,53 @@ const TAKE_PARTICLES = [
   'to', 'against',
 ];
 
+const VERBS = [
+  { key: 'get',  label: 'Get',  to: '/phrasal-verbs/list/get',  particles: GET_PARTICLES },
+  { key: 'make', label: 'Make', to: '/phrasal-verbs/list/make', particles: MAKE_PARTICLES },
+  { key: 'put',  label: 'Put',  to: '/phrasal-verbs/list/put',  particles: PUT_PARTICLES },
+  { key: 'take', label: 'Take', to: '/phrasal-verbs/list/take', particles: TAKE_PARTICLES },
+  { key: 'give', label: 'Give', to: '/phrasal-verbs/list/give', particles: GIVE_PARTICLES },
+  { key: 'go',   label: 'Go',   to: '/phrasal-verbs/list/go',   particles: GO_PARTICLES },
+  { key: 'come', label: 'Come', to: '/phrasal-verbs/list/come', particles: COME_PARTICLES },
+];
+
+const EXPANDED_KEY = 'verbListExpanded';
+
+function loadExpanded(): Set<string> {
+  try {
+    const saved = localStorage.getItem(EXPANDED_KEY);
+    return saved ? new Set(JSON.parse(saved) as string[]) : new Set();
+  } catch {
+    return new Set();
+  }
+}
+
 export default function PhrasalVerbsListPage() {
   const navigate = useNavigate();
   const [showSearch, setShowSearch] = useState(false);
-  const [copied, setCopied] = useState(false);
-  const [makeCopied, setMakeCopied] = useState(false);
-  const [putCopied, setPutCopied] = useState(false);
-  const [takeCopied, setTakeCopied] = useState(false);
-  const [giveCopied, setGiveCopied] = useState(false);
-  const [goCopied, setGoCopied] = useState(false);
-  const [comeCopied, setComeCopied] = useState(false);
+  const [expanded, setExpanded] = useState<Set<string>>(loadExpanded);
+  const [copiedVerb, setCopiedVerb] = useState<string | null>(null);
 
-  const handleCopy = (e: React.MouseEvent) => {
-    e.preventDefault();
-    e.stopPropagation();
-    const text = GET_PARTICLES.map(p => `get ${p}`).join(', ');
-    navigator.clipboard.writeText(text).then(() => {
-      setCopied(true);
-      setTimeout(() => setCopied(false), 1500);
+  const toggleExpanded = (key: string) => {
+    setExpanded(prev => {
+      const next = new Set(prev);
+      if (next.has(key)) next.delete(key);
+      else next.add(key);
+      localStorage.setItem(EXPANDED_KEY, JSON.stringify([...next]));
+      return next;
     });
   };
 
-  const handleMakeCopy = (e: React.MouseEvent) => {
+  const handleCopy = (e: React.MouseEvent, label: string, particles: string[]) => {
     e.preventDefault();
     e.stopPropagation();
-    const text = MAKE_PARTICLES.map(p => `make ${p}`).join(', ');
+    const text = particles.map(p => `${label.toLowerCase()} ${p}`).join(', ');
     navigator.clipboard.writeText(text).then(() => {
-      setMakeCopied(true);
-      setTimeout(() => setMakeCopied(false), 1500);
+      setCopiedVerb(label);
+      setTimeout(() => setCopiedVerb(null), 1500);
     });
   };
 
-  const particlesText = GET_PARTICLES.join(', ');
-  const makeParticlesText = MAKE_PARTICLES.join(', ');
-
-  const handlePutCopy = (e: React.MouseEvent) => {
-    e.preventDefault();
-    e.stopPropagation();
-    const text = PUT_PARTICLES.map(p => `put ${p}`).join(', ');
-    navigator.clipboard.writeText(text).then(() => {
-      setPutCopied(true);
-      setTimeout(() => setPutCopied(false), 1500);
-    });
-  };
-
-  const putParticlesText = PUT_PARTICLES.join(', ');
-
-  const handleTakeCopy = (e: React.MouseEvent) => {
-    e.preventDefault();
-    e.stopPropagation();
-    const text = TAKE_PARTICLES.map(p => `take ${p}`).join(', ');
-    navigator.clipboard.writeText(text).then(() => {
-      setTakeCopied(true);
-      setTimeout(() => setTakeCopied(false), 1500);
-    });
-  };
-
-  const takeParticlesText = TAKE_PARTICLES.join(', ');
-
-  const handleGiveCopy = (e: React.MouseEvent) => {
-    e.preventDefault();
-    e.stopPropagation();
-    const text = GIVE_PARTICLES.map(p => `give ${p}`).join(', ');
-    navigator.clipboard.writeText(text).then(() => {
-      setGiveCopied(true);
-      setTimeout(() => setGiveCopied(false), 1500);
-    });
-  };
-
-  const giveParticlesText = GIVE_PARTICLES.join(', ');
-
-  const handleGoCopy = (e: React.MouseEvent) => {
-    e.preventDefault();
-    e.stopPropagation();
-    const text = GO_PARTICLES.map(p => `go ${p}`).join(', ');
-    navigator.clipboard.writeText(text).then(() => {
-      setGoCopied(true);
-      setTimeout(() => setGoCopied(false), 1500);
-    });
-  };
-
-  const goParticlesText = GO_PARTICLES.join(', ');
-
-  const handleComeCopy = (e: React.MouseEvent) => {
-    e.preventDefault();
-    e.stopPropagation();
-    const text = COME_PARTICLES.map(p => `come ${p}`).join(', ');
-    navigator.clipboard.writeText(text).then(() => {
-      setComeCopied(true);
-      setTimeout(() => setComeCopied(false), 1500);
-    });
-  };
-
-  const comeParticlesText = COME_PARTICLES.join(', ');
   const particleNamesText = PARTICLE_NAMES.join(', ');
 
   const handleSearchSelect = (entry: ListSearchEntry) => {
@@ -186,216 +140,65 @@ export default function PhrasalVerbsListPage() {
           </p>
         </Link>
         <hr className="border-gray-600 dark:border-gray-500" />
-        <Link
-          to="/phrasal-verbs/list/get"
-          className="relative block rounded-2xl border border-gray-200 dark:border-gray-800 bg-white dark:bg-gray-900 shadow-md hover:shadow-lg transition-shadow p-6 pr-12"
-        >
-          <h2 className="text-xl font-semibold text-gray-900 dark:text-gray-100 mb-1">
-            Get
-          </h2>
-          <p
-            className="text-sm text-gray-500 dark:text-gray-400 line-clamp-2"
-            title={particlesText}
-          >
-            {particlesText}
-          </p>
-          <button
-            onClick={handleCopy}
-            className="absolute top-4 right-4 p-1.5 rounded-lg text-gray-400 hover:text-gray-600 dark:hover:text-gray-200 hover:bg-gray-100 dark:hover:bg-gray-800 transition-colors"
-            title={copied ? 'Copied!' : 'Copy all "get" phrasal verbs'}
-          >
-            {copied ? (
-              <svg xmlns="http://www.w3.org/2000/svg" className="w-4 h-4 text-green-500" viewBox="0 0 20 20" fill="currentColor">
-                <path fillRule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clipRule="evenodd" />
-              </svg>
-            ) : (
-              <svg xmlns="http://www.w3.org/2000/svg" className="w-4 h-4" viewBox="0 0 20 20" fill="currentColor">
-                <path d="M8 3a1 1 0 011-1h2a1 1 0 110 2H9a1 1 0 01-1-1z" />
-                <path d="M6 3a2 2 0 00-2 2v11a2 2 0 002 2h8a2 2 0 002-2V5a2 2 0 00-2-2 3 3 0 01-3 3H9a3 3 0 01-3-3z" />
-              </svg>
-            )}
-          </button>
-        </Link>
-        <Link
-          to="/phrasal-verbs/list/make"
-          className="relative block rounded-2xl border border-gray-200 dark:border-gray-800 bg-white dark:bg-gray-900 shadow-md hover:shadow-lg transition-shadow p-6 pr-12"
-        >
-          <h2 className="text-xl font-semibold text-gray-900 dark:text-gray-100 mb-1">
-            Make
-          </h2>
-          <p
-            className="text-sm text-gray-500 dark:text-gray-400 line-clamp-2"
-            title={makeParticlesText}
-          >
-            {makeParticlesText}
-          </p>
-          <button
-            onClick={handleMakeCopy}
-            className="absolute top-4 right-4 p-1.5 rounded-lg text-gray-400 hover:text-gray-600 dark:hover:text-gray-200 hover:bg-gray-100 dark:hover:bg-gray-800 transition-colors"
-            title={makeCopied ? 'Copied!' : 'Copy all "make" phrasal verbs'}
-          >
-            {makeCopied ? (
-              <svg xmlns="http://www.w3.org/2000/svg" className="w-4 h-4 text-green-500" viewBox="0 0 20 20" fill="currentColor">
-                <path fillRule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clipRule="evenodd" />
-              </svg>
-            ) : (
-              <svg xmlns="http://www.w3.org/2000/svg" className="w-4 h-4" viewBox="0 0 20 20" fill="currentColor">
-                <path d="M8 3a1 1 0 011-1h2a1 1 0 110 2H9a1 1 0 01-1-1z" />
-                <path d="M6 3a2 2 0 00-2 2v11a2 2 0 002 2h8a2 2 0 002-2V5a2 2 0 00-2-2 3 3 0 01-3 3H9a3 3 0 01-3-3z" />
-              </svg>
-            )}
-          </button>
-        </Link>
-        <Link
-          to="/phrasal-verbs/list/put"
-          className="relative block rounded-2xl border border-gray-200 dark:border-gray-800 bg-white dark:bg-gray-900 shadow-md hover:shadow-lg transition-shadow p-6 pr-12"
-        >
-          <h2 className="text-xl font-semibold text-gray-900 dark:text-gray-100 mb-1">
-            Put
-          </h2>
-          <p
-            className="text-sm text-gray-500 dark:text-gray-400 line-clamp-2"
-            title={putParticlesText}
-          >
-            {putParticlesText}
-          </p>
-          <button
-            onClick={handlePutCopy}
-            className="absolute top-4 right-4 p-1.5 rounded-lg text-gray-400 hover:text-gray-600 dark:hover:text-gray-200 hover:bg-gray-100 dark:hover:bg-gray-800 transition-colors"
-            title={putCopied ? 'Copied!' : 'Copy all "put" phrasal verbs'}
-          >
-            {putCopied ? (
-              <svg xmlns="http://www.w3.org/2000/svg" className="w-4 h-4 text-green-500" viewBox="0 0 20 20" fill="currentColor">
-                <path fillRule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clipRule="evenodd" />
-              </svg>
-            ) : (
-              <svg xmlns="http://www.w3.org/2000/svg" className="w-4 h-4" viewBox="0 0 20 20" fill="currentColor">
-                <path d="M8 3a1 1 0 011-1h2a1 1 0 110 2H9a1 1 0 01-1-1z" />
-                <path d="M6 3a2 2 0 00-2 2v11a2 2 0 002 2h8a2 2 0 002-2V5a2 2 0 00-2-2 3 3 0 01-3 3H9a3 3 0 01-3-3z" />
-              </svg>
-            )}
-          </button>
-        </Link>
-        <Link
-          to="/phrasal-verbs/list/take"
-          className="relative block rounded-2xl border border-gray-200 dark:border-gray-800 bg-white dark:bg-gray-900 shadow-md hover:shadow-lg transition-shadow p-6 pr-12"
-        >
-          <h2 className="text-xl font-semibold text-gray-900 dark:text-gray-100 mb-1">
-            Take
-          </h2>
-          <p
-            className="text-sm text-gray-500 dark:text-gray-400 line-clamp-2"
-            title={takeParticlesText}
-          >
-            {takeParticlesText}
-          </p>
-          <button
-            onClick={handleTakeCopy}
-            className="absolute top-4 right-4 p-1.5 rounded-lg text-gray-400 hover:text-gray-600 dark:hover:text-gray-200 hover:bg-gray-100 dark:hover:bg-gray-800 transition-colors"
-            title={takeCopied ? 'Copied!' : 'Copy all "take" phrasal verbs'}
-          >
-            {takeCopied ? (
-              <svg xmlns="http://www.w3.org/2000/svg" className="w-4 h-4 text-green-500" viewBox="0 0 20 20" fill="currentColor">
-                <path fillRule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clipRule="evenodd" />
-              </svg>
-            ) : (
-              <svg xmlns="http://www.w3.org/2000/svg" className="w-4 h-4" viewBox="0 0 20 20" fill="currentColor">
-                <path d="M8 3a1 1 0 011-1h2a1 1 0 110 2H9a1 1 0 01-1-1z" />
-                <path d="M6 3a2 2 0 00-2 2v11a2 2 0 002 2h8a2 2 0 002-2V5a2 2 0 00-2-2 3 3 0 01-3 3H9a3 3 0 01-3-3z" />
-              </svg>
-            )}
-          </button>
-        </Link>
-        <Link
-          to="/phrasal-verbs/list/give"
-          className="relative block rounded-2xl border border-gray-200 dark:border-gray-800 bg-white dark:bg-gray-900 shadow-md hover:shadow-lg transition-shadow p-6 pr-12"
-        >
-          <h2 className="text-xl font-semibold text-gray-900 dark:text-gray-100 mb-1">
-            Give
-          </h2>
-          <p
-            className="text-sm text-gray-500 dark:text-gray-400 line-clamp-2"
-            title={giveParticlesText}
-          >
-            {giveParticlesText}
-          </p>
-          <button
-            onClick={handleGiveCopy}
-            className="absolute top-4 right-4 p-1.5 rounded-lg text-gray-400 hover:text-gray-600 dark:hover:text-gray-200 hover:bg-gray-100 dark:hover:bg-gray-800 transition-colors"
-            title={giveCopied ? 'Copied!' : 'Copy all "give" phrasal verbs'}
-          >
-            {giveCopied ? (
-              <svg xmlns="http://www.w3.org/2000/svg" className="w-4 h-4 text-green-500" viewBox="0 0 20 20" fill="currentColor">
-                <path fillRule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clipRule="evenodd" />
-              </svg>
-            ) : (
-              <svg xmlns="http://www.w3.org/2000/svg" className="w-4 h-4" viewBox="0 0 20 20" fill="currentColor">
-                <path d="M8 3a1 1 0 011-1h2a1 1 0 110 2H9a1 1 0 01-1-1z" />
-                <path d="M6 3a2 2 0 00-2 2v11a2 2 0 002 2h8a2 2 0 002-2V5a2 2 0 00-2-2 3 3 0 01-3 3H9a3 3 0 01-3-3z" />
-              </svg>
-            )}
-          </button>
-        </Link>
-        <Link
-          to="/phrasal-verbs/list/go"
-          className="relative block rounded-2xl border border-gray-200 dark:border-gray-800 bg-white dark:bg-gray-900 shadow-md hover:shadow-lg transition-shadow p-6 pr-12"
-        >
-          <h2 className="text-xl font-semibold text-gray-900 dark:text-gray-100 mb-1">
-            Go
-          </h2>
-          <p
-            className="text-sm text-gray-500 dark:text-gray-400 line-clamp-2"
-            title={goParticlesText}
-          >
-            {goParticlesText}
-          </p>
-          <button
-            onClick={handleGoCopy}
-            className="absolute top-4 right-4 p-1.5 rounded-lg text-gray-400 hover:text-gray-600 dark:hover:text-gray-200 hover:bg-gray-100 dark:hover:bg-gray-800 transition-colors"
-            title={goCopied ? 'Copied!' : 'Copy all "go" phrasal verbs'}
-          >
-            {goCopied ? (
-              <svg xmlns="http://www.w3.org/2000/svg" className="w-4 h-4 text-green-500" viewBox="0 0 20 20" fill="currentColor">
-                <path fillRule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clipRule="evenodd" />
-              </svg>
-            ) : (
-              <svg xmlns="http://www.w3.org/2000/svg" className="w-4 h-4" viewBox="0 0 20 20" fill="currentColor">
-                <path d="M8 3a1 1 0 011-1h2a1 1 0 110 2H9a1 1 0 01-1-1z" />
-                <path d="M6 3a2 2 0 00-2 2v11a2 2 0 002 2h8a2 2 0 002-2V5a2 2 0 00-2-2 3 3 0 01-3 3H9a3 3 0 01-3-3z" />
-              </svg>
-            )}
-          </button>
-        </Link>
-        <Link
-          to="/phrasal-verbs/list/come"
-          className="relative block rounded-2xl border border-gray-200 dark:border-gray-800 bg-white dark:bg-gray-900 shadow-md hover:shadow-lg transition-shadow p-6 pr-12"
-        >
-          <h2 className="text-xl font-semibold text-gray-900 dark:text-gray-100 mb-1">
-            Come
-          </h2>
-          <p
-            className="text-sm text-gray-500 dark:text-gray-400 line-clamp-2"
-            title={comeParticlesText}
-          >
-            {comeParticlesText}
-          </p>
-          <button
-            onClick={handleComeCopy}
-            className="absolute top-4 right-4 p-1.5 rounded-lg text-gray-400 hover:text-gray-600 dark:hover:text-gray-200 hover:bg-gray-100 dark:hover:bg-gray-800 transition-colors"
-            title={comeCopied ? 'Copied!' : 'Copy all "come" phrasal verbs'}
-          >
-            {comeCopied ? (
-              <svg xmlns="http://www.w3.org/2000/svg" className="w-4 h-4 text-green-500" viewBox="0 0 20 20" fill="currentColor">
-                <path fillRule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clipRule="evenodd" />
-              </svg>
-            ) : (
-              <svg xmlns="http://www.w3.org/2000/svg" className="w-4 h-4" viewBox="0 0 20 20" fill="currentColor">
-                <path d="M8 3a1 1 0 011-1h2a1 1 0 110 2H9a1 1 0 01-1-1z" />
-                <path d="M6 3a2 2 0 00-2 2v11a2 2 0 002 2h8a2 2 0 002-2V5a2 2 0 00-2-2 3 3 0 01-3 3H9a3 3 0 01-3-3z" />
-              </svg>
-            )}
-          </button>
-        </Link>
+        {VERBS.map(({ key, label, to, particles }) => {
+          const isExpanded = expanded.has(key);
+          const isCopied = copiedVerb === label;
+          return (
+            <div
+              key={key}
+              data-testid={`verb-card-${key}`}
+              onClick={() => toggleExpanded(key)}
+              className="cursor-pointer rounded-2xl border border-gray-200 dark:border-gray-800 bg-white dark:bg-gray-900 shadow-md hover:shadow-lg transition-shadow p-6"
+            >
+              <div className="flex items-center justify-between">
+                <Link
+                  to={to}
+                  onClick={e => e.stopPropagation()}
+                  className="text-xl font-semibold text-gray-900 dark:text-gray-100 hover:underline"
+                >
+                  <h2>{label}</h2>
+                </Link>
+                <div className="flex items-center gap-1">
+                  {isExpanded && (
+                    <button
+                      onClick={e => handleCopy(e, label, particles)}
+                      className="p-1.5 rounded-lg text-gray-400 hover:text-gray-600 dark:hover:text-gray-200 hover:bg-gray-100 dark:hover:bg-gray-800 transition-colors"
+                      title={isCopied ? 'Copied!' : `Copy all "${label.toLowerCase()}" phrasal verbs`}
+                    >
+                      {isCopied ? (
+                        <svg xmlns="http://www.w3.org/2000/svg" className="w-4 h-4 text-green-500" viewBox="0 0 20 20" fill="currentColor">
+                          <path fillRule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clipRule="evenodd" />
+                        </svg>
+                      ) : (
+                        <svg xmlns="http://www.w3.org/2000/svg" className="w-4 h-4" viewBox="0 0 20 20" fill="currentColor">
+                          <path d="M8 3a1 1 0 011-1h2a1 1 0 110 2H9a1 1 0 01-1-1z" />
+                          <path d="M6 3a2 2 0 00-2 2v11a2 2 0 002 2h8a2 2 0 002-2V5a2 2 0 00-2-2 3 3 0 01-3 3H9a3 3 0 01-3-3z" />
+                        </svg>
+                      )}
+                    </button>
+                  )}
+                  <svg
+                    xmlns="http://www.w3.org/2000/svg"
+                    className={`w-5 h-5 text-gray-400 transition-transform duration-200 ${isExpanded ? 'rotate-180' : ''}`}
+                    viewBox="0 0 20 20"
+                    fill="currentColor"
+                    aria-hidden="true"
+                  >
+                    <path fillRule="evenodd" d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z" clipRule="evenodd" />
+                  </svg>
+                </div>
+              </div>
+              {isExpanded && (
+                <p
+                  className="text-sm text-gray-500 dark:text-gray-400 mt-2"
+                  title={particles.join(', ')}
+                >
+                  {particles.join(', ')}
+                </p>
+              )}
+            </div>
+          );
+        })}
       </div>
       {showSearch && (
         <ListSearchModal
