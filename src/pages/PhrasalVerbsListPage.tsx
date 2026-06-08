@@ -58,6 +58,16 @@ const CUT_PARTICLES = [
   'back', 'together', 'apart', 'over', 'ahead', 'through', 'about / round', 'to', 'against',
 ];
 
+const BREAK_PARTICLES = [
+  'off', 'up', 'down', 'in', 'into', 'out', 'away', 'back', 'for',
+  'with', 'apart', 'over', 'through', 'to', 'against',
+];
+
+const BRING_PARTICLES = [
+  'about', 'around / round', 'away', 'back', 'by', 'down', 'forward',
+  'in', 'into', 'off', 'on', 'out', 'over', 'through', 'to', 'together', 'up',
+];
+
 const VERBS = [
   { key: 'get',  label: 'Get',  to: '/phrasal-verbs/list/get',  particles: GET_PARTICLES },
   { key: 'make', label: 'Make', to: '/phrasal-verbs/list/make', particles: MAKE_PARTICLES },
@@ -66,8 +76,10 @@ const VERBS = [
   { key: 'give', label: 'Give', to: '/phrasal-verbs/list/give', particles: GIVE_PARTICLES },
   { key: 'go',   label: 'Go',   to: '/phrasal-verbs/list/go',   particles: GO_PARTICLES },
   { key: 'come', label: 'Come', to: '/phrasal-verbs/list/come', particles: COME_PARTICLES },
-  { key: 'act',  label: 'Act',  to: '/phrasal-verbs/list/act',  particles: ACT_PARTICLES },
-  { key: 'cut',  label: 'Cut',  to: '/phrasal-verbs/list/cut',  particles: CUT_PARTICLES },
+  { key: 'act',   label: 'Act',   to: '/phrasal-verbs/list/act',   particles: ACT_PARTICLES },
+  { key: 'cut',   label: 'Cut',   to: '/phrasal-verbs/list/cut',   particles: CUT_PARTICLES },
+  { key: 'break', label: 'Break', to: '/phrasal-verbs/list/break', particles: BREAK_PARTICLES },
+  { key: 'bring', label: 'Bring', to: '/phrasal-verbs/list/bring', particles: BRING_PARTICLES },
 ];
 
 const EXPANDED_KEY = 'verbListExpanded';

@@ -8,6 +8,8 @@ import { sections as goSections } from '../pages/go/GoVerbPage';
 import { sections as comeSections } from '../pages/come/ComeVerbPage';
 import { sections as actSections } from '../pages/act/ActVerbPage';
 import { sections as cutSections } from '../pages/cut/CutVerbPage';
+import { sections as breakSections } from '../pages/break/BreakVerbPage';
+import { sections as bringS } from '../pages/bring/BringVerbPage';
 
 export interface ListSearchEntry {
   verb: string;
@@ -43,4 +45,6 @@ export const listVerbIndex: ListSearchEntry[] = [
   ...buildEntries(comeSections, 'Come', '/phrasal-verbs/list/come'),
   ...buildEntries(actSections, 'Act', '/phrasal-verbs/list/act'),
   ...buildEntries(cutSections, 'Cut', '/phrasal-verbs/list/cut'),
+  ...buildEntries(breakSections, 'Break', '/phrasal-verbs/list/break'),
+  ...buildEntries(bringS, 'Bring', '/phrasal-verbs/list/bring'),
 ];

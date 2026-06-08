@@ -2152,3 +2152,519 @@ for the phrasal verb picture do the same logic as for "take" phrasal verb
 ## 2026-06-08T16:11:35Z
 git add all changes and commit them with suitable message
 ---
+
+## 2026-06-08T16:16:05Z
+Cut off
+To remove something by cutting: "He cut off the tags from his new shirt."
+
+To interrupt someone speaking: "She cut me off mid-sentence to correct a date."
+
+To stop providing a service or supply: "The electric company cut off our power because of an unpaid bill."
+
+To isolate or block access to a place: "The heavy snowstorm cut off the mountain village from the main road."
+
+To block another vehicle's path aggressively: "A white van cut me off on the highway, forcing me to brake hard."
+
+To disinherit or stop giving someone money: "His wealthy parents finally cut him off."
+
+Cut on
+To turn on a device or switch (Regional/Southern US): "Can you cut on the lights? It's getting dark in here." (Note: In most dialects, "turn on" is standard).
+
+Cut up
+To chop into small pieces: "Could you cut up the carrots for the stew?"
+
+To act silly or cause a playful disruption (Informal): "The students were cutting up in the back of the classroom."
+
+To deeply upset someone emotionally (often passive): "He was really cut up about failing his certification exam."
+
+To severely criticize: "The reviewers absolutely cut the new software release up."
+
+To drive aggressively across someone's path (UK Informal): "That driver just cut me up on the roundabout."
+
+Cut down
+To cause something to fall by cutting (felling): "The city cut down the old oak tree because it was rotting."
+
+To reduce the amount or frequency of something: "I'm trying to cut down on caffeine before bed."
+
+To kill or severely injure someone (often tragic/literary context): "The young soldiers were cut down in their prime."
+
+Cut in
+To interrupt a conversation: "Do you mind if I cut in with a quick question?"
+
+To move suddenly in front of another vehicle/person: "The sports car cut in far too closely."
+
+To include someone in a deal or share of profits: "Since you brought us the client, we'll cut you in on the commission."
+
+To automatically start operating (machines): "When the temperature drops, the backup heater cuts in."
+
+To interrupt a dancing couple to take over as a partner: "May I cut in?"
+
+Cut into
+To slice or penetrate a physical object: "The sharp wire cut into my skin."
+
+To consume a portion of something valuable (time, money, profits): "The server outages are cutting into our quarterly profits."
+
+To interrupt (similar to cut in): "I don't want to cut into your lunch break, but this is urgent."
+
+Cut out
+To remove a shape or part by cutting: "She cut out an interesting article from the newspaper."
+
+To stop eating or doing something completely: "My doctor told me to cut out sugar."
+
+To suddenly stop working (engines/machines): "The car engine cut out halfway up the hill."
+
+To exclude someone: "They completely cut me out of the decision-making process."
+
+To be naturally suited for something (usually negative and passive: "cut out for"): "After three weeks, he realized he wasn't cut out for sales."
+
+Cut away
+To remove the outer or unwanted parts by cutting: "The surgeon carefully cut away the damaged tissue."
+
+To suddenly shift the camera to another scene (Film/Media): "The broadcast cut away to a reporter live at the scene."
+
+Cut across
+To take a shortcut across an area: "We cut across the park to get to the station faster."
+
+To affect or apply to multiple different groups, transcending boundaries: "The demand for flexible working conditions cuts across all departments."
+
+Cut back
+To reduce spending, production, or consumption: "The company is cutting back on hiring this quarter."
+
+To prune a plant to control its growth: "We need to cut back the rose bushes before winter."
+
+To return to a previous scene (Film/Media): "The movie cuts back to the protagonist's childhood."
+
+Cut together
+To edit film or audio by joining distinct pieces: "The marketing team cut together a fast-paced promotional video."
+
+Cut apart
+To separate or dismantle by cutting: "They cut the old ship apart for scrap metal."
+
+To severely criticize or destroy an argument: "The defense attorney cut the witness's testimony apart."
+
+Cut over
+To switch from an old system to a new one (IT/Business context): "The engineering team will cut over to the new cloud servers at midnight." (The noun form is "cutover").
+
+Cut ahead
+To move in front of others in a line unethically: "A group of teenagers tried to cut ahead of us in the queue."
+
+Cut through
+To take a shortcut through an area: "Let's cut through the alley to avoid the main street traffic."
+
+To quickly deal with or bypass obstacles and bureaucracy: "We hired a local consultant to cut through the legal red tape."
+
+To penetrate a barrier, such as sound, darkness, or confusion: "The siren cut through the silence of the night."
+
+Cut about / Cut round
+To move or run around actively or aimlessly (UK Informal): "The kids were cutting about the garden all afternoon."
+
+To take a quick shortcut around an obstacle (Cut round): "If we cut round the back of the building, we'll miss the crowd."
+
+Cut to
+To skip ahead to a specific, more important point: "Let's cut to the chase and discuss the budget."
+
+To shift to a new scene (Film/Media scriptwriting): "The hero falls asleep. Cut to: interior, office, daytime."
+
+Cut against
+To go against the grain, expectations, or natural order: "His decision to expand the business cuts against the current economic trends."
+
+---
+
+1) Create "act" link on list page with particals mentioned above phrasal verbs. 
+   Take as the base "take" link.
+2) Create "take" page with mentioned above phrasal verbs. 
+   Take as the base "take" page.
+3) Cover the functionality with tests
+---
+
+## 2026-06-08T16:54:30Z
+Break Off
+To remove a part of something (by force or snapping):
+
+Example: He broke off a square of chocolate and gave it to me.
+
+To suddenly stop speaking or doing something:
+
+Example: She broke off in the middle of her sentence when the phone rang.
+
+To end a relationship, agreement, or negotiation:
+
+Example: The two countries have broken off diplomatic relations.
+
+Break Up
+To separate into smaller pieces:
+
+Example: The ship broke up on the rocks during the storm.
+
+To end a romantic relationship or marriage:
+
+Example: Sam and Alex broke up after five years of dating.
+
+To force a crowd to disperse or to stop a fight:
+
+Example: The police arrived to break up the protest.
+
+To divide something into smaller, manageable parts:
+
+Example: Let's break up this large project into smaller tasks.
+
+To lose audio signal (telecommunications):
+
+Example: I can't hear you very well, your voice is breaking up.
+
+To end the school term for holidays (chiefly British):
+
+Example: The children are excited because school breaks up next week.
+
+To burst into laughter, or make someone else laugh (chiefly American):
+
+Example: That comedian always breaks me up.
+
+Break Down
+To stop working (machinery or vehicles):
+
+Example: My car broke down on the highway.
+
+To lose control of one's emotions and start crying:
+
+Example: She broke down in tears when she heard the news.
+
+To fail or collapse (negotiations, systems, or relationships):
+
+Example: The peace talks broke down after neither side would compromise.
+
+To divide information into smaller parts for easier analysis:
+
+Example: Can you break down this budget so I can see where the money is going?
+
+To destroy or remove a barrier or obstacle:
+
+Example: The organization works to break down social barriers.
+
+To decompose or separate into basic chemical elements:
+
+Example: Plastic takes hundreds of years to break down in the environment.
+
+Break In
+To enter a building by force or illegally (intransitive):
+
+Example: Thieves broke in while we were away on vacation.
+
+To interrupt a conversation:
+
+Example: "I completely disagree," he broke in.
+
+To wear new shoes or use new equipment until they become comfortable:
+
+Example: My feet hurt because I'm still breaking in these new leather boots.
+
+To train a new employee, or to train an animal (like a horse) to be ridden:
+
+Example: It takes a few weeks to break in a wild horse.
+
+Break Into
+To enter a building by force (transitive — requires an object):
+
+Example: Someone broke into my apartment last night.
+
+To suddenly begin doing something (laughing, running, singing, sweating):
+
+Example: As soon as she saw him, she broke into a smile.
+
+To successfully enter a new profession, industry, or market:
+
+Example: It is very difficult to break into the publishing industry.
+
+To open something by force or use emergency supplies/funds:
+
+Example: We had to break into our savings to pay for the roof repair.
+
+Break Out
+To start suddenly (war, fire, disease, riots):
+
+Example: World War II broke out in 1939.
+
+To escape from a place (like a prison):
+
+Example: Three inmates managed to break out of the maximum-security facility.
+
+To develop a skin condition (sweat, spots, acne, rash):
+
+Example: Eating too much dairy makes my skin break out.
+
+To bring something out to use or celebrate with:
+
+Example: We won the contract! Let's break out the champagne.
+
+Break Away
+To physically escape from someone who is holding you:
+
+Example: He grabbed her arm, but she managed to break away.
+
+To separate from a group, crowd, or pack (often in a race):
+
+Example: Three cyclists broke away from the main pack to take the lead.
+
+To leave a political party, country, or organization to form a new one:
+
+Example: The rebel faction broke away to form their own government.
+
+Break Back
+To regain a lost advantage (specifically in sports like tennis):
+
+Example: He lost his serve in the first set but immediately broke back in the next game.
+
+Break For
+To suddenly run toward something (usually safety or cover):
+
+Example: When the rain started pouring, we broke for the trees.
+
+To pause an activity for a short period:
+
+Example: Let's break for lunch and resume the meeting at 2:00 PM.
+
+Break With
+To stop following a tradition, habit, or custom:
+
+Example: The designer broke with tradition by using bright neon colors for the wedding dress.
+
+To end a relationship or association with a person or group:
+
+Example: He broke with his family over their political differences.
+
+Break Apart
+To separate or shatter into pieces (often violently):
+
+Example: The space shuttle broke apart upon re-entering the atmosphere.
+
+To destroy a relationship, organization, or group:
+
+Example: The scandal threatened to break the entire committee apart.
+
+Break Over
+To wash or burst over something (like waves):
+
+Example: The massive wave broke over the bow of the ship.
+
+To happen suddenly and intensely in a specific location (weather or events):
+
+Example: The storm broke over the city just after midnight.
+
+Break Through
+To force a way through an obstacle, barrier, or defense:
+
+Example: The sun finally broke through the heavy clouds.
+
+To make a significant discovery or overcome a major limitation:
+
+Example: Scientists hope to break through in their cancer research this year.
+
+Break To
+To tell someone bad or surprising news gently (used as "break it to" or "break the news to"):
+
+Example: I hate to break it to you, but your flight has been canceled.
+
+Break Against
+To crash forcefully into something:
+
+Example: We sat and watched the waves break against the rocky cliffs.
+---
+Bring about
+Definition 1: To cause something to happen.
+
+Example: The new management structure brought about a massive improvement in team efficiency.
+
+Definition 2: (Nautical) To cause a ship to change direction.
+
+Example: The captain brought the ship about to avoid the storm.
+
+Bring around / round
+Definition 1: To persuade someone to agree with your point of view.
+
+Example: He didn't want to use the new software at first, but we eventually brought him around.
+
+Definition 2: To restore someone to consciousness.
+
+Example: She fainted from the heat, but a glass of cold water brought her round.
+
+Definition 3: To bring someone or something to a place (like a home).
+
+Example: I’ll bring the documents round to your apartment this evening.
+
+Definition 4: To gradually introduce a specific topic into a conversation.
+
+Example: After chatting about the weather, she smoothly brought the conversation around to the job offer.
+
+Bring away
+Definition: To learn or gain an impression, memory, or lesson from an experience.
+
+Example: The main insight I brought away from the tech conference was how heavily AI will impact sourcing.
+
+Bring back
+Definition 1: To return something to its original place or owner.
+
+Example: Please bring back the laptop when you finish the presentation.
+
+Definition 2: To cause someone to remember something from the past.
+
+Example: Walking through my old university campus really brought back memories.
+
+Definition 3: To reintroduce something or start doing something again.
+
+Example: The company decided to bring back the remote work policy.
+
+Bring by
+Definition: To visit someone briefly in order to deliver something.
+
+Example: I’ll bring the signed contracts by the office tomorrow morning.
+
+Bring down
+Definition 1: To reduce a level, rate, or amount.
+
+Example: We need to bring down our time-to-hire metric this quarter.
+
+Definition 2: To cause a government or leader to lose power.
+
+Example: The financial scandal eventually brought down the prime minister.
+
+Definition 3: To make someone feel sad, depressed, or less energetic.
+
+Example: This endless rainy weather is really bringing me down.
+
+Definition 4: To cause an aircraft or an animal to fall to the ground.
+
+Example: The pilot safely brought down the plane despite the engine failure.
+
+Bring forward
+Definition 1: To change the date or time of an event so that it happens earlier.
+
+Example: Because of a scheduling conflict, the interview was brought forward to 10:00 AM.
+
+Definition 2: To introduce a plan, proposal, or argument for discussion.
+
+Example: The team brought forward several excellent ideas during the brainstorming session.
+
+Definition 3: (Accounting) To transfer a total from the bottom of one page to the top of the next.
+
+Example: The balance of $5,000 was brought forward to the new ledger.
+
+Bring in
+Definition 1: To involve someone new in a project or situation (often an expert).
+
+Example: We had to bring in a senior DevOps consultant to fix the server architecture.
+
+Definition 2: To earn or produce money.
+
+Example: Her freelance coding projects bring in an extra $2,000 a month.
+
+Definition 3: To introduce a new law, rule, or system.
+
+Example: The government is bringing in stricter data privacy regulations.
+
+Definition 4: To take someone to a police station for questioning or arrest.
+
+Example: The police brought him in for questioning.
+
+Definition 5: (Legal) To yield or announce a verdict in court.
+
+Example: The jury brought in a verdict of not guilty.
+
+Bring into
+Definition: To cause someone or something to become involved in a specific situation, state, or condition.
+
+Example (involve): Please don’t bring me into your argument.
+
+Example (state): The new guidelines will be brought into effect next month.
+
+Bring off
+Definition: To succeed in doing something very difficult, often unexpectedly.
+
+Example: Negotiating that salary package with a tight budget was tough, but she brought it off beautifully.
+
+Bring on
+Definition 1: To cause something to happen (usually something negative, like an illness or bad situation).
+
+Example: I think the sudden change in weather brought on my cold.
+
+Definition 2: To help someone develop or improve, especially in their career or skills.
+
+Example: The senior manager really brought the junior recruiters on over the last year.
+
+Definition 3: To send a player onto the field during a sports match.
+
+Example: The coach brought on a substitute striker in the 80th minute.
+
+Definition 4: Used as an exclamation ("Bring it on!") to show you are prepared for a challenge.
+
+Example: Another difficult technical assessment to evaluate? Bring it on!
+
+Bring out
+Definition 1: To produce a new product and start selling it, or to publish something.
+
+Example: Apple is bringing out a new iPhone model in September.
+
+Definition 2: To highlight or make a particular quality noticeable.
+
+Example: The behavioral interview questions really brought out her leadership qualities.
+
+Definition 3: To cause a physical reaction on the skin (like a rash).
+
+Example: Eating strawberries always brings me out in a rash.
+
+Definition 4: (Bring someone out of their shell) To make a shy person more confident.
+
+Example: Working closely with a team really brought him out of his shell.
+
+Bring over
+Definition 1: To bring someone or something from one place to another (especially to someone's home).
+
+Example: I'll bring over my notes so we can study English grammar together.
+
+Definition 2: To persuade someone to change to your side or opinion (similar to bring around).
+
+Example: We managed to bring the hesitant candidate over to our side with a better relocation package.
+
+Bring through
+Definition: To help someone successfully survive a very difficult, dangerous, or life-threatening situation.
+
+Example: The incredible medical team brought him through the surgery safely.
+
+Bring to
+Definition 1: To make someone conscious again after they have fainted.
+
+Example: The paramedics used smelling salts to bring him to.
+
+Definition 2: To reach a mathematical total.
+
+Example: The latest hires bring our total headcount to 150 employees.
+
+Bring together
+Definition: To help people or groups to become friendly, collaborate, or unite.
+
+Example: The project brought together software developers from all over Europe.
+
+Bring up
+Definition 1: To care for and raise a child until they are an adult.
+
+Example: She was brought up in a bilingual household.
+
+Definition 2: To mention a subject or start talking about a specific topic.
+
+Example: Make sure you bring up the remote work options during the first interview.
+
+Definition 3: To make something appear on a computer screen.
+
+Example: Let me just bring up his GitHub repository so we can review his code.
+
+Definition 4: To vomit.
+
+Example: He ate some bad seafood and brought up his dinner.
+---
+
+for each ["break", "bring"]:
+1) Create the link on list page with particals mentioned above phrasal verbs. 
+   Take as the base "take" link.
+2) Create the page with mentioned above phrasal verbs. 
+   Take as the base "take" page.
+3) Cover the functionality with tests
+---

@@ -33,6 +33,8 @@ function renderPageWithRoutes() {
         <Route path="/phrasal-verbs/list/come" element={<LocationSpy />} />
         <Route path="/phrasal-verbs/list/act" element={<LocationSpy />} />
         <Route path="/phrasal-verbs/list/cut" element={<LocationSpy />} />
+        <Route path="/phrasal-verbs/list/break" element={<LocationSpy />} />
+        <Route path="/phrasal-verbs/list/bring" element={<LocationSpy />} />
         <Route path="/phrasal-verbs/particles" element={<LocationSpy />} />
       </Routes>
     </MemoryRouter>
@@ -655,6 +657,16 @@ describe('PhrasalVerbsListPage — give copy button', () => {
   });
 });
 
+const ALL_BREAK_PARTICLES = [
+  'off', 'up', 'down', 'in', 'into', 'out', 'away', 'back', 'for',
+  'with', 'apart', 'over', 'through', 'to', 'against',
+];
+
+const ALL_BRING_PARTICLES = [
+  'about', 'around / round', 'away', 'back', 'by', 'down', 'forward',
+  'in', 'into', 'off', 'on', 'out', 'over', 'through', 'to', 'together', 'up',
+];
+
 const ALL_ACT_PARTICLES = ['on / upon', 'up', 'out', 'for', 'against'];
 
 const ALL_CUT_PARTICLES = [
@@ -1133,6 +1145,178 @@ describe('PhrasalVerbsListPage — cut copy button', () => {
     renderPage();
     expandCard('cut');
     fireEvent.click(screen.getByRole('button', { name: /copy all "cut" phrasal verbs/i }));
+    await vi.waitFor(() => {
+      expect(screen.getByRole('button', { name: /copied!/i }))
+        .toHaveAttribute('title', 'Copied!');
+    });
+  });
+});
+
+describe('PhrasalVerbsListPage — Break card', () => {
+  it('renders the "Break" card', () => {
+    renderPage();
+    expect(screen.getByRole('heading', { name: 'Break' })).toBeInTheDocument();
+  });
+
+  it('"Break" link points to /phrasal-verbs/list/break', () => {
+    renderPage();
+    const link = screen.getByRole('link', { name: /Break/i });
+    expect(link).toHaveAttribute('href', '/phrasal-verbs/list/break');
+  });
+});
+
+describe('PhrasalVerbsListPage — Break particles subtitle', () => {
+  it('shows break particles text in subtitle after expand', () => {
+    renderPage();
+    expandCard('break');
+    expect(within(screen.getByTestId('verb-card-break')).getByText(/off, up, down/i)).toBeInTheDocument();
+  });
+
+  it('break subtitle title attribute contains all particles', () => {
+    renderPage();
+    expandCard('break');
+    const subtitle = within(screen.getByTestId('verb-card-break')).getByText(/off, up, down/i);
+    expect(subtitle).toHaveAttribute('title', expect.stringContaining('through'));
+    expect(subtitle).toHaveAttribute('title', expect.stringContaining('against'));
+  });
+});
+
+describe('PhrasalVerbsListPage — break copy button', () => {
+  let mockWriteText: ReturnType<typeof vi.fn>;
+
+  beforeEach(() => {
+    mockWriteText = vi.fn().mockResolvedValue(undefined);
+    vi.spyOn(navigator, 'clipboard', 'get').mockReturnValue(
+      { writeText: mockWriteText } as unknown as Clipboard
+    );
+  });
+
+  afterEach(() => {
+    vi.restoreAllMocks();
+    vi.useRealTimers();
+  });
+
+  it('renders a break copy button when expanded', () => {
+    renderPage();
+    expandCard('break');
+    expect(screen.getByRole('button', { name: /copy all "break" phrasal verbs/i })).toBeInTheDocument();
+  });
+
+  it('break copy button title is \'Copy all "break" phrasal verbs\' before click', () => {
+    renderPage();
+    expandCard('break');
+    expect(screen.getByRole('button', { name: /copy all "break" phrasal verbs/i }))
+      .toHaveAttribute('title', 'Copy all "break" phrasal verbs');
+  });
+
+  it('clipboard receives all 15 break particles as "break X" forms in order', () => {
+    renderPage();
+    expandCard('break');
+    fireEvent.click(screen.getByRole('button', { name: /copy all "break" phrasal verbs/i }));
+    const expected = ALL_BREAK_PARTICLES.map(p => `break ${p}`).join(', ');
+    expect(mockWriteText).toHaveBeenCalledWith(expected);
+  });
+
+  it('clipboard content contains every break particle', () => {
+    renderPage();
+    expandCard('break');
+    fireEvent.click(screen.getByRole('button', { name: /copy all "break" phrasal verbs/i }));
+    const written = mockWriteText.mock.calls[0][0] as string;
+    for (const p of ALL_BREAK_PARTICLES) {
+      expect(written).toContain(`break ${p}`);
+    }
+  });
+
+  it('break copy button shows "Copied!" title after click', async () => {
+    renderPage();
+    expandCard('break');
+    fireEvent.click(screen.getByRole('button', { name: /copy all "break" phrasal verbs/i }));
+    await vi.waitFor(() => {
+      expect(screen.getByRole('button', { name: /copied!/i }))
+        .toHaveAttribute('title', 'Copied!');
+    });
+  });
+});
+
+describe('PhrasalVerbsListPage — Bring card', () => {
+  it('renders the "Bring" card', () => {
+    renderPage();
+    expect(screen.getByRole('heading', { name: 'Bring' })).toBeInTheDocument();
+  });
+
+  it('"Bring" link points to /phrasal-verbs/list/bring', () => {
+    renderPage();
+    const link = screen.getByRole('link', { name: /Bring/i });
+    expect(link).toHaveAttribute('href', '/phrasal-verbs/list/bring');
+  });
+});
+
+describe('PhrasalVerbsListPage — Bring particles subtitle', () => {
+  it('shows bring particles text in subtitle after expand', () => {
+    renderPage();
+    expandCard('bring');
+    expect(within(screen.getByTestId('verb-card-bring')).getByText(/about, around \/ round/i)).toBeInTheDocument();
+  });
+
+  it('bring subtitle title attribute contains all particles', () => {
+    renderPage();
+    expandCard('bring');
+    const subtitle = within(screen.getByTestId('verb-card-bring')).getByText(/about, around \/ round/i);
+    expect(subtitle).toHaveAttribute('title', expect.stringContaining('together'));
+    expect(subtitle).toHaveAttribute('title', expect.stringContaining('up'));
+  });
+});
+
+describe('PhrasalVerbsListPage — bring copy button', () => {
+  let mockWriteText: ReturnType<typeof vi.fn>;
+
+  beforeEach(() => {
+    mockWriteText = vi.fn().mockResolvedValue(undefined);
+    vi.spyOn(navigator, 'clipboard', 'get').mockReturnValue(
+      { writeText: mockWriteText } as unknown as Clipboard
+    );
+  });
+
+  afterEach(() => {
+    vi.restoreAllMocks();
+    vi.useRealTimers();
+  });
+
+  it('renders a bring copy button when expanded', () => {
+    renderPage();
+    expandCard('bring');
+    expect(screen.getByRole('button', { name: /copy all "bring" phrasal verbs/i })).toBeInTheDocument();
+  });
+
+  it('bring copy button title is \'Copy all "bring" phrasal verbs\' before click', () => {
+    renderPage();
+    expandCard('bring');
+    expect(screen.getByRole('button', { name: /copy all "bring" phrasal verbs/i }))
+      .toHaveAttribute('title', 'Copy all "bring" phrasal verbs');
+  });
+
+  it('clipboard receives all 17 bring particles as "bring X" forms in order', () => {
+    renderPage();
+    expandCard('bring');
+    fireEvent.click(screen.getByRole('button', { name: /copy all "bring" phrasal verbs/i }));
+    const expected = ALL_BRING_PARTICLES.map(p => `bring ${p}`).join(', ');
+    expect(mockWriteText).toHaveBeenCalledWith(expected);
+  });
+
+  it('clipboard content contains every bring particle', () => {
+    renderPage();
+    expandCard('bring');
+    fireEvent.click(screen.getByRole('button', { name: /copy all "bring" phrasal verbs/i }));
+    const written = mockWriteText.mock.calls[0][0] as string;
+    for (const p of ALL_BRING_PARTICLES) {
+      expect(written).toContain(`bring ${p}`);
+    }
+  });
+
+  it('bring copy button shows "Copied!" title after click', async () => {
+    renderPage();
+    expandCard('bring');
+    fireEvent.click(screen.getByRole('button', { name: /copy all "bring" phrasal verbs/i }));
     await vi.waitFor(() => {
       expect(screen.getByRole('button', { name: /copied!/i }))
         .toHaveAttribute('title', 'Copied!');
