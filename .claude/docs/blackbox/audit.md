@@ -2085,3 +2085,70 @@ But on browser without incognito I see old release (I've even cleaned cookies): 
 on the Phrasal Verbs List page show only base verb, for example "Get", "Put", and on click incread/decrease size to show/hide particles. 
 Save state of showing/hiding.
 ---
+
+## 2026-06-07T22:28:39Z
+Analyze and show me new relase tag with description and step how to create it.
+---
+
+## 2026-06-07T22:29:08Z
+run steps: 2-4
+---
+
+## 2026-06-08T14:22:26Z
+Act on (or Act upon)
+Meaning 1: To take action because of information, advice, or instructions.
+
+Example: The manager decided to act on the feedback she received from the team.
+
+Example: The police are acting on an anonymous tip to solve the case.
+
+Meaning 2: To have an effect on something (often used in medicine or science).
+
+Example: This type of medication acts on the nervous system to reduce pain.
+
+Act up
+Meaning 1: To misbehave or cause trouble (usually referring to children).
+
+Example: The children were bored, so they started acting up in the classroom.
+
+Meaning 2: To malfunction, stop working properly, or cause physical pain (referring to machines or body parts).
+
+Example: My old laptop is acting up again; the screen keeps freezing.
+
+Example: John's knee always acts up when the weather gets cold.
+
+Act out
+Meaning 1: To perform a story, scene, or situation using actions and words.
+
+Example: During the workshop, the developers acted out the user's journey to understand the software requirements better.
+
+Meaning 2: To express negative emotions or stress through disruptive or bad behavior, often because the person cannot talk about their feelings.
+
+Example: The teenager was acting out at school because of his parents' divorce.
+
+Act for
+Meaning 1: To represent someone else or do something on their behalf (especially in legal or business situations).
+
+Example: The lawyer was hired to act for the CEO during the contract negotiations.
+
+Act against
+Meaning 1: To do something that opposes, harms, or violates a person, rule, or interest.
+
+Example: By sharing confidential data, the employee acted against the company's core policies.
+
+---
+
+1) Create "take" link on list page with particals mentioned above phrasal verbs. 
+   Take as the base "get" link.
+2) Create "take" page with mentioned above phrasal verbs. 
+   Take as the base "get" page.
+3) Cover the functionality with tests
+---
+
+## 2026-06-08T14:40:40Z
+for the phrasal verb picture do the same logic as for "take" phrasal verb
+---
+
+## 2026-06-08T16:11:35Z
+git add all changes and commit them with suitable message
+---

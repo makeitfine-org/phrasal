@@ -836,3 +836,43 @@
 - .claude/docs/blackbox/audit.md
 - .claude/docs/blackbox/session-log.md
 <!-- end-snapshot -->
+
+<!-- git-snapshot 2026-06-07T22:28:51Z -->
+- .claude/docs/blackbox/audit.md
+<!-- end-snapshot -->
+
+<!-- git-snapshot 2026-06-07T22:29:28Z -->
+- .claude/docs/blackbox/audit.md
+- .claude/docs/blackbox/session-log.md
+<!-- end-snapshot -->
+
+<!-- git-snapshot 2026-06-08T14:36:39Z -->
+- .claude/docs/blackbox/audit.md
+- .claude/docs/blackbox/session-log.md
+- src/__tests__/PhrasalVerbsListPage.test.tsx
+- src/data/listVerbIndex.ts
+- src/main.tsx
+- src/pages/PhrasalVerbsListPage.tsx
+<!-- end-snapshot -->
+
+<!-- git-snapshot 2026-06-08T14:43:27Z -->
+- .claude/docs/blackbox/audit.md
+- .claude/docs/blackbox/plans/2026-06-08 16:26 Plan Add Act Phrasal Verb Page.md
+- .claude/docs/blackbox/session-log.md
+- src/__tests__/PhrasalVerbsListPage.test.tsx
+- src/__tests__/act_verb_page/against.test.tsx
+- src/__tests__/act_verb_page/for.test.tsx
+- src/__tests__/act_verb_page/helpers.tsx
+- src/__tests__/act_verb_page/on_upon.test.tsx
+- src/__tests__/act_verb_page/out.test.tsx
+- src/__tests__/act_verb_page/up.test.tsx
+- src/data/listVerbIndex.ts
+- src/main.tsx
+- src/pages/PhrasalVerbsListPage.tsx
+- src/pages/act/ActVerbPage.tsx
+<!-- end-snapshot -->
+
+<!-- git-snapshot 2026-06-08T16:11:53Z -->
+- .claude/docs/blackbox/audit.md
+- .claude/docs/blackbox/session-log.md
+<!-- end-snapshot -->

@@ -51,6 +51,8 @@ const TAKE_PARTICLES = [
   'to', 'against',
 ];
 
+const ACT_PARTICLES = ['on / upon', 'up', 'out', 'for', 'against'];
+
 const VERBS = [
   { key: 'get',  label: 'Get',  to: '/phrasal-verbs/list/get',  particles: GET_PARTICLES },
   { key: 'make', label: 'Make', to: '/phrasal-verbs/list/make', particles: MAKE_PARTICLES },
@@ -59,6 +61,7 @@ const VERBS = [
   { key: 'give', label: 'Give', to: '/phrasal-verbs/list/give', particles: GIVE_PARTICLES },
   { key: 'go',   label: 'Go',   to: '/phrasal-verbs/list/go',   particles: GO_PARTICLES },
   { key: 'come', label: 'Come', to: '/phrasal-verbs/list/come', particles: COME_PARTICLES },
+  { key: 'act',  label: 'Act',  to: '/phrasal-verbs/list/act',  particles: ACT_PARTICLES },
 ];
 
 const EXPANDED_KEY = 'verbListExpanded';
