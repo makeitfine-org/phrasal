@@ -14,6 +14,7 @@ import GiveVerbPage from './pages/give/GiveVerbPage';
 import GoVerbPage from './pages/go/GoVerbPage';
 import ComeVerbPage from './pages/come/ComeVerbPage';
 import ActVerbPage from './pages/act/ActVerbPage';
+import CutVerbPage from './pages/cut/CutVerbPage';
 import ParticlesPage from './pages/particles/ParticlesPage';
 import IWishPage from './pages/IWishPage';
 import NotFoundPage from './pages/NotFoundPage';
@@ -40,6 +41,7 @@ ReactDOM.createRoot(document.getElementById('root')!).render(
             <Route path="/phrasal-verbs/list/go" element={<GoVerbPage />} />
             <Route path="/phrasal-verbs/list/come" element={<ComeVerbPage />} />
             <Route path="/phrasal-verbs/list/act" element={<ActVerbPage />} />
+            <Route path="/phrasal-verbs/list/cut" element={<CutVerbPage />} />
             <Route path="/grammar" element={<GrammarPage />} />
             <Route path="/grammar/i-wish-if-only" element={<IWishPage />} />
             <Route path="*" element={<NotFoundPage />} />

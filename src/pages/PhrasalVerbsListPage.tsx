@@ -53,6 +53,11 @@ const TAKE_PARTICLES = [
 
 const ACT_PARTICLES = ['on / upon', 'up', 'out', 'for', 'against'];
 
+const CUT_PARTICLES = [
+  'off', 'on', 'up', 'down', 'in', 'into', 'out', 'away', 'across',
+  'back', 'together', 'apart', 'over', 'ahead', 'through', 'about / round', 'to', 'against',
+];
+
 const VERBS = [
   { key: 'get',  label: 'Get',  to: '/phrasal-verbs/list/get',  particles: GET_PARTICLES },
   { key: 'make', label: 'Make', to: '/phrasal-verbs/list/make', particles: MAKE_PARTICLES },
@@ -62,6 +67,7 @@ const VERBS = [
   { key: 'go',   label: 'Go',   to: '/phrasal-verbs/list/go',   particles: GO_PARTICLES },
   { key: 'come', label: 'Come', to: '/phrasal-verbs/list/come', particles: COME_PARTICLES },
   { key: 'act',  label: 'Act',  to: '/phrasal-verbs/list/act',  particles: ACT_PARTICLES },
+  { key: 'cut',  label: 'Cut',  to: '/phrasal-verbs/list/cut',  particles: CUT_PARTICLES },
 ];
 
 const EXPANDED_KEY = 'verbListExpanded';

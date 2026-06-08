@@ -32,6 +32,7 @@ function renderPageWithRoutes() {
         <Route path="/phrasal-verbs/list/go" element={<LocationSpy />} />
         <Route path="/phrasal-verbs/list/come" element={<LocationSpy />} />
         <Route path="/phrasal-verbs/list/act" element={<LocationSpy />} />
+        <Route path="/phrasal-verbs/list/cut" element={<LocationSpy />} />
         <Route path="/phrasal-verbs/particles" element={<LocationSpy />} />
       </Routes>
     </MemoryRouter>
@@ -656,6 +657,11 @@ describe('PhrasalVerbsListPage — give copy button', () => {
 
 const ALL_ACT_PARTICLES = ['on / upon', 'up', 'out', 'for', 'against'];
 
+const ALL_CUT_PARTICLES = [
+  'off', 'on', 'up', 'down', 'in', 'into', 'out', 'away', 'across',
+  'back', 'together', 'apart', 'over', 'ahead', 'through', 'about / round', 'to', 'against',
+];
+
 const ALL_COME_PARTICLES = [
   'about', 'across', 'after', 'against', 'ahead', 'apart', 'around / round',
   'away', 'back', 'behind', 'by', 'down', 'for', 'forward', 'in', 'into',
@@ -1041,6 +1047,92 @@ describe('PhrasalVerbsListPage — act copy button', () => {
     renderPage();
     expandCard('act');
     fireEvent.click(screen.getByRole('button', { name: /copy all "act" phrasal verbs/i }));
+    await vi.waitFor(() => {
+      expect(screen.getByRole('button', { name: /copied!/i }))
+        .toHaveAttribute('title', 'Copied!');
+    });
+  });
+});
+
+describe('PhrasalVerbsListPage — Cut card', () => {
+  it('renders the "Cut" card', () => {
+    renderPage();
+    expect(screen.getByRole('heading', { name: 'Cut' })).toBeInTheDocument();
+  });
+
+  it('"Cut" link points to /phrasal-verbs/list/cut', () => {
+    renderPage();
+    const link = screen.getByRole('link', { name: /Cut/i });
+    expect(link).toHaveAttribute('href', '/phrasal-verbs/list/cut');
+  });
+});
+
+describe('PhrasalVerbsListPage — Cut particles subtitle', () => {
+  it('shows cut particles text in subtitle after expand', () => {
+    renderPage();
+    expandCard('cut');
+    expect(within(screen.getByTestId('verb-card-cut')).getByText(/off, on, up/i)).toBeInTheDocument();
+  });
+
+  it('cut subtitle title attribute contains all particles', () => {
+    renderPage();
+    expandCard('cut');
+    const subtitle = within(screen.getByTestId('verb-card-cut')).getByText(/off, on, up/i);
+    expect(subtitle).toHaveAttribute('title', expect.stringContaining('through'));
+    expect(subtitle).toHaveAttribute('title', expect.stringContaining('against'));
+  });
+});
+
+describe('PhrasalVerbsListPage — cut copy button', () => {
+  let mockWriteText: ReturnType<typeof vi.fn>;
+
+  beforeEach(() => {
+    mockWriteText = vi.fn().mockResolvedValue(undefined);
+    vi.spyOn(navigator, 'clipboard', 'get').mockReturnValue(
+      { writeText: mockWriteText } as unknown as Clipboard
+    );
+  });
+
+  afterEach(() => {
+    vi.restoreAllMocks();
+    vi.useRealTimers();
+  });
+
+  it('renders a cut copy button when expanded', () => {
+    renderPage();
+    expandCard('cut');
+    expect(screen.getByRole('button', { name: /copy all "cut" phrasal verbs/i })).toBeInTheDocument();
+  });
+
+  it('cut copy button title is \'Copy all "cut" phrasal verbs\' before click', () => {
+    renderPage();
+    expandCard('cut');
+    expect(screen.getByRole('button', { name: /copy all "cut" phrasal verbs/i }))
+      .toHaveAttribute('title', 'Copy all "cut" phrasal verbs');
+  });
+
+  it('clipboard receives all 18 cut particles as "cut X" forms in order', () => {
+    renderPage();
+    expandCard('cut');
+    fireEvent.click(screen.getByRole('button', { name: /copy all "cut" phrasal verbs/i }));
+    const expected = ALL_CUT_PARTICLES.map(p => `cut ${p}`).join(', ');
+    expect(mockWriteText).toHaveBeenCalledWith(expected);
+  });
+
+  it('clipboard content contains every cut particle', () => {
+    renderPage();
+    expandCard('cut');
+    fireEvent.click(screen.getByRole('button', { name: /copy all "cut" phrasal verbs/i }));
+    const written = mockWriteText.mock.calls[0][0] as string;
+    for (const p of ALL_CUT_PARTICLES) {
+      expect(written).toContain(`cut ${p}`);
+    }
+  });
+
+  it('cut copy button shows "Copied!" title after click', async () => {
+    renderPage();
+    expandCard('cut');
+    fireEvent.click(screen.getByRole('button', { name: /copy all "cut" phrasal verbs/i }));
     await vi.waitFor(() => {
       expect(screen.getByRole('button', { name: /copied!/i }))
         .toHaveAttribute('title', 'Copied!');
