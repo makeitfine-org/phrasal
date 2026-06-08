@@ -20,6 +20,9 @@ import BringVerbPage from './pages/bring/BringVerbPage';
 import AskVerbPage from './pages/ask/AskVerbPage';
 import BackVerbPage from './pages/back/BackVerbPage';
 import BeVerbPage from './pages/be/BeVerbPage';
+import BlowVerbPage from './pages/blow/BlowVerbPage';
+import BrushVerbPage from './pages/brush/BrushVerbPage';
+import BuildVerbPage from './pages/build/BuildVerbPage';
 import ParticlesPage from './pages/particles/ParticlesPage';
 import IWishPage from './pages/IWishPage';
 import NotFoundPage from './pages/NotFoundPage';
@@ -52,6 +55,9 @@ ReactDOM.createRoot(document.getElementById('root')!).render(
             <Route path="/phrasal-verbs/list/ask" element={<AskVerbPage />} />
             <Route path="/phrasal-verbs/list/back" element={<BackVerbPage />} />
             <Route path="/phrasal-verbs/list/be" element={<BeVerbPage />} />
+            <Route path="/phrasal-verbs/list/blow" element={<BlowVerbPage />} />
+            <Route path="/phrasal-verbs/list/brush" element={<BrushVerbPage />} />
+            <Route path="/phrasal-verbs/list/build" element={<BuildVerbPage />} />
             <Route path="/grammar" element={<GrammarPage />} />
             <Route path="/grammar/i-wish-if-only" element={<IWishPage />} />
             <Route path="*" element={<NotFoundPage />} />

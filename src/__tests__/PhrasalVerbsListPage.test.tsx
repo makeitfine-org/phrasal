@@ -38,6 +38,9 @@ function renderPageWithRoutes() {
         <Route path="/phrasal-verbs/list/ask" element={<LocationSpy />} />
         <Route path="/phrasal-verbs/list/back" element={<LocationSpy />} />
         <Route path="/phrasal-verbs/list/be" element={<LocationSpy />} />
+        <Route path="/phrasal-verbs/list/blow" element={<LocationSpy />} />
+        <Route path="/phrasal-verbs/list/brush" element={<LocationSpy />} />
+        <Route path="/phrasal-verbs/list/build" element={<LocationSpy />} />
         <Route path="/phrasal-verbs/particles" element={<LocationSpy />} />
       </Routes>
     </MemoryRouter>
@@ -1594,6 +1597,275 @@ describe('PhrasalVerbsListPage — be copy button', () => {
     renderPage();
     expandCard('be');
     fireEvent.click(screen.getByRole('button', { name: /copy all "be" phrasal verbs/i }));
+    await vi.waitFor(() => {
+      expect(screen.getByRole('button', { name: /copied!/i }))
+        .toHaveAttribute('title', 'Copied!');
+    });
+  });
+});
+
+const ALL_BLOW_PARTICLES = [
+  'about / around (round)', 'apart', 'away', 'back', 'by', 'down', 'in',
+  'into', 'off', 'out', 'over', 'through', 'up',
+];
+
+const ALL_BRUSH_PARTICLES = [
+  'off', 'up / up on', 'away', 'down', 'out', 'on', 'over', 'against', 'by', 'back', 'through',
+];
+
+const ALL_BUILD_PARTICLES = ['around / round', 'in / into', 'on', 'out', 'up', 'to'];
+
+describe('PhrasalVerbsListPage — Blow card', () => {
+  it('renders the "Blow" card', () => {
+    renderPage();
+    expect(screen.getByRole('heading', { name: 'Blow' })).toBeInTheDocument();
+  });
+
+  it('"Blow" link points to /phrasal-verbs/list/blow', () => {
+    renderPage();
+    const link = screen.getByRole('link', { name: /^Blow$/i });
+    expect(link).toHaveAttribute('href', '/phrasal-verbs/list/blow');
+  });
+});
+
+describe('PhrasalVerbsListPage — Blow particles subtitle', () => {
+  it('shows blow particles text in subtitle after expand', () => {
+    renderPage();
+    expandCard('blow');
+    expect(within(screen.getByTestId('verb-card-blow')).getByText(/about \/ around \(round\), apart/i)).toBeInTheDocument();
+  });
+
+  it('blow subtitle title attribute contains all particles', () => {
+    renderPage();
+    expandCard('blow');
+    const subtitle = within(screen.getByTestId('verb-card-blow')).getByText(/about \/ around \(round\), apart/i);
+    expect(subtitle).toHaveAttribute('title', expect.stringContaining('through'));
+    expect(subtitle).toHaveAttribute('title', expect.stringContaining('up'));
+  });
+});
+
+describe('PhrasalVerbsListPage — blow copy button', () => {
+  let mockWriteText: ReturnType<typeof vi.fn>;
+
+  beforeEach(() => {
+    mockWriteText = vi.fn().mockResolvedValue(undefined);
+    vi.spyOn(navigator, 'clipboard', 'get').mockReturnValue(
+      { writeText: mockWriteText } as unknown as Clipboard
+    );
+  });
+
+  afterEach(() => {
+    vi.restoreAllMocks();
+    vi.useRealTimers();
+  });
+
+  it('renders a blow copy button when expanded', () => {
+    renderPage();
+    expandCard('blow');
+    expect(screen.getByRole('button', { name: /copy all "blow" phrasal verbs/i })).toBeInTheDocument();
+  });
+
+  it('blow copy button title is \'Copy all "blow" phrasal verbs\' before click', () => {
+    renderPage();
+    expandCard('blow');
+    expect(screen.getByRole('button', { name: /copy all "blow" phrasal verbs/i }))
+      .toHaveAttribute('title', 'Copy all "blow" phrasal verbs');
+  });
+
+  it('clipboard receives all 13 blow particles as "blow X" forms in order', () => {
+    renderPage();
+    expandCard('blow');
+    fireEvent.click(screen.getByRole('button', { name: /copy all "blow" phrasal verbs/i }));
+    const expected = ALL_BLOW_PARTICLES.map(p => `blow ${p}`).join(', ');
+    expect(mockWriteText).toHaveBeenCalledWith(expected);
+  });
+
+  it('clipboard content contains every blow particle', () => {
+    renderPage();
+    expandCard('blow');
+    fireEvent.click(screen.getByRole('button', { name: /copy all "blow" phrasal verbs/i }));
+    const written = mockWriteText.mock.calls[0][0] as string;
+    for (const p of ALL_BLOW_PARTICLES) {
+      expect(written).toContain(`blow ${p}`);
+    }
+  });
+
+  it('blow copy button shows "Copied!" title after click', async () => {
+    renderPage();
+    expandCard('blow');
+    fireEvent.click(screen.getByRole('button', { name: /copy all "blow" phrasal verbs/i }));
+    await vi.waitFor(() => {
+      expect(screen.getByRole('button', { name: /copied!/i }))
+        .toHaveAttribute('title', 'Copied!');
+    });
+  });
+});
+
+describe('PhrasalVerbsListPage — Brush card', () => {
+  it('renders the "Brush" card', () => {
+    renderPage();
+    expect(screen.getByRole('heading', { name: 'Brush' })).toBeInTheDocument();
+  });
+
+  it('"Brush" link points to /phrasal-verbs/list/brush', () => {
+    renderPage();
+    const link = screen.getByRole('link', { name: /^Brush$/i });
+    expect(link).toHaveAttribute('href', '/phrasal-verbs/list/brush');
+  });
+});
+
+describe('PhrasalVerbsListPage — Brush particles subtitle', () => {
+  it('shows brush particles text in subtitle after expand', () => {
+    renderPage();
+    expandCard('brush');
+    expect(within(screen.getByTestId('verb-card-brush')).getByText(/off, up \/ up on, away/i)).toBeInTheDocument();
+  });
+
+  it('brush subtitle title attribute contains all particles', () => {
+    renderPage();
+    expandCard('brush');
+    const subtitle = within(screen.getByTestId('verb-card-brush')).getByText(/off, up \/ up on, away/i);
+    expect(subtitle).toHaveAttribute('title', expect.stringContaining('against'));
+    expect(subtitle).toHaveAttribute('title', expect.stringContaining('through'));
+  });
+});
+
+describe('PhrasalVerbsListPage — brush copy button', () => {
+  let mockWriteText: ReturnType<typeof vi.fn>;
+
+  beforeEach(() => {
+    mockWriteText = vi.fn().mockResolvedValue(undefined);
+    vi.spyOn(navigator, 'clipboard', 'get').mockReturnValue(
+      { writeText: mockWriteText } as unknown as Clipboard
+    );
+  });
+
+  afterEach(() => {
+    vi.restoreAllMocks();
+    vi.useRealTimers();
+  });
+
+  it('renders a brush copy button when expanded', () => {
+    renderPage();
+    expandCard('brush');
+    expect(screen.getByRole('button', { name: /copy all "brush" phrasal verbs/i })).toBeInTheDocument();
+  });
+
+  it('brush copy button title is \'Copy all "brush" phrasal verbs\' before click', () => {
+    renderPage();
+    expandCard('brush');
+    expect(screen.getByRole('button', { name: /copy all "brush" phrasal verbs/i }))
+      .toHaveAttribute('title', 'Copy all "brush" phrasal verbs');
+  });
+
+  it('clipboard receives all 11 brush particles as "brush X" forms in order', () => {
+    renderPage();
+    expandCard('brush');
+    fireEvent.click(screen.getByRole('button', { name: /copy all "brush" phrasal verbs/i }));
+    const expected = ALL_BRUSH_PARTICLES.map(p => `brush ${p}`).join(', ');
+    expect(mockWriteText).toHaveBeenCalledWith(expected);
+  });
+
+  it('clipboard content contains every brush particle', () => {
+    renderPage();
+    expandCard('brush');
+    fireEvent.click(screen.getByRole('button', { name: /copy all "brush" phrasal verbs/i }));
+    const written = mockWriteText.mock.calls[0][0] as string;
+    for (const p of ALL_BRUSH_PARTICLES) {
+      expect(written).toContain(`brush ${p}`);
+    }
+  });
+
+  it('brush copy button shows "Copied!" title after click', async () => {
+    renderPage();
+    expandCard('brush');
+    fireEvent.click(screen.getByRole('button', { name: /copy all "brush" phrasal verbs/i }));
+    await vi.waitFor(() => {
+      expect(screen.getByRole('button', { name: /copied!/i }))
+        .toHaveAttribute('title', 'Copied!');
+    });
+  });
+});
+
+describe('PhrasalVerbsListPage — Build card', () => {
+  it('renders the "Build" card', () => {
+    renderPage();
+    expect(screen.getByRole('heading', { name: 'Build' })).toBeInTheDocument();
+  });
+
+  it('"Build" link points to /phrasal-verbs/list/build', () => {
+    renderPage();
+    const link = screen.getByRole('link', { name: /^Build$/i });
+    expect(link).toHaveAttribute('href', '/phrasal-verbs/list/build');
+  });
+});
+
+describe('PhrasalVerbsListPage — Build particles subtitle', () => {
+  it('shows build particles text in subtitle after expand', () => {
+    renderPage();
+    expandCard('build');
+    expect(within(screen.getByTestId('verb-card-build')).getByText(/around \/ round, in \/ into/i)).toBeInTheDocument();
+  });
+
+  it('build subtitle title attribute contains all particles', () => {
+    renderPage();
+    expandCard('build');
+    const subtitle = within(screen.getByTestId('verb-card-build')).getByText(/around \/ round, in \/ into/i);
+    expect(subtitle).toHaveAttribute('title', expect.stringContaining('up'));
+    expect(subtitle).toHaveAttribute('title', expect.stringContaining('to'));
+  });
+});
+
+describe('PhrasalVerbsListPage — build copy button', () => {
+  let mockWriteText: ReturnType<typeof vi.fn>;
+
+  beforeEach(() => {
+    mockWriteText = vi.fn().mockResolvedValue(undefined);
+    vi.spyOn(navigator, 'clipboard', 'get').mockReturnValue(
+      { writeText: mockWriteText } as unknown as Clipboard
+    );
+  });
+
+  afterEach(() => {
+    vi.restoreAllMocks();
+    vi.useRealTimers();
+  });
+
+  it('renders a build copy button when expanded', () => {
+    renderPage();
+    expandCard('build');
+    expect(screen.getByRole('button', { name: /copy all "build" phrasal verbs/i })).toBeInTheDocument();
+  });
+
+  it('build copy button title is \'Copy all "build" phrasal verbs\' before click', () => {
+    renderPage();
+    expandCard('build');
+    expect(screen.getByRole('button', { name: /copy all "build" phrasal verbs/i }))
+      .toHaveAttribute('title', 'Copy all "build" phrasal verbs');
+  });
+
+  it('clipboard receives all 6 build particles as "build X" forms in order', () => {
+    renderPage();
+    expandCard('build');
+    fireEvent.click(screen.getByRole('button', { name: /copy all "build" phrasal verbs/i }));
+    const expected = ALL_BUILD_PARTICLES.map(p => `build ${p}`).join(', ');
+    expect(mockWriteText).toHaveBeenCalledWith(expected);
+  });
+
+  it('clipboard content contains every build particle', () => {
+    renderPage();
+    expandCard('build');
+    fireEvent.click(screen.getByRole('button', { name: /copy all "build" phrasal verbs/i }));
+    const written = mockWriteText.mock.calls[0][0] as string;
+    for (const p of ALL_BUILD_PARTICLES) {
+      expect(written).toContain(`build ${p}`);
+    }
+  });
+
+  it('build copy button shows "Copied!" title after click', async () => {
+    renderPage();
+    expandCard('build');
+    fireEvent.click(screen.getByRole('button', { name: /copy all "build" phrasal verbs/i }));
     await vi.waitFor(() => {
       expect(screen.getByRole('button', { name: /copied!/i }))
         .toHaveAttribute('title', 'Copied!');

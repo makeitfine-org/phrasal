@@ -13,6 +13,9 @@ import { sections as bringS } from '../pages/bring/BringVerbPage';
 import { sections as askSections } from '../pages/ask/AskVerbPage';
 import { sections as backSections } from '../pages/back/BackVerbPage';
 import { sections as beSections } from '../pages/be/BeVerbPage';
+import { sections as blowSections } from '../pages/blow/BlowVerbPage';
+import { sections as brushSections } from '../pages/brush/BrushVerbPage';
+import { sections as buildSections } from '../pages/build/BuildVerbPage';
 
 export interface ListSearchEntry {
   verb: string;
@@ -53,4 +56,7 @@ export const listVerbIndex: ListSearchEntry[] = [
   ...buildEntries(askSections, 'Ask', '/phrasal-verbs/list/ask'),
   ...buildEntries(backSections, 'Back', '/phrasal-verbs/list/back'),
   ...buildEntries(beSections, 'Be', '/phrasal-verbs/list/be'),
+  ...buildEntries(blowSections, 'Blow', '/phrasal-verbs/list/blow'),
+  ...buildEntries(brushSections, 'Brush', '/phrasal-verbs/list/brush'),
+  ...buildEntries(buildSections, 'Build', '/phrasal-verbs/list/build'),
 ];

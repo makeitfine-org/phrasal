@@ -84,6 +84,17 @@ const BRING_PARTICLES = [
   'in', 'into', 'off', 'on', 'out', 'over', 'through', 'to', 'together', 'up',
 ];
 
+const BLOW_PARTICLES = [
+  'about / around (round)', 'apart', 'away', 'back', 'by', 'down', 'in',
+  'into', 'off', 'out', 'over', 'through', 'up',
+];
+
+const BRUSH_PARTICLES = [
+  'off', 'up / up on', 'away', 'down', 'out', 'on', 'over', 'against', 'by', 'back', 'through',
+];
+
+const BUILD_PARTICLES = ['around / round', 'in / into', 'on', 'out', 'up', 'to'];
+
 const VERBS = [
   { key: 'get',  label: 'Get',  to: '/phrasal-verbs/list/get',  particles: GET_PARTICLES },
   { key: 'make', label: 'Make', to: '/phrasal-verbs/list/make', particles: MAKE_PARTICLES },
@@ -99,6 +110,9 @@ const VERBS = [
   { key: 'ask',   label: 'Ask',   to: '/phrasal-verbs/list/ask',   particles: ASK_PARTICLES },
   { key: 'back',  label: 'Back',  to: '/phrasal-verbs/list/back',  particles: BACK_PARTICLES },
   { key: 'be',    label: 'Be',    to: '/phrasal-verbs/list/be',    particles: BE_PARTICLES },
+  { key: 'blow',  label: 'Blow',  to: '/phrasal-verbs/list/blow',  particles: BLOW_PARTICLES },
+  { key: 'brush', label: 'Brush', to: '/phrasal-verbs/list/brush', particles: BRUSH_PARTICLES },
+  { key: 'build', label: 'Build', to: '/phrasal-verbs/list/build', particles: BUILD_PARTICLES },
 ];
 
 const EXPANDED_KEY = 'verbListExpanded';

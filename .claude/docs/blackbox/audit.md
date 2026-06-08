@@ -2958,3 +2958,279 @@ for each ["ask", "back", "be"]:
    Take as the base "take" page.
 3) Cover the functionality with tests
 ---
+
+## 2026-06-08T17:34:51Z
+Blow about / Blow around (round)
+
+Meaning 1 (Literal): To move in different directions because of the wind.
+
+Example: The autumn leaves are blowing around the garden.
+
+Meaning 2 (Figurative): To spread rumors or stories (mostly British English).
+
+Example: There are a few rumors blowing about the office regarding the new manager.
+
+Blow apart
+
+Meaning 1 (Literal): To completely destroy something using an explosion.
+
+Example: The bomb blew the old building apart.
+
+Meaning 2 (Figurative): To completely destroy an argument, idea, or plan by showing its flaws.
+
+Example: The senior developer blew apart my software architecture proposal during the meeting.
+
+Blow away
+
+Meaning 1 (Figurative): To impress someone very much.
+
+Example: The team's presentation on the new Java framework completely blew me away.
+
+Meaning 2 (Literal): To move something away using the wind.
+
+Example: Hold onto your documents, or the wind will blow them away.
+
+Meaning 3 (Slang): To defeat competitors easily or kill someone.
+
+Example: Our new product will blow the competition away.
+
+Blow back
+
+Meaning 1 (Literal): When the wind pushes something (like smoke or hair) back toward you.
+
+Example: I tried to light the fire, but the smoke blew back into my face.
+
+Meaning 2 (Figurative): To have unexpected negative consequences for the person who started an action (often used as the noun blowback).
+
+Example: The company's aggressive marketing campaign blew back on them when customers complained.
+
+Blow by
+
+Meaning 1 (Figurative): To pass very quickly (usually referring to time).
+
+Example: The weekend just blew by, and now it is Monday again.
+
+Meaning 2 (Figurative): To easily move past a competitor or obstacle.
+
+Example: The runner blew by the defender to score a goal.
+
+Blow down
+
+Meaning 1 (Literal): To make something fall to the ground using strong wind.
+
+Example: The storm blew down several trees in our neighborhood.
+
+Blow in
+
+Meaning 1 (Figurative): To arrive casually, suddenly, or unexpectedly.
+
+Example: The CEO just blew in from London and wants to see you.
+
+Blow into
+
+Meaning 1 (Figurative): To enter a room or building casually or loudly.
+
+Example: She blew into the office 20 minutes late, holding a cup of coffee.
+
+Meaning 2 (Literal): To push air from your mouth into a device.
+
+Example: The police officer asked the driver to blow into the breathalyzer.
+
+Blow off
+
+Meaning 1 (Figurative): To ignore someone or fail to attend an appointment.
+
+Example: I tried to organize a meeting with the client, but he blew me off.
+
+Meaning 2 (Figurative): To ignore a responsibility or task.
+
+Example: He blew off his homework to play video games.
+
+Meaning 3 (Figurative): To release physical or emotional pressure (often "blow off steam").
+
+Example: After a stressful week at work, I like to run 10 kilometers to blow off steam.
+
+Blow out
+
+Meaning 1 (Literal): To extinguish a flame with your breath or wind.
+
+Example: Make a wish and blow out the candles on your birthday cake.
+
+Meaning 2 (Figurative): To defeat an opponent very easily.
+
+Example: Our sales team blew out the competition this quarter.
+
+Meaning 3 (Literal): When a vehicle's tire suddenly bursts.
+
+Example: I was driving to Warsaw when my front tire blew out.
+
+Blow over
+
+Meaning 1 (Figurative): When a bad situation, argument, or storm ends or is forgotten without causing serious damage.
+
+Example: The management decided to wait for the PR scandal to blow over before launching the app.
+
+Blow through
+
+Meaning 1 (Figurative): To spend money very quickly and irresponsibly.
+
+Example: The startup blew through its entire budget in just six months.
+
+Meaning 2 (Literal): To travel through a place quickly without stopping.
+
+Example: We didn't have time for sightseeing; we just blew through Paris on our way south.
+
+Blow up
+
+Meaning 1 (Literal): To explode or be destroyed by an explosion.
+
+Example: The action movie hero walked away as the car blew up behind him.
+
+Meaning 2 (Literal): To fill something with air (inflate).
+
+Example: Can you help me blow up these balloons for the party?
+
+Meaning 3 (Figurative): To suddenly become very angry.
+
+Example: My boss blew up at me when I accidentally deleted the database.
+
+Meaning 4 (Figurative): To enlarge a photograph or image.
+
+Example: Let's blow up this chart so everyone in the meeting room can see it.
+
+Meaning 5 (Figurative): To suddenly become very popular or successful.
+
+Example: Their new social media app blew up overnight.
+---
+1. Brush off
+Meaning 1 (Literal): To use your hand or a brush to remove dirt, dust, or something unwanted from a surface.
+
+Example: I brushed off my suit before entering the meeting.
+
+Meaning 2 (Idiomatic): To ignore someone, refuse to listen to them, or treat their ideas as unimportant.
+
+Example: I tried to suggest a new Java framework, but the lead developer brushed me off.
+
+2. Brush up / Brush up on
+Meaning 1 (Idiomatic): To improve your knowledge or skill in something you learned in the past but have partly forgotten.
+
+Example: You should brush up on your management skills before applying for the leadership role.
+
+3. Brush away
+Meaning 1 (Literal): To remove something by sweeping it with your hand or a brush.
+
+Example: She brushed away the crumbs from the keyboard.
+
+Meaning 2 (Idiomatic): To quickly dismiss a feeling, thought, or fear.
+
+Example: He brushed away his doubts and launched the new software product.
+
+4. Brush down
+Meaning 1 (Literal): To clean someone or something by brushing them from top to bottom.
+
+Example: The rider brushed down the horse after the race.
+
+5. Brush out
+Meaning 1 (Literal): To remove tangles or dirt from hair or fur using a brush.
+
+Example: It takes a long time to brush out this dog's thick coat.
+
+Meaning 2 (Literal): To clean the inside of something with a brush.
+
+Example: Please brush out the back of the company van before returning it.
+
+6. Brush on
+Meaning 1 (Literal): To apply a liquid (like paint, glue, or a sauce) to a surface using a brush.
+
+Example: Brush on a light coat of varnish to protect the wood.
+
+7. Brush over
+Meaning 1 (Idiomatic): To ignore a problem or treat a topic lightly instead of explaining it in detail.
+
+Example: The CEO brushed over the bad financial report and focused only on future goals.
+
+8. Brush against
+Meaning 1 (Literal): To touch someone or something lightly while moving past them.
+
+Example: My shoulder brushed against the doorframe as I walked into the office.
+
+9. Brush by
+Meaning 1 (Literal): To walk past someone in a narrow space, touching them slightly.
+
+Example: He brushed by me in the crowded hallway without saying excuse me.
+
+10. Brush back
+Meaning 1 (Literal): To push hair away from your face.
+
+Example: She brushed back her hair to look closer at the screen.
+
+Meaning 2 (Idiomatic / Sports): To force someone to move backward (often used in baseball when a pitcher throws a ball very close to the batter).
+
+Example: The pitcher threw a fast ball inside to brush back the batter.
+
+11. Brush through
+Meaning 1 (Literal): To move a brush completely through hair to remove knots.
+
+Example: Just brush through your hair quickly before the video call starts.
+---
+Build around (or round)
+Definition: To base a strategy, system, plan, or team on a central person, idea, or concept.
+
+Example 1 (Business): The CEO decided to build the new marketing strategy around customer retention.
+
+Example 2 (Software): The entire application is built around a secure Java Spring Boot backend.
+
+Build in / into
+Definition: To include something as a permanent, essential, or integral part of a system, plan, or structure from the beginning.
+
+Example 1: When planning the project schedule, we need to build in some extra time for unexpected delays.
+
+Example 2: The leadership team is trying to build a culture of continuous feedback into the organization.
+
+Example 3: Security features shouldn't be an afterthought; they must be built into the software architecture.
+
+Build on (and informally, Build off)
+Definition: To use a past achievement, existing idea, or success as a foundation for further progress and development. (Note: "Build off" is commonly used in spoken American English with the exact same meaning.)
+
+Example 1: We can build on the momentum of last quarter's sales to reach our new targets.
+
+Example 2: The new management framework builds on classic agile principles.
+
+Example 3: That’s a great suggestion—let’s build off that idea during our next brainstorming session.
+
+Build out
+Definition: To develop, expand, or complete a system, space, or business so that it reaches its full potential or size.
+
+Example 1: The startup received funding to build out its sales and marketing departments.
+
+Example 2: The development team is working to build out the public API so external partners can use it.
+
+Build up
+This is the most versatile phrasal verb on the list and carries several distinct meanings.
+Definition 1: To gradually increase in amount, size, strength, or intensity.
+
+Example: If we don't refactor the code regularly, technical debt will build up quickly.
+
+Example: The manager worked hard to build up the confidence of her junior developers.
+
+Definition 2: To talk about someone or something in a very positive way to create a good impression (often before introducing them).
+
+Example: The director really built up the new project manager before she walked into the meeting.
+
+Definition 3: To develop an area with many buildings and infrastructure.
+
+Example: The area around the new technology park has become highly built up over the last five years.
+
+Build to (often Build up to)
+Definition: To gradually increase and approach a climax, peak, or major event.
+
+Example: The tension in the boardroom was building to a breaking point before the final decision was made.
+---
+
+for each ["blow", "brush", "build"]:
+1) Create the link on list page with particals mentioned above phrasal verbs. 
+   Take as the base "take" link.
+2) Create the page with mentioned above phrasal verbs. 
+   Take as the base "take" page.
+3) Cover the functionality with tests
+---
