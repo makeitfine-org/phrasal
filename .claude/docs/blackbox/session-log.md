@@ -885,3 +885,28 @@
 - .claude/docs/blackbox/audit.md
 - .claude/docs/blackbox/session-log.md
 <!-- end-snapshot -->
+
+## 2026-06-08T19:30:00Z
+### Decisions
+- Added Ask (13 particles), Back (9 particles), Be (26 particles) verb pages following established VerbPageLayout pattern
+- Fixed `getByRole('link', { name: /Back/i })` ambiguity — "back" appears in PARTICLE_NAMES text, so used heading.closest('a') approach instead
+### Constraints Stated by User
+- Use "take" page/link as template; cover with tests
+### Files Modified
+- src/pages/ask/AskVerbPage.tsx — new, 13 particles, all default.png
+- src/pages/back/BackVerbPage.tsx — new, 9 particles (incl. "out / out of"), all default.png
+- src/pages/be/BeVerbPage.tsx — new, 26 particles (incl. "around / round"), all default.png
+- src/pages/PhrasalVerbsListPage.tsx — added ASK/BACK/BE_PARTICLES constants and VERBS entries
+- src/main.tsx — added routes for /ask, /back, /be
+- src/data/listVerbIndex.ts — added ask/back/be sections to search index
+- src/__tests__/ask_verb_page/ — 13 test files + helpers
+- src/__tests__/back_verb_page/ — 9 test files + helpers
+- src/__tests__/be_verb_page/ — 26 test files + helpers
+- src/__tests__/PhrasalVerbsListPage.test.tsx — Ask/Back/Be card, subtitle, copy-button blocks; 3 new routes
+### Deferred
+- None
+---
+
+<!-- git-snapshot 2026-06-08T17:32:17Z -->
+- .claude/docs/blackbox/session-log.md
+<!-- end-snapshot -->

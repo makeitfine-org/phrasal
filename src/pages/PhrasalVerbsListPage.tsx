@@ -58,6 +58,22 @@ const CUT_PARTICLES = [
   'back', 'together', 'apart', 'over', 'ahead', 'through', 'about / round', 'to', 'against',
 ];
 
+const ASK_PARTICLES = [
+  'about', 'after', 'around / round', 'away', 'back', 'down', 'for',
+  'in', 'into', 'off', 'out', 'over', 'up',
+];
+
+const BACK_PARTICLES = [
+  'away', 'down', 'in', 'into', 'off', 'onto', 'out / out of', 'over', 'up',
+];
+
+const BE_PARTICLES = [
+  'off', 'on', 'up', 'down', 'in', 'into', 'out', 'away', 'across',
+  'forward', 'back', 'for', 'by', 'together', 'with', 'without', 'apart',
+  'over', 'ahead', 'after', 'behind', 'through', 'about', 'around / round',
+  'to', 'against',
+];
+
 const BREAK_PARTICLES = [
   'off', 'up', 'down', 'in', 'into', 'out', 'away', 'back', 'for',
   'with', 'apart', 'over', 'through', 'to', 'against',
@@ -80,6 +96,9 @@ const VERBS = [
   { key: 'cut',   label: 'Cut',   to: '/phrasal-verbs/list/cut',   particles: CUT_PARTICLES },
   { key: 'break', label: 'Break', to: '/phrasal-verbs/list/break', particles: BREAK_PARTICLES },
   { key: 'bring', label: 'Bring', to: '/phrasal-verbs/list/bring', particles: BRING_PARTICLES },
+  { key: 'ask',   label: 'Ask',   to: '/phrasal-verbs/list/ask',   particles: ASK_PARTICLES },
+  { key: 'back',  label: 'Back',  to: '/phrasal-verbs/list/back',  particles: BACK_PARTICLES },
+  { key: 'be',    label: 'Be',    to: '/phrasal-verbs/list/be',    particles: BE_PARTICLES },
 ];
 
 const EXPANDED_KEY = 'verbListExpanded';

@@ -2668,3 +2668,293 @@ for each ["break", "bring"]:
    Take as the base "take" page.
 3) Cover the functionality with tests
 ---
+
+## 2026-06-08T17:14:26Z
+Ask about
+Meaning: To try to get information about a subject or a person.
+
+Example: I need to call the hotel to ask about their parking rules.
+
+Ask after
+Meaning: To ask for news about someone, usually concerning their health or how their life is going.
+
+Example: I saw your old manager yesterday, and he asked after you.
+
+Ask around / Ask round
+Meaning 1: To ask many different people the same question, usually to find information or get help.
+
+Example: I don't know a good plumber, but I will ask around the office for you.
+
+Meaning 2 (British English - usually "ask round"): To invite someone to your home.
+
+Example: We should ask the new neighbors round for a cup of coffee.
+
+Ask away
+Meaning: An expression used to tell someone that they can start asking their questions.
+
+Example: If anyone has questions about the new software update, ask away!
+
+Ask back
+Meaning 1: To invite someone to return to a place (like your house or an event).
+
+Example: We had a great time with them, so we will definitely ask them back soon.
+
+Meaning 2: To invite someone to return for a second job interview.
+
+Example: The first interview went very well, so they asked her back for a second one.
+
+Ask down
+Meaning: To invite someone to come downstairs from a higher floor.
+
+Example: His mother asked him down for breakfast.
+
+Ask for
+Meaning 1: To request something to be given to you.
+
+Example: I am going to the boss's office to ask for a pay rise.
+
+Meaning 2: To say that you want to speak to a specific person.
+
+Example: When you arrive at the reception desk, ask for Mr. Smith.
+
+Meaning 3 (Idiomatic): To behave in a way that will clearly cause trouble or problems (usually "asking for it" or "asking for trouble").
+
+Example: Driving that fast in the rain is just asking for trouble.
+
+Ask in
+Meaning: To invite someone to come inside a building, house, or room.
+
+Example: It was raining heavily outside, so I asked her in to wait.
+
+Ask into
+Meaning: Similar to "ask in," but used when specifying the exact room someone is invited into.
+
+Example: The manager asked me into his office to discuss the new project.
+
+Ask off
+Meaning: To request permission to not go to work for a specific period of time.
+
+Example: I need to ask Friday off so I can attend my sister's wedding.
+
+Ask out
+Meaning: To invite someone to go to a movie, restaurant, etc., because you want to start a romantic relationship with them.
+
+Example: He finally found the courage to ask her out on a date.
+
+Ask over
+Meaning: To invite someone to your home, usually for a short visit or a meal.
+
+Example: Let's ask Tom and Sarah over for dinner this Saturday.
+
+Ask up
+Meaning: To invite someone to come upstairs to a higher floor.
+
+Example: I asked him up to my apartment to show him my new computer setup.
+---
+Back away
+Meaning 1: To move backwards to get away from someone or something frightening.
+
+Example: The developer backed away from the hot server rack.
+
+Meaning 2: To show that you do not support a plan or idea anymore, or to avoid a difficult situation.
+
+Example: The investors started to back away from the project when costs increased.
+
+Back down
+Meaning 1: To admit that you were wrong, or to stop demanding something because of opposition.
+
+Example: A good manager knows when to back down during a heated argument with a team member.
+
+Back in
+Meaning 1: To drive a vehicle backward into a parking space.
+
+Example: It is much safer to back in to this parking spot so you can drive out easily later.
+
+Back into
+Meaning 1: To drive a vehicle backwards and accidentally hit something.
+
+Example: I accidentally backed into the CEO's car this morning.
+
+Meaning 2: (Informal) To get into a career or situation by chance, rather than by planning.
+
+Example: She didn't study management; she just backed into the leadership role when her boss left.
+
+Back off
+Meaning 1: To move backward away from danger or a threat.
+
+Example: The security guard told the angry customer to back off.
+
+Meaning 2: To stop criticizing someone or telling them what to do.
+
+Example: You need to back off and let your software team solve the problem on their own.
+
+Meaning 3: To stop supporting an idea, or to decide not to do something you were planning to do.
+
+Example: The company backed off from their plan to release the software early.
+
+Back onto
+Meaning 1: If a building backs onto something, the back of the building faces it. (This is the closest valid phrasal verb to the particle "on").
+
+Example: Our new corporate headquarters backs onto a beautiful public park.
+
+Back out / Back out of
+Meaning 1: To drive a vehicle backward out of a space.
+
+Example: She backed out of the garage very slowly.
+
+Meaning 2: To decide not to do something that you agreed or promised to do.
+
+Example: The client tried to back out of the contract at the last minute.
+
+Back over
+Meaning 1: To drive a vehicle backwards over something or someone.
+
+Example: I accidentally backed over my laptop bag in the driveway.
+
+Back up
+Meaning 1: To move backwards.
+
+Example: Could you back up a few steps so I can see the screen?
+
+Meaning 2: To support someone or confirm that what they are saying is true.
+
+Example: I will pitch the new Java framework to the board, but I need you to back me up.
+
+Meaning 3: To make a copy of computer data so it is not lost.
+
+Example: Always back up the database before deploying a major update.
+
+Meaning 4: To cause traffic to stop or move very slowly.
+
+Example: The accident backed up traffic on the highway for miles.
+---
+Be off
+To leave: "I am off to the management conference now."
+
+To be canceled: "The project launch is off because of critical bugs."
+
+To be absent from work: "Two developers are off sick today."
+
+To go bad (for food): "Don't drink that milk; I think it is off."
+
+Be on
+To happen as planned: "Is the team meeting still on for tomorrow?"
+
+To function or operate (for machines): "Ensure the backup server is on."
+
+To take medication: "He is on antibiotics for his cough."
+
+Be up
+To be awake and out of bed: "I was up all night fixing the Java code."
+
+To increase: "Company profits are up by 15% this quarter."
+
+To be next in turn: "You are up next for your performance review."
+
+To expire (time): "Stop writing; your time is up."
+
+To happen (informal): "What is up with the database connection?"
+
+Be down
+To stop working (for systems/machines): "The production environment is down right now."
+
+To decrease: "Sales are down compared to last month."
+
+To feel sad or depressed: "He is a bit down because he didn't get the promotion."
+
+Be in
+To be at home or in the office: "The CEO will be in at 9:00 AM."
+
+To be submitted: "All financial reports must be in by Friday."
+
+To be fashionable/popular: "Agile methodology is very in right now."
+
+Be into
+To be very interested in something: "She is really into software architecture and system design."
+
+Be out
+To be absent from home or the office: "The manager is out until next week."
+
+To be published or released: "The new version of the application is out."
+
+To be revealed (for a secret): "The secret is out; everyone knows about the merger."
+
+To be impossible or unacceptable: "Working over the weekend is out."
+
+Be away
+To be absent or on a trip: "He is away on a business trip to London."
+
+Be across
+To be fully familiar with or understand a topic: "As a project manager, I need to be across all the new data privacy laws."
+
+Be forward
+To act presumptuously or too confidently: "I do not want to be forward, but I think your strategy has a major flaw."
+
+Be back
+To return: "I will be back at my desk in ten minutes."
+
+Be for
+To support or be in favor of: "We are for the new flexible working hours."
+
+To be intended for: "This internal API is for senior developers only."
+
+Be by
+To be physically near: "The server room is by the elevator."
+
+To be the work of someone (passive sense): "This excellent module is by our lead Java developer."
+
+Be together
+To be unified or in a relationship: "The leadership team needs to be together on this decision."
+
+To be organized (have it together): "She is very professional and really has herself together."
+
+Be with
+To support someone: "I am with you on this proposal; it makes sense."
+
+To understand someone: "I am not sure I am with you. Can you explain the logic again?"
+
+Be without
+To lack something: "We are without internet access at the moment."
+
+Be apart
+To be separated physically or emotionally: "The two microservices must be apart to avoid system dependencies."
+
+Be over
+To be finished: "The sprint planning meeting is over."
+
+Be ahead
+To be winning or further advanced than expected: "Our development team is ahead of schedule this month."
+
+Be after
+To want, try to get, or look for something: "What exactly are you after in this contract negotiation?"
+
+Be behind
+To be late or delayed: "We are two weeks behind schedule on this project."
+
+To support someone or something: "The board of directors is completely behind the new CEO."
+
+Be through
+To be finished doing something or to end a relationship: "I am through with using this outdated software."
+
+Be about
+To be going to happen very soon (be about to): "Save your work; the system is about to restart."
+
+To mean or consist of (what it is about): "Good leadership is about listening to your team."
+
+Be around / round
+To be present or available: "Will you be around for a code review later this afternoon?"
+
+Be to
+To be required or scheduled to do something (formal): "You are to report directly to the IT director."
+
+Be against
+To oppose someone or something: "Many users are against the new interface changes."
+---
+
+for each ["ask", "back", "be"]:
+1) Create the link on list page with particals mentioned above phrasal verbs. 
+   Take as the base "take" link.
+2) Create the page with mentioned above phrasal verbs. 
+   Take as the base "take" page.
+3) Cover the functionality with tests
+---
