@@ -48,7 +48,7 @@ function renderPageWithRoutes() {
 }
 
 function expandCard(key: string) {
-  fireEvent.click(screen.getByTestId(`verb-card-${key}`));
+  fireEvent.click(screen.getByTestId(`toggle-card-${key}`));
 }
 
 const ALL_PARTICLES = [
@@ -175,6 +175,18 @@ describe('PhrasalVerbsListPage — expand/collapse', () => {
     renderPage();
     fireEvent.click(screen.getByRole('heading', { name: 'Get' }).closest('a')!);
     expect(within(screen.getByTestId('verb-card-get')).queryByText(/off, on, up/i)).not.toBeInTheDocument();
+  });
+
+  it('clicking the card frame navigates to verb page', () => {
+    renderPageWithRoutes();
+    fireEvent.click(screen.getByTestId('verb-card-get'));
+    expect(screen.getByTestId('location').textContent).toBe('/phrasal-verbs/list/get');
+  });
+
+  it('clicking the chevron does not navigate', () => {
+    renderPageWithRoutes();
+    expandCard('get');
+    expect(screen.getByTestId('location').textContent).toBe('/phrasal-verbs/list');
   });
 });
 
@@ -909,6 +921,18 @@ describe('PhrasalVerbsListPage — Particles card', () => {
     renderPage();
     const link = screen.getByRole('heading', { name: 'Particles' }).closest('a')!;
     expect(link).toHaveAttribute('href', '/phrasal-verbs/particles');
+  });
+
+  it('clicking the particles card frame navigates to particles page', () => {
+    renderPageWithRoutes();
+    fireEvent.click(screen.getByTestId('verb-card-particles'));
+    expect(screen.getByTestId('location').textContent).toBe('/phrasal-verbs/particles');
+  });
+
+  it('clicking the particles chevron does not navigate', () => {
+    renderPageWithRoutes();
+    expandCard('particles');
+    expect(screen.getByTestId('location').textContent).toBe('/phrasal-verbs/list');
   });
 });
 

@@ -3270,3 +3270,11 @@ On "Phrasal Verbs List" page make Particles same as "Get" as for extended/collap
 ## 2026-06-09T10:30:18Z
 git add all changes and commit them with suitable message
 ---
+
+## 2026-06-09T10:36:50Z
+On "Phrasal Verbs List" only when click on arrow down/up then extend/ellapse phrasal verbs particles but if click on the frame of phrasal verb the get into it.
+---
+
+## 2026-06-09T10:45:03Z
+git add all changes and commit them with suitable message
+---

@@ -181,7 +181,7 @@ export default function PhrasalVerbsListPage() {
       <div className="flex flex-col gap-4 w-full max-w-sm">
         <div
           data-testid="verb-card-particles"
-          onClick={() => toggleExpanded('particles')}
+          onClick={() => navigate('/phrasal-verbs/particles')}
           className="cursor-pointer rounded-2xl border border-gray-200 dark:border-gray-800 bg-white dark:bg-gray-900 shadow-md hover:shadow-lg transition-shadow p-6"
         >
           <div className="flex items-center justify-between">
@@ -192,15 +192,22 @@ export default function PhrasalVerbsListPage() {
             >
               <h2>Particles</h2>
             </Link>
-            <svg
-              xmlns="http://www.w3.org/2000/svg"
-              className={`w-5 h-5 text-gray-400 transition-transform duration-200 ${expanded.has('particles') ? 'rotate-180' : ''}`}
-              viewBox="0 0 20 20"
-              fill="currentColor"
-              aria-hidden="true"
+            <button
+              data-testid="toggle-card-particles"
+              onClick={e => { e.stopPropagation(); toggleExpanded('particles'); }}
+              className="flex items-center p-0.5 rounded text-gray-400 hover:text-gray-600 dark:hover:text-gray-200 transition-colors"
+              aria-label={expanded.has('particles') ? 'Collapse Particles' : 'Expand Particles'}
             >
-              <path fillRule="evenodd" d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z" clipRule="evenodd" />
-            </svg>
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                className={`w-5 h-5 transition-transform duration-200 ${expanded.has('particles') ? 'rotate-180' : ''}`}
+                viewBox="0 0 20 20"
+                fill="currentColor"
+                aria-hidden="true"
+              >
+                <path fillRule="evenodd" d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z" clipRule="evenodd" />
+              </svg>
+            </button>
           </div>
           {expanded.has('particles') && (
             <p
@@ -219,7 +226,7 @@ export default function PhrasalVerbsListPage() {
             <div
               key={key}
               data-testid={`verb-card-${key}`}
-              onClick={() => toggleExpanded(key)}
+              onClick={() => navigate(to)}
               className="cursor-pointer rounded-2xl border border-gray-200 dark:border-gray-800 bg-white dark:bg-gray-900 shadow-md hover:shadow-lg transition-shadow p-6"
             >
               <div className="flex items-center justify-between">
@@ -249,15 +256,22 @@ export default function PhrasalVerbsListPage() {
                       )}
                     </button>
                   )}
-                  <svg
-                    xmlns="http://www.w3.org/2000/svg"
-                    className={`w-5 h-5 text-gray-400 transition-transform duration-200 ${isExpanded ? 'rotate-180' : ''}`}
-                    viewBox="0 0 20 20"
-                    fill="currentColor"
-                    aria-hidden="true"
+                  <button
+                    data-testid={`toggle-card-${key}`}
+                    onClick={e => { e.stopPropagation(); toggleExpanded(key); }}
+                    className="flex items-center p-0.5 rounded text-gray-400 hover:text-gray-600 dark:hover:text-gray-200 transition-colors"
+                    aria-label={isExpanded ? `Collapse ${label}` : `Expand ${label}`}
                   >
-                    <path fillRule="evenodd" d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z" clipRule="evenodd" />
-                  </svg>
+                    <svg
+                      xmlns="http://www.w3.org/2000/svg"
+                      className={`w-5 h-5 transition-transform duration-200 ${isExpanded ? 'rotate-180' : ''}`}
+                      viewBox="0 0 20 20"
+                      fill="currentColor"
+                      aria-hidden="true"
+                    >
+                      <path fillRule="evenodd" d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z" clipRule="evenodd" />
+                    </svg>
+                  </button>
                 </div>
               </div>
               {isExpanded && (
