@@ -1,9 +1,10 @@
 ---
 id: TASK-21
 title: Add "Do" phrasal verb page with list card and tests
-status: To Do
+status: Done
 assignee: []
 created_date: '2026-06-09 14:33'
+updated_date: '2026-06-09 15:28'
 labels:
   - phrasal-verbs
   - content
@@ -106,12 +107,18 @@ Add the "Do" phrasal verb entry following the same pattern as Call/Carry pages.
 
 ## Acceptance Criteria
 <!-- AC:BEGIN -->
-- [ ] #1 #1 `src/pages/do/DoVerbPage.tsx` created with 13 sections, all meanings, all using default.png
-- [ ] #2 #2 DO_PARTICLES constant added to PhrasalVerbsListPage.tsx with all 13 particles
-- [ ] #3 #3 VERBS entry added for Do after Deal in PhrasalVerbsListPage.tsx
-- [ ] #4 #4 Route `/phrasal-verbs/list/do` registered in src/main.tsx
-- [ ] #5 #5 doSections added to listVerbIndex.ts search index
-- [ ] #6 #6 13 test files created under src/__tests__/do_verb_page/ (one per particle)
-- [ ] #7 #7 PhrasalVerbsListPage.test.tsx extended with Do card, subtitle, and copy-button describe blocks
-- [ ] #8 #8 `npm run test:run` passes with all tests green
+- [x] #1 #1 `src/pages/do/DoVerbPage.tsx` created with 13 sections, all meanings, all using default.png
+- [x] #2 #2 DO_PARTICLES constant added to PhrasalVerbsListPage.tsx with all 13 particles
+- [x] #3 #3 VERBS entry added for Do after Deal in PhrasalVerbsListPage.tsx
+- [x] #4 #4 Route `/phrasal-verbs/list/do` registered in src/main.tsx
+- [x] #5 #5 doSections added to listVerbIndex.ts search index
+- [x] #6 #6 13 test files created under src/__tests__/do_verb_page/ (one per particle)
+- [x] #7 #7 PhrasalVerbsListPage.test.tsx extended with Do card, subtitle, and copy-button describe blocks
+- [x] #8 #8 `npm run test:run` passes with all tests green
 <!-- AC:END -->
+
+## Final Summary
+
+<!-- SECTION:FINAL_SUMMARY:BEGIN -->
+Created DoVerbPage.tsx with 13 sections (about, away, by, down, for, in, into, out, over, to, up, with, without), all using default.png. Added DO_PARTICLES constant and VERBS entry to PhrasalVerbsListPage.tsx, registered route in main.tsx, imported doSections into listVerbIndex.ts. Created helpers.tsx + 13 particle test files under src/__tests__/do_verb_page/. Extended PhrasalVerbsListPage.test.tsx with Do card, subtitle, and copy-button describe blocks. All 9303 tests green. Committed as 9e6a1c9.
+<!-- SECTION:FINAL_SUMMARY:END -->

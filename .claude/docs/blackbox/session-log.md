@@ -1011,3 +1011,8 @@
 - .claude/docs/blackbox/audit.md
 - backlog/tasks/task-20 - Add-Deal-phrasal-verb-page-with-list-card-and-tests.md
 <!-- end-snapshot -->
+
+<!-- git-snapshot 2026-06-09T15:28:59Z -->
+- .claude/docs/blackbox/audit.md
+- backlog/tasks/task-21 - Add-Do-phrasal-verb-page-with-list-card-and-tests.md
+<!-- end-snapshot -->
