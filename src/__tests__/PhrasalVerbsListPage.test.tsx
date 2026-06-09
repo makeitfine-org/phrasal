@@ -42,6 +42,7 @@ function renderPageWithRoutes() {
         <Route path="/phrasal-verbs/list/brush" element={<LocationSpy />} />
         <Route path="/phrasal-verbs/list/build" element={<LocationSpy />} />
         <Route path="/phrasal-verbs/list/call" element={<LocationSpy />} />
+        <Route path="/phrasal-verbs/list/carry" element={<LocationSpy />} />
         <Route path="/phrasal-verbs/particles" element={<LocationSpy />} />
       </Routes>
     </MemoryRouter>
@@ -1976,6 +1977,95 @@ describe('PhrasalVerbsListPage — call copy button', () => {
     renderPage();
     expandCard('call');
     fireEvent.click(screen.getByRole('button', { name: /copy all "call" phrasal verbs/i }));
+    await vi.waitFor(() => {
+      expect(screen.getByRole('button', { name: /copied!/i }))
+        .toHaveAttribute('title', 'Copied!');
+    });
+  });
+});
+
+const ALL_CARRY_PARTICLES = [
+  'about / around / round', 'away', 'back', 'forward', 'off', 'on', 'out', 'over', 'through',
+];
+
+describe('PhrasalVerbsListPage — Carry card', () => {
+  it('renders the "Carry" card', () => {
+    renderPage();
+    expect(screen.getByRole('heading', { name: 'Carry' })).toBeInTheDocument();
+  });
+
+  it('"Carry" link points to /phrasal-verbs/list/carry', () => {
+    renderPage();
+    const link = screen.getByRole('link', { name: /^Carry$/i });
+    expect(link).toHaveAttribute('href', '/phrasal-verbs/list/carry');
+  });
+});
+
+describe('PhrasalVerbsListPage — Carry particles subtitle', () => {
+  it('shows carry particles text in subtitle after expand', () => {
+    renderPage();
+    expandCard('carry');
+    expect(within(screen.getByTestId('verb-card-carry')).getByText(/about \/ around \/ round/i)).toBeInTheDocument();
+  });
+
+  it('carry subtitle title attribute contains all particles', () => {
+    renderPage();
+    expandCard('carry');
+    const subtitle = within(screen.getByTestId('verb-card-carry')).getByText(/about \/ around \/ round/i);
+    expect(subtitle).toHaveAttribute('title', ALL_CARRY_PARTICLES.join(', '));
+  });
+});
+
+describe('PhrasalVerbsListPage — carry copy button', () => {
+  let mockWriteText: ReturnType<typeof vi.fn>;
+
+  beforeEach(() => {
+    mockWriteText = vi.fn().mockResolvedValue(undefined);
+    Object.defineProperty(navigator, 'clipboard', {
+      value: { writeText: mockWriteText },
+      writable: true,
+    });
+  });
+
+  afterEach(() => {
+    vi.restoreAllMocks();
+  });
+
+  it('renders a carry copy button when expanded', () => {
+    renderPage();
+    expandCard('carry');
+    expect(screen.getByRole('button', { name: /copy all "carry" phrasal verbs/i })).toBeInTheDocument();
+  });
+
+  it('carry copy button title is \'Copy all "carry" phrasal verbs\' before click', () => {
+    renderPage();
+    expandCard('carry');
+    expect(screen.getByRole('button', { name: /copy all "carry" phrasal verbs/i }))
+      .toHaveAttribute('title', 'Copy all "carry" phrasal verbs');
+  });
+
+  it('clipboard receives all 9 carry particles as "carry X" forms in order', () => {
+    renderPage();
+    expandCard('carry');
+    fireEvent.click(screen.getByRole('button', { name: /copy all "carry" phrasal verbs/i }));
+    const expected = ALL_CARRY_PARTICLES.map(p => `carry ${p}`).join(', ');
+    expect(mockWriteText).toHaveBeenCalledWith(expected);
+  });
+
+  it('clipboard content contains every carry particle', () => {
+    renderPage();
+    expandCard('carry');
+    fireEvent.click(screen.getByRole('button', { name: /copy all "carry" phrasal verbs/i }));
+    const written = mockWriteText.mock.calls[0][0] as string;
+    for (const p of ALL_CARRY_PARTICLES) {
+      expect(written).toContain(`carry ${p}`);
+    }
+  });
+
+  it('carry copy button shows "Copied!" title after click', async () => {
+    renderPage();
+    expandCard('carry');
+    fireEvent.click(screen.getByRole('button', { name: /copy all "carry" phrasal verbs/i }));
     await vi.waitFor(() => {
       expect(screen.getByRole('button', { name: /copied!/i }))
         .toHaveAttribute('title', 'Copied!');
