@@ -3234,3 +3234,39 @@ for each ["blow", "brush", "build"]:
    Take as the base "take" page.
 3) Cover the functionality with tests
 ---
+
+## 2026-06-09T10:15:26Z
+Help me fix the issues reported by /doctor below.
+
+For each issue: briefly explain what the fix will do, then ask me to confirm before running any shell command that deletes files, modifies global config, or changes my installation. Safe read-only checks are fine without asking. If a suggested fix looks wrong for my setup, say so instead of running it.
+
+- Settings (/home/eug/.claude/settings.json › permissions.allow): Invalid permission rule "mcp__postgres-*__list_*" was skipped: Wildcard tool name "mcp__postgres-*__list_*" is not supported in allow rules. An allow pattern must name the scope it widens — globs are permitted only in the tool position after a literal mcp__<server>__ prefix. Deny and ask rules accept wildcards anywhere
+---
+
+## 2026-06-09T10:17:49Z
+Help me fix the issues reported by /doctor below.
+
+For each issue: briefly explain what the fix will do, then ask me to confirm before running any shell command that deletes files, modifies global config, or changes my installation. Safe read-only checks are fine without asking. If a suggested fix looks wrong for my setup, say so instead of running it.
+
+- Settings (/home/eug/.claude/settings.json › permissions.allow): Invalid permission rule "mcp__postgres-*__list_*" was skipped: Wildcard tool name "mcp__postgres-*__list_*" is not supported in allow rules. An allow pattern must name the scope it widens — globs are permitted only in the tool position after a literal mcp__<server>__ prefix. Deny and ask rules accept wildcards anywhere
+---
+
+## 2026-06-09T10:19:05Z
+Help me fix the issues reported by /doctor below.
+
+For each issue: briefly explain what the fix will do, then ask me to confirm before running any shell command that deletes files, modifies global config, or changes my installation. Safe read-only checks are fine without asking. If a suggested fix looks wrong for my setup, say so instead of running it.
+
+- Settings (/home/eug/.claude/settings.json › permissions.allow): Invalid permission rule "mcp__postgres-*__list_*" was skipped: Wildcard tool name "mcp__postgres-*__list_*" is not supported in allow rules. An allow pattern must name the scope it widens — globs are permitted only in the tool position after a literal mcp__<server>__ prefix. Deny and ask rules accept wildcards anywhere
+---
+
+## 2026-06-09T10:19:47Z
+yes
+---
+
+## 2026-06-09T10:22:59Z
+On "Phrasal Verbs List" page make Particles same as "Get" as for extended/collapse functionality
+---
+
+## 2026-06-09T10:30:18Z
+git add all changes and commit them with suitable message
+---

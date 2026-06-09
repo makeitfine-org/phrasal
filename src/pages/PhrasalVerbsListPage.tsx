@@ -179,20 +179,38 @@ export default function PhrasalVerbsListPage() {
       </div>
 
       <div className="flex flex-col gap-4 w-full max-w-sm">
-        <Link
-          to="/phrasal-verbs/particles"
-          className="block rounded-2xl border border-gray-200 dark:border-gray-800 bg-white dark:bg-gray-900 shadow-md hover:shadow-lg transition-shadow p-6"
+        <div
+          data-testid="verb-card-particles"
+          onClick={() => toggleExpanded('particles')}
+          className="cursor-pointer rounded-2xl border border-gray-200 dark:border-gray-800 bg-white dark:bg-gray-900 shadow-md hover:shadow-lg transition-shadow p-6"
         >
-          <h2 className="text-xl font-semibold text-gray-900 dark:text-gray-100 mb-1">
-            Particles
-          </h2>
-          <p
-            className="text-sm text-gray-500 dark:text-gray-400 line-clamp-2"
-            title={particleNamesText}
-          >
-            {particleNamesText}
-          </p>
-        </Link>
+          <div className="flex items-center justify-between">
+            <Link
+              to="/phrasal-verbs/particles"
+              onClick={e => e.stopPropagation()}
+              className="text-xl font-semibold text-gray-900 dark:text-gray-100 hover:underline"
+            >
+              <h2>Particles</h2>
+            </Link>
+            <svg
+              xmlns="http://www.w3.org/2000/svg"
+              className={`w-5 h-5 text-gray-400 transition-transform duration-200 ${expanded.has('particles') ? 'rotate-180' : ''}`}
+              viewBox="0 0 20 20"
+              fill="currentColor"
+              aria-hidden="true"
+            >
+              <path fillRule="evenodd" d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z" clipRule="evenodd" />
+            </svg>
+          </div>
+          {expanded.has('particles') && (
+            <p
+              className="text-sm text-gray-500 dark:text-gray-400 mt-2"
+              title={particleNamesText}
+            >
+              {particleNamesText}
+            </p>
+          )}
+        </div>
         <hr className="border-gray-600 dark:border-gray-500" />
         {VERBS.map(({ key, label, to, particles }) => {
           const isExpanded = expanded.has(key);

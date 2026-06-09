@@ -913,23 +913,16 @@ describe('PhrasalVerbsListPage — Particles card', () => {
 });
 
 describe('PhrasalVerbsListPage — Particles subtitle', () => {
-  it('shows particles names text in subtitle', () => {
+  it('shows particles names text in subtitle after expand', () => {
     renderPage();
-    const particlesCard = screen.getByRole('heading', { name: 'Particles' }).closest('a')!;
-    expect(within(particlesCard).getByText(/off, on, up/i)).toBeInTheDocument();
-  });
-
-  it('particles subtitle has line-clamp-2 class', () => {
-    renderPage();
-    const particlesCard = screen.getByRole('heading', { name: 'Particles' }).closest('a')!;
-    const subtitle = within(particlesCard).getByText(/off, on, up/i);
-    expect(subtitle).toHaveClass('line-clamp-2');
+    expandCard('particles');
+    expect(within(screen.getByTestId('verb-card-particles')).getByText(/off, on, up/i)).toBeInTheDocument();
   });
 
   it('particles subtitle title attribute contains representative particles', () => {
     renderPage();
-    const particlesCard = screen.getByRole('heading', { name: 'Particles' }).closest('a')!;
-    const subtitle = within(particlesCard).getByText(/off, on, up/i);
+    expandCard('particles');
+    const subtitle = within(screen.getByTestId('verb-card-particles')).getByText(/off, on, up/i);
     expect(subtitle).toHaveAttribute('title', expect.stringContaining('cross / across'));
     expect(subtitle).toHaveAttribute('title', expect.stringContaining('around / round'));
     expect(subtitle).toHaveAttribute('title', expect.stringContaining('along'));
@@ -937,8 +930,8 @@ describe('PhrasalVerbsListPage — Particles subtitle', () => {
 
   it('particles subtitle title attribute contains all 27 particle names', () => {
     renderPage();
-    const particlesCard = screen.getByRole('heading', { name: 'Particles' }).closest('a')!;
-    const subtitle = within(particlesCard).getByText(/off, on, up/i);
+    expandCard('particles');
+    const subtitle = within(screen.getByTestId('verb-card-particles')).getByText(/off, on, up/i);
     for (const name of ALL_PARTICLE_NAMES) {
       expect(subtitle).toHaveAttribute('title', expect.stringContaining(name));
     }
@@ -1876,7 +1869,7 @@ describe('PhrasalVerbsListPage — build copy button', () => {
 describe('PhrasalVerbsListPage — Particles divider', () => {
   it('renders an hr separator after the Particles card', () => {
     const { container } = renderPage();
-    const particlesCard = screen.getByRole('heading', { name: 'Particles' }).closest('a')!;
+    const particlesCard = screen.getByTestId('verb-card-particles');
     const hr = particlesCard.nextElementSibling;
     expect(hr?.tagName).toBe('HR');
     expect(container.querySelector('hr')).toBeInTheDocument();

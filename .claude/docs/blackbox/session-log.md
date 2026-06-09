@@ -910,3 +910,24 @@
 <!-- git-snapshot 2026-06-08T17:32:17Z -->
 - .claude/docs/blackbox/session-log.md
 <!-- end-snapshot -->
+
+<!-- git-snapshot 2026-06-09T10:18:10Z -->
+- .claude/docs/blackbox/audit.md
+<!-- end-snapshot -->
+
+<!-- git-snapshot 2026-06-09T10:19:32Z -->
+- .claude/docs/blackbox/audit.md
+- .claude/docs/blackbox/session-log.md
+<!-- end-snapshot -->
+
+<!-- git-snapshot 2026-06-09T10:20:03Z -->
+- .claude/docs/blackbox/audit.md
+- .claude/docs/blackbox/session-log.md
+<!-- end-snapshot -->
+
+<!-- git-snapshot 2026-06-09T10:26:17Z -->
+- .claude/docs/blackbox/audit.md
+- .claude/docs/blackbox/session-log.md
+- src/__tests__/PhrasalVerbsListPage.test.tsx
+- src/pages/PhrasalVerbsListPage.tsx
+<!-- end-snapshot -->
