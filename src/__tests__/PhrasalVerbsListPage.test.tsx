@@ -44,6 +44,7 @@ function renderPageWithRoutes() {
         <Route path="/phrasal-verbs/list/call" element={<LocationSpy />} />
         <Route path="/phrasal-verbs/list/carry" element={<LocationSpy />} />
         <Route path="/phrasal-verbs/list/catch" element={<LocationSpy />} />
+        <Route path="/phrasal-verbs/list/check" element={<LocationSpy />} />
         <Route path="/phrasal-verbs/particles" element={<LocationSpy />} />
       </Routes>
     </MemoryRouter>
@@ -2196,6 +2197,96 @@ describe('PhrasalVerbsListPage — catch copy button', () => {
     renderPage();
     expandCard('catch');
     fireEvent.click(screen.getByRole('button', { name: /copy all "catch" phrasal verbs/i }));
+    await vi.waitFor(() => {
+      expect(screen.getByRole('button', { name: /copied!/i }))
+        .toHaveAttribute('title', 'Copied!');
+    });
+  });
+});
+
+const ALL_CHECK_PARTICLES = [
+  'against', 'around / round', 'back', 'down', 'for', 'in', 'into',
+  'off', 'on', 'out', 'over', 'through', 'up', 'with',
+];
+
+describe('PhrasalVerbsListPage — Check card', () => {
+  it('renders the "Check" card', () => {
+    renderPage();
+    expect(screen.getByRole('heading', { name: 'Check' })).toBeInTheDocument();
+  });
+
+  it('"Check" link points to /phrasal-verbs/list/check', () => {
+    renderPage();
+    const link = screen.getByRole('link', { name: /^Check$/i });
+    expect(link).toHaveAttribute('href', '/phrasal-verbs/list/check');
+  });
+});
+
+describe('PhrasalVerbsListPage — Check particles subtitle', () => {
+  it('shows check particles text in subtitle after expand', () => {
+    renderPage();
+    expandCard('check');
+    expect(within(screen.getByTestId('verb-card-check')).getByText(/against, around \/ round, back, down/i)).toBeInTheDocument();
+  });
+
+  it('check subtitle title attribute contains all particles', () => {
+    renderPage();
+    expandCard('check');
+    const subtitle = within(screen.getByTestId('verb-card-check')).getByText(/against, around \/ round/i);
+    expect(subtitle).toHaveAttribute('title', ALL_CHECK_PARTICLES.join(', '));
+  });
+});
+
+describe('PhrasalVerbsListPage — check copy button', () => {
+  let mockWriteText: ReturnType<typeof vi.fn>;
+
+  beforeEach(() => {
+    mockWriteText = vi.fn().mockResolvedValue(undefined);
+    Object.defineProperty(navigator, 'clipboard', {
+      value: { writeText: mockWriteText },
+      writable: true,
+    });
+  });
+
+  afterEach(() => {
+    vi.restoreAllMocks();
+  });
+
+  it('renders a check copy button when expanded', () => {
+    renderPage();
+    expandCard('check');
+    expect(screen.getByRole('button', { name: /copy all "check" phrasal verbs/i })).toBeInTheDocument();
+  });
+
+  it('check copy button title is \'Copy all "check" phrasal verbs\' before click', () => {
+    renderPage();
+    expandCard('check');
+    expect(screen.getByRole('button', { name: /copy all "check" phrasal verbs/i }))
+      .toHaveAttribute('title', 'Copy all "check" phrasal verbs');
+  });
+
+  it('clipboard receives all 14 check particles as "check X" forms in order', () => {
+    renderPage();
+    expandCard('check');
+    fireEvent.click(screen.getByRole('button', { name: /copy all "check" phrasal verbs/i }));
+    const expected = ALL_CHECK_PARTICLES.map(p => `check ${p}`).join(', ');
+    expect(mockWriteText).toHaveBeenCalledWith(expected);
+  });
+
+  it('clipboard content contains every check particle', () => {
+    renderPage();
+    expandCard('check');
+    fireEvent.click(screen.getByRole('button', { name: /copy all "check" phrasal verbs/i }));
+    const written = mockWriteText.mock.calls[0][0] as string;
+    for (const p of ALL_CHECK_PARTICLES) {
+      expect(written).toContain(`check ${p}`);
+    }
+  });
+
+  it('check copy button shows "Copied!" title after click', async () => {
+    renderPage();
+    expandCard('check');
+    fireEvent.click(screen.getByRole('button', { name: /copy all "check" phrasal verbs/i }));
     await vi.waitFor(() => {
       expect(screen.getByRole('button', { name: /copied!/i }))
         .toHaveAttribute('title', 'Copied!');
