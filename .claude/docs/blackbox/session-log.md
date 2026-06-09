@@ -1132,3 +1132,8 @@
 - backlog/tasks/task-26 - Add-Figure-phrasal-verb-page-with-list-card-and-tests.md
 - backlog/tasks/task-27 - Add-Fill-phrasal-verb-page-with-list-card-and-tests.md
 <!-- end-snapshot -->
+
+<!-- git-snapshot 2026-06-09T21:45:08Z -->
+- .claude/docs/blackbox/audit.md
+- backlog/tasks/task-28 - Add-Find-phrasal-verb-page-with-list-card-and-tests.md
+<!-- end-snapshot -->

@@ -1,9 +1,10 @@
 ---
 id: TASK-28
 title: Add "Find" phrasal verb page with list card and tests
-status: To Do
+status: Done
 assignee: []
 created_date: '2026-06-09 15:34'
+updated_date: '2026-06-09 21:44'
 labels:
   - phrasal-verbs
   - content

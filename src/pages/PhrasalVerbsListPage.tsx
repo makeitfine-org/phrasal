@@ -144,6 +144,8 @@ const FIGURE_PARTICLES = ['for', 'in', 'into', 'on', 'out', 'up'];
 
 const FILL_PARTICLES = ['down', 'in', 'out', 'up', 'with'];
 
+const FIND_PARTICLES = ['out', 'for', 'against'];
+
 const VERBS = [
   { key: 'get',  label: 'Get',  to: '/phrasal-verbs/list/get',  particles: GET_PARTICLES },
   { key: 'make', label: 'Make', to: '/phrasal-verbs/list/make', particles: MAKE_PARTICLES },
@@ -177,6 +179,7 @@ const VERBS = [
   { key: 'fall',   label: 'Fall',   to: '/phrasal-verbs/list/fall',   particles: FALL_PARTICLES },
   { key: 'figure', label: 'Figure', to: '/phrasal-verbs/list/figure', particles: FIGURE_PARTICLES },
   { key: 'fill',   label: 'Fill',   to: '/phrasal-verbs/list/fill',   particles: FILL_PARTICLES },
+  { key: 'find',   label: 'Find',   to: '/phrasal-verbs/list/find',   particles: FIND_PARTICLES },
 ];
 
 const EXPANDED_KEY = 'verbListExpanded';
