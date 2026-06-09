@@ -32,6 +32,7 @@ import { sections as fallSections } from '../pages/fall/FallVerbPage';
 import { sections as figureSections } from '../pages/figure/FigureVerbPage';
 import { sections as fillSections } from '../pages/fill/FillVerbPage';
 import { sections as findSections } from '../pages/find/FindVerbPage';
+import { sections as growSections } from '../pages/grow/GrowVerbPage';
 
 export interface ListSearchEntry {
   verb: string;
@@ -91,4 +92,5 @@ export const listVerbIndex: ListSearchEntry[] = [
   ...buildEntries(figureSections, 'Figure', '/phrasal-verbs/list/figure'),
   ...buildEntries(fillSections, 'Fill', '/phrasal-verbs/list/fill'),
   ...buildEntries(findSections, 'Find', '/phrasal-verbs/list/find'),
+  ...buildEntries(growSections, 'Grow', '/phrasal-verbs/list/grow'),
 ];
