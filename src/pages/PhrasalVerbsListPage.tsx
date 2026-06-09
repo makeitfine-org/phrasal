@@ -188,7 +188,7 @@ export default function PhrasalVerbsListPage() {
             <Link
               to="/phrasal-verbs/particles"
               onClick={e => e.stopPropagation()}
-              className="text-xl font-semibold text-gray-900 dark:text-gray-100 hover:underline"
+              className="text-xl font-semibold text-gray-900 dark:text-gray-100"
             >
               <h2>Particles</h2>
             </Link>
@@ -233,7 +233,7 @@ export default function PhrasalVerbsListPage() {
                 <Link
                   to={to}
                   onClick={e => e.stopPropagation()}
-                  className="text-xl font-semibold text-gray-900 dark:text-gray-100 hover:underline"
+                  className="text-xl font-semibold text-gray-900 dark:text-gray-100"
                 >
                   <h2>{label}</h2>
                 </Link>

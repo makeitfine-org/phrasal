@@ -1890,6 +1890,26 @@ describe('PhrasalVerbsListPage — build copy button', () => {
   });
 });
 
+describe('PhrasalVerbsListPage — heading link no-underline style', () => {
+  it('"Particles" heading link does not have hover:underline class', () => {
+    renderPage();
+    const link = screen.getByRole('heading', { name: 'Particles' }).closest('a')!;
+    expect(link).not.toHaveClass('hover:underline');
+  });
+
+  it('"Get" heading link does not have hover:underline class', () => {
+    renderPage();
+    const link = screen.getByRole('heading', { name: 'Get' }).closest('a')!;
+    expect(link).not.toHaveClass('hover:underline');
+  });
+
+  it('"Make" heading link does not have hover:underline class', () => {
+    renderPage();
+    const link = screen.getByRole('heading', { name: 'Make' }).closest('a')!;
+    expect(link).not.toHaveClass('hover:underline');
+  });
+});
+
 describe('PhrasalVerbsListPage — Particles divider', () => {
   it('renders an hr separator after the Particles card', () => {
     const { container } = renderPage();

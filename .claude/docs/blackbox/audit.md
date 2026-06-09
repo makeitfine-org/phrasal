@@ -3278,3 +3278,15 @@ On "Phrasal Verbs List" only when click on arrow down/up then extend/ellapse phr
 ## 2026-06-09T10:45:03Z
 git add all changes and commit them with suitable message
 ---
+
+## 2026-06-09T10:47:47Z
+Also phrasal verb base words, like "Put", "Give" and other and "Particles" shoud not be shown as underlined links when how on them but just be test.
+---
+
+## 2026-06-09T10:50:35Z
+Cover the functionality with tests
+---
+
+## 2026-06-09T10:53:48Z
+git add all changes and commit them with suitable message
+---
