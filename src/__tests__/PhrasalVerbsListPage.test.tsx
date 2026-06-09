@@ -45,6 +45,7 @@ function renderPageWithRoutes() {
         <Route path="/phrasal-verbs/list/carry" element={<LocationSpy />} />
         <Route path="/phrasal-verbs/list/catch" element={<LocationSpy />} />
         <Route path="/phrasal-verbs/list/check" element={<LocationSpy />} />
+        <Route path="/phrasal-verbs/list/cheer" element={<LocationSpy />} />
         <Route path="/phrasal-verbs/particles" element={<LocationSpy />} />
       </Routes>
     </MemoryRouter>
@@ -2287,6 +2288,93 @@ describe('PhrasalVerbsListPage — check copy button', () => {
     renderPage();
     expandCard('check');
     fireEvent.click(screen.getByRole('button', { name: /copy all "check" phrasal verbs/i }));
+    await vi.waitFor(() => {
+      expect(screen.getByRole('button', { name: /copied!/i }))
+        .toHaveAttribute('title', 'Copied!');
+    });
+  });
+});
+
+const ALL_CHEER_PARTICLES = ['against', 'for', 'off', 'on', 'up'];
+
+describe('PhrasalVerbsListPage — Cheer card', () => {
+  it('renders the "Cheer" card', () => {
+    renderPage();
+    expect(screen.getByRole('heading', { name: 'Cheer' })).toBeInTheDocument();
+  });
+
+  it('"Cheer" link points to /phrasal-verbs/list/cheer', () => {
+    renderPage();
+    const link = screen.getByRole('link', { name: /^Cheer$/i });
+    expect(link).toHaveAttribute('href', '/phrasal-verbs/list/cheer');
+  });
+});
+
+describe('PhrasalVerbsListPage — Cheer particles subtitle', () => {
+  it('shows cheer particles text in subtitle after expand', () => {
+    renderPage();
+    expandCard('cheer');
+    expect(within(screen.getByTestId('verb-card-cheer')).getByText(/against, for, off, on, up/i)).toBeInTheDocument();
+  });
+
+  it('cheer subtitle title attribute contains all particles', () => {
+    renderPage();
+    expandCard('cheer');
+    const subtitle = within(screen.getByTestId('verb-card-cheer')).getByText(/against, for, off, on, up/i);
+    expect(subtitle).toHaveAttribute('title', ALL_CHEER_PARTICLES.join(', '));
+  });
+});
+
+describe('PhrasalVerbsListPage — cheer copy button', () => {
+  let mockWriteText: ReturnType<typeof vi.fn>;
+
+  beforeEach(() => {
+    mockWriteText = vi.fn().mockResolvedValue(undefined);
+    Object.defineProperty(navigator, 'clipboard', {
+      value: { writeText: mockWriteText },
+      writable: true,
+    });
+  });
+
+  afterEach(() => {
+    vi.restoreAllMocks();
+  });
+
+  it('renders a cheer copy button when expanded', () => {
+    renderPage();
+    expandCard('cheer');
+    expect(screen.getByRole('button', { name: /copy all "cheer" phrasal verbs/i })).toBeInTheDocument();
+  });
+
+  it('cheer copy button title is \'Copy all "cheer" phrasal verbs\' before click', () => {
+    renderPage();
+    expandCard('cheer');
+    expect(screen.getByRole('button', { name: /copy all "cheer" phrasal verbs/i }))
+      .toHaveAttribute('title', 'Copy all "cheer" phrasal verbs');
+  });
+
+  it('clipboard receives all 5 cheer particles as "cheer X" forms in order', () => {
+    renderPage();
+    expandCard('cheer');
+    fireEvent.click(screen.getByRole('button', { name: /copy all "cheer" phrasal verbs/i }));
+    const expected = ALL_CHEER_PARTICLES.map(p => `cheer ${p}`).join(', ');
+    expect(mockWriteText).toHaveBeenCalledWith(expected);
+  });
+
+  it('clipboard content contains every cheer particle', () => {
+    renderPage();
+    expandCard('cheer');
+    fireEvent.click(screen.getByRole('button', { name: /copy all "cheer" phrasal verbs/i }));
+    const written = mockWriteText.mock.calls[0][0] as string;
+    for (const p of ALL_CHEER_PARTICLES) {
+      expect(written).toContain(`cheer ${p}`);
+    }
+  });
+
+  it('cheer copy button shows "Copied!" title after click', async () => {
+    renderPage();
+    expandCard('cheer');
+    fireEvent.click(screen.getByRole('button', { name: /copy all "cheer" phrasal verbs/i }));
     await vi.waitFor(() => {
       expect(screen.getByRole('button', { name: /copied!/i }))
         .toHaveAttribute('title', 'Copied!');

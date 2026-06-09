@@ -27,6 +27,7 @@ import CallVerbPage from './pages/call/CallVerbPage';
 import CarryVerbPage from './pages/carry/CarryVerbPage';
 import CatchVerbPage from './pages/catch/CatchVerbPage';
 import CheckVerbPage from './pages/check/CheckVerbPage';
+import CheerVerbPage from './pages/cheer/CheerVerbPage';
 import ParticlesPage from './pages/particles/ParticlesPage';
 import IWishPage from './pages/IWishPage';
 import NotFoundPage from './pages/NotFoundPage';
@@ -66,6 +67,7 @@ ReactDOM.createRoot(document.getElementById('root')!).render(
             <Route path="/phrasal-verbs/list/carry" element={<CarryVerbPage />} />
             <Route path="/phrasal-verbs/list/catch" element={<CatchVerbPage />} />
             <Route path="/phrasal-verbs/list/check" element={<CheckVerbPage />} />
+            <Route path="/phrasal-verbs/list/cheer" element={<CheerVerbPage />} />
             <Route path="/grammar" element={<GrammarPage />} />
             <Route path="/grammar/i-wish-if-only" element={<IWishPage />} />
             <Route path="*" element={<NotFoundPage />} />
