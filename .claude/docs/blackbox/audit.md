@@ -6227,3 +6227,672 @@ git add all changes and commit them with suitable message
 ## 2026-06-09T17:03:05Z
 Complete the backlog task-26. After completion run /compact Claude code command.
 ---
+
+## 2026-06-09T17:11:00Z
+Complete the backlog task-27. After completion run /compact Claude code command.
+---
+
+## 2026-06-09T17:17:49Z
+Create a backlog.md tasks the same way as task-13 and task-14 (but don't execute it) to solve the described problems:
+
+
+---
+Pick off
+1. To target or shoot one by one: The sniper picked off the enemy guards from a distance.
+2. To remove something by pulling it: She picked off the dry leaves from the houseplant.
+3. To intercept (often in sports): The defender picked off the pass perfectly.
+
+Pick on
+1. To bully or treat someone unfairly: The older children always picked on him at school.
+2. To choose someone to do a task or answer a question: The manager picked on me to lead the presentation.
+
+Pick up
+1. To lift something from a surface: Please pick up your clothes from the floor.
+2. To collect someone in a vehicle: I will pick you up at the airport at six.
+3. To learn a skill casually, without formal training: I picked up some new programming skills while working on that project.
+4. To improve or increase: Sales usually pick up in the fourth quarter.
+5. To catch an illness: I picked up a bad cold at the conference.
+6. To resume an activity (often "pick back up"): We are out of time, so let's pick this discussion back up tomorrow.
+7. To pay a bill: The company will pick up the tab for the team dinner.
+8. To notice or detect something (usually "pick up on"): The software easily picks up on errors in the code.
+
+Pick out
+1. To choose or select carefully: We need to pick out a good candidate for the management role.
+2. To recognize someone or something in a group: I could easily pick her out in the crowded room.
+3. To play a tune on an instrument slowly or with difficulty: He picked out a simple melody on the piano.
+
+Pick away
+1. To remove small pieces of something slowly: He picked away the old paint from the wall.
+2. To slowly reduce or destroy something (usually "pick away at"): The new competitor slowly picked away at our market share.
+
+Pick apart
+1. To pull something into separate physical pieces: The birds picked the piece of bread apart.
+2. To find all the mistakes or flaws in an idea or argument: The senior developers picked my code architecture apart during the review.
+
+Pick over
+1. To carefully examine a group of things to select the best ones: By the time I arrived at the market, the best fruit had already been picked over.
+
+Pick through
+1. To search carefully among a pile or collection of items: The team picked through the raw data looking for helpful trends.
+---
+Point out
+This is the most common phrasal verb with "point."
+
+Meaning 1: To tell someone a fact they did not know or had forgotten.
+
+Example: The lead developer pointed out that the Java update would break our older systems.
+
+Example: I must point out that the project is already over budget.
+
+Meaning 2: To direct attention to someone or something using your finger.
+
+Example: During the office tour, the manager pointed out where the IT department sits.
+
+Point to
+This is highly common in business and analytical contexts.
+
+Meaning 1: To mention something as proof or as a reason why something happened.
+
+Example: The CEO pointed to the new marketing strategy to explain the sudden growth in sales.
+
+Meaning 2: To suggest that a particular situation or result is likely.
+
+Example: All the server performance metrics point to a memory leak in the application.
+
+Meaning 3: To physically aim your finger or an object at something.
+
+Example: The architect pointed to the database schema on the whiteboard.
+
+Point up
+Meaning: To emphasize something or make a problem easier to notice (similar to "highlight").
+
+Example: The recent system crash points up the need for better error handling in our code.
+
+Example: The team's failure to meet the deadline points up the flaws in our current agile management process.
+
+Point back (to)
+Meaning: To show that something is connected to a past event, or to remind someone of the past.
+
+Example: Most of these software bugs point back to the rushed code we merged last month.
+
+Example: The leadership team's current success points back to the difficult decisions they made three years ago.
+
+Point ahead / Point forward
+Meaning: To look toward or indicate the future.
+
+Example: This new business model points forward to a more automated and efficient company.
+
+Example: Instead of blaming the past, good management points ahead to future solutions.
+
+Point off
+Meaning: To separate numbers with a decimal point (used mainly in mathematics and accounting).
+
+Example: When calculating the final cost, remember to point off two decimal places.
+---
+Pull about
+To treat someone or something roughly: The older children were pulling the little boy about, so the teacher intervened.
+
+Pull ahead
+To take the lead in a race or competition: In the final months of the year, our software company finally pulled ahead of the competition.
+
+Pull against
+To resist or oppose a force: The dog kept pulling against the leash.
+
+To work in opposition to someone: The team will fail if half the members are pulling against the manager.
+
+Pull apart
+To separate people or animals that are fighting: The referee had to pull the two players apart.
+
+To criticize heavily to show the flaws in something: The manager pulled the marketing plan apart during the meeting.
+
+To break or tear something into pieces: The child pulled the toy apart to see how it worked.
+
+Pull around / round
+To recover from a serious illness or injury (mostly British English): He was very sick after the surgery, but the doctors say he will pull round.
+
+Pull away
+To start moving (usually a vehicle): The train pulled away from the station exactly on time.
+
+To move your body back from someone: She pulled away when he tried to grab her arm.
+
+To increase your lead in a competition: In the second half of the race, the leading runner pulled away from the rest of the group.
+
+Pull back
+To retreat or move backwards: The army was ordered to pull back from the city.
+
+To decide not to do something you previously planned: The investors pulled back from the deal at the last minute because of financial risks.
+
+Pull down
+To demolish or destroy a building: They are pulling down the old factory to build a new office block.
+
+To make someone feel depressed or weak: The stress of the new project is really pulling him down.
+
+To earn a specific amount of money (informal): As a senior Java developer, she pulls down a very high salary.
+
+Pull for
+To support, hope, or cheer for someone's success: Good luck with your job interview tomorrow! We are all pulling for you.
+
+Pull forward
+To move a vehicle slightly forward: Can you pull forward a little bit so I have room to park behind you?
+
+Pull in
+To arrive (usually for trains): The train from Warsaw is pulling in at platform 3.
+
+To move a vehicle to the side of the road: I need to pull in at the next gas station.
+
+To attract people or money: The new advertising campaign is pulling in a lot of new customers.
+
+To arrest someone: The police pulled him in for questioning.
+
+Pull into
+To arrive at a destination (for vehicles): The bus pulled into the station twenty minutes late.
+
+Pull off
+To succeed in doing something very difficult or unexpected: No one thought we could finish the software update by Friday, but the team pulled it off.
+
+To drive a vehicle off the main road: We pulled off the highway to find a place to eat.
+
+To remove clothing quickly: He pulled off his boots and left them by the door.
+
+Pull on
+To put on clothing quickly: She pulled on a sweater because it was getting cold.
+
+To breathe in smoke from a cigarette or pipe: He pulled heavily on his cigar.
+
+Pull out
+To move into traffic (for vehicles): A truck pulled out right in front of me, and I had to brake hard.
+
+To leave a station (for trains): Our train was pulling out just as we arrived at the platform.
+
+To withdraw from an agreement, deal, or situation: The sponsor pulled out of the project due to budget cuts.
+
+To extract or remove something: He reached into his bag and pulled out a laptop.
+
+Pull over
+To stop a vehicle by the side of the road: The police officer signaled for the driver to pull over.
+
+Pull through
+To recover from a very serious illness or injury: It was a terrible accident, but the doctors are confident she will pull through.
+
+To succeed in a very difficult situation: The economy was bad, but strong leadership helped the business pull through.
+
+Pull to
+To close something, like a door or window, but often without locking it: Please pull the door to when you leave the office.
+
+Pull together
+To work as a team to achieve something: If we all pull together, we can finish this development phase by the deadline.
+
+To collect or organize information/things: I need an hour to pull together the data for the presentation.
+
+To regain emotional control (often "pull yourself together"): You need to pull yourself together and focus on the task.
+
+Pull up
+To slow down and stop a vehicle: A black taxi pulled up outside the building.
+
+To bring information onto a computer screen: Give me a second to pull up your account on my system.
+
+To correct or criticize someone for a mistake: The manager pulled him up on his constant lateness.
+
+To move a piece of furniture closer: Pull up a chair and join our meeting.
+---
+Run about / around / round
+Meaning 1: To be very busy doing many different tasks.
+
+Example: The project manager was running around all day trying to organize the sprint planning.
+
+Meaning 2: To deceive or cheat someone (usually "run around on").
+
+Example: The vendor was giving us the runaround instead of delivering the software on time.
+
+Run across
+Meaning 1: To find something or meet someone by chance.
+
+Example: I ran across an old Java library that perfectly solves our database problem.
+
+Run after
+Meaning 1: To chase someone or something.
+
+Example: Startups spend a lot of time running after new investors.
+
+Run against
+Meaning 1: To compete with someone in an election or business contest.
+
+Example: Our product is running against two major competitors in the enterprise market.
+
+Meaning 2: To cause difficulties or oppose principles.
+
+Example: The new company policy runs against our agile working methods.
+
+Run ahead
+Meaning 1: To progress faster than scheduled.
+
+Example: The development team is running ahead of schedule for the Q3 release.
+
+Run away
+Meaning 1: To escape or leave a difficult situation.
+
+Example: A good leader does not run away from hard decisions.
+
+Run back
+Meaning 1: To return quickly.
+
+Example: I need to run back to the office to get my security badge.
+
+Meaning 2: To replay audio or video.
+
+Example: Let's run the recording back to hear what the client said about the API requirements.
+
+Run behind
+Meaning 1: To be late or delayed according to a schedule.
+
+Example: We are running behind on the backend integration.
+
+Run by
+Meaning 1: To tell someone about an idea to get their opinion or approval.
+
+Example: I need to run this new architecture design by the CTO before we start coding.
+
+Run down
+Meaning 1: To lose power (a battery/machine) or energy (a person).
+
+Example: The server's backup battery finally ran down after three hours.
+
+Meaning 2: To criticize someone constantly.
+
+Example: A toxic manager constantly runs down their employees in front of others.
+
+Meaning 3: To find the source of something after a long search.
+
+Example: The QA team finally ran down the cause of the memory leak in the Java application.
+
+Run for
+Meaning 1: To try to be elected to an official or leadership position.
+
+Example: She decided to run for the board of directors.
+
+Run in
+Meaning 1: To use a new machine carefully until it is ready for normal use.
+
+Example: We need to run in the new servers before putting them into full production.
+
+Meaning 2: To arrest someone (informal police term).
+
+Example: The police ran him in for trespassing.
+
+Run into
+Meaning 1: To experience a problem or difficulty unexpectedly.
+
+Example: We ran into an unexpected bug while compiling the code.
+
+Meaning 2: To meet someone unexpectedly.
+
+Example: I ran into our former lead developer at a tech conference.
+
+Run off
+Meaning 1: To quickly make copies of a document.
+
+Example: Could you run off 20 copies of the meeting agenda?
+
+Meaning 2: To force someone or something to leave.
+
+Example: The aggressive takeover ran the original founders off.
+
+Run on
+Meaning 1: To be powered by something.
+
+Example: The legacy enterprise system still runs on Java 8.
+
+Meaning 2: To continue for too long.
+
+Example: The daily stand-up meeting ran on for an hour.
+
+Run out
+Meaning 1: To use all of a supply so there is nothing left.
+
+Example: We ran out of budget before finishing the software testing phase.
+
+Meaning 2: To expire (for a contract, document, or agreement).
+
+Example: Our cloud service contract runs out next month.
+
+Run over
+Meaning 1: To go beyond a time limit.
+
+Example: The project review ran over its scheduled time.
+
+Meaning 2: To quickly review or explain something.
+
+Example: Let's run over the main points of the business strategy one more time.
+
+Meaning 3: To hit with a vehicle.
+
+Example: The delivery truck ran over a sign in the company parking lot.
+
+Run through
+Meaning 1: To practice, review, or explain something from beginning to end.
+
+Example: The team ran through the deployment steps before the actual release.
+
+Meaning 2: To spend money very quickly.
+
+Example: The startup ran through its initial funding in just six months.
+
+Run to
+Meaning 1: To reach a particular amount or cost.
+
+Example: The costs for upgrading the IT infrastructure will run to $50,000.
+
+Meaning 2: To ask someone for help, often too quickly.
+
+Example: You cannot just run to the CEO every time there is a minor conflict in the team.
+
+Run together
+Meaning 1: To mix or blend so that things cannot be separated.
+
+Example: When you work from home, your professional and personal lives can easily run together.
+
+Run up
+Meaning 1: To create a large debt or cost.
+
+Example: We ran up a huge AWS bill during the load testing phase.
+
+Run with
+Meaning 1: To take an idea and develop it independently.
+
+Example: The management team loved the proposal and told us to run with it.
+
+Run without
+Meaning 1: To function lacking something.
+
+Example: The microservice is designed to run without a continuous database connection.
+---
+1. Set about
+Definition: To start doing something that needs a lot of time and energy.
+
+Example: "The team immediately set about rewriting the legacy Java code."
+
+2. Set against
+Definition 1: To make people or groups oppose or hate each other.
+
+Example: "Poor leadership set the development team against the testing team."
+
+Definition 2: To balance one thing against another (often used in finance).
+
+Example: "You can set the cost of the new servers against your tax bill."
+
+3. Set ahead
+Definition: To change the time on a clock to a later time.
+
+Example: "Don't forget to set your clocks ahead by one hour this weekend."
+
+4. Set apart
+Definition 1: To make someone or something different and better than others.
+
+Example: "Her excellent leadership skills set her apart from other managers."
+
+Definition 2: To keep time or space for a special purpose.
+
+Example: "We set apart two hours on Friday afternoons for code reviews."
+
+5. Set back
+Definition 1: To delay the progress of a project or plan.
+
+Example: "A critical bug in the database set the project back by three weeks."
+
+Definition 2: To cost someone a large amount of money (informal).
+
+Example: "Buying those enterprise software licenses will set us back a lot of money."
+
+6. Set by
+Definition: To save money or things for the future. (Note: "put by" or "set aside" is much more common in modern English).
+
+Example: "The company has a budget set by for emergency server repairs."
+
+7. Set down
+Definition 1: To write something on paper so there is an official record.
+
+Example: "The new coding standards are set down in the employee handbook."
+
+Definition 2: To state officially how something must be done (to make a rule).
+
+Example: "The CEO set down strict rules for working remotely."
+
+Definition 3: To stop a vehicle to let a passenger get out.
+
+Example: "The taxi driver set him down right in front of the office building."
+
+8. Set in
+Definition: To begin and seem likely to continue for a long time (usually used for negative situations, feelings, or bad weather).
+
+Example: "Panic set in when the main production server crashed."
+
+9. Set off
+Definition 1: To start a journey.
+
+Example: "They set off for the tech conference in Berlin at 8:00 AM."
+
+Definition 2: To cause an alarm to ring or a bomb to explode.
+
+Example: "The faulty sensor set off the fire alarm in the data center."
+
+Definition 3: To cause a series of events to happen.
+
+Example: "The manager's email set off a wave of complaints."
+
+Definition 4: To make someone start laughing or crying.
+
+Example: "The presenter's joke set the whole room off."
+
+10. Set on
+Definition 1: To attack someone, or to make an animal attack someone.
+
+Example: "The security guards set their dogs on the intruders."
+
+Definition 2: To be very determined to do something (used passively as "be set on").
+
+Example: "The lead architect is set on using microservices for this project."
+
+11. Set out
+Definition 1: To begin an activity with a specific goal in mind.
+
+Example: "We set out to build the fastest application on the market."
+
+Definition 2: To explain ideas, facts, or plans clearly in writing or speaking.
+
+Example: "The project manager set out the timeline during the sprint planning meeting."
+
+Definition 3: To start a journey (similar to "set off").
+
+Example: "She set out for the client's office early in the morning."
+
+12. Set over
+Definition: To give someone authority or power over someone else. (Note: This is formal and slightly old-fashioned).
+
+Example: "She was set over the entire IT department after the reorganization."
+
+13. Set to
+Definition: To start working or doing something with a lot of energy and determination.
+
+Example: "The developers set to and fixed all the major bugs before the deadline."
+
+14. Set up
+Definition 1: To start a new business or organization.
+
+Example: "They set up a successful software company five years ago."
+
+Definition 2: To arrange or plan a meeting or event.
+
+Example: "I will set up a video call with the stakeholders for tomorrow."
+
+Definition 3: To prepare equipment or software so it is ready to use.
+
+Example: "The IT support team is coming to set up your new Java development environment."
+
+Definition 4: To trick someone in order to make them look guilty of a crime or mistake.
+
+Example: "He didn't leak the company data; he was set up by a rival."
+---
+1. Settle on
+Meaning A (To choose): To make a final decision or choice after thinking about multiple options.
+
+Example: After reviewing several different programming languages, the development team settled on Java for the new project.
+
+Meaning B (To land): To land or rest on a physical surface.
+
+Example: The dust finally settled on the old office desks.
+
+2. Settle up
+Meaning: To pay money that you owe, usually to balance an account or share a bill.
+
+Example: I will pay for the client's lunch now, and we can settle up when we get back to the office.
+
+3. Settle down
+Meaning A (To become calm): To become quiet and relaxed after being excited, nervous, or angry.
+
+Example: The manager waited for the noisy room to settle down before starting her presentation.
+
+Meaning B (To find stability): To start living a quiet, stable life, often by staying in one place, buying a house, or starting a family.
+
+Example: After years of moving between different tech startups, he decided to settle down in Warsaw and take a stable corporate job.
+
+Meaning C (To focus - "settle down to"): To start paying serious attention to a task.
+
+Example: We need to settle down to work if we want to finish this software update today.
+
+4. Settle in
+Meaning: To become comfortable, relaxed, and familiar in a new home, environment, or job.
+
+Example: It takes about a month for a new employee to fully settle in and learn the company culture.
+
+5. Settle into
+Meaning: To get used to a new role, routine, or situation and become comfortable with it.
+
+Example: She quickly settled into her new position as the lead project manager.
+
+6. Settle out
+Meaning A (Legal/Business): To reach an agreement without going through a full court trial (often phrased as "settle out of court").
+
+Example: The two companies decided to settle out of court to avoid a long and expensive legal battle.
+
+Meaning B (Physical): To sink to the bottom of a liquid.
+
+Example: If you leave the coffee pot alone, the grounds will settle out at the bottom.
+
+7. Settle back
+Meaning: To relax into a comfortable physical position, usually leaning backward.
+
+Example: After a very successful product launch, the CEO settled back in his chair with a smile.
+
+8. Settle for
+Meaning: To accept something that is available, even though it is not exactly what you wanted or hoped for.
+
+Example: We wanted to hire a senior Java developer, but because of the budget, we had to settle for a mid-level programmer.
+
+9. Settle with
+Meaning A (Financial/Legal): To reach a financial agreement or pay a debt to a person or organization.
+
+Example: The company finally settled with its suppliers after a long dispute over the late invoices.
+
+Meaning B (Revenge): To punish someone who has done something bad to you in the past.
+
+Example: I have an old argument to settle with a former competitor.
+
+10. Settle over
+Meaning: To descend and cover something (often used to describe weather, a feeling, or a mood in a room).
+
+Example: A deep silence settled over the boardroom when the team saw the terrible financial results.
+
+11. Settle to
+Meaning: To begin giving your full attention and effort to a task (very similar to "settle down to").
+
+Example: Once everyone had their coffee, the team settled to the task of fixing the software bugs.
+---
+Show off
+Meaning 1: To behave in a way that is intended to attract attention or admiration (often seen as negative or boastful).
+
+Example: He only bought that expensive sports car to show off.
+
+Meaning 2: To proudly display something you have or have achieved.
+
+Example: She wanted to show off her new Java application to the management team.
+
+Meaning 3: To make something look its best or highlight its good qualities.
+
+Example: That tailored suit really shows off his professional style.
+
+Show up
+Meaning 1: To arrive or appear at a place, especially when expected or late.
+
+Example: We waited for an hour, but the client never showed up for the meeting.
+
+Meaning 2: To be clearly visible.
+
+Example: The coffee stain won't show up on a dark carpet.
+
+Meaning 3: To reveal someone's faults or make them feel embarrassed, usually by doing something better than them.
+
+Example: The junior developer's clean, efficient code showed up the senior developer's messy work.
+
+Meaning 4: To test positive for something (e.g., in a medical or drug test).
+
+Example: The virus did not show up in his blood test.
+
+Show in / Show into
+Meaning: To act as a guide and lead someone inside a room or building.
+
+Example (in): When the candidates arrive, please show them in.
+
+Example (into): The receptionist showed the guests into the main conference room.
+
+Show out
+Meaning: To lead or escort someone to the exit of a building or room.
+
+Example: Thank you for the interview. My assistant will show you out.
+
+Show around / Show round / Show about
+Meaning: To act as a guide and give someone a tour of a new place. ("Show round" and "show about" are more common in British English, while "show around" is universal).
+
+Example: Welcome to the new headquarters! Let me show you around the office.
+
+Show through
+Meaning 1: To be visible under or through a layer of something else (like cloth or paper).
+
+Example: You need to apply another coat of paint; the old dark color is showing through.
+
+Meaning 2: To become obvious or visible, referring to an emotion or personal quality that someone is trying to hide.
+
+Example: She tried to stay calm, but her frustration showed through when the software crashed again.
+
+Show to
+Meaning: To escort or lead someone to a specific location or seat.
+
+Example: The host showed us to our table.
+
+Show over
+Meaning: To guide someone around a building to inspect it (primarily British English, very similar to "show around").
+
+Example: The real estate agent showed us over the new office space.
+
+Show for (Idiomatic Phrase)
+Meaning: Usually used in the phrase "have something to show for [an effort]," meaning to have a result, reward, or physical evidence of your hard work.
+
+Example: I worked all weekend on the project, but because of a server crash, I have nothing to show for it.
+
+Show down
+Meaning: In card games (like poker), to lay your cards face-up on the table to reveal your hand. (Note: "Showdown" is very common as a noun meaning a final confrontation, but "show down" as a verb is rare outside of card games).
+
+Example: After the final bet, it was time to show down their cards.
+---
+
+===
+for each:
+1) Create the link on list page with particals mentioned above phrasal verbs. 
+   Take as the base "take" link.
+2) Create the page with mentioned above phrasal verbs. 
+   Take as the base "take" page.
+3) Cover the functionality with tests
+---
+
+## 2026-06-09T18:12:41Z
+git add all changes and commit them with suitable message
+---

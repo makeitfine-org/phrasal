@@ -1076,3 +1076,20 @@
 <!-- git-snapshot 2026-06-09T16:59:31Z -->
 - .claude/docs/blackbox/audit.md
 <!-- end-snapshot -->
+
+<!-- git-snapshot 2026-06-09T17:08:42Z -->
+- .claude/docs/blackbox/audit.md
+- backlog/tasks/task-26 - Add-Figure-phrasal-verb-page-with-list-card-and-tests.md
+<!-- end-snapshot -->
+
+<!-- git-snapshot 2026-06-09T17:16:00Z -->
+- .claude/docs/blackbox/audit.md
+- .claude/docs/blackbox/session-log.md
+- backlog/tasks/task-27 - Add-Fill-phrasal-verb-page-with-list-card-and-tests.md
+<!-- end-snapshot -->
+
+<!-- git-snapshot 2026-06-09T17:25:32Z -->
+- .claude/docs/blackbox/audit.md
+- .claude/docs/blackbox/session-log.md
+- backlog/tasks/task-27 - Add-Fill-phrasal-verb-page-with-list-card-and-tests.md
+<!-- end-snapshot -->

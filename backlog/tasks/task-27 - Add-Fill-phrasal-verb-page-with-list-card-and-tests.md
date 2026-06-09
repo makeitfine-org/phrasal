@@ -1,9 +1,10 @@
 ---
 id: TASK-27
 title: Add "Fill" phrasal verb page with list card and tests
-status: To Do
+status: Done
 assignee: []
 created_date: '2026-06-09 15:34'
+updated_date: '2026-06-09 17:15'
 labels:
   - phrasal-verbs
   - content
@@ -69,12 +70,18 @@ Add the "Fill" phrasal verb entry following the same pattern as existing verb pa
 
 ## Acceptance Criteria
 <!-- AC:BEGIN -->
-- [ ] #1 #1 `src/pages/fill/FillVerbPage.tsx` created with 5 sections, all meanings, all using default.png
-- [ ] #2 #2 FILL_PARTICLES constant added to PhrasalVerbsListPage.tsx with all 5 particles
-- [ ] #3 #3 VERBS entry added for Fill in alphabetical position in PhrasalVerbsListPage.tsx
-- [ ] #4 #4 Route `/phrasal-verbs/list/fill` registered in src/main.tsx
-- [ ] #5 #5 fillSections added to listVerbIndex.ts search index
-- [ ] #6 #6 5 test files created under src/__tests__/fill_verb_page/ (one per particle)
-- [ ] #7 #7 PhrasalVerbsListPage.test.tsx extended with Fill card, subtitle, and copy-button describe blocks
-- [ ] #8 #8 `npm run test:run` passes with all tests green
+- [x] #1 #1 `src/pages/fill/FillVerbPage.tsx` created with 5 sections, all meanings, all using default.png
+- [x] #2 #2 FILL_PARTICLES constant added to PhrasalVerbsListPage.tsx with all 5 particles
+- [x] #3 #3 VERBS entry added for Fill in alphabetical position in PhrasalVerbsListPage.tsx
+- [x] #4 #4 Route `/phrasal-verbs/list/fill` registered in src/main.tsx
+- [x] #5 #5 fillSections added to listVerbIndex.ts search index
+- [x] #6 #6 5 test files created under src/__tests__/fill_verb_page/ (one per particle)
+- [x] #7 #7 PhrasalVerbsListPage.test.tsx extended with Fill card, subtitle, and copy-button describe blocks
+- [x] #8 #8 `npm run test:run` passes with all tests green
 <!-- AC:END -->
+
+## Final Summary
+
+<!-- SECTION:FINAL_SUMMARY:BEGIN -->
+Created FillVerbPage.tsx with 5 sections (down/1, in/4, out/2, up/2, with/2) in alphabetical order. Added 6 test files under fill_verb_page/, updated PhrasalVerbsListPage.tsx, main.tsx, listVerbIndex.ts, and PhrasalVerbsListPage.test.tsx. All 456 test files / 10,737 tests pass. Committed as feat: add Fill phrasal verb page with list card and tests (65ce690).
+<!-- SECTION:FINAL_SUMMARY:END -->
