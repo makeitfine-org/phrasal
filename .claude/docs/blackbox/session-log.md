@@ -1116,3 +1116,19 @@
 <!-- git-snapshot 2026-06-09T20:33:55Z -->
 - .claude/docs/blackbox/audit.md
 <!-- end-snapshot -->
+
+<!-- git-snapshot 2026-06-09T20:37:35Z -->
+- .claude/docs/blackbox/audit.md
+- backlog/tasks/task-13 - Add-Call-phrasal-verb-page-with-list-card-and-tests.md
+- backlog/tasks/task-14 - Add-Carry-phrasal-verb-page-with-list-card-and-tests.md
+- backlog/tasks/task-15 - Add-Catch-phrasal-verb-page-with-list-card-and-tests.md
+- backlog/tasks/task-16 - Add-Check-phrasal-verb-page-with-list-card-and-tests.md
+- backlog/tasks/task-17 - Add-Cheer-phrasal-verb-page-with-list-card-and-tests.md
+- backlog/tasks/task-18 - Add-Clean-phrasal-verb-page-with-list-card-and-tests.md
+- backlog/tasks/task-19 - Add-Count-phrasal-verb-page-with-list-card-and-tests.md
+- backlog/tasks/task-20 - Add-Deal-phrasal-verb-page-with-list-card-and-tests.md
+- backlog/tasks/task-21 - Add-Do-phrasal-verb-page-with-list-card-and-tests.md
+- backlog/tasks/task-22 - Add-Dress-phrasal-verb-page-with-list-card-and-tests.md
+- backlog/tasks/task-26 - Add-Figure-phrasal-verb-page-with-list-card-and-tests.md
+- backlog/tasks/task-27 - Add-Fill-phrasal-verb-page-with-list-card-and-tests.md
+<!-- end-snapshot -->
