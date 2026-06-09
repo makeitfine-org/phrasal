@@ -3622,3 +3622,355 @@ for "carry"":
    Take as the base "take" page.
 3) Cover the functionality with tests
 ---
+
+## 2026-06-09T11:16:38Z
+Create a backlog.md tasks the same way as task-13 and task-14 (but don't execute it) to solve the described problems:
+
+
+
+---
+1. Catch on
+Meaning 1: To understand something (often after a delay or difficulty).
+
+Example: The syntax of the new Java library was confusing at first, but the junior developers eventually caught on.
+
+Meaning 2: To become popular or widely accepted.
+
+Example: Microservices architecture quickly caught on as the standard for enterprise software development.
+
+2. Catch up
+Meaning 1: To reach the same level, standard, or position as someone or something else.
+
+Example: Our software is lacking some features, so we need to release a major update to catch up with our main competitor.
+
+Meaning 2: To do work or tasks that you did not have time to do earlier (often followed by "on").
+
+Example: I need to block out two hours this afternoon to catch up on my code reviews and emails.
+
+Meaning 3: To talk to someone to find out the latest news about their life or work.
+
+Example: Let's schedule a brief meeting on Friday to catch up on the project's progress.
+
+Meaning 4: To involve someone in a situation, often against their will (used in the passive: be/get caught up in).
+
+Example: The lead engineer got caught up in administrative tasks and had no time to write code.
+
+3. Catch out
+Meaning 1: To discover that someone has made a mistake, lied, or done something wrong.
+
+Example: The automated testing pipeline caught the developer out by exposing a critical security flaw in the code.
+
+Meaning 2: To put someone in a difficult, unexpected, or unprepared situation.
+
+Example: The sudden crash of our cloud servers caught the management team out during the product launch.
+
+4. Catch in
+Note: This is mostly used in specific phrases or in the passive voice.
+
+Meaning 1: To discover someone in the middle of doing something (usually bad).
+
+Example: The audit team caught the vendor in a lie about their data protection protocols.
+
+Meaning 2: To be trapped or delayed by an unavoidable situation (used as caught in).
+
+Example: I missed the daily Scrum meeting because I got caught in heavy traffic.
+---
+1. Check off
+Meaning 1: To mark an item on a list to show that it has been completed or verified.
+
+Example: After completing the code review, I checked off the task in Jira.
+
+2. Check on
+Meaning 1: To look at someone or something to make sure they are safe, progressing well, or in good condition.
+
+Example: The manager stopped by to check on the new Java developers.
+
+3. Check up (usually "Check up on")
+Meaning 1: To investigate someone or something to discover what they are doing or if they are okay.
+
+Example: The client called to check up on the progress of the software release.
+
+4. Check down
+Meaning 1: To go down a list of options until you find one that works (often used in processes or sports).
+
+Example: If the main database fails, the system will check down the list and connect to the backup server.
+
+5. Check in
+Meaning 1: To register your arrival at a hotel, airport, or event.
+
+Example: The CEO checked in at the hotel right before the leadership conference.
+
+Meaning 2: To contact someone briefly to give an update or make sure everything is okay.
+
+Example: Let's check in on Friday to discuss the sprint results.
+
+Meaning 3 (Tech): To upload or save source code to a version control system (like Git or SVN).
+
+Example: Make sure to check in your Java code before you leave for the weekend.
+
+Meaning 4: To leave your bags at the airport before a flight.
+
+Example: I need to check in my heavy suitcase.
+
+6. Check into
+Meaning 1: To arrive and register at a hotel, clinic, or hospital.
+
+Example: We checked into the Hilton at 3:00 PM.
+
+Meaning 2: To investigate or look for more information about a problem.
+
+Example: The application keeps crashing; the IT team needs to check into it immediately.
+
+7. Check out
+Meaning 1: To pay your bill and leave a hotel.
+
+Example: We have to check out of our rooms by 11:00 AM.
+
+Meaning 2: To examine, investigate, or look at something interesting.
+
+Example: You should check out this new Java framework; it could save us a lot of time.
+
+Meaning 3: To prove to be true or correct after investigation.
+
+Example: The server logs show no errors, so the user's story doesn't check out.
+
+Meaning 4: To pay for goods at a store or online.
+
+Example: I added the books to my online cart and checked out.
+
+Meaning 5 (Tech): To download or switch to a specific version of code from a repository (like Git).
+
+Example: Please check out the feature-login branch and run the tests.
+
+Meaning 6 (Informal): To stop paying attention or disconnect mentally because you are tired or bored.
+
+Example: The meeting was so long that half the team checked out after an hour.
+
+8. Check back
+Meaning 1: To return later to see if something has happened or is ready.
+
+Example: The system is still restarting; please check back in five minutes.
+
+9. Check for
+(Note: Grammatically this is a verb + preposition, not a true phrasal verb, but it is very common).
+
+Meaning 1: To look closely to find a specific thing (often errors, signs, or problems).
+
+Example: We ran automated tests to check for security bugs in the code.
+
+10. Check with
+Meaning 1: To ask someone for permission, advice, or information before doing something.
+
+Example: You need to check with the project manager before changing the database structure.
+
+11. Check over
+Meaning 1: To examine something carefully from start to finish to find errors or problems.
+
+Example: Please check over the business contract before you sign it.
+
+12. Check through
+Meaning 1: To look at or read a collection of items carefully.
+
+Example: I checked through the error logs to find where the Java exception happened.
+
+Meaning 2: To send luggage directly to a final destination without needing to collect it during a connection.
+
+Example: My bags were checked through all the way to Warsaw.
+
+13. Check around / Check round
+Meaning 1: To look in various places or ask several people for information (often to compare prices or options).
+
+Example: We should check around for a cheaper cloud hosting provider before signing a contract.
+
+14. Check against
+Meaning 1: To compare one thing with another to see if they match or to find differences.
+
+Example: The finance team must check the monthly expenses against the budget.
+---
+1. Cheer up
+This is the most common phrasal verb with "cheer." It relates to improving someone's mood.
+
+Meaning A (Intransitive - focus on oneself): To start feeling happier; to stop being sad.
+
+Example: You need to cheer up! The project delay is not a total disaster.
+
+Meaning B (Transitive - focus on someone else): To make another person feel happier.
+
+Example: We bought some coffee and cake to cheer the team up after a stressful week.
+
+2. Cheer on
+This is used when giving active, vocal support.
+
+Meaning: To encourage someone by shouting words of support, usually when they are competing or doing something difficult.
+
+Example: The whole department went to the meeting to cheer her on during her final presentation.
+
+Example: It is a leader's job to cheer on their employees when they take on new challenges.
+
+3. Cheer for
+While sometimes categorized as a verb + preposition, this functions as a standard phrasal unit regarding loyalty or support.
+
+Meaning: To publicly support a specific person, team, or idea, hoping they will succeed.
+
+Example: Everyone in the office is cheering for the new software release to be a success.
+
+Example: Which company are you cheering for in this bidding war?
+
+4. Cheer against
+This is the direct opposite of "cheer for."
+
+Meaning: To express a desire for someone or something to fail or lose.
+
+Example: In a healthy business environment, you focus on improving your own product rather than cheering against your competitors.
+
+5. Cheer off
+This is less common in everyday business but frequently used in sports or public speaking.
+
+Meaning: To applaud or shout in support of someone as they are leaving a stage, field, or room.
+
+Example: After 20 years with the company, the retiring manager was cheered off the stage by his colleagues.
+===
+for each ["catch", "check", "cheer"]:
+1) Create the link on list page with particals mentioned above phrasal verbs. 
+   Take as the base "take" link.
+2) Create the page with mentioned above phrasal verbs. 
+   Take as the base "take" page.
+3) Cover the functionality with tests
+---
+
+## 2026-06-09T11:23:30Z
+Create a backlog.md tasks the same way as task-13 and task-14 (but don't execute it) to solve the described problems:
+
+
+
+---
+Count against
+Meaning 1: To be considered a disadvantage or a negative point for someone.
+
+Example: His lack of management experience might count against him in the job interview.
+
+Count back
+Meaning 1: To count backwards from a specific number or date to calculate something.
+
+Example: To figure out when the project started, we need to count back six weeks from today.
+
+Count down
+Meaning 1: To say numbers backwards to zero, usually before a big event.
+
+Example: The crowd started to count down from ten before the rocket launch.
+
+Meaning 2: To wait eagerly for an event to happen.
+
+Example: We are counting down the days until our summer holiday.
+
+Count for
+Meaning 1: To have a specific level of importance or value.
+
+Example: Good communication skills count for a lot in a software development team.
+
+Meaning 2: To be worth something (often used with "nothing" or "something").
+
+Example: Does all my hard work count for nothing?
+
+Count in
+Meaning 1: To include someone in an activity, group, or plan.
+
+Example: If you are ordering pizza for lunch, please count me in!
+
+Count off
+Meaning 1: To say numbers aloud in order, usually to divide a group of people into smaller teams.
+
+Example: The coach asked the players to count off by threes.
+
+Count on
+Meaning 1: To depend or rely on someone to do something.
+
+Example: You can always count on Sarah to help you finish the report on time.
+
+Meaning 2: To expect something to happen and base your plans on it.
+
+Example: We didn't count on it raining so heavily during our outdoor meeting.
+
+Count out
+Meaning 1: To not include someone in an activity or plan.
+
+Example: I feel too sick to go to the dinner party, so count me out.
+
+Meaning 2: To count things one by one, often when distributing them (like money).
+
+Example: The cashier slowly counted out the coins and gave me my change.
+
+Meaning 3: (In boxing) To declare a fighter defeated because they cannot stand up before the referee counts to ten.
+
+Example: The champion hit him hard, and the referee counted him out.
+
+Count up
+Meaning 1: To add things together to find the total amount.
+
+Example: Please count up all the expenses from the business trip.
+---
+Clean away
+
+Definition: To remove dirt, rubbish, or objects to leave a space tidy.
+
+Example: Please clean away the empty plates from the dining table.
+
+Clean around
+
+Definition: To wash or tidy the space near an object without moving the object itself.
+
+Example: Don't worry about moving the heavy cabinet; just clean around it.
+
+Clean down
+
+Definition: To wash an entire surface, usually from top to bottom.
+
+Example: We need to clean down the walls before we start painting.
+
+Clean off
+
+Definition: To remove dirt, marks, or a substance from a surface.
+
+Example: Make sure to clean the mud off your boots before coming inside.
+
+Clean out
+
+Definition 1: To empty and clean the inside of a space (like a room, cupboard, or box), usually by throwing away unwanted items.
+
+Example: I spent my Saturday cleaning out the garage.
+
+Definition 2 (Informal): To use or take all of someone's money.
+
+Example: Paying for those car repairs completely cleaned me out.
+
+Definition 3: To steal everything of value from a place.
+
+Example: The thieves cleaned out the safe during the night.
+
+Clean up
+
+Definition 1: To make a place or a person completely clean and tidy.
+
+Example: We need to clean up the living room before our guests arrive.
+
+Definition 2 (Informal): To make a large profit or a lot of money quickly.
+
+Example: The retail company cleaned up during the holiday sales.
+
+Definition 3: To stop crime, corruption, or bad behavior in a specific organization or area.
+
+Example: The new mayor promised to clean up the city center.
+
+Clean up after (Uses "up" and "after")
+
+Definition: To remove the mess or dirt created by someone or something else.
+
+Example: I am constantly cleaning up after my new puppy.
+===
+for each ["count", "clean"]:
+1) Create the link on list page with particals mentioned above phrasal verbs. 
+   Take as the base "take" link.
+2) Create the page with mentioned above phrasal verbs. 
+   Take as the base "take" page.
+3) Cover the functionality with tests
+---
