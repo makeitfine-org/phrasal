@@ -6223,3 +6223,7 @@ for each:
 ## 2026-06-09T17:00:18Z
 git add all changes and commit them with suitable message
 ---
+
+## 2026-06-09T17:03:05Z
+Complete the backlog task-26. After completion run /compact Claude code command.
+---
