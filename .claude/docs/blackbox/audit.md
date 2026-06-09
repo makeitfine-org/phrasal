@@ -3523,3 +3523,102 @@ for "call"":
 ## 2026-06-09T11:01:43Z
 git add all changes and commit them with suitable message
 ---
+
+## 2026-06-09T11:04:15Z
+Create a backlog.md task the same way as task-13 (but don't execute it) to solve the described problem:
+
+
+
+---
+Carry about / Carry around / Carry round
+Meaning 1: To keep something with you everywhere you go (physical).
+
+Example: The lead developer carries around a notebook to write down new software ideas.
+
+Meaning 2: To hold onto a feeling or emotion (usually negative) for a long time.
+
+Example: She carried around a lot of stress after the project failed.
+
+Carry away
+Meaning 1: To become too excited and lose control of your behavior (almost always used in the passive voice: "get/be carried away").
+
+Example: The marketing team got carried away with the new features and promised the client things we couldn't build.
+
+Carry back
+Meaning 1: To bring a past memory to mind; to make someone remember a specific time.
+
+Example: Hearing that old startup story carried the CEO back to his first year in business.
+
+Carry forward
+Meaning 1: To make a project or idea progress to the next stage.
+
+Example: We need a strong manager to carry this initiative forward.
+
+Meaning 2: (Business / Accounting) To transfer a financial total or a specific benefit to a new page, period, or year.
+
+Example: Any unused vacation days from this year will be carried forward to next year.
+
+Carry off
+Meaning 1: To succeed in doing something difficult, often when others did not expect you to.
+
+Example: It was a highly risky strategy, but the leadership team carried it off perfectly.
+
+Meaning 2: To win a prize, competition, or award.
+
+Example: Our company carried off three major industry awards this year.
+
+Meaning 3: To cause death, usually due to a disease (formal and older use).
+
+Example: The virus carried off thousands of people in the 19th century.
+
+Carry on
+Meaning 1: To continue doing something.
+
+Example: Please carry on with your coding; I will check your progress after lunch.
+
+Meaning 2: To manage, run, or take part in a business or activity.
+
+Example: They carry on a successful IT consulting business in Warsaw.
+
+Meaning 3: To behave in an uncontrolled, angry, or childish way.
+
+Example: The customer carried on for ten minutes about the delayed software release.
+
+Meaning 4: To have a secret, often romantic or sexual, relationship.
+
+Example: It was rumored that the two directors were carrying on.
+
+Carry out
+Meaning 1: To perform, execute, or complete a task, instruction, experiment, or plan.
+
+Example: The IT department carried out the system update over the weekend without any issues.
+
+Meaning 2: To fulfill a promise or a threat.
+
+Example: The management carried out their promise to increase employee training budgets.
+
+Carry over
+Meaning 1: To continue to exist in a different situation, environment, or time.
+
+Example: His excellent management skills carried over perfectly into his new role as a director.
+
+Meaning 2: To delay or postpone something to a later time.
+
+Example: We ran out of time, so the final agenda item was carried over to next week's meeting.
+
+Carry through
+Meaning 1: To complete a task successfully despite facing significant difficulties.
+
+Example: The team's dedication carried the software release through to a successful launch.
+
+Meaning 2: To help someone or something survive a difficult situation.
+
+Example: The emergency investment carried the business through the financial crisis.
+===
+for "carry"":
+1) Create the link on list page with particals mentioned above phrasal verbs. 
+   Take as the base "take" link.
+2) Create the page with mentioned above phrasal verbs. 
+   Take as the base "take" page.
+3) Cover the functionality with tests
+---
