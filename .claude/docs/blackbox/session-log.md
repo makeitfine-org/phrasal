@@ -1072,3 +1072,7 @@
 - backlog/tasks/task-24 - Add-Eat-phrasal-verb-page-with-list-card-and-tests.md
 - backlog/tasks/task-25 - Add-Fall-phrasal-verb-page-with-list-card-and-tests.md
 <!-- end-snapshot -->
+
+<!-- git-snapshot 2026-06-09T16:59:31Z -->
+- .claude/docs/blackbox/audit.md
+<!-- end-snapshot -->

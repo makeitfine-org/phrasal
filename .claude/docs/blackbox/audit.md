@@ -5607,3 +5607,619 @@ Complete the backlog task-24. After completion run /compact Claude code command.
 ## 2026-06-09T16:40:51Z
 Complete the backlog task-25. After completion run /compact Claude code command.
 ---
+
+## 2026-06-09T16:54:11Z
+Create a backlog.md tasks the same way as task-13 and task-14 (but don't execute it) to solve the described problems:
+
+
+---
+Leave about / around
+Meaning 1: To put things in random places in an untidy way, making a mess.
+
+Example: Please don't leave your dirty clothes around the house.
+
+Leave back
+Meaning 1: To make a student repeat a school year because their grades were too low (mainly used in US English).
+
+Example: He failed his math and science exams, so the school left him back a year.
+
+Leave behind
+Meaning 1: To forget to take someone or something with you when you depart.
+
+Example: I accidentally left my umbrella behind at the coffee shop.
+
+Meaning 2: To permanently move on from a situation, place, or person.
+
+Example: She moved to a new city to leave her difficult past behind.
+
+Meaning 3: To progress much faster than competitors, making them look slow or outdated.
+
+Example: The software company left its competitors behind by releasing a revolutionary new app.
+
+Leave for
+Meaning 1: To begin a journey with a specific destination in mind.
+
+Example: We need to pack our bags because we leave for London early tomorrow morning.
+
+Leave in
+Meaning 1: To not remove something; to let it stay where it is.
+
+Example: The editor decided to leave that paragraph in the final article.
+
+Example 2: You should leave the butter in the fridge so it doesn't melt.
+
+Leave off
+Meaning 1: To stop doing something.
+
+Example: Let's start the meeting exactly where we left off yesterday.
+
+Meaning 2: To purposefully or accidentally exclude someone or something from a list.
+
+Example: I think there is a mistake; my name was left off the guest list.
+
+Leave on
+Meaning 1: To let a machine, device, or light continue working.
+
+Example: Don't leave the TV on when you go to sleep.
+
+Meaning 2: To continue wearing a piece of clothing.
+
+Example: It's cold in the office, so I will leave my jacket on.
+
+Leave out
+Meaning 1: To not include someone or something.
+
+Example: You can leave out the last exercise; it is optional.
+
+Meaning 2: To make a person feel excluded from a group or activity.
+
+Example: She felt left out when her colleagues went to lunch without her.
+
+Leave over
+Meaning 1: To have a portion of something remaining after the rest has been used or eaten (almost always used in the passive as "left over").
+
+Example: We have a lot of pizza left over from the project launch party.
+
+Leave to
+Meaning 1: To give someone else the responsibility or authority to handle a task.
+
+Example: I don't know how to fix this server error; I'll leave it to the IT department.
+
+Meaning 2: To give money or property to someone in a will after passing away.
+
+Example: The CEO left his entire estate to charity.
+
+Leave up (to)
+Meaning 1: To let someone else make a decision or choose an option.
+
+Example: We can eat pizza or sushi for lunch; I will leave it up to you.
+
+Meaning 2: To let a physical object or decoration remain hanging.
+
+Example: We usually leave our holiday decorations up until the middle of January.
+
+Leave with
+Meaning 1: To give an object to someone so they can keep it safe or take care of it temporarily.
+
+Example: Can I leave my heavy bags with you while I quickly run to the store?
+---
+Let down
+Meaning 1: To disappoint someone by failing to do what you promised or what they expected.
+
+Example: The manager promised a bonus, but she let the team down by canceling it.
+
+Meaning 2: To make clothing longer.
+
+Example: My son has grown so much that I need to let down his trousers.
+
+Meaning 3: To allow air to escape from something (like a tire).
+
+Example: Someone let down the tires on my car.
+
+Let in
+Meaning 1: To allow someone or something to enter a place.
+
+Example: Please open the door and let the client in.
+
+Meaning 2 (Let in on): To allow someone to share a secret or know about a special plan.
+
+Example: The CEO let me in on the new business strategy before it was announced.
+
+Let into
+Meaning 1: To allow someone to enter a room or building.
+
+Example: The security guard let us into the server room.
+
+Meaning 2: To share a secret with someone.
+
+Example: She let me into her plans for starting a new software company.
+
+Let off
+Meaning 1: To not punish someone, or to give them a very light punishment.
+
+Example: The boss let him off with a warning for being late to the meeting.
+
+Meaning 2: To make a bomb explode, or to fire a gun or firework.
+
+Example: The children let off fireworks in the park to celebrate.
+
+Meaning 3: To excuse someone from a duty or obligation.
+
+Example: My manager let me off early today so I could go to the doctor.
+
+Let on
+Meaning 1: To reveal a secret or show that you know something.
+
+Example: We are planning a surprise party, so please don't let on.
+
+Meaning 2: To pretend.
+
+Example: He let on that he was an expert in Java, but he actually knew very little.
+
+Let out
+Meaning 1: To allow a person or animal to leave a place.
+
+Example: Someone left the gate open and let the dogs out.
+
+Meaning 2: To make clothing wider.
+
+Example: I gained a few kilos on holiday, so I need to let out this suit.
+
+Meaning 3: To suddenly make a sound.
+
+Example: She let out a sigh of relief when the code finally compiled.
+
+Meaning 4: When a class, school, or meeting finishes and people can leave.
+
+Example: The leadership seminar lets out at 4:00 PM.
+
+Let up
+Meaning 1: To stop or become less severe (usually referring to bad weather or a difficult situation).
+
+Example: The heavy workload hasn't let up since we started this new project.
+
+Meaning 2: To stop working as hard as you were before.
+
+Example: We are close to the deadline, so we can't let up now.
+
+Let by
+Meaning: To move aside to allow someone or something to pass you.
+
+Example: Please step aside and let the paramedics by.
+
+Let through
+Meaning: To allow someone or something to pass a barrier, a security check, or a test.
+
+Example: The firewall is strictly configured and will not let unauthorized traffic through.
+---
+1. Log in / Log into
+Meaning 1 (Computing): To provide credentials (like a username and password) to access a computer system, application, or network.
+
+Example: "You must log into the Java application using your administrator credentials."
+
+Example: "I cannot log in because the authentication server is down."
+
+Meaning 2 (Physical arrival): To officially record that someone has arrived at a place, such as an office or hotel.
+
+Example: "All new contractors need to log in at the reception desk before entering the building."
+
+2. Log out
+Meaning 1 (Computing): To safely close your session and disconnect from a system, application, or website.
+
+Example: "Always remember to log out of the database when you finish your shift."
+
+Example: "The system is designed to log users out automatically after 15 minutes of inactivity."
+
+3. Log on
+Meaning 1 (Computing): This has the exact same meaning as "log in." It means to connect to a computer network or start using a digital system.
+
+Example: "The project manager logged on to the company network to review the latest software release."
+
+4. Log off
+Meaning 1 (Computing): This has the exact same meaning as "log out." It means to disconnect from a computer network or system.
+
+Example: "Make sure you log off your workstation before leaving the office."
+
+5. Log up
+Meaning 1 (Achievement/Recording): To achieve, record, or complete a specific amount of time, distance, or number of items. (This is more common in British English).
+
+Example: "The development team has logged up over 200 hours of overtime to meet the project deadline."
+
+Example: "Since we launched the new software, we have logged up a massive number of daily active users."
+---
+Look after
+
+Meaning: To take care of someone or something and make sure they have what they need.
+
+Example: As a manager, you must look after your team’s well-being.
+
+Look ahead
+
+Meaning: To think about and plan for the future.
+
+Example: A good leader needs to look ahead to anticipate changes in the market.
+
+Look around / Look round / Look about
+
+Meaning 1: To walk through a place to see what is there.
+
+Example: We took some time to look around the new office before the meeting.
+
+Meaning 2: To search for something in various places.
+
+Example: I am looking about for a new software developer to join the team.
+
+Look away
+
+Meaning: To turn your eyes away from someone or something.
+
+Example: The presentation data was so confusing that I had to look away from the screen.
+
+Look back (on)
+
+Meaning: To think about something that happened in the past.
+
+Example: When I look back on my early days programming in Java, I realize how much I have learned.
+
+Look down on
+
+Meaning: To think that you are better or more important than someone else.
+
+Example: A professional leader should never look down on junior employees.
+
+Look for
+
+Meaning: To try to find something or someone.
+
+Example: The development team is looking for a solution to the database error.
+
+Look forward to
+
+Meaning: To feel excited and happy about something that is going to happen in the future.
+
+Example: I look forward to reviewing the new business strategy with you tomorrow.
+
+Look in (on)
+
+Meaning: To visit a person for a short time, usually to check that they are okay.
+
+Example: I will look in on the new trainees later to see if they need help.
+
+Look into
+
+Meaning: To investigate or research the facts of a situation or problem.
+
+Example: The IT department will look into why the server crashed.
+
+Look on
+
+Meaning 1: To watch an event happen without taking part in it.
+
+Example: The manager looked on as the team successfully deployed the new code.
+
+Meaning 2 (look on as): To consider someone or something in a specific way.
+
+Example: I look on her as the best project manager in the company.
+
+Look out
+
+Meaning 1: To be careful or to warn someone of danger.
+
+Example: Look out! That server rack is falling.
+
+Meaning 2 (look out for): To take care of someone and make sure they are treated well.
+
+Example: Good business partners always look out for each other.
+
+Meaning 3 (look out for): To watch carefully in order to find something.
+
+Example: Please look out for any spelling errors in the final contract.
+
+Look over
+
+Meaning: To examine or read something quickly to check its quality.
+
+Example: Could you look over this financial report before I send it to the client?
+
+Look through
+
+Meaning 1: To read something quickly.
+
+Example: I will look through the Java documentation to find the correct method.
+
+Meaning 2: To deliberately ignore someone you know by pretending you do not see them.
+
+Example: I smiled at my former boss, but he just looked straight through me.
+
+Look to
+
+Meaning 1: To rely on someone to provide something (like help or advice).
+
+Example: The board of directors looks to the CEO for clear guidance.
+
+Meaning 2: To direct your attention to something.
+
+Example: We must look to our competitors to see what strategies they are using.
+
+Look up
+
+Meaning 1: To try to find a piece of information in a book, list, or on the internet.
+
+Example: If you don't know the exact syntax, look it up in the manual.
+
+Meaning 2: To improve or get better (usually referring to a situation or business).
+
+Example: After a difficult first quarter, sales are finally looking up.
+
+Meaning 3 (look someone up): To contact or visit someone you have not seen for a long time.
+
+Example: If you are ever in Warsaw, please look me up.
+
+Meaning 4 (look up to): To deeply respect and admire someone.
+
+Example: Many junior developers look up to him because of his deep technical knowledge.
+---
+Mix up
+This is the most common phrasal verb with "mix" and has several different meanings depending on the context.
+
+1. To confuse two things or people
+
+Definition: To think that one person or thing is another because they are similar.
+
+Example: I always mix up the two brothers because they look exactly the same.
+
+Example: Make sure you don't mix up the client files.
+
+2. To prepare or create something
+
+Definition: To make a mixture by combining different ingredients.
+
+Example: Give me a few minutes, and I will mix up some pancake batter for breakfast.
+
+3. To change a routine ("mix it up")
+
+Definition: To do something differently to make it more interesting and less boring.
+
+Example: We usually have our team meetings on Mondays, but let's mix it up and meet on Friday this week.
+
+4. To be involved in a bad situation ("be mixed up in")
+
+Definition: To be connected to or involved in something illegal, dishonest, or complicated.
+
+Example: The manager was fired when the company discovered he was mixed up in financial fraud.
+
+Mix in / Mix into
+These are used primarily when combining physical substances or integrating with a group.
+
+1. To add an ingredient
+
+Definition: To put a new substance into an existing mixture and stir it.
+
+Example: Add the sugar to the bowl and mix it in slowly.
+
+Example: You need to mix the chocolate chips into the cookie dough.
+
+2. To blend in socially
+
+Definition: To join a group of people and interact with them naturally.
+
+Example: The new employee tried to mix in with the rest of the team during the lunch break.
+
+Mix with
+1. To socialize or interact
+
+Definition: To spend time talking to different people, usually at a social event or at work.
+
+Example: A good leader needs to be able to mix with people from all departments.
+
+2. To combine physically
+
+Definition: To put two or more substances together.
+
+Example: Oil does not mix with water.
+
+Mix together
+1. To combine multiple things
+
+Definition: To blend two or more items so that they become a single substance or group.
+
+Example: In software development, you cannot easily mix together two completely different programming architectures.
+
+Example: Mix all the dry ingredients together before adding the milk.
+
+Mix down
+1. To combine audio tracks (Technical)
+
+Definition: In audio engineering and music production, to combine multiple individual sound tracks into one final stereo or mono track.
+
+Example: After recording the vocals and instruments, the sound engineer will mix down the project.
+---
+Pass away
+Meaning: To die (a polite and respectful phrase).
+
+Example: The founder of the company passed away peacefully last year.
+
+Pass by
+Meaning 1: To go past a place or person.
+
+Example: I pass by your office every morning on my way to get coffee.
+
+Meaning 2: To happen without affecting someone, or to miss an opportunity.
+
+Example: We cannot let this great market opportunity pass us by.
+
+Pass down
+Meaning: To give knowledge, skills, or items to younger generations or junior members.
+
+Example: The senior manager passed down her negotiation skills to the new team members.
+
+Pass for
+Meaning: To be accepted as something else, often despite not being it.
+
+Example: His Java skills are so good that he could easily pass for a senior developer.
+
+Pass in
+Meaning: To give work to a teacher or manager (similar to "hand in").
+
+Example: Please remember to pass in your project reports by Friday afternoon.
+
+Pass into
+Meaning: To become part of something, usually history or legend.
+
+Example: His successful software release passed into company history.
+
+Pass off
+Meaning 1: To falsely present someone or something as something else.
+
+Example: He tried to pass off the copied code as his own original work.
+
+Meaning 2: To happen or take place in a certain way.
+
+Example: The project launch passed off without any major problems.
+
+Pass on
+Meaning 1: To give information or an object to someone else.
+
+Example: Please pass on this message to the development team.
+
+Meaning 2: To refuse an opportunity or offer.
+
+Example: I think I will pass on the invitation to the conference.
+
+Meaning 3: To die (another polite phrase).
+
+Example: Sadly, his grandfather passed on last week.
+
+Pass out
+Meaning 1: To distribute something to a group of people.
+
+Example: Could you pass out these documents before the management meeting starts?
+
+Meaning 2: To lose consciousness or faint.
+
+Example: It was so hot in the server room that he almost passed out.
+
+Pass over
+Meaning 1: To ignore or not choose someone for a position or promotion.
+
+Example: She was passed over for the leadership role, so she decided to leave the company.
+
+Meaning 2: To ignore a topic in a conversation.
+
+Example: Let's pass over this minor detail and focus on the main strategy.
+
+Pass through
+Meaning 1: To travel or stop in a place for a very short time.
+
+Example: I am just passing through Warsaw, so I only have time for a quick lunch.
+
+Meaning 2: To experience a phase or situation.
+
+Example: The tech industry is passing through a difficult period right now.
+
+Pass to
+Meaning: To transfer ownership or responsibility to someone else.
+
+Example: When the CEO retired, leadership passed to her deputy.
+
+Pass up
+Meaning: To fail to take advantage of an opportunity.
+
+Example: You should not pass up the chance to lead this new team.
+
+Pass around / Pass round / Pass about
+Meaning: To offer or give something to every person in a group.
+
+Example: They passed around the tablet so everyone could see the new app design.
+---
+Pay off
+This is one of the most common and versatile phrasal verbs with "pay," carrying several different meanings.
+
+Meaning 1 (Financial): To completely pay back a debt.
+
+Example: After five years, the company finally paid off its bank loan.
+
+Meaning 2 (Business/General): To result in success or yield good results after hard work or investment.
+
+Example: The team's long hours of coding really paid off when the software launched successfully.
+
+Meaning 3 (Negative/Illegal): To bribe someone so they keep quiet or do not cause trouble.
+
+Example: The corrupt manager tried to pay off the inspector.
+
+Meaning 4 (Employment): To dismiss workers and give them their final wages (more common in British English).
+
+Example: The factory closed down and paid off all its workers.
+
+Pay up
+Meaning 1: To give someone the money you owe them, especially when you do not want to or when you are forced to do it.
+
+Example: The supplier threatened legal action until the client finally paid up.
+
+Pay down
+Meaning 1 (Financial): To reduce the total amount of a debt by paying a portion of it.
+
+Example: The management team decided to pay down the company's debt before investing in new projects.
+
+Pay in / Pay into
+Meaning 1: To put money into a bank account, pension, or fund.
+
+Example: I need to go to the bank to pay in these checks.
+
+Example: As a freelancer, it is important to pay into a retirement fund every month.
+
+Pay out
+Meaning 1 (Financial): To disburse or spend a large amount of money, often from a fund, insurance, or company profit (like dividends).
+
+Example: The insurance policy paid out $50,000 after the office roof leaked.
+
+Meaning 2 (Nautical): To slowly release or let out a rope.
+
+Example: The sailor paid out the rope to let the boat move away from the dock.
+
+Pay away
+Meaning 1 (Nautical/Rare): Similar to "pay out," meaning to let a rope slide through your hands.
+
+Example: He paid away the line as the anchor dropped.
+
+(Note: This is very rarely used in modern everyday English outside of sailing).
+
+Pay forward
+Meaning 1: To respond to someone's kindness or help by doing a good deed for someone else, rather than returning the favor to the original person.
+
+Example: My mentor helped me start my career, so I try to pay it forward by mentoring junior developers.
+
+Pay back
+Meaning 1 (Financial): To return money to someone who loaned it to you.
+
+Example: If you lend me $20 for lunch, I will pay you back tomorrow.
+
+Meaning 2 (Revenge): To do something bad to someone because they did something bad to you.
+
+Example: I will pay him back for stealing my promotion.
+
+Pay for
+Meaning 1 (Commercial): To give money in exchange for goods or services.
+
+Example: The company will pay for your travel expenses.
+
+Meaning 2 (Consequence): To suffer the negative results of a mistake or bad decision.
+
+Example: We ignored the software bugs during testing, and now we are paying for it with customer complaints.
+
+Pay over
+Meaning 1 (Financial): To transfer money to someone in authority or to a third party.
+
+Example: The business is required to pay over all collected taxes to the government at the end of the quarter.
+===
+for each:
+1) Create the link on list page with particals mentioned above phrasal verbs. 
+   Take as the base "take" link.
+2) Create the page with mentioned above phrasal verbs. 
+   Take as the base "take" page.
+3) Cover the functionality with tests
+---
+
+## 2026-06-09T17:00:18Z
+git add all changes and commit them with suitable message
+---
