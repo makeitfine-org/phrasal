@@ -3290,3 +3290,236 @@ Cover the functionality with tests
 ## 2026-06-09T10:53:48Z
 git add all changes and commit them with suitable message
 ---
+
+## 2026-06-09T10:58:21Z
+Create a backlog.md task (but don't execute it) to solve the described problem:
+
+
+---
+Call off
+To cancel an event or agreement: The management called off the product launch because the software was not ready.
+
+To order an animal or person to stop attacking: The company had to call off its lawyers after they reached a settlement.
+
+Call on
+To formally ask someone to speak or do something: The director called on the lead developer to explain the new Java architecture.
+
+To visit someone for a short time: I will call on the client tomorrow afternoon to discuss the contract.
+
+To use a quality or resource (call upon): The new manager had to call on all her leadership skills during the crisis.
+
+Call up
+To telephone someone: I will call up the vendor to negotiate the server prices.
+
+To bring information to a computer screen: Please call up the sales data for the last quarter.
+
+To summon someone for military service: He was called up to the army during the war.
+
+To make someone remember something: The old office building called up memories of my first job.
+
+Call down
+To reprimand or heavily criticize someone (mostly US English): The supervisor called him down for missing the project deadline.
+
+To request a higher power to bring something (like a blessing or curse): The angry customer threatened to call down the wrath of the consumer protection agency.
+
+Call in
+To ask an expert or professional for help: We had to call in a consultant to fix the database performance issues.
+
+To telephone your workplace or a radio/TV program: Two of our developers called in sick today.
+
+To demand that products or loans be returned: The manufacturer called in all the faulty laptops.
+
+Call into
+To cause doubts about something (Idiom: "call into question"): The recent server crash called the team's testing procedures into question.
+
+(Note: "Call into" is rarely used as a standalone phrasal verb outside of this specific idiom or literal movement, e.g., "call into a room").
+
+Call out
+To criticize someone publicly for bad behavior: A good leader doesHere is a complete guide to the phrasal verbs and common expressions formed with call using your list of prepositions and adverbs.
+
+Where relevant, the examples focus on business, management, and software development contexts.
+
+Call off
+Meaning 1: To cancel an event, meeting, or agreement that was planned.
+
+Example: We had to call off the project meeting because the lead developer was sick.
+
+Meaning 2: To order a person or animal to stop attacking or searching.
+
+Example: The manager told the legal team to call off their aggressive negotiations.
+
+Call on / Call upon
+Meaning 1: To ask someone formally to speak or do something.
+
+Example: I would like to call on our CEO to say a few words.
+
+Meaning 2: To use a quality, skill, or resource that you have.
+
+Example: The team had to call on all their experience to fix the critical bug.
+
+Meaning 3: To visit someone for a short time (often formally).
+
+Example: We will call on the new client tomorrow morning.
+
+Call up
+Meaning 1: To telephone someone.
+
+Example: I will call up the software vendor to ask about the pricing.
+
+Meaning 2: To find and show information on a computer screen.
+
+Example: Can you call up the latest sales data on your monitor?
+
+Meaning 3: To officially order someone to join the military.
+
+Example: His grandfather was called up during the war.
+
+Call down
+Meaning 1: To shout to someone who is on a lower level than you.
+
+Example: She called down from the second floor to ask if the package had arrived.
+
+Meaning 2: To request negative consequences or punishment upon someone (formal/literary).
+
+Example: He called down curses on his rivals.
+
+Call in
+Meaning 1: To ask an expert or specialist to come and help with a problem.
+
+Example: The system crashed, so we had to call in an external IT consultant.
+
+Meaning 2: To telephone your office or a radio/TV show.
+
+Example: Two team members called in sick today.
+
+Meaning 3: To demand that people return a product because it is broken or dangerous (a recall).
+
+Example: The manufacturer called in thousands of laptops due to battery issues.
+
+Call into
+Meaning 1 (Idiom): To call into question means to make people doubt something.
+
+Example: The recent security breach called into question the software's reliability.
+
+Meaning 2: To summon someone into a room.
+
+Example: The manager called him into the office for a performance review.
+
+Call out
+Meaning 1: To publicly criticize someone for doing something wrong.
+
+Example: The leader called out the team member for unprofessional behavior.
+
+Meaning 2: To ask a professional to come for an emergency.
+
+Example: We had to call out an engineer in the middle of the night.
+
+Meaning 3: To speak loudly so someone can hear you.
+
+Example: The manager called out my name across the warehouse.
+
+Call away
+Meaning 1: To ask someone to leave the place where they are to go somewhere else, usually for an emergency.
+
+Example: The director was called away to an urgent meeting.
+
+Call across
+Meaning 1: To shout to someone on the other side of a room, street, or space.
+
+Example: He called across the open-plan office to ask for the password.
+
+Call forward
+Meaning 1: To ask someone to step to the front of a group.
+
+Example: The CEO called the project manager forward to receive an award.
+
+Call back
+Meaning 1: To return a telephone call.
+
+Example: I am in a meeting, can I call you back in an hour?
+
+Meaning 2: To ask someone to return for a second job interview.
+
+Example: They liked her portfolio and called her back for a final interview.
+
+Call for
+Meaning 1: To demand or require a specific action or quality.
+
+Example: Managing a large team calls for great communication skills.
+
+Meaning 2: To publicly ask for something to happen.
+
+Example: The users are calling for better privacy features in the app.
+
+Meaning 3: To go to a place to pick someone or something up.
+
+Example: I will call for you at the hotel at 8:00 AM.
+
+Call by
+Meaning 1: To make a short, informal visit to a place while going somewhere else.
+
+Example: I’ll call by the IT department on my way to lunch to drop off the broken mouse.
+
+Call together
+Meaning 1: To formally ask a group of people to meet in one place.
+
+Example: We need to call the board of directors together to discuss the merger.
+
+Call over
+Meaning 1: To ask someone to come to where you are standing.
+
+Example: I called the junior developer over to look at my screen.
+
+Meaning 2: To read aloud a list of names to check who is present (mostly British English).
+
+Example: The trainer called over the names before the workshop started.
+
+Call ahead
+Meaning 1: To telephone a place before you arrive there (often to make a reservation or check something).
+
+Example: We should call ahead to ensure the conference room is available.
+
+Call after
+Meaning 1: To shout to someone as they are walking away from you.
+
+Example: I called after him, but he had already entered the elevator.
+
+Meaning 2: To give a child the same name as someone else (More common in British English; "name after" is standard in American English).
+
+Example: He was called after his grandfather.
+
+Call through
+Meaning 1: To connect a phone call to someone else.
+
+Example: The receptionist called me through to the HR director.
+
+Call about
+Meaning 1: To make a phone call concerning a specific topic (standard verb + preposition).
+
+Example: I am calling about the open software engineering position.
+
+Call around / Call round
+Meaning 1: To telephone several different people or companies, usually to get information or compare prices.
+
+Example: I will call around to find a better price for our cloud hosting.
+
+Meaning 2: To visit someone's house casually.
+
+Example: Feel free to call round after work for a coffee.
+
+Call to
+Meaning 1: To shout in order to get someone's attention.
+
+Example: She called to the cab driver to stop.
+===
+for "call"":
+1) Create the link on list page with particals mentioned above phrasal verbs. 
+   Take as the base "take" link.
+2) Create the page with mentioned above phrasal verbs. 
+   Take as the base "take" page.
+3) Cover the functionality with tests
+---
+
+## 2026-06-09T11:01:43Z
+git add all changes and commit them with suitable message
+---

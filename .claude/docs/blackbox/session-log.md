@@ -949,3 +949,7 @@
 - src/__tests__/PhrasalVerbsListPage.test.tsx
 - src/pages/PhrasalVerbsListPage.tsx
 <!-- end-snapshot -->
+
+<!-- git-snapshot 2026-06-09T10:59:14Z -->
+- .claude/docs/blackbox/audit.md
+<!-- end-snapshot -->
