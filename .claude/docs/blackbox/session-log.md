@@ -1112,3 +1112,7 @@
 <!-- git-snapshot 2026-06-09T20:24:11Z -->
 - .claude/settings.local.json
 <!-- end-snapshot -->
+
+<!-- git-snapshot 2026-06-09T20:33:55Z -->
+- .claude/docs/blackbox/audit.md
+<!-- end-snapshot -->

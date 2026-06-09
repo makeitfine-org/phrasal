@@ -7967,3 +7967,782 @@ for each:
 ## 2026-06-09T20:23:42Z
 git add all changes and commit them with suitable message
 ---
+
+## 2026-06-09T20:26:57Z
+Create a backlog.md tasks the same way as task-13 and task-14 (but don't execute it) to solve the described problems:
+
+
+---
+The verb "use" is highly restricted when it comes to forming true phrasal verbs. Unlike verbs such as "get," "take," or "set," which combine with almost every particle to create new idiomatic meanings, "use" only pairs with a very small number of the particles you listed to create distinct, non-literal phrasal or prepositional verbs.
+
+Here are the existing phrasal and multi-word verbs formed by "use" from your list, complete with all their nuanced meanings and examples.
+
+1. Use up
+This is the most common and standard phrasal verb formed with "use."
+
+Definition A: To consume entirely
+To expend the entirety of a supply, resource, or material so that nothing is left.
+
+Example: "We need to use up all the fresh vegetables in the fridge before they spoil."
+
+Example: "The project used up our entire budget for the fiscal year."
+
+Definition B: To exhaust physically or emotionally (Often passive)
+To drain someone of their energy, strength, or usefulness.
+
+Example: "After working three double shifts in a row, he felt completely used up."
+
+Example: "The constant stress of the negotiation process really used her up."
+
+2. Use against
+This is a prepositional verb where the combination of "use" and "against" creates a specific adversarial context.
+
+Definition A: To employ as a weapon or disadvantage
+To utilize information, evidence, a physical object, or a person's trait to harm, manipulate, oppose, or gain an advantage over them.
+
+Example: "You have the right to remain silent; anything you say can and will be used against you in a court of law."
+
+Example: "He confided his insecurities in her, and she later used them against him in an argument."
+
+3. Use to / Used to
+While technically classified by linguists as a marginal modal verb or an adjectival phrase rather than a traditional phrasal verb, it is critical to include "used to" when discussing multi-word constructions with "use." It has two completely distinct meanings.
+
+Definition A: Past habit or state (Modal)
+Indicates an action that was done regularly in the past but is no longer done, or a state of affairs that was true in the past but is not anymore. (Note: Always formatted as "used to" in the affirmative, but often "use to" in questions/negations).
+
+Example (Habit): "I used to play the piano every day when I was a child."
+
+Example (State): "There used to be a large park where that shopping mall is now."
+
+Example (Negative): "She didn't use to like coffee, but now she drinks it daily."
+
+Definition B: Accustomed to or familiar with (Adjectival - "Be/Get used to")
+To be familiar with something so that it no longer seems new, strange, or difficult.
+
+Example: "It took me a few months, but I am finally used to waking up at 5:00 AM."
+
+Example: "They are slowly getting used to the new software system at work."
+---
+1. Wake up
+This is the most common phrasal verb associated with "wake" and carries both literal and idiomatic meanings.
+
+Meaning A: To stop sleeping (Intransitive)
+
+Definition: The natural act of transitioning from sleep to an awake state.
+
+Example: "I usually wake up at 6:30 AM without an alarm."
+
+Meaning B: To cause someone or something to stop sleeping (Transitive)
+
+Definition: To rouse another person, animal, or even a system from sleep. This is separable (e.g., wake [someone] up).
+
+Example: "Please wake me up when the train gets to London."
+
+Meaning C: To become alert or attentive (Intransitive / Idiomatic)
+
+Definition: To stop being inattentive, lazy, or oblivious and start paying attention to one's surroundings or responsibilities.
+
+Example: "The team was playing terribly, but they finally woke up in the second half and won the game."
+
+Meaning D: To make a situation more lively or active (Transitive / Idiomatic)
+
+Definition: To inject energy, excitement, or activity into a dull environment or event.
+
+Example: "We need to hire a better DJ to wake this party up."
+
+2. Wake up to This is a three-part phrasal verb (verb + adverb + preposition) combining "up" and "to" from your list.
+Meaning A: To become aware of a reality or situation (Idiomatic)
+
+Definition: To finally realize or understand a fact, condition, or danger that one was previously ignoring or failing to notice.
+
+Example: "The company's board needs to wake up to the fact that their competitors are innovating faster."
+
+Example: "It took him years to wake up to the truth about his toxic friendship."
+
+3. Wake to
+While slightly more formal or literary than "wake up to," this uses the particle "to" to create specific contextual meanings.
+
+Meaning A: To awaken and immediately experience something (Literal / Circumstantial)
+
+Definition: To stop sleeping and find a specific condition, sound, or situation greeting you immediately upon opening your eyes.
+
+Example: "We woke to the sound of birds singing outside the window."
+
+Example: "She woke to a freezing cold house because the heater had broken overnight."
+
+Meaning B: To realize or become conscious of something (Idiomatic)
+
+Definition: A slight variation of "wake up to," meaning to become aware of a fact or responsibility.
+
+Example: "Society is slowly waking to the severe impacts of climate change."
+---
+1. Warm up
+This is by far the most versatile and commonly used phrasal verb with "warm." It has several distinct meanings:
+
+Meaning A (Temperature): To increase in temperature or make someone/something warmer.
+
+Example: Let's step inside the cafe to warm up; the wind in Katowice is freezing today.
+
+Meaning B (Preparation): To prepare for an activity, event, or performance by practicing or doing gentle exercises.
+
+Example: I usually warm up with some simple coding exercises before jumping into heavy software development.
+
+Meaning C (Social/Emotional): To become more animated, relaxed, or friendly in a social or professional setting.
+
+Example: The candidate was nervous at first, but she warmed up after we started discussing her GitHub projects.
+
+Meaning D (Food): To reheat food that has already been cooked.
+
+Example: I'll warm up the leftover pierogi for lunch.
+
+Meaning E (Machinery/Equipment): To leave a machine running for a short time until it reaches its optimal operating temperature.
+
+Example: Give the car a minute to warm up before we drive off.
+
+2. Warm to (often used as "warm up to")
+This focuses heavily on changing attitudes or feelings.
+
+Meaning A (Affection/Acceptance): To begin to like someone or something after initial hesitation or doubt.
+
+Example: I wasn't sure about the Adizes PAEI management model at first, but I'm really warming to it.
+
+Meaning B (Enthusiasm): To become interested in or enthusiastic about an idea or topic.
+
+Example: The executive team is finally warming to the idea of reopening the individual entrepreneurship structure for the next fiscal year.
+
+3. Warm over
+This is primarily used in North American English and carries both a literal and a highly figurative meaning.
+
+Meaning A (Food): To reheat cooked food (synonymous with warm up).
+
+Example: We can just warm over last night's dinner.
+
+Meaning B (Figurative - usually as the adjective "warmed-over"): To present an old idea, piece of work, or strategy as if it were new, original, or fresh. It usually carries a negative connotation.
+
+Example: The agency pitched us a new sourcing strategy, but it was just a warmed-over version of what we did in 2024.
+
+4. Warm through
+This is highly specific to cooking and food preparation.
+
+Meaning A (Food): To heat food gently until it is warm right to the middle, without cooking it any further or changing its texture.
+
+Example: Just put the tortillas in the oven for a few minutes to warm through.
+
+5. Warm down
+This is specifically related to physical exercise.
+
+Meaning A (Exercise): To perform gentle exercises or stretches after vigorous physical activity to help the body recover. (Note: Cool down is much more common, but warm down is used in British English and by some athletes).
+
+Example: After testing out the new 20-inch bike on the trail, make sure to walk for a bit to warm down.
+---
+1. Watch out
+This is the most common phrasal verb with "watch" and is almost always used as an exclamation or a warning.
+
+Meaning 1: To be careful; to pay attention to immediate danger.
+
+Example: "Watch out! There is a car coming right at us."
+
+Example: "You need to watch out when walking on the ice."
+
+2. Watch out for
+When you add "for" to "watch out," the phrasal verb becomes transitive, meaning it must be followed by a noun or object.
+
+Meaning 1: To be alert to the danger or presence of something/someone.
+
+Example: "If you go hiking in those woods, watch out for bears."
+
+Example: "Watch out for scams when buying tickets online."
+
+Meaning 2: To protect someone or look after their best interests.
+
+Example: "Older siblings usually watch out for the younger ones at school."
+
+Meaning 3: To wait expectantly for something to arrive or appear.
+
+Example: "Watch out for the postman; I am expecting an important package today."
+
+3. Watch over
+This phrasal verb carries a strong sense of guardianship or supervision.
+
+Meaning 1: To protect, guard, or care for someone or something.
+
+Example: "The shepherd watched over his flock of sheep through the night."
+
+Example: "Many people believe they have a guardian angel watching over them."
+
+Meaning 2: To strictly supervise someone or an activity to ensure it is done correctly.
+
+Example: "The manager stood at the back of the room and watched over the new employees as they worked."
+
+4. Watch for
+Similar to one of the meanings of "watch out for," but usually less focused on danger and more focused on anticipation.
+
+Meaning 1: To look actively for a sign, event, or specific thing to happen.
+
+Example: "Keep driving, and watch for the exit sign just past the bridge."
+
+Example: "Doctors told her to watch for any sudden changes in her temperature."
+
+5. Watch on
+This phrasal verb is used to describe the act of being a spectator, especially when action is required but not taken.
+
+Meaning 1: To observe something happening (often dramatic or serious) without becoming actively involved.
+
+Example: "A large crowd gathered and watched on in shock as the building burned."
+
+Example: "He simply watched on while his colleagues did all the heavy lifting."
+
+6. Watch back
+This is a relatively modern phrasal verb associated with media and recordings.
+
+Meaning 1: To view a video, film, or recording of an event that occurred previously, often for review or analysis.
+
+Example: "We recorded the interview so we could watch it back later and take notes."
+
+Example: "Actors sometimes hate watching themselves back on screen."
+
+7. Watch through
+Though less common than the others, this is an established phrasal verb indicating completion.
+
+Meaning 1: To watch a program, movie, or series entirely from the beginning to the end.
+
+Example: "It took me a whole weekend, but I finally watched the series through."
+
+Example: "Before you write the review, make sure you watch the film all the way through."
+---
+1. Wear off
+Meaning 1: To gradually disappear, fade, or stop having an effect (usually referring to a feeling, an effect of a drug/caffeine, or a novelty).
+
+Example: The excitement of moving to a new country can start to wear off once the heavy paperwork begins.
+
+Example: The effects of the double espresso wore off right in the middle of sourcing candidates on GitHub.
+
+2. Wear on
+Meaning 1: (Of time or an event) to pass, especially when it feels slow, tedious, or prolonged.
+
+Example: As the technical interview wore on, it became clear the applicant didn't actually have the required Java experience.
+Meaning 2: To gradually annoy, irritate, or exhaust someone's patience over time.
+
+Example: The constant noise from the street below started to wear on Sam as the afternoon progressed.
+
+3. Wear down
+Meaning 1: To overcome someone's resistance, opposition, or reluctance through persistent pressure.
+
+Example: The developer initially wanted a much higher salary, but the long, drawn-out negotiation process eventually wore them down.
+Meaning 2: To reduce the size, thickness, or effectiveness of something by continuous friction or prolonged use.
+
+Example: The treads on the 20-inch bicycle tires were completely worn down from a summer of heavy riding.
+
+4. Wear in
+Meaning 1: To wear new clothing—especially stiff shoes or boots—until they conform to your body and become comfortable to use.
+
+Example: I need to walk around the apartment for a few days to wear in these new shoes before we do any serious walking.
+
+5. Wear out
+Meaning 1: To use something until it is damaged, broken, or completely useless.
+
+Example: I've practically worn out my laptop's keyboard from typing so many outreach messages.
+Meaning 2: To make someone extremely physically or mentally tired; to exhaust.
+
+Example: Coordinating two young children's daily schedules while managing full-time work can really wear you out.
+
+6. Wear away
+Meaning 1: To erode or cause something to gradually disappear, thin, or become smooth through continuous friction, use, or weather.
+
+Example: Years of salty sea breezes have worn away the bright paint on the older coastal buildings.
+
+7. Wear through
+Meaning 1: To create a hole in something as a result of continuous use, friction, or rubbing.
+
+Example: She leaned on her desk so much that she completely wore through the elbows of her favorite sweater.
+---
+1. Work off
+Meaning 1: To eliminate something (like stress, anger, or calories) through physical activity.
+
+Example: "After a frustrating meeting, I went to the gym to work off my anger."
+
+Meaning 2: To repay a debt by providing labor or services instead of money.
+
+Example: "He couldn't afford the repairs, so he offered to work off the debt by painting the mechanic's house."
+
+2. Work on
+Meaning 1: To spend time repairing, improving, or developing something.
+
+Example: "She is working on her pronunciation to sound more fluent."
+
+Meaning 2: To try to persuade or influence someone to do something.
+
+Example: "My manager doesn't want to approve the budget, but I'll work on him."
+
+3. Work up
+Meaning 1: To gradually develop or build something (often a feeling, like an appetite, courage, or sweat).
+
+Example: "We went for a long hike and worked up a huge appetite."
+
+Meaning 2: To make oneself or someone else feel upset, excited, or anxious (usually used in the passive: to be worked up).
+
+Example: "Don't get yourself all worked up over a minor mistake."
+
+Meaning 3: To gradually progress to something more advanced or demanding.
+
+Example: "Start with lighter weights and work up to the heavy ones."
+
+4. Work down
+Meaning 1: To gradually reduce something or progress downwards systematically (often through a list or pile).
+
+Example: "I have a huge stack of files; I'm just going to start at the top and work down."
+
+5. Work in
+Meaning 1: To make time or space for something/someone in a schedule.
+
+Example: "My schedule is packed, but I can work a quick meeting in at 3:00 PM."
+
+Meaning 2: To mix a substance into another substance thoroughly.
+
+Example: "Gently work in the butter until the dough is crumbly."
+
+6. Work into
+(Similar to "work in", but requires an object after "into")
+
+Meaning 1: To successfully fit someone or something into a busy schedule.
+
+Example: "The dentist was able to work me into her schedule."
+
+Meaning 2: To blend or push one material into another.
+
+Example: "Work the lotion into your skin."
+
+Meaning 3: To gradually reach a certain emotional state (usually negative).
+
+Example: "He managed to work himself into a frenzy."
+
+7. Work out
+Meaning 1: To exercise to improve physical fitness.
+
+Example: "I try to work out at the gym three times a week."
+
+Meaning 2: To solve a problem or calculate an answer.
+
+Example: "Let me just work out the total cost with taxes included."
+
+Meaning 3: To happen or develop in a particular (usually successful) way.
+
+Example: "I was worried about the relocation, but everything worked out perfectly."
+
+Meaning 4: To understand someone's character or a confusing situation.
+
+Example: "He is so mysterious; I just can't work him out."
+
+8. Work away
+Meaning 1: To continue working hard and diligently for a continuous period.
+
+Example: "She was happily working away at her desk all afternoon."
+
+9. Work cross / across
+(These are not idiomatic phrasal verbs. They are used literally to describe location or scope.)
+
+Meaning 1 (Literal): To collaborate across different boundaries or areas.
+
+Example: "As a recruiter, I work across several different departments."
+
+10. Work forward
+(Not a standard phrasal verb. Used literally.)
+
+Meaning 1 (Literal): To progress into the future from a specific point.
+
+Example: "Let's establish the starting date and work forward from there."
+
+11. Work back
+Meaning 1: To start from the end result or deadline and calculate backwards to figure out when to begin.
+
+Example: "If the project is due on Friday, we need to work back to see when we must start."
+
+12. Work for
+Meaning 1: To be employed by someone or a company.
+
+Example: "I work for an IT consultancy firm."
+
+Meaning 2: To be suitable, convenient, or effective for someone's needs.
+
+Example: "Meeting at 10 AM doesn't work for me."
+
+13. Work by
+(Not a true phrasal verb. Used literally to indicate a method or condition.)
+
+Meaning 1 (Literal): To work using a specific method, rule, or light source.
+
+Example: "The power went out, so we had to work by candlelight."
+
+14. Work together
+Meaning 1: To collaborate or cooperate as a team.
+
+Example: "If we work together, we can finish this much faster."
+
+15. Work with
+Meaning 1: To collaborate alongside someone.
+
+Example: "I love working with my new team."
+
+Meaning 2: To use something as a tool, material, or basis for a project.
+
+Example: "Wood is a beautiful material to work with."
+
+Meaning 3: To accommodate or adapt to a situation/constraint.
+
+Example: "We have a very tight budget, but we'll try to work with it."
+
+16. Work without
+(Not a phrasal verb. Used literally.)
+
+Meaning 1 (Literal): To perform a job lacking a specific tool, person, or condition.
+
+Example: "It is hard to work without a stable internet connection."
+
+17. Work apart
+(Not a standard phrasal verb. Used literally.)
+
+Meaning 1 (Literal): To work separately from someone else.
+
+Example: "They are more productive when they work apart rather than in the same room."
+
+18. Work over
+Meaning 1 (Informal/Slang): To physically assault or beat someone up severely.
+
+Example: "The gang threatened to work him over if he didn't pay."
+
+Meaning 2: To examine, treat, or revise something very thoroughly.
+
+Example: "The editors will work over the manuscript before publishing it."
+
+19. Work ahead
+Meaning 1: To complete tasks before they are due or scheduled.
+
+Example: "Whenever I have free time, I try to work ahead on my assignments."
+
+20. Work after / behind
+(These are not phrasal verbs. They are used literally for time or physical positioning.)
+
+Example (After): "I usually work after the kids go to sleep."
+
+Example (Behind): "She had to work behind the counter today."
+
+21. Work through
+Meaning 1: To deal with, resolve, or overcome a complex problem or difficult emotion step-by-step.
+
+Example: "Couples counseling helped them work through their trust issues."
+
+Meaning 2: To read, process, or complete a large amount of material from beginning to end.
+
+Example: "It took me three hours to work through all the emails in my inbox."
+
+22. Work about
+(Not a recognized modern phrasal verb. "About" in English usually implies aimless movement, e.g., "walk about," but "work about" is not standardly used.)
+
+23. Work around / round
+Meaning 1: To find a way to bypass or overcome an obstacle without actually removing or fixing the core issue (this gives us the noun workaround).
+
+Example: "The software has a bug, but we found a way to work around it."
+
+Meaning 2: To schedule or arrange plans to accommodate someone else's constraints.
+
+Example: "Tell me when you are free, and I will work around your schedule."
+
+24. Work to
+Meaning 1: To operate according to a specific schedule, rule, or constraint.
+
+Example: "We are working to a very tight deadline."
+
+25. Work against
+Meaning 1: To make it harder for someone to succeed; to be a disadvantage.
+
+Example: "His lack of formal experience might work against him in the interview."
+---
+Write off
+To cancel a bad debt or accept a loss.
+
+Example: The bank decided to write off the unpaid loan.
+
+To decide that someone or something is useless, unimportant, or a failure.
+
+Example: He had a bad first semester, but don't write him off just yet; he is improving.
+
+To damage a vehicle so badly that it cannot be repaired (chiefly British/Commonwealth).
+
+Example: She lost control on the ice and completely wrote off her car.
+
+To deduct an expense to reduce taxable income.
+
+Example: You can write off the cost of your home office on your taxes.
+
+To send a letter requesting something (often "write off for").
+
+Example: I wrote off for a free sample of the new moisturizer.
+
+Write on
+To write about a specific topic or subject.
+
+Example: Professor Smith writes primarily on medieval European history.
+
+To continue writing.
+
+Example: Despite the noise in the cafe, she just put her headphones in and wrote on.
+
+Write up
+To produce a formal, complete written document based on notes or a draft.
+
+Example: Give me an hour to write up the minutes from our meeting.
+
+To officially record someone's poor performance or rule violation in a disciplinary file.
+
+Example: The manager wrote him up for arriving late three days in a row.
+
+To publish a review or article praising someone or something.
+
+Example: The local newspaper wrote up the new restaurant in their weekend edition.
+
+To artificially increase the recorded, nominal value of an asset (Finance).
+
+Example: The corporation wrote up the value of its real estate portfolio.
+
+Write down
+To record something on paper so it is not forgotten.
+
+Example: Please write down my phone number before you lose it.
+
+To reduce the estimated or nominal value of an asset (Finance).
+
+Example: The company had to write down its inventory due to the sudden drop in market prices.
+
+To write in a condescendingly simple way (usually "write down to").
+
+Example: A good children's author never writes down to their audience.
+
+Write in
+To send a letter or email to an organization, television station, etc., to express an opinion.
+
+Example: Hundreds of viewers wrote in to complain about the controversial episode.
+
+To cast a vote for a candidate whose name is not on the official ballot by writing their name physically.
+
+Example: Because she missed the deadline to get on the ballot, her supporters had to write her in.
+
+To insert text into a document or form.
+
+Example: Please write in your name and address at the top of the page.
+
+Write into
+To formally include a specific clause, rule, or condition in a contract or script.
+
+Example: We made sure to write a penalty clause into the agreement to protect our investment.
+
+Write out
+To write something completely in full, rather than using abbreviations or numbers.
+
+Example: You need to write out the numbers one through ten, but you can use digits for 11 and up.
+
+To remove a character from a television series or story by not including them in future scripts.
+
+Example: When the actor decided to leave the show, the writers wrote him out by having his character move to Paris.
+
+To fill in all the necessary details on a document (like a check or prescription).
+
+Example: The doctor wrote out a prescription for antibiotics.
+
+Write away
+To send a letter requesting something (synonymous with "write off for").
+
+Example: When I was a kid, I used to write away for x-ray glasses I saw in comic books.
+
+To write continuously and diligently.
+
+Example: I left her at her desk, just writing away at her novel.
+
+Write back
+To reply to someone's letter, email, or message.
+
+Example: I sent him an email last week, but he still hasn't written back.
+
+Write for
+To be employed by or submit writing to a specific publication.
+
+Example: She writes for several major technology magazines.
+
+To request something by mail (similar to "write away").
+
+Example: You can write for a free copy of the catalog.
+
+Write over
+To replace old computer data with new data (overwrite).
+
+Example: Be careful when saving the document, or you might write over yesterday's work.
+
+Write through
+To revise a piece of writing completely from beginning to end (Journalism/Editing).
+
+Example: The editor told the reporter to write through the draft to make the narrative flow better.
+
+Write about
+To discuss a particular subject in writing.
+
+Example: I want to write about the impact of artificial intelligence on the job market.
+
+Write around / round
+To intentionally avoid addressing the main point or a difficult topic in a text.
+
+Example: The biography is frustrating because the author writes around the politician's well-known scandals.
+
+To circulate a memo or letter to a group of people (British: "write round").
+
+Example: I'll write round to the committee members to see who is available.
+
+Write to
+To send a written message or letter to a specific person or entity.
+
+Example: I write to my grandmother at least once a month.
+
+To target a piece of writing toward a specific demographic.
+
+Example: It's hard to write to a teenage audience without sounding inauthentic.
+
+Write against
+To write essays, articles, or books opposing a specific idea, policy, or person.
+
+Example: He spent his later years writing against the dangers of censorship.
+
+To deduct an expense from a specific account or budget (Finance).
+
+Example: We will write the cost of the software against this quarter's IT budget.
+---
+Zip about / Zip around (round)
+Meaning 1: To move quickly and energetically from one place to another within an area.
+
+Example: She spent the entire Saturday zipping around town running errands.
+
+Example: The kids were zipping about the playground all afternoon.
+
+Zip across
+Meaning 1: To travel very rapidly from one side of a space, surface, or area to the other.
+
+Example: The speedboat zipped across the lake in under a minute.
+
+Zip ahead
+Meaning 1: To advance quickly, often leaving others behind or moving to the front of a line or progression.
+
+Example: He zipped ahead of the rest of the runners in the final lap.
+
+Example: Let’s zip ahead to chapter four, since we already covered the introduction.
+
+Zip apart
+Meaning 1: To separate two pieces of fabric or material by opening a zipper that connects them.
+
+Example: These convertible hiking pants zip apart at the knee to become shorts.
+
+Zip away
+Meaning 1: To depart or move away very rapidly.
+
+Example: As soon as the light turned green, the sports car zipped away.
+
+Zip back
+Meaning 1: To return to a place very quickly for a short duration.
+
+Example: I just need to zip back to the office to grab my laptop.
+
+Zip by
+Meaning 1: To physically pass someone or something very quickly.
+
+Example: A cyclist zipped by me on the trail and nearly startled me.
+
+Meaning 2: To pass very quickly (referring to the passage of time).
+
+Example: The summer holidays just seemed to zip by this year.
+
+Zip down
+Meaning 1: To unfasten a zipper by moving it in a downward direction.
+
+Example: He zipped down his jacket because the sun came out.
+
+Meaning 2: To travel quickly down a path, road, or digital page.
+
+Example: Let me just zip down to the bottom of this document to check the signature line.
+
+Zip in
+Meaning 1: To arrive or enter a place very quickly.
+
+Example: I'll zip in and grab a coffee before the meeting starts.
+
+Meaning 2: To attach an inner lining to a larger garment using a zipper.
+
+Example: You can zip in the fleece lining to make the raincoat suitable for winter.
+
+Zip into
+Meaning 1: To put on a piece of clothing rapidly.
+
+Example: She zipped into her wetsuit and ran toward the ocean.
+
+Meaning 2: To maneuver a vehicle or oneself into a space quickly.
+
+Example: He zipped into the parking spot right before the other driver could take it.
+
+Zip off
+Meaning 1: To leave or depart quickly in a hurry.
+
+Example: I have to zip off to a dentist appointment now, but I'll call you later.
+
+Meaning 2: To detach a removable part of a garment using a zipper.
+
+Example: He zipped off the sleeves of his jacket when it got too hot.
+
+Zip on
+Meaning 1: To attach a piece of fabric or a removable garment part using a zipper.
+
+Example: If it starts raining, you can just zip on the hood.
+
+Zip out
+Meaning 1: To go outside or leave a place for a very brief, quick errand.
+
+Example: I'm going to zip out to the grocery store for some milk; I'll be back in ten minutes.
+
+Meaning 2: To remove an inner lining from a garment by unzipping it.
+
+Example: Make sure you zip out the thermal layer before you put the coat in the washing machine.
+
+Zip over
+Meaning 1: To travel quickly to a nearby location, often someone's home or office.
+
+Example: I'll zip over to your place after work to drop off the tools you lent me.
+
+Zip through
+Meaning 1: To do, read, or complete a task very quickly and with ease.
+
+Example: She zipped through the exam in half the allotted time.
+
+Meaning 2: To travel through a place without stopping, or to navigate a physical space rapidly.
+
+Example: We bypassed the traffic and zipped through the city center.
+
+Zip to
+Meaning 1: To move rapidly to a specific destination or state.
+
+Example: Zip to the end of the video to see the surprise reveal.
+
+Zip together
+Meaning 1: To connect two separate items using their interlocking zippers.
+
+Example: We zipped together our two sleeping bags to make one large bed for the camping trip.
+
+Zip up
+Meaning 1: To close a garment, bag, or tent completely by fastening its zipper.
+
+Example: Make sure you zip up your coat; it's freezing outside!
+
+Meaning 2: (Slang / Idiomatic) To be quiet, shut one's mouth, or stop talking. (Often commanded as "Zip it!").
+
+Example: I told him to zip up before his complaining got us into more trouble.
+===
+for each:
+1) Create the link on list page with particals mentioned above phrasal verbs. 
+   Take as the base "take" link.
+2) Create the page with mentioned above phrasal verbs. 
+   Take as the base "take" page.
+3) Cover the functionality with tests
+---
