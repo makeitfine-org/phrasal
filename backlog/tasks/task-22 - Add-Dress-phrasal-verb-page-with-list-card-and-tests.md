@@ -1,13 +1,28 @@
 ---
 id: TASK-22
 title: Add "Dress" phrasal verb page with list card and tests
-status: To Do
+status: Done
 assignee: []
 created_date: '2026-06-09 14:34'
+updated_date: '2026-06-09 15:43'
 labels:
   - phrasal-verbs
   - content
 dependencies: []
+modified_files:
+  - src/pages/dress/DressVerbPage.tsx
+  - src/pages/PhrasalVerbsListPage.tsx
+  - src/main.tsx
+  - src/data/listVerbIndex.ts
+  - src/__tests__/dress_verb_page/helpers.tsx
+  - src/__tests__/dress_verb_page/back.test.tsx
+  - src/__tests__/dress_verb_page/by.test.tsx
+  - src/__tests__/dress_verb_page/down.test.tsx
+  - src/__tests__/dress_verb_page/off.test.tsx
+  - src/__tests__/dress_verb_page/on.test.tsx
+  - src/__tests__/dress_verb_page/out.test.tsx
+  - src/__tests__/dress_verb_page/up.test.tsx
+  - src/__tests__/PhrasalVerbsListPage.test.tsx
 priority: medium
 ordinal: 10000
 ---
@@ -77,12 +92,18 @@ Add the "Dress" phrasal verb entry following the same pattern as Call/Carry page
 
 ## Acceptance Criteria
 <!-- AC:BEGIN -->
-- [ ] #1 #1 `src/pages/dress/DressVerbPage.tsx` created with 7 sections, all meanings, all using default.png
-- [ ] #2 #2 DRESS_PARTICLES constant added to PhrasalVerbsListPage.tsx with all 7 particles
-- [ ] #3 #3 VERBS entry added for Dress after Do in PhrasalVerbsListPage.tsx
-- [ ] #4 #4 Route `/phrasal-verbs/list/dress` registered in src/main.tsx
-- [ ] #5 #5 dressSections added to listVerbIndex.ts search index
-- [ ] #6 #6 7 test files created under src/__tests__/dress_verb_page/ (one per particle)
-- [ ] #7 #7 PhrasalVerbsListPage.test.tsx extended with Dress card, subtitle, and copy-button describe blocks
-- [ ] #8 #8 `npm run test:run` passes with all tests green
+- [x] #1 #1 `src/pages/dress/DressVerbPage.tsx` created with 7 sections, all meanings, all using default.png
+- [x] #2 #2 DRESS_PARTICLES constant added to PhrasalVerbsListPage.tsx with all 7 particles
+- [x] #3 #3 VERBS entry added for Dress after Do in PhrasalVerbsListPage.tsx
+- [x] #4 #4 Route `/phrasal-verbs/list/dress` registered in src/main.tsx
+- [x] #5 #5 dressSections added to listVerbIndex.ts search index
+- [x] #6 #6 7 test files created under src/__tests__/dress_verb_page/ (one per particle)
+- [x] #7 #7 PhrasalVerbsListPage.test.tsx extended with Dress card, subtitle, and copy-button describe blocks
+- [x] #8 #8 `npm run test:run` passes with all tests green
 <!-- AC:END -->
+
+## Final Summary
+
+<!-- SECTION:FINAL_SUMMARY:BEGIN -->
+Added "Dress" phrasal verb page with 7 particles (back, by, down, off, on, out, up). Created DressVerbPage.tsx with all meanings using default.png, added DRESS_PARTICLES constant and VERBS entry to PhrasalVerbsListPage.tsx, registered route in main.tsx, added dressSections to listVerbIndex.ts. Created 7 particle test files under src/__tests__/dress_verb_page/ and extended PhrasalVerbsListPage.test.tsx with Dress card, subtitle, and copy-button describe blocks. All 9477 tests pass.
+<!-- SECTION:FINAL_SUMMARY:END -->

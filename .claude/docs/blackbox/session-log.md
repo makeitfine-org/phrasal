@@ -1016,3 +1016,27 @@
 - .claude/docs/blackbox/audit.md
 - backlog/tasks/task-21 - Add-Do-phrasal-verb-page-with-list-card-and-tests.md
 <!-- end-snapshot -->
+
+<!-- git-snapshot 2026-06-09T15:34:34Z -->
+- .claude/docs/blackbox/audit.md
+<!-- end-snapshot -->
+
+<!-- git-snapshot 2026-06-09T15:43:17Z -->
+- .claude/docs/blackbox/audit.md
+- .claude/docs/blackbox/session-log.md
+- backlog/tasks/task-22 - Add-Dress-phrasal-verb-page-with-list-card-and-tests.md
+- src/__tests__/PhrasalVerbsListPage.test.tsx
+- src/data/listVerbIndex.ts
+- src/main.tsx
+- src/pages/PhrasalVerbsListPage.tsx
+<!-- end-snapshot -->
+
+<!-- git-snapshot 2026-06-09T16:02:05Z -->
+- .claude/docs/blackbox/audit.md
+- .claude/docs/blackbox/session-log.md
+- backlog/tasks/task-22 - Add-Dress-phrasal-verb-page-with-list-card-and-tests.md
+- src/__tests__/PhrasalVerbsListPage.test.tsx
+- src/data/listVerbIndex.ts
+- src/main.tsx
+- src/pages/PhrasalVerbsListPage.tsx
+<!-- end-snapshot -->

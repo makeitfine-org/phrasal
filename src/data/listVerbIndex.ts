@@ -25,6 +25,7 @@ import { sections as cleanSections } from '../pages/clean/CleanVerbPage';
 import { sections as countSections } from '../pages/count/CountVerbPage';
 import { sections as dealSections } from '../pages/deal/DealVerbPage';
 import { sections as doSections } from '../pages/do/DoVerbPage';
+import { sections as dressSections } from '../pages/dress/DressVerbPage';
 
 export interface ListSearchEntry {
   verb: string;
@@ -77,4 +78,5 @@ export const listVerbIndex: ListSearchEntry[] = [
   ...buildEntries(countSections, 'Count', '/phrasal-verbs/list/count'),
   ...buildEntries(dealSections, 'Deal', '/phrasal-verbs/list/deal'),
   ...buildEntries(doSections, 'Do', '/phrasal-verbs/list/do'),
+  ...buildEntries(dressSections, 'Dress', '/phrasal-verbs/list/dress'),
 ];

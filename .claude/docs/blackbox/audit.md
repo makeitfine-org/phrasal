@@ -4347,3 +4347,1255 @@ Complete the backlog task-201. After completion run /compact Claude code command
 ## 2026-06-09T15:17:24Z
 Complete the backlog task-21. After completion run /compact Claude code command.
 ---
+
+## 2026-06-09T15:31:46Z
+Create a backlog.md tasks the same way as task-13 and task-14 (but don't execute it) to solve the described problems:
+
+
+---
+Eat up
+This is the most versatile phrasal verb using "eat" and carries several literal and figurative meanings.
+
+Meaning 1: To consume a meal or food completely.
+
+Example: You need to eat up your vegetables before you can have dessert.
+
+Meaning 2: To consume a large amount of time, money, or resources.
+
+Example: Heating this massive house eats up a large portion of my monthly salary.
+
+Meaning 3: To enjoy something greatly, or to eagerly believe something without questioning it.
+
+Example: The politician told the crowd exactly what they wanted to hear, and they ate it up.
+
+Meaning 4: To consume someone emotionally with negative feelings like guilt or jealousy.
+
+Example: Keeping the secret from her best friend was slowly eating her up inside.
+
+Meaning 5: To completely absorb, destroy, or defeat a competitor.
+
+Example: The tech giant easily ate up the smaller startups in the area.
+
+Eat into
+Meaning 1: To use up a portion of a valuable reserve, especially money or time.
+
+Example: The unexpected plumbing repairs really ate into our vacation savings.
+
+Meaning 2: To gradually damage or destroy a surface through chemical action or corrosion.
+
+Example: Without a protective coating, the salty sea air will quickly eat into the metal.
+
+Eat away
+Meaning 1: To gradually destroy, erode, or consume something over time.
+
+Example: Over thousands of years, the river slowly ate away the soft limestone.
+
+Meaning 2: To continuously bother, distress, or cause anxiety for someone (often used with "at").
+
+Example: The stress of the upcoming trial was eating away at him.
+
+Eat out
+Meaning 1: To eat a meal at a restaurant or café rather than cooking at home.
+
+Example: I am far too exhausted to cook, so let's eat out tonight.
+
+Eat in
+Meaning 1: To eat a meal at home instead of going to a restaurant.
+
+Example: We are trying to stick to a tight budget, so we plan to eat in this weekend.
+
+Eat through
+Meaning 1: To make a physical hole in something by biting, chewing, or corroding.
+
+Example: During the winter, mice managed to eat through the drywall in the garage.
+
+Meaning 2: To exhaust or consume a massive supply of money or resources very rapidly.
+
+Example: He ate through his entire inheritance in just three years of reckless spending.
+
+Eat around / round
+Meaning 1: To consume a meal while deliberately avoiding a specific ingredient on the plate.
+
+Example: The child absolutely hated mushrooms and carefully ate around them.
+
+Eat on (Informal / Regional)
+Meaning 1: To gradually consume a large amount of leftover food over an extended period.
+
+Example: We cooked a massive turkey for the holiday and will just eat on it for the rest of the week.
+
+Eat down
+Meaning 1: To graze pasture or grass until it is very short or completely gone.
+
+Example: The herd of sheep completely ate down the grass in the lower field.
+
+Eat off
+Meaning 1: To remove a layer or surface by eating, chewing, or chemical corrosion.
+
+Example: The dog chewed the furniture so aggressively that he ate the varnish off.
+---
+Fall about / around / round
+Meaning: To laugh uncontrollably (mostly British/Australian English).
+
+Example: The whole team fell about laughing during the presentation.
+
+Fall apart
+Meaning 1: To fail completely (systems, plans, or organizations).
+
+Example: The software project fell apart due to poor management.
+
+Meaning 2: To experience a serious emotional or mental breakdown.
+
+Example: He fell apart after losing his leadership role.
+
+Meaning 3: To break into pieces because of poor condition.
+
+Example: These old documents are starting to fall apart.
+
+Fall away
+Meaning 1: To gradually decrease, fade, or disappear.
+
+Example: Client interest fell away when the prices increased.
+
+Meaning 2: To break off and drop to the ground.
+
+Example: The old plaster fell away from the ceiling.
+
+Meaning 3: To slope downwards.
+
+Example: The land falls away sharply behind the building.
+
+Fall back
+Meaning 1: To retreat or move backwards (often military or strategic).
+
+Example: Our competitors pushed hard, forcing us to fall back and rethink our strategy.
+
+Meaning 2 (Fall back on): To rely on something as a backup plan when other things fail.
+
+Example: If the Java application fails, we have a backup system to fall back on.
+
+Fall behind
+Meaning 1: To fail to complete work or make payments on time.
+
+Example: If you don't manage your time well, you will fall behind on the project schedule.
+
+Meaning 2: To move slower than the rest of a group.
+
+Example: She fell behind the other runners because her leg hurt.
+
+Fall down
+Meaning 1: To be proven weak, inadequate, or incorrect (often an argument or plan).
+
+Example: His business strategy falls down when you look at the financial data.
+
+Meaning 2: To drop to the ground (literal).
+
+Example: The sign was not attached properly and fell down.
+
+Fall for
+Meaning 1: To be tricked or deceived by a lie or scam.
+
+Example: I can't believe the manager fell for that obvious phishing email.
+
+Meaning 2: To fall deeply in love with someone.
+
+Example: They met at a tech conference and fell for each other immediately.
+
+Fall in
+Meaning 1: To collapse inwards (like a roof, wall, or ceiling).
+
+Example: The roof of the old warehouse fell in under the heavy snow.
+
+Meaning 2: To form a line (military).
+
+Example: The sergeant ordered the soldiers to fall in.
+
+Meaning 3 (Fall in with): To agree to a plan or join a group of people.
+
+Example: We decided to fall in with the director's new strategy.
+
+Fall into
+Meaning 1: To start doing something by chance, rather than by plan (like a career).
+
+Example: I didn't study management; I just fell into it.
+
+Meaning 2: To be naturally divided into categories.
+
+Example: The users of this software fall into three main groups.
+
+Meaning 3: To enter a specific state or condition.
+
+Example: The building fell into ruin after years of neglect.
+
+Fall off
+Meaning 1: To decrease in quantity, quality, or frequency.
+
+Example: Product sales usually fall off during the summer holidays.
+
+Meaning 2: To detach from something.
+
+Example: The handle fell off the door.
+
+Fall on / upon
+Meaning 1: To become someone's duty or responsibility.
+
+Example: When the CEO resigned, the responsibility fell on the vice president.
+
+Meaning 2: To happen on a specific date.
+
+Example: This year, the project deadline falls on a Friday.
+
+Meaning 3: To attack eagerly or suddenly.
+
+Example: The press fell on the politician after the scandal broke.
+
+Meaning 4: To experience difficult times (idiom: fall on hard times).
+
+Example: The company fell on hard times during the recession.
+
+Fall out
+Meaning 1: To have an argument and stop being friends or colleagues.
+
+Example: The two founders fell out over the future direction of the company.
+
+Meaning 2: To become detached and drop (usually hair or teeth).
+
+Example: Stress can cause your hair to fall out.
+
+Meaning 3: To leave a formation (military).
+
+Example: The troops were ordered to fall out and rest.
+
+Fall over
+Meaning 1: To collapse or drop to the ground.
+
+Example: The server rack almost fell over during the earthquake.
+
+Meaning 2 (Fall over oneself): To try extremely hard, often looking foolish, to do something.
+
+Example: Recruiters are falling over themselves to hire good Java developers.
+
+Fall through
+Meaning 1: To fail to happen or be completed (usually plans, deals, or projects).
+
+Example: The merger fell through at the last minute due to legal issues.
+
+Fall to
+Meaning 1: To become someone's duty or responsibility (similar to fall on).
+
+Example: It falls to the senior developer to train the new team members.
+
+Meaning 2: To start doing something energetically, especially eating or working.
+
+Example: They fell to eating as soon as the food arrived.
+---
+Figure out
+This is the most common phrasal verb using "figure" and has three distinct meanings.
+
+Meaning 1: To understand a problem and find a solution.
+
+Example: It took the team three hours to figure out why the Java application was crashing.
+
+Meaning 2: To calculate an amount or cost.
+
+Example: We need to figure out exactly how much the new software licenses will cost.
+
+Meaning 3: To understand someone's character, behavior, or motives.
+
+Example: I cannot figure our new manager out; she is very quiet and hard to read.
+
+Figure on
+Meaning 1: To plan on something happening or expect something to be true.
+
+Example: We figure on launching the new product by the end of the second quarter.
+
+Meaning 2: To rely on or trust someone/something.
+
+Example: You can always figure on John to deliver his code on time.
+
+Figure in
+Meaning 1: To include a specific detail or amount when making a calculation or plan.
+
+Example: When estimating the project timeline, you must figure in the time needed for testing and fixing bugs.
+
+Figure into
+Meaning 1: To be a relevant factor or play a part in a situation, decision, or plan.
+
+Example: The cost of hiring new developers did not figure into the original budget.
+
+Figure up
+Meaning 1: To add numbers together to calculate a total amount.
+
+Example: Let me figure up the total hours we spent on the server migration last month.
+
+Figure for
+Meaning 1: To expect someone to be a certain type of person, or to make an assumption about their character.
+
+Example: I figured him for a strict leader, but he is actually very relaxed.
+---
+Fill in
+1. To complete a form or document by writing required information.
+
+Example: Please fill in this application form and return it to the HR department.
+
+2. To provide someone with missing information (often used as "fill someone in").
+
+Example: I missed the morning meeting. Can you fill me in on what the team discussed?
+
+3. To temporarily do someone else's job because they are absent (used as "fill in for").
+
+Example: The lead developer is sick today, so I will fill in for him.
+
+4. To close a hole or empty space by putting a substance into it.
+
+Example: The city workers finally filled in the hole in the street.
+
+Fill out
+1. To complete a form or document (This is the US English equivalent of "fill in").
+
+Example: It took me an hour to fill out the tax documents.
+
+2. To become larger, heavier, or rounder (usually referring to a person gaining weight or muscle).
+
+Example: He used to be very thin, but he has filled out since he started going to the gym.
+
+Fill up
+1. To make something completely full, or to become completely full.
+
+Example (Action): We need to fill up the car with petrol before we start driving.
+
+Example (State): The conference room filled up quickly before the presentation started.
+
+2. To eat enough food so that you are no longer hungry.
+
+Example: Don't fill up on bread before the main course arrives!
+
+Fill down
+1. To copy data or formulas to the cells below (Specific to software/business context like Excel).
+
+Example: Select the top cell and fill down the formula to the bottom of the column.
+
+Fill with
+(Note: This is a verb + preposition combination rather than a strict phrasal verb, but it is essential for this verb).
+
+1. To put a substance or object into a container until there is no more space.
+
+Example: She filled the cup with coffee.
+
+2. To cause someone to feel a strong emotion.
+
+Example: The successful software launch filled the team with pride.
+---
+1. Find out
+This is the most common phrasal verb with "find." It has two distinct meanings.
+
+Meaning A: To discover information, learn a fact, or solve a problem.
+
+Example: We need to review the server logs to find out why the Java application is crashing.
+
+Example: Did the project manager find out when the new client is arriving?
+
+Meaning B: To discover that someone has lied, kept a secret, or done something wrong. (Usually separable: find someone out)
+
+Example: He lied on his resume, but the HR department eventually found him out.
+
+2. Find for
+This is a formal phrasal verb used almost exclusively in legal or official dispute settings.
+
+Meaning: To make an official decision in favor of someone.
+
+Example: After reviewing the contract, the judge found for the software developer and ordered the client to pay the invoice.
+
+3. Find against
+This is the exact opposite of "find for," also used in legal and official settings.
+
+Meaning: To make an official decision that someone is guilty or loses a dispute.
+
+Example: The court found against the leadership team because they did not follow labor laws.
+===
+for each ["deal", "do", "dress", "drop"]:
+1) Create the link on list page with particals mentioned above phrasal verbs. 
+   Take as the base "take" link.
+2) Create the page with mentioned above phrasal verbs. 
+   Take as the base "take" page.
+3) Cover the functionality with tests
+---
+
+## 2026-06-09T15:36:56Z
+Complete the backlog task-22. After completion run /compact Claude code command.
+---
+
+## 2026-06-09T15:56:07Z
+Create a backlog.md tasks the same way as task-13 and task-14 (but don't execute it) to solve the described problems:
+
+
+---
+Hang about / around / round
+
+Meaning 1 (Spend time): To spend time somewhere doing nothing in particular, just waiting or relaxing.
+
+Example: Teenagers often hang around the shopping mall on weekends.
+
+Meaning 2 (Wait): To wait or stay in a place for a specific reason.
+
+Example: I'll hang around until the management meeting is over.
+
+Meaning 3 (Associate with): To spend time with a specific group of people.
+
+Example: He started to hang around with the software development team.
+
+Hang back
+
+Meaning 1 (Hesitate): To hesitate or stay behind the rest of a group because of fear, shyness, or uncertainty.
+
+Example: She hung back while the other candidates rushed to introduce themselves to the CEO.
+
+Hang behind
+
+Meaning 1 (Stay late): To stay in a place after other people have already left.
+
+Example: The lead developer hung behind after the meeting to ask a few more questions.
+
+Hang down
+
+Meaning 1 (Fall loosely): To drop or fall loosely downwards (usually describing hair, clothing, or branches).
+
+Example: Her long coat hung down to her ankles.
+
+Hang in
+
+Meaning 1 (Persevere): To remain positive and not give up during a difficult situation. (Almost always used in the phrase hang in there).
+
+Example: The Java migration project is really tough right now, but hang in there—it will get easier soon.
+
+Hang off
+
+Meaning 1 (Hold tightly): To hold onto the side of something to prevent yourself from falling.
+
+Example: The rescue worker was hanging off the side of the helicopter.
+
+Meaning 2 (Delay): To hesitate or wait before taking an action (less common).
+
+Example: The board hung off making a final decision until they saw the financial report.
+
+Hang on
+
+Meaning 1 (Wait): To wait for a short time.
+
+Example: Hang on a minute, I need to find my laptop charger.
+
+Meaning 2 (Hold tightly): To hold something very securely.
+
+Example: Hang on to the railing so you don't slip on the ice.
+
+Meaning 3 (Keep): To keep something instead of throwing it away or giving it away (usually hang on to).
+
+Example: You should hang on to those old code backups, just in case.
+
+Meaning 4 (Depend): To rely or depend completely on something.
+
+Example: The company's future hangs on the success of this new application.
+
+Hang out
+
+Meaning 1 (Socialize): To spend free time relaxing or socializing with friends.
+
+Example: We usually hang out at the local coffee shop after work.
+
+Meaning 2 (Dry clothes): To put wet clothes outside on a line to dry.
+
+Example: I need to hang the washing out before it rains.
+
+Meaning 3 (Lean out): To lean your body out of a window or opening.
+
+Example: Do not hang out of the train window while it is moving.
+
+Hang over
+
+Meaning 1 (Threaten/Worry): To make someone worry about a future problem, or to loom like a threat.
+
+Example: The threat of budget cuts was hanging over the entire IT department.
+
+Hang together
+
+Meaning 2 (Unite): To support each other and stay united as a group, especially in difficult times.
+
+Example: If the startup wants to survive this crisis, the leadership team must hang together.
+
+Meaning 2 (Make sense): To be logical, consistent, or believable (usually describing a story, theory, or argument).
+
+Example: The system architect's explanation for the server crash simply doesn't hang together.
+
+Hang up
+
+Meaning 1 (End a call): To end a telephone conversation by breaking the connection.
+
+Example: Please don't hang up on me, I haven't finished explaining the problem!
+
+Meaning 2 (Store clothes): To place a piece of clothing on a hook or a hanger.
+
+Example: When you enter the office, please hang up your coat in the closet.
+
+Meaning 3 (Delay/Hinder): To cause a delay or problem (often used in the passive voice).
+
+Example: The software release got hung up by a series of unexpected bugs.
+
+Hang with
+
+Meaning 1 (Spend time): An informal version of "hang out with"; to spend time with people.
+
+Example: I prefer to hang with people who share my interest in business management.
+---
+Hold against
+Meaning 1: To let a past mistake or negative action influence your opinion of someone; to hold a grudge.
+
+Example: The developer made a major error in the code, but the manager did not hold it against him during his performance review.
+
+Hold back
+Meaning 1: To hesitate to act or speak.
+
+Example: We need all your ideas for this project, so please do not hold back in the meeting.
+
+Meaning 2: To stop something from moving forward, developing, or succeeding.
+
+Example: The team is highly skilled, but outdated legacy software is holding them back.
+
+Meaning 3: To keep information a secret.
+
+Example: I suspect the client is holding back some details about their budget.
+
+Hold down
+Meaning 1: To manage to keep a job for a period of time.
+
+Example: It requires excellent leadership skills to hold down a management position in such a fast-paced company.
+
+Meaning 2: To keep costs, prices, or numbers at a low level.
+
+Example: We need to hold down our server costs this quarter to remain profitable.
+
+Meaning 3: To physically prevent someone or something from moving.
+
+Example: The wind was so strong that we had to hold down the equipment.
+
+Hold in
+Meaning 1: To hide or control your emotions.
+
+Example: The CEO was furious about the delayed release, but she managed to hold in her anger.
+
+Meaning 2: To pull your stomach inwards.
+
+Example: He held his stomach in to look better in the photograph.
+
+Hold off
+Meaning 1: To delay doing something.
+
+Example: We decided to hold off on deploying the new Java application until the testing phase was 100% complete.
+
+Meaning 2: To stop an opponent or competitor from defeating you.
+
+Example: The company managed to hold off its main competitors by launching a superior product.
+
+Hold on
+Meaning 1: To wait for a short time (often used on the phone).
+
+Example: Could you hold on a minute while I check the project schedule?
+
+Meaning 2: To survive in a difficult or dangerous situation.
+
+Example: The startup held on through the economic crisis and eventually became a market leader.
+
+Meaning 3: To grip something tightly.
+
+Example: Hold on to the handrail so you do not fall on the stairs.
+
+Hold out
+Meaning 1: To continue to defend yourself or survive in a difficult situation.
+
+Example: The team held out against the pressure from the clients and delivered high-quality work.
+
+Meaning 2: To offer a possibility, chance, or hope.
+
+Example: The new business strategy holds out hope for a better financial year.
+
+Meaning 3: To extend a part of your body (like a hand) or an object.
+
+Example: She held out her hand to welcome the new employee.
+
+Meaning 4 (Hold out for): To wait and refuse to accept anything less than what you want.
+
+Example: The senior developer is holding out for a higher salary before signing the contract.
+
+Hold over
+Meaning 1: To postpone or delay an event or discussion until a later time.
+
+Example: We do not have enough time today, so we will hold over the architecture discussion until tomorrow's meeting.
+
+Meaning 2: To allow someone to stay in a job or position longer than originally planned.
+
+Example: The outgoing director was held over for three months to help train the new leadership team.
+
+Hold to
+Meaning 1: To make someone keep a promise or follow a standard.
+
+Example: We agreed to deliver the software by Friday, and the client will hold us to that deadline.
+
+Meaning 2: To continue to believe an idea or follow a plan, even when it is difficult.
+
+Example: We must hold to our original business plan if we want to see long-term results.
+
+Hold together
+Meaning 1: To remain united or to keep a group united.
+
+Example: A strong manager knows how to hold a team together during stressful project sprints.
+
+Meaning 2: To remain intact and not break into pieces.
+
+Example: The old database system is barely holding together; we need to replace it soon.
+
+Hold up
+Meaning 1: To delay someone or something.
+
+Example: A critical bug in the code is holding up the entire product release.
+
+Meaning 2: To remain strong, successful, or true when tested.
+
+Example: Their argument sounded good at first, but it did not hold up under close examination.
+
+Meaning 3: To support the weight of something.
+
+Example: These concrete pillars hold up the entire roof of the building.
+
+Meaning 4: To rob a bank, shop, or person using violence or a weapon.
+
+Example: The thieves tried to hold up the security van.
+
+Hold with
+Meaning 1: To approve of an idea or activity (almost always used in the negative).
+
+Example: I do not hold with micromanaging experienced developers; they work better with independence.
+---
+1. Keep off
+To avoid touching or walking on something.
+
+Example: Please keep off the grass while the park is being maintained.
+
+To avoid mentioning or discussing a specific topic.
+
+Example: Let's keep off the subject of politics during the meeting.
+
+To prevent something from touching or harming something else.
+
+Example: Use this spray to keep the bugs off your plants.
+
+To avoid eating, drinking, or using something.
+
+Example: I am trying to keep off sugar to improve my health.
+
+2. Keep on
+To continue doing something.
+
+Example: Even though the project was difficult, the team kept on working.
+
+To continue to employ someone.
+
+Example: The company decided to keep him on as a consultant after he retired.
+
+To leave a piece of clothing on your body.
+
+Example: It's cold in here, so I will keep my jacket on.
+
+To repeatedly remind or complain to someone (keep on at someone).
+
+Example: My manager keeps on at me to finish the financial report.
+
+3. Keep up
+To move at the same speed as someone or something else.
+
+Example: The software industry changes so fast that it's hard to keep up.
+
+To continue doing something at a high level.
+
+Example: You are doing a great job—keep up the good work!
+
+To stay awake, or to prevent someone from sleeping.
+
+Example: My neighbor's loud music kept me up all night.
+
+To maintain something in good condition.
+
+Example: It costs a lot of money to keep up such a large office building.
+
+4. Keep down
+To stop the number, level, or size of something from increasing.
+
+Example: We need to keep our expenses down this quarter.
+
+To manage to keep food or medicine in your stomach (not vomit).
+
+Example: He was so sick that he couldn't keep any water down.
+
+To stay hidden by crouching or lying flat.
+
+Example: Keep down! I don't want anyone to see us.
+
+To prevent a person or group of people from having power or freedom.
+
+Example: The corrupt government tried to keep the citizens down.
+
+5. Keep in
+To make someone (usually a child) stay inside as a punishment.
+
+Example: The teacher kept him in after school because he didn't do his homework.
+
+To control or hide an emotion.
+
+Example: She was very angry but managed to keep her feelings in.
+
+To prevent a fire from dying out.
+
+Example: Add some more wood to keep the fire in.
+
+6. Keep out
+To not enter a place, or to stop someone/something from entering.
+
+Example: There is a sign on the door that says "Danger: Keep Out."
+
+To stay away from a problem, argument, or situation.
+
+Example: This is a private argument, so please keep out of it.
+
+7. Keep away
+To avoid going near something or someone.
+
+Example: You should keep away from that dog; it looks aggressive.
+
+To prevent someone or something from going near.
+
+Example: Keep the children away from the hot stove.
+
+8. Keep across
+To stay informed about a situation or topic (mainly British English).
+
+Example: As a project manager, I need to keep across all the software updates.
+
+Note: "Keep cross" does not exist as a phrasal verb.
+
+9. Keep back
+To stay at a safe distance, or make someone stay back.
+
+Example: The police told the crowd to keep back from the accident.
+
+To hide information; to not tell someone everything you know.
+
+Example: I feel like the client is keeping something back from us.
+
+To stop yourself from showing an emotion (like crying).
+
+Example: She struggled to keep back her tears during the sad movie.
+
+10. Keep together
+To stay in a group and not separate.
+
+Example: We need to keep together so we don't get lost in the city.
+
+To not break apart or fall to pieces.
+
+Example: I hope my old laptop keeps together until I can buy a new one.
+
+11. Keep apart
+To prevent people, animals, or things from coming together.
+
+Example: The two dogs were fighting, so we had to keep them apart.
+
+To stay away from each other.
+
+Example: The two rival teams were told to keep apart before the match.
+
+12. Keep ahead
+To stay in front of others or stay more advanced than competitors.
+
+Example: To succeed in business, you must innovate to keep ahead of your rivals.
+
+13. Keep after
+To repeatedly remind or nag someone to do something (mainly US English).
+
+Example: I have to keep after my team to submit their timesheets on Friday.
+
+14. Keep behind
+To stay in a place after everyone else has left.
+
+Example: I kept behind after the meeting to ask the speaker a question.
+
+To make someone stay after others have left.
+
+Example: The manager kept me behind to discuss my performance.
+
+15. Keep about / around / round
+To keep something near you because it might be useful.
+
+Example: I always keep a pen around just in case I need to take notes.
+
+To continue to associate with someone or let them stay in a group/company.
+
+Example: He isn't very productive, so I don't know why they keep him around.
+
+16. Keep to
+To follow a plan, rule, or agreement.
+
+Example: We have a tight deadline, so let's keep to the schedule.
+
+To limit something to a certain amount.
+
+Example: Please keep your presentation to ten minutes.
+
+To stay on a particular path or road.
+
+Example: When hiking in the forest, always keep to the marked trail.
+
+To avoid talking to other people; to stay private (keep to oneself).
+
+Example: He is very shy and mostly keeps to himself at the office.
+---
+1. True Phrasal Verbs
+These combinations have specific, often non-literal (idiomatic) meanings.
+
+Knock about / around / round
+
+To discuss casually: To talk about ideas in an informal way.
+
+Example: We knocked a few new software features around during the meeting.
+
+To spend time without a plan: To relax or travel without a strict schedule.
+
+Example: After selling his startup, he knocked about Europe for a year.
+
+To exist somewhere: When an object is somewhere in a room but not organized.
+
+Example: I have an old Java textbook knocking around my office.
+
+To treat violently: To hit someone repeatedly.
+
+Example: The robbers knocked the guard about.
+
+Knock against
+
+To bump into: To accidentally hit something while moving.
+
+Example: I knocked against the server rack and unplugged a cable.
+
+Knock apart
+
+To destroy or break: To hit something so hard it breaks into pieces.
+
+Example: The storm knocked the old warehouse apart.
+
+Knock back
+
+To reject: To refuse an offer or application.
+
+Example: The investors knocked back our business proposal.
+
+To cost money: To be expensive for someone.
+
+Example: That new server knocked the company back $5,000.
+
+To drink quickly: To consume an alcoholic drink fast.
+
+Example: He knocked back a coffee before the presentation.
+
+To surprise/shock: To leave someone amazed or stunned.
+
+Example: The sudden drop in sales really knocked me back.
+
+Knock down
+
+To demolish: To destroy a building completely.
+
+Example: They knocked down the old office to build a new one.
+
+To reduce a price: To lower the cost of an item.
+
+Example: The vendor knocked down the price of the software license.
+
+To persuade someone to lower a price: To successfully negotiate a discount.
+
+Example: I knocked the supplier down by 15%.
+
+To hit with a vehicle: To strike someone with a car so they fall.
+
+Example: A delivery bike almost knocked him down.
+
+Knock in
+
+To drive something inside: To hit a nail or object so it goes into a surface.
+
+Example: He knocked the nail in with a hammer.
+
+Knock into
+
+To meet by chance: To unexpectedly see someone you know.
+
+Example: I knocked into my old project manager at the tech conference.
+
+To collide with: To walk into something by accident.
+
+Example: She was looking at her phone and knocked into the desk.
+
+Knock off
+
+To stop working: To finish your workday.
+
+Example: Let's knock off early today and go home.
+
+To reduce a price or target: To remove an amount from a total.
+
+Example: Can you knock 10% off the final invoice?
+
+To complete quickly: To produce a piece of work very fast.
+
+Example: She knocked off the weekly report in just 20 minutes.
+
+To copy illegally: To make a cheap imitation of a product.
+
+Example: A competitor tried to knock off our main application.
+
+To steal/rob (Informal): To rob a place.
+
+Example: The thieves knocked off a local bank.
+
+To kill (Informal): To murder someone.
+
+Example: The gang knocked him off.
+
+Knock on
+
+To continue knocking: To hit a door repeatedly.
+
+Example: I knocked on, but no one answered the door.
+
+To cause a secondary effect (Noun/Adjective): Used as "knock-on effect" to describe how one event causes another.
+
+Example: The bug in the Java code had a knock-on effect on the whole database.
+
+Knock out
+
+To make unconscious: To hit someone so hard they pass out.
+
+Example: The boxer knocked his opponent out in the first round.
+
+To eliminate: To remove a person or team from a competition.
+
+Example: Our team was knocked out in the quarter-finals.
+
+To disable/destroy: To stop a system from working.
+
+Example: The power outage knocked out our main servers.
+
+To produce quickly: To create something at high speed.
+
+Example: The developers can knock out a prototype by tomorrow.
+
+To greatly impress: To amaze someone.
+
+Example: Her leadership skills completely knocked me out.
+
+Knock over
+
+To cause to fall: To hit something so it falls on its side.
+
+Example: I accidentally knocked over my coffee onto the keyboard.
+
+To rob (Informal): To steal from a business.
+
+Example: They knocked over a gas station.
+
+Knock through
+
+To connect rooms: To remove a wall between two spaces.
+
+Example: We knocked through the wall to create an open-plan office.
+
+Knock together
+
+To build or assemble quickly: To create something fast using whatever is available.
+
+Example: I knocked together a quick test environment for the new app.
+
+Knock up
+
+To prepare quickly: To make a meal or item in a short time.
+
+Example: Let me knock up a quick presentation for the client.
+
+To wake someone (UK English): To knock on a door to wake a person.
+
+Example: Can you knock me up at 6 AM?
+
+To make pregnant (Informal/Slang):
+
+Example: He knocked his girlfriend up.
+
+To warm up for tennis: To hit the ball before a match begins.
+
+Example: The players are knocking up on the court.
+---
+1. Lay about
+Meaning: To hit out in all directions; to attack violently.
+
+Example: "When the attackers approached, he began laying about him with a heavy stick."
+
+2. Lay away
+Meaning: To save money or goods for future use (often used in retail as "layaway").
+
+Example: "The company lays away a portion of its quarterly profits for future software investments."
+
+3. Lay by
+Meaning: To save money for a specific future need (similar to lay away).
+
+Example: "She laid by some money every month to fund her new startup."
+
+4. Lay down
+Meaning 1: To officially establish a rule, policy, or principle.
+
+Example: "The management team laid down clear guidelines for remote work."
+
+Meaning 2: To surrender weapons; to stop fighting.
+
+Example: "The rebels finally agreed to lay down their arms."
+
+Meaning 3: To record music or audio.
+
+Example: "The band went into the studio to lay down a new track."
+
+Meaning 4: To store wine in a cellar for aging.
+
+Example: "We laid down several bottles of red wine to drink in ten years."
+
+5. Lay for
+Meaning: To wait secretly to attack someone; to ambush (old-fashioned/rare).
+
+Example: "The thieves were laying for the manager outside the bank."
+
+6. Lay in
+Meaning: To collect and store a large supply of something for future use.
+
+Example: "We need to lay in plenty of coffee before the development team starts the big sprint."
+
+7. Lay into
+Meaning: To criticize someone angrily or attack them physically.
+
+Example: "The lead developer laid into the junior programmer for pushing broken code to the main server."
+
+8. Lay off
+Meaning 1: To end a worker's employment, usually because the company has no work or no budget.
+
+Example: "The business had to lay off 20 employees due to the economic crisis."
+
+Meaning 2: To stop criticizing or bothering someone.
+
+Example: "Lay off him! He is doing the best he can to meet the deadline."
+
+Meaning 3: To stop using, consuming, or doing something for a while.
+
+Example: "I need to lay off the caffeine; I've been drinking too much coffee."
+
+9. Lay on
+Meaning 1: To provide or supply something, especially food, entertainment, or transport.
+
+Example: "The company laid on a massive buffet for the leadership conference."
+
+Meaning 2: To apply something very thickly (like paint) or to exaggerate something (like praise or guilt).
+
+Example: "Don't lay on the praise too thick, or it will sound insincere."
+
+10. Lay out
+Meaning 1: To explain a plan or idea clearly and in detail.
+
+Example: "The CEO laid out the new business strategy during the meeting."
+
+Meaning 2: To arrange things so they can be easily seen or used.
+
+Example: "The designer laid out the new Java application interface on the screen."
+
+Meaning 3: To spend a large amount of money.
+
+Example: "We laid out thousands of dollars on the new server infrastructure."
+
+Meaning 4: To knock someone unconscious.
+
+Example: "One punch was enough to lay him out."
+
+11. Lay over
+Meaning: To stop somewhere temporarily during a long journey (this creates the noun layover).
+
+Example: "I had to lay over in Frankfurt for six hours before my connecting flight to New York."
+
+12. Lay to
+Meaning: (Nautical) To bring a ship to a standstill while facing the wind.
+
+Example: "The captain decided to lay to until the storm passed."
+
+13. Lay up
+Meaning 1: To be forced to stay in bed because of illness or injury (usually used in the passive: laid up).
+
+Example: "Our project manager is laid up with the flu and won't be in the office this week."
+
+Meaning 2: To take something out of active use and store it (often applied to ships, cars, or machinery).
+
+Example: "The old hardware was laid up in the storage room."
+---
+Grow apart
+Meaning: To gradually become less close in a relationship over time.
+
+Example: "The co-founders grew apart over the years and eventually split the business."
+
+Grow away (from)
+Meaning: To gradually become less connected to someone or something, or to stop supporting a past habit or idea.
+
+Example: "As the startup expanded, we naturally grew away from our original, informal working style."
+
+Grow back
+Meaning: To grow again after being cut, broken, or damaged (usually referring to plants or hair).
+
+Example: "We had to cut down the tree, but the branches are starting to grow back."
+
+Grow in
+Meaning: To fill an empty space by growing (often used for hair or plants).
+
+Example: "We planted new seeds in the garden, and the grass is finally growing in."
+
+Grow into
+Meaning 1: To develop the skills and confidence needed for a new role or responsibility.
+
+Example: "It was a big promotion, but she quickly grew into her position as a team leader."
+
+Meaning 2: To become large enough to fit into clothing.
+
+Example: "The jacket is too big for him now, but he will grow into it."
+
+Meaning 3: To develop into a different or larger state.
+
+Example: "What started as a simple Java application grew into a massive enterprise platform."
+
+Grow on
+Meaning: To become increasingly liked or appreciated by someone over time.
+
+Example: "I didn't like the new management software at first, but it is starting to grow on me."
+
+Grow out / Grow out of
+Meaning 1 (Grow out): To allow hair to grow back to its natural style or color.
+
+Example: "She is growing out her dyed blonde hair."
+
+Meaning 2 (Grow out of): To become too big for a physical space or piece of clothing.
+
+Example: "Our development team grew out of the small office in just six months."
+
+Meaning 3 (Grow out of): To stop doing something as you become older or more mature.
+
+Example: "He used to micromanage his team, but luckily he grew out of that habit."
+
+Meaning 4 (Grow out of): To develop or happen as a direct result of something else.
+
+Example: "The new mobile app grew out of a simple idea shared during a brainstorming meeting."
+
+Grow over
+Meaning: To become covered with growing plants (like vines, moss, or grass).
+
+Example: "The old, abandoned factory was eventually grown over by ivy."
+
+Grow to
+Meaning: To gradually begin to experience a feeling or an action (usually followed by another verb, like like, love, realize, understand).
+
+Example: "After working with him for a year, I grew to respect his leadership style."
+
+Grow together
+Meaning 1: To become closely united or emotionally connected.
+
+Example: "After the merger, the two departments slowly grew together to form one strong team."
+
+Meaning 2: To fuse or join while growing (often used for plants or healing bones).
+
+Example: "The broken bone was set in a cast and grew together perfectly."
+
+Grow up
+Meaning 1: To change from being a child to being an adult.
+
+Example: "He grew up in Poland and later moved abroad to study software engineering."
+
+Meaning 2: To behave in a mature, adult way (often used as a criticism or command when someone is acting childish).
+
+Example: "Stop arguing about minor code formatting and grow up!"
+
+Meaning 3: To slowly develop, arise, or establish itself (often used for cities, industries, or systems).
+
+Example: "A massive ecosystem of tools and frameworks grew up around the Java programming language."
+
+Grow with
+Meaning: To expand, develop, or change proportionally alongside something else.
+
+Example: "You need a server architecture that can grow with your business needs."
+---
+1. Hand back
+Meaning: To return something to the person who owned it or gave it to you.
+
+Example: After reviewing the code, please hand back the printed reports to the project manager.
+
+2. Hand down
+Meaning 1 (Transfer): To pass knowledge, traditions, or items from an older person to a younger person (or from a predecessor to a successor).
+
+Example: The retiring CEO handed down his leadership principles to the new management team.
+
+Meaning 2 (Formal Decision): To officially announce a formal or legal decision.
+
+Example: The board of directors will hand down their final decision on the software budget next week.
+
+3. Hand in
+Meaning: To submit something or give it to a person in authority (like a boss, teacher, or official).
+
+Example: He decided to hand in his resignation because he found a new job in software development.
+
+4. Hand off
+Meaning: To pass the responsibility, control, or execution of a task to someone else.
+
+Example: I will hand off the server maintenance tasks to the junior Java developers tomorrow.
+
+5. Hand on
+Meaning: To give something to the next person, often in a sequence (similar to passing a message or object along).
+
+Example: Please read this project update and hand it on to the rest of the management team.
+
+6. Hand out
+Meaning: To distribute something to multiple people in a group.
+
+Example: The team leader handed out the new coding guidelines during the meeting.
+
+7. Hand over
+Meaning 1 (Transfer Control): To give control, responsibility, or ownership of something to someone else.
+
+Example: When the project is finished, we will hand over the new application to the client.
+
+Meaning 2 (Surrender): To give something to someone because they demand it (often formal or forced).
+
+Example: The security guard asked him to hand over his company ID card.
+
+8. Hand around / Hand round / Hand about
+Meaning: To offer or pass something to each person in a group. (Note: "Hand about" is much less common today, while "hand around" is standard).
+
+Example: They handed around the new smartphones so the development team could test them.
+
+9. Hand to (Idiomatic phrase)
+Meaning: Used in the phrase "have to hand it to someone." It means to admit that someone has done something very well, and to give them credit for it.
+
+Example: You have to hand it to her; she managed that difficult software project perfectly.
+===
+for each ["deal", "do", "dress", "drop"]:
+1) Create the link on list page with particals mentioned above phrasal verbs. 
+   Take as the base "take" link.
+2) Create the page with mentioned above phrasal verbs. 
+   Take as the base "take" page.
+3) Cover the functionality with tests
+---
+
+## 2026-06-09T16:05:33Z
+Complete the backlog task-23. After completion run /compact Claude code command.
+---

@@ -1,9 +1,10 @@
 ---
 id: TASK-23
 title: Add "Drop" phrasal verb page with list card and tests
-status: To Do
+status: In Progress
 assignee: []
 created_date: '2026-06-09 14:34'
+updated_date: '2026-06-09 16:05'
 labels:
   - phrasal-verbs
   - content

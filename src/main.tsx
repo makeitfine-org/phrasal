@@ -32,6 +32,7 @@ import CleanVerbPage from './pages/clean/CleanVerbPage';
 import CountVerbPage from './pages/count/CountVerbPage';
 import DealVerbPage from './pages/deal/DealVerbPage';
 import DoVerbPage from './pages/do/DoVerbPage';
+import DressVerbPage from './pages/dress/DressVerbPage';
 import ParticlesPage from './pages/particles/ParticlesPage';
 import IWishPage from './pages/IWishPage';
 import NotFoundPage from './pages/NotFoundPage';
@@ -76,6 +77,7 @@ ReactDOM.createRoot(document.getElementById('root')!).render(
             <Route path="/phrasal-verbs/list/count" element={<CountVerbPage />} />
             <Route path="/phrasal-verbs/list/deal" element={<DealVerbPage />} />
             <Route path="/phrasal-verbs/list/do" element={<DoVerbPage />} />
+            <Route path="/phrasal-verbs/list/dress" element={<DressVerbPage />} />
             <Route path="/grammar" element={<GrammarPage />} />
             <Route path="/grammar/i-wish-if-only" element={<IWishPage />} />
             <Route path="*" element={<NotFoundPage />} />
