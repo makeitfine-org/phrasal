@@ -1040,3 +1040,7 @@
 - src/main.tsx
 - src/pages/PhrasalVerbsListPage.tsx
 <!-- end-snapshot -->
+
+<!-- git-snapshot 2026-06-09T16:13:05Z -->
+- backlog/tasks/task-23 - Add-Drop-phrasal-verb-page-with-list-card-and-tests.md
+<!-- end-snapshot -->

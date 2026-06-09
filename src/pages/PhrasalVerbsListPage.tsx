@@ -131,6 +131,10 @@ const DROP_PARTICLES = [
   'in', 'into', 'off', 'on', 'out', 'over', 'through', 'to',
 ];
 
+const EAT_PARTICLES = [
+  'up', 'into', 'away', 'out', 'in', 'through', 'around / round', 'on', 'down', 'off',
+];
+
 const VERBS = [
   { key: 'get',  label: 'Get',  to: '/phrasal-verbs/list/get',  particles: GET_PARTICLES },
   { key: 'make', label: 'Make', to: '/phrasal-verbs/list/make', particles: MAKE_PARTICLES },
@@ -160,6 +164,7 @@ const VERBS = [
   { key: 'do',    label: 'Do',    to: '/phrasal-verbs/list/do',    particles: DO_PARTICLES },
   { key: 'dress', label: 'Dress', to: '/phrasal-verbs/list/dress', particles: DRESS_PARTICLES },
   { key: 'drop',  label: 'Drop',  to: '/phrasal-verbs/list/drop',  particles: DROP_PARTICLES },
+  { key: 'eat',   label: 'Eat',   to: '/phrasal-verbs/list/eat',   particles: EAT_PARTICLES },
 ];
 
 const EXPANDED_KEY = 'verbListExpanded';

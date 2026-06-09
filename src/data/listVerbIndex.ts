@@ -27,6 +27,7 @@ import { sections as dealSections } from '../pages/deal/DealVerbPage';
 import { sections as doSections } from '../pages/do/DoVerbPage';
 import { sections as dressSections } from '../pages/dress/DressVerbPage';
 import { sections as dropSections } from '../pages/drop/DropVerbPage';
+import { sections as eatSections } from '../pages/eat/EatVerbPage';
 
 export interface ListSearchEntry {
   verb: string;
@@ -81,4 +82,5 @@ export const listVerbIndex: ListSearchEntry[] = [
   ...buildEntries(doSections, 'Do', '/phrasal-verbs/list/do'),
   ...buildEntries(dressSections, 'Dress', '/phrasal-verbs/list/dress'),
   ...buildEntries(dropSections, 'Drop', '/phrasal-verbs/list/drop'),
+  ...buildEntries(eatSections, 'Eat', '/phrasal-verbs/list/eat'),
 ];
