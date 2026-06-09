@@ -37,6 +37,7 @@ import DropVerbPage from './pages/drop/DropVerbPage';
 import EatVerbPage from './pages/eat/EatVerbPage';
 import FallVerbPage from './pages/fall/FallVerbPage';
 import FigureVerbPage from './pages/figure/FigureVerbPage';
+import FillVerbPage from './pages/fill/FillVerbPage';
 import ParticlesPage from './pages/particles/ParticlesPage';
 import IWishPage from './pages/IWishPage';
 import NotFoundPage from './pages/NotFoundPage';
@@ -86,6 +87,7 @@ ReactDOM.createRoot(document.getElementById('root')!).render(
             <Route path="/phrasal-verbs/list/eat" element={<EatVerbPage />} />
             <Route path="/phrasal-verbs/list/fall" element={<FallVerbPage />} />
             <Route path="/phrasal-verbs/list/figure" element={<FigureVerbPage />} />
+            <Route path="/phrasal-verbs/list/fill" element={<FillVerbPage />} />
             <Route path="/grammar" element={<GrammarPage />} />
             <Route path="/grammar/i-wish-if-only" element={<IWishPage />} />
             <Route path="*" element={<NotFoundPage />} />
