@@ -126,6 +126,11 @@ const DO_PARTICLES = [
 
 const DRESS_PARTICLES = ['back', 'by', 'down', 'off', 'on', 'out', 'up'];
 
+const DROP_PARTICLES = [
+  'across', 'around / round', 'away', 'back', 'behind', 'by', 'down',
+  'in', 'into', 'off', 'on', 'out', 'over', 'through', 'to',
+];
+
 const VERBS = [
   { key: 'get',  label: 'Get',  to: '/phrasal-verbs/list/get',  particles: GET_PARTICLES },
   { key: 'make', label: 'Make', to: '/phrasal-verbs/list/make', particles: MAKE_PARTICLES },
@@ -154,6 +159,7 @@ const VERBS = [
   { key: 'deal',  label: 'Deal',  to: '/phrasal-verbs/list/deal',  particles: DEAL_PARTICLES },
   { key: 'do',    label: 'Do',    to: '/phrasal-verbs/list/do',    particles: DO_PARTICLES },
   { key: 'dress', label: 'Dress', to: '/phrasal-verbs/list/dress', particles: DRESS_PARTICLES },
+  { key: 'drop',  label: 'Drop',  to: '/phrasal-verbs/list/drop',  particles: DROP_PARTICLES },
 ];
 
 const EXPANDED_KEY = 'verbListExpanded';
