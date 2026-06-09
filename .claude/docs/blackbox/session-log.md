@@ -1006,3 +1006,8 @@
 - backlog/tasks/task-18 - Add-Clean-phrasal-verb-page-with-list-card-and-tests.md
 - backlog/tasks/task-19 - Add-Count-phrasal-verb-page-with-list-card-and-tests.md
 <!-- end-snapshot -->
+
+<!-- git-snapshot 2026-06-09T15:15:16Z -->
+- .claude/docs/blackbox/audit.md
+- backlog/tasks/task-20 - Add-Deal-phrasal-verb-page-with-list-card-and-tests.md
+<!-- end-snapshot -->

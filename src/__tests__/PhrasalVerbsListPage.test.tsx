@@ -48,6 +48,7 @@ function renderPageWithRoutes() {
         <Route path="/phrasal-verbs/list/cheer" element={<LocationSpy />} />
         <Route path="/phrasal-verbs/list/clean" element={<LocationSpy />} />
         <Route path="/phrasal-verbs/list/count" element={<LocationSpy />} />
+        <Route path="/phrasal-verbs/list/deal" element={<LocationSpy />} />
         <Route path="/phrasal-verbs/particles" element={<LocationSpy />} />
       </Routes>
     </MemoryRouter>
@@ -2301,6 +2302,7 @@ const ALL_CHEER_PARTICLES = ['against', 'for', 'off', 'on', 'up'];
 
 const ALL_CLEAN_PARTICLES = ['around', 'away', 'down', 'off', 'out', 'up', 'up after'];
 const ALL_COUNT_PARTICLES = ['against', 'back', 'down', 'for', 'in', 'off', 'on', 'out', 'up'];
+const ALL_DEAL_PARTICLES = ['around / round', 'away', 'by', 'in', 'into', 'out', 'to', 'with'];
 
 describe('PhrasalVerbsListPage — Cheer card', () => {
   it('renders the "Cheer" card', () => {
@@ -2550,6 +2552,91 @@ describe('PhrasalVerbsListPage — count copy button', () => {
     renderPage();
     expandCard('count');
     fireEvent.click(screen.getByRole('button', { name: /copy all "count" phrasal verbs/i }));
+    await vi.waitFor(() => {
+      expect(screen.getByRole('button', { name: /copied!/i }))
+        .toHaveAttribute('title', 'Copied!');
+    });
+  });
+});
+
+describe('PhrasalVerbsListPage — Deal card', () => {
+  it('renders the "Deal" card', () => {
+    renderPage();
+    expect(screen.getByRole('heading', { name: 'Deal' })).toBeInTheDocument();
+  });
+
+  it('"Deal" link points to /phrasal-verbs/list/deal', () => {
+    renderPage();
+    const link = screen.getByRole('link', { name: /^Deal$/i });
+    expect(link).toHaveAttribute('href', '/phrasal-verbs/list/deal');
+  });
+});
+
+describe('PhrasalVerbsListPage — Deal particles subtitle', () => {
+  it('shows deal particles text in subtitle after expand', () => {
+    renderPage();
+    expandCard('deal');
+    expect(within(screen.getByTestId('verb-card-deal')).getByText(/around \/ round, away, by, in, into, out, to, with/i)).toBeInTheDocument();
+  });
+
+  it('deal subtitle title attribute contains all particles', () => {
+    renderPage();
+    expandCard('deal');
+    const subtitle = within(screen.getByTestId('verb-card-deal')).getByText(/around \/ round, away, by, in, into, out, to, with/i);
+    expect(subtitle).toHaveAttribute('title', ALL_DEAL_PARTICLES.join(', '));
+  });
+});
+
+describe('PhrasalVerbsListPage — deal copy button', () => {
+  let mockWriteText: ReturnType<typeof vi.fn>;
+
+  beforeEach(() => {
+    mockWriteText = vi.fn().mockResolvedValue(undefined);
+    Object.defineProperty(navigator, 'clipboard', {
+      value: { writeText: mockWriteText },
+      writable: true,
+    });
+  });
+
+  afterEach(() => {
+    vi.restoreAllMocks();
+  });
+
+  it('renders a deal copy button when expanded', () => {
+    renderPage();
+    expandCard('deal');
+    expect(screen.getByRole('button', { name: /copy all "deal" phrasal verbs/i })).toBeInTheDocument();
+  });
+
+  it('deal copy button title is \'Copy all "deal" phrasal verbs\' before click', () => {
+    renderPage();
+    expandCard('deal');
+    expect(screen.getByRole('button', { name: /copy all "deal" phrasal verbs/i }))
+      .toHaveAttribute('title', 'Copy all "deal" phrasal verbs');
+  });
+
+  it('clipboard receives all 8 deal particles as "deal X" forms in order', () => {
+    renderPage();
+    expandCard('deal');
+    fireEvent.click(screen.getByRole('button', { name: /copy all "deal" phrasal verbs/i }));
+    const expected = ALL_DEAL_PARTICLES.map(p => `deal ${p}`).join(', ');
+    expect(mockWriteText).toHaveBeenCalledWith(expected);
+  });
+
+  it('clipboard content contains every deal particle', () => {
+    renderPage();
+    expandCard('deal');
+    fireEvent.click(screen.getByRole('button', { name: /copy all "deal" phrasal verbs/i }));
+    const written = mockWriteText.mock.calls[0][0] as string;
+    for (const p of ALL_DEAL_PARTICLES) {
+      expect(written).toContain(`deal ${p}`);
+    }
+  });
+
+  it('deal copy button shows "Copied!" title after click', async () => {
+    renderPage();
+    expandCard('deal');
+    fireEvent.click(screen.getByRole('button', { name: /copy all "deal" phrasal verbs/i }));
     await vi.waitFor(() => {
       expect(screen.getByRole('button', { name: /copied!/i }))
         .toHaveAttribute('title', 'Copied!');

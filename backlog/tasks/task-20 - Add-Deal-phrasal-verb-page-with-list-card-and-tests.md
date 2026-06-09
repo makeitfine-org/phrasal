@@ -1,9 +1,10 @@
 ---
 id: TASK-20
 title: Add "Deal" phrasal verb page with list card and tests
-status: To Do
+status: Done
 assignee: []
 created_date: '2026-06-09 14:33'
+updated_date: '2026-06-09 15:15'
 labels:
   - phrasal-verbs
   - content
@@ -82,12 +83,18 @@ Add the "Deal" phrasal verb entry following the same pattern as Call/Carry pages
 
 ## Acceptance Criteria
 <!-- AC:BEGIN -->
-- [ ] #1 #1 `src/pages/deal/DealVerbPage.tsx` created with 8 sections, all meanings, all using default.png
-- [ ] #2 #2 DEAL_PARTICLES constant added to PhrasalVerbsListPage.tsx with all 8 particles
-- [ ] #3 #3 VERBS entry added for Deal after Count in PhrasalVerbsListPage.tsx
-- [ ] #4 #4 Route `/phrasal-verbs/list/deal` registered in src/main.tsx
-- [ ] #5 #5 dealSections added to listVerbIndex.ts search index
-- [ ] #6 #6 8 test files created under src/__tests__/deal_verb_page/ (one per particle)
-- [ ] #7 #7 PhrasalVerbsListPage.test.tsx extended with Deal card, subtitle, and copy-button describe blocks
-- [ ] #8 #8 `npm run test:run` passes with all tests green
+- [x] #1 #1 `src/pages/deal/DealVerbPage.tsx` created with 8 sections, all meanings, all using default.png
+- [x] #2 #2 DEAL_PARTICLES constant added to PhrasalVerbsListPage.tsx with all 8 particles
+- [x] #3 #3 VERBS entry added for Deal after Count in PhrasalVerbsListPage.tsx
+- [x] #4 #4 Route `/phrasal-verbs/list/deal` registered in src/main.tsx
+- [x] #5 #5 dealSections added to listVerbIndex.ts search index
+- [x] #6 #6 8 test files created under src/__tests__/deal_verb_page/ (one per particle)
+- [x] #7 #7 PhrasalVerbsListPage.test.tsx extended with Deal card, subtitle, and copy-button describe blocks
+- [x] #8 #8 `npm run test:run` passes with all tests green
 <!-- AC:END -->
+
+## Final Summary
+
+<!-- SECTION:FINAL_SUMMARY:BEGIN -->
+Created DealVerbPage.tsx with 8 sections (around / round, away, by, in, into, out, to, with) using default.png. Added DEAL_PARTICLES to PhrasalVerbsListPage.tsx after Count, registered route in main.tsx, added dealSections to listVerbIndex.ts. Created helpers.tsx + 8 particle test files. Extended PhrasalVerbsListPage.test.tsx with Deal card, subtitle, and copy-button describe blocks. All 8985 tests green. Committed as d093025.
+<!-- SECTION:FINAL_SUMMARY:END -->

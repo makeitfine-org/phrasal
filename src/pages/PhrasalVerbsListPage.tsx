@@ -118,6 +118,8 @@ const CLEAN_PARTICLES = ['around', 'away', 'down', 'off', 'out', 'up', 'up after
 
 const COUNT_PARTICLES = ['against', 'back', 'down', 'for', 'in', 'off', 'on', 'out', 'up'];
 
+const DEAL_PARTICLES = ['around / round', 'away', 'by', 'in', 'into', 'out', 'to', 'with'];
+
 const VERBS = [
   { key: 'get',  label: 'Get',  to: '/phrasal-verbs/list/get',  particles: GET_PARTICLES },
   { key: 'make', label: 'Make', to: '/phrasal-verbs/list/make', particles: MAKE_PARTICLES },
@@ -143,6 +145,7 @@ const VERBS = [
   { key: 'cheer', label: 'Cheer', to: '/phrasal-verbs/list/cheer', particles: CHEER_PARTICLES },
   { key: 'clean', label: 'Clean', to: '/phrasal-verbs/list/clean', particles: CLEAN_PARTICLES },
   { key: 'count', label: 'Count', to: '/phrasal-verbs/list/count', particles: COUNT_PARTICLES },
+  { key: 'deal',  label: 'Deal',  to: '/phrasal-verbs/list/deal',  particles: DEAL_PARTICLES },
 ];
 
 const EXPANDED_KEY = 'verbListExpanded';
