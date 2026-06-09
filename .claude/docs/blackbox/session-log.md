@@ -982,3 +982,7 @@
 - .claude/docs/blackbox/session-log.md
 - backlog/tasks/task-14 - Add-Carry-phrasal-verb-page-with-list-card-and-tests.md
 <!-- end-snapshot -->
+
+<!-- git-snapshot 2026-06-09T14:34:35Z -->
+- .claude/docs/blackbox/audit.md
+<!-- end-snapshot -->

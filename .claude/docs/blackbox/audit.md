@@ -3990,3 +3990,336 @@ Complete the backlog task-15. after completion run /compact Claude code command.
 ## 2026-06-09T14:22:23Z
 Complete the backlog task-16. After completion run /compact Claude code command.
 ---
+
+## 2026-06-09T14:31:24Z
+Create a backlog.md tasks the same way as task-13 and task-14 (but don't execute it) to solve the described problems:
+
+
+---
+Deal with
+This is the most common phrasal verb using "deal" and has several distinct meanings.
+
+Meaning 1: To take action to solve a problem or complete a task.
+
+Example: I have a lot of emails to deal with this morning.
+
+Meaning 2: To do business with someone or an organization.
+
+Example: Our company only deals with local suppliers to reduce shipping costs.
+
+Meaning 3: To be about a specific subject.
+
+Example: This training course deals with effective management techniques.
+
+Meaning 4: To manage or handle difficult emotions or situations.
+
+Example: It can be hard to deal with stress when you have a tight deadline.
+
+Deal in
+Meaning 1: To buy and sell specific products as a business.
+
+Example: His store deals in rare books and antique maps.
+
+Meaning 2: To include someone in an activity, especially a card game.
+
+Example: We are going to start the next game of poker. Deal me in!
+
+Deal out
+Meaning 1: To distribute or share things among a group of people.
+
+Example: The manager dealt out the new project assignments to the team.
+
+Meaning 2: To give a punishment to someone.
+
+Example: The judge dealt out a very harsh sentence for the crime.
+
+Deal away
+Meaning 1: To give something away in a trade or negotiation, often losing a valuable asset.
+
+Example: The company dealt away its most profitable division to pay off debts.
+
+Deal into
+Meaning 1: To physically or metaphorically include someone in a group or game (Very similar to "deal in").
+
+Example: Pull up a chair and we will deal you into the game.
+
+Deal around / round
+Meaning 1: To give a share of something to everyone present in a circle or group.
+
+Example: Please deal the documents around so everyone has a copy.
+
+Deal to (Regional: Australia / New Zealand)
+Meaning 1: To punish someone, attack someone, or take strong action to fix a problem.
+
+Example: If the server keeps crashing, the IT department will have to deal to it.
+
+Deal by (Formal / Old-fashioned)
+Meaning 1: To treat someone in a particular way.
+
+Example: She always felt that she had been dealt by unfairly in the promotion process.
+---
+Do up
+To fasten or tie: (clothes, shoelaces, seatbelts).
+
+Example: It is very cold outside, so make sure to do up your coat.
+
+To repair, decorate, or renovate: (a building or room).
+
+Example: They bought an old, ruined house to do it up and sell it for a profit.
+
+To wrap: (a parcel or gift).
+
+Example: I need to do up this present with a nice red ribbon.
+
+Do down
+To criticize someone unfairly: (making them or yourself seem less successful or important).
+
+Example: Stop doing yourself down; you gave an excellent presentation today.
+
+To cheat someone: (usually in a business deal).
+
+Example: The mechanic tried to do me down on the cost of the car repairs.
+
+Do in
+To make someone extremely tired: (exhaust).
+
+Example: That 10-kilometer run really did me in.
+
+To injure a body part:
+
+Example: I did my back in while moving that heavy sofa.
+
+To kill or murder: (informal).
+
+Example: The gang threatened to do him in if he went to the police.
+
+Do into
+To translate a piece of text into another language: (formal and slightly old-fashioned).
+
+Example: The ancient poem was done into English by a famous scholar.
+
+Do out / Do out of
+To clean or decorate a room thoroughly: (usually "do out").
+
+Example: I need to do out the kitchen cupboards this weekend; they are so messy.
+
+To cheat someone in order to take something from them: (usually "do someone out of something").
+
+Example: He lied on the contract to do his business partner out of his share of the money.
+
+Do away (with)
+To abolish, get rid of, or stop using something:
+
+Example: Many companies are trying to do away with paper receipts.
+
+To kill someone or an animal: (informal).
+
+Example: The villain in the movie planned to do away with the king.
+
+Do for
+To severely damage, ruin, or kill: (usually used in the passive as "be done for").
+
+Example: If the manager catches us sleeping at our desks, we are done for.
+
+Do by
+To treat someone in a particular way: (almost always used in the phrase "do right by" or "do well by" someone).
+
+Example: As a leader, you must always try to do right by your team members.
+
+Do with
+To need or want something: (always used with "could" or "can").
+
+Example: I could really do with a hot cup of coffee right now.
+
+To have a connection or relationship with: (often used as "have something/nothing to do with").
+
+Example: The software bug has nothing to do with the recent system update.
+
+Do without
+To manage to survive or continue even when you do not have something you need.
+
+Example: We have no milk left for the coffee, so we will just have to do without.
+
+Do over
+To do something again because it was wrong the first time: (mainly US English).
+
+Example: This financial report is full of mistakes; you need to do it over.
+
+To attack and beat someone up: (UK informal).
+
+Example: He got done over by a group of angry football fans.
+
+To burgle or rob a place: (UK informal).
+
+Example: Their apartment was done over while they were on holiday.
+
+Do about
+To take action to fix a problem:
+
+Example: The project deadline is at risk; what are we going to do about it?
+
+Do to
+To treat someone in a certain way, usually causing harm, damage, or change:
+
+Example: I can't believe what the hairdresser did to my hair!
+---
+1. Dress up
+This is the most common phrasal verb with "dress" and has three main meanings.
+
+Meaning 1: To wear formal, elegant, or special clothes, usually for an event.
+
+Example: We are going to a fancy restaurant tonight, so we need to dress up.
+
+Meaning 2: To put on a costume to look like someone or something else (like for a party or Halloween).
+
+Example: The children decided to dress up as pirates and princesses.
+
+Meaning 3: To make something look more attractive, interesting, or better than it really is.
+
+Example: You can dress up a plain soup by adding some fresh herbs and cream.
+
+2. Dress down
+This is the direct opposite of "dress up" in its first meaning, but it also has a completely different professional meaning.
+
+Meaning 1: To wear clothes that are more informal or casual than what you usually wear.
+
+Example: My company allows us to dress down on Fridays and wear jeans.
+
+Meaning 2: To strongly criticize or scold someone because they did something wrong.
+
+Example: The manager dressed down the team for missing the important deadline.
+
+3. Dress out
+This phrasal verb is mostly used in two specific situations: sports and hunting/farming.
+
+Meaning 1: To put on a sports uniform or equipment to get ready to play in a game.
+
+Example: Only twenty players will dress out for the football game this weekend.
+
+Meaning 2: To clean and prepare an animal's body so the meat can be eaten or sold.
+
+Example: It took the hunters a few hours to dress out the deer they caught.
+
+4. Specialized Military Phrasal Verbs (Dress off / back / on / by)
+In military or marching band contexts, "dress" means to form a perfectly straight line. These particles are used to give marching orders.
+
+Dress on / Dress by / Dress off: To use a specific person or point as a guide to form a straight line.
+
+Example: The captain ordered the soldiers to dress on the center guide.
+
+Example: The marching band had to dress by the right.
+
+Dress back: To step backward in order to form a straight line.
+
+Example: The front row had to dress back to give the others more space.
+---
+1. Drop off
+Meaning 1: To take someone or something to a place and leave them there.
+
+Example: I will drop off the management report at your office tomorrow.
+
+Meaning 2: To decrease in level, amount, or quality.
+
+Example: Software sales usually drop off during the summer holidays.
+
+Meaning 3: To fall asleep.
+
+Example: The presentation was so boring that a few people dropped off.
+
+2. Drop on
+Meaning 1: (Mainly UK, Informal) To criticize or punish someone suddenly.
+
+Example: The boss dropped on the development team for missing the deadline.
+
+Meaning 2: (Informal) To accidentally meet someone or find something.
+
+Example: We dropped on a great solution for the Java bug.
+
+3. Drop down
+Meaning 1: To fall or move to a lower position.
+
+Example: Please select your country from the drop-down menu in the application.
+
+4. Drop in
+Meaning 1: To make a short, informal visit without arranging it in advance.
+
+Example: Feel free to drop in if you have any questions about the new code.
+
+5. Drop into
+Meaning 1: To visit a place briefly.
+
+Example: I will drop into the IT department to pick up my new laptop.
+
+Meaning 2: To accidentally fall into a habit or state.
+
+Example: It is easy to drop into bad coding habits if you don't do code reviews.
+
+6. Drop out
+Meaning 1: To stop participating or being involved in something.
+
+Example: One of our main investors dropped out of the project.
+
+Meaning 2: To leave a school, college, or course before finishing.
+
+Example: He dropped out of his business degree to start his own company.
+
+7. Drop away
+Meaning 1: To become weaker, smaller, or gradually disappear.
+
+Example: Public interest in the old software version slowly dropped away.
+
+8. Drop across
+Meaning 1: (Very rare / Old-fashioned) To happen to find or meet. (Note: Today, native speakers almost always use "come across" instead).
+
+Example: I dropped across an old project file on the server.
+
+9. Drop back
+Meaning 1: To return to a lower position or level.
+
+Example: Our company's market share dropped back to second place this quarter.
+
+Meaning 2: To move into a position behind someone else (like in a race).
+
+Example: The runner dropped back because he was exhausted.
+
+10. Drop by
+Meaning 1: To make a short, informal visit (similar to "drop in").
+
+Example: Please drop by my desk later so we can discuss the leadership training.
+
+11. Drop over
+Meaning 1: To visit someone informally at their location (often their home).
+
+Example: Why don't you drop over later to review the Java architecture together?
+
+12. Drop behind
+Meaning 1: To fail to keep up with others; to fall behind a schedule.
+
+Example: We have dropped behind schedule on the latest software release.
+
+13. Drop through
+Meaning 1: To fail to happen or fail to be completed. (Note: "Fall through" is much more common, but "drop through" is sometimes used).
+
+Example: The business merger dropped through at the last minute.
+
+14. Drop around / Drop round
+Meaning 1: To visit someone informally.
+
+Example: I will drop round the office tomorrow to sign the final contracts.
+
+15. Drop to
+Meaning 1: To decrease to a specific level or amount.
+
+Example: The server response time dropped to 50 milliseconds after the update.
+===
+for each ["deal", "do", "dress", "drop"]:
+1) Create the link on list page with particals mentioned above phrasal verbs. 
+   Take as the base "take" link.
+2) Create the page with mentioned above phrasal verbs. 
+   Take as the base "take" page.
+3) Cover the functionality with tests
+---
+
+## 2026-06-09T14:34:50Z
+git add all changes and commit them with suitable message
+---
