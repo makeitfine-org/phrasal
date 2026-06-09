@@ -105,6 +105,8 @@ const CARRY_PARTICLES = [
   'about / around / round', 'away', 'back', 'forward', 'off', 'on', 'out', 'over', 'through',
 ];
 
+const CATCH_PARTICLES = ['in', 'on', 'out', 'up'];
+
 const VERBS = [
   { key: 'get',  label: 'Get',  to: '/phrasal-verbs/list/get',  particles: GET_PARTICLES },
   { key: 'make', label: 'Make', to: '/phrasal-verbs/list/make', particles: MAKE_PARTICLES },
@@ -125,6 +127,7 @@ const VERBS = [
   { key: 'build', label: 'Build', to: '/phrasal-verbs/list/build', particles: BUILD_PARTICLES },
   { key: 'call',  label: 'Call',  to: '/phrasal-verbs/list/call',  particles: CALL_PARTICLES },
   { key: 'carry', label: 'Carry', to: '/phrasal-verbs/list/carry', particles: CARRY_PARTICLES },
+  { key: 'catch', label: 'Catch', to: '/phrasal-verbs/list/catch', particles: CATCH_PARTICLES },
 ];
 
 const EXPANDED_KEY = 'verbListExpanded';

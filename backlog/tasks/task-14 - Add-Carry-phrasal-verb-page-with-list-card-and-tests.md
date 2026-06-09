@@ -1,9 +1,10 @@
 ---
 id: TASK-14
 title: Add "Carry" phrasal verb page with list card and tests
-status: To Do
+status: Done
 assignee: []
 created_date: '2026-06-09 11:04'
+updated_date: '2026-06-09 11:48'
 labels:
   - phrasal-verbs
   - content
@@ -91,12 +92,12 @@ Add the "Carry" phrasal verb entry following the same pattern as Call/Blow/Brush
 
 ## Acceptance Criteria
 <!-- AC:BEGIN -->
-- [ ] #1 #1 `src/pages/carry/CarryVerbPage.tsx` created with 9 sections, all meanings, all using default.png
-- [ ] #2 #2 CARRY_PARTICLES constant added to PhrasalVerbsListPage.tsx with all 9 particles
-- [ ] #3 #3 VERBS entry added for Carry after Call in PhrasalVerbsListPage.tsx
-- [ ] #4 #4 Route `/phrasal-verbs/list/carry` registered in src/main.tsx
-- [ ] #5 #5 carrySections added to listVerbIndex.ts search index
-- [ ] #6 #6 9 test files created under src/__tests__/carry_verb_page/ (one per particle)
-- [ ] #7 #7 PhrasalVerbsListPage.test.tsx extended with Carry card, subtitle, and copy-button describe blocks
-- [ ] #8 #8 `npm run test:run` passes with all tests green
+- [x] #1 #1 `src/pages/carry/CarryVerbPage.tsx` created with 9 sections, all meanings, all using default.png
+- [x] #2 #2 CARRY_PARTICLES constant added to PhrasalVerbsListPage.tsx with all 9 particles
+- [x] #3 #3 VERBS entry added for Carry after Call in PhrasalVerbsListPage.tsx
+- [x] #4 #4 Route `/phrasal-verbs/list/carry` registered in src/main.tsx
+- [x] #5 #5 carrySections added to listVerbIndex.ts search index
+- [x] #6 #6 9 test files created under src/__tests__/carry_verb_page/ (one per particle)
+- [x] #7 #7 PhrasalVerbsListPage.test.tsx extended with Carry card, subtitle, and copy-button describe blocks
+- [x] #8 #8 `npm run test:run` passes with all tests green
 <!-- AC:END -->

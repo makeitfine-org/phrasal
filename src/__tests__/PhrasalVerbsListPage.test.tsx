@@ -43,6 +43,7 @@ function renderPageWithRoutes() {
         <Route path="/phrasal-verbs/list/build" element={<LocationSpy />} />
         <Route path="/phrasal-verbs/list/call" element={<LocationSpy />} />
         <Route path="/phrasal-verbs/list/carry" element={<LocationSpy />} />
+        <Route path="/phrasal-verbs/list/catch" element={<LocationSpy />} />
         <Route path="/phrasal-verbs/particles" element={<LocationSpy />} />
       </Routes>
     </MemoryRouter>
@@ -2112,5 +2113,92 @@ describe('PhrasalVerbsListPage — Particles divider', () => {
     const { container } = renderPage();
     const hr = container.querySelector('hr')!;
     expect(hr).toHaveClass('dark:border-gray-500');
+  });
+});
+
+const ALL_CATCH_PARTICLES = ['in', 'on', 'out', 'up'];
+
+describe('PhrasalVerbsListPage — Catch card', () => {
+  it('renders the "Catch" card', () => {
+    renderPage();
+    expect(screen.getByRole('heading', { name: 'Catch' })).toBeInTheDocument();
+  });
+
+  it('"Catch" link points to /phrasal-verbs/list/catch', () => {
+    renderPage();
+    const link = screen.getByRole('link', { name: /^Catch$/i });
+    expect(link).toHaveAttribute('href', '/phrasal-verbs/list/catch');
+  });
+});
+
+describe('PhrasalVerbsListPage — Catch particles subtitle', () => {
+  it('shows catch particles text in subtitle after expand', () => {
+    renderPage();
+    expandCard('catch');
+    expect(within(screen.getByTestId('verb-card-catch')).getByText(/in, on, out, up/i)).toBeInTheDocument();
+  });
+
+  it('catch subtitle title attribute contains all particles', () => {
+    renderPage();
+    expandCard('catch');
+    const subtitle = within(screen.getByTestId('verb-card-catch')).getByText(/in, on, out, up/i);
+    expect(subtitle).toHaveAttribute('title', ALL_CATCH_PARTICLES.join(', '));
+  });
+});
+
+describe('PhrasalVerbsListPage — catch copy button', () => {
+  let mockWriteText: ReturnType<typeof vi.fn>;
+
+  beforeEach(() => {
+    mockWriteText = vi.fn().mockResolvedValue(undefined);
+    Object.defineProperty(navigator, 'clipboard', {
+      value: { writeText: mockWriteText },
+      writable: true,
+    });
+  });
+
+  afterEach(() => {
+    vi.restoreAllMocks();
+  });
+
+  it('renders a catch copy button when expanded', () => {
+    renderPage();
+    expandCard('catch');
+    expect(screen.getByRole('button', { name: /copy all "catch" phrasal verbs/i })).toBeInTheDocument();
+  });
+
+  it('catch copy button title is \'Copy all "catch" phrasal verbs\' before click', () => {
+    renderPage();
+    expandCard('catch');
+    expect(screen.getByRole('button', { name: /copy all "catch" phrasal verbs/i }))
+      .toHaveAttribute('title', 'Copy all "catch" phrasal verbs');
+  });
+
+  it('clipboard receives all 4 catch particles as "catch X" forms in order', () => {
+    renderPage();
+    expandCard('catch');
+    fireEvent.click(screen.getByRole('button', { name: /copy all "catch" phrasal verbs/i }));
+    const expected = ALL_CATCH_PARTICLES.map(p => `catch ${p}`).join(', ');
+    expect(mockWriteText).toHaveBeenCalledWith(expected);
+  });
+
+  it('clipboard content contains every catch particle', () => {
+    renderPage();
+    expandCard('catch');
+    fireEvent.click(screen.getByRole('button', { name: /copy all "catch" phrasal verbs/i }));
+    const written = mockWriteText.mock.calls[0][0] as string;
+    for (const p of ALL_CATCH_PARTICLES) {
+      expect(written).toContain(`catch ${p}`);
+    }
+  });
+
+  it('catch copy button shows "Copied!" title after click', async () => {
+    renderPage();
+    expandCard('catch');
+    fireEvent.click(screen.getByRole('button', { name: /copy all "catch" phrasal verbs/i }));
+    await vi.waitFor(() => {
+      expect(screen.getByRole('button', { name: /copied!/i }))
+        .toHaveAttribute('title', 'Copied!');
+    });
   });
 });
