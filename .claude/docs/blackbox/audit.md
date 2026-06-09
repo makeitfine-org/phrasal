@@ -6896,3 +6896,1074 @@ for each:
 ## 2026-06-09T18:12:41Z
 git add all changes and commit them with suitable message
 ---
+
+## 2026-06-09T18:16:08Z
+Analyze and show me new relase tag with description and step how to create it.
+---
+
+## 2026-06-09T18:19:16Z
+run steps: 2-4
+---
+
+## 2026-06-09T20:13:32Z
+Create a backlog.md tasks the same way as task-13 and task-14 (but don't execute it) to solve the described problems:
+
+
+---
+1. Shut off
+Meaning 1: To stop the supply of something (like water, gas, or electricity).
+
+Example: The plumber had to shut off the water before fixing the pipe.
+
+Meaning 2: To turn off a machine or engine.
+
+Example: Please shut off the engine when you park the car.
+
+Meaning 3: To isolate or separate a place from other areas.
+
+Example: The new wall shuts off the garden from the busy street.
+
+2. Shut up
+Meaning 1: To stop talking or making a noise (Note: This is informal and usually considered rude).
+
+Example: I wish the dog next door would shut up; I'm trying to sleep.
+
+Meaning 2: To close and lock a building completely (often for the night or for a long time).
+
+Example: The manager shuts up the shop at 8:00 PM every evening.
+
+Meaning 3: To keep someone or an animal securely in a room or place.
+
+Example: I was shut up in the meeting room for three hours today.
+
+3. Shut down
+Meaning 1: To turn off a computer, machine, or system completely.
+
+Example: Always remember to shut down your laptop before putting it in your bag.
+
+Meaning 2: To close a business or factory permanently or for a long time.
+
+Example: During the economic crisis, many local shops had to shut down.
+
+Meaning 3: To stop an opponent from playing well or succeeding (often used in sports or business).
+
+Example: Our defense managed to shut down their best player.
+
+4. Shut in
+Meaning 1: To prevent someone or an animal from leaving a room or building by closing the door.
+
+Example: It’s raining heavily, so the cat has been shut in all day.
+
+Meaning 2: To accidentally catch a body part or clothing in a closing door.
+
+Example: I accidentally shut my coat in the car door.
+
+5. Shut out
+Meaning 1: To prevent something from entering a place (like light or noise).
+
+Example: We use heavy curtains to shut out the street lights at night.
+
+Meaning 2: To exclude someone from an activity, or from your thoughts and feelings.
+
+Example: When he gets stressed, he stops talking and shuts everyone out.
+
+Meaning 3: To prevent an opposing team from scoring any points in a game (mainly used in sports).
+
+Example: The goalkeeper played perfectly and shut out the other team.
+
+6. Shut away
+Meaning 1: To isolate someone or something in a place where they cannot be seen or disturbed.
+
+Example: Before the exams, she shut herself away in the library for a week.
+
+Example: He keeps his old diaries shut away in a safe desk drawer.
+---
+Sit about / around / round
+Meaning 1: To spend time doing nothing productive or useful.
+
+Example: "Instead of looking for a new job, he just sits around the house all day."
+
+Sit back
+Meaning 1: To relax in a chair.
+
+Example: "Now that the software release is finished, we can sit back and relax."
+
+Meaning 2: To intentionally take no action when you should probably do something.
+
+Example: "A good manager doesn't just sit back while the team struggles with a project."
+
+Sit by
+Meaning 1: To fail to take action to stop something bad from happening.
+
+Example: "I cannot sit by and let them make this terrible business decision."
+
+Sit down
+Meaning 1: To take a seat (literal).
+
+Example: "Please sit down, the meeting will begin shortly."
+
+Meaning 2 (sit down with): To have a serious conversation or a formal meeting with someone.
+
+Example: "We need to sit down with the client and discuss the new Java requirements."
+
+Sit for
+Meaning 1: To take an official exam.
+
+Example: "She is going to sit for her project management certification next month."
+
+Meaning 2: To pose for an artist or photographer.
+
+Example: "The CEO sat for a professional portrait for the company website."
+
+Meaning 3: To take care of children while their parents are out (babysit).
+
+Example: "My sister is sitting for my children tonight."
+
+Sit in
+Meaning 1 (sit in on): To attend a meeting or class as an observer, rather than an active participant.
+
+Example: "As a junior developer, can I sit in on the architecture meeting to learn how it works?"
+
+Meaning 2 (sit in for): To temporarily replace someone and do their job.
+
+Example: "I will sit in for the team leader while she is on holiday."
+
+Meaning 3: To occupy a building as a form of protest.
+
+Example: "The workers decided to sit in at the factory until their demands were met."
+
+Sit on
+Meaning 1: To be an official member of a board or committee.
+
+Example: "He sits on the board of directors for three different tech companies."
+
+Meaning 2: To delay making a decision or taking action on something.
+
+Example: "The HR department has been sitting on my promotion request for weeks."
+
+Sit out
+Meaning 1: To choose not to participate in an activity.
+
+Example: "I don't know much about this part of the project, so I will sit this discussion out."
+
+Meaning 2: To wait patiently until a difficult or unpleasant situation finishes.
+
+Example: "We just have to sit out the economic crisis and hope the market improves soon."
+
+Sit over
+Meaning 1: To spend a long time doing something, usually eating or drinking, while having a conversation.
+
+Example: "We sat over coffee for hours discussing the new business strategy."
+
+Sit through
+Meaning 1: To stay until the end of an event that is long, boring, or difficult.
+
+Example: "I had to sit through a three-hour presentation on software compliance."
+
+Sit up
+Meaning 1: To move from a lying down position to a sitting position, or to sit straight.
+
+Example: "You should sit up straight during your job interview."
+
+Meaning 2: To stay awake late into the night.
+
+Example: "The developers sat up until 2 AM fixing bugs in the code."
+
+Meaning 3 (sit up and take notice): To suddenly pay attention to something because it is surprising or important.
+
+Example: "When sales dropped by 20%, the leadership team finally sat up and took notice."
+
+Sit with
+Meaning 1: To be acceptable to someone, or to cause a certain feeling.
+
+Example: "The new remote work policy does not sit well with the development team."
+
+Meaning 2: To spend time with someone who is upset or sick to give them support.
+
+Example: "I sat with him after he heard that his project was canceled."
+---
+Stand about / Stand around
+Definition: To spend time in a place doing nothing or waiting.
+
+Example: We were just standing around waiting for the meeting to start.
+
+Stand against
+Definition: To oppose or fight against someone or something.
+
+Example: The team leader stood against the new policy because it was bad for productivity.
+
+Stand apart
+Definition 1: To be separate or isolated from others.
+
+Example: The two servers stand apart in the data center for security reasons.
+
+Definition 2: To be noticeably different or better than others.
+
+Example: Her excellent management skills make her stand apart from the other candidates.
+
+Stand away
+Definition: To move backwards or keep a distance from something (mostly literal).
+
+Example: Please stand away from the servers while they are restarting.
+
+Stand back
+Definition 1: To move a short distance away or backwards.
+
+Example: The firefighters told everyone to stand back.
+
+Definition 2: To view a situation objectively, from a wider perspective.
+
+Example: Sometimes a manager needs to stand back and look at the whole project before making a decision.
+
+Stand behind
+Definition: To support someone or guarantee the quality of something.
+
+Example: We stand behind the quality of our Java software products.
+
+Stand by
+Definition 1: To be ready for action.
+
+Example: The IT support team is standing by to fix the network issue.
+
+Definition 2: To remain loyal to someone in a difficult situation.
+
+Example: A good leader stands by their team during a crisis.
+
+Definition 3: To adhere to a promise, decision, or belief.
+
+Example: I stand by my decision to hire him for the development team.
+
+Definition 4: To watch something bad happen without trying to help.
+
+Example: I cannot simply stand by while the project fails.
+
+Stand down
+Definition 1: To resign or leave a position of leadership.
+
+Example: The CEO agreed to stand down after ten years in charge.
+
+Definition 2: To relax from a state of military or security readiness.
+
+Example: The security team was told to stand down after the false alarm.
+
+Stand for
+Definition 1: To represent a word or idea (for abbreviations).
+
+Example: In software development, API stands for Application Programming Interface.
+
+Definition 2: To tolerate or accept (usually used in the negative).
+
+Example: The boss will not stand for poor communication.
+
+Definition 3: To support a cause or principle.
+
+Example: Our company stands for equality and respect.
+
+Stand in (often "stand in for")
+Definition: To temporarily replace or substitute for someone who is absent.
+
+Example: I will stand in for the manager while she is on a business trip.
+
+Stand into
+Definition: To sail or move toward danger (this is a very rare, old nautical term).
+
+Example: The ship was standing into the storm.
+
+Stand off
+Definition: To keep at a distance, or to keep someone away.
+
+Example: The police managed to stand off the angry crowd.
+
+Stand on
+Definition 1: To insist on strict rules or formalities.
+
+Example: We don't need to stand on ceremony; just call me by my first name.
+
+Definition 2: To rely on or be based on.
+
+Example: My argument stands on solid financial data.
+
+Stand out
+Definition 1: To be very easy to see or notice.
+
+Example: The red button stands out against the dark background of the app.
+
+Definition 2: To be much better than others.
+
+Example: As a Java developer, his coding skills really stand out.
+
+Definition 3: To stubbornly resist or hold out for a better offer.
+
+Example: The union is standing out for a higher salary.
+
+Stand over
+Definition 1: To watch someone closely, often in an intimidating or annoying way.
+
+Example: I can't write code well if the boss is standing over me.
+
+Definition 2: To be postponed or delayed to a later time.
+
+Example: This agenda item can stand over until our next meeting.
+
+Stand to
+Definition 1: To take up defensive positions (military).
+
+Example: The soldiers were ordered to stand to.
+
+Definition 2: To be in a position where you are likely to gain or lose something.
+
+Example: The company stands to gain a lot of money from this new software contract.
+
+Stand together
+Definition: To remain united and support each other.
+
+Example: The team must stand together during this difficult transition period.
+
+Stand up
+Definition 1: To rise to your feet.
+
+Example: Please stand up when the clients enter the room.
+
+Definition 2: To remain valid, true, or strong when tested.
+
+Example: This new software architecture will stand up to heavy user traffic.
+
+Definition 3: To fail to keep an appointment or date with someone.
+
+Example: The contractor stood me up for our 10:00 AM meeting.
+
+Stand with
+Definition: To express solidarity or support for someone.
+
+Example: We stand with our colleagues in the overseas office during their difficult time.
+---
+Stick about / around
+Meaning 1: To stay in a place for a little while, often waiting for something to happen.
+
+Example: Stick around after the sprint review; we need to discuss the Java 21 migration.
+
+Stick away
+Meaning 1: To store or put something in a safe or hidden place.
+
+Example: I stuck the old project contracts away in the archive cabinet.
+
+Stick by
+Meaning 1: To remain loyal to someone during difficult times.
+
+Example: The founders stuck by each other when the company almost went bankrupt.
+
+Meaning 2: To keep a promise or remain committed to a decision.
+
+Example: Management decided to stick by their decision to invest heavily in cloud infrastructure.
+
+Stick down
+Meaning 1: To attach something to a surface using glue or tape.
+
+Example: Stick down the network cables so nobody trips in the server room.
+
+Meaning 2: To write something quickly (informal).
+
+Example: Let me stick down these API endpoints before I forget them.
+
+Stick for
+Meaning 1: To lack something necessary (used in the passive form "be stuck for").
+
+Example: We are stuck for ideas on how to improve the application's performance.
+
+Stick in
+Meaning 1: To remain strongly in someone's memory (often used as "stick in your mind").
+
+Example: The CEO's speech on agile leadership really stuck in my mind.
+
+Stick out
+Meaning 1: To be very easy to see or notice because of being different.
+
+Example: The memory leak in the backend logic really sticks out when you look at the server logs.
+
+Meaning 2: To continue to the end of a difficult situation (used as "stick it out").
+
+Example: The first year of running a business is hard, but you have to stick it out.
+
+Stick to
+Meaning 1: To continue doing or following a specific plan, rule, or subject without changing.
+
+Example: Let's stick to the meeting agenda so we finish on time.
+
+Meaning 2: To keep a promise or agreement.
+
+Example: The vendor stuck to the original budget despite the extra development work.
+
+Stick together
+Meaning 1: To support each other as a group, especially in hard times.
+
+Example: A successful development team sticks together during a stressful product release.
+
+Stick up
+Meaning 1: To point upwards or stand above a surface.
+
+Example: The cooling fan on the new server model sticks up higher than the old one.
+
+Meaning 2: To defend or support someone or an idea (used as "stick up for").
+
+Example: A good manager will always stick up for their team when other departments criticize them.
+
+Stick with
+Meaning 1: To continue using or doing something, rather than changing it.
+
+Example: We decided to stick with the Spring Boot framework instead of learning a new ecosystem.
+
+Meaning 2: To stay close to someone for guidance or safety.
+
+Example: Stick with the senior architect today, and she will show you how the deployment pipeline works.
+---
+Talk about
+
+Definition: To discuss a specific topic, person, or idea.
+
+Example: "We need to talk about the new software update."
+
+Talk across
+
+Definition: To speak at the same time as someone else, often in a confusing way where people are not listening to each other.
+
+Example: "The meeting was a mess because everyone was talking across each other."
+
+Talk against
+
+Definition: To speak in opposition to an idea, plan, or person.
+
+Example: "Several managers talked against the proposed budget cuts."
+
+Talk around / round
+
+Definition 1: To avoid speaking directly about the main issue.
+
+Example: "Stop talking around the problem and tell me what is wrong."
+
+Definition 2: To persuade someone to agree with you or change their mind.
+
+Example: "He didn't want to join the project, but I finally talked him round."
+
+Talk away
+
+Definition: To continue talking for a long time, often in a relaxed manner.
+
+Example: "We sat in the cafe, talking away for hours."
+
+Talk back
+
+Definition: To reply rudely to someone in a position of authority (like a parent, teacher, or boss).
+
+Example: "The student was sent to the principal for talking back to his teacher."
+
+Talk down
+
+Definition 1 (talk down to): To speak to someone as if they are less intelligent or less important than you.
+
+Example: "A good leader never talks down to their team members."
+
+Definition 2: To negotiate a lower price for something.
+
+Example: "The car was $5,000, but I talked the seller down to $4,500."
+
+Definition 3: To guide an aircraft to a safe landing using radio instructions.
+
+Example: "The air traffic controller talked the pilot down safely."
+
+Talk for
+
+Definition: To speak on behalf of someone else or a group.
+
+Example: "I can only talk for myself, not the whole department."
+
+Talk into
+
+Definition: To persuade someone to do something they initially did not want to do.
+
+Example: "She talked me into taking the management course."
+
+Talk on
+
+Definition: To continue talking, often for a long time or in a boring way.
+
+Example: "He talked on and on about his holiday."
+
+Talk out
+
+Definition 1: To discuss a problem thoroughly until it is completely resolved.
+
+Example: "We had a disagreement, but we sat down and talked it out."
+
+Definition 2 (talk out of): To persuade someone not to do something.
+
+Example: "I talked him out of quitting his job."
+
+Talk over
+
+Definition 1: To discuss a plan or problem carefully before making a decision.
+
+Example: "Let's talk over the contract before we sign it."
+
+Definition 2: To speak louder than someone else to interrupt them.
+
+Example: "Please don't talk over me while I am presenting."
+
+Talk through
+
+Definition 1: To explain a process or idea to someone step by step.
+
+Example: "Can you talk me through how to use this Java framework?"
+
+Definition 2: To discuss a problem in detail to find a solution.
+
+Example: "We need to talk through these errors in the code."
+
+Talk to
+
+Definition 1: To have a conversation with someone.
+
+Example: "I need to talk to the client tomorrow."
+
+Definition 2: To reprimand or scold someone for doing something wrong.
+
+Example: "The manager had to talk to him about arriving late."
+
+Talk together
+
+Definition: To converse with one another (literal meaning).
+
+Example: "The two developers talked together quietly in the corner."
+
+Talk up
+
+Definition: To praise or promote something to make it sound very good or exciting.
+
+Example: "They are really talking up the new product launch."
+
+Talk with
+
+Definition: To have a discussion with someone (very similar to "talk to", but often implies a more equal, two-way conversation).
+
+Example: "I enjoyed talking with you at the conference."
+---
+Think about
+1. To consider a person, thing, or idea
+To spend time examining an idea or focusing your mind on someone or something.
+
+Example: Give me a few days to think about your proposal.
+
+Example: I was just thinking about you when you called!
+
+2. To have an opinion
+To hold a specific view or belief regarding a topic.
+
+Example: What do you think about the new company policy?
+
+3. To remember or imagine
+To recall a memory or picture something in your mind.
+
+Example: It makes me sad to think about how much time we wasted.
+
+Think ahead
+1. To plan for the future
+To consider what might happen in the future so that you are prepared.
+
+Example: Good managers always think ahead to avoid potential problems.
+
+Example: We need to think ahead and book our tickets before they sell out.
+
+Think around (or Think round)
+1. To explore all angles of a problem
+To consider a situation or problem from every possible perspective in order to find a solution.
+
+Example: The team needs to think around this issue to find a creative fix.
+
+Think back
+1. To remember something from the past
+To focus your mind on events that have already happened.
+
+Example: When I think back to my first job, I realize how much I have learned.
+
+Example: Think back to the moment you lost your keys—where were you?
+
+Think for
+1. To make independent decisions (think for yourself)
+To form your own opinions and make your own choices, rather than letting others decide for you.
+
+Example: A good leader encourages their team to think for themselves.
+
+Example: You cannot ask me what to do every time; you need to think for yourself.
+
+Think on
+1. To spend time considering something
+Similar to "think about," meaning to reflect on a decision or idea.
+
+Example: It is a strong offer, but I need to think on it for a few days.
+
+2. To keep in mind or remember (Mainly British/Informal)
+To focus on a warning or piece of advice.
+
+Example: You should think on what I told you before you make a mistake.
+
+Think out
+1. To consider all the details of a plan
+To plan something completely and carefully from start to finish.
+
+Example: We need to think out our strategy before the client meeting.
+
+Example: The new software architecture was very well thought out.
+
+Think over
+1. To carefully consider a choice
+To take time to reflect on a suggestion, offer, or problem before making a final decision.
+
+Example: Take the weekend to think over the job offer.
+
+Example: I have thought over what you said, and I agree with you.
+
+Think through
+1. To consider the consequences of an action
+To carefully consider every step, detail, and possible result of a plan or action before doing it.
+
+Example: You should think through the consequences before you quit your job.
+
+Example: We did not think the project through, and now we are facing delays.
+
+Think to
+1. To remember to do something
+Usually used in the negative to mean that someone forgot to take an action or did not have the idea to do it.
+
+Example: I was so busy that I didn't think to call my clients to update them.
+
+2. To expect or imagine
+To believe that a specific situation is possible.
+
+Example: Who would have thought to see you here today?
+
+Think up
+1. To invent or create an idea
+To use your imagination to create a plan, an idea, or an excuse.
+
+Example: The developers thought up a brilliant solution to the software bug.
+
+Example: She thought up a great excuse for arriving late to the meeting.
+---
+Throw Off
+To remove quickly or carelessly (clothing): * Example: She threw off her heavy winter coat as soon as she entered the house.
+
+To free oneself from something negative (illness, trouble, restraint):
+
+Example: I can't seem to throw off this cold; I've had it for weeks.
+
+To confuse, distract, or mislead someone:
+
+Example: The unexpected question during the interview really threw me off.
+
+To emit or radiate (heat, light, smell):
+
+Example: That old radiator throws off a surprising amount of heat.
+
+Throw On
+To put on quickly or hastily (clothing):
+
+Example: I just threw on a pair of jeans and ran to the grocery store.
+
+Throw Up
+To vomit:
+
+Example: The turbulent flight made him throw up.
+
+To produce, reveal, or bring to light (ideas, problems, results):
+
+Example: The data analysis threw up some very interesting anomalies.
+
+To build or construct something hastily:
+
+Example: They threw up a temporary fence to keep the dogs out.
+
+To quit or abandon (a job or position) suddenly:
+
+Example: She threw up her corporate career to travel the world.
+
+To cause something (like dust or water) to rise into the air:
+
+Example: The speeding truck threw up a massive cloud of dust.
+
+Throw Down
+To drop or push someone/something to the ground violently or abruptly:
+
+Example: He threw down his pen in frustration and walked out.
+
+To issue a challenge (often "throw down the gauntlet"):
+
+Example: The opposing team threw down a challenge we couldn't ignore.
+
+Throw In
+To include something extra for free with a purchase:
+
+Example: If you buy the laptop today, we'll throw in a carrying case.
+
+To interject or add a remark to a conversation:
+
+Example: He threw in a joke to lighten the mood.
+
+To surrender or give up (often "throw in the towel"):
+
+Example: After three failed attempts to fix the engine, he finally threw in the towel.
+
+Throw Into
+To force a person, group, or place into a specific, usually negative, condition:
+
+Example: The sudden power outage threw the entire city into chaos.
+
+To engage enthusiastically in a task (usually "throw oneself into"):
+
+Example: After the breakup, she threw herself into her work.
+
+Throw Out
+To discard or dispose of something as trash:
+
+Example: It's time to throw out all these old magazines.
+
+To evict or expel someone from a place:
+
+Example: The bouncer threw them out of the club for fighting.
+
+To reject or dismiss (a plan, idea, or legal case):
+
+Example: The judge threw out the lawsuit due to a lack of evidence.
+
+To emit or radiate (light, heat, smoke) — similar to "throw off":
+
+Example: The fireplace throws out a lot of warmth.
+
+To offer an idea or suggestion for consideration:
+
+Example: Let me just throw this idea out and see what you think.
+
+To confuse someone or cause them to make a mistake (chiefly British):
+
+Example: The loud music threw me out while I was trying to count the money.
+
+Throw Away
+To discard as trash (synonymous with throw out):
+
+Example: Don't throw away that receipt; you might need it.
+
+To waste or fail to make use of an opportunity or advantage:
+
+Example: He had a great talent but threw it away by not practicing.
+
+To speak casually or unintentionally (often used as an adjective: a "throwaway" comment):
+
+Example: He threw away a comment about retiring next year, but nobody noticed.
+
+Throw Back
+To drink something quickly (usually alcohol):
+
+Example: He threw back a shot of whiskey and left the bar.
+
+To revert to or resemble an earlier time or type (often a noun: "throwback"):
+
+Example: Her fashion style throws back to the 1980s.
+
+To delay or impede progress:
+
+Example: The bad weather threw back their construction schedule by two weeks.
+
+To be forced to rely on something (often "throw back on"):
+
+Example: When his business failed, he was thrown back on his savings.
+
+Throw Together
+To make, prepare, or assemble something quickly or hastily:
+
+Example: I didn't have much time, so I just threw together a quick salad.
+
+To force people to associate with each other due to circumstances:
+
+Example: The blizzard threw the stranded passengers together for the night.
+
+Throw Over
+To abandon, reject, or leave someone (especially a romantic partner):
+
+Example: She threw him over for a wealthy businessman.
+
+To abandon a plan or idea:
+
+Example: We had to throw over our original strategy when the budget was cut.
+
+Throw About / Throw Around (Round)
+(These are often interchangeable)
+
+To scatter things untidily:
+
+Example: Clothes and books were thrown about the messy room.
+
+To discuss ideas or suggestions casually:
+
+Example: We spent the afternoon throwing around some concepts for the new ad campaign.
+
+To use power, money, or authority aggressively or recklessly (often "throw one's weight/money around"):
+
+Example: As soon as he got promoted, he started throwing his weight around and demanding respect.
+
+Particles used in Idioms (Not pure phrasal verbs)
+These particles do not form standard phrasal verbs with "throw," but they are part of common, fixed idioms:
+
+For: Throw (someone) for a loop (To completely surprise or confuse someone). The plot twist threw me for a loop.
+
+With: Throw in one's lot with (To join or ally with someone). He threw in his lot with the rebels.
+
+After: Throw good money after bad (To waste more money on a doomed project). Fixing that old car is just throwing good money after bad.
+
+Behind: Throw one's weight/support behind (To give support to someone/something). The mayor threw her support behind the new infrastructure bill.
+
+To: Throw to the wolves/lions (To sacrifice someone to save yourself). When the scandal broke, the CEO threw his assistant to the wolves.
+---
+1. Try on
+
+Meaning A (Literal): To put on an item of clothing or accessories to see if it fits, looks good, or is comfortable before buying or wearing it.
+
+Example: "I need to try on this blazer to make sure it looks professional for the client meeting."
+
+Meaning B (Idiomatic - usually "try it on"): Primarily used in British and Australian English. To attempt to deceive someone, act badly, or test someone's boundaries to see what you can get away with.
+
+Example: "The candidate knew the salary cap was strict, but he still tried it on during negotiations by asking for an extra 20%."
+
+2. Try out
+
+Meaning A (Testing): To test something (such as a new system, tool, or method) in a practical setting to evaluate its effectiveness or performance.
+
+Example: "We decided to try out a new GitHub sourcing extension to see if it helps us find specialized DevOps talent faster."
+
+Meaning B (Testing on a person - "try out on"): To test an idea, pitch, or product on someone to get their reaction.
+
+Example: "Can I try out my new interview script on you before I call the first applicant?"
+
+3. Try out for
+
+Meaning: To undergo a competitive evaluation, audition, or test to earn a position on a team, in a play, or occasionally in a company.
+
+Example: "Several junior developers are going to try out for the lead engineering vacancy by submitting technical assessments."
+
+4. Try back
+
+Meaning: To make another attempt to contact someone (usually by phone or message) or return to a place at a later time because the first attempt was unsuccessful.
+
+Example: "The hiring manager is currently stuck in a meeting; I'll try back in an hour."
+
+5. Try for
+
+Meaning: To make a concerted effort to achieve, win, or obtain something, often when success is not guaranteed.
+
+Example: "After updating his professional profile, Sam decided to try for the Senior Recruitment Coordinator position."
+
+6. Try over
+
+Meaning: To practice, rehearse, or run through something from beginning to end to check for flaws. (This is a slightly dated or specialized phrasal verb, most commonly used with music or speeches).
+
+Example: "Let's try over the presentation one more time before the stakeholders arrive."
+---
+Turn about
+1. To physically turn to face the opposite direction
+
+The soldier turned about and marched away.
+
+Turn against
+1. To suddenly become hostile toward someone or something
+
+The public turned against the mayor after the scandal broke.
+
+2. To cause someone to be hostile toward another person
+
+She tried to turn the team against their new manager.
+
+Turn around / Turn round
+1. To change direction and face the opposite way
+
+Turn around and look at the camera.
+
+2. To dramatically improve a bad situation or make a failing business successful
+
+The new CEO managed to turn the struggling company around in just two years.
+
+3. To complete a piece of work or fulfill a request within a specific timeframe
+
+We can turn this project around by Friday afternoon.
+
+Turn away
+1. To refuse someone entry or admittance
+
+The bouncer turned us away because the club was at full capacity.
+
+2. To look in a different direction, often out of disgust, shame, or lack of interest
+
+The movie scene was so gruesome that I had to turn away.
+
+Turn back
+1. To return the way you came, usually because of a problem
+
+The snowstorm was so heavy that we had to turn back.
+
+2. To reverse a process or return to a previous state
+
+We've come too far to turn back the clock now.
+
+3. To fold back a cover or page
+
+Turn back the first page to see the dedication.
+
+Turn down
+1. To decrease the volume, heat, or power of a device
+
+Please turn down the music; it's too loud.
+
+2. To reject or refuse an offer, request, or person
+
+She turned down the job offer because the salary was too low.
+
+3. To fold down the covers of a bed in preparation for sleep
+
+The hotel staff turned down the bed while we were at dinner.
+
+Turn in
+1. To submit an assignment, report, or document
+
+Don't forget to turn in your paperwork by the end of the day.
+
+2. To go to bed (informal)
+
+I’m exhausted; I think I’ll turn in early tonight.
+
+3. To surrender to the authorities or police
+
+The fugitive finally turned himself in after a week on the run.
+
+4. To produce a particular amount or degree of something (like a performance)
+
+The team turned in an outstanding performance during the final match.
+
+Turn into
+1. To transform or change into something completely different
+
+The caterpillar turned into a beautiful butterfly.
+
+2. To direct a vehicle into a specific space or road
+
+He turned into the driveway and parked the car.
+
+Turn off
+1. To stop a machine, device, or flow of power
+
+Remember to turn off the lights when you leave the room.
+
+2. To cause someone to lose interest, enthusiasm, or sexual arousal
+
+His arrogance is a massive turn-off for me.
+
+3. To leave a road or path to go onto another
+
+We need to turn off the highway at the next exit.
+
+Turn on
+1. To start a machine, device, or flow of power
+
+Can you turn on the air conditioning?
+
+2. To suddenly and unexpectedly attack someone, physically or verbally
+
+The previously friendly dog suddenly turned on the stranger.
+
+3. To cause someone to feel excited or sexually aroused
+
+Confidence is a trait that really turns people on.
+
+4. To depend or hinge entirely on a specific detail
+
+The entire legal case turns on the forensic evidence.
+
+Turn out
+1. To end up or result in a particular way
+
+Despite the rain, the outdoor party turned out to be a great success.
+
+2. To attend an event or gather as a crowd
+
+A massive crowd turned out for the free concert in the park.
+
+3. To extinguish a light
+
+Turn out the lights before you go to sleep.
+
+4. To produce or manufacture something
+
+That factory turns out over five hundred cars a day.
+
+5. To empty one's pockets or a receptacle
+
+The security guard asked him to turn out his pockets.
+
+Turn over
+1. To flip something so the other side faces up
+
+If your pancakes are bubbling, it's time to turn them over.
+
+2. To transfer control, responsibility, or possession to someone else
+
+He turned the business over to his daughter when he retired.
+
+3. To start an engine (referring to the mechanical rotation)
+
+The battery was dead, so the engine wouldn't even turn over.
+
+4. To generate a specific amount of revenue in a business
+
+The retail store turns over a million dollars annually.
+
+5. To think about a concept or idea carefully
+
+She turned the idea over in her mind before giving an answer.
+
+Turn to
+1. To go to someone or something for help, advice, or comfort
+
+When I have a problem, I always turn to my best friend.
+
+2. To start doing a particular activity or habit, often a negative one, to cope with stress
+
+He turned to drinking after he lost his job.
+
+3. To direct your attention to a new topic or to a specific page
+
+Let's turn to page 42 in the textbook.
+
+Turn up
+1. To increase the volume, heat, or power of a device
+
+Can you turn up the radio? I love this song.
+
+2. To appear unexpectedly or arrive, sometimes late
+
+He turned up at the party completely uninvited.
+
+3. To be found, usually by accident, after being lost
+
+Don't worry, your missing keys will turn up eventually.
+
+4. To shorten a garment by folding the hem upward
+
+I bought these trousers, but they are too long and need to be turned up.
+
+===
+for each:
+1) Create the link on list page with particals mentioned above phrasal verbs. 
+   Take as the base "take" link.
+2) Create the page with mentioned above phrasal verbs. 
+   Take as the base "take" page.
+3) Cover the functionality with tests
+---
+
+## 2026-06-09T20:23:42Z
+git add all changes and commit them with suitable message
+---
