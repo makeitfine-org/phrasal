@@ -1,9 +1,10 @@
 ---
 id: TASK-13
 title: Add "Call" phrasal verb page with list card and tests
-status: To Do
+status: Done
 assignee: []
 created_date: '2026-06-09 10:59'
+updated_date: '2026-06-09 11:36'
 labels:
   - phrasal-verbs
   - content
@@ -148,12 +149,12 @@ Add the "Call" phrasal verb entry following the same pattern as Blow/Brush/Build
 
 ## Acceptance Criteria
 <!-- AC:BEGIN -->
-- [ ] #1 `src/pages/call/CallVerbPage.tsx` created with 21 sections, all meanings, all using default.png
-- [ ] #2 CALL_PARTICLES constant added to PhrasalVerbsListPage.tsx with all 21 particles
-- [ ] #3 VERBS entry added for Call after Build in PhrasalVerbsListPage.tsx
-- [ ] #4 Route `/phrasal-verbs/list/call` registered in src/main.tsx
-- [ ] #5 callSections added to listVerbIndex.ts search index
-- [ ] #6 21 test files created under src/__tests__/call_verb_page/ (one per particle)
-- [ ] #7 PhrasalVerbsListPage.test.tsx extended with Call card, subtitle, and copy-button describe blocks
-- [ ] #8 `npm run test:run` passes with all tests green
+- [x] #1 `src/pages/call/CallVerbPage.tsx` created with 21 sections, all meanings, all using default.png
+- [x] #2 CALL_PARTICLES constant added to PhrasalVerbsListPage.tsx with all 21 particles
+- [x] #3 VERBS entry added for Call after Build in PhrasalVerbsListPage.tsx
+- [x] #4 Route `/phrasal-verbs/list/call` registered in src/main.tsx
+- [x] #5 callSections added to listVerbIndex.ts search index
+- [x] #6 21 test files created under src/__tests__/call_verb_page/ (one per particle)
+- [x] #7 PhrasalVerbsListPage.test.tsx extended with Call card, subtitle, and copy-button describe blocks
+- [x] #8 `npm run test:run` passes with all tests green
 <!-- AC:END -->
