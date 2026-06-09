@@ -114,6 +114,8 @@ const CHECK_PARTICLES = [
 
 const CHEER_PARTICLES = ['against', 'for', 'off', 'on', 'up'];
 
+const CLEAN_PARTICLES = ['around', 'away', 'down', 'off', 'out', 'up', 'up after'];
+
 const VERBS = [
   { key: 'get',  label: 'Get',  to: '/phrasal-verbs/list/get',  particles: GET_PARTICLES },
   { key: 'make', label: 'Make', to: '/phrasal-verbs/list/make', particles: MAKE_PARTICLES },
@@ -137,6 +139,7 @@ const VERBS = [
   { key: 'catch', label: 'Catch', to: '/phrasal-verbs/list/catch', particles: CATCH_PARTICLES },
   { key: 'check', label: 'Check', to: '/phrasal-verbs/list/check', particles: CHECK_PARTICLES },
   { key: 'cheer', label: 'Cheer', to: '/phrasal-verbs/list/cheer', particles: CHEER_PARTICLES },
+  { key: 'clean', label: 'Clean', to: '/phrasal-verbs/list/clean', particles: CLEAN_PARTICLES },
 ];
 
 const EXPANDED_KEY = 'verbListExpanded';

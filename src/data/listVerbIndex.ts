@@ -21,6 +21,7 @@ import { sections as carrySections } from '../pages/carry/CarryVerbPage';
 import { sections as catchSections } from '../pages/catch/CatchVerbPage';
 import { sections as checkSections } from '../pages/check/CheckVerbPage';
 import { sections as cheerSections } from '../pages/cheer/CheerVerbPage';
+import { sections as cleanSections } from '../pages/clean/CleanVerbPage';
 
 export interface ListSearchEntry {
   verb: string;
@@ -69,4 +70,5 @@ export const listVerbIndex: ListSearchEntry[] = [
   ...buildEntries(catchSections, 'Catch', '/phrasal-verbs/list/catch'),
   ...buildEntries(checkSections, 'Check', '/phrasal-verbs/list/check'),
   ...buildEntries(cheerSections, 'Cheer', '/phrasal-verbs/list/cheer'),
+  ...buildEntries(cleanSections, 'Clean', '/phrasal-verbs/list/clean'),
 ];
