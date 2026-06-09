@@ -986,3 +986,23 @@
 <!-- git-snapshot 2026-06-09T14:34:35Z -->
 - .claude/docs/blackbox/audit.md
 <!-- end-snapshot -->
+
+<!-- git-snapshot 2026-06-09T14:42:39Z -->
+- .claude/docs/blackbox/audit.md
+- backlog/tasks/task-17 - Add-Cheer-phrasal-verb-page-with-list-card-and-tests.md
+<!-- end-snapshot -->
+
+<!-- git-snapshot 2026-06-09T14:51:59Z -->
+- .claude/docs/blackbox/audit.md
+- .claude/docs/blackbox/session-log.md
+- backlog/tasks/task-17 - Add-Cheer-phrasal-verb-page-with-list-card-and-tests.md
+- backlog/tasks/task-18 - Add-Clean-phrasal-verb-page-with-list-card-and-tests.md
+<!-- end-snapshot -->
+
+<!-- git-snapshot 2026-06-09T15:06:38Z -->
+- .claude/docs/blackbox/audit.md
+- .claude/docs/blackbox/session-log.md
+- backlog/tasks/task-17 - Add-Cheer-phrasal-verb-page-with-list-card-and-tests.md
+- backlog/tasks/task-18 - Add-Clean-phrasal-verb-page-with-list-card-and-tests.md
+- backlog/tasks/task-19 - Add-Count-phrasal-verb-page-with-list-card-and-tests.md
+<!-- end-snapshot -->

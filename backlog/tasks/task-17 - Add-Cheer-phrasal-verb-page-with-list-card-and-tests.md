@@ -1,13 +1,26 @@
 ---
 id: TASK-17
 title: Add "Cheer" phrasal verb page with list card and tests
-status: To Do
+status: Done
 assignee: []
 created_date: '2026-06-09 11:18'
+updated_date: '2026-06-09 14:41'
 labels:
   - phrasal-verbs
   - content
 dependencies: []
+modified_files:
+  - src/pages/cheer/CheerVerbPage.tsx
+  - src/pages/PhrasalVerbsListPage.tsx
+  - src/main.tsx
+  - src/data/listVerbIndex.ts
+  - src/__tests__/cheer_verb_page/helpers.tsx
+  - src/__tests__/cheer_verb_page/against.test.tsx
+  - src/__tests__/cheer_verb_page/for.test.tsx
+  - src/__tests__/cheer_verb_page/off.test.tsx
+  - src/__tests__/cheer_verb_page/on.test.tsx
+  - src/__tests__/cheer_verb_page/up.test.tsx
+  - src/__tests__/PhrasalVerbsListPage.test.tsx
 priority: medium
 ordinal: 5000
 ---
@@ -65,12 +78,18 @@ Add the "Cheer" phrasal verb entry following the same pattern as Blow/Brush/Buil
 
 ## Acceptance Criteria
 <!-- AC:BEGIN -->
-- [ ] #1 #1 `src/pages/cheer/CheerVerbPage.tsx` created with 5 sections, all meanings, all using default.png
-- [ ] #2 #2 CHEER_PARTICLES constant added to PhrasalVerbsListPage.tsx with all 5 particles
-- [ ] #3 #3 VERBS entry added for Cheer after Check in PhrasalVerbsListPage.tsx
-- [ ] #4 #4 Route `/phrasal-verbs/list/cheer` registered in src/main.tsx
-- [ ] #5 #5 cheerSections added to listVerbIndex.ts search index
-- [ ] #6 #6 5 test files created under src/__tests__/cheer_verb_page/ (one per particle)
-- [ ] #7 #7 PhrasalVerbsListPage.test.tsx extended with Cheer card, subtitle, and copy-button describe blocks
-- [ ] #8 #8 `npm run test:run` passes with all tests green
+- [x] #1 #1 `src/pages/cheer/CheerVerbPage.tsx` created with 5 sections, all meanings, all using default.png
+- [x] #2 #2 CHEER_PARTICLES constant added to PhrasalVerbsListPage.tsx with all 5 particles
+- [x] #3 #3 VERBS entry added for Cheer after Check in PhrasalVerbsListPage.tsx
+- [x] #4 #4 Route `/phrasal-verbs/list/cheer` registered in src/main.tsx
+- [x] #5 #5 cheerSections added to listVerbIndex.ts search index
+- [x] #6 #6 5 test files created under src/__tests__/cheer_verb_page/ (one per particle)
+- [x] #7 #7 PhrasalVerbsListPage.test.tsx extended with Cheer card, subtitle, and copy-button describe blocks
+- [x] #8 #8 `npm run test:run` passes with all tests green
 <!-- AC:END -->
+
+## Final Summary
+
+<!-- SECTION:FINAL_SUMMARY:BEGIN -->
+Added Cheer phrasal verb page with 5 sections (against, for, off, on, up). Created CheerVerbPage.tsx with all meanings using default.png, registered route /phrasal-verbs/list/cheer, added to listVerbIndex.ts, added CHEER_PARTICLES to PhrasalVerbsListPage.tsx. Created 5 test files + helpers + extended PhrasalVerbsListPage.test.tsx. All 8392 tests green.
+<!-- SECTION:FINAL_SUMMARY:END -->

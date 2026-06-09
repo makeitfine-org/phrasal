@@ -47,6 +47,7 @@ function renderPageWithRoutes() {
         <Route path="/phrasal-verbs/list/check" element={<LocationSpy />} />
         <Route path="/phrasal-verbs/list/cheer" element={<LocationSpy />} />
         <Route path="/phrasal-verbs/list/clean" element={<LocationSpy />} />
+        <Route path="/phrasal-verbs/list/count" element={<LocationSpy />} />
         <Route path="/phrasal-verbs/particles" element={<LocationSpy />} />
       </Routes>
     </MemoryRouter>
@@ -2299,6 +2300,7 @@ describe('PhrasalVerbsListPage — check copy button', () => {
 const ALL_CHEER_PARTICLES = ['against', 'for', 'off', 'on', 'up'];
 
 const ALL_CLEAN_PARTICLES = ['around', 'away', 'down', 'off', 'out', 'up', 'up after'];
+const ALL_COUNT_PARTICLES = ['against', 'back', 'down', 'for', 'in', 'off', 'on', 'out', 'up'];
 
 describe('PhrasalVerbsListPage — Cheer card', () => {
   it('renders the "Cheer" card', () => {
@@ -2463,6 +2465,91 @@ describe('PhrasalVerbsListPage — clean copy button', () => {
     renderPage();
     expandCard('clean');
     fireEvent.click(screen.getByRole('button', { name: /copy all "clean" phrasal verbs/i }));
+    await vi.waitFor(() => {
+      expect(screen.getByRole('button', { name: /copied!/i }))
+        .toHaveAttribute('title', 'Copied!');
+    });
+  });
+});
+
+describe('PhrasalVerbsListPage — Count card', () => {
+  it('renders the "Count" card', () => {
+    renderPage();
+    expect(screen.getByRole('heading', { name: 'Count' })).toBeInTheDocument();
+  });
+
+  it('"Count" link points to /phrasal-verbs/list/count', () => {
+    renderPage();
+    const link = screen.getByRole('link', { name: /^Count$/i });
+    expect(link).toHaveAttribute('href', '/phrasal-verbs/list/count');
+  });
+});
+
+describe('PhrasalVerbsListPage — Count particles subtitle', () => {
+  it('shows count particles text in subtitle after expand', () => {
+    renderPage();
+    expandCard('count');
+    expect(within(screen.getByTestId('verb-card-count')).getByText(/against, back, down, for, in, off, on, out, up/i)).toBeInTheDocument();
+  });
+
+  it('count subtitle title attribute contains all particles', () => {
+    renderPage();
+    expandCard('count');
+    const subtitle = within(screen.getByTestId('verb-card-count')).getByText(/against, back, down, for, in, off, on, out, up/i);
+    expect(subtitle).toHaveAttribute('title', ALL_COUNT_PARTICLES.join(', '));
+  });
+});
+
+describe('PhrasalVerbsListPage — count copy button', () => {
+  let mockWriteText: ReturnType<typeof vi.fn>;
+
+  beforeEach(() => {
+    mockWriteText = vi.fn().mockResolvedValue(undefined);
+    Object.defineProperty(navigator, 'clipboard', {
+      value: { writeText: mockWriteText },
+      writable: true,
+    });
+  });
+
+  afterEach(() => {
+    vi.restoreAllMocks();
+  });
+
+  it('renders a count copy button when expanded', () => {
+    renderPage();
+    expandCard('count');
+    expect(screen.getByRole('button', { name: /copy all "count" phrasal verbs/i })).toBeInTheDocument();
+  });
+
+  it('count copy button title is \'Copy all "count" phrasal verbs\' before click', () => {
+    renderPage();
+    expandCard('count');
+    expect(screen.getByRole('button', { name: /copy all "count" phrasal verbs/i }))
+      .toHaveAttribute('title', 'Copy all "count" phrasal verbs');
+  });
+
+  it('clipboard receives all 9 count particles as "count X" forms in order', () => {
+    renderPage();
+    expandCard('count');
+    fireEvent.click(screen.getByRole('button', { name: /copy all "count" phrasal verbs/i }));
+    const expected = ALL_COUNT_PARTICLES.map(p => `count ${p}`).join(', ');
+    expect(mockWriteText).toHaveBeenCalledWith(expected);
+  });
+
+  it('clipboard content contains every count particle', () => {
+    renderPage();
+    expandCard('count');
+    fireEvent.click(screen.getByRole('button', { name: /copy all "count" phrasal verbs/i }));
+    const written = mockWriteText.mock.calls[0][0] as string;
+    for (const p of ALL_COUNT_PARTICLES) {
+      expect(written).toContain(`count ${p}`);
+    }
+  });
+
+  it('count copy button shows "Copied!" title after click', async () => {
+    renderPage();
+    expandCard('count');
+    fireEvent.click(screen.getByRole('button', { name: /copy all "count" phrasal verbs/i }));
     await vi.waitFor(() => {
       expect(screen.getByRole('button', { name: /copied!/i }))
         .toHaveAttribute('title', 'Copied!');

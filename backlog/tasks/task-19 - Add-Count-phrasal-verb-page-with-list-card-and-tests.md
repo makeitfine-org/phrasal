@@ -1,9 +1,10 @@
 ---
 id: TASK-19
 title: Add "Count" phrasal verb page with list card and tests
-status: To Do
+status: Done
 assignee: []
 created_date: '2026-06-09 11:24'
+updated_date: '2026-06-09 15:06'
 labels:
   - phrasal-verbs
   - content
@@ -85,12 +86,18 @@ Add the "Count" phrasal verb entry following the same pattern as Blow/Brush/Buil
 
 ## Acceptance Criteria
 <!-- AC:BEGIN -->
-- [ ] #1 #1 `src/pages/count/CountVerbPage.tsx` created with 9 sections, all meanings, all using default.png
-- [ ] #2 #2 COUNT_PARTICLES constant added to PhrasalVerbsListPage.tsx with all 9 particles
-- [ ] #3 #3 VERBS entry added for Count after Clean in PhrasalVerbsListPage.tsx
-- [ ] #4 #4 Route `/phrasal-verbs/list/count` registered in src/main.tsx
-- [ ] #5 #5 countSections added to listVerbIndex.ts search index
-- [ ] #6 #6 9 test files created under src/__tests__/count_verb_page/ (one per particle)
-- [ ] #7 #7 PhrasalVerbsListPage.test.tsx extended with Count card, subtitle, and copy-button describe blocks
-- [ ] #8 #8 `npm run test:run` passes with all tests green
+- [x] #1 #1 `src/pages/count/CountVerbPage.tsx` created with 9 sections, all meanings, all using default.png
+- [x] #2 #2 COUNT_PARTICLES constant added to PhrasalVerbsListPage.tsx with all 9 particles
+- [x] #3 #3 VERBS entry added for Count after Clean in PhrasalVerbsListPage.tsx
+- [x] #4 #4 Route `/phrasal-verbs/list/count` registered in src/main.tsx
+- [x] #5 #5 countSections added to listVerbIndex.ts search index
+- [x] #6 #6 9 test files created under src/__tests__/count_verb_page/ (one per particle)
+- [x] #7 #7 PhrasalVerbsListPage.test.tsx extended with Count card, subtitle, and copy-button describe blocks
+- [x] #8 #8 `npm run test:run` passes with all tests green
 <!-- AC:END -->
+
+## Final Summary
+
+<!-- SECTION:FINAL_SUMMARY:BEGIN -->
+Created CountVerbPage.tsx with 9 sections (against, back, down, for, in, off, on, out, up). Added COUNT_PARTICLES and VERBS entry to PhrasalVerbsListPage.tsx, registered route in main.tsx, added countSections to listVerbIndex.ts, created helpers.tsx + 9 particle test files, extended PhrasalVerbsListPage.test.tsx. All 8787 tests green. Committed as 016a019.
+<!-- SECTION:FINAL_SUMMARY:END -->
