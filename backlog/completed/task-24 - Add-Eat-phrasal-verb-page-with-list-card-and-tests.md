@@ -1,7 +1,7 @@
 ---
 id: TASK-24
 title: Add "Eat" phrasal verb page with list card and tests
-status: In Progress
+status: Done
 assignee: []
 created_date: '2026-06-09 15:33'
 updated_date: '2026-06-09 16:38'

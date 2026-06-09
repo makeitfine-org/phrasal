@@ -1044,3 +1044,31 @@
 <!-- git-snapshot 2026-06-09T16:13:05Z -->
 - backlog/tasks/task-23 - Add-Drop-phrasal-verb-page-with-list-card-and-tests.md
 <!-- end-snapshot -->
+
+<!-- git-snapshot 2026-06-09T16:38:27Z -->
+- backlog/tasks/task-24 - Add-Eat-phrasal-verb-page-with-list-card-and-tests.md
+<!-- end-snapshot -->
+
+## 2026-06-09T16:48:00Z
+### Decisions
+- Completed TASK-25: Add Fall phrasal verb page with 15 particles and tests
+### Constraints Stated by User
+- None
+### Files Modified
+- src/pages/fall/FallVerbPage.tsx — new page with 15 sections, all default.png
+- src/__tests__/fall_verb_page/helpers.tsx — new helpers file
+- src/__tests__/fall_verb_page/*.test.tsx — 15 test files (one per particle)
+- src/pages/PhrasalVerbsListPage.tsx — added FALL_PARTICLES constant and VERBS entry
+- src/main.tsx — added import and route for /phrasal-verbs/list/fall
+- src/data/listVerbIndex.ts — added fallSections to search index
+- src/__tests__/PhrasalVerbsListPage.test.tsx — added Fall card/subtitle/copy-button tests
+### Deferred
+- TASK-26 through TASK-35 remain in backlog
+---
+
+<!-- git-snapshot 2026-06-09T16:50:37Z -->
+- .claude/docs/blackbox/audit.md
+- .claude/docs/blackbox/session-log.md
+- backlog/tasks/task-24 - Add-Eat-phrasal-verb-page-with-list-card-and-tests.md
+- backlog/tasks/task-25 - Add-Fall-phrasal-verb-page-with-list-card-and-tests.md
+<!-- end-snapshot -->
