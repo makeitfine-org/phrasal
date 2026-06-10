@@ -166,6 +166,8 @@ const LET_PARTICLES = ['down', 'in', 'into', 'off', 'on', 'out', 'up', 'by', 'th
 
 const LOG_PARTICLES = ['in / into', 'out', 'on', 'off', 'up'];
 
+const MIX_PARTICLES = ['up', 'in / into', 'with', 'together', 'down'];
+
 const VERBS = [
   { key: 'get',  label: 'Get',  to: '/phrasal-verbs/list/get',  particles: GET_PARTICLES },
   { key: 'make', label: 'Make', to: '/phrasal-verbs/list/make', particles: MAKE_PARTICLES },
@@ -210,6 +212,7 @@ const VERBS = [
   { key: 'leave',  label: 'Leave',  to: '/phrasal-verbs/list/leave',  particles: LEAVE_PARTICLES },
   { key: 'let',    label: 'Let',    to: '/phrasal-verbs/list/let',    particles: LET_PARTICLES },
   { key: 'log',    label: 'Log',    to: '/phrasal-verbs/list/log',    particles: LOG_PARTICLES },
+  { key: 'mix',    label: 'Mix',    to: '/phrasal-verbs/list/mix',    particles: MIX_PARTICLES },
 ];
 
 const EXPANDED_KEY = 'verbListExpanded';

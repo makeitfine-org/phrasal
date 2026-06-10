@@ -67,6 +67,7 @@ function renderPageWithRoutes() {
         <Route path="/phrasal-verbs/list/leave" element={<LocationSpy />} />
         <Route path="/phrasal-verbs/list/let" element={<LocationSpy />} />
         <Route path="/phrasal-verbs/list/log" element={<LocationSpy />} />
+        <Route path="/phrasal-verbs/list/mix" element={<LocationSpy />} />
         <Route path="/phrasal-verbs/particles" element={<LocationSpy />} />
       </Routes>
     </MemoryRouter>
@@ -2367,6 +2368,8 @@ const ALL_LET_PARTICLES = ['down', 'in', 'into', 'off', 'on', 'out', 'up', 'by',
 
 const ALL_LOG_PARTICLES = ['in / into', 'out', 'on', 'off', 'up'];
 
+const ALL_MIX_PARTICLES = ['up', 'in / into', 'with', 'together', 'down'];
+
 describe('PhrasalVerbsListPage — Cheer card', () => {
   it('renders the "Cheer" card', () => {
     renderPage();
@@ -4242,6 +4245,92 @@ describe('PhrasalVerbsListPage — log copy button', () => {
     renderPage();
     expandCard('log');
     fireEvent.click(screen.getByRole('button', { name: /copy all "log" phrasal verbs/i }));
+    await vi.waitFor(() => {
+      expect(screen.getByRole('button', { name: /copied!/i }))
+        .toHaveAttribute('title', 'Copied!');
+    });
+  });
+});
+
+describe('PhrasalVerbsListPage — Mix card', () => {
+  it('renders the "Mix" card', () => {
+    renderPage();
+    expect(screen.getByTestId('verb-card-mix')).toBeInTheDocument();
+  });
+
+  it('renders "Mix" heading', () => {
+    renderPage();
+    expect(within(screen.getByTestId('verb-card-mix')).getByText('Mix')).toBeInTheDocument();
+  });
+
+  it('"Mix" link points to /phrasal-verbs/list/mix', () => {
+    renderPage();
+    expandCard('mix');
+    const link = within(screen.getByTestId('verb-card-mix')).getByRole('link', { name: /mix/i });
+    expect(link).toHaveAttribute('href', '/phrasal-verbs/list/mix');
+  });
+
+  it('shows mix particles text in subtitle after expand', () => {
+    renderPage();
+    expandCard('mix');
+    expect(within(screen.getByTestId('verb-card-mix')).getByText(/up, in \/ into/i)).toBeInTheDocument();
+  });
+
+  it('mix subtitle title attribute contains all particles', () => {
+    renderPage();
+    expandCard('mix');
+    const subtitle = within(screen.getByTestId('verb-card-mix')).getByText(/up, in \/ into/i);
+    expect(subtitle).toHaveAttribute('title', ALL_MIX_PARTICLES.join(', '));
+  });
+});
+
+describe('PhrasalVerbsListPage — mix copy button', () => {
+  let mockWriteText: ReturnType<typeof vi.fn>;
+
+  beforeEach(() => {
+    mockWriteText = vi.fn().mockResolvedValue(undefined);
+    Object.defineProperty(navigator, 'clipboard', {
+      value: { writeText: mockWriteText },
+      writable: true,
+      configurable: true,
+    });
+  });
+
+  it('renders a mix copy button when expanded', () => {
+    renderPage();
+    expandCard('mix');
+    expect(screen.getByRole('button', { name: /copy all "mix" phrasal verbs/i })).toBeInTheDocument();
+  });
+
+  it('mix copy button title is \'Copy all "mix" phrasal verbs\' before click', () => {
+    renderPage();
+    expandCard('mix');
+    expect(screen.getByRole('button', { name: /copy all "mix" phrasal verbs/i }))
+      .toHaveAttribute('title', 'Copy all "mix" phrasal verbs');
+  });
+
+  it('clipboard receives all 5 mix particles as "mix X" forms in order', () => {
+    renderPage();
+    expandCard('mix');
+    fireEvent.click(screen.getByRole('button', { name: /copy all "mix" phrasal verbs/i }));
+    const expected = ALL_MIX_PARTICLES.map(p => `mix ${p}`).join(', ');
+    expect(mockWriteText).toHaveBeenCalledWith(expected);
+  });
+
+  it('clipboard content contains every mix particle', () => {
+    renderPage();
+    expandCard('mix');
+    fireEvent.click(screen.getByRole('button', { name: /copy all "mix" phrasal verbs/i }));
+    const written = mockWriteText.mock.calls[0][0] as string;
+    for (const p of ALL_MIX_PARTICLES) {
+      expect(written).toContain(`mix ${p}`);
+    }
+  });
+
+  it('mix copy button shows "Copied!" title after click', async () => {
+    renderPage();
+    expandCard('mix');
+    fireEvent.click(screen.getByRole('button', { name: /copy all "mix" phrasal verbs/i }));
     await vi.waitFor(() => {
       expect(screen.getByRole('button', { name: /copied!/i }))
         .toHaveAttribute('title', 'Copied!');
