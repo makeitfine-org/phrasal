@@ -68,6 +68,7 @@ function renderPageWithRoutes() {
         <Route path="/phrasal-verbs/list/let" element={<LocationSpy />} />
         <Route path="/phrasal-verbs/list/log" element={<LocationSpy />} />
         <Route path="/phrasal-verbs/list/mix" element={<LocationSpy />} />
+        <Route path="/phrasal-verbs/list/pass" element={<LocationSpy />} />
         <Route path="/phrasal-verbs/particles" element={<LocationSpy />} />
       </Routes>
     </MemoryRouter>
@@ -2370,6 +2371,11 @@ const ALL_LOG_PARTICLES = ['in / into', 'out', 'on', 'off', 'up'];
 
 const ALL_MIX_PARTICLES = ['up', 'in / into', 'with', 'together', 'down'];
 
+const ALL_PASS_PARTICLES = [
+  'away', 'by', 'down', 'for', 'in', 'into', 'off', 'on', 'out',
+  'over', 'through', 'to', 'up', 'around / round / about',
+];
+
 describe('PhrasalVerbsListPage — Cheer card', () => {
   it('renders the "Cheer" card', () => {
     renderPage();
@@ -4331,6 +4337,92 @@ describe('PhrasalVerbsListPage — mix copy button', () => {
     renderPage();
     expandCard('mix');
     fireEvent.click(screen.getByRole('button', { name: /copy all "mix" phrasal verbs/i }));
+    await vi.waitFor(() => {
+      expect(screen.getByRole('button', { name: /copied!/i }))
+        .toHaveAttribute('title', 'Copied!');
+    });
+  });
+});
+
+describe('PhrasalVerbsListPage — Pass card', () => {
+  it('renders the "Pass" card', () => {
+    renderPage();
+    expect(screen.getByTestId('verb-card-pass')).toBeInTheDocument();
+  });
+
+  it('renders "Pass" heading', () => {
+    renderPage();
+    expect(within(screen.getByTestId('verb-card-pass')).getByText('Pass')).toBeInTheDocument();
+  });
+
+  it('"Pass" link points to /phrasal-verbs/list/pass', () => {
+    renderPage();
+    expandCard('pass');
+    const link = within(screen.getByTestId('verb-card-pass')).getByRole('link', { name: /pass/i });
+    expect(link).toHaveAttribute('href', '/phrasal-verbs/list/pass');
+  });
+
+  it('shows pass particles text in subtitle after expand', () => {
+    renderPage();
+    expandCard('pass');
+    expect(within(screen.getByTestId('verb-card-pass')).getByText(/away, by/i)).toBeInTheDocument();
+  });
+
+  it('pass subtitle title attribute contains all particles', () => {
+    renderPage();
+    expandCard('pass');
+    const subtitle = within(screen.getByTestId('verb-card-pass')).getByText(/away, by/i);
+    expect(subtitle).toHaveAttribute('title', ALL_PASS_PARTICLES.join(', '));
+  });
+});
+
+describe('PhrasalVerbsListPage — pass copy button', () => {
+  let mockWriteText: ReturnType<typeof vi.fn>;
+
+  beforeEach(() => {
+    mockWriteText = vi.fn().mockResolvedValue(undefined);
+    Object.defineProperty(navigator, 'clipboard', {
+      value: { writeText: mockWriteText },
+      writable: true,
+      configurable: true,
+    });
+  });
+
+  it('renders a pass copy button when expanded', () => {
+    renderPage();
+    expandCard('pass');
+    expect(screen.getByRole('button', { name: /copy all "pass" phrasal verbs/i })).toBeInTheDocument();
+  });
+
+  it('pass copy button title is \'Copy all "pass" phrasal verbs\' before click', () => {
+    renderPage();
+    expandCard('pass');
+    expect(screen.getByRole('button', { name: /copy all "pass" phrasal verbs/i }))
+      .toHaveAttribute('title', 'Copy all "pass" phrasal verbs');
+  });
+
+  it('clipboard receives all 14 pass particles as "pass X" forms in order', () => {
+    renderPage();
+    expandCard('pass');
+    fireEvent.click(screen.getByRole('button', { name: /copy all "pass" phrasal verbs/i }));
+    const expected = ALL_PASS_PARTICLES.map(p => `pass ${p}`).join(', ');
+    expect(mockWriteText).toHaveBeenCalledWith(expected);
+  });
+
+  it('clipboard content contains every pass particle', () => {
+    renderPage();
+    expandCard('pass');
+    fireEvent.click(screen.getByRole('button', { name: /copy all "pass" phrasal verbs/i }));
+    const written = mockWriteText.mock.calls[0][0] as string;
+    for (const p of ALL_PASS_PARTICLES) {
+      expect(written).toContain(`pass ${p}`);
+    }
+  });
+
+  it('pass copy button shows "Copied!" title after click', async () => {
+    renderPage();
+    expandCard('pass');
+    fireEvent.click(screen.getByRole('button', { name: /copy all "pass" phrasal verbs/i }));
     await vi.waitFor(() => {
       expect(screen.getByRole('button', { name: /copied!/i }))
         .toHaveAttribute('title', 'Copied!');
