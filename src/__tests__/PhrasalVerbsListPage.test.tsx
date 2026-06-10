@@ -59,6 +59,7 @@ function renderPageWithRoutes() {
         <Route path="/phrasal-verbs/list/find" element={<LocationSpy />} />
         <Route path="/phrasal-verbs/list/grow" element={<LocationSpy />} />
         <Route path="/phrasal-verbs/list/hand" element={<LocationSpy />} />
+        <Route path="/phrasal-verbs/list/hang" element={<LocationSpy />} />
         <Route path="/phrasal-verbs/particles" element={<LocationSpy />} />
       </Routes>
     </MemoryRouter>
@@ -2343,6 +2344,7 @@ const ALL_FIND_PARTICLES = ['out', 'for', 'against'];
 const ALL_GROW_PARTICLES = ['apart', 'away', 'back', 'in', 'into', 'on', 'out / out of', 'over', 'to', 'together', 'up', 'with'];
 
 const ALL_HAND_PARTICLES = ['back', 'down', 'in', 'off', 'on', 'out', 'over', 'around / round / about', 'to'];
+const ALL_HANG_PARTICLES = ['about / around / round', 'back', 'behind', 'down', 'in', 'off', 'on', 'out', 'over', 'together', 'up', 'with'];
 
 describe('PhrasalVerbsListPage — Cheer card', () => {
   it('renders the "Cheer" card', () => {
@@ -3527,6 +3529,91 @@ describe('PhrasalVerbsListPage — hand copy button', () => {
     renderPage();
     expandCard('hand');
     fireEvent.click(screen.getByRole('button', { name: /copy all "hand" phrasal verbs/i }));
+    await vi.waitFor(() => {
+      expect(screen.getByRole('button', { name: /copied!/i }))
+        .toHaveAttribute('title', 'Copied!');
+    });
+  });
+});
+
+describe('PhrasalVerbsListPage — Hang card', () => {
+  it('renders the "Hang" card', () => {
+    renderPage();
+    expect(screen.getByRole('heading', { name: 'Hang' })).toBeInTheDocument();
+  });
+
+  it('"Hang" link points to /phrasal-verbs/list/hang', () => {
+    renderPage();
+    const link = screen.getByRole('link', { name: /^Hang$/i });
+    expect(link).toHaveAttribute('href', '/phrasal-verbs/list/hang');
+  });
+});
+
+describe('PhrasalVerbsListPage — Hang particles subtitle', () => {
+  it('shows hang particles text in subtitle after expand', () => {
+    renderPage();
+    expandCard('hang');
+    expect(within(screen.getByTestId('verb-card-hang')).getByText(/about \/ around \/ round, back/i)).toBeInTheDocument();
+  });
+
+  it('hang subtitle title attribute contains all particles', () => {
+    renderPage();
+    expandCard('hang');
+    const subtitle = within(screen.getByTestId('verb-card-hang')).getByText(/about \/ around \/ round, back/i);
+    expect(subtitle).toHaveAttribute('title', ALL_HANG_PARTICLES.join(', '));
+  });
+});
+
+describe('PhrasalVerbsListPage — hang copy button', () => {
+  let mockWriteText: ReturnType<typeof vi.fn>;
+
+  beforeEach(() => {
+    mockWriteText = vi.fn().mockResolvedValue(undefined);
+    Object.defineProperty(navigator, 'clipboard', {
+      value: { writeText: mockWriteText },
+      writable: true,
+    });
+  });
+
+  afterEach(() => {
+    vi.restoreAllMocks();
+  });
+
+  it('renders a hang copy button when expanded', () => {
+    renderPage();
+    expandCard('hang');
+    expect(screen.getByRole('button', { name: /copy all "hang" phrasal verbs/i })).toBeInTheDocument();
+  });
+
+  it('hang copy button title is \'Copy all "hang" phrasal verbs\' before click', () => {
+    renderPage();
+    expandCard('hang');
+    expect(screen.getByRole('button', { name: /copy all "hang" phrasal verbs/i }))
+      .toHaveAttribute('title', 'Copy all "hang" phrasal verbs');
+  });
+
+  it('clipboard receives all 12 hang particles as "hang X" forms in order', () => {
+    renderPage();
+    expandCard('hang');
+    fireEvent.click(screen.getByRole('button', { name: /copy all "hang" phrasal verbs/i }));
+    const expected = ALL_HANG_PARTICLES.map(p => `hang ${p}`).join(', ');
+    expect(mockWriteText).toHaveBeenCalledWith(expected);
+  });
+
+  it('clipboard content contains every hang particle', () => {
+    renderPage();
+    expandCard('hang');
+    fireEvent.click(screen.getByRole('button', { name: /copy all "hang" phrasal verbs/i }));
+    const written = mockWriteText.mock.calls[0][0] as string;
+    for (const p of ALL_HANG_PARTICLES) {
+      expect(written).toContain(`hang ${p}`);
+    }
+  });
+
+  it('hang copy button shows "Copied!" title after click', async () => {
+    renderPage();
+    expandCard('hang');
+    fireEvent.click(screen.getByRole('button', { name: /copy all "hang" phrasal verbs/i }));
     await vi.waitFor(() => {
       expect(screen.getByRole('button', { name: /copied!/i }))
         .toHaveAttribute('title', 'Copied!');
