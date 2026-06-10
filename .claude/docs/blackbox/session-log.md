@@ -1186,3 +1186,26 @@
 - backlog/tasks/task-33 - Add-Keep-phrasal-verb-page-with-list-card-and-tests.md
 - backlog/tasks/task-34 - Add-Knock-phrasal-verb-page-with-list-card-and-tests.md
 <!-- end-snapshot -->
+
+<!-- git-snapshot 2026-06-10T11:39:24Z -->
+- .claude/docs/blackbox/audit.md
+- .claude/settings.local.json
+- backlog/tasks/task-35 - Add-Lay-phrasal-verb-page-with-list-card-and-tests.md
+<!-- end-snapshot -->
+
+<!-- git-snapshot 2026-06-10T11:59:44Z -->
+- .claude/docs/blackbox/audit.md
+- .claude/docs/blackbox/session-log.md
+- .claude/settings.local.json
+- backlog/tasks/task-35 - Add-Lay-phrasal-verb-page-with-list-card-and-tests.md
+- backlog/tasks/task-36 - Add-Leave-phrasal-verb-page-with-list-card-and-tests.md
+<!-- end-snapshot -->
+
+<!-- git-snapshot 2026-06-10T12:40:30Z -->
+- .claude/docs/blackbox/audit.md
+- .claude/docs/blackbox/session-log.md
+- .claude/settings.local.json
+- backlog/tasks/task-35 - Add-Lay-phrasal-verb-page-with-list-card-and-tests.md
+- backlog/tasks/task-36 - Add-Leave-phrasal-verb-page-with-list-card-and-tests.md
+- backlog/tasks/task-37 - Add-Let-phrasal-verb-page-with-list-card-and-tests.md
+<!-- end-snapshot -->

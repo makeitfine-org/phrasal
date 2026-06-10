@@ -1,9 +1,10 @@
 ---
 id: TASK-36
 title: Add "Leave" phrasal verb page with list card and tests
-status: To Do
+status: Done
 assignee: []
 created_date: '2026-06-09 16:57'
+updated_date: '2026-06-10 11:59'
 labels:
   - phrasal-verbs
   - content
@@ -101,12 +102,12 @@ Add the "Leave" phrasal verb entry following the same pattern as Call/Carry/Drop
 
 ## Acceptance Criteria
 <!-- AC:BEGIN -->
-- [ ] #1 #1 `src/pages/leave/LeaveVerbPage.tsx` created with 12 sections, all meanings, all using default.png
-- [ ] #2 #2 LEAVE_PARTICLES constant added to PhrasalVerbsListPage.tsx with all 12 particles
-- [ ] #3 #3 VERBS entry added for Leave after Lay in PhrasalVerbsListPage.tsx
-- [ ] #4 #4 Route `/phrasal-verbs/list/leave` registered in src/main.tsx
-- [ ] #5 #5 leaveSections added to listVerbIndex.ts search index
-- [ ] #6 #6 12 test files created under src/__tests__/leave_verb_page/ (one per particle)
-- [ ] #7 #7 PhrasalVerbsListPage.test.tsx extended with Leave card, subtitle, and copy-button describe blocks
-- [ ] #8 #8 `npm run test:run` passes with all tests green
+- [x] #1 #1 `src/pages/leave/LeaveVerbPage.tsx` created with 12 sections, all meanings, all using default.png
+- [x] #2 #2 LEAVE_PARTICLES constant added to PhrasalVerbsListPage.tsx with all 12 particles
+- [x] #3 #3 VERBS entry added for Leave after Lay in PhrasalVerbsListPage.tsx
+- [x] #4 #4 Route `/phrasal-verbs/list/leave` registered in src/main.tsx
+- [x] #5 #5 leaveSections added to listVerbIndex.ts search index
+- [x] #6 #6 12 test files created under src/__tests__/leave_verb_page/ (one per particle)
+- [x] #7 #7 PhrasalVerbsListPage.test.tsx extended with Leave card, subtitle, and copy-button describe blocks
+- [x] #8 #8 `npm run test:run` passes with all tests green
 <!-- AC:END -->

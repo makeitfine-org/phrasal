@@ -47,6 +47,7 @@ import KeepVerbPage from './pages/keep/KeepVerbPage';
 import KnockVerbPage from './pages/knock/KnockVerbPage';
 import LayVerbPage from './pages/lay/LayVerbPage';
 import LeaveVerbPage from './pages/leave/LeaveVerbPage';
+import LetVerbPage from './pages/let/LetVerbPage';
 import ParticlesPage from './pages/particles/ParticlesPage';
 import IWishPage from './pages/IWishPage';
 import NotFoundPage from './pages/NotFoundPage';
@@ -106,6 +107,7 @@ ReactDOM.createRoot(document.getElementById('root')!).render(
             <Route path="/phrasal-verbs/list/knock" element={<KnockVerbPage />} />
             <Route path="/phrasal-verbs/list/lay" element={<LayVerbPage />} />
             <Route path="/phrasal-verbs/list/leave" element={<LeaveVerbPage />} />
+            <Route path="/phrasal-verbs/list/let" element={<LetVerbPage />} />
             <Route path="/grammar" element={<GrammarPage />} />
             <Route path="/grammar/i-wish-if-only" element={<IWishPage />} />
             <Route path="*" element={<NotFoundPage />} />
