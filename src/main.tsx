@@ -53,6 +53,7 @@ import MixVerbPage from './pages/mix/MixVerbPage';
 import PassVerbPage from './pages/pass/PassVerbPage';
 import PayVerbPage from './pages/pay/PayVerbPage';
 import PickVerbPage from './pages/pick/PickVerbPage';
+import PointVerbPage from './pages/point/PointVerbPage';
 import ParticlesPage from './pages/particles/ParticlesPage';
 import IWishPage from './pages/IWishPage';
 import NotFoundPage from './pages/NotFoundPage';
@@ -118,6 +119,7 @@ ReactDOM.createRoot(document.getElementById('root')!).render(
             <Route path="/phrasal-verbs/list/pass" element={<PassVerbPage />} />
             <Route path="/phrasal-verbs/list/pay" element={<PayVerbPage />} />
             <Route path="/phrasal-verbs/list/pick" element={<PickVerbPage />} />
+            <Route path="/phrasal-verbs/list/point" element={<PointVerbPage />} />
             <Route path="/grammar" element={<GrammarPage />} />
             <Route path="/grammar/i-wish-if-only" element={<IWishPage />} />
             <Route path="*" element={<NotFoundPage />} />

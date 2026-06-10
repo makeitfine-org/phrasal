@@ -181,6 +181,10 @@ const PICK_PARTICLES = [
   'apart', 'away', 'off', 'on', 'out', 'over', 'through', 'up',
 ];
 
+const POINT_PARTICLES = [
+  'ahead / forward', 'back', 'off', 'out', 'to', 'up',
+];
+
 const VERBS = [
   { key: 'get',  label: 'Get',  to: '/phrasal-verbs/list/get',  particles: GET_PARTICLES },
   { key: 'make', label: 'Make', to: '/phrasal-verbs/list/make', particles: MAKE_PARTICLES },
@@ -228,7 +232,8 @@ const VERBS = [
   { key: 'mix',  label: 'Mix',  to: '/phrasal-verbs/list/mix',  particles: MIX_PARTICLES },
   { key: 'pass', label: 'Pass', to: '/phrasal-verbs/list/pass', particles: PASS_PARTICLES },
   { key: 'pay',  label: 'Pay',  to: '/phrasal-verbs/list/pay',  particles: PAY_PARTICLES },
-  { key: 'pick', label: 'Pick', to: '/phrasal-verbs/list/pick', particles: PICK_PARTICLES },
+  { key: 'pick',  label: 'Pick',  to: '/phrasal-verbs/list/pick',  particles: PICK_PARTICLES },
+  { key: 'point', label: 'Point', to: '/phrasal-verbs/list/point', particles: POINT_PARTICLES },
 ];
 
 const EXPANDED_KEY = 'verbListExpanded';
