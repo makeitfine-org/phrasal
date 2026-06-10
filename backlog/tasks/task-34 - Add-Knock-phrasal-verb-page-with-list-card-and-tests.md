@@ -1,9 +1,10 @@
 ---
 id: TASK-34
 title: Add "Knock" phrasal verb page with list card and tests
-status: To Do
+status: Done
 assignee: []
 created_date: '2026-06-09 16:00'
+updated_date: '2026-06-10 08:30'
 labels:
   - phrasal-verbs
   - content
@@ -125,12 +126,18 @@ Add the "Knock" phrasal verb entry following the same pattern as Call/Carry page
 
 ## Acceptance Criteria
 <!-- AC:BEGIN -->
-- [ ] #1 #1 `src/pages/knock/KnockVerbPage.tsx` created with 14 sections, all meanings, all using default.png
-- [ ] #2 #2 KNOCK_PARTICLES constant added to PhrasalVerbsListPage.tsx with all 14 particles
-- [ ] #3 #3 VERBS entry added for Knock in alphabetical position in PhrasalVerbsListPage.tsx
-- [ ] #4 #4 Route `/phrasal-verbs/list/knock` registered in src/main.tsx
-- [ ] #5 #5 knockSections added to listVerbIndex.ts search index
-- [ ] #6 #6 14 test files created under src/__tests__/knock_verb_page/ (one per particle)
-- [ ] #7 #7 PhrasalVerbsListPage.test.tsx extended with Knock card, subtitle, and copy-button describe blocks
-- [ ] #8 #8 `npm run test:run` passes with all tests green
+- [x] #1 #1 `src/pages/knock/KnockVerbPage.tsx` created with 14 sections, all meanings, all using default.png
+- [x] #2 #2 KNOCK_PARTICLES constant added to PhrasalVerbsListPage.tsx with all 14 particles
+- [x] #3 #3 VERBS entry added for Knock in alphabetical position in PhrasalVerbsListPage.tsx
+- [x] #4 #4 Route `/phrasal-verbs/list/knock` registered in src/main.tsx
+- [x] #5 #5 knockSections added to listVerbIndex.ts search index
+- [x] #6 #6 14 test files created under src/__tests__/knock_verb_page/ (one per particle)
+- [x] #7 #7 PhrasalVerbsListPage.test.tsx extended with Knock card, subtitle, and copy-button describe blocks
+- [x] #8 #8 `npm run test:run` passes with all tests green
 <!-- AC:END -->
+
+## Final Summary
+
+<!-- SECTION:FINAL_SUMMARY:BEGIN -->
+Added Knock phrasal verb page with 14 sections and 38 meanings. Created KnockVerbPage.tsx, 14 test files (one per particle), helpers.tsx, and updated PhrasalVerbsListPage.tsx, main.tsx, listVerbIndex.ts, and PhrasalVerbsListPage.test.tsx. All 12,682 tests pass (534 files). Committed as bdca132.
+<!-- SECTION:FINAL_SUMMARY:END -->

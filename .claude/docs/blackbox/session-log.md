@@ -1164,3 +1164,25 @@
 - backlog/tasks/task-31 - Add-Hang-phrasal-verb-page-with-list-card-and-tests.md
 - backlog/tasks/task-32 - Add-Hold-phrasal-verb-page-with-list-card-and-tests.md
 <!-- end-snapshot -->
+
+<!-- git-snapshot 2026-06-10T08:18:43Z -->
+- .claude/docs/blackbox/audit.md
+- .claude/settings.local.json
+- backlog/tasks/task-33 - Add-Keep-phrasal-verb-page-with-list-card-and-tests.md
+<!-- end-snapshot -->
+
+<!-- git-snapshot 2026-06-10T08:30:20Z -->
+- .claude/docs/blackbox/audit.md
+- .claude/docs/blackbox/session-log.md
+- .claude/settings.local.json
+- backlog/tasks/task-33 - Add-Keep-phrasal-verb-page-with-list-card-and-tests.md
+- backlog/tasks/task-34 - Add-Knock-phrasal-verb-page-with-list-card-and-tests.md
+<!-- end-snapshot -->
+
+<!-- git-snapshot 2026-06-10T11:07:46Z -->
+- .claude/docs/blackbox/audit.md
+- .claude/docs/blackbox/session-log.md
+- .claude/settings.local.json
+- backlog/tasks/task-33 - Add-Keep-phrasal-verb-page-with-list-card-and-tests.md
+- backlog/tasks/task-34 - Add-Knock-phrasal-verb-page-with-list-card-and-tests.md
+<!-- end-snapshot -->

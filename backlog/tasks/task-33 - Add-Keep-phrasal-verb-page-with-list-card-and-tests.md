@@ -1,10 +1,10 @@
 ---
 id: TASK-33
 title: Add "Keep" phrasal verb page with list card and tests
-status: To Do
+status: Done
 assignee: []
 created_date: '2026-06-09 15:59'
-updated_date: '2026-06-09 16:02'
+updated_date: '2026-06-10 08:18'
 labels:
   - phrasal-verbs
   - content
@@ -135,12 +135,18 @@ Add the "Keep" phrasal verb entry following the same pattern as Call/Carry pages
 
 ## Acceptance Criteria
 <!-- AC:BEGIN -->
-- [ ] #1 #1 `src/pages/keep/KeepVerbPage.tsx` created with 16 sections, all meanings, all using default.png
-- [ ] #2 #2 KEEP_PARTICLES constant added to PhrasalVerbsListPage.tsx with all 16 particles
-- [ ] #3 #3 VERBS entry added for Keep in alphabetical position in PhrasalVerbsListPage.tsx
-- [ ] #4 #4 Route `/phrasal-verbs/list/keep` registered in src/main.tsx
-- [ ] #5 #5 keepSections added to listVerbIndex.ts search index
-- [ ] #6 #6 16 test files created under src/__tests__/keep_verb_page/ (one per particle)
-- [ ] #7 #7 PhrasalVerbsListPage.test.tsx extended with Keep card, subtitle, and copy-button describe blocks
-- [ ] #8 #8 `npm run test:run` passes with all tests green
+- [x] #1 #1 `src/pages/keep/KeepVerbPage.tsx` created with 16 sections, all meanings, all using default.png
+- [x] #2 #2 KEEP_PARTICLES constant added to PhrasalVerbsListPage.tsx with all 16 particles
+- [x] #3 #3 VERBS entry added for Keep in alphabetical position in PhrasalVerbsListPage.tsx
+- [x] #4 #4 Route `/phrasal-verbs/list/keep` registered in src/main.tsx
+- [x] #5 #5 keepSections added to listVerbIndex.ts search index
+- [x] #6 #6 16 test files created under src/__tests__/keep_verb_page/ (one per particle)
+- [x] #7 #7 PhrasalVerbsListPage.test.tsx extended with Keep card, subtitle, and copy-button describe blocks
+- [x] #8 #8 `npm run test:run` passes with all tests green
 <!-- AC:END -->
+
+## Final Summary
+
+<!-- SECTION:FINAL_SUMMARY:BEGIN -->
+Added Keep phrasal verb page with 16 sections (41 meanings total) and full test coverage. Created src/pages/keep/KeepVerbPage.tsx, 17 test files under src/__tests__/keep_verb_page/, and updated PhrasalVerbsListPage.tsx, main.tsx, listVerbIndex.ts, and PhrasalVerbsListPage.test.tsx. All 12,327 tests pass (520 files). Committed as feat: add Keep phrasal verb page with list card and tests (6ff0446, 22 files, 1176 insertions).
+<!-- SECTION:FINAL_SUMMARY:END -->

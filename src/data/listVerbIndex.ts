@@ -37,6 +37,7 @@ import { sections as handSections } from '../pages/hand/HandVerbPage';
 import { sections as hangSections } from '../pages/hang/HangVerbPage';
 import { sections as holdSections } from '../pages/hold/HoldVerbPage';
 import { sections as keepSections } from '../pages/keep/KeepVerbPage';
+import { sections as knockSections } from '../pages/knock/KnockVerbPage';
 
 export interface ListSearchEntry {
   verb: string;
@@ -101,4 +102,5 @@ export const listVerbIndex: ListSearchEntry[] = [
   ...buildEntries(hangSections, 'Hang', '/phrasal-verbs/list/hang'),
   ...buildEntries(holdSections, 'Hold', '/phrasal-verbs/list/hold'),
   ...buildEntries(keepSections, 'Keep', '/phrasal-verbs/list/keep'),
+  ...buildEntries(knockSections, 'Knock', '/phrasal-verbs/list/knock'),
 ];
