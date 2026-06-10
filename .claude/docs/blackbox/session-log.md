@@ -1137,3 +1137,16 @@
 - .claude/docs/blackbox/audit.md
 - backlog/tasks/task-28 - Add-Find-phrasal-verb-page-with-list-card-and-tests.md
 <!-- end-snapshot -->
+
+<!-- git-snapshot 2026-06-09T21:53:32Z -->
+- .claude/docs/blackbox/audit.md
+- backlog/tasks/task-29 - Add-Grow-phrasal-verb-page-with-list-card-and-tests.md
+<!-- end-snapshot -->
+
+<!-- git-snapshot 2026-06-10T07:42:52Z -->
+- .claude/docs/blackbox/audit.md
+- .claude/docs/blackbox/session-log.md
+- .claude/settings.local.json
+- backlog/tasks/task-29 - Add-Grow-phrasal-verb-page-with-list-card-and-tests.md
+- backlog/tasks/task-30 - Add-Hand-phrasal-verb-page-with-list-card-and-tests.md
+<!-- end-snapshot -->

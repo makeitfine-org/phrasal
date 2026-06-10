@@ -1,9 +1,10 @@
 ---
 id: TASK-29
 title: Add "Grow" phrasal verb page with list card and tests
-status: To Do
+status: Done
 assignee: []
 created_date: '2026-06-09 15:58'
+updated_date: '2026-06-09 21:53'
 labels:
   - phrasal-verbs
   - content
@@ -101,12 +102,12 @@ Add the "Grow" phrasal verb entry following the same pattern as Call/Carry pages
 
 ## Acceptance Criteria
 <!-- AC:BEGIN -->
-- [ ] #1 #1 `src/pages/grow/GrowVerbPage.tsx` created with 12 sections, all meanings, all using default.png
-- [ ] #2 #2 GROW_PARTICLES constant added to PhrasalVerbsListPage.tsx with all 12 particles
-- [ ] #3 #3 VERBS entry added for Grow in alphabetical position in PhrasalVerbsListPage.tsx
-- [ ] #4 #4 Route `/phrasal-verbs/list/grow` registered in src/main.tsx
-- [ ] #5 #5 growSections added to listVerbIndex.ts search index
-- [ ] #6 #6 12 test files created under src/__tests__/grow_verb_page/ (one per particle)
-- [ ] #7 #7 PhrasalVerbsListPage.test.tsx extended with Grow card, subtitle, and copy-button describe blocks
-- [ ] #8 #8 `npm run test:run` passes with all tests green
+- [x] #1 #1 `src/pages/grow/GrowVerbPage.tsx` created with 12 sections, all meanings, all using default.png
+- [x] #2 #2 GROW_PARTICLES constant added to PhrasalVerbsListPage.tsx with all 12 particles
+- [x] #3 #3 VERBS entry added for Grow in alphabetical position in PhrasalVerbsListPage.tsx
+- [x] #4 #4 Route `/phrasal-verbs/list/grow` registered in src/main.tsx
+- [x] #5 #5 growSections added to listVerbIndex.ts search index
+- [x] #6 #6 12 test files created under src/__tests__/grow_verb_page/ (one per particle)
+- [x] #7 #7 PhrasalVerbsListPage.test.tsx extended with Grow card, subtitle, and copy-button describe blocks
+- [x] #8 #8 `npm run test:run` passes with all tests green
 <!-- AC:END -->

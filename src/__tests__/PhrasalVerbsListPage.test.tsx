@@ -58,6 +58,7 @@ function renderPageWithRoutes() {
         <Route path="/phrasal-verbs/list/fill" element={<LocationSpy />} />
         <Route path="/phrasal-verbs/list/find" element={<LocationSpy />} />
         <Route path="/phrasal-verbs/list/grow" element={<LocationSpy />} />
+        <Route path="/phrasal-verbs/list/hand" element={<LocationSpy />} />
         <Route path="/phrasal-verbs/particles" element={<LocationSpy />} />
       </Routes>
     </MemoryRouter>
@@ -2341,6 +2342,8 @@ const ALL_FIND_PARTICLES = ['out', 'for', 'against'];
 
 const ALL_GROW_PARTICLES = ['apart', 'away', 'back', 'in', 'into', 'on', 'out / out of', 'over', 'to', 'together', 'up', 'with'];
 
+const ALL_HAND_PARTICLES = ['back', 'down', 'in', 'off', 'on', 'out', 'over', 'around / round / about', 'to'];
+
 describe('PhrasalVerbsListPage — Cheer card', () => {
   it('renders the "Cheer" card', () => {
     renderPage();
@@ -3439,6 +3442,91 @@ describe('PhrasalVerbsListPage — grow copy button', () => {
     renderPage();
     expandCard('grow');
     fireEvent.click(screen.getByRole('button', { name: /copy all "grow" phrasal verbs/i }));
+    await vi.waitFor(() => {
+      expect(screen.getByRole('button', { name: /copied!/i }))
+        .toHaveAttribute('title', 'Copied!');
+    });
+  });
+});
+
+describe('PhrasalVerbsListPage — Hand card', () => {
+  it('renders the "Hand" card', () => {
+    renderPage();
+    expect(screen.getByRole('heading', { name: 'Hand' })).toBeInTheDocument();
+  });
+
+  it('"Hand" link points to /phrasal-verbs/list/hand', () => {
+    renderPage();
+    const link = screen.getByRole('link', { name: /^Hand$/i });
+    expect(link).toHaveAttribute('href', '/phrasal-verbs/list/hand');
+  });
+});
+
+describe('PhrasalVerbsListPage — Hand particles subtitle', () => {
+  it('shows hand particles text in subtitle after expand', () => {
+    renderPage();
+    expandCard('hand');
+    expect(within(screen.getByTestId('verb-card-hand')).getByText(/back, down, in/i)).toBeInTheDocument();
+  });
+
+  it('hand subtitle title attribute contains all particles', () => {
+    renderPage();
+    expandCard('hand');
+    const subtitle = within(screen.getByTestId('verb-card-hand')).getByText(/back, down, in/i);
+    expect(subtitle).toHaveAttribute('title', ALL_HAND_PARTICLES.join(', '));
+  });
+});
+
+describe('PhrasalVerbsListPage — hand copy button', () => {
+  let mockWriteText: ReturnType<typeof vi.fn>;
+
+  beforeEach(() => {
+    mockWriteText = vi.fn().mockResolvedValue(undefined);
+    Object.defineProperty(navigator, 'clipboard', {
+      value: { writeText: mockWriteText },
+      writable: true,
+    });
+  });
+
+  afterEach(() => {
+    vi.restoreAllMocks();
+  });
+
+  it('renders a hand copy button when expanded', () => {
+    renderPage();
+    expandCard('hand');
+    expect(screen.getByRole('button', { name: /copy all "hand" phrasal verbs/i })).toBeInTheDocument();
+  });
+
+  it('hand copy button title is \'Copy all "hand" phrasal verbs\' before click', () => {
+    renderPage();
+    expandCard('hand');
+    expect(screen.getByRole('button', { name: /copy all "hand" phrasal verbs/i }))
+      .toHaveAttribute('title', 'Copy all "hand" phrasal verbs');
+  });
+
+  it('clipboard receives all 9 hand particles as "hand X" forms in order', () => {
+    renderPage();
+    expandCard('hand');
+    fireEvent.click(screen.getByRole('button', { name: /copy all "hand" phrasal verbs/i }));
+    const expected = ALL_HAND_PARTICLES.map(p => `hand ${p}`).join(', ');
+    expect(mockWriteText).toHaveBeenCalledWith(expected);
+  });
+
+  it('clipboard content contains every hand particle', () => {
+    renderPage();
+    expandCard('hand');
+    fireEvent.click(screen.getByRole('button', { name: /copy all "hand" phrasal verbs/i }));
+    const written = mockWriteText.mock.calls[0][0] as string;
+    for (const p of ALL_HAND_PARTICLES) {
+      expect(written).toContain(`hand ${p}`);
+    }
+  });
+
+  it('hand copy button shows "Copied!" title after click', async () => {
+    renderPage();
+    expandCard('hand');
+    fireEvent.click(screen.getByRole('button', { name: /copy all "hand" phrasal verbs/i }));
     await vi.waitFor(() => {
       expect(screen.getByRole('button', { name: /copied!/i }))
         .toHaveAttribute('title', 'Copied!');
