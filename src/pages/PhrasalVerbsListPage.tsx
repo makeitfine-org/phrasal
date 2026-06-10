@@ -160,6 +160,8 @@ const KNOCK_PARTICLES = ['about / around / round', 'against', 'apart', 'back', '
 
 const LAY_PARTICLES = ['about', 'away', 'by', 'down', 'for', 'in', 'into', 'off', 'on', 'out', 'over', 'to', 'up'];
 
+const LEAVE_PARTICLES = ['about / around', 'back', 'behind', 'for', 'in', 'off', 'on', 'out', 'over', 'to', 'up (to)', 'with'];
+
 const VERBS = [
   { key: 'get',  label: 'Get',  to: '/phrasal-verbs/list/get',  particles: GET_PARTICLES },
   { key: 'make', label: 'Make', to: '/phrasal-verbs/list/make', particles: MAKE_PARTICLES },
@@ -201,6 +203,7 @@ const VERBS = [
   { key: 'keep',   label: 'Keep',   to: '/phrasal-verbs/list/keep',   particles: KEEP_PARTICLES },
   { key: 'knock',  label: 'Knock',  to: '/phrasal-verbs/list/knock',  particles: KNOCK_PARTICLES },
   { key: 'lay',    label: 'Lay',    to: '/phrasal-verbs/list/lay',    particles: LAY_PARTICLES },
+  { key: 'leave',  label: 'Leave',  to: '/phrasal-verbs/list/leave',  particles: LEAVE_PARTICLES },
 ];
 
 const EXPANDED_KEY = 'verbListExpanded';

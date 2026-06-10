@@ -64,6 +64,7 @@ function renderPageWithRoutes() {
         <Route path="/phrasal-verbs/list/keep" element={<LocationSpy />} />
         <Route path="/phrasal-verbs/list/knock" element={<LocationSpy />} />
         <Route path="/phrasal-verbs/list/lay" element={<LocationSpy />} />
+        <Route path="/phrasal-verbs/list/leave" element={<LocationSpy />} />
         <Route path="/phrasal-verbs/particles" element={<LocationSpy />} />
       </Routes>
     </MemoryRouter>
@@ -2358,6 +2359,8 @@ const ALL_KNOCK_PARTICLES = ['about / around / round', 'against', 'apart', 'back
 
 const ALL_LAY_PARTICLES = ['about', 'away', 'by', 'down', 'for', 'in', 'into', 'off', 'on', 'out', 'over', 'to', 'up'];
 
+const ALL_LEAVE_PARTICLES = ['about / around', 'back', 'behind', 'for', 'in', 'off', 'on', 'out', 'over', 'to', 'up (to)', 'with'];
+
 describe('PhrasalVerbsListPage — Cheer card', () => {
   it('renders the "Cheer" card', () => {
     renderPage();
@@ -3966,6 +3969,95 @@ describe('PhrasalVerbsListPage — lay copy button', () => {
     renderPage();
     expandCard('lay');
     fireEvent.click(screen.getByRole('button', { name: /copy all "lay" phrasal verbs/i }));
+    await vi.waitFor(() => {
+      expect(screen.getByRole('button', { name: /copied!/i }))
+        .toHaveAttribute('title', 'Copied!');
+    });
+  });
+});
+
+describe('PhrasalVerbsListPage — Leave card', () => {
+  it('renders the "Leave" card', () => {
+    renderPage();
+    expect(screen.getByTestId('verb-card-leave')).toBeInTheDocument();
+  });
+
+  it('renders "Leave" heading', () => {
+    renderPage();
+    expect(within(screen.getByTestId('verb-card-leave')).getByText('Leave')).toBeInTheDocument();
+  });
+
+  it('"Leave" link points to /phrasal-verbs/list/leave', () => {
+    renderPage();
+    expandCard('leave');
+    const link = within(screen.getByTestId('verb-card-leave')).getByRole('link', { name: /leave/i });
+    expect(link).toHaveAttribute('href', '/phrasal-verbs/list/leave');
+  });
+
+  it('shows leave particles text in subtitle after expand', () => {
+    renderPage();
+    expandCard('leave');
+    expect(within(screen.getByTestId('verb-card-leave')).getByText(/about \/ around, back/i)).toBeInTheDocument();
+  });
+
+  it('leave subtitle title attribute contains all particles', () => {
+    renderPage();
+    expandCard('leave');
+    const subtitle = within(screen.getByTestId('verb-card-leave')).getByText(/about \/ around, back/i);
+    expect(subtitle).toHaveAttribute('title', ALL_LEAVE_PARTICLES.join(', '));
+  });
+});
+
+describe('PhrasalVerbsListPage — leave copy button', () => {
+  let mockWriteText: ReturnType<typeof vi.fn>;
+
+  beforeEach(() => {
+    mockWriteText = vi.fn().mockResolvedValue(undefined);
+    Object.defineProperty(navigator, 'clipboard', {
+      value: { writeText: mockWriteText },
+      writable: true,
+    });
+  });
+
+  afterEach(() => {
+    vi.restoreAllMocks();
+  });
+
+  it('renders a leave copy button when expanded', () => {
+    renderPage();
+    expandCard('leave');
+    expect(screen.getByRole('button', { name: /copy all "leave" phrasal verbs/i })).toBeInTheDocument();
+  });
+
+  it('leave copy button title is \'Copy all "leave" phrasal verbs\' before click', () => {
+    renderPage();
+    expandCard('leave');
+    expect(screen.getByRole('button', { name: /copy all "leave" phrasal verbs/i }))
+      .toHaveAttribute('title', 'Copy all "leave" phrasal verbs');
+  });
+
+  it('clipboard receives all 12 leave particles as "leave X" forms in order', () => {
+    renderPage();
+    expandCard('leave');
+    fireEvent.click(screen.getByRole('button', { name: /copy all "leave" phrasal verbs/i }));
+    const expected = ALL_LEAVE_PARTICLES.map(p => `leave ${p}`).join(', ');
+    expect(mockWriteText).toHaveBeenCalledWith(expected);
+  });
+
+  it('clipboard content contains every leave particle', () => {
+    renderPage();
+    expandCard('leave');
+    fireEvent.click(screen.getByRole('button', { name: /copy all "leave" phrasal verbs/i }));
+    const written = mockWriteText.mock.calls[0][0] as string;
+    for (const p of ALL_LEAVE_PARTICLES) {
+      expect(written).toContain(`leave ${p}`);
+    }
+  });
+
+  it('leave copy button shows "Copied!" title after click', async () => {
+    renderPage();
+    expandCard('leave');
+    fireEvent.click(screen.getByRole('button', { name: /copy all "leave" phrasal verbs/i }));
     await vi.waitFor(() => {
       expect(screen.getByRole('button', { name: /copied!/i }))
         .toHaveAttribute('title', 'Copied!');

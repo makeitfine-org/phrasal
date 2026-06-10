@@ -39,6 +39,7 @@ import { sections as holdSections } from '../pages/hold/HoldVerbPage';
 import { sections as keepSections } from '../pages/keep/KeepVerbPage';
 import { sections as knockSections } from '../pages/knock/KnockVerbPage';
 import { sections as laySections } from '../pages/lay/LayVerbPage';
+import { sections as leaveSections } from '../pages/leave/LeaveVerbPage';
 
 export interface ListSearchEntry {
   verb: string;
@@ -105,4 +106,5 @@ export const listVerbIndex: ListSearchEntry[] = [
   ...buildEntries(keepSections, 'Keep', '/phrasal-verbs/list/keep'),
   ...buildEntries(knockSections, 'Knock', '/phrasal-verbs/list/knock'),
   ...buildEntries(laySections, 'Lay', '/phrasal-verbs/list/lay'),
+  ...buildEntries(leaveSections, 'Leave', '/phrasal-verbs/list/leave'),
 ];
