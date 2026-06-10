@@ -1,9 +1,10 @@
 ---
 id: TASK-40
 title: Add "Mix" phrasal verb page with list card and tests
-status: To Do
+status: Done
 assignee: []
 created_date: '2026-06-09 16:58'
+updated_date: '2026-06-10 16:56'
 labels:
   - phrasal-verbs
   - content
@@ -70,12 +71,12 @@ Add the "Mix" phrasal verb entry following the same pattern as Call/Carry/Drop/E
 
 ## Acceptance Criteria
 <!-- AC:BEGIN -->
-- [ ] #1 #1 `src/pages/mix/MixVerbPage.tsx` created with 5 sections, all meanings, all using default.png
-- [ ] #2 #2 MIX_PARTICLES constant added to PhrasalVerbsListPage.tsx with all 5 particles
-- [ ] #3 #3 VERBS entry added for Mix after Look in PhrasalVerbsListPage.tsx
-- [ ] #4 #4 Route `/phrasal-verbs/list/mix` registered in src/main.tsx
-- [ ] #5 #5 mixSections added to listVerbIndex.ts search index
-- [ ] #6 #6 5 test files created under src/__tests__/mix_verb_page/ (one per particle)
-- [ ] #7 #7 PhrasalVerbsListPage.test.tsx extended with Mix card, subtitle, and copy-button describe blocks
-- [ ] #8 #8 `npm run test:run` passes with all tests green
+- [x] #1 #1 `src/pages/mix/MixVerbPage.tsx` created with 5 sections, all meanings, all using default.png
+- [x] #2 #2 MIX_PARTICLES constant added to PhrasalVerbsListPage.tsx with all 5 particles
+- [x] #3 #3 VERBS entry added for Mix after Look in PhrasalVerbsListPage.tsx
+- [x] #4 #4 Route `/phrasal-verbs/list/mix` registered in src/main.tsx
+- [x] #5 #5 mixSections added to listVerbIndex.ts search index
+- [x] #6 #6 5 test files created under src/__tests__/mix_verb_page/ (one per particle)
+- [x] #7 #7 PhrasalVerbsListPage.test.tsx extended with Mix card, subtitle, and copy-button describe blocks
+- [x] #8 #8 `npm run test:run` passes with all tests green
 <!-- AC:END -->

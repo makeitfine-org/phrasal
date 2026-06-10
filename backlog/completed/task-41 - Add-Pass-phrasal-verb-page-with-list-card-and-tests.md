@@ -1,9 +1,10 @@
 ---
 id: TASK-41
 title: Add "Pass" phrasal verb page with list card and tests
-status: To Do
+status: Done
 assignee: []
 created_date: '2026-06-09 16:59'
+updated_date: '2026-06-10 17:20'
 labels:
   - phrasal-verbs
   - content
@@ -108,12 +109,12 @@ Add the "Pass" phrasal verb entry following the same pattern as Call/Carry/Drop/
 
 ## Acceptance Criteria
 <!-- AC:BEGIN -->
-- [ ] #1 #1 `src/pages/pass/PassVerbPage.tsx` created with 14 sections, all meanings, all using default.png
-- [ ] #2 #2 PASS_PARTICLES constant added to PhrasalVerbsListPage.tsx with all 14 particles
-- [ ] #3 #3 VERBS entry added for Pass after Mix in PhrasalVerbsListPage.tsx
-- [ ] #4 #4 Route `/phrasal-verbs/list/pass` registered in src/main.tsx
-- [ ] #5 #5 passSections added to listVerbIndex.ts search index
-- [ ] #6 #6 14 test files created under src/__tests__/pass_verb_page/ (one per particle)
-- [ ] #7 #7 PhrasalVerbsListPage.test.tsx extended with Pass card, subtitle, and copy-button describe blocks
-- [ ] #8 #8 `npm run test:run` passes with all tests green
+- [x] #1 #1 `src/pages/pass/PassVerbPage.tsx` created with 14 sections, all meanings, all using default.png
+- [x] #2 #2 PASS_PARTICLES constant added to PhrasalVerbsListPage.tsx with all 14 particles
+- [x] #3 #3 VERBS entry added for Pass after Mix in PhrasalVerbsListPage.tsx
+- [x] #4 #4 Route `/phrasal-verbs/list/pass` registered in src/main.tsx
+- [x] #5 #5 passSections added to listVerbIndex.ts search index
+- [x] #6 #6 14 test files created under src/__tests__/pass_verb_page/ (one per particle)
+- [x] #7 #7 PhrasalVerbsListPage.test.tsx extended with Pass card, subtitle, and copy-button describe blocks
+- [x] #8 #8 `npm run test:run` passes with all tests green
 <!-- AC:END -->

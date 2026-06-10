@@ -1214,3 +1214,26 @@
 - .claude/settings.local.json
 - backlog/tasks/task-38 - Add-Log-phrasal-verb-page-with-list-card-and-tests.md
 <!-- end-snapshot -->
+
+<!-- git-snapshot 2026-06-10T16:56:54Z -->
+- .claude/docs/blackbox/audit.md
+- .claude/settings.local.json
+- backlog/tasks/task-40 - Add-Mix-phrasal-verb-page-with-list-card-and-tests.md
+<!-- end-snapshot -->
+
+<!-- git-snapshot 2026-06-10T17:21:01Z -->
+- .claude/docs/blackbox/audit.md
+- .claude/docs/blackbox/session-log.md
+- .claude/settings.local.json
+- backlog/tasks/task-40 - Add-Mix-phrasal-verb-page-with-list-card-and-tests.md
+- backlog/tasks/task-41 - Add-Pass-phrasal-verb-page-with-list-card-and-tests.md
+<!-- end-snapshot -->
+
+<!-- git-snapshot 2026-06-10T17:36:06Z -->
+- .claude/docs/blackbox/audit.md
+- .claude/docs/blackbox/session-log.md
+- .claude/settings.local.json
+- backlog/tasks/task-40 - Add-Mix-phrasal-verb-page-with-list-card-and-tests.md
+- backlog/tasks/task-41 - Add-Pass-phrasal-verb-page-with-list-card-and-tests.md
+- backlog/tasks/task-42 - Add-Pay-phrasal-verb-page-with-list-card-and-tests.md
+<!-- end-snapshot -->

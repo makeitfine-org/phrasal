@@ -69,6 +69,7 @@ function renderPageWithRoutes() {
         <Route path="/phrasal-verbs/list/log" element={<LocationSpy />} />
         <Route path="/phrasal-verbs/list/mix" element={<LocationSpy />} />
         <Route path="/phrasal-verbs/list/pass" element={<LocationSpy />} />
+        <Route path="/phrasal-verbs/list/pay" element={<LocationSpy />} />
         <Route path="/phrasal-verbs/particles" element={<LocationSpy />} />
       </Routes>
     </MemoryRouter>
@@ -2376,6 +2377,10 @@ const ALL_PASS_PARTICLES = [
   'over', 'through', 'to', 'up', 'around / round / about',
 ];
 
+const ALL_PAY_PARTICLES = [
+  'off', 'up', 'down', 'in / into', 'out', 'away', 'forward', 'back', 'for', 'over',
+];
+
 describe('PhrasalVerbsListPage — Cheer card', () => {
   it('renders the "Cheer" card', () => {
     renderPage();
@@ -4423,6 +4428,92 @@ describe('PhrasalVerbsListPage — pass copy button', () => {
     renderPage();
     expandCard('pass');
     fireEvent.click(screen.getByRole('button', { name: /copy all "pass" phrasal verbs/i }));
+    await vi.waitFor(() => {
+      expect(screen.getByRole('button', { name: /copied!/i }))
+        .toHaveAttribute('title', 'Copied!');
+    });
+  });
+});
+
+describe('PhrasalVerbsListPage — Pay card', () => {
+  it('renders the "Pay" card', () => {
+    renderPage();
+    expect(screen.getByTestId('verb-card-pay')).toBeInTheDocument();
+  });
+
+  it('renders "Pay" heading', () => {
+    renderPage();
+    expect(within(screen.getByTestId('verb-card-pay')).getByText('Pay')).toBeInTheDocument();
+  });
+
+  it('"Pay" link points to /phrasal-verbs/list/pay', () => {
+    renderPage();
+    expandCard('pay');
+    const link = within(screen.getByTestId('verb-card-pay')).getByRole('link', { name: /pay/i });
+    expect(link).toHaveAttribute('href', '/phrasal-verbs/list/pay');
+  });
+
+  it('shows pay particles text in subtitle after expand', () => {
+    renderPage();
+    expandCard('pay');
+    expect(within(screen.getByTestId('verb-card-pay')).getByText(/off, up/i)).toBeInTheDocument();
+  });
+
+  it('pay subtitle title attribute contains all particles', () => {
+    renderPage();
+    expandCard('pay');
+    const subtitle = within(screen.getByTestId('verb-card-pay')).getByText(/off, up/i);
+    expect(subtitle).toHaveAttribute('title', ALL_PAY_PARTICLES.join(', '));
+  });
+});
+
+describe('PhrasalVerbsListPage — pay copy button', () => {
+  let mockWriteText: ReturnType<typeof vi.fn>;
+
+  beforeEach(() => {
+    mockWriteText = vi.fn().mockResolvedValue(undefined);
+    Object.defineProperty(navigator, 'clipboard', {
+      value: { writeText: mockWriteText },
+      writable: true,
+      configurable: true,
+    });
+  });
+
+  it('renders a pay copy button when expanded', () => {
+    renderPage();
+    expandCard('pay');
+    expect(screen.getByRole('button', { name: /copy all "pay" phrasal verbs/i })).toBeInTheDocument();
+  });
+
+  it('pay copy button title is \'Copy all "pay" phrasal verbs\' before click', () => {
+    renderPage();
+    expandCard('pay');
+    expect(screen.getByRole('button', { name: /copy all "pay" phrasal verbs/i }))
+      .toHaveAttribute('title', 'Copy all "pay" phrasal verbs');
+  });
+
+  it('clipboard receives all 10 pay particles as "pay X" forms in order', () => {
+    renderPage();
+    expandCard('pay');
+    fireEvent.click(screen.getByRole('button', { name: /copy all "pay" phrasal verbs/i }));
+    const expected = ALL_PAY_PARTICLES.map(p => `pay ${p}`).join(', ');
+    expect(mockWriteText).toHaveBeenCalledWith(expected);
+  });
+
+  it('clipboard content contains every pay particle', () => {
+    renderPage();
+    expandCard('pay');
+    fireEvent.click(screen.getByRole('button', { name: /copy all "pay" phrasal verbs/i }));
+    const written = mockWriteText.mock.calls[0][0] as string;
+    for (const p of ALL_PAY_PARTICLES) {
+      expect(written).toContain(`pay ${p}`);
+    }
+  });
+
+  it('pay copy button shows "Copied!" title after click', async () => {
+    renderPage();
+    expandCard('pay');
+    fireEvent.click(screen.getByRole('button', { name: /copy all "pay" phrasal verbs/i }));
     await vi.waitFor(() => {
       expect(screen.getByRole('button', { name: /copied!/i }))
         .toHaveAttribute('title', 'Copied!');

@@ -1,9 +1,10 @@
 ---
 id: TASK-42
 title: Add "Pay" phrasal verb page with list card and tests
-status: To Do
+status: Done
 assignee: []
 created_date: '2026-06-09 16:59'
+updated_date: '2026-06-10 17:35'
 labels:
   - phrasal-verbs
   - content
@@ -91,12 +92,12 @@ Add the "Pay" phrasal verb entry following the same pattern as Call/Carry/Drop/E
 
 ## Acceptance Criteria
 <!-- AC:BEGIN -->
-- [ ] #1 #1 `src/pages/pay/PayVerbPage.tsx` created with 10 sections, all meanings, all using default.png
-- [ ] #2 #2 PAY_PARTICLES constant added to PhrasalVerbsListPage.tsx with all 10 particles
-- [ ] #3 #3 VERBS entry added for Pay after Pass in PhrasalVerbsListPage.tsx
-- [ ] #4 #4 Route `/phrasal-verbs/list/pay` registered in src/main.tsx
-- [ ] #5 #5 paySections added to listVerbIndex.ts search index
-- [ ] #6 #6 10 test files created under src/__tests__/pay_verb_page/ (one per particle)
-- [ ] #7 #7 PhrasalVerbsListPage.test.tsx extended with Pay card, subtitle, and copy-button describe blocks
-- [ ] #8 #8 `npm run test:run` passes with all tests green
+- [x] #1 #1 `src/pages/pay/PayVerbPage.tsx` created with 10 sections, all meanings, all using default.png
+- [x] #2 #2 PAY_PARTICLES constant added to PhrasalVerbsListPage.tsx with all 10 particles
+- [x] #3 #3 VERBS entry added for Pay after Pass in PhrasalVerbsListPage.tsx
+- [x] #4 #4 Route `/phrasal-verbs/list/pay` registered in src/main.tsx
+- [x] #5 #5 paySections added to listVerbIndex.ts search index
+- [x] #6 #6 10 test files created under src/__tests__/pay_verb_page/ (one per particle)
+- [x] #7 #7 PhrasalVerbsListPage.test.tsx extended with Pay card, subtitle, and copy-button describe blocks
+- [x] #8 #8 `npm run test:run` passes with all tests green
 <!-- AC:END -->

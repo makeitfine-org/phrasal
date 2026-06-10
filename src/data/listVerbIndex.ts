@@ -44,6 +44,7 @@ import { sections as letSections } from '../pages/let/LetVerbPage';
 import { sections as logSections } from '../pages/log/LogVerbPage';
 import { sections as mixSections } from '../pages/mix/MixVerbPage';
 import { sections as passSections } from '../pages/pass/PassVerbPage';
+import { sections as paySections } from '../pages/pay/PayVerbPage';
 
 export interface ListSearchEntry {
   verb: string;
@@ -115,4 +116,5 @@ export const listVerbIndex: ListSearchEntry[] = [
   ...buildEntries(logSections, 'Log', '/phrasal-verbs/list/log'),
   ...buildEntries(mixSections, 'Mix', '/phrasal-verbs/list/mix'),
   ...buildEntries(passSections, 'Pass', '/phrasal-verbs/list/pass'),
+  ...buildEntries(paySections, 'Pay', '/phrasal-verbs/list/pay'),
 ];
