@@ -152,6 +152,8 @@ const HAND_PARTICLES = ['back', 'down', 'in', 'off', 'on', 'out', 'over', 'aroun
 
 const HANG_PARTICLES = ['about / around / round', 'back', 'behind', 'down', 'in', 'off', 'on', 'out', 'over', 'together', 'up', 'with'];
 
+const HOLD_PARTICLES = ['against', 'back', 'down', 'in', 'off', 'on', 'out', 'over', 'to', 'together', 'up', 'with'];
+
 const VERBS = [
   { key: 'get',  label: 'Get',  to: '/phrasal-verbs/list/get',  particles: GET_PARTICLES },
   { key: 'make', label: 'Make', to: '/phrasal-verbs/list/make', particles: MAKE_PARTICLES },
@@ -189,6 +191,7 @@ const VERBS = [
   { key: 'grow',   label: 'Grow',   to: '/phrasal-verbs/list/grow',   particles: GROW_PARTICLES },
   { key: 'hand',   label: 'Hand',   to: '/phrasal-verbs/list/hand',   particles: HAND_PARTICLES },
   { key: 'hang',   label: 'Hang',   to: '/phrasal-verbs/list/hang',   particles: HANG_PARTICLES },
+  { key: 'hold',   label: 'Hold',   to: '/phrasal-verbs/list/hold',   particles: HOLD_PARTICLES },
 ];
 
 const EXPANDED_KEY = 'verbListExpanded';

@@ -42,6 +42,7 @@ import FindVerbPage from './pages/find/FindVerbPage';
 import GrowVerbPage from './pages/grow/GrowVerbPage';
 import HandVerbPage from './pages/hand/HandVerbPage';
 import HangVerbPage from './pages/hang/HangVerbPage';
+import HoldVerbPage from './pages/hold/HoldVerbPage';
 import ParticlesPage from './pages/particles/ParticlesPage';
 import IWishPage from './pages/IWishPage';
 import NotFoundPage from './pages/NotFoundPage';
@@ -96,6 +97,7 @@ ReactDOM.createRoot(document.getElementById('root')!).render(
             <Route path="/phrasal-verbs/list/grow" element={<GrowVerbPage />} />
             <Route path="/phrasal-verbs/list/hand" element={<HandVerbPage />} />
             <Route path="/phrasal-verbs/list/hang" element={<HangVerbPage />} />
+            <Route path="/phrasal-verbs/list/hold" element={<HoldVerbPage />} />
             <Route path="/grammar" element={<GrammarPage />} />
             <Route path="/grammar/i-wish-if-only" element={<IWishPage />} />
             <Route path="*" element={<NotFoundPage />} />

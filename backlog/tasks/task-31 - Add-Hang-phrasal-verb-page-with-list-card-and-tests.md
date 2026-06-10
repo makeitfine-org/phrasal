@@ -1,9 +1,10 @@
 ---
 id: TASK-31
 title: Add "Hang" phrasal verb page with list card and tests
-status: To Do
+status: Done
 assignee: []
 created_date: '2026-06-09 15:58'
+updated_date: '2026-06-10 07:51'
 labels:
   - phrasal-verbs
   - content
@@ -104,12 +105,18 @@ Add the "Hang" phrasal verb entry following the same pattern as Call/Carry pages
 
 ## Acceptance Criteria
 <!-- AC:BEGIN -->
-- [ ] #1 #1 `src/pages/hang/HangVerbPage.tsx` created with 12 sections, all meanings, all using default.png
-- [ ] #2 #2 HANG_PARTICLES constant added to PhrasalVerbsListPage.tsx with all 12 particles
-- [ ] #3 #3 VERBS entry added for Hang in alphabetical position in PhrasalVerbsListPage.tsx
-- [ ] #4 #4 Route `/phrasal-verbs/list/hang` registered in src/main.tsx
-- [ ] #5 #5 hangSections added to listVerbIndex.ts search index
-- [ ] #6 #6 12 test files created under src/__tests__/hang_verb_page/ (one per particle)
-- [ ] #7 #7 PhrasalVerbsListPage.test.tsx extended with Hang card, subtitle, and copy-button describe blocks
-- [ ] #8 #8 `npm run test:run` passes with all tests green
+- [x] #1 #1 `src/pages/hang/HangVerbPage.tsx` created with 12 sections, all meanings, all using default.png
+- [x] #2 #2 HANG_PARTICLES constant added to PhrasalVerbsListPage.tsx with all 12 particles
+- [x] #3 #3 VERBS entry added for Hang in alphabetical position in PhrasalVerbsListPage.tsx
+- [x] #4 #4 Route `/phrasal-verbs/list/hang` registered in src/main.tsx
+- [x] #5 #5 hangSections added to listVerbIndex.ts search index
+- [x] #6 #6 12 test files created under src/__tests__/hang_verb_page/ (one per particle)
+- [x] #7 #7 PhrasalVerbsListPage.test.tsx extended with Hang card, subtitle, and copy-button describe blocks
+- [x] #8 #8 `npm run test:run` passes with all tests green
 <!-- AC:END -->
+
+## Final Summary
+
+<!-- SECTION:FINAL_SUMMARY:BEGIN -->
+Added Hang phrasal verb page with 12 sections (24 meanings total). Created HangVerbPage.tsx, 13 test files (helpers + 12 particle tests), extended PhrasalVerbsListPage.tsx, main.tsx, listVerbIndex.ts, and PhrasalVerbsListPage.test.tsx. All 11,623 tests pass (492 files). Committed as `feat: add Hang phrasal verb page with list card and tests` (4764ada, 18 files, 815 insertions).
+<!-- SECTION:FINAL_SUMMARY:END -->
