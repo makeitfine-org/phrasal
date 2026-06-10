@@ -1,9 +1,10 @@
 ---
 id: TASK-38
 title: Add "Log" phrasal verb page with list card and tests
-status: To Do
+status: Done
 assignee: []
 created_date: '2026-06-09 16:57'
+updated_date: '2026-06-10 15:13'
 labels:
   - phrasal-verbs
   - content

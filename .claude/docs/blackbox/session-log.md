@@ -1209,3 +1209,8 @@
 - backlog/tasks/task-36 - Add-Leave-phrasal-verb-page-with-list-card-and-tests.md
 - backlog/tasks/task-37 - Add-Let-phrasal-verb-page-with-list-card-and-tests.md
 <!-- end-snapshot -->
+
+<!-- git-snapshot 2026-06-10T15:13:56Z -->
+- .claude/settings.local.json
+- backlog/tasks/task-38 - Add-Log-phrasal-verb-page-with-list-card-and-tests.md
+<!-- end-snapshot -->
