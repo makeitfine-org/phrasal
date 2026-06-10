@@ -185,6 +185,12 @@ const POINT_PARTICLES = [
   'ahead / forward', 'back', 'off', 'out', 'to', 'up',
 ];
 
+const PULL_PARTICLES = [
+  'about', 'ahead', 'against', 'apart', 'around / round', 'away', 'back',
+  'down', 'for', 'forward', 'in', 'into', 'off', 'on', 'out', 'over',
+  'through', 'to', 'together', 'up',
+];
+
 const VERBS = [
   { key: 'get',  label: 'Get',  to: '/phrasal-verbs/list/get',  particles: GET_PARTICLES },
   { key: 'make', label: 'Make', to: '/phrasal-verbs/list/make', particles: MAKE_PARTICLES },
@@ -234,6 +240,7 @@ const VERBS = [
   { key: 'pay',  label: 'Pay',  to: '/phrasal-verbs/list/pay',  particles: PAY_PARTICLES },
   { key: 'pick',  label: 'Pick',  to: '/phrasal-verbs/list/pick',  particles: PICK_PARTICLES },
   { key: 'point', label: 'Point', to: '/phrasal-verbs/list/point', particles: POINT_PARTICLES },
+  { key: 'pull',  label: 'Pull',  to: '/phrasal-verbs/list/pull',  particles: PULL_PARTICLES },
 ];
 
 const EXPANDED_KEY = 'verbListExpanded';

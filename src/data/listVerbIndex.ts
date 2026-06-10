@@ -47,6 +47,7 @@ import { sections as passSections } from '../pages/pass/PassVerbPage';
 import { sections as paySections } from '../pages/pay/PayVerbPage';
 import { sections as pickSections } from '../pages/pick/PickVerbPage';
 import { sections as pointSections } from '../pages/point/PointVerbPage';
+import { sections as pullSections } from '../pages/pull/PullVerbPage';
 
 export interface ListSearchEntry {
   verb: string;
@@ -121,4 +122,5 @@ export const listVerbIndex: ListSearchEntry[] = [
   ...buildEntries(paySections, 'Pay', '/phrasal-verbs/list/pay'),
   ...buildEntries(pickSections, 'Pick', '/phrasal-verbs/list/pick'),
   ...buildEntries(pointSections, 'Point', '/phrasal-verbs/list/point'),
+  ...buildEntries(pullSections, 'Pull', '/phrasal-verbs/list/pull'),
 ];
