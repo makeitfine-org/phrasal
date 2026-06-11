@@ -83,6 +83,7 @@ function renderPageWithRoutes() {
         <Route path="/phrasal-verbs/list/stick" element={<LocationSpy />} />
         <Route path="/phrasal-verbs/list/talk" element={<LocationSpy />} />
         <Route path="/phrasal-verbs/list/think" element={<LocationSpy />} />
+        <Route path="/phrasal-verbs/list/throw" element={<LocationSpy />} />
         <Route path="/phrasal-verbs/particles" element={<LocationSpy />} />
       </Routes>
     </MemoryRouter>
@@ -2450,6 +2451,10 @@ const ALL_TALK_PARTICLES = [
 
 const ALL_THINK_PARTICLES = [
   'about', 'ahead', 'around / round', 'back', 'for', 'on', 'out', 'over', 'through', 'to', 'up',
+];
+
+const ALL_THROW_PARTICLES = [
+  'about / around / round', 'away', 'back', 'down', 'in', 'into', 'off', 'on', 'out', 'over', 'together', 'up',
 ];
 
 describe('PhrasalVerbsListPage — Cheer card', () => {
@@ -5655,6 +5660,88 @@ describe('PhrasalVerbsListPage — think copy button', () => {
     renderPage();
     expandCard('think');
     fireEvent.click(screen.getByRole('button', { name: /copy all "think" phrasal verbs/i }));
+    await vi.waitFor(() => {
+      expect(screen.getByRole('button', { name: /copied!/i }))
+        .toHaveAttribute('title', 'Copied!');
+    });
+  });
+});
+
+describe('PhrasalVerbsListPage — Throw card', () => {
+  it('renders the "Throw" card', () => {
+    renderPage();
+    expect(screen.getByTestId('verb-card-throw')).toBeInTheDocument();
+  });
+
+  it('renders "Throw" heading', () => {
+    renderPage();
+    expect(within(screen.getByTestId('verb-card-throw')).getByText('Throw')).toBeInTheDocument();
+  });
+
+  it('"Throw" link points to /phrasal-verbs/list/throw', () => {
+    renderPage();
+    expandCard('throw');
+    const link = within(screen.getByTestId('verb-card-throw')).getByRole('link', { name: /throw/i });
+    expect(link).toHaveAttribute('href', '/phrasal-verbs/list/throw');
+  });
+
+  it('shows throw particles text in subtitle after expand', () => {
+    renderPage();
+    expandCard('throw');
+    expect(within(screen.getByTestId('verb-card-throw')).getByText(/about \/ around \/ round, away/i)).toBeInTheDocument();
+  });
+
+  it('throw subtitle title attribute contains all particles', () => {
+    renderPage();
+    expandCard('throw');
+    const subtitle = within(screen.getByTestId('verb-card-throw')).getByText(/about \/ around \/ round, away/i);
+    expect(subtitle).toHaveAttribute('title', ALL_THROW_PARTICLES.join(', '));
+  });
+});
+
+describe('PhrasalVerbsListPage — throw copy button', () => {
+  beforeEach(() => {
+    Object.defineProperty(navigator, 'clipboard', {
+      value: { writeText: vi.fn().mockResolvedValue(undefined) },
+      writable: true,
+    });
+  });
+
+  it('renders a throw copy button when expanded', () => {
+    renderPage();
+    expandCard('throw');
+    expect(screen.getByRole('button', { name: /copy all "throw" phrasal verbs/i })).toBeInTheDocument();
+  });
+
+  it('throw copy button title is \'Copy all "throw" phrasal verbs\' before click', () => {
+    renderPage();
+    expandCard('throw');
+    expect(screen.getByRole('button', { name: /copy all "throw" phrasal verbs/i }))
+      .toHaveAttribute('title', 'Copy all "throw" phrasal verbs');
+  });
+
+  it('clipboard receives all 12 throw particles as "throw X" forms in order', () => {
+    renderPage();
+    expandCard('throw');
+    fireEvent.click(screen.getByRole('button', { name: /copy all "throw" phrasal verbs/i }));
+    const expected = ALL_THROW_PARTICLES.map(p => `throw ${p}`).join(', ');
+    expect(navigator.clipboard.writeText).toHaveBeenCalledWith(expected);
+  });
+
+  it('clipboard content contains every throw particle', () => {
+    renderPage();
+    expandCard('throw');
+    fireEvent.click(screen.getByRole('button', { name: /copy all "throw" phrasal verbs/i }));
+    const written = (navigator.clipboard.writeText as ReturnType<typeof vi.fn>).mock.calls[0][0];
+    for (const p of ALL_THROW_PARTICLES) {
+      expect(written).toContain(`throw ${p}`);
+    }
+  });
+
+  it('throw copy button shows "Copied!" title after click', async () => {
+    renderPage();
+    expandCard('throw');
+    fireEvent.click(screen.getByRole('button', { name: /copy all "throw" phrasal verbs/i }));
     await vi.waitFor(() => {
       expect(screen.getByRole('button', { name: /copied!/i }))
         .toHaveAttribute('title', 'Copied!');

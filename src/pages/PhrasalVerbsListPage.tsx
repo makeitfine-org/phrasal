@@ -235,6 +235,10 @@ const THINK_PARTICLES = [
   'about', 'ahead', 'around / round', 'back', 'for', 'on', 'out', 'over', 'through', 'to', 'up',
 ];
 
+const THROW_PARTICLES = [
+  'about / around / round', 'away', 'back', 'down', 'in', 'into', 'off', 'on', 'out', 'over', 'together', 'up',
+];
+
 const VERBS = [
   { key: 'get',  label: 'Get',  to: '/phrasal-verbs/list/get',  particles: GET_PARTICLES },
   { key: 'make', label: 'Make', to: '/phrasal-verbs/list/make', particles: MAKE_PARTICLES },
@@ -295,6 +299,7 @@ const VERBS = [
   { key: 'stick', label: 'Stick', to: '/phrasal-verbs/list/stick', particles: STICK_PARTICLES },
   { key: 'talk',  label: 'Talk',  to: '/phrasal-verbs/list/talk',  particles: TALK_PARTICLES },
   { key: 'think', label: 'Think', to: '/phrasal-verbs/list/think', particles: THINK_PARTICLES },
+  { key: 'throw', label: 'Throw', to: '/phrasal-verbs/list/throw', particles: THROW_PARTICLES },
 ];
 
 const EXPANDED_KEY = 'verbListExpanded';
