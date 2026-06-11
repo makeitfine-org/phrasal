@@ -80,6 +80,7 @@ function renderPageWithRoutes() {
         <Route path="/phrasal-verbs/list/shut" element={<LocationSpy />} />
         <Route path="/phrasal-verbs/list/sit" element={<LocationSpy />} />
         <Route path="/phrasal-verbs/list/stand" element={<LocationSpy />} />
+        <Route path="/phrasal-verbs/list/stick" element={<LocationSpy />} />
         <Route path="/phrasal-verbs/particles" element={<LocationSpy />} />
       </Routes>
     </MemoryRouter>
@@ -2434,6 +2435,10 @@ const ALL_SIT_PARTICLES = [
 const ALL_STAND_PARTICLES = [
   'about / around', 'against', 'apart', 'away', 'back', 'behind', 'by', 'down', 'for', 'in', 'into',
   'off', 'on', 'out', 'over', 'to', 'together', 'up', 'with',
+];
+
+const ALL_STICK_PARTICLES = [
+  'about / around', 'away', 'by', 'down', 'for', 'in', 'out', 'to', 'together', 'up', 'with',
 ];
 
 describe('PhrasalVerbsListPage — Cheer card', () => {
@@ -5393,6 +5398,88 @@ describe('PhrasalVerbsListPage — stand copy button', () => {
     renderPage();
     expandCard('stand');
     fireEvent.click(screen.getByRole('button', { name: /copy all "stand" phrasal verbs/i }));
+    await vi.waitFor(() => {
+      expect(screen.getByRole('button', { name: /copied!/i }))
+        .toHaveAttribute('title', 'Copied!');
+    });
+  });
+});
+
+describe('PhrasalVerbsListPage — Stick card', () => {
+  it('renders the "Stick" card', () => {
+    renderPage();
+    expect(screen.getByTestId('verb-card-stick')).toBeInTheDocument();
+  });
+
+  it('renders "Stick" heading', () => {
+    renderPage();
+    expect(within(screen.getByTestId('verb-card-stick')).getByText('Stick')).toBeInTheDocument();
+  });
+
+  it('"Stick" link points to /phrasal-verbs/list/stick', () => {
+    renderPage();
+    expandCard('stick');
+    const link = within(screen.getByTestId('verb-card-stick')).getByRole('link', { name: /stick/i });
+    expect(link).toHaveAttribute('href', '/phrasal-verbs/list/stick');
+  });
+
+  it('shows stick particles text in subtitle after expand', () => {
+    renderPage();
+    expandCard('stick');
+    expect(within(screen.getByTestId('verb-card-stick')).getByText(/about \/ around, away/i)).toBeInTheDocument();
+  });
+
+  it('stick subtitle title attribute contains all particles', () => {
+    renderPage();
+    expandCard('stick');
+    const subtitle = within(screen.getByTestId('verb-card-stick')).getByText(/about \/ around, away/i);
+    expect(subtitle).toHaveAttribute('title', ALL_STICK_PARTICLES.join(', '));
+  });
+});
+
+describe('PhrasalVerbsListPage — stick copy button', () => {
+  beforeEach(() => {
+    Object.defineProperty(navigator, 'clipboard', {
+      value: { writeText: vi.fn().mockResolvedValue(undefined) },
+      writable: true,
+    });
+  });
+
+  it('renders a stick copy button when expanded', () => {
+    renderPage();
+    expandCard('stick');
+    expect(screen.getByRole('button', { name: /copy all "stick" phrasal verbs/i })).toBeInTheDocument();
+  });
+
+  it('stick copy button title is \'Copy all "stick" phrasal verbs\' before click', () => {
+    renderPage();
+    expandCard('stick');
+    expect(screen.getByRole('button', { name: /copy all "stick" phrasal verbs/i }))
+      .toHaveAttribute('title', 'Copy all "stick" phrasal verbs');
+  });
+
+  it('clipboard receives all 11 stick particles as "stick X" forms in order', () => {
+    renderPage();
+    expandCard('stick');
+    fireEvent.click(screen.getByRole('button', { name: /copy all "stick" phrasal verbs/i }));
+    const expected = ALL_STICK_PARTICLES.map(p => `stick ${p}`).join(', ');
+    expect(navigator.clipboard.writeText).toHaveBeenCalledWith(expected);
+  });
+
+  it('clipboard content contains every stick particle', () => {
+    renderPage();
+    expandCard('stick');
+    fireEvent.click(screen.getByRole('button', { name: /copy all "stick" phrasal verbs/i }));
+    const written = (navigator.clipboard.writeText as ReturnType<typeof vi.fn>).mock.calls[0][0];
+    for (const p of ALL_STICK_PARTICLES) {
+      expect(written).toContain(`stick ${p}`);
+    }
+  });
+
+  it('stick copy button shows "Copied!" title after click', async () => {
+    renderPage();
+    expandCard('stick');
+    fireEvent.click(screen.getByRole('button', { name: /copy all "stick" phrasal verbs/i }));
     await vi.waitFor(() => {
       expect(screen.getByRole('button', { name: /copied!/i }))
         .toHaveAttribute('title', 'Copied!');
