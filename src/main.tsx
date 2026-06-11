@@ -64,6 +64,7 @@ import SitVerbPage from './pages/sit/SitVerbPage';
 import StandVerbPage from './pages/stand/StandVerbPage';
 import StickVerbPage from './pages/stick/StickVerbPage';
 import TalkVerbPage from './pages/talk/TalkVerbPage';
+import ThinkVerbPage from './pages/think/ThinkVerbPage';
 import ParticlesPage from './pages/particles/ParticlesPage';
 import IWishPage from './pages/IWishPage';
 import NotFoundPage from './pages/NotFoundPage';
@@ -140,6 +141,7 @@ ReactDOM.createRoot(document.getElementById('root')!).render(
             <Route path="/phrasal-verbs/list/stand" element={<StandVerbPage />} />
             <Route path="/phrasal-verbs/list/stick" element={<StickVerbPage />} />
             <Route path="/phrasal-verbs/list/talk" element={<TalkVerbPage />} />
+            <Route path="/phrasal-verbs/list/think" element={<ThinkVerbPage />} />
             <Route path="/grammar" element={<GrammarPage />} />
             <Route path="/grammar/i-wish-if-only" element={<IWishPage />} />
             <Route path="*" element={<NotFoundPage />} />

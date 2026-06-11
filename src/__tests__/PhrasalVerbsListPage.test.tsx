@@ -82,6 +82,7 @@ function renderPageWithRoutes() {
         <Route path="/phrasal-verbs/list/stand" element={<LocationSpy />} />
         <Route path="/phrasal-verbs/list/stick" element={<LocationSpy />} />
         <Route path="/phrasal-verbs/list/talk" element={<LocationSpy />} />
+        <Route path="/phrasal-verbs/list/think" element={<LocationSpy />} />
         <Route path="/phrasal-verbs/particles" element={<LocationSpy />} />
       </Routes>
     </MemoryRouter>
@@ -2445,6 +2446,10 @@ const ALL_STICK_PARTICLES = [
 const ALL_TALK_PARTICLES = [
   'about', 'across', 'against', 'around / round', 'away', 'back', 'down', 'for', 'into', 'on',
   'out', 'over', 'through', 'to', 'together', 'up', 'with',
+];
+
+const ALL_THINK_PARTICLES = [
+  'about', 'ahead', 'around / round', 'back', 'for', 'on', 'out', 'over', 'through', 'to', 'up',
 ];
 
 describe('PhrasalVerbsListPage — Cheer card', () => {
@@ -5568,6 +5573,88 @@ describe('PhrasalVerbsListPage — talk copy button', () => {
     renderPage();
     expandCard('talk');
     fireEvent.click(screen.getByRole('button', { name: /copy all "talk" phrasal verbs/i }));
+    await vi.waitFor(() => {
+      expect(screen.getByRole('button', { name: /copied!/i }))
+        .toHaveAttribute('title', 'Copied!');
+    });
+  });
+});
+
+describe('PhrasalVerbsListPage — Think card', () => {
+  it('renders the "Think" card', () => {
+    renderPage();
+    expect(screen.getByTestId('verb-card-think')).toBeInTheDocument();
+  });
+
+  it('renders "Think" heading', () => {
+    renderPage();
+    expect(within(screen.getByTestId('verb-card-think')).getByText('Think')).toBeInTheDocument();
+  });
+
+  it('"Think" link points to /phrasal-verbs/list/think', () => {
+    renderPage();
+    expandCard('think');
+    const link = within(screen.getByTestId('verb-card-think')).getByRole('link', { name: /think/i });
+    expect(link).toHaveAttribute('href', '/phrasal-verbs/list/think');
+  });
+
+  it('shows think particles text in subtitle after expand', () => {
+    renderPage();
+    expandCard('think');
+    expect(within(screen.getByTestId('verb-card-think')).getByText(/about, ahead, around/i)).toBeInTheDocument();
+  });
+
+  it('think subtitle title attribute contains all particles', () => {
+    renderPage();
+    expandCard('think');
+    const subtitle = within(screen.getByTestId('verb-card-think')).getByText(/about, ahead, around/i);
+    expect(subtitle).toHaveAttribute('title', ALL_THINK_PARTICLES.join(', '));
+  });
+});
+
+describe('PhrasalVerbsListPage — think copy button', () => {
+  beforeEach(() => {
+    Object.defineProperty(navigator, 'clipboard', {
+      value: { writeText: vi.fn().mockResolvedValue(undefined) },
+      writable: true,
+    });
+  });
+
+  it('renders a think copy button when expanded', () => {
+    renderPage();
+    expandCard('think');
+    expect(screen.getByRole('button', { name: /copy all "think" phrasal verbs/i })).toBeInTheDocument();
+  });
+
+  it('think copy button title is \'Copy all "think" phrasal verbs\' before click', () => {
+    renderPage();
+    expandCard('think');
+    expect(screen.getByRole('button', { name: /copy all "think" phrasal verbs/i }))
+      .toHaveAttribute('title', 'Copy all "think" phrasal verbs');
+  });
+
+  it('clipboard receives all 11 think particles as "think X" forms in order', () => {
+    renderPage();
+    expandCard('think');
+    fireEvent.click(screen.getByRole('button', { name: /copy all "think" phrasal verbs/i }));
+    const expected = ALL_THINK_PARTICLES.map(p => `think ${p}`).join(', ');
+    expect(navigator.clipboard.writeText).toHaveBeenCalledWith(expected);
+  });
+
+  it('clipboard content contains every think particle', () => {
+    renderPage();
+    expandCard('think');
+    fireEvent.click(screen.getByRole('button', { name: /copy all "think" phrasal verbs/i }));
+    const written = (navigator.clipboard.writeText as ReturnType<typeof vi.fn>).mock.calls[0][0];
+    for (const p of ALL_THINK_PARTICLES) {
+      expect(written).toContain(`think ${p}`);
+    }
+  });
+
+  it('think copy button shows "Copied!" title after click', async () => {
+    renderPage();
+    expandCard('think');
+    fireEvent.click(screen.getByRole('button', { name: /copy all "think" phrasal verbs/i }));
     await vi.waitFor(() => {
       expect(screen.getByRole('button', { name: /copied!/i }))
         .toHaveAttribute('title', 'Copied!');
