@@ -79,6 +79,7 @@ function renderPageWithRoutes() {
         <Route path="/phrasal-verbs/list/show" element={<LocationSpy />} />
         <Route path="/phrasal-verbs/list/shut" element={<LocationSpy />} />
         <Route path="/phrasal-verbs/list/sit" element={<LocationSpy />} />
+        <Route path="/phrasal-verbs/list/stand" element={<LocationSpy />} />
         <Route path="/phrasal-verbs/particles" element={<LocationSpy />} />
       </Routes>
     </MemoryRouter>
@@ -2428,6 +2429,11 @@ const ALL_SHUT_PARTICLES = [
 
 const ALL_SIT_PARTICLES = [
   'about / around / round', 'back', 'by', 'down', 'for', 'in', 'on', 'out', 'over', 'through', 'up', 'with',
+];
+
+const ALL_STAND_PARTICLES = [
+  'about / around', 'against', 'apart', 'away', 'back', 'behind', 'by', 'down', 'for', 'in', 'into',
+  'off', 'on', 'out', 'over', 'to', 'together', 'up', 'with',
 ];
 
 describe('PhrasalVerbsListPage — Cheer card', () => {
@@ -5305,6 +5311,88 @@ describe('PhrasalVerbsListPage — sit copy button', () => {
     renderPage();
     expandCard('sit');
     fireEvent.click(screen.getByRole('button', { name: /copy all "sit" phrasal verbs/i }));
+    await vi.waitFor(() => {
+      expect(screen.getByRole('button', { name: /copied!/i }))
+        .toHaveAttribute('title', 'Copied!');
+    });
+  });
+});
+
+describe('PhrasalVerbsListPage — Stand card', () => {
+  it('renders the "Stand" card', () => {
+    renderPage();
+    expect(screen.getByTestId('verb-card-stand')).toBeInTheDocument();
+  });
+
+  it('renders "Stand" heading', () => {
+    renderPage();
+    expect(within(screen.getByTestId('verb-card-stand')).getByText('Stand')).toBeInTheDocument();
+  });
+
+  it('"Stand" link points to /phrasal-verbs/list/stand', () => {
+    renderPage();
+    expandCard('stand');
+    const link = within(screen.getByTestId('verb-card-stand')).getByRole('link', { name: /stand/i });
+    expect(link).toHaveAttribute('href', '/phrasal-verbs/list/stand');
+  });
+
+  it('shows stand particles text in subtitle after expand', () => {
+    renderPage();
+    expandCard('stand');
+    expect(within(screen.getByTestId('verb-card-stand')).getByText(/about \/ around, against/i)).toBeInTheDocument();
+  });
+
+  it('stand subtitle title attribute contains all particles', () => {
+    renderPage();
+    expandCard('stand');
+    const subtitle = within(screen.getByTestId('verb-card-stand')).getByText(/about \/ around, against/i);
+    expect(subtitle).toHaveAttribute('title', ALL_STAND_PARTICLES.join(', '));
+  });
+});
+
+describe('PhrasalVerbsListPage — stand copy button', () => {
+  beforeEach(() => {
+    Object.defineProperty(navigator, 'clipboard', {
+      value: { writeText: vi.fn().mockResolvedValue(undefined) },
+      writable: true,
+    });
+  });
+
+  it('renders a stand copy button when expanded', () => {
+    renderPage();
+    expandCard('stand');
+    expect(screen.getByRole('button', { name: /copy all "stand" phrasal verbs/i })).toBeInTheDocument();
+  });
+
+  it('stand copy button title is \'Copy all "stand" phrasal verbs\' before click', () => {
+    renderPage();
+    expandCard('stand');
+    expect(screen.getByRole('button', { name: /copy all "stand" phrasal verbs/i }))
+      .toHaveAttribute('title', 'Copy all "stand" phrasal verbs');
+  });
+
+  it('clipboard receives all 19 stand particles as "stand X" forms in order', () => {
+    renderPage();
+    expandCard('stand');
+    fireEvent.click(screen.getByRole('button', { name: /copy all "stand" phrasal verbs/i }));
+    const expected = ALL_STAND_PARTICLES.map(p => `stand ${p}`).join(', ');
+    expect(navigator.clipboard.writeText).toHaveBeenCalledWith(expected);
+  });
+
+  it('clipboard content contains every stand particle', () => {
+    renderPage();
+    expandCard('stand');
+    fireEvent.click(screen.getByRole('button', { name: /copy all "stand" phrasal verbs/i }));
+    const written = (navigator.clipboard.writeText as ReturnType<typeof vi.fn>).mock.calls[0][0];
+    for (const p of ALL_STAND_PARTICLES) {
+      expect(written).toContain(`stand ${p}`);
+    }
+  });
+
+  it('stand copy button shows "Copied!" title after click', async () => {
+    renderPage();
+    expandCard('stand');
+    fireEvent.click(screen.getByRole('button', { name: /copy all "stand" phrasal verbs/i }));
     await vi.waitFor(() => {
       expect(screen.getByRole('button', { name: /copied!/i }))
         .toHaveAttribute('title', 'Copied!');

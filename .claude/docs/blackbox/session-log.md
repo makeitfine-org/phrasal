@@ -1300,3 +1300,7 @@
 - .claude/settings.local.json
 - backlog/tasks/task-51 - Add-Sit-phrasal-verb-page-with-list-card-and-tests.md
 <!-- end-snapshot -->
+
+<!-- git-snapshot 2026-06-11T14:09:08Z -->
+- backlog/tasks/task-52 - Add-Stand-phrasal-verb-page-with-list-card-and-tests.md
+<!-- end-snapshot -->
