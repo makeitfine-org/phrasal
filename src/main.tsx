@@ -68,6 +68,7 @@ import ThinkVerbPage from './pages/think/ThinkVerbPage';
 import ThrowVerbPage from './pages/throw/ThrowVerbPage';
 import LookVerbPage from './pages/look/LookVerbPage';
 import TryVerbPage from './pages/try/TryVerbPage';
+import TurnVerbPage from './pages/turn/TurnVerbPage';
 import ParticlesPage from './pages/particles/ParticlesPage';
 import IWishPage from './pages/IWishPage';
 import NotFoundPage from './pages/NotFoundPage';
@@ -148,6 +149,7 @@ ReactDOM.createRoot(document.getElementById('root')!).render(
             <Route path="/phrasal-verbs/list/throw" element={<ThrowVerbPage />} />
             <Route path="/phrasal-verbs/list/look" element={<LookVerbPage />} />
             <Route path="/phrasal-verbs/list/try" element={<TryVerbPage />} />
+            <Route path="/phrasal-verbs/list/turn" element={<TurnVerbPage />} />
             <Route path="/grammar" element={<GrammarPage />} />
             <Route path="/grammar/i-wish-if-only" element={<IWishPage />} />
             <Route path="*" element={<NotFoundPage />} />

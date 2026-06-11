@@ -1316,3 +1316,75 @@
 - backlog/tasks/task-53 - Add-Stick-phrasal-verb-page-with-list-card-and-tests.md
 - backlog/tasks/task-54 - Add-Talk-phrasal-verb-page-with-list-card-and-tests.md
 <!-- end-snapshot -->
+
+<!-- git-snapshot 2026-06-11T17:32:44Z -->
+- .claude/docs/blackbox/audit.md
+- backlog/tasks/task-55 - Add-Think-phrasal-verb-page-with-list-card-and-tests.md
+<!-- end-snapshot -->
+
+<!-- git-snapshot 2026-06-11T17:45:13Z -->
+- .claude/docs/blackbox/audit.md
+- .claude/docs/blackbox/session-log.md
+- backlog/tasks/task-55 - Add-Think-phrasal-verb-page-with-list-card-and-tests.md
+- backlog/tasks/task-56 - Add-Throw-phrasal-verb-page-with-list-card-and-tests.md
+<!-- end-snapshot -->
+
+<!-- git-snapshot 2026-06-11T19:28:10Z -->
+- .claude/docs/blackbox/audit.md
+- .claude/docs/blackbox/session-log.md
+- backlog/tasks/task-55 - Add-Think-phrasal-verb-page-with-list-card-and-tests.md
+- backlog/tasks/task-56 - Add-Throw-phrasal-verb-page-with-list-card-and-tests.md
+<!-- end-snapshot -->
+
+<!-- git-snapshot 2026-06-11T19:39:10Z -->
+- .claude/docs/blackbox/audit.md
+- .claude/docs/blackbox/session-log.md
+- backlog/tasks/task-55 - Add-Think-phrasal-verb-page-with-list-card-and-tests.md
+- backlog/tasks/task-56 - Add-Throw-phrasal-verb-page-with-list-card-and-tests.md
+- backlog/tasks/task-57 - Add-Try-phrasal-verb-page-with-list-card-and-tests.md
+<!-- end-snapshot -->
+
+<!-- git-snapshot 2026-06-11T19:42:15Z -->
+- .claude/docs/blackbox/audit.md
+- .claude/docs/blackbox/session-log.md
+- backlog/tasks/task-29 - Add-Grow-phrasal-verb-page-with-list-card-and-tests.md
+- backlog/tasks/task-30 - Add-Hand-phrasal-verb-page-with-list-card-and-tests.md
+- backlog/tasks/task-31 - Add-Hang-phrasal-verb-page-with-list-card-and-tests.md
+- backlog/tasks/task-32 - Add-Hold-phrasal-verb-page-with-list-card-and-tests.md
+- backlog/tasks/task-33 - Add-Keep-phrasal-verb-page-with-list-card-and-tests.md
+- backlog/tasks/task-34 - Add-Knock-phrasal-verb-page-with-list-card-and-tests.md
+- backlog/tasks/task-55 - Add-Think-phrasal-verb-page-with-list-card-and-tests.md
+- backlog/tasks/task-56 - Add-Throw-phrasal-verb-page-with-list-card-and-tests.md
+- backlog/tasks/task-57 - Add-Try-phrasal-verb-page-with-list-card-and-tests.md
+<!-- end-snapshot -->
+
+<!-- git-snapshot 2026-06-11T20:02:12Z -->
+- .claude/docs/blackbox/audit.md
+- .claude/docs/blackbox/session-log.md
+- backlog/tasks/task-29 - Add-Grow-phrasal-verb-page-with-list-card-and-tests.md
+- backlog/tasks/task-30 - Add-Hand-phrasal-verb-page-with-list-card-and-tests.md
+- backlog/tasks/task-31 - Add-Hang-phrasal-verb-page-with-list-card-and-tests.md
+- backlog/tasks/task-32 - Add-Hold-phrasal-verb-page-with-list-card-and-tests.md
+- backlog/tasks/task-33 - Add-Keep-phrasal-verb-page-with-list-card-and-tests.md
+- backlog/tasks/task-34 - Add-Knock-phrasal-verb-page-with-list-card-and-tests.md
+- backlog/tasks/task-39 - Add-Look-phrasal-verb-page-with-list-card-and-tests.md
+- backlog/tasks/task-55 - Add-Think-phrasal-verb-page-with-list-card-and-tests.md
+- backlog/tasks/task-56 - Add-Throw-phrasal-verb-page-with-list-card-and-tests.md
+- backlog/tasks/task-57 - Add-Try-phrasal-verb-page-with-list-card-and-tests.md
+<!-- end-snapshot -->
+
+<!-- git-snapshot 2026-06-11T20:14:49Z -->
+- .claude/docs/blackbox/audit.md
+- .claude/docs/blackbox/session-log.md
+- backlog/tasks/task-29 - Add-Grow-phrasal-verb-page-with-list-card-and-tests.md
+- backlog/tasks/task-30 - Add-Hand-phrasal-verb-page-with-list-card-and-tests.md
+- backlog/tasks/task-31 - Add-Hang-phrasal-verb-page-with-list-card-and-tests.md
+- backlog/tasks/task-32 - Add-Hold-phrasal-verb-page-with-list-card-and-tests.md
+- backlog/tasks/task-33 - Add-Keep-phrasal-verb-page-with-list-card-and-tests.md
+- backlog/tasks/task-34 - Add-Knock-phrasal-verb-page-with-list-card-and-tests.md
+- backlog/tasks/task-39 - Add-Look-phrasal-verb-page-with-list-card-and-tests.md
+- backlog/tasks/task-55 - Add-Think-phrasal-verb-page-with-list-card-and-tests.md
+- backlog/tasks/task-56 - Add-Throw-phrasal-verb-page-with-list-card-and-tests.md
+- backlog/tasks/task-57 - Add-Try-phrasal-verb-page-with-list-card-and-tests.md
+- backlog/tasks/task-58 - Add-Turn-phrasal-verb-page-with-list-card-and-tests.md
+<!-- end-snapshot -->

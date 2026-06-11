@@ -1,9 +1,10 @@
 ---
 id: TASK-39
 title: Add "Look" phrasal verb page with list card and tests
-status: To Do
+status: Done
 assignee: []
 created_date: '2026-06-09 16:58'
+updated_date: '2026-06-11 20:02'
 labels:
   - phrasal-verbs
   - content
@@ -122,12 +123,18 @@ Add the "Look" phrasal verb entry following the same pattern as Call/Carry/Drop/
 
 ## Acceptance Criteria
 <!-- AC:BEGIN -->
-- [ ] #1 #1 `src/pages/look/LookVerbPage.tsx` created with 16 sections, all meanings, all using default.png
-- [ ] #2 #2 LOOK_PARTICLES constant added to PhrasalVerbsListPage.tsx with all 16 particles
-- [ ] #3 #3 VERBS entry added for Look after Log in PhrasalVerbsListPage.tsx
-- [ ] #4 #4 Route `/phrasal-verbs/list/look` registered in src/main.tsx
-- [ ] #5 #5 lookSections added to listVerbIndex.ts search index
-- [ ] #6 #6 16 test files created under src/__tests__/look_verb_page/ (one per particle)
-- [ ] #7 #7 PhrasalVerbsListPage.test.tsx extended with Look card, subtitle, and copy-button describe blocks
-- [ ] #8 #8 `npm run test:run` passes with all tests green
+- [x] #1 #1 `src/pages/look/LookVerbPage.tsx` created with 16 sections, all meanings, all using default.png
+- [x] #2 #2 LOOK_PARTICLES constant added to PhrasalVerbsListPage.tsx with all 16 particles
+- [x] #3 #3 VERBS entry added for Look after Log in PhrasalVerbsListPage.tsx
+- [x] #4 #4 Route `/phrasal-verbs/list/look` registered in src/main.tsx
+- [x] #5 #5 lookSections added to listVerbIndex.ts search index
+- [x] #6 #6 16 test files created under src/__tests__/look_verb_page/ (one per particle)
+- [x] #7 #7 PhrasalVerbsListPage.test.tsx extended with Look card, subtitle, and copy-button describe blocks
+- [x] #8 #8 `npm run test:run` passes with all tests green
 <!-- AC:END -->
+
+## Final Summary
+
+<!-- SECTION:FINAL_SUMMARY:BEGIN -->
+Added Look phrasal verb page with 16 sections (23 meanings total). Created LookVerbPage.tsx, helpers.tsx, and 16 test files under src/__tests__/look_verb_page/. Updated PhrasalVerbsListPage.tsx, main.tsx, listVerbIndex.ts, and PhrasalVerbsListPage.test.tsx. All 19,386 tests pass (804 files). Committed as feat: add Look phrasal verb page with list card and tests (4cd49b1, 22 files, 1134 insertions).
+<!-- SECTION:FINAL_SUMMARY:END -->
