@@ -75,6 +75,7 @@ function renderPageWithRoutes() {
         <Route path="/phrasal-verbs/list/pull" element={<LocationSpy />} />
         <Route path="/phrasal-verbs/list/run" element={<LocationSpy />} />
         <Route path="/phrasal-verbs/list/set" element={<LocationSpy />} />
+        <Route path="/phrasal-verbs/list/settle" element={<LocationSpy />} />
         <Route path="/phrasal-verbs/particles" element={<LocationSpy />} />
       </Routes>
     </MemoryRouter>
@@ -2408,6 +2409,10 @@ const ALL_RUN_PARTICLES = [
 
 const ALL_SET_PARTICLES = [
   'about', 'against', 'ahead', 'apart', 'back', 'by', 'down', 'in', 'off', 'on', 'out', 'over', 'to', 'up',
+];
+
+const ALL_SETTLE_PARTICLES = [
+  'back', 'down', 'for', 'in', 'into', 'on', 'out', 'over', 'to', 'up', 'with',
 ];
 
 describe('PhrasalVerbsListPage — Cheer card', () => {
@@ -4957,6 +4962,88 @@ describe('PhrasalVerbsListPage — set copy button', () => {
     renderPage();
     expandCard('set');
     fireEvent.click(screen.getByRole('button', { name: /copy all "set" phrasal verbs/i }));
+    await vi.waitFor(() => {
+      expect(screen.getByRole('button', { name: /copied!/i }))
+        .toHaveAttribute('title', 'Copied!');
+    });
+  });
+});
+
+describe('PhrasalVerbsListPage — Settle card', () => {
+  it('renders the "Settle" card', () => {
+    renderPage();
+    expect(screen.getByTestId('verb-card-settle')).toBeInTheDocument();
+  });
+
+  it('renders "Settle" heading', () => {
+    renderPage();
+    expect(within(screen.getByTestId('verb-card-settle')).getByText('Settle')).toBeInTheDocument();
+  });
+
+  it('"Settle" link points to /phrasal-verbs/list/settle', () => {
+    renderPage();
+    expandCard('settle');
+    const link = within(screen.getByTestId('verb-card-settle')).getByRole('link', { name: /settle/i });
+    expect(link).toHaveAttribute('href', '/phrasal-verbs/list/settle');
+  });
+
+  it('shows settle particles text in subtitle after expand', () => {
+    renderPage();
+    expandCard('settle');
+    expect(within(screen.getByTestId('verb-card-settle')).getByText(/back, down/i)).toBeInTheDocument();
+  });
+
+  it('settle subtitle title attribute contains all particles', () => {
+    renderPage();
+    expandCard('settle');
+    const subtitle = within(screen.getByTestId('verb-card-settle')).getByText(/back, down/i);
+    expect(subtitle).toHaveAttribute('title', ALL_SETTLE_PARTICLES.join(', '));
+  });
+});
+
+describe('PhrasalVerbsListPage — settle copy button', () => {
+  beforeEach(() => {
+    Object.defineProperty(navigator, 'clipboard', {
+      value: { writeText: vi.fn().mockResolvedValue(undefined) },
+      writable: true,
+    });
+  });
+
+  it('renders a settle copy button when expanded', () => {
+    renderPage();
+    expandCard('settle');
+    expect(screen.getByRole('button', { name: /copy all "settle" phrasal verbs/i })).toBeInTheDocument();
+  });
+
+  it('settle copy button title is \'Copy all "settle" phrasal verbs\' before click', () => {
+    renderPage();
+    expandCard('settle');
+    expect(screen.getByRole('button', { name: /copy all "settle" phrasal verbs/i }))
+      .toHaveAttribute('title', 'Copy all "settle" phrasal verbs');
+  });
+
+  it('clipboard receives all 11 settle particles as "settle X" forms in order', () => {
+    renderPage();
+    expandCard('settle');
+    fireEvent.click(screen.getByRole('button', { name: /copy all "settle" phrasal verbs/i }));
+    const expected = ALL_SETTLE_PARTICLES.map(p => `settle ${p}`).join(', ');
+    expect(navigator.clipboard.writeText).toHaveBeenCalledWith(expected);
+  });
+
+  it('clipboard content contains every settle particle', () => {
+    renderPage();
+    expandCard('settle');
+    fireEvent.click(screen.getByRole('button', { name: /copy all "settle" phrasal verbs/i }));
+    const written = (navigator.clipboard.writeText as ReturnType<typeof vi.fn>).mock.calls[0][0] as string;
+    for (const p of ALL_SETTLE_PARTICLES) {
+      expect(written).toContain(`settle ${p}`);
+    }
+  });
+
+  it('settle copy button shows "Copied!" title after click', async () => {
+    renderPage();
+    expandCard('settle');
+    fireEvent.click(screen.getByRole('button', { name: /copy all "settle" phrasal verbs/i }));
     await vi.waitFor(() => {
       expect(screen.getByRole('button', { name: /copied!/i }))
         .toHaveAttribute('title', 'Copied!');

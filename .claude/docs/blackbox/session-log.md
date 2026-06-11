@@ -1260,3 +1260,23 @@
 - backlog/tasks/task-44 - Add-Point-phrasal-verb-page-with-list-card-and-tests.md
 - backlog/tasks/task-45 - Add-Pull-phrasal-verb-page-with-list-card-and-tests.md
 <!-- end-snapshot -->
+
+<!-- git-snapshot 2026-06-11T06:00:25Z -->
+- .claude/settings.local.json
+- backlog/tasks/task-46 - Add-Run-phrasal-verb-page-with-list-card-and-tests.md
+<!-- end-snapshot -->
+
+<!-- git-snapshot 2026-06-11T06:10:57Z -->
+- .claude/docs/blackbox/audit.md
+- .claude/docs/blackbox/session-log.md
+- .claude/settings.local.json
+- backlog/tasks/task-47 - Add-Set-phrasal-verb-page-with-list-card-and-tests.md
+<!-- end-snapshot -->
+
+<!-- git-snapshot 2026-06-11T07:34:56Z -->
+- .claude/docs/blackbox/audit.md
+- .claude/docs/blackbox/session-log.md
+- .claude/settings.local.json
+- backlog/tasks/task-47 - Add-Set-phrasal-verb-page-with-list-card-and-tests.md
+- backlog/tasks/task-48 - Add-Settle-phrasal-verb-page-with-list-card-and-tests.md
+<!-- end-snapshot -->

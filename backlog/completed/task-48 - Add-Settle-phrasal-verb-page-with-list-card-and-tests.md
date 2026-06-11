@@ -1,9 +1,10 @@
 ---
 id: TASK-48
 title: Add "Settle" phrasal verb page with list card and tests
-status: To Do
+status: Done
 assignee: []
 created_date: '2026-06-09 17:25'
+updated_date: '2026-06-11 07:33'
 labels:
   - phrasal-verbs
   - content
@@ -94,12 +95,12 @@ Add the "Settle" phrasal verb entry following the same pattern as the existing v
 
 ## Acceptance Criteria
 <!-- AC:BEGIN -->
-- [ ] #1 #1 `src/pages/settle/SettleVerbPage.tsx` created with 11 sections, all meanings, all using default.png
-- [ ] #2 #2 SETTLE_PARTICLES constant added to PhrasalVerbsListPage.tsx with all 11 particles
-- [ ] #3 #3 VERBS entry added for Settle after Set in PhrasalVerbsListPage.tsx
-- [ ] #4 #4 Route `/phrasal-verbs/list/settle` registered in src/main.tsx
-- [ ] #5 #5 settleSections added to listVerbIndex.ts search index
-- [ ] #6 #6 11 test files created under src/__tests__/settle_verb_page/ (one per particle)
-- [ ] #7 #7 PhrasalVerbsListPage.test.tsx extended with Settle card, subtitle, and copy-button describe blocks
-- [ ] #8 #8 `npm run test:run` passes with all tests green
+- [x] #1 #1 `src/pages/settle/SettleVerbPage.tsx` created with 11 sections, all meanings, all using default.png
+- [x] #2 #2 SETTLE_PARTICLES constant added to PhrasalVerbsListPage.tsx with all 11 particles
+- [x] #3 #3 VERBS entry added for Settle after Set in PhrasalVerbsListPage.tsx
+- [x] #4 #4 Route `/phrasal-verbs/list/settle` registered in src/main.tsx
+- [x] #5 #5 settleSections added to listVerbIndex.ts search index
+- [x] #6 #6 11 test files created under src/__tests__/settle_verb_page/ (one per particle)
+- [x] #7 #7 PhrasalVerbsListPage.test.tsx extended with Settle card, subtitle, and copy-button describe blocks
+- [x] #8 #8 `npm run test:run` passes with all tests green
 <!-- AC:END -->

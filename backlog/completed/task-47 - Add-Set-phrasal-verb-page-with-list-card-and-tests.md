@@ -1,9 +1,10 @@
 ---
 id: TASK-47
 title: Add "Set" phrasal verb page with list card and tests
-status: To Do
+status: Done
 assignee: []
 created_date: '2026-06-09 17:24'
+updated_date: '2026-06-11 06:10'
 labels:
   - phrasal-verbs
   - content
@@ -115,12 +116,12 @@ Add the "Set" phrasal verb entry following the same pattern as the existing verb
 
 ## Acceptance Criteria
 <!-- AC:BEGIN -->
-- [ ] #1 #1 `src/pages/set/SetVerbPage.tsx` created with 14 sections, all meanings, all using default.png
-- [ ] #2 #2 SET_PARTICLES constant added to PhrasalVerbsListPage.tsx with all 14 particles
-- [ ] #3 #3 VERBS entry added for Set after Run in PhrasalVerbsListPage.tsx
-- [ ] #4 #4 Route `/phrasal-verbs/list/set` registered in src/main.tsx
-- [ ] #5 #5 setSections added to listVerbIndex.ts search index
-- [ ] #6 #6 14 test files created under src/__tests__/set_verb_page/ (one per particle)
-- [ ] #7 #7 PhrasalVerbsListPage.test.tsx extended with Set card, subtitle, and copy-button describe blocks
-- [ ] #8 #8 `npm run test:run` passes with all tests green
+- [x] #1 #1 `src/pages/set/SetVerbPage.tsx` created with 14 sections, all meanings, all using default.png
+- [x] #2 #2 SET_PARTICLES constant added to PhrasalVerbsListPage.tsx with all 14 particles
+- [x] #3 #3 VERBS entry added for Set after Run in PhrasalVerbsListPage.tsx
+- [x] #4 #4 Route `/phrasal-verbs/list/set` registered in src/main.tsx
+- [x] #5 #5 setSections added to listVerbIndex.ts search index
+- [x] #6 #6 14 test files created under src/__tests__/set_verb_page/ (one per particle)
+- [x] #7 #7 PhrasalVerbsListPage.test.tsx extended with Set card, subtitle, and copy-button describe blocks
+- [x] #8 #8 `npm run test:run` passes with all tests green
 <!-- AC:END -->
