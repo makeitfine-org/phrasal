@@ -1,9 +1,10 @@
 ---
 id: TASK-53
 title: Add "Stick" phrasal verb page with list card and tests
-status: To Do
+status: Done
 assignee: []
 created_date: '2026-06-09'
+updated_date: '2026-06-11 16:34'
 labels:
   - phrasal-verbs
   - content
@@ -96,12 +97,12 @@ Add the "Stick" phrasal verb entry following the same pattern as the existing ve
 
 ## Acceptance Criteria
 <!-- AC:BEGIN -->
-- [ ] #1 `src/pages/stick/StickVerbPage.tsx` created with 11 sections, all meanings, all using default.png
-- [ ] #2 STICK_PARTICLES constant added to PhrasalVerbsListPage.tsx with all 11 particles
-- [ ] #3 VERBS entry added for Stick after Stand in PhrasalVerbsListPage.tsx
-- [ ] #4 Route `/phrasal-verbs/list/stick` registered in src/main.tsx
-- [ ] #5 stickSections added to listVerbIndex.ts search index
-- [ ] #6 11 test files created under src/__tests__/stick_verb_page/ (one per particle)
-- [ ] #7 PhrasalVerbsListPage.test.tsx extended with Stick card, subtitle, and copy-button describe blocks
-- [ ] #8 `npm run test:run` passes with all tests green
+- [x] #1 `src/pages/stick/StickVerbPage.tsx` created with 11 sections, all meanings, all using default.png
+- [x] #2 STICK_PARTICLES constant added to PhrasalVerbsListPage.tsx with all 11 particles
+- [x] #3 VERBS entry added for Stick after Stand in PhrasalVerbsListPage.tsx
+- [x] #4 Route `/phrasal-verbs/list/stick` registered in src/main.tsx
+- [x] #5 stickSections added to listVerbIndex.ts search index
+- [x] #6 11 test files created under src/__tests__/stick_verb_page/ (one per particle)
+- [x] #7 PhrasalVerbsListPage.test.tsx extended with Stick card, subtitle, and copy-button describe blocks
+- [x] #8 `npm run test:run` passes with all tests green
 <!-- AC:END -->

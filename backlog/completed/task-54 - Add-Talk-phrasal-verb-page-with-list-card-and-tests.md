@@ -1,9 +1,10 @@
 ---
 id: TASK-54
 title: Add "Talk" phrasal verb page with list card and tests
-status: To Do
+status: Done
 assignee: []
 created_date: '2026-06-09'
+updated_date: '2026-06-11 16:50'
 labels:
   - phrasal-verbs
   - content
@@ -121,12 +122,12 @@ Add the "Talk" phrasal verb entry following the same pattern as the existing ver
 
 ## Acceptance Criteria
 <!-- AC:BEGIN -->
-- [ ] #1 `src/pages/talk/TalkVerbPage.tsx` created with 17 sections, all meanings, all using default.png
-- [ ] #2 TALK_PARTICLES constant added to PhrasalVerbsListPage.tsx with all 17 particles
-- [ ] #3 VERBS entry added for Talk after Stick in PhrasalVerbsListPage.tsx
-- [ ] #4 Route `/phrasal-verbs/list/talk` registered in src/main.tsx
-- [ ] #5 talkSections added to listVerbIndex.ts search index
-- [ ] #6 17 test files created under src/__tests__/talk_verb_page/ (one per particle)
-- [ ] #7 PhrasalVerbsListPage.test.tsx extended with Talk card, subtitle, and copy-button describe blocks
-- [ ] #8 `npm run test:run` passes with all tests green
+- [x] #1 `src/pages/talk/TalkVerbPage.tsx` created with 17 sections, all meanings, all using default.png
+- [x] #2 TALK_PARTICLES constant added to PhrasalVerbsListPage.tsx with all 17 particles
+- [x] #3 VERBS entry added for Talk after Stick in PhrasalVerbsListPage.tsx
+- [x] #4 Route `/phrasal-verbs/list/talk` registered in src/main.tsx
+- [x] #5 talkSections added to listVerbIndex.ts search index
+- [x] #6 17 test files created under src/__tests__/talk_verb_page/ (one per particle)
+- [x] #7 PhrasalVerbsListPage.test.tsx extended with Talk card, subtitle, and copy-button describe blocks
+- [x] #8 `npm run test:run` passes with all tests green
 <!-- AC:END -->

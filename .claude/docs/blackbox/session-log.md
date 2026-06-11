@@ -1304,3 +1304,15 @@
 <!-- git-snapshot 2026-06-11T14:09:08Z -->
 - backlog/tasks/task-52 - Add-Stand-phrasal-verb-page-with-list-card-and-tests.md
 <!-- end-snapshot -->
+
+<!-- git-snapshot 2026-06-11T16:35:04Z -->
+- .claude/docs/blackbox/audit.md
+- backlog/tasks/task-53 - Add-Stick-phrasal-verb-page-with-list-card-and-tests.md
+<!-- end-snapshot -->
+
+<!-- git-snapshot 2026-06-11T16:50:48Z -->
+- .claude/docs/blackbox/audit.md
+- .claude/docs/blackbox/session-log.md
+- backlog/tasks/task-53 - Add-Stick-phrasal-verb-page-with-list-card-and-tests.md
+- backlog/tasks/task-54 - Add-Talk-phrasal-verb-page-with-list-card-and-tests.md
+<!-- end-snapshot -->

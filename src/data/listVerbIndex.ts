@@ -56,6 +56,7 @@ import { sections as shutSections } from '../pages/shut/ShutVerbPage';
 import { sections as sitSections } from '../pages/sit/SitVerbPage';
 import { sections as standSections } from '../pages/stand/StandVerbPage';
 import { sections as stickSections } from '../pages/stick/StickVerbPage';
+import { sections as talkSections } from '../pages/talk/TalkVerbPage';
 
 export interface ListSearchEntry {
   verb: string;
@@ -139,4 +140,5 @@ export const listVerbIndex: ListSearchEntry[] = [
   ...buildEntries(sitSections, 'Sit', '/phrasal-verbs/list/sit'),
   ...buildEntries(standSections, 'Stand', '/phrasal-verbs/list/stand'),
   ...buildEntries(stickSections, 'Stick', '/phrasal-verbs/list/stick'),
+  ...buildEntries(talkSections, 'Talk', '/phrasal-verbs/list/talk'),
 ];

@@ -226,6 +226,11 @@ const STICK_PARTICLES = [
   'about / around', 'away', 'by', 'down', 'for', 'in', 'out', 'to', 'together', 'up', 'with',
 ];
 
+const TALK_PARTICLES = [
+  'about', 'across', 'against', 'around / round', 'away', 'back', 'down', 'for', 'into', 'on',
+  'out', 'over', 'through', 'to', 'together', 'up', 'with',
+];
+
 const VERBS = [
   { key: 'get',  label: 'Get',  to: '/phrasal-verbs/list/get',  particles: GET_PARTICLES },
   { key: 'make', label: 'Make', to: '/phrasal-verbs/list/make', particles: MAKE_PARTICLES },
@@ -284,6 +289,7 @@ const VERBS = [
   { key: 'sit',   label: 'Sit',   to: '/phrasal-verbs/list/sit',   particles: SIT_PARTICLES },
   { key: 'stand', label: 'Stand', to: '/phrasal-verbs/list/stand', particles: STAND_PARTICLES },
   { key: 'stick', label: 'Stick', to: '/phrasal-verbs/list/stick', particles: STICK_PARTICLES },
+  { key: 'talk',  label: 'Talk',  to: '/phrasal-verbs/list/talk',  particles: TALK_PARTICLES },
 ];
 
 const EXPANDED_KEY = 'verbListExpanded';
