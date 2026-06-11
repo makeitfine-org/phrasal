@@ -53,7 +53,9 @@
       "Bash(cp \"/home/eug/Downloads/Done pics/take/up/take up - Occupy time or space.png\" /home/eug/dev/projects/my/phrasal/public/images/phrasal_verbs/list/take/up/occupy_space.png)",
       "Bash(cp \"/home/eug/Downloads/Done pics/take/up/take up - Accept an offer.png\" /home/eug/dev/projects/my/phrasal/public/images/phrasal_verbs/list/take/up/accept_offer.png)",
       "Bash(cp \"/home/eug/Downloads/Done pics/take/up/take up - Shorten clothes.png\" /home/eug/dev/projects/my/phrasal/public/images/phrasal_verbs/list/take/up/shorten_clothes.png)",
-      "Bash(sort -t- -k2 -n)"
+      "Bash(sort -t- -k2 -n)",
+      "Bash(git commit *)",
+      "Bash(wait *)"
     ]
   },
   "model": "sonnet",

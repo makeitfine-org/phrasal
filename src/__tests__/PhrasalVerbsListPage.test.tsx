@@ -78,6 +78,7 @@ function renderPageWithRoutes() {
         <Route path="/phrasal-verbs/list/settle" element={<LocationSpy />} />
         <Route path="/phrasal-verbs/list/show" element={<LocationSpy />} />
         <Route path="/phrasal-verbs/list/shut" element={<LocationSpy />} />
+        <Route path="/phrasal-verbs/list/sit" element={<LocationSpy />} />
         <Route path="/phrasal-verbs/particles" element={<LocationSpy />} />
       </Routes>
     </MemoryRouter>
@@ -2423,6 +2424,10 @@ const ALL_SHOW_PARTICLES = [
 
 const ALL_SHUT_PARTICLES = [
   'away', 'down', 'in', 'off', 'out', 'up',
+];
+
+const ALL_SIT_PARTICLES = [
+  'about / around / round', 'back', 'by', 'down', 'for', 'in', 'on', 'out', 'over', 'through', 'up', 'with',
 ];
 
 describe('PhrasalVerbsListPage — Cheer card', () => {
@@ -5218,6 +5223,88 @@ describe('PhrasalVerbsListPage — shut copy button', () => {
     renderPage();
     expandCard('shut');
     fireEvent.click(screen.getByRole('button', { name: /copy all "shut" phrasal verbs/i }));
+    await vi.waitFor(() => {
+      expect(screen.getByRole('button', { name: /copied!/i }))
+        .toHaveAttribute('title', 'Copied!');
+    });
+  });
+});
+
+describe('PhrasalVerbsListPage — Sit card', () => {
+  it('renders the "Sit" card', () => {
+    renderPage();
+    expect(screen.getByTestId('verb-card-sit')).toBeInTheDocument();
+  });
+
+  it('renders "Sit" heading', () => {
+    renderPage();
+    expect(within(screen.getByTestId('verb-card-sit')).getByText('Sit')).toBeInTheDocument();
+  });
+
+  it('"Sit" link points to /phrasal-verbs/list/sit', () => {
+    renderPage();
+    expandCard('sit');
+    const link = within(screen.getByTestId('verb-card-sit')).getByRole('link', { name: /sit/i });
+    expect(link).toHaveAttribute('href', '/phrasal-verbs/list/sit');
+  });
+
+  it('shows sit particles text in subtitle after expand', () => {
+    renderPage();
+    expandCard('sit');
+    expect(within(screen.getByTestId('verb-card-sit')).getByText(/about \/ around \/ round, back/i)).toBeInTheDocument();
+  });
+
+  it('sit subtitle title attribute contains all particles', () => {
+    renderPage();
+    expandCard('sit');
+    const subtitle = within(screen.getByTestId('verb-card-sit')).getByText(/about \/ around \/ round, back/i);
+    expect(subtitle).toHaveAttribute('title', ALL_SIT_PARTICLES.join(', '));
+  });
+});
+
+describe('PhrasalVerbsListPage — sit copy button', () => {
+  beforeEach(() => {
+    Object.defineProperty(navigator, 'clipboard', {
+      value: { writeText: vi.fn().mockResolvedValue(undefined) },
+      writable: true,
+    });
+  });
+
+  it('renders a sit copy button when expanded', () => {
+    renderPage();
+    expandCard('sit');
+    expect(screen.getByRole('button', { name: /copy all "sit" phrasal verbs/i })).toBeInTheDocument();
+  });
+
+  it('sit copy button title is \'Copy all "sit" phrasal verbs\' before click', () => {
+    renderPage();
+    expandCard('sit');
+    expect(screen.getByRole('button', { name: /copy all "sit" phrasal verbs/i }))
+      .toHaveAttribute('title', 'Copy all "sit" phrasal verbs');
+  });
+
+  it('clipboard receives all 12 sit particles as "sit X" forms in order', () => {
+    renderPage();
+    expandCard('sit');
+    fireEvent.click(screen.getByRole('button', { name: /copy all "sit" phrasal verbs/i }));
+    const expected = ALL_SIT_PARTICLES.map(p => `sit ${p}`).join(', ');
+    expect(navigator.clipboard.writeText).toHaveBeenCalledWith(expected);
+  });
+
+  it('clipboard content contains every sit particle', () => {
+    renderPage();
+    expandCard('sit');
+    fireEvent.click(screen.getByRole('button', { name: /copy all "sit" phrasal verbs/i }));
+    const written = (navigator.clipboard.writeText as ReturnType<typeof vi.fn>).mock.calls[0][0];
+    for (const p of ALL_SIT_PARTICLES) {
+      expect(written).toContain(`sit ${p}`);
+    }
+  });
+
+  it('sit copy button shows "Copied!" title after click', async () => {
+    renderPage();
+    expandCard('sit');
+    fireEvent.click(screen.getByRole('button', { name: /copy all "sit" phrasal verbs/i }));
     await vi.waitFor(() => {
       expect(screen.getByRole('button', { name: /copied!/i }))
         .toHaveAttribute('title', 'Copied!');

@@ -60,6 +60,7 @@ import SetVerbPage from './pages/set/SetVerbPage';
 import SettleVerbPage from './pages/settle/SettleVerbPage';
 import ShowVerbPage from './pages/show/ShowVerbPage';
 import ShutVerbPage from './pages/shut/ShutVerbPage';
+import SitVerbPage from './pages/sit/SitVerbPage';
 import ParticlesPage from './pages/particles/ParticlesPage';
 import IWishPage from './pages/IWishPage';
 import NotFoundPage from './pages/NotFoundPage';
@@ -132,6 +133,7 @@ ReactDOM.createRoot(document.getElementById('root')!).render(
             <Route path="/phrasal-verbs/list/settle" element={<SettleVerbPage />} />
             <Route path="/phrasal-verbs/list/show" element={<ShowVerbPage />} />
             <Route path="/phrasal-verbs/list/shut" element={<ShutVerbPage />} />
+            <Route path="/phrasal-verbs/list/sit" element={<SitVerbPage />} />
             <Route path="/grammar" element={<GrammarPage />} />
             <Route path="/grammar/i-wish-if-only" element={<IWishPage />} />
             <Route path="*" element={<NotFoundPage />} />
