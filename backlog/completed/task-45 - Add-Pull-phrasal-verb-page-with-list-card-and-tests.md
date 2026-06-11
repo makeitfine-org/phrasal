@@ -1,9 +1,10 @@
 ---
 id: TASK-45
 title: Add "Pull" phrasal verb page with list card and tests
-status: To Do
+status: Done
 assignee: []
 created_date: '2026-06-09 17:23'
+updated_date: '2026-06-10 19:28'
 labels:
   - phrasal-verbs
   - content
@@ -149,12 +150,18 @@ Add the "Pull" phrasal verb entry following the same pattern as the existing ver
 
 ## Acceptance Criteria
 <!-- AC:BEGIN -->
-- [ ] #1 #1 `src/pages/pull/PullVerbPage.tsx` created with 20 sections, all meanings, all using default.png
-- [ ] #2 #2 PULL_PARTICLES constant added to PhrasalVerbsListPage.tsx with all 20 particles
-- [ ] #3 #3 VERBS entry added for Pull after Point in PhrasalVerbsListPage.tsx
-- [ ] #4 #4 Route `/phrasal-verbs/list/pull` registered in src/main.tsx
-- [ ] #5 #5 pullSections added to listVerbIndex.ts search index
-- [ ] #6 #6 20 test files created under src/__tests__/pull_verb_page/ (one per particle)
-- [ ] #7 #7 PhrasalVerbsListPage.test.tsx extended with Pull card, subtitle, and copy-button describe blocks
-- [ ] #8 #8 `npm run test:run` passes with all tests green
+- [x] #1 #1 `src/pages/pull/PullVerbPage.tsx` created with 20 sections, all meanings, all using default.png
+- [x] #2 #2 PULL_PARTICLES constant added to PhrasalVerbsListPage.tsx with all 20 particles
+- [x] #3 #3 VERBS entry added for Pull after Point in PhrasalVerbsListPage.tsx
+- [x] #4 #4 Route `/phrasal-verbs/list/pull` registered in src/main.tsx
+- [x] #5 #5 pullSections added to listVerbIndex.ts search index
+- [x] #6 #6 20 test files created under src/__tests__/pull_verb_page/ (one per particle)
+- [x] #7 #7 PhrasalVerbsListPage.test.tsx extended with Pull card, subtitle, and copy-button describe blocks
+- [x] #8 #8 `npm run test:run` passes with all tests green
 <!-- AC:END -->
+
+## Final Summary
+
+<!-- SECTION:FINAL_SUMMARY:BEGIN -->
+Added Pull phrasal verb page with 20 sections (about, ahead, against, apart, around/round, away, back, down, for, forward, in, into, off, on, out, over, through, to, together, up) and 42 total meanings, all using default.png. Created 21 new test files (20 particle tests + helpers), updated PhrasalVerbsListPage, main.tsx, listVerbIndex.ts, and PhrasalVerbsListPage.test.tsx. All 15,214 tests pass (636 files). Committed as 034ebd2.
+<!-- SECTION:FINAL_SUMMARY:END -->

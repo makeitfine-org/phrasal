@@ -1,9 +1,10 @@
 ---
 id: TASK-43
 title: Add "Pick" phrasal verb page with list card and tests
-status: To Do
+status: Done
 assignee: []
 created_date: '2026-06-09 17:22'
+updated_date: '2026-06-10 17:56'
 labels:
   - phrasal-verbs
   - content
@@ -91,12 +92,12 @@ Add the "Pick" phrasal verb entry following the same pattern as the existing ver
 
 ## Acceptance Criteria
 <!-- AC:BEGIN -->
-- [ ] #1 #1 `src/pages/pick/PickVerbPage.tsx` created with 8 sections, all meanings, all using default.png
-- [ ] #2 #2 PICK_PARTICLES constant added to PhrasalVerbsListPage.tsx with all 8 particles
-- [ ] #3 #3 VERBS entry added for Pick after Pay in PhrasalVerbsListPage.tsx
-- [ ] #4 #4 Route `/phrasal-verbs/list/pick` registered in src/main.tsx
-- [ ] #5 #5 pickSections added to listVerbIndex.ts search index
-- [ ] #6 #6 8 test files created under src/__tests__/pick_verb_page/ (one per particle)
-- [ ] #7 #7 PhrasalVerbsListPage.test.tsx extended with Pick card, subtitle, and copy-button describe blocks
-- [ ] #8 #8 `npm run test:run` passes with all tests green
+- [x] #1 #1 `src/pages/pick/PickVerbPage.tsx` created with 8 sections, all meanings, all using default.png
+- [x] #2 #2 PICK_PARTICLES constant added to PhrasalVerbsListPage.tsx with all 8 particles
+- [x] #3 #3 VERBS entry added for Pick after Pay in PhrasalVerbsListPage.tsx
+- [x] #4 #4 Route `/phrasal-verbs/list/pick` registered in src/main.tsx
+- [x] #5 #5 pickSections added to listVerbIndex.ts search index
+- [x] #6 #6 8 test files created under src/__tests__/pick_verb_page/ (one per particle)
+- [x] #7 #7 PhrasalVerbsListPage.test.tsx extended with Pick card, subtitle, and copy-button describe blocks
+- [x] #8 #8 `npm run test:run` passes with all tests green
 <!-- AC:END -->

@@ -1237,3 +1237,26 @@
 - backlog/tasks/task-41 - Add-Pass-phrasal-verb-page-with-list-card-and-tests.md
 - backlog/tasks/task-42 - Add-Pay-phrasal-verb-page-with-list-card-and-tests.md
 <!-- end-snapshot -->
+
+<!-- git-snapshot 2026-06-10T17:56:30Z -->
+- .claude/docs/blackbox/audit.md
+- .claude/settings.local.json
+- backlog/tasks/task-43 - Add-Pick-phrasal-verb-page-with-list-card-and-tests.md
+<!-- end-snapshot -->
+
+<!-- git-snapshot 2026-06-10T18:54:10Z -->
+- .claude/docs/blackbox/audit.md
+- .claude/docs/blackbox/session-log.md
+- .claude/settings.local.json
+- backlog/tasks/task-43 - Add-Pick-phrasal-verb-page-with-list-card-and-tests.md
+- backlog/tasks/task-44 - Add-Point-phrasal-verb-page-with-list-card-and-tests.md
+<!-- end-snapshot -->
+
+<!-- git-snapshot 2026-06-10T19:28:09Z -->
+- .claude/docs/blackbox/audit.md
+- .claude/docs/blackbox/session-log.md
+- .claude/settings.local.json
+- backlog/tasks/task-43 - Add-Pick-phrasal-verb-page-with-list-card-and-tests.md
+- backlog/tasks/task-44 - Add-Point-phrasal-verb-page-with-list-card-and-tests.md
+- backlog/tasks/task-45 - Add-Pull-phrasal-verb-page-with-list-card-and-tests.md
+<!-- end-snapshot -->
