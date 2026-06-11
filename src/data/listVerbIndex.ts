@@ -59,6 +59,7 @@ import { sections as stickSections } from '../pages/stick/StickVerbPage';
 import { sections as talkSections } from '../pages/talk/TalkVerbPage';
 import { sections as thinkSections } from '../pages/think/ThinkVerbPage';
 import { sections as throwSections } from '../pages/throw/ThrowVerbPage';
+import { sections as lookSections } from '../pages/look/LookVerbPage';
 import { sections as trySections } from '../pages/try/TryVerbPage';
 
 export interface ListSearchEntry {
@@ -146,5 +147,6 @@ export const listVerbIndex: ListSearchEntry[] = [
   ...buildEntries(talkSections, 'Talk', '/phrasal-verbs/list/talk'),
   ...buildEntries(thinkSections, 'Think', '/phrasal-verbs/list/think'),
   ...buildEntries(throwSections, 'Throw', '/phrasal-verbs/list/throw'),
+  ...buildEntries(lookSections, 'Look', '/phrasal-verbs/list/look'),
   ...buildEntries(trySections, 'Try', '/phrasal-verbs/list/try'),
 ];

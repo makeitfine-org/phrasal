@@ -67,6 +67,7 @@ function renderPageWithRoutes() {
         <Route path="/phrasal-verbs/list/leave" element={<LocationSpy />} />
         <Route path="/phrasal-verbs/list/let" element={<LocationSpy />} />
         <Route path="/phrasal-verbs/list/log" element={<LocationSpy />} />
+        <Route path="/phrasal-verbs/list/look" element={<LocationSpy />} />
         <Route path="/phrasal-verbs/list/mix" element={<LocationSpy />} />
         <Route path="/phrasal-verbs/list/pass" element={<LocationSpy />} />
         <Route path="/phrasal-verbs/list/pay" element={<LocationSpy />} />
@@ -2385,6 +2386,11 @@ const ALL_LET_PARTICLES = ['down', 'in', 'into', 'off', 'on', 'out', 'up', 'by',
 
 const ALL_LOG_PARTICLES = ['in / into', 'out', 'on', 'off', 'up'];
 
+const ALL_LOOK_PARTICLES = [
+  'after', 'ahead', 'around / round / about', 'away', 'back (on)', 'down on',
+  'for', 'forward to', 'in (on)', 'into', 'on', 'out', 'over', 'through', 'to', 'up',
+];
+
 const ALL_MIX_PARTICLES = ['up', 'in / into', 'with', 'together', 'down'];
 
 const ALL_PASS_PARTICLES = [
@@ -4337,6 +4343,96 @@ describe('PhrasalVerbsListPage — log copy button', () => {
     renderPage();
     expandCard('log');
     fireEvent.click(screen.getByRole('button', { name: /copy all "log" phrasal verbs/i }));
+    await vi.waitFor(() => {
+      expect(screen.getByRole('button', { name: /copied!/i }))
+        .toHaveAttribute('title', 'Copied!');
+    });
+  });
+});
+
+describe('PhrasalVerbsListPage — Look card', () => {
+  it('renders the "Look" card', () => {
+    renderPage();
+    expect(screen.getByTestId('verb-card-look')).toBeInTheDocument();
+  });
+
+  it('renders "Look" heading', () => {
+    renderPage();
+    expect(within(screen.getByTestId('verb-card-look')).getByText('Look')).toBeInTheDocument();
+  });
+
+  it('"Look" link points to /phrasal-verbs/list/look', () => {
+    renderPage();
+    expandCard('look');
+    const link = within(screen.getByTestId('verb-card-look')).getByRole('link', { name: /look/i });
+    expect(link).toHaveAttribute('href', '/phrasal-verbs/list/look');
+  });
+
+  it('shows look particles text in subtitle after expand', () => {
+    renderPage();
+    expandCard('look');
+    expect(within(screen.getByTestId('verb-card-look')).getByText(/after, ahead/i)).toBeInTheDocument();
+  });
+
+  it('look subtitle title attribute contains all particles', () => {
+    renderPage();
+    expandCard('look');
+    const subtitle = within(screen.getByTestId('verb-card-look')).getByText(/after, ahead/i);
+    expect(subtitle).toHaveAttribute('title', ALL_LOOK_PARTICLES.join(', '));
+  });
+});
+
+describe('PhrasalVerbsListPage — look copy button', () => {
+  let mockWriteText: ReturnType<typeof vi.fn>;
+
+  beforeEach(() => {
+    mockWriteText = vi.fn().mockResolvedValue(undefined);
+    Object.defineProperty(navigator, 'clipboard', {
+      value: { writeText: mockWriteText },
+      writable: true,
+      configurable: true,
+    });
+  });
+
+  afterEach(() => {
+    vi.restoreAllMocks();
+  });
+
+  it('renders a look copy button when expanded', () => {
+    renderPage();
+    expandCard('look');
+    expect(screen.getByRole('button', { name: /copy all "look" phrasal verbs/i })).toBeInTheDocument();
+  });
+
+  it('look copy button title is \'Copy all "look" phrasal verbs\' before click', () => {
+    renderPage();
+    expandCard('look');
+    expect(screen.getByRole('button', { name: /copy all "look" phrasal verbs/i }))
+      .toHaveAttribute('title', 'Copy all "look" phrasal verbs');
+  });
+
+  it('clipboard receives all 16 look particles as "look X" forms in order', () => {
+    renderPage();
+    expandCard('look');
+    fireEvent.click(screen.getByRole('button', { name: /copy all "look" phrasal verbs/i }));
+    const expected = ALL_LOOK_PARTICLES.map(p => `look ${p}`).join(', ');
+    expect(mockWriteText).toHaveBeenCalledWith(expected);
+  });
+
+  it('clipboard content contains every look particle', () => {
+    renderPage();
+    expandCard('look');
+    fireEvent.click(screen.getByRole('button', { name: /copy all "look" phrasal verbs/i }));
+    const written = mockWriteText.mock.calls[0][0] as string;
+    for (const p of ALL_LOOK_PARTICLES) {
+      expect(written).toContain(`look ${p}`);
+    }
+  });
+
+  it('look copy button shows "Copied!" title after click', async () => {
+    renderPage();
+    expandCard('look');
+    fireEvent.click(screen.getByRole('button', { name: /copy all "look" phrasal verbs/i }));
     await vi.waitFor(() => {
       expect(screen.getByRole('button', { name: /copied!/i }))
         .toHaveAttribute('title', 'Copied!');

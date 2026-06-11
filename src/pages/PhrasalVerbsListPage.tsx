@@ -166,6 +166,11 @@ const LET_PARTICLES = ['down', 'in', 'into', 'off', 'on', 'out', 'up', 'by', 'th
 
 const LOG_PARTICLES = ['in / into', 'out', 'on', 'off', 'up'];
 
+const LOOK_PARTICLES = [
+  'after', 'ahead', 'around / round / about', 'away', 'back (on)', 'down on',
+  'for', 'forward to', 'in (on)', 'into', 'on', 'out', 'over', 'through', 'to', 'up',
+];
+
 const MIX_PARTICLES = ['up', 'in / into', 'with', 'together', 'down'];
 
 const PASS_PARTICLES = [
@@ -287,6 +292,7 @@ const VERBS = [
   { key: 'leave',  label: 'Leave',  to: '/phrasal-verbs/list/leave',  particles: LEAVE_PARTICLES },
   { key: 'let',    label: 'Let',    to: '/phrasal-verbs/list/let',    particles: LET_PARTICLES },
   { key: 'log',    label: 'Log',    to: '/phrasal-verbs/list/log',    particles: LOG_PARTICLES },
+  { key: 'look',   label: 'Look',   to: '/phrasal-verbs/list/look',   particles: LOOK_PARTICLES },
   { key: 'mix',  label: 'Mix',  to: '/phrasal-verbs/list/mix',  particles: MIX_PARTICLES },
   { key: 'pass', label: 'Pass', to: '/phrasal-verbs/list/pass', particles: PASS_PARTICLES },
   { key: 'pay',  label: 'Pay',  to: '/phrasal-verbs/list/pay',  particles: PAY_PARTICLES },
