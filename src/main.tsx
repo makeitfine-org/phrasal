@@ -56,6 +56,7 @@ import PickVerbPage from './pages/pick/PickVerbPage';
 import PointVerbPage from './pages/point/PointVerbPage';
 import PullVerbPage from './pages/pull/PullVerbPage';
 import RunVerbPage from './pages/run/RunVerbPage';
+import SetVerbPage from './pages/set/SetVerbPage';
 import ParticlesPage from './pages/particles/ParticlesPage';
 import IWishPage from './pages/IWishPage';
 import NotFoundPage from './pages/NotFoundPage';
@@ -124,6 +125,7 @@ ReactDOM.createRoot(document.getElementById('root')!).render(
             <Route path="/phrasal-verbs/list/point" element={<PointVerbPage />} />
             <Route path="/phrasal-verbs/list/pull" element={<PullVerbPage />} />
             <Route path="/phrasal-verbs/list/run" element={<RunVerbPage />} />
+            <Route path="/phrasal-verbs/list/set" element={<SetVerbPage />} />
             <Route path="/grammar" element={<GrammarPage />} />
             <Route path="/grammar/i-wish-if-only" element={<IWishPage />} />
             <Route path="*" element={<NotFoundPage />} />
