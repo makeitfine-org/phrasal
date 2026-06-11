@@ -205,6 +205,10 @@ const SETTLE_PARTICLES = [
   'back', 'down', 'for', 'in', 'into', 'on', 'out', 'over', 'to', 'up', 'with',
 ];
 
+const SHOW_PARTICLES = [
+  'around / round / about', 'down', 'for', 'in / into', 'off', 'out', 'over', 'through', 'to', 'up',
+];
+
 const VERBS = [
   { key: 'get',  label: 'Get',  to: '/phrasal-verbs/list/get',  particles: GET_PARTICLES },
   { key: 'make', label: 'Make', to: '/phrasal-verbs/list/make', particles: MAKE_PARTICLES },
@@ -258,6 +262,7 @@ const VERBS = [
   { key: 'run',   label: 'Run',   to: '/phrasal-verbs/list/run',   particles: RUN_PARTICLES },
   { key: 'set',    label: 'Set',    to: '/phrasal-verbs/list/set',    particles: SET_PARTICLES },
   { key: 'settle', label: 'Settle', to: '/phrasal-verbs/list/settle', particles: SETTLE_PARTICLES },
+  { key: 'show',   label: 'Show',   to: '/phrasal-verbs/list/show',   particles: SHOW_PARTICLES },
 ];
 
 const EXPANDED_KEY = 'verbListExpanded';
