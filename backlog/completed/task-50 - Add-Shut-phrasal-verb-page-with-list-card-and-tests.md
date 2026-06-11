@@ -1,9 +1,10 @@
 ---
 id: TASK-50
 title: Add "Shut" phrasal verb page with list card and tests
-status: To Do
+status: Done
 assignee: []
 created_date: '2026-06-09'
+updated_date: '2026-06-11 08:49'
 labels:
   - phrasal-verbs
   - content
@@ -78,12 +79,12 @@ Add the "Shut" phrasal verb entry following the same pattern as the existing ver
 
 ## Acceptance Criteria
 <!-- AC:BEGIN -->
-- [ ] #1 `src/pages/shut/ShutVerbPage.tsx` created with 6 sections, all meanings, all using default.png
-- [ ] #2 SHUT_PARTICLES constant added to PhrasalVerbsListPage.tsx with all 6 particles
-- [ ] #3 VERBS entry added for Shut after Show in PhrasalVerbsListPage.tsx
-- [ ] #4 Route `/phrasal-verbs/list/shut` registered in src/main.tsx
-- [ ] #5 shutSections added to listVerbIndex.ts search index
-- [ ] #6 6 test files created under src/__tests__/shut_verb_page/ (one per particle)
-- [ ] #7 PhrasalVerbsListPage.test.tsx extended with Shut card, subtitle, and copy-button describe blocks
-- [ ] #8 `npm run test:run` passes with all tests green
+- [x] #1 `src/pages/shut/ShutVerbPage.tsx` created with 6 sections, all meanings, all using default.png
+- [x] #2 SHUT_PARTICLES constant added to PhrasalVerbsListPage.tsx with all 6 particles
+- [x] #3 VERBS entry added for Shut after Show in PhrasalVerbsListPage.tsx
+- [x] #4 Route `/phrasal-verbs/list/shut` registered in src/main.tsx
+- [x] #5 shutSections added to listVerbIndex.ts search index
+- [x] #6 6 test files created under src/__tests__/shut_verb_page/ (one per particle)
+- [x] #7 PhrasalVerbsListPage.test.tsx extended with Shut card, subtitle, and copy-button describe blocks
+- [x] #8 `npm run test:run` passes with all tests green
 <!-- AC:END -->

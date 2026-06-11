@@ -52,6 +52,7 @@ import { sections as runSections } from '../pages/run/RunVerbPage';
 import { sections as setSections } from '../pages/set/SetVerbPage';
 import { sections as settleSections } from '../pages/settle/SettleVerbPage';
 import { sections as showSections } from '../pages/show/ShowVerbPage';
+import { sections as shutSections } from '../pages/shut/ShutVerbPage';
 
 export interface ListSearchEntry {
   verb: string;
@@ -131,4 +132,5 @@ export const listVerbIndex: ListSearchEntry[] = [
   ...buildEntries(setSections, 'Set', '/phrasal-verbs/list/set'),
   ...buildEntries(settleSections, 'Settle', '/phrasal-verbs/list/settle'),
   ...buildEntries(showSections, 'Show', '/phrasal-verbs/list/show'),
+  ...buildEntries(shutSections, 'Shut', '/phrasal-verbs/list/shut'),
 ];

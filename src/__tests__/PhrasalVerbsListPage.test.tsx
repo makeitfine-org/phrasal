@@ -77,6 +77,7 @@ function renderPageWithRoutes() {
         <Route path="/phrasal-verbs/list/set" element={<LocationSpy />} />
         <Route path="/phrasal-verbs/list/settle" element={<LocationSpy />} />
         <Route path="/phrasal-verbs/list/show" element={<LocationSpy />} />
+        <Route path="/phrasal-verbs/list/shut" element={<LocationSpy />} />
         <Route path="/phrasal-verbs/particles" element={<LocationSpy />} />
       </Routes>
     </MemoryRouter>
@@ -2418,6 +2419,10 @@ const ALL_SETTLE_PARTICLES = [
 
 const ALL_SHOW_PARTICLES = [
   'around / round / about', 'down', 'for', 'in / into', 'off', 'out', 'over', 'through', 'to', 'up',
+];
+
+const ALL_SHUT_PARTICLES = [
+  'away', 'down', 'in', 'off', 'out', 'up',
 ];
 
 describe('PhrasalVerbsListPage — Cheer card', () => {
@@ -5131,6 +5136,88 @@ describe('PhrasalVerbsListPage — show copy button', () => {
     renderPage();
     expandCard('show');
     fireEvent.click(screen.getByRole('button', { name: /copy all "show" phrasal verbs/i }));
+    await vi.waitFor(() => {
+      expect(screen.getByRole('button', { name: /copied!/i }))
+        .toHaveAttribute('title', 'Copied!');
+    });
+  });
+});
+
+describe('PhrasalVerbsListPage — Shut card', () => {
+  it('renders the "Shut" card', () => {
+    renderPage();
+    expect(screen.getByTestId('verb-card-shut')).toBeInTheDocument();
+  });
+
+  it('renders "Shut" heading', () => {
+    renderPage();
+    expect(within(screen.getByTestId('verb-card-shut')).getByText('Shut')).toBeInTheDocument();
+  });
+
+  it('"Shut" link points to /phrasal-verbs/list/shut', () => {
+    renderPage();
+    expandCard('shut');
+    const link = within(screen.getByTestId('verb-card-shut')).getByRole('link', { name: /shut/i });
+    expect(link).toHaveAttribute('href', '/phrasal-verbs/list/shut');
+  });
+
+  it('shows shut particles text in subtitle after expand', () => {
+    renderPage();
+    expandCard('shut');
+    expect(within(screen.getByTestId('verb-card-shut')).getByText(/away, down/i)).toBeInTheDocument();
+  });
+
+  it('shut subtitle title attribute contains all particles', () => {
+    renderPage();
+    expandCard('shut');
+    const subtitle = within(screen.getByTestId('verb-card-shut')).getByText(/away, down/i);
+    expect(subtitle).toHaveAttribute('title', ALL_SHUT_PARTICLES.join(', '));
+  });
+});
+
+describe('PhrasalVerbsListPage — shut copy button', () => {
+  beforeEach(() => {
+    Object.defineProperty(navigator, 'clipboard', {
+      value: { writeText: vi.fn().mockResolvedValue(undefined) },
+      writable: true,
+    });
+  });
+
+  it('renders a shut copy button when expanded', () => {
+    renderPage();
+    expandCard('shut');
+    expect(screen.getByRole('button', { name: /copy all "shut" phrasal verbs/i })).toBeInTheDocument();
+  });
+
+  it('shut copy button title is \'Copy all "shut" phrasal verbs\' before click', () => {
+    renderPage();
+    expandCard('shut');
+    expect(screen.getByRole('button', { name: /copy all "shut" phrasal verbs/i }))
+      .toHaveAttribute('title', 'Copy all "shut" phrasal verbs');
+  });
+
+  it('clipboard receives all 6 shut particles as "shut X" forms in order', () => {
+    renderPage();
+    expandCard('shut');
+    fireEvent.click(screen.getByRole('button', { name: /copy all "shut" phrasal verbs/i }));
+    const expected = ALL_SHUT_PARTICLES.map(p => `shut ${p}`).join(', ');
+    expect(navigator.clipboard.writeText).toHaveBeenCalledWith(expected);
+  });
+
+  it('clipboard content contains every shut particle', () => {
+    renderPage();
+    expandCard('shut');
+    fireEvent.click(screen.getByRole('button', { name: /copy all "shut" phrasal verbs/i }));
+    const written = (navigator.clipboard.writeText as ReturnType<typeof vi.fn>).mock.calls[0][0];
+    for (const p of ALL_SHUT_PARTICLES) {
+      expect(written).toContain(`shut ${p}`);
+    }
+  });
+
+  it('shut copy button shows "Copied!" title after click', async () => {
+    renderPage();
+    expandCard('shut');
+    fireEvent.click(screen.getByRole('button', { name: /copy all "shut" phrasal verbs/i }));
     await vi.waitFor(() => {
       expect(screen.getByRole('button', { name: /copied!/i }))
         .toHaveAttribute('title', 'Copied!');

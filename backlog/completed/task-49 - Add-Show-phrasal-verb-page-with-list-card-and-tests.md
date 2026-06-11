@@ -1,13 +1,31 @@
 ---
 id: TASK-49
 title: Add "Show" phrasal verb page with list card and tests
-status: To Do
+status: Done
 assignee: []
 created_date: '2026-06-09 17:25'
+updated_date: '2026-06-11 08:00'
 labels:
   - phrasal-verbs
   - content
 dependencies: []
+modified_files:
+  - src/pages/show/ShowVerbPage.tsx
+  - src/pages/PhrasalVerbsListPage.tsx
+  - src/main.tsx
+  - src/data/listVerbIndex.ts
+  - src/__tests__/show_verb_page/helpers.tsx
+  - src/__tests__/show_verb_page/around_round_about.test.tsx
+  - src/__tests__/show_verb_page/down.test.tsx
+  - src/__tests__/show_verb_page/for.test.tsx
+  - src/__tests__/show_verb_page/in_into.test.tsx
+  - src/__tests__/show_verb_page/off.test.tsx
+  - src/__tests__/show_verb_page/out.test.tsx
+  - src/__tests__/show_verb_page/over.test.tsx
+  - src/__tests__/show_verb_page/through.test.tsx
+  - src/__tests__/show_verb_page/to.test.tsx
+  - src/__tests__/show_verb_page/up.test.tsx
+  - src/__tests__/PhrasalVerbsListPage.test.tsx
 priority: medium
 ordinal: 37000
 ---
@@ -94,12 +112,18 @@ Add the "Show" phrasal verb entry following the same pattern as the existing ver
 
 ## Acceptance Criteria
 <!-- AC:BEGIN -->
-- [ ] #1 #1 `src/pages/show/ShowVerbPage.tsx` created with 10 sections, all meanings, all using default.png
-- [ ] #2 #2 SHOW_PARTICLES constant added to PhrasalVerbsListPage.tsx with all 10 particles
-- [ ] #3 #3 VERBS entry added for Show after Settle in PhrasalVerbsListPage.tsx
-- [ ] #4 #4 Route `/phrasal-verbs/list/show` registered in src/main.tsx
-- [ ] #5 #5 showSections added to listVerbIndex.ts search index
-- [ ] #6 #6 10 test files created under src/__tests__/show_verb_page/ (one per particle)
-- [ ] #7 #7 PhrasalVerbsListPage.test.tsx extended with Show card, subtitle, and copy-button describe blocks
-- [ ] #8 #8 `npm run test:run` passes with all tests green
+- [x] #1 #1 `src/pages/show/ShowVerbPage.tsx` created with 10 sections, all meanings, all using default.png
+- [x] #2 #2 SHOW_PARTICLES constant added to PhrasalVerbsListPage.tsx with all 10 particles
+- [x] #3 #3 VERBS entry added for Show after Settle in PhrasalVerbsListPage.tsx
+- [x] #4 #4 Route `/phrasal-verbs/list/show` registered in src/main.tsx
+- [x] #5 #5 showSections added to listVerbIndex.ts search index
+- [x] #6 #6 10 test files created under src/__tests__/show_verb_page/ (one per particle)
+- [x] #7 #7 PhrasalVerbsListPage.test.tsx extended with Show card, subtitle, and copy-button describe blocks
+- [x] #8 #8 `npm run test:run` passes with all tests green
 <!-- AC:END -->
+
+## Final Summary
+
+<!-- SECTION:FINAL_SUMMARY:BEGIN -->
+Added Show phrasal verb page (10 sections, 16 total meanings) following the standard VerbPageLayout pattern. All images use default.png. Committed as d5bd3b3 — 16 files changed, 680 insertions. All 16,628 tests pass (694 files).
+<!-- SECTION:FINAL_SUMMARY:END -->
