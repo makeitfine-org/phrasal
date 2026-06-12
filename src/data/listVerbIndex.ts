@@ -62,6 +62,7 @@ import { sections as throwSections } from '../pages/throw/ThrowVerbPage';
 import { sections as lookSections } from '../pages/look/LookVerbPage';
 import { sections as trySections } from '../pages/try/TryVerbPage';
 import { sections as turnSections } from '../pages/turn/TurnVerbPage';
+import { sections as useSections } from '../pages/use/UseVerbPage';
 
 export interface ListSearchEntry {
   verb: string;
@@ -151,4 +152,5 @@ export const listVerbIndex: ListSearchEntry[] = [
   ...buildEntries(lookSections, 'Look', '/phrasal-verbs/list/look'),
   ...buildEntries(trySections, 'Try', '/phrasal-verbs/list/try'),
   ...buildEntries(turnSections, 'Turn', '/phrasal-verbs/list/turn'),
+  ...buildEntries(useSections, 'Use', '/phrasal-verbs/list/use'),
 ];
