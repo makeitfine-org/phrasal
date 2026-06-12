@@ -1,9 +1,10 @@
 ---
 id: TASK-63
 title: Add "Wear" phrasal verb page with list card and tests
-status: To Do
+status: Done
 assignee: []
 created_date: '2026-06-09'
+updated_date: '2026-06-12 10:16'
 labels:
   - phrasal-verbs
   - content
@@ -76,12 +77,12 @@ Add the "Wear" phrasal verb entry following the same pattern as the existing ver
 
 ## Acceptance Criteria
 <!-- AC:BEGIN -->
-- [ ] #1 `src/pages/wear/WearVerbPage.tsx` created with 7 sections, all meanings, all using default.png
-- [ ] #2 WEAR_PARTICLES constant added to PhrasalVerbsListPage.tsx with all 7 particles
-- [ ] #3 VERBS entry added for Wear after Watch in PhrasalVerbsListPage.tsx
-- [ ] #4 Route `/phrasal-verbs/list/wear` registered in src/main.tsx
-- [ ] #5 wearSections added to listVerbIndex.ts search index
-- [ ] #6 7 test files created under src/__tests__/wear_verb_page/ (one per particle)
-- [ ] #7 PhrasalVerbsListPage.test.tsx extended with Wear card, subtitle, and copy-button describe blocks
-- [ ] #8 `npm run test:run` passes with all tests green
+- [x] #1 `src/pages/wear/WearVerbPage.tsx` created with 7 sections, all meanings, all using default.png
+- [x] #2 WEAR_PARTICLES constant added to PhrasalVerbsListPage.tsx with all 7 particles
+- [x] #3 VERBS entry added for Wear after Watch in PhrasalVerbsListPage.tsx
+- [x] #4 Route `/phrasal-verbs/list/wear` registered in src/main.tsx
+- [x] #5 wearSections added to listVerbIndex.ts search index
+- [x] #6 7 test files created under src/__tests__/wear_verb_page/ (one per particle)
+- [x] #7 PhrasalVerbsListPage.test.tsx extended with Wear card, subtitle, and copy-button describe blocks
+- [x] #8 `npm run test:run` passes with all tests green
 <!-- AC:END -->

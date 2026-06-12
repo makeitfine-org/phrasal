@@ -1,9 +1,10 @@
 ---
 id: TASK-60
 title: Add "Wake" phrasal verb page with list card and tests
-status: To Do
+status: Done
 assignee: []
 created_date: '2026-06-09'
+updated_date: '2026-06-12 09:29'
 labels:
   - phrasal-verbs
   - content
@@ -62,12 +63,12 @@ Add the "Wake" phrasal verb entry following the same pattern as the existing ver
 
 ## Acceptance Criteria
 <!-- AC:BEGIN -->
-- [ ] #1 `src/pages/wake/WakeVerbPage.tsx` created with 3 sections, all meanings, all using default.png
-- [ ] #2 WAKE_PARTICLES constant added to PhrasalVerbsListPage.tsx with all 3 particles
-- [ ] #3 VERBS entry added for Wake after Use in PhrasalVerbsListPage.tsx
-- [ ] #4 Route `/phrasal-verbs/list/wake` registered in src/main.tsx
-- [ ] #5 wakeSections added to listVerbIndex.ts search index
-- [ ] #6 3 test files created under src/__tests__/wake_verb_page/ (one per particle)
-- [ ] #7 PhrasalVerbsListPage.test.tsx extended with Wake card, subtitle, and copy-button describe blocks
-- [ ] #8 `npm run test:run` passes with all tests green
+- [x] #1 `src/pages/wake/WakeVerbPage.tsx` created with 3 sections, all meanings, all using default.png
+- [x] #2 WAKE_PARTICLES constant added to PhrasalVerbsListPage.tsx with all 3 particles
+- [x] #3 VERBS entry added for Wake after Use in PhrasalVerbsListPage.tsx
+- [x] #4 Route `/phrasal-verbs/list/wake` registered in src/main.tsx
+- [x] #5 wakeSections added to listVerbIndex.ts search index
+- [x] #6 3 test files created under src/__tests__/wake_verb_page/ (one per particle)
+- [x] #7 PhrasalVerbsListPage.test.tsx extended with Wake card, subtitle, and copy-button describe blocks
+- [x] #8 `npm run test:run` passes with all tests green
 <!-- AC:END -->

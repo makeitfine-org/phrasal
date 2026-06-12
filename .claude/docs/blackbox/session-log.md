@@ -1388,3 +1388,69 @@
 - backlog/tasks/task-57 - Add-Try-phrasal-verb-page-with-list-card-and-tests.md
 - backlog/tasks/task-58 - Add-Turn-phrasal-verb-page-with-list-card-and-tests.md
 <!-- end-snapshot -->
+
+<!-- git-snapshot 2026-06-12T09:00:02Z -->
+- .claude/docs/blackbox/audit.md
+- backlog/tasks/task-59 - Add-Use-phrasal-verb-page-with-list-card-and-tests.md
+<!-- end-snapshot -->
+
+<!-- git-snapshot 2026-06-12T09:29:53Z -->
+- .claude/docs/blackbox/audit.md
+- .claude/docs/blackbox/session-log.md
+- backlog/tasks/task-59 - Add-Use-phrasal-verb-page-with-list-card-and-tests.md
+- backlog/tasks/task-60 - Add-Wake-phrasal-verb-page-with-list-card-and-tests.md
+<!-- end-snapshot -->
+
+<!-- git-snapshot 2026-06-12T09:30:23Z -->
+- .claude/docs/blackbox/audit.md
+- .claude/docs/blackbox/session-log.md
+- backlog/tasks/task-59 - Add-Use-phrasal-verb-page-with-list-card-and-tests.md
+- backlog/tasks/task-60 - Add-Wake-phrasal-verb-page-with-list-card-and-tests.md
+<!-- end-snapshot -->
+
+<!-- git-snapshot 2026-06-12T09:40:47Z -->
+- .claude/docs/blackbox/audit.md
+- .claude/docs/blackbox/session-log.md
+- backlog/tasks/task-59 - Add-Use-phrasal-verb-page-with-list-card-and-tests.md
+- backlog/tasks/task-60 - Add-Wake-phrasal-verb-page-with-list-card-and-tests.md
+- backlog/tasks/task-61 - Add-Warm-phrasal-verb-page-with-list-card-and-tests.md
+<!-- end-snapshot -->
+
+<!-- git-snapshot 2026-06-12T10:08:14Z -->
+- .claude/docs/blackbox/audit.md
+- .claude/docs/blackbox/session-log.md
+- backlog/tasks/task-59 - Add-Use-phrasal-verb-page-with-list-card-and-tests.md
+- backlog/tasks/task-60 - Add-Wake-phrasal-verb-page-with-list-card-and-tests.md
+- backlog/tasks/task-61 - Add-Warm-phrasal-verb-page-with-list-card-and-tests.md
+- backlog/tasks/task-62 - Add-Watch-phrasal-verb-page-with-list-card-and-tests.md
+<!-- end-snapshot -->
+
+<!-- git-snapshot 2026-06-12T10:17:03Z -->
+- .claude/docs/blackbox/audit.md
+- .claude/docs/blackbox/session-log.md
+- backlog/tasks/task-59 - Add-Use-phrasal-verb-page-with-list-card-and-tests.md
+- backlog/tasks/task-60 - Add-Wake-phrasal-verb-page-with-list-card-and-tests.md
+- backlog/tasks/task-61 - Add-Warm-phrasal-verb-page-with-list-card-and-tests.md
+- backlog/tasks/task-62 - Add-Watch-phrasal-verb-page-with-list-card-and-tests.md
+- backlog/tasks/task-63 - Add-Wear-phrasal-verb-page-with-list-card-and-tests.md
+<!-- end-snapshot -->
+
+<!-- git-snapshot 2026-06-12T10:20:30Z -->
+- .claude/docs/blackbox/audit.md
+- .claude/docs/blackbox/session-log.md
+- backlog/tasks/task-59 - Add-Use-phrasal-verb-page-with-list-card-and-tests.md
+- backlog/tasks/task-60 - Add-Wake-phrasal-verb-page-with-list-card-and-tests.md
+- backlog/tasks/task-61 - Add-Warm-phrasal-verb-page-with-list-card-and-tests.md
+- backlog/tasks/task-62 - Add-Watch-phrasal-verb-page-with-list-card-and-tests.md
+- backlog/tasks/task-63 - Add-Wear-phrasal-verb-page-with-list-card-and-tests.md
+<!-- end-snapshot -->
+
+<!-- git-snapshot 2026-06-12T10:22:57Z -->
+- .claude/docs/blackbox/audit.md
+- .claude/docs/blackbox/session-log.md
+- backlog/tasks/task-59 - Add-Use-phrasal-verb-page-with-list-card-and-tests.md
+- backlog/tasks/task-60 - Add-Wake-phrasal-verb-page-with-list-card-and-tests.md
+- backlog/tasks/task-61 - Add-Warm-phrasal-verb-page-with-list-card-and-tests.md
+- backlog/tasks/task-62 - Add-Watch-phrasal-verb-page-with-list-card-and-tests.md
+- backlog/tasks/task-63 - Add-Wear-phrasal-verb-page-with-list-card-and-tests.md
+<!-- end-snapshot -->
