@@ -93,6 +93,7 @@ function renderPageWithRoutes() {
         <Route path="/phrasal-verbs/list/watch" element={<LocationSpy />} />
         <Route path="/phrasal-verbs/list/wear" element={<LocationSpy />} />
         <Route path="/phrasal-verbs/list/work" element={<LocationSpy />} />
+        <Route path="/phrasal-verbs/list/write" element={<LocationSpy />} />
         <Route path="/phrasal-verbs/particles" element={<LocationSpy />} />
       </Routes>
     </MemoryRouter>
@@ -2493,6 +2494,11 @@ const ALL_WEAR_PARTICLES = ['away', 'down', 'in', 'off', 'on', 'out', 'through']
 const ALL_WORK_PARTICLES = [
   'against', 'ahead', 'around / round', 'away', 'back', 'down', 'for',
   'in', 'into', 'off', 'on', 'out', 'over', 'through', 'to', 'together', 'up', 'with',
+];
+
+const ALL_WRITE_PARTICLES = [
+  'about', 'against', 'around / round', 'away', 'back', 'down', 'for',
+  'in', 'into', 'off', 'on', 'out', 'over', 'through', 'to', 'up',
 ];
 
 describe('PhrasalVerbsListPage — Cheer card', () => {
@@ -6526,6 +6532,88 @@ describe('PhrasalVerbsListPage — work copy button', () => {
     renderPage();
     expandCard('work');
     fireEvent.click(screen.getByRole('button', { name: /copy all "work" phrasal verbs/i }));
+    await vi.waitFor(() => {
+      expect(screen.getByRole('button', { name: /copied!/i }))
+        .toHaveAttribute('title', 'Copied!');
+    });
+  });
+});
+
+describe('PhrasalVerbsListPage — Write card', () => {
+  it('renders the "Write" card', () => {
+    renderPage();
+    expect(screen.getByTestId('verb-card-write')).toBeInTheDocument();
+  });
+
+  it('renders "Write" heading', () => {
+    renderPage();
+    expect(within(screen.getByTestId('verb-card-write')).getByText('Write')).toBeInTheDocument();
+  });
+
+  it('"Write" link points to /phrasal-verbs/list/write', () => {
+    renderPage();
+    expandCard('write');
+    const link = within(screen.getByTestId('verb-card-write')).getByRole('link', { name: /write/i });
+    expect(link).toHaveAttribute('href', '/phrasal-verbs/list/write');
+  });
+
+  it('shows write particles text in subtitle after expand', () => {
+    renderPage();
+    expandCard('write');
+    expect(within(screen.getByTestId('verb-card-write')).getByText(/about, against, around \/ round, away, back, down, for, in, into, off, on, out, over, through, to, up/i)).toBeInTheDocument();
+  });
+
+  it('write subtitle title attribute contains all particles', () => {
+    renderPage();
+    expandCard('write');
+    const subtitle = within(screen.getByTestId('verb-card-write')).getByText(/about, against, around \/ round, away, back, down, for, in, into, off, on, out, over, through, to, up/i);
+    expect(subtitle).toHaveAttribute('title', ALL_WRITE_PARTICLES.join(', '));
+  });
+});
+
+describe('PhrasalVerbsListPage — write copy button', () => {
+  beforeEach(() => {
+    Object.defineProperty(navigator, 'clipboard', {
+      value: { writeText: vi.fn().mockResolvedValue(undefined) },
+      writable: true,
+    });
+  });
+
+  it('renders a write copy button when expanded', () => {
+    renderPage();
+    expandCard('write');
+    expect(screen.getByRole('button', { name: /copy all "write" phrasal verbs/i })).toBeInTheDocument();
+  });
+
+  it('write copy button title is \'Copy all "write" phrasal verbs\' before click', () => {
+    renderPage();
+    expandCard('write');
+    expect(screen.getByRole('button', { name: /copy all "write" phrasal verbs/i }))
+      .toHaveAttribute('title', 'Copy all "write" phrasal verbs');
+  });
+
+  it('clipboard receives all 16 write particles as "write X" forms in order', () => {
+    renderPage();
+    expandCard('write');
+    fireEvent.click(screen.getByRole('button', { name: /copy all "write" phrasal verbs/i }));
+    const expected = ALL_WRITE_PARTICLES.map(p => `write ${p}`).join(', ');
+    expect(navigator.clipboard.writeText).toHaveBeenCalledWith(expected);
+  });
+
+  it('clipboard content contains every write particle', () => {
+    renderPage();
+    expandCard('write');
+    fireEvent.click(screen.getByRole('button', { name: /copy all "write" phrasal verbs/i }));
+    const written = (navigator.clipboard.writeText as ReturnType<typeof vi.fn>).mock.calls[0][0];
+    for (const p of ALL_WRITE_PARTICLES) {
+      expect(written).toContain(`write ${p}`);
+    }
+  });
+
+  it('write copy button shows "Copied!" title after click', async () => {
+    renderPage();
+    expandCard('write');
+    fireEvent.click(screen.getByRole('button', { name: /copy all "write" phrasal verbs/i }));
     await vi.waitFor(() => {
       expect(screen.getByRole('button', { name: /copied!/i }))
         .toHaveAttribute('title', 'Copied!');

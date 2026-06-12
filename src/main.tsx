@@ -75,6 +75,7 @@ import WarmVerbPage from './pages/warm/WarmVerbPage';
 import WatchVerbPage from './pages/watch/WatchVerbPage';
 import WearVerbPage from './pages/wear/WearVerbPage';
 import WorkVerbPage from './pages/work/WorkVerbPage';
+import WriteVerbPage from './pages/write/WriteVerbPage';
 import ParticlesPage from './pages/particles/ParticlesPage';
 import IWishPage from './pages/IWishPage';
 import NotFoundPage from './pages/NotFoundPage';
@@ -162,6 +163,7 @@ ReactDOM.createRoot(document.getElementById('root')!).render(
             <Route path="/phrasal-verbs/list/watch" element={<WatchVerbPage />} />
             <Route path="/phrasal-verbs/list/wear" element={<WearVerbPage />} />
             <Route path="/phrasal-verbs/list/work" element={<WorkVerbPage />} />
+            <Route path="/phrasal-verbs/list/write" element={<WriteVerbPage />} />
             <Route path="/grammar" element={<GrammarPage />} />
             <Route path="/grammar/i-wish-if-only" element={<IWishPage />} />
             <Route path="*" element={<NotFoundPage />} />
