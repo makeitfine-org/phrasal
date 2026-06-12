@@ -67,6 +67,7 @@ import { sections as wakeSections } from '../pages/wake/WakeVerbPage';
 import { sections as warmSections } from '../pages/warm/WarmVerbPage';
 import { sections as watchSections } from '../pages/watch/WatchVerbPage';
 import { sections as wearSections } from '../pages/wear/WearVerbPage';
+import { sections as workSections } from '../pages/work/WorkVerbPage';
 
 export interface ListSearchEntry {
   verb: string;
@@ -161,4 +162,5 @@ export const listVerbIndex: ListSearchEntry[] = [
   ...buildEntries(warmSections, 'Warm', '/phrasal-verbs/list/warm'),
   ...buildEntries(watchSections, 'Watch', '/phrasal-verbs/list/watch'),
   ...buildEntries(wearSections, 'Wear', '/phrasal-verbs/list/wear'),
+  ...buildEntries(workSections, 'Work', '/phrasal-verbs/list/work'),
 ];

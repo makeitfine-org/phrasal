@@ -263,6 +263,11 @@ const WATCH_PARTICLES = ['back', 'for', 'on', 'out', 'out for', 'over', 'through
 
 const WEAR_PARTICLES = ['away', 'down', 'in', 'off', 'on', 'out', 'through'];
 
+const WORK_PARTICLES = [
+  'against', 'ahead', 'around / round', 'away', 'back', 'down', 'for',
+  'in', 'into', 'off', 'on', 'out', 'over', 'through', 'to', 'together', 'up', 'with',
+];
+
 const VERBS = [
   { key: 'get',  label: 'Get',  to: '/phrasal-verbs/list/get',  particles: GET_PARTICLES },
   { key: 'make', label: 'Make', to: '/phrasal-verbs/list/make', particles: MAKE_PARTICLES },
@@ -332,6 +337,7 @@ const VERBS = [
   { key: 'warm',  label: 'Warm',  to: '/phrasal-verbs/list/warm',  particles: WARM_PARTICLES },
   { key: 'watch', label: 'Watch', to: '/phrasal-verbs/list/watch', particles: WATCH_PARTICLES },
   { key: 'wear',  label: 'Wear',  to: '/phrasal-verbs/list/wear',  particles: WEAR_PARTICLES },
+  { key: 'work',  label: 'Work',  to: '/phrasal-verbs/list/work',  particles: WORK_PARTICLES },
 ];
 
 const EXPANDED_KEY = 'verbListExpanded';
