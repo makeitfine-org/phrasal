@@ -1501,3 +1501,7 @@
 <!-- git-snapshot 2026-06-12T11:32:06Z -->
 - .claude/docs/blackbox/audit.md
 <!-- end-snapshot -->
+
+<!-- git-snapshot 2026-06-12T11:36:09Z -->
+- .claude/docs/blackbox/audit.md
+<!-- end-snapshot -->
