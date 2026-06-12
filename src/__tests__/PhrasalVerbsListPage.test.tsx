@@ -6708,3 +6708,29 @@ describe('PhrasalVerbsListPage — zip copy button', () => {
     });
   });
 });
+
+describe('PhrasalVerbsListPage — alphabetical ordering', () => {
+  it('verb cards are rendered in alphabetical order (Particles card excluded)', () => {
+    renderPage();
+    const headings = screen.getAllByRole('heading', { level: 2 });
+    const verbLabels = headings
+      .map(h => h.textContent ?? '')
+      .filter(t => t !== 'Particles');
+    const sorted = [...verbLabels].sort((a, b) => a.localeCompare(b));
+    expect(verbLabels).toEqual(sorted);
+  });
+
+  it('first verb card is "Act"', () => {
+    renderPage();
+    const headings = screen.getAllByRole('heading', { level: 2 });
+    const firstVerb = headings.find(h => h.textContent !== 'Particles');
+    expect(firstVerb?.textContent).toBe('Act');
+  });
+
+  it('last verb card is "Zip"', () => {
+    renderPage();
+    const headings = screen.getAllByRole('heading', { level: 2 });
+    const verbHeadings = headings.filter(h => h.textContent !== 'Particles');
+    expect(verbHeadings[verbHeadings.length - 1].textContent).toBe('Zip');
+  });
+});

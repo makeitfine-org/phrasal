@@ -1505,3 +1505,16 @@
 <!-- git-snapshot 2026-06-12T11:36:09Z -->
 - .claude/docs/blackbox/audit.md
 <!-- end-snapshot -->
+
+<!-- git-snapshot 2026-06-12T11:47:02Z -->
+- .claude/docs/blackbox/audit.md
+- .github/workflows/phrasal-deploy.yml
+- src/__tests__/PhrasalVerbsListPage.test.tsx
+- src/pages/PhrasalVerbsListPage.tsx
+<!-- end-snapshot -->
+
+<!-- git-snapshot 2026-06-12T11:51:49Z -->
+- .claude/docs/blackbox/audit.md
+- .claude/docs/blackbox/session-log.md
+- .github/workflows/phrasal-deploy.yml
+<!-- end-snapshot -->
