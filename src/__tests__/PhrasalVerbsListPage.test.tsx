@@ -94,6 +94,7 @@ function renderPageWithRoutes() {
         <Route path="/phrasal-verbs/list/wear" element={<LocationSpy />} />
         <Route path="/phrasal-verbs/list/work" element={<LocationSpy />} />
         <Route path="/phrasal-verbs/list/write" element={<LocationSpy />} />
+        <Route path="/phrasal-verbs/list/zip" element={<LocationSpy />} />
         <Route path="/phrasal-verbs/particles" element={<LocationSpy />} />
       </Routes>
     </MemoryRouter>
@@ -2499,6 +2500,11 @@ const ALL_WORK_PARTICLES = [
 const ALL_WRITE_PARTICLES = [
   'about', 'against', 'around / round', 'away', 'back', 'down', 'for',
   'in', 'into', 'off', 'on', 'out', 'over', 'through', 'to', 'up',
+];
+
+const ALL_ZIP_PARTICLES = [
+  'about / around / round', 'across', 'ahead', 'apart', 'away', 'back', 'by',
+  'down', 'in', 'into', 'off', 'on', 'out', 'over', 'through', 'to', 'together', 'up',
 ];
 
 describe('PhrasalVerbsListPage — Cheer card', () => {
@@ -6614,6 +6620,88 @@ describe('PhrasalVerbsListPage — write copy button', () => {
     renderPage();
     expandCard('write');
     fireEvent.click(screen.getByRole('button', { name: /copy all "write" phrasal verbs/i }));
+    await vi.waitFor(() => {
+      expect(screen.getByRole('button', { name: /copied!/i }))
+        .toHaveAttribute('title', 'Copied!');
+    });
+  });
+});
+
+describe('PhrasalVerbsListPage — Zip card', () => {
+  it('renders the "Zip" card', () => {
+    renderPage();
+    expect(screen.getByTestId('verb-card-zip')).toBeInTheDocument();
+  });
+
+  it('renders "Zip" heading', () => {
+    renderPage();
+    expect(within(screen.getByTestId('verb-card-zip')).getByText('Zip')).toBeInTheDocument();
+  });
+
+  it('"Zip" link points to /phrasal-verbs/list/zip', () => {
+    renderPage();
+    expandCard('zip');
+    const link = within(screen.getByTestId('verb-card-zip')).getByRole('link', { name: /zip/i });
+    expect(link).toHaveAttribute('href', '/phrasal-verbs/list/zip');
+  });
+
+  it('shows zip particles text in subtitle after expand', () => {
+    renderPage();
+    expandCard('zip');
+    expect(within(screen.getByTestId('verb-card-zip')).getByText(/about \/ around \/ round, across, ahead, apart, away, back, by, down, in, into, off, on, out, over, through, to, together, up/i)).toBeInTheDocument();
+  });
+
+  it('zip subtitle title attribute contains all particles', () => {
+    renderPage();
+    expandCard('zip');
+    const subtitle = within(screen.getByTestId('verb-card-zip')).getByText(/about \/ around \/ round, across, ahead, apart, away, back, by, down, in, into, off, on, out, over, through, to, together, up/i);
+    expect(subtitle).toHaveAttribute('title', ALL_ZIP_PARTICLES.join(', '));
+  });
+});
+
+describe('PhrasalVerbsListPage — zip copy button', () => {
+  beforeEach(() => {
+    Object.defineProperty(navigator, 'clipboard', {
+      value: { writeText: vi.fn().mockResolvedValue(undefined) },
+      writable: true,
+    });
+  });
+
+  it('renders a zip copy button when expanded', () => {
+    renderPage();
+    expandCard('zip');
+    expect(screen.getByRole('button', { name: /copy all "zip" phrasal verbs/i })).toBeInTheDocument();
+  });
+
+  it('zip copy button title is \'Copy all "zip" phrasal verbs\' before click', () => {
+    renderPage();
+    expandCard('zip');
+    expect(screen.getByRole('button', { name: /copy all "zip" phrasal verbs/i }))
+      .toHaveAttribute('title', 'Copy all "zip" phrasal verbs');
+  });
+
+  it('clipboard receives all 18 zip particles as "zip X" forms in order', () => {
+    renderPage();
+    expandCard('zip');
+    fireEvent.click(screen.getByRole('button', { name: /copy all "zip" phrasal verbs/i }));
+    const expected = ALL_ZIP_PARTICLES.map(p => `zip ${p}`).join(', ');
+    expect(navigator.clipboard.writeText).toHaveBeenCalledWith(expected);
+  });
+
+  it('clipboard content contains every zip particle', () => {
+    renderPage();
+    expandCard('zip');
+    fireEvent.click(screen.getByRole('button', { name: /copy all "zip" phrasal verbs/i }));
+    const written = (navigator.clipboard.writeText as ReturnType<typeof vi.fn>).mock.calls[0][0];
+    for (const p of ALL_ZIP_PARTICLES) {
+      expect(written).toContain(`zip ${p}`);
+    }
+  });
+
+  it('zip copy button shows "Copied!" title after click', async () => {
+    renderPage();
+    expandCard('zip');
+    fireEvent.click(screen.getByRole('button', { name: /copy all "zip" phrasal verbs/i }));
     await vi.waitFor(() => {
       expect(screen.getByRole('button', { name: /copied!/i }))
         .toHaveAttribute('title', 'Copied!');

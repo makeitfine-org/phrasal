@@ -1,10 +1,10 @@
 ---
 id: TASK-64
 title: Add "Work" phrasal verb page with list card and tests
-status: In Progress
+status: Done
 assignee: []
 created_date: '2026-06-09'
-updated_date: '2026-06-12 10:26'
+updated_date: '2026-06-12 10:37'
 labels:
   - phrasal-verbs
   - content

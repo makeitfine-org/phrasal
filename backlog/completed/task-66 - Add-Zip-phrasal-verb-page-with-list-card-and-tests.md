@@ -1,9 +1,10 @@
 ---
 id: TASK-66
 title: Add "Zip" phrasal verb page with list card and tests
-status: To Do
+status: Done
 assignee: []
 created_date: '2026-06-09'
+updated_date: '2026-06-12 11:26'
 labels:
   - phrasal-verbs
   - content
@@ -126,12 +127,12 @@ Add the "Zip" phrasal verb entry following the same pattern as the existing verb
 
 ## Acceptance Criteria
 <!-- AC:BEGIN -->
-- [ ] #1 `src/pages/zip/ZipVerbPage.tsx` created with 18 sections, all meanings, all using default.png
-- [ ] #2 ZIP_PARTICLES constant added to PhrasalVerbsListPage.tsx with all 18 particles
-- [ ] #3 VERBS entry added for Zip after Write in PhrasalVerbsListPage.tsx
-- [ ] #4 Route `/phrasal-verbs/list/zip` registered in src/main.tsx
-- [ ] #5 zipSections added to listVerbIndex.ts search index
-- [ ] #6 18 test files created under src/__tests__/zip_verb_page/ (one per particle)
-- [ ] #7 PhrasalVerbsListPage.test.tsx extended with Zip card, subtitle, and copy-button describe blocks
-- [ ] #8 `npm run test:run` passes with all tests green
+- [x] #1 `src/pages/zip/ZipVerbPage.tsx` created with 18 sections, all meanings, all using default.png
+- [x] #2 ZIP_PARTICLES constant added to PhrasalVerbsListPage.tsx with all 18 particles
+- [x] #3 VERBS entry added for Zip after Write in PhrasalVerbsListPage.tsx
+- [x] #4 Route `/phrasal-verbs/list/zip` registered in src/main.tsx
+- [x] #5 zipSections added to listVerbIndex.ts search index
+- [x] #6 18 test files created under src/__tests__/zip_verb_page/ (one per particle)
+- [x] #7 PhrasalVerbsListPage.test.tsx extended with Zip card, subtitle, and copy-button describe blocks
+- [x] #8 `npm run test:run` passes with all tests green
 <!-- AC:END -->

@@ -273,6 +273,11 @@ const WRITE_PARTICLES = [
   'in', 'into', 'off', 'on', 'out', 'over', 'through', 'to', 'up',
 ];
 
+const ZIP_PARTICLES = [
+  'about / around / round', 'across', 'ahead', 'apart', 'away', 'back', 'by',
+  'down', 'in', 'into', 'off', 'on', 'out', 'over', 'through', 'to', 'together', 'up',
+];
+
 const VERBS = [
   { key: 'get',  label: 'Get',  to: '/phrasal-verbs/list/get',  particles: GET_PARTICLES },
   { key: 'make', label: 'Make', to: '/phrasal-verbs/list/make', particles: MAKE_PARTICLES },
@@ -344,6 +349,7 @@ const VERBS = [
   { key: 'wear',  label: 'Wear',  to: '/phrasal-verbs/list/wear',  particles: WEAR_PARTICLES },
   { key: 'work',  label: 'Work',  to: '/phrasal-verbs/list/work',  particles: WORK_PARTICLES },
   { key: 'write', label: 'Write', to: '/phrasal-verbs/list/write', particles: WRITE_PARTICLES },
+  { key: 'zip',   label: 'Zip',   to: '/phrasal-verbs/list/zip',   particles: ZIP_PARTICLES },
 ];
 
 const EXPANDED_KEY = 'verbListExpanded';

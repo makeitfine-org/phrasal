@@ -1454,3 +1454,50 @@
 - backlog/tasks/task-62 - Add-Watch-phrasal-verb-page-with-list-card-and-tests.md
 - backlog/tasks/task-63 - Add-Wear-phrasal-verb-page-with-list-card-and-tests.md
 <!-- end-snapshot -->
+
+<!-- git-snapshot 2026-06-12T10:37:45Z -->
+- .claude/docs/blackbox/audit.md
+- backlog/tasks/task-64 - Add-Work-phrasal-verb-page-with-list-card-and-tests.md
+<!-- end-snapshot -->
+
+<!-- git-snapshot 2026-06-12T10:38:47Z -->
+- .claude/docs/blackbox/audit.md
+- .claude/docs/blackbox/session-log.md
+- backlog/tasks/task-64 - Add-Work-phrasal-verb-page-with-list-card-and-tests.md
+<!-- end-snapshot -->
+
+<!-- git-snapshot 2026-06-12T11:13:44Z -->
+- .claude/docs/blackbox/audit.md
+- .claude/docs/blackbox/session-log.md
+- backlog/tasks/task-64 - Add-Work-phrasal-verb-page-with-list-card-and-tests.md
+- backlog/tasks/task-65 - Add-Write-phrasal-verb-page-with-list-card-and-tests.md
+<!-- end-snapshot -->
+
+## 2026-06-12T11:26:00Z
+### Decisions
+- Implemented TASK-66: Add Zip phrasal verb page with 18 particles following established VerbPageLayout pattern
+### Constraints Stated by User
+- Commit style: single-line ≤ 80 chars, no Co-Authored-By trailer
+### Files Modified
+- `src/pages/zip/ZipVerbPage.tsx` — new page with 18 sections, all default.png
+- `src/__tests__/zip_verb_page/helpers.tsx` — test helpers for ZipVerbPage
+- `src/__tests__/zip_verb_page/*.test.tsx` — 18 test files (one per particle)
+- `src/pages/PhrasalVerbsListPage.tsx` — added ZIP_PARTICLES constant and VERBS entry
+- `src/main.tsx` — added ZipVerbPage import and route
+- `src/data/listVerbIndex.ts` — added zipSections to search index
+- `src/__tests__/PhrasalVerbsListPage.test.tsx` — added Zip card and copy-button tests
+### Deferred
+- None
+---
+
+<!-- git-snapshot 2026-06-12T11:28:15Z -->
+- .claude/docs/blackbox/audit.md
+- .claude/docs/blackbox/session-log.md
+- backlog/tasks/task-64 - Add-Work-phrasal-verb-page-with-list-card-and-tests.md
+- backlog/tasks/task-65 - Add-Write-phrasal-verb-page-with-list-card-and-tests.md
+- backlog/tasks/task-66 - Add-Zip-phrasal-verb-page-with-list-card-and-tests.md
+<!-- end-snapshot -->
+
+<!-- git-snapshot 2026-06-12T11:32:06Z -->
+- .claude/docs/blackbox/audit.md
+<!-- end-snapshot -->
