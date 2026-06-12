@@ -255,6 +255,8 @@ const TURN_PARTICLES = [
 
 const USE_PARTICLES = ['against', 'to / used to', 'up'];
 
+const WAKE_PARTICLES = ['to', 'up', 'up to'];
+
 const VERBS = [
   { key: 'get',  label: 'Get',  to: '/phrasal-verbs/list/get',  particles: GET_PARTICLES },
   { key: 'make', label: 'Make', to: '/phrasal-verbs/list/make', particles: MAKE_PARTICLES },
@@ -320,6 +322,7 @@ const VERBS = [
   { key: 'try',   label: 'Try',   to: '/phrasal-verbs/list/try',   particles: TRY_PARTICLES },
   { key: 'turn',  label: 'Turn',  to: '/phrasal-verbs/list/turn',  particles: TURN_PARTICLES },
   { key: 'use',   label: 'Use',   to: '/phrasal-verbs/list/use',   particles: USE_PARTICLES },
+  { key: 'wake',  label: 'Wake',  to: '/phrasal-verbs/list/wake',  particles: WAKE_PARTICLES },
 ];
 
 const EXPANDED_KEY = 'verbListExpanded';
