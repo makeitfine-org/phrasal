@@ -1,4 +1,7 @@
 import '@testing-library/jest-dom';
+import { cleanup } from '@testing-library/react';
+
+afterEach(cleanup);
 
 // jsdom doesn't implement scrollIntoView
 window.HTMLElement.prototype.scrollIntoView = function() {};

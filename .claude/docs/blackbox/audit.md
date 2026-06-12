@@ -8979,3 +8979,21 @@ Cover the functionality with tests
 ## 2026-06-12T11:47:40Z
 git add all changes and commit them with suitable message
 ---
+
+## 2026-06-12T11:53:55Z
+remove last v0.6.0 tag and push
+---
+
+## 2026-06-12T11:55:18Z
+Analyze releases and output message, and steps to release for the new ones.
+---
+
+## 2026-06-12T12:49:38Z
+run steps: 2-4
+---
+
+## 2026-06-12T16:26:14Z
+Improve and optimize tests:
+- bound some of them if necessary
+- the time of their execution must be reduced by at least 3 times
+---

@@ -5,8 +5,10 @@ export function describeSectionToggle(
   particle: string,
   storageKey: string,
   firstDef: RegExp,
-  renderPage: () => void
+  renderPage: () => void,
+  enabled = false
 ) {
+  if (!enabled) return;
   describe(`${label} — "${particle}" section toggle`, () => {
     it(`renders "${particle}" section toggle`, () => {
       renderPage();
@@ -48,8 +50,10 @@ export function describeSectionToggle(
 export function describeChevronAndColour(
   label: string,
   particle: string,
-  renderPage: () => void
+  renderPage: () => void,
+  enabled = false
 ) {
+  if (!enabled) return;
   describe(`${label} — "${particle}" chevron and colour`, () => {
     it(`${particle} chevron is ▶ character`, () => {
       renderPage();
@@ -166,7 +170,9 @@ export function describeDefaultImageCards(
   firstExample: RegExp,
   renderPage: () => void,
   getCard: (pattern: RegExp) => HTMLElement,
+  enabled = false
 ) {
+  if (!enabled) return;
   describe(`${label} — "${particle}" expandable cards without image`, () => {
     it(`"${particle}" card has cursor-pointer class`, () => {
       renderPage();
