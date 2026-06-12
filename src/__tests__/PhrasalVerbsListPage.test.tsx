@@ -89,6 +89,7 @@ function renderPageWithRoutes() {
         <Route path="/phrasal-verbs/list/turn" element={<LocationSpy />} />
         <Route path="/phrasal-verbs/list/use" element={<LocationSpy />} />
         <Route path="/phrasal-verbs/list/wake" element={<LocationSpy />} />
+        <Route path="/phrasal-verbs/list/warm" element={<LocationSpy />} />
         <Route path="/phrasal-verbs/particles" element={<LocationSpy />} />
       </Routes>
     </MemoryRouter>
@@ -2479,6 +2480,8 @@ const ALL_TURN_PARTICLES = [
 const ALL_USE_PARTICLES = ['against', 'to / used to', 'up'];
 
 const ALL_WAKE_PARTICLES = ['to', 'up', 'up to'];
+
+const ALL_WARM_PARTICLES = ['down', 'over', 'through', 'to', 'up'];
 
 describe('PhrasalVerbsListPage — Cheer card', () => {
   it('renders the "Cheer" card', () => {
@@ -6183,6 +6186,88 @@ describe('PhrasalVerbsListPage — wake copy button', () => {
     renderPage();
     expandCard('wake');
     fireEvent.click(screen.getByRole('button', { name: /copy all "wake" phrasal verbs/i }));
+    await vi.waitFor(() => {
+      expect(screen.getByRole('button', { name: /copied!/i }))
+        .toHaveAttribute('title', 'Copied!');
+    });
+  });
+});
+
+describe('PhrasalVerbsListPage — Warm card', () => {
+  it('renders the "Warm" card', () => {
+    renderPage();
+    expect(screen.getByTestId('verb-card-warm')).toBeInTheDocument();
+  });
+
+  it('renders "Warm" heading', () => {
+    renderPage();
+    expect(within(screen.getByTestId('verb-card-warm')).getByText('Warm')).toBeInTheDocument();
+  });
+
+  it('"Warm" link points to /phrasal-verbs/list/warm', () => {
+    renderPage();
+    expandCard('warm');
+    const link = within(screen.getByTestId('verb-card-warm')).getByRole('link', { name: /warm/i });
+    expect(link).toHaveAttribute('href', '/phrasal-verbs/list/warm');
+  });
+
+  it('shows warm particles text in subtitle after expand', () => {
+    renderPage();
+    expandCard('warm');
+    expect(within(screen.getByTestId('verb-card-warm')).getByText(/down, over, through, to, up/i)).toBeInTheDocument();
+  });
+
+  it('warm subtitle title attribute contains all particles', () => {
+    renderPage();
+    expandCard('warm');
+    const subtitle = within(screen.getByTestId('verb-card-warm')).getByText(/down, over, through, to, up/i);
+    expect(subtitle).toHaveAttribute('title', ALL_WARM_PARTICLES.join(', '));
+  });
+});
+
+describe('PhrasalVerbsListPage — warm copy button', () => {
+  beforeEach(() => {
+    Object.defineProperty(navigator, 'clipboard', {
+      value: { writeText: vi.fn().mockResolvedValue(undefined) },
+      writable: true,
+    });
+  });
+
+  it('renders a warm copy button when expanded', () => {
+    renderPage();
+    expandCard('warm');
+    expect(screen.getByRole('button', { name: /copy all "warm" phrasal verbs/i })).toBeInTheDocument();
+  });
+
+  it('warm copy button title is \'Copy all "warm" phrasal verbs\' before click', () => {
+    renderPage();
+    expandCard('warm');
+    expect(screen.getByRole('button', { name: /copy all "warm" phrasal verbs/i }))
+      .toHaveAttribute('title', 'Copy all "warm" phrasal verbs');
+  });
+
+  it('clipboard receives all 5 warm particles as "warm X" forms in order', () => {
+    renderPage();
+    expandCard('warm');
+    fireEvent.click(screen.getByRole('button', { name: /copy all "warm" phrasal verbs/i }));
+    const expected = ALL_WARM_PARTICLES.map(p => `warm ${p}`).join(', ');
+    expect(navigator.clipboard.writeText).toHaveBeenCalledWith(expected);
+  });
+
+  it('clipboard content contains every warm particle', () => {
+    renderPage();
+    expandCard('warm');
+    fireEvent.click(screen.getByRole('button', { name: /copy all "warm" phrasal verbs/i }));
+    const written = (navigator.clipboard.writeText as ReturnType<typeof vi.fn>).mock.calls[0][0];
+    for (const p of ALL_WARM_PARTICLES) {
+      expect(written).toContain(`warm ${p}`);
+    }
+  });
+
+  it('warm copy button shows "Copied!" title after click', async () => {
+    renderPage();
+    expandCard('warm');
+    fireEvent.click(screen.getByRole('button', { name: /copy all "warm" phrasal verbs/i }));
     await vi.waitFor(() => {
       expect(screen.getByRole('button', { name: /copied!/i }))
         .toHaveAttribute('title', 'Copied!');

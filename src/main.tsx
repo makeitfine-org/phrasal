@@ -71,6 +71,7 @@ import TryVerbPage from './pages/try/TryVerbPage';
 import TurnVerbPage from './pages/turn/TurnVerbPage';
 import UseVerbPage from './pages/use/UseVerbPage';
 import WakeVerbPage from './pages/wake/WakeVerbPage';
+import WarmVerbPage from './pages/warm/WarmVerbPage';
 import ParticlesPage from './pages/particles/ParticlesPage';
 import IWishPage from './pages/IWishPage';
 import NotFoundPage from './pages/NotFoundPage';
@@ -154,6 +155,7 @@ ReactDOM.createRoot(document.getElementById('root')!).render(
             <Route path="/phrasal-verbs/list/turn" element={<TurnVerbPage />} />
             <Route path="/phrasal-verbs/list/use" element={<UseVerbPage />} />
             <Route path="/phrasal-verbs/list/wake" element={<WakeVerbPage />} />
+            <Route path="/phrasal-verbs/list/warm" element={<WarmVerbPage />} />
             <Route path="/grammar" element={<GrammarPage />} />
             <Route path="/grammar/i-wish-if-only" element={<IWishPage />} />
             <Route path="*" element={<NotFoundPage />} />
