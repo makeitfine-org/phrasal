@@ -90,6 +90,7 @@ function renderPageWithRoutes() {
         <Route path="/phrasal-verbs/list/use" element={<LocationSpy />} />
         <Route path="/phrasal-verbs/list/wake" element={<LocationSpy />} />
         <Route path="/phrasal-verbs/list/warm" element={<LocationSpy />} />
+        <Route path="/phrasal-verbs/list/watch" element={<LocationSpy />} />
         <Route path="/phrasal-verbs/particles" element={<LocationSpy />} />
       </Routes>
     </MemoryRouter>
@@ -2482,6 +2483,8 @@ const ALL_USE_PARTICLES = ['against', 'to / used to', 'up'];
 const ALL_WAKE_PARTICLES = ['to', 'up', 'up to'];
 
 const ALL_WARM_PARTICLES = ['down', 'over', 'through', 'to', 'up'];
+
+const ALL_WATCH_PARTICLES = ['back', 'for', 'on', 'out', 'out for', 'over', 'through'];
 
 describe('PhrasalVerbsListPage — Cheer card', () => {
   it('renders the "Cheer" card', () => {
@@ -6268,6 +6271,88 @@ describe('PhrasalVerbsListPage — warm copy button', () => {
     renderPage();
     expandCard('warm');
     fireEvent.click(screen.getByRole('button', { name: /copy all "warm" phrasal verbs/i }));
+    await vi.waitFor(() => {
+      expect(screen.getByRole('button', { name: /copied!/i }))
+        .toHaveAttribute('title', 'Copied!');
+    });
+  });
+});
+
+describe('PhrasalVerbsListPage — Watch card', () => {
+  it('renders the "Watch" card', () => {
+    renderPage();
+    expect(screen.getByTestId('verb-card-watch')).toBeInTheDocument();
+  });
+
+  it('renders "Watch" heading', () => {
+    renderPage();
+    expect(within(screen.getByTestId('verb-card-watch')).getByText('Watch')).toBeInTheDocument();
+  });
+
+  it('"Watch" link points to /phrasal-verbs/list/watch', () => {
+    renderPage();
+    expandCard('watch');
+    const link = within(screen.getByTestId('verb-card-watch')).getByRole('link', { name: /watch/i });
+    expect(link).toHaveAttribute('href', '/phrasal-verbs/list/watch');
+  });
+
+  it('shows watch particles text in subtitle after expand', () => {
+    renderPage();
+    expandCard('watch');
+    expect(within(screen.getByTestId('verb-card-watch')).getByText(/back, for, on, out, out for, over, through/i)).toBeInTheDocument();
+  });
+
+  it('watch subtitle title attribute contains all particles', () => {
+    renderPage();
+    expandCard('watch');
+    const subtitle = within(screen.getByTestId('verb-card-watch')).getByText(/back, for, on, out, out for, over, through/i);
+    expect(subtitle).toHaveAttribute('title', ALL_WATCH_PARTICLES.join(', '));
+  });
+});
+
+describe('PhrasalVerbsListPage — watch copy button', () => {
+  beforeEach(() => {
+    Object.defineProperty(navigator, 'clipboard', {
+      value: { writeText: vi.fn().mockResolvedValue(undefined) },
+      writable: true,
+    });
+  });
+
+  it('renders a watch copy button when expanded', () => {
+    renderPage();
+    expandCard('watch');
+    expect(screen.getByRole('button', { name: /copy all "watch" phrasal verbs/i })).toBeInTheDocument();
+  });
+
+  it('watch copy button title is \'Copy all "watch" phrasal verbs\' before click', () => {
+    renderPage();
+    expandCard('watch');
+    expect(screen.getByRole('button', { name: /copy all "watch" phrasal verbs/i }))
+      .toHaveAttribute('title', 'Copy all "watch" phrasal verbs');
+  });
+
+  it('clipboard receives all 7 watch particles as "watch X" forms in order', () => {
+    renderPage();
+    expandCard('watch');
+    fireEvent.click(screen.getByRole('button', { name: /copy all "watch" phrasal verbs/i }));
+    const expected = ALL_WATCH_PARTICLES.map(p => `watch ${p}`).join(', ');
+    expect(navigator.clipboard.writeText).toHaveBeenCalledWith(expected);
+  });
+
+  it('clipboard content contains every watch particle', () => {
+    renderPage();
+    expandCard('watch');
+    fireEvent.click(screen.getByRole('button', { name: /copy all "watch" phrasal verbs/i }));
+    const written = (navigator.clipboard.writeText as ReturnType<typeof vi.fn>).mock.calls[0][0];
+    for (const p of ALL_WATCH_PARTICLES) {
+      expect(written).toContain(`watch ${p}`);
+    }
+  });
+
+  it('watch copy button shows "Copied!" title after click', async () => {
+    renderPage();
+    expandCard('watch');
+    fireEvent.click(screen.getByRole('button', { name: /copy all "watch" phrasal verbs/i }));
     await vi.waitFor(() => {
       expect(screen.getByRole('button', { name: /copied!/i }))
         .toHaveAttribute('title', 'Copied!');

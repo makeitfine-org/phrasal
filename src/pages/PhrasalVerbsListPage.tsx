@@ -259,6 +259,8 @@ const WAKE_PARTICLES = ['to', 'up', 'up to'];
 
 const WARM_PARTICLES = ['down', 'over', 'through', 'to', 'up'];
 
+const WATCH_PARTICLES = ['back', 'for', 'on', 'out', 'out for', 'over', 'through'];
+
 const VERBS = [
   { key: 'get',  label: 'Get',  to: '/phrasal-verbs/list/get',  particles: GET_PARTICLES },
   { key: 'make', label: 'Make', to: '/phrasal-verbs/list/make', particles: MAKE_PARTICLES },
@@ -326,6 +328,7 @@ const VERBS = [
   { key: 'use',   label: 'Use',   to: '/phrasal-verbs/list/use',   particles: USE_PARTICLES },
   { key: 'wake',  label: 'Wake',  to: '/phrasal-verbs/list/wake',  particles: WAKE_PARTICLES },
   { key: 'warm',  label: 'Warm',  to: '/phrasal-verbs/list/warm',  particles: WARM_PARTICLES },
+  { key: 'watch', label: 'Watch', to: '/phrasal-verbs/list/watch', particles: WATCH_PARTICLES },
 ];
 
 const EXPANDED_KEY = 'verbListExpanded';
