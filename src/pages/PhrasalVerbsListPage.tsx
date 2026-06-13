@@ -420,7 +420,7 @@ export default function PhrasalVerbsListPage() {
           title={allExpanded ? 'Collapse all' : 'Expand all'}
           className="p-1.5 rounded-full bg-gray-200 dark:bg-gray-800 hover:bg-gray-300 dark:hover:bg-gray-700 transition-colors shadow-sm border border-gray-300 dark:border-gray-700 flex items-center justify-center text-gray-700 dark:text-gray-300"
         >
-          {allExpanded ? <CollapseAllIcon /> : <ExpandAllIcon />}
+          {allExpanded ? <ExpandAllIcon /> : <CollapseAllIcon />}
         </button>,
         portalTarget
       )}
