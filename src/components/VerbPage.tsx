@@ -87,10 +87,10 @@ function Section({ particle, meanings, storageKeyPrefix, expanded, onToggle }: S
   return (
     <div id={storageKeyPrefix} className="mb-5">
       <div
-        className="flex items-center gap-2 cursor-pointer select-none mb-4 px-1"
+        className="flex items-center gap-2 cursor-pointer mb-4 px-1"
         onClick={onToggle}
       >
-        <span className={`text-sm transition-transform duration-200 inline-block ${expanded ? 'rotate-90 text-white' : 'text-blue-600 dark:text-blue-400'}`}>
+        <span className={`text-sm transition-transform duration-200 inline-block select-none ${expanded ? 'rotate-90 text-white' : 'text-blue-600 dark:text-blue-400'}`}>
           ▶
         </span>
         <span className={`text-2xl font-bold ${expanded ? 'text-white' : 'text-blue-600 dark:text-blue-400'}`}>{particle}</span>
