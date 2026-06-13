@@ -4,6 +4,18 @@ import userEvent from '@testing-library/user-event';
 import { MemoryRouter, Routes, Route, useLocation } from 'react-router-dom';
 import PhrasalVerbsListPage from '../pages/PhrasalVerbsListPage';
 
+let portalDiv: HTMLDivElement;
+
+beforeAll(() => {
+  portalDiv = document.createElement('div');
+  portalDiv.id = 'verb-page-actions';
+  document.body.appendChild(portalDiv);
+});
+
+afterAll(() => {
+  portalDiv.remove();
+});
+
 beforeEach(() => localStorage.clear());
 
 function renderPage() {
@@ -6732,5 +6744,56 @@ describe('PhrasalVerbsListPage — alphabetical ordering', () => {
     const headings = screen.getAllByRole('heading', { level: 2 });
     const verbHeadings = headings.filter(h => h.textContent !== 'Particles');
     expect(verbHeadings[verbHeadings.length - 1].textContent).toBe('Zip');
+  });
+});
+
+describe('PhrasalVerbsListPage — expand/collapse all button', () => {
+  it('renders expand-all button in portal target', () => {
+    renderPage();
+    expect(screen.getByTitle('Expand all')).toBeInTheDocument();
+  });
+
+  it('expand-all button expands all verb cards', () => {
+    renderPage();
+    fireEvent.click(screen.getByTitle('Expand all'));
+    expect(within(screen.getByTestId('verb-card-get')).getByText(/off, on, up/i)).toBeInTheDocument();
+    expect(within(screen.getByTestId('verb-card-zip')).getByText(/about \/ around \/ round/i)).toBeInTheDocument();
+  });
+
+  it('expand-all button also expands particles card', () => {
+    renderPage();
+    fireEvent.click(screen.getByTitle('Expand all'));
+    expect(within(screen.getByTestId('verb-card-particles')).getByText(/off, on, up/i)).toBeInTheDocument();
+  });
+
+  it('after expand-all, button title changes to Collapse all', () => {
+    renderPage();
+    fireEvent.click(screen.getByTitle('Expand all'));
+    expect(screen.getByTitle('Collapse all')).toBeInTheDocument();
+  });
+
+  it('collapse-all button collapses all verb cards', () => {
+    renderPage();
+    fireEvent.click(screen.getByTitle('Expand all'));
+    fireEvent.click(screen.getByTitle('Collapse all'));
+    expect(within(screen.getByTestId('verb-card-get')).queryByText(/off, on, up/i)).not.toBeInTheDocument();
+    expect(within(screen.getByTestId('verb-card-zip')).queryByText(/about \/ around \/ round/i)).not.toBeInTheDocument();
+  });
+
+  it('expand-all saves all keys to localStorage', () => {
+    renderPage();
+    fireEvent.click(screen.getByTitle('Expand all'));
+    const saved = JSON.parse(localStorage.getItem('verbListExpanded') ?? '[]') as string[];
+    expect(saved).toContain('get');
+    expect(saved).toContain('zip');
+    expect(saved).toContain('particles');
+  });
+
+  it('collapse-all clears all keys from localStorage', () => {
+    renderPage();
+    fireEvent.click(screen.getByTitle('Expand all'));
+    fireEvent.click(screen.getByTitle('Collapse all'));
+    const saved = JSON.parse(localStorage.getItem('verbListExpanded') ?? '[]') as string[];
+    expect(saved).toHaveLength(0);
   });
 });

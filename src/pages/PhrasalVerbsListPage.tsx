@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
+import ReactDOM from 'react-dom';
 import { Link, useNavigate } from 'react-router-dom';
-import { SearchIcon } from '../components/Icons';
+import { SearchIcon, ExpandAllIcon, CollapseAllIcon } from '../components/Icons';
 import ListSearchModal from '../components/ListSearchModal';
 import type { ListSearchEntry } from '../data/listVerbIndex';
 
@@ -353,6 +354,7 @@ const VERBS = [
 ];
 
 const EXPANDED_KEY = 'verbListExpanded';
+const ALL_KEYS = ['particles', ...VERBS.map(v => v.key)];
 
 function loadExpanded(): Set<string> {
   try {
@@ -368,6 +370,18 @@ export default function PhrasalVerbsListPage() {
   const [showSearch, setShowSearch] = useState(false);
   const [expanded, setExpanded] = useState<Set<string>>(loadExpanded);
   const [copiedVerb, setCopiedVerb] = useState<string | null>(null);
+
+  const allExpanded = ALL_KEYS.every(k => expanded.has(k));
+
+  const toggleAll = () => {
+    if (allExpanded) {
+      setExpanded(new Set());
+      localStorage.setItem(EXPANDED_KEY, JSON.stringify([]));
+    } else {
+      setExpanded(new Set(ALL_KEYS));
+      localStorage.setItem(EXPANDED_KEY, JSON.stringify(ALL_KEYS));
+    }
+  };
 
   const toggleExpanded = (key: string) => {
     setExpanded(prev => {
@@ -396,7 +410,20 @@ export default function PhrasalVerbsListPage() {
     navigate(entry.route, { state: { scrollTo: entry.sectionId } });
   };
 
+  const portalTarget = document.getElementById('verb-page-actions');
+
   return (
+    <>
+      {portalTarget && ReactDOM.createPortal(
+        <button
+          onClick={toggleAll}
+          title={allExpanded ? 'Collapse all' : 'Expand all'}
+          className="p-1.5 rounded-full bg-gray-200 dark:bg-gray-800 hover:bg-gray-300 dark:hover:bg-gray-700 transition-colors shadow-sm border border-gray-300 dark:border-gray-700 flex items-center justify-center text-gray-700 dark:text-gray-300"
+        >
+          {allExpanded ? <CollapseAllIcon /> : <ExpandAllIcon />}
+        </button>,
+        portalTarget
+      )}
     <div className="min-h-screen bg-gray-50 dark:bg-gray-950 flex flex-col items-center justify-center p-6">
       <h1 className="text-4xl font-bold text-gray-900 dark:text-gray-100 mb-2">
         Phrasal Verbs List
@@ -530,5 +557,6 @@ export default function PhrasalVerbsListPage() {
         />
       )}
     </div>
+    </>
   );
 }
