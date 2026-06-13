@@ -1,5 +1,7 @@
 import React, { useState, useEffect } from 'react';
+import ReactDOM from 'react-dom';
 import { useLocation } from 'react-router-dom';
+import { ExpandAllIcon, CollapseAllIcon } from './Icons';
 
 export interface MeaningData {
   definition: string;
@@ -76,25 +78,17 @@ function Meaning({ number, definition, example, imageSrc, imageAlt, storageKeyPr
   );
 }
 
-function Section({ particle, meanings, storageKey, storageKeyPrefix }: SectionData) {
-  const [expanded, setExpanded] = useState(() => {
-    const saved = localStorage.getItem(storageKey);
-    return saved !== null ? saved === 'true' : false;
-  });
+interface SectionProps extends SectionData {
+  expanded: boolean;
+  onToggle: () => void;
+}
 
-  const toggle = () => {
-    setExpanded(e => {
-      const next = !e;
-      localStorage.setItem(storageKey, String(next));
-      return next;
-    });
-  };
-
+function Section({ particle, meanings, storageKeyPrefix, expanded, onToggle }: SectionProps) {
   return (
     <div id={storageKeyPrefix} className="mb-5">
       <div
         className="flex items-center gap-2 cursor-pointer select-none mb-4 px-1"
-        onClick={toggle}
+        onClick={onToggle}
       >
         <span className={`text-sm transition-transform duration-200 inline-block ${expanded ? 'rotate-90 text-white' : 'text-blue-600 dark:text-blue-400'}`}>
           ▶
@@ -116,6 +110,37 @@ function Section({ particle, meanings, storageKey, storageKeyPrefix }: SectionDa
 export default function VerbPageLayout({ title, sections }: { title: string; sections: SectionData[] }) {
   const location = useLocation();
 
+  const [expandedMap, setExpandedMap] = useState<Record<string, boolean>>(() => {
+    const map: Record<string, boolean> = {};
+    sections.forEach(s => {
+      const saved = localStorage.getItem(s.storageKey);
+      map[s.storageKey] = saved !== null ? saved === 'true' : false;
+    });
+    return map;
+  });
+
+  const toggle = (storageKey: string) => {
+    setExpandedMap(prev => {
+      const next = !prev[storageKey];
+      localStorage.setItem(storageKey, String(next));
+      return { ...prev, [storageKey]: next };
+    });
+  };
+
+  const allExpanded = sections.every(s => expandedMap[s.storageKey]);
+
+  const toggleAll = () => {
+    const next = !allExpanded;
+    setExpandedMap(() => {
+      const map: Record<string, boolean> = {};
+      sections.forEach(s => {
+        map[s.storageKey] = next;
+        localStorage.setItem(s.storageKey, String(next));
+      });
+      return map;
+    });
+  };
+
   useEffect(() => {
     const target = (location.state as { scrollTo?: string } | null)?.scrollTo;
     if (!target) return;
@@ -123,8 +148,20 @@ export default function VerbPageLayout({ title, sections }: { title: string; sec
     if (el) el.scrollIntoView({ block: 'start' });
   }, []);
 
+  const portalTarget = document.getElementById('verb-page-actions');
+
   return (
     <div className="min-h-screen bg-gray-50 dark:bg-gray-950 px-4 py-10">
+      {portalTarget && ReactDOM.createPortal(
+        <button
+          onClick={toggleAll}
+          title={allExpanded ? 'Collapse all' : 'Expand all'}
+          className="p-1.5 rounded-full bg-gray-200 dark:bg-gray-800 hover:bg-gray-300 dark:hover:bg-gray-700 transition-colors shadow-sm border border-gray-300 dark:border-gray-700 flex items-center justify-center text-gray-700 dark:text-gray-300"
+        >
+          {allExpanded ? <CollapseAllIcon /> : <ExpandAllIcon />}
+        </button>,
+        portalTarget
+      )}
       <div className="max-w-[700px] mx-auto">
         <h1 className="text-4xl font-bold text-gray-900 dark:text-gray-100 mb-6 text-center">
           {title}
@@ -132,7 +169,11 @@ export default function VerbPageLayout({ title, sections }: { title: string; sec
         {sections.map((s, i) => (
           <React.Fragment key={s.particle}>
             {i > 0 && <hr className="border-gray-600 dark:border-gray-500 my-2" />}
-            <Section {...s} />
+            <Section
+              {...s}
+              expanded={expandedMap[s.storageKey] ?? false}
+              onToggle={() => toggle(s.storageKey)}
+            />
           </React.Fragment>
         ))}
       </div>

@@ -31,6 +31,7 @@ export default function PageShell({ children }: { children: React.ReactNode }) {
             <img src={`${import.meta.env.BASE_URL}favicon.svg`} alt="Home" className="w-5 h-5" />
           </Link>
         )}
+        <div id="verb-page-actions" />
         <button
           onClick={() => setDarkMode(d => !d)}
           className="p-2 bg-gray-200 dark:bg-gray-800 rounded-full text-gray-700 dark:text-gray-300 hover:bg-gray-300 dark:hover:bg-gray-700 transition-colors shadow-sm border border-gray-300 dark:border-gray-700"
