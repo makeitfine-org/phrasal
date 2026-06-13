@@ -9021,3 +9021,96 @@ Phrasal verb particles for each phrasal verb should be allowed to be copied. For
 ## 2026-06-13T08:54:06Z
 Cover the functionality with tests
 ---
+
+## 2026-06-13T08:58:59Z
+Analyze releases and output message, and steps to release for the new ones.
+---
+
+## 2026-06-13T09:04:03Z
+run steps: 2-4
+---
+
+## 2026-06-13T11:14:59Z
+Create a backlog.md task (but don't execute it) to solve the described problem:
+
+---
+
+Here are the existing phrasal verbs formed by combining cast with the particles from your list.
+
+Many words on your list (like into, over, for, with) follow "cast" in normal sentences (e.g., "cast a shadow over", "cast data into a new type in Java"), but they are regular prepositions, not idiomatic phrasal verbs. The list below contains the true phrasal verbs and all their meanings, with examples tailored to your interests in business and software.
+
+Cast about / Cast around / Cast round
+Meaning 1: To search anxiously or desperately for something, usually an idea, a solution, or an excuse.
+
+Example: After the system crashed, the developers cast about for a quick fix to get the servers running again.
+
+Example: The leadership team is casting around for ways to cut costs this quarter.
+
+Cast away
+Meaning 1: To throw something away because it is no longer wanted or needed (discard).
+
+Example: Do not cast away your old Java components; you might be able to reuse them in future microservices.
+
+Meaning 2: To be left stranded somewhere after a shipwreck (usually passive).
+
+Example: The sailors were cast away on a remote island for three months.
+
+Cast back
+Meaning 1: To think about things that happened in the past (almost always used as cast your mind back).
+
+Example: If we cast our minds back to the last Agile sprint, we can identify exactly why the feature was delayed.
+
+Cast down
+Meaning 1: To make someone feel sad, depressed, or discouraged (almost always used as an adjective or in the passive voice).
+
+Example: The engineering team was very cast down when the CEO canceled their project.
+
+Cast forward
+Meaning 1: To direct your thoughts toward the future and try to imagine what will happen (often cast your mind forward).
+
+Example: Let's cast our minds forward to next year and plan our marketing strategy for the new product launch.
+
+Cast off
+Meaning 1: To get rid of something or someone that you no longer want, need, or want to be restricted by.
+
+Example: The company managed to cast off its old-fashioned image by launching an innovative software platform.
+
+Meaning 2: To untie a boat from its dock or mooring so it can sail away.
+
+Example: The captain ordered the crew to cast off at sunrise.
+
+Meaning 3: (In knitting) To remove the final stitches from the needle to finish a piece of work.
+
+Example: Once the scarf is the right length, you can cast off.
+
+Cast on
+Meaning 1: (In knitting) To create the very first row of stitches on a needle to start a project.
+
+Example: She cast on fifty stitches to begin making the sweater.
+
+Cast out
+Meaning 1: To forcefully expel someone or something; to make someone leave a group, organization, or place.
+
+Example: The corrupt board member was cast out of the company after the financial audit.
+
+Cast up
+Meaning 1: To calculate or add up a column of figures (formal and mostly used in British English).
+
+Example: The financial manager cast up the final expenses for the software development cycle.
+
+Meaning 2: (Of the sea) To wash something onto the shore.
+
+Example: The storm cast up pieces of broken wood onto the beach.
+
+===
+for "call"":
+1) Create the link on list page with particals mentioned above phrasal verbs. 
+   Take as the base "take" link.
+2) Create the page with mentioned above phrasal verbs. 
+   Take as the base "take" page.
+3) Cover the functionality with tests
+---
+
+## 2026-06-13T11:17:35Z
+Complete the backlog task-67, then commit all. After that run /compact Claude code command.
+---

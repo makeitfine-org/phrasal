@@ -24,6 +24,7 @@ import BlowVerbPage from './pages/blow/BlowVerbPage';
 import BrushVerbPage from './pages/brush/BrushVerbPage';
 import BuildVerbPage from './pages/build/BuildVerbPage';
 import CallVerbPage from './pages/call/CallVerbPage';
+import CastVerbPage from './pages/cast/CastVerbPage';
 import CarryVerbPage from './pages/carry/CarryVerbPage';
 import CatchVerbPage from './pages/catch/CatchVerbPage';
 import CheckVerbPage from './pages/check/CheckVerbPage';
@@ -113,6 +114,7 @@ ReactDOM.createRoot(document.getElementById('root')!).render(
             <Route path="/phrasal-verbs/list/brush" element={<BrushVerbPage />} />
             <Route path="/phrasal-verbs/list/build" element={<BuildVerbPage />} />
             <Route path="/phrasal-verbs/list/call" element={<CallVerbPage />} />
+            <Route path="/phrasal-verbs/list/cast" element={<CastVerbPage />} />
             <Route path="/phrasal-verbs/list/carry" element={<CarryVerbPage />} />
             <Route path="/phrasal-verbs/list/catch" element={<CatchVerbPage />} />
             <Route path="/phrasal-verbs/list/check" element={<CheckVerbPage />} />

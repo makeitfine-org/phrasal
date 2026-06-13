@@ -1567,3 +1567,39 @@
 - .claude/docs/blackbox/audit.md
 - .claude/docs/blackbox/session-log.md
 <!-- end-snapshot -->
+
+<!-- git-snapshot 2026-06-13T08:59:18Z -->
+- .claude/docs/blackbox/audit.md
+<!-- end-snapshot -->
+
+<!-- git-snapshot 2026-06-13T09:07:18Z -->
+- .claude/docs/blackbox/audit.md
+- .claude/docs/blackbox/session-log.md
+<!-- end-snapshot -->
+
+<!-- git-snapshot 2026-06-13T11:16:12Z -->
+- .claude/docs/blackbox/audit.md
+- .claude/docs/blackbox/session-log.md
+<!-- end-snapshot -->
+
+## 2026-06-13T11:30:00
+### Decisions
+- Created TASK-67 for Cast phrasal verb page, executed immediately
+- Alphabetical ordering fix: "carry" (c-a-r) < "cast" (c-a-s), corrected list page insertion point
+- Badge count fix: badge '2' appears 3 times (away=2, off=3, up=2 meanings)
+### Constraints Stated by User
+- Use Take verb page as the base template
+- Cover with tests mirroring take_verb_page test structure
+### Files Modified
+- src/pages/cast/CastVerbPage.tsx — new Cast verb page (9 sections, 13 meanings, all default.png)
+- src/pages/PhrasalVerbsListPage.tsx — added CAST_PARTICLES + Cast list card (after Carry)
+- src/main.tsx — added /phrasal-verbs/list/cast route
+- src/__tests__/cast_verb_page/ (11 files) — full test suite: helpers, general, separators, one file per particle
+### Deferred
+- None
+---
+
+<!-- git-snapshot 2026-06-13T11:30:11Z -->
+- .claude/docs/blackbox/audit.md
+- .claude/docs/blackbox/session-log.md
+<!-- end-snapshot -->

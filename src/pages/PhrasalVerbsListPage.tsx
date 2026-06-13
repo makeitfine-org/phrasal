@@ -102,6 +102,10 @@ const CALL_PARTICLES = [
   'through', 'about', 'around / round', 'to',
 ];
 
+const CAST_PARTICLES = [
+  'about / around / round', 'away', 'back', 'down', 'forward', 'off', 'on', 'out', 'up',
+];
+
 const CARRY_PARTICLES = [
   'about / around / round', 'away', 'back', 'forward', 'off', 'on', 'out', 'over', 'through',
 ];
@@ -291,6 +295,7 @@ const VERBS = [
   { key: 'build',  label: 'Build',  to: '/phrasal-verbs/list/build',  particles: BUILD_PARTICLES },
   { key: 'call',   label: 'Call',   to: '/phrasal-verbs/list/call',   particles: CALL_PARTICLES },
   { key: 'carry',  label: 'Carry',  to: '/phrasal-verbs/list/carry',  particles: CARRY_PARTICLES },
+  { key: 'cast',   label: 'Cast',   to: '/phrasal-verbs/list/cast',   particles: CAST_PARTICLES },
   { key: 'catch',  label: 'Catch',  to: '/phrasal-verbs/list/catch',  particles: CATCH_PARTICLES },
   { key: 'check',  label: 'Check',  to: '/phrasal-verbs/list/check',  particles: CHECK_PARTICLES },
   { key: 'cheer',  label: 'Cheer',  to: '/phrasal-verbs/list/cheer',  particles: CHEER_PARTICLES },
