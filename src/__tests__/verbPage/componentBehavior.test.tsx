@@ -79,3 +79,19 @@ describe('ZipVerbPage — expand/collapse all button', () => {
     expect(localStorage.getItem('zipDown_section_expanded')).toBe('false');
   });
 });
+
+describe('ZipVerbPage — particle text selectability', () => {
+  it('particle text spans are selectable (no select-none class)', () => {
+    renderPage();
+    expect(screen.getByText('up')).not.toHaveClass('select-none');
+    expect(screen.getByText('back')).not.toHaveClass('select-none');
+    expect(screen.getByText('down')).not.toHaveClass('select-none');
+  });
+
+  it('chevron icons are not selectable (have select-none class)', () => {
+    renderPage();
+    screen.getAllByText('▶').forEach(chevron => {
+      expect(chevron).toHaveClass('select-none');
+    });
+  });
+});

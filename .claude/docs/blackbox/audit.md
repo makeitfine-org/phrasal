@@ -8997,3 +8997,27 @@ Improve and optimize tests:
 - bound some of them if necessary
 - the time of their execution must be reduced by at least 3 times
 ---
+
+## 2026-06-13T07:52:50Z
+for each Phrasal Verb add button near "go to the home page" button with its functionality to extend/collapse all phrasal verbs.
+---
+
+## 2026-06-13T07:59:44Z
+place the button before the "move to main page"
+---
+
+## 2026-06-13T08:05:43Z
+Add the same button for "Phrasal Verbs List"
+---
+
+## 2026-06-13T08:12:22Z
+extend/collapse all button must be vise versed, so on extended arrows see down, and on collapsed they up.
+---
+
+## 2026-06-13T08:19:48Z
+Phrasal verb particles for each phrasal verb should be allowed to be copied. For example for "Get" it's "off", "on", "up", etc.
+---
+
+## 2026-06-13T08:54:06Z
+Cover the functionality with tests
+---
