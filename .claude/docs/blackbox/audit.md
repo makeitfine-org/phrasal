@@ -9131,3 +9131,27 @@ did you completed the task?
 ## 2026-06-17T20:04:47Z
 git add all changes and commit them with suitable message
 ---
+
+## 2026-06-17T20:08:53Z
+DEPRECATED  `test.poolOptions` was removed in Vitest 4. All previous `poolOptions` are now top-level options. Please, r
+efer to the migration guide: https://vitest.dev/guide/migration#pool-rework
+---
+
+## 2026-06-17T20:09:06Z
+DEPRECATED  `test.poolOptions` was removed in Vitest 4. All previous `poolOptions` are now top-level options. Please, r
+efer to the migration guide: https://vitest.dev/guide/migration#pool-rework
+
+Fix that
+---
+
+## 2026-06-17T20:27:27Z
+where backlog.md tasks should be located
+---
+
+## 2026-06-17T20:28:04Z
+place 67-69 tasks where it should be
+---
+
+## 2026-06-17T20:29:08Z
+git add all changes and commit them with suitable message
+---

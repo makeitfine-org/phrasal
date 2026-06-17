@@ -1637,3 +1637,24 @@
 - src/App.tsx
 - src/pages/IWishPage.tsx
 <!-- end-snapshot -->
+
+<!-- git-snapshot 2026-06-17T20:16:18Z -->
+- .claude/docs/blackbox/audit.md
+- .claude/settings.local.json
+- vite.config.ts
+<!-- end-snapshot -->
+
+<!-- git-snapshot 2026-06-17T20:27:45Z -->
+- .claude/docs/blackbox/audit.md
+- .claude/docs/blackbox/session-log.md
+- .claude/settings.local.json
+<!-- end-snapshot -->
+
+<!-- git-snapshot 2026-06-17T20:28:22Z -->
+- .claude/docs/blackbox/audit.md
+- .claude/docs/blackbox/session-log.md
+- .claude/settings.local.json
+- backlog/task-67 - Extract-shared-quiz-hook-from-App-and-IWishPage.md
+- backlog/task-68 - Add-keyboard-navigation-and-accessibility-to-quizzes-and-modals.md
+- backlog/task-69 - Speed-up-test-suite-with-parallel-threads-and-reduced-verb-page-overhead.md
+<!-- end-snapshot -->
