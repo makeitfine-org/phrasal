@@ -1,7 +1,7 @@
 ---
 id: TASK-67
 title: Extract shared quiz hook from App and IWishPage
-status: To Do
+status: Done
 assignee: []
 created_date: '2026-06-17'
 updated_date: '2026-06-17'
@@ -38,12 +38,12 @@ Pass an `checkAnswer: (input: string, correctAnswer: string) => boolean` callbac
 
 ## Acceptance Criteria
 <!-- AC:BEGIN -->
-- [ ] #1 New file `src/hooks/useQuiz.ts` exports a `useQuiz(config)` hook
-- [ ] #2 `App.tsx` uses `useQuiz` — state declarations and effects removed, only rendering + answer-checking logic remains
-- [ ] #3 `IWishPage.tsx` uses `useQuiz` — same reduction as App
-- [ ] #4 Both pages behave identically to current behavior (localStorage keys, navigation, modals, swipe)
-- [ ] #5 `PersistedState` interface defined once in the hook, not duplicated
-- [ ] #6 Existing tests for `App.tsx` and `IWishPage.tsx` pass without modification (behavior unchanged)
-- [ ] #7 New unit tests for `useQuiz` hook covering: state init from localStorage, persistence on state change, pick-next-card skipping mastered/excluded, navigation bounds
-- [ ] #8 `npm run test:run` passes
+- [x] #1 New file `src/hooks/useQuiz.ts` exports a `useQuiz(config)` hook
+- [x] #2 `App.tsx` uses `useQuiz` — state declarations and effects removed, only rendering + answer-checking logic remains
+- [x] #3 `IWishPage.tsx` uses `useQuiz` — same reduction as App
+- [x] #4 Both pages behave identically to current behavior (localStorage keys, navigation, modals, swipe)
+- [x] #5 `PersistedState` interface defined once in the hook, not duplicated
+- [x] #6 Existing tests for `App.tsx` and `IWishPage.tsx` pass without modification (behavior unchanged)
+- [x] #7 New unit tests for `useQuiz` hook covering: state init from localStorage, persistence on state change, pick-next-card skipping mastered/excluded, navigation bounds
+- [x] #8 `npm run test:run` passes
 <!-- AC:END -->

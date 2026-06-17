@@ -9047,3 +9047,87 @@ Create up to 3 related backlog.md tasks for (but don't implement them):
 ## 2026-06-17T08:58:13Z
 commit all
 ---
+
+## 2026-06-17T18:28:04Z
+did you have installed backlog.md console tool?
+---
+
+## 2026-06-17T18:52:59Z
+/statusline
+---
+
+## 2026-06-17T18:53:20Z
+/update-config
+---
+
+## 2026-06-17T19:31:31Z
+/fewer-permission-prompts
+---
+
+## 2026-06-17T19:41:10Z
+Help me fix the issues reported by /doctor below.
+
+For each issue: briefly explain what the fix will do, then ask me to confirm before running any shell command that deletes files, modifies global config, or changes my installation. Safe read-only checks are fine without asking. If a suggested fix looks wrong for my setup, say so instead of running it.
+
+- Settings (/home/ubuntuu/.claude/settings.json): Invalid or malformed JSON
+---
+
+## 2026-06-17T19:42:42Z
+Help me fix the issues reported by /doctor below.
+
+For each issue: briefly explain what the fix will do, then ask me to confirm before running any shell command that deletes files, modifies global config, or changes my installation. Safe read-only checks are fine without asking. If a suggested fix looks wrong for my setup, say so instead of running it.
+
+- Settings (/home/ubuntuu/.claude/settings.json): Invalid or malformed JSON
+---
+
+## 2026-06-17T19:44:51Z
+Help me fix the issues reported by /doctor below.
+
+For each issue: briefly explain what the fix will do, then ask me to confirm before running any shell command that deletes files, modifies global config, or changes my installation. Safe read-only checks are fine without asking. If a suggested fix looks wrong for my setup, say so instead of running it.
+
+- Settings (/home/ubuntuu/.claude/settings.json): Invalid or malformed JSON
+---
+
+## 2026-06-17T19:45:41Z
+Help me fix the issues reported by /doctor below.
+
+For each issue: briefly explain what the fix will do, then ask me to confirm before running any shell command that deletes files, modifies global config, or changes my installation. Safe read-only checks are fine without asking. If a suggested fix looks wrong for my setup, say so instead of running it.
+
+- Settings (/home/ubuntuu/.claude/settings.json): Invalid or malformed JSON
+---
+
+## 2026-06-17T19:46:44Z
+clear
+---
+
+## 2026-06-17T19:47:28Z
+what the project about?
+---
+
+## 2026-06-17T19:47:50Z
+ask 3 question to me?
+---
+
+## 2026-06-17T19:49:01Z
+ask 3 question to me interactivly
+---
+
+## 2026-06-17T19:49:23Z
+no one by one
+---
+
+## 2026-06-17T19:53:18Z
+Complete the backlog task-67
+---
+
+## 2026-06-17T19:56:52Z
+yes
+---
+
+## 2026-06-17T20:04:17Z
+did you completed the task?
+---
+
+## 2026-06-17T20:04:47Z
+git add all changes and commit them with suitable message
+---

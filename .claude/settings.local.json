@@ -56,7 +56,9 @@
       "Bash(sort -t- -k2 -n)",
       "Bash(wait *)",
       "Bash(lscpu)",
-      "Bash(sort -t- -k1.5 -n)"
+      "Bash(sort -t- -k1.5 -n)",
+      "Bash(npm list *)",
+      "Bash(npm run *)"
     ]
   },
   "model": "Opus",

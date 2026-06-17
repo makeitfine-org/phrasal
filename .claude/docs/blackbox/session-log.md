@@ -1579,3 +1579,61 @@
 - .claude/docs/blackbox/audit.md
 - .claude/settings.local.json
 <!-- end-snapshot -->
+
+<!-- git-snapshot 2026-06-17T18:28:22Z -->
+- .claude/docs/blackbox/audit.md
+- .claude/settings.local.json
+<!-- end-snapshot -->
+
+<!-- git-snapshot 2026-06-17T19:47:37Z -->
+- .claude/docs/blackbox/audit.md
+- .claude/docs/blackbox/session-log.md
+- .claude/settings.local.json
+<!-- end-snapshot -->
+
+<!-- git-snapshot 2026-06-17T19:47:57Z -->
+- .claude/docs/blackbox/audit.md
+- .claude/docs/blackbox/session-log.md
+- .claude/settings.local.json
+<!-- end-snapshot -->
+
+<!-- git-snapshot 2026-06-17T19:56:29Z -->
+- .claude/docs/blackbox/audit.md
+- .claude/docs/blackbox/session-log.md
+- .claude/settings.local.json
+<!-- end-snapshot -->
+
+## 2026-06-17T22:05:00Z
+### Decisions
+- Extracted shared quiz logic from App.tsx and IWishPage.tsx into `useQuiz` custom hook (TASK-67)
+- Hook parameterized by storageKey, poolSize, completionMessage, and checkAnswer callback
+- Used refs for stable config values (checkAnswer, poolSize, completionMessage) to avoid unnecessary callback re-creation
+- Page-specific modals (AllVerbsModal, TutorialModal) stay in their respective pages; hook accepts `extraModalOpen` param for keyboard shortcut blocking
+### Constraints Stated by User
+- None
+### Files Modified
+- src/hooks/useQuiz.ts — new custom hook encapsulating all shared quiz state, effects, and callbacks
+- src/App.tsx — refactored to thin wrapper using useQuiz (357→107 lines)
+- src/pages/IWishPage.tsx — refactored to thin wrapper using useQuiz (367→122 lines)
+- src/__tests__/useQuiz.test.ts — new, 20 unit tests for the hook
+### Deferred
+- None
+---
+
+<!-- git-snapshot 2026-06-17T20:03:28Z -->
+- .claude/docs/blackbox/audit.md
+- .claude/docs/blackbox/session-log.md
+- .claude/settings.local.json
+- backlog/task-67 - Extract-shared-quiz-hook-from-App-and-IWishPage.md
+- src/App.tsx
+- src/pages/IWishPage.tsx
+<!-- end-snapshot -->
+
+<!-- git-snapshot 2026-06-17T20:04:29Z -->
+- .claude/docs/blackbox/audit.md
+- .claude/docs/blackbox/session-log.md
+- .claude/settings.local.json
+- backlog/task-67 - Extract-shared-quiz-hook-from-App-and-IWishPage.md
+- src/App.tsx
+- src/pages/IWishPage.tsx
+<!-- end-snapshot -->
