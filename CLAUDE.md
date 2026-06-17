@@ -14,9 +14,48 @@ npm run test:run  # Vitest one-shot (CI)
 
 ## Architecture
 
-Single-page React + TypeScript app (Vite + Tailwind). All state lives in `App.tsx` and is persisted to `localStorage` under the key `phrasalQuizState`.
+Multi-page React 18 + TypeScript app (Vite, Tailwind, react-router-dom v7). Base path: `/phrasal/`.
 
-**Data flow:** `phrasalVerbs.ts` → `App.tsx` (state + handlers) → props down to `Header`, `QuizCard`, `Feedback`, `NavigationControls`, `ExcludedModal`, `SearchModal`. No context or global store.
+### Routing (`src/main.tsx`)
+
+`ErrorBoundary` > `BrowserRouter` > `PageShell` (layout shell with `<Outlet />`) > all routes:
+
+| Path | Component | Purpose |
+|---|---|---|
+| `/` | `HomePage` | Choose exercise type |
+| `/phrasal-verbs` | `PhrasalVerbsPage` | Choose quiz, list, or particles |
+| `/phrasal-verbs/test-most-popular` | `App` | Phrasal verbs fill-in-the-blank quiz |
+| `/phrasal-verbs/particles` | `ParticlesPage` | Reference: 27 particle core meanings |
+| `/phrasal-verbs/list` | `PhrasalVerbsListPage` | Browse all verbs as expandable cards |
+| `/phrasal-verbs/list/:verb` | `{Verb}VerbPage` | Individual verb detail (71 verbs) |
+| `/grammar` | `GrammarPage` | Choose grammar exercise |
+| `/grammar/i-wish-if-only` | `IWishPage` | Translation quiz (Russian → English) |
+| `*` | `NotFoundPage` | 404 |
+
+### Component tree
+
+**Structural components:**
+- **`PageShell`** (`src/components/PageShell.tsx`) — wraps all routes via `<Outlet />`. Owns dark mode toggle (reads/writes `darkMode` in `phrasalQuizState` localStorage), home button, and `#verb-page-actions` portal target used by verb pages for the expand-all button.
+- **`ErrorBoundary`** (`src/components/ErrorBoundary.tsx`) — class component wrapping everything.
+- **`VerbPageLayout`** (`src/components/VerbPage.tsx`) — reusable layout for verb detail pages. Renders collapsible particle sections, each with collapsible meaning cards. Exports `VerbPageLayout`, `MeaningData`, `SectionData`. Uses `ReactDOM.createPortal` to render expand-all button into PageShell's `#verb-page-actions` div.
+
+**Quiz-shared components** (used by both `App` and `IWishPage`): `Header`, `QuizCard`, `Feedback`, `NavigationControls`, `ExcludedModal`, `SearchModal`.
+
+**Other components:** `AllVerbsModal` (phrasal quiz browse), `TutorialModal` (grammar quiz), `ListSearchModal` (verb list search across all meanings), `Icons` (SVG icon components).
+
+### State management
+
+No context or global store. State is component-local + localStorage:
+
+| Owner | localStorage key | Manages |
+|---|---|---|
+| `PageShell` | `phrasalQuizState` → `darkMode` field | Dark mode (shared across all pages) |
+| `App` | `phrasalQuizState` | Phrasal quiz: mastered, excluded, history, currentIndex |
+| `IWishPage` | `grammarIWishState` | Grammar quiz: same shape as phrasal quiz |
+| `VerbPageLayout` | per-section/meaning keys | Section and meaning expand/collapse |
+| `PhrasalVerbsListPage` | `verbListExpanded` | Verb list card expand/collapse |
+
+`PageShell` and `App` share the `phrasalQuizState` key. `App` preserves fields it doesn't own (like `darkMode`) by merging with existing data before writing.
 
 ### Shared types (`src/types.ts`)
 
@@ -26,16 +65,14 @@ Single-page React + TypeScript app (Vite + Tailwind). All state lives in `App.ts
 | `HistoryItem` | `{ index, inputValue, status }` | One card in navigation history |
 | `RawVerbEntry` | 5-tuple `[verb, def, sentence\|string[], wordsToHide[], isLearned]` | Source data shape |
 | `VerbEntry` | `{ verb, definition, sentences, wordsToHide }` | Normalized quiz entry |
+| `BrowseVerbEntry` | `VerbEntry & { quizIndex?: number }` | For AllVerbsModal browse view |
+| `GrammarEntry` | `{ sentence, correctAnswers: string[] }` | Grammar translation exercise |
 
-### Key state shape (`App.tsx`)
+### Data files (`src/data/`)
 
-| State | Type | Notes |
-|---|---|---|
-| `mastered` | `Set<number>` | Indices of correctly answered verbs |
-| `excluded` | `Set<number>` | Indices excluded from the quiz pool |
-| `history` | `HistoryItem[]` | All cards shown this session, in order |
-| `currentIndex` | `number` | Pointer into `history` (enables back navigation) |
-| `darkMode` | `boolean` | Synced to `dark` class on `<html>` |
+- **`phrasalVerbs.ts`** — `rawData: RawVerbEntry[]`. Exports `allVerbs: VerbEntry[]` (filtered to `isLearned === false`), `allVerbsWithLearned: VerbEntry[]` (all entries), and `verbsForBrowse: BrowseVerbEntry[]`.
+- **`wishData.ts`** — `wishData: GrammarEntry[]` (Russian sentences → English translations).
+- **`listVerbIndex.ts`** — builds a flat searchable index from all verb page `sections` exports. Exports `ListSearchEntry` type and `listVerbIndex` array. Used by `ListSearchModal`.
 
 ### Verb data format (`src/data/phrasalVerbs.ts`)
 
@@ -46,19 +83,32 @@ Each entry in `rawData` is typed as `RawVerbEntry` (5-element tuple):
 //  0        1             2               3           4
 ```
 
-`allVerbs: VerbEntry[]` is `rawData` filtered to `isLearned === false` and normalized (sentences always `string[]`). Setting the 5th field to `true` removes a verb from the active quiz pool.
+Setting the 5th field to `true` removes a verb from `allVerbs` (the active quiz pool).
 
 `wordsToHide` (index 3) drives `renderSentenceWithMask` in `src/utils/renderSentence.tsx`, which splits the sentence on a case-insensitive regex (longest match first) and renders matched tokens as clickable masked spans.
 
 ### Answer checking
 
-Comparison is case-insensitive with parentheses stripped: `cleanUser === cleanCorrect` (both lowercased, trimmed, `[()]` removed).
+- **Phrasal quiz** (`App.tsx`): case-insensitive, parentheses stripped — `cleanUser === cleanCorrect`.
+- **Grammar quiz** (`IWishPage`): uses `isAnswerCorrect()` from `src/utils/normalizeAnswer.ts` — lowercases, trims, strips non-word/space chars, collapses whitespace, then checks against all `correctAnswers`.
+
+### Adding a new verb page
+
+1. Create `src/pages/{verb}/{Verb}VerbPage.tsx`
+2. Define `MeaningData[]` arrays per particle, then export `sections: SectionData[]`
+3. Default export renders `<VerbPageLayout title="Verb" sections={sections} />`
+4. Add route in `src/main.tsx`
+5. Add `VERBS` entry + particle constant in `src/pages/PhrasalVerbsListPage.tsx`
+6. Add import + `buildEntries()` call in `src/data/listVerbIndex.ts`
+7. Add tests in `src/__tests__/{verb}_verb_page/` — create `helpers.tsx` using `createVerbPageHelpers()` from `src/__tests__/verbPage/helpers.tsx`
 
 ## Tests
 
-Vitest + `@testing-library/react`. Test files live in `src/__tests__/`. The setup file is `src/__tests__/setup.ts` (jest-dom matchers, `scrollIntoView` stub, localStorage mock).
+Vitest + `@testing-library/react`. Setup file: `src/__tests__/setup.ts` (jest-dom matchers, `scrollIntoView` stub, localStorage mock).
 
-`renderSentenceWithMask` is exported from `src/utils/renderSentence.tsx` (extracted from `App.tsx`) so it can be unit tested directly.
+Test files live in `src/__tests__/`. One `.test.tsx` per component/page. Verb page tests are in subdirectories `src/__tests__/{verb}_verb_page/` — each has a `helpers.tsx` that calls `createVerbPageHelpers()` from `src/__tests__/verbPage/helpers.tsx`, plus per-particle test files.
+
+`renderSentenceWithMask` is exported from `src/utils/renderSentence.tsx` so it can be unit tested directly.
 
 ## Workflow Defaults
 

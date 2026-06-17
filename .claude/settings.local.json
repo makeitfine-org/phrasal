@@ -58,7 +58,6 @@
       "Bash(lscpu)"
     ]
   },
-  "model": "sonnet",
   "hooks": {
     "Stop": [
       {
@@ -95,8 +94,11 @@
       }
     ]
   },
+  "model2": "sonnet",
+  "model": "Opus",
   "statusLine": {
     "type": "command",
-    "command": "jq -r '\"\\u001b[1;36m\\(.model.display_name) \u001b[0;36m[effort: \\(.effort.level) | think: \\(.thinking.enabled)]\\u001b[0m | context: \\u001b[33m\\(.context_window.used_percentage // 0)%\\u001b[0m | limit: \\u001b[32m\\(.rate_limits.five_hour.used_percentage)% [\\(.rate_limits.five_hour.resets_at | strflocaltime(\"%H:%M\"))]\\u001b[0m\"'"
+    "command2": "jq -r '\"\\u001b[1;36m\\(.model.display_name) \u001b[0;36m[effort: \\(.effort.level) | think: \\(.thinking.enabled)]\\u001b[0m | context: \\u001b[33m\\(.context_window.used_percentage // 0)%\\u001b[0m | limit: \\u001b[32m\\(.rate_limits.five_hour.used_percentage)% [\\(.rate_limits.five_hour.resets_at | strflocaltime(\"%H:%M\"))]\\u001b[0m\"'",
+    "command": "jq -r --arg e \"\u001b\" '\"\\($e)[1;35m\\(.model.display_name)\\($e)[0m | effort:\\($e)[0;36m \\(.effort.level)\\($e)[0m | context: \\($e)[33m\\(.context_window.used_percentage // 0)%\\($e)[0m\"'"
   }
 }
