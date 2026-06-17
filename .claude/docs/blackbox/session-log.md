@@ -1574,3 +1574,8 @@
 - CLAUDE.md
 - package-lock.json
 <!-- end-snapshot -->
+
+<!-- git-snapshot 2026-06-17T08:53:14Z -->
+- .claude/docs/blackbox/audit.md
+- .claude/settings.local.json
+<!-- end-snapshot -->
