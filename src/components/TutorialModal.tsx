@@ -1,5 +1,6 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useRef } from 'react';
 import { XIcon } from './Icons';
+import { useFocusTrap } from '../hooks/useFocusTrap';
 
 interface TutorialModalProps {
   onClose: () => void;
@@ -47,6 +48,9 @@ const sections = [
 ];
 
 export default function TutorialModal({ onClose }: TutorialModalProps) {
+  const panelRef = useRef<HTMLDivElement>(null);
+  useFocusTrap(panelRef);
+
   useEffect(() => {
     const handler = (e: KeyboardEvent) => { if (e.key === 'Escape') onClose(); };
     window.addEventListener('keydown', handler);
@@ -59,11 +63,15 @@ export default function TutorialModal({ onClose }: TutorialModalProps) {
       onClick={onClose}
     >
       <div
+        ref={panelRef}
+        role="dialog"
+        aria-modal="true"
+        aria-labelledby="tutorial-modal-title"
         className="bg-white dark:bg-gray-900 rounded-2xl shadow-2xl max-w-lg w-full max-h-[80vh] flex flex-col border border-gray-200 dark:border-gray-800"
         onClick={e => e.stopPropagation()}
       >
         <div className="flex items-center justify-between p-5 border-b border-gray-200 dark:border-gray-800">
-          <h2 className="text-lg font-bold text-gray-900 dark:text-white">
+          <h2 id="tutorial-modal-title" className="text-lg font-bold text-gray-900 dark:text-white">
             I wish / If only — Tutorial
           </h2>
           <button

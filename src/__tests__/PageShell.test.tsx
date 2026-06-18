@@ -124,3 +124,41 @@ describe('PageShell — button borders', () => {
     expect(screen.getByTitle('Toggle Dark/Light Mode')).toHaveClass('border-gray-300');
   });
 });
+
+describe('PageShell — skip-to-content link', () => {
+  it('renders a skip-to-content link', () => {
+    renderWithShell('/');
+    expect(screen.getByText('Skip to content')).toBeInTheDocument();
+  });
+
+  it('skip-to-content link points to #main-content', () => {
+    renderWithShell('/');
+    expect(screen.getByText('Skip to content')).toHaveAttribute('href', '#main-content');
+  });
+});
+
+describe('PageShell — main landmark', () => {
+  it('renders children inside a <main> element', () => {
+    renderWithShell('/');
+    expect(screen.getByRole('main')).toBeInTheDocument();
+  });
+
+  it('main element has id="main-content"', () => {
+    renderWithShell('/');
+    expect(screen.getByRole('main')).toHaveAttribute('id', 'main-content');
+  });
+});
+
+describe('PageShell — dark mode toggle aria-label', () => {
+  it('has aria-label for light mode by default', () => {
+    renderWithShell('/');
+    expect(screen.getByTitle('Toggle Dark/Light Mode')).toHaveAttribute('aria-label', 'Switch to dark mode');
+  });
+
+  it('has aria-label for dark mode after toggling', async () => {
+    const user = userEvent.setup();
+    renderWithShell('/');
+    await user.click(screen.getByTitle('Toggle Dark/Light Mode'));
+    expect(screen.getByTitle('Toggle Dark/Light Mode')).toHaveAttribute('aria-label', 'Switch to light mode');
+  });
+});

@@ -160,4 +160,27 @@ describe('AllVerbsModal', () => {
     // All quiz verbs are excluded and checkbox is unchecked, but isLearned entry must still appear
     expect(screen.getByText('Zero in')).toBeInTheDocument();
   });
+
+  it('has role="dialog" on the panel', () => {
+    renderModal();
+    expect(screen.getByRole('dialog')).toBeInTheDocument();
+  });
+
+  it('has aria-modal="true"', () => {
+    renderModal();
+    expect(screen.getByRole('dialog')).toHaveAttribute('aria-modal', 'true');
+  });
+
+  it('has aria-labelledby pointing to the title', () => {
+    renderModal();
+    const dialog = screen.getByRole('dialog');
+    const titleId = dialog.getAttribute('aria-labelledby');
+    expect(titleId).toBeTruthy();
+    expect(document.getElementById(titleId!)).toHaveTextContent('All Verbs (3)');
+  });
+
+  it('close button has aria-label="Close"', () => {
+    renderModal();
+    expect(screen.getByRole('button', { name: 'Close' })).toBeInTheDocument();
+  });
 });

@@ -256,4 +256,24 @@ describe('SearchModal', () => {
     const items = screen.getAllByRole('listitem').map(li => li.querySelector('.font-semibold')!.textContent);
     expect(items).toEqual(['burn out', 'zone out']);
   });
+
+  it('has role="dialog" on the panel', () => {
+    render(<SearchModal {...makeProps()} />);
+    expect(screen.getByRole('dialog')).toBeInTheDocument();
+  });
+
+  it('has aria-modal="true"', () => {
+    render(<SearchModal {...makeProps()} />);
+    expect(screen.getByRole('dialog')).toHaveAttribute('aria-modal', 'true');
+  });
+
+  it('has aria-label on the dialog', () => {
+    render(<SearchModal {...makeProps()} />);
+    expect(screen.getByRole('dialog')).toHaveAttribute('aria-label', 'Search');
+  });
+
+  it('close button has aria-label="Close"', () => {
+    render(<SearchModal {...makeProps()} />);
+    expect(screen.getByRole('button', { name: 'Close' })).toBeInTheDocument();
+  });
 });

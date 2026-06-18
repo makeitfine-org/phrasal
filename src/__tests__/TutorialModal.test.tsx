@@ -118,4 +118,22 @@ describe('TutorialModal — close behaviour', () => {
     await user.click(screen.getByRole('button', { name: 'Close' }));
     expect(onClose).toHaveBeenCalledTimes(1);
   });
+
+  it('has role="dialog" on the panel', () => {
+    renderModal();
+    expect(screen.getByRole('dialog')).toBeInTheDocument();
+  });
+
+  it('has aria-modal="true"', () => {
+    renderModal();
+    expect(screen.getByRole('dialog')).toHaveAttribute('aria-modal', 'true');
+  });
+
+  it('has aria-labelledby pointing to the title', () => {
+    renderModal();
+    const dialog = screen.getByRole('dialog');
+    const titleId = dialog.getAttribute('aria-labelledby');
+    expect(titleId).toBeTruthy();
+    expect(document.getElementById(titleId!)).toHaveTextContent('I wish / If only — Tutorial');
+  });
 });

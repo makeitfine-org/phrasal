@@ -204,4 +204,9 @@ describe('QuizCard', () => {
     render(<QuizCard {...makeProps({ isExcluded: true })} />);
     expect(screen.getByText('Excluded')).toHaveClass('border-red-300');
   });
+
+  it('input has aria-label="Your answer"', () => {
+    render(<QuizCard {...makeProps()} />);
+    expect(screen.getByRole('textbox')).toHaveAttribute('aria-label', 'Your answer');
+  });
 });

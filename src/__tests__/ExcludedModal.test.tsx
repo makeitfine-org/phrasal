@@ -135,4 +135,27 @@ describe('ExcludedModal', () => {
     const includes = screen.getAllByText('Include');
     expect(includes[0]).toHaveClass('border-green-300');
   });
+
+  it('has role="dialog" on the panel', () => {
+    render(<ExcludedModal {...makeProps()} />);
+    expect(screen.getByRole('dialog')).toBeInTheDocument();
+  });
+
+  it('has aria-modal="true"', () => {
+    render(<ExcludedModal {...makeProps()} />);
+    expect(screen.getByRole('dialog')).toHaveAttribute('aria-modal', 'true');
+  });
+
+  it('has aria-labelledby pointing to the title', () => {
+    render(<ExcludedModal {...makeProps()} />);
+    const dialog = screen.getByRole('dialog');
+    const titleId = dialog.getAttribute('aria-labelledby');
+    expect(titleId).toBeTruthy();
+    expect(document.getElementById(titleId!)).toHaveTextContent('Excluded Verbs (2)');
+  });
+
+  it('close button has aria-label="Close"', () => {
+    render(<ExcludedModal {...makeProps()} />);
+    expect(screen.getByRole('button', { name: 'Close' })).toBeInTheDocument();
+  });
 });

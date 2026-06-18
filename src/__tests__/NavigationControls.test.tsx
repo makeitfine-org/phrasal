@@ -111,4 +111,13 @@ describe('NavigationControls', () => {
     expect(screen.getByText('Reset').closest('button')).not.toHaveClass('text-amber-500');
   });
 
+  it('Prev button has aria-label="Previous card"', () => {
+    render(<NavigationControls {...makeProps({ currentIndex: 1 })} />);
+    expect(screen.getByRole('button', { name: 'Previous card' })).toBeInTheDocument();
+  });
+
+  it('Next button has aria-label="Next card"', () => {
+    render(<NavigationControls {...makeProps()} />);
+    expect(screen.getByRole('button', { name: 'Next card' })).toBeInTheDocument();
+  });
 });

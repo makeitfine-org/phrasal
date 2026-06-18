@@ -103,6 +103,7 @@ export default function QuizCard({
           value={inputValue}
           onChange={(e) => onInputChange(e.target.value)}
           disabled={status !== 'idle'}
+          aria-label="Your answer"
           placeholder="Type phrasal verb"
           className={`w-full px-5 py-4 rounded-xl border-2 bg-gray-50 dark:bg-gray-900 text-lg focus:outline-none transition-colors ${
             status === 'idle'

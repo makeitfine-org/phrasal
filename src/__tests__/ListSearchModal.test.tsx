@@ -168,4 +168,24 @@ describe('ListSearchModal', () => {
     expect(screen.getByText('Put off')).toBeInTheDocument();
     expect(screen.getAllByRole('listitem')).toHaveLength(1);
   });
+
+  it('has role="dialog" on the panel', () => {
+    render(<ListSearchModal onSelect={vi.fn()} onClose={vi.fn()} />);
+    expect(screen.getByRole('dialog')).toBeInTheDocument();
+  });
+
+  it('has aria-modal="true"', () => {
+    render(<ListSearchModal onSelect={vi.fn()} onClose={vi.fn()} />);
+    expect(screen.getByRole('dialog')).toHaveAttribute('aria-modal', 'true');
+  });
+
+  it('has aria-label on the dialog', () => {
+    render(<ListSearchModal onSelect={vi.fn()} onClose={vi.fn()} />);
+    expect(screen.getByRole('dialog')).toHaveAttribute('aria-label', 'Search');
+  });
+
+  it('close button has aria-label="Close"', () => {
+    render(<ListSearchModal onSelect={vi.fn()} onClose={vi.fn()} />);
+    expect(screen.getByRole('button', { name: 'Close' })).toBeInTheDocument();
+  });
 });

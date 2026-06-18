@@ -1658,3 +1658,59 @@
 - backlog/task-68 - Add-keyboard-navigation-and-accessibility-to-quizzes-and-modals.md
 - backlog/task-69 - Speed-up-test-suite-with-parallel-threads-and-reduced-verb-page-overhead.md
 <!-- end-snapshot -->
+
+<!-- git-snapshot 2026-06-17T20:31:17Z -->
+- .claude/docs/blackbox/audit.md
+<!-- end-snapshot -->
+
+<!-- git-snapshot 2026-06-17T20:35:12Z -->
+- .claude/docs/blackbox/audit.md
+- .claude/docs/blackbox/session-log.md
+<!-- end-snapshot -->
+
+## 2026-06-18T00:36:00Z
+### Decisions
+- Created shared `useFocusTrap` hook instead of inlining focus trap logic in each modal
+- Used `aria-label` instead of `aria-labelledby` for SearchModal and ListSearchModal (no visible title)
+- Kept section headers and meaning cards as divs with `role="button"` rather than converting to `<button>` elements
+- Added `<main id="main-content">` wrapper in PageShell for skip link target and landmark semantics
+### Constraints Stated by User
+- None
+### Files Modified
+- `src/hooks/useFocusTrap.ts` — new shared focus trap + focus restore hook
+- `src/components/ExcludedModal.tsx` — dialog role, aria attrs, focus trap
+- `src/components/SearchModal.tsx` — dialog role, aria attrs, focus trap
+- `src/components/AllVerbsModal.tsx` — dialog role, aria attrs, focus trap
+- `src/components/ListSearchModal.tsx` — dialog role, aria attrs, focus trap
+- `src/components/TutorialModal.tsx` — dialog role, aria attrs, focus trap
+- `src/components/VerbPage.tsx` — aria-expanded, keyboard handlers on sections/meanings
+- `src/components/QuizCard.tsx` — aria-label on input
+- `src/components/NavigationControls.tsx` — aria-labels on nav buttons
+- `src/components/PageShell.tsx` — skip link, main landmark, toggle aria-label
+- 10 test files updated/created — 41 new tests, 4734 total passing
+### Deferred
+- None
+---
+
+<!-- git-snapshot 2026-06-17T22:55:07Z -->
+- .claude/docs/blackbox/audit.md
+- .claude/docs/blackbox/session-log.md
+- backlog/tasks/task-68 - Add-keyboard-navigation-and-accessibility-to-quizzes-and-modals.md
+- src/__tests__/AllVerbsModal.test.tsx
+- src/__tests__/ExcludedModal.test.tsx
+- src/__tests__/ListSearchModal.test.tsx
+- src/__tests__/NavigationControls.test.tsx
+- src/__tests__/PageShell.test.tsx
+- src/__tests__/QuizCard.test.tsx
+- src/__tests__/SearchModal.test.tsx
+- src/__tests__/TutorialModal.test.tsx
+- src/components/AllVerbsModal.tsx
+- src/components/ExcludedModal.tsx
+- src/components/ListSearchModal.tsx
+- src/components/NavigationControls.tsx
+- src/components/PageShell.tsx
+- src/components/QuizCard.tsx
+- src/components/SearchModal.tsx
+- src/components/TutorialModal.tsx
+- src/components/VerbPage.tsx
+<!-- end-snapshot -->

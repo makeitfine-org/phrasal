@@ -35,6 +35,7 @@ export default function NavigationControls({
               ? 'text-gray-400 dark:text-gray-600 cursor-not-allowed'
               : 'text-gray-700 dark:text-gray-300 hover:bg-gray-200 dark:hover:bg-gray-800'
           }`}
+          aria-label="Previous card"
           title="Previous Question"
         >
           <ChevronLeft />
@@ -47,6 +48,7 @@ export default function NavigationControls({
               ? 'text-gray-400 dark:text-gray-600 cursor-not-allowed'
               : 'text-gray-700 dark:text-gray-300 hover:bg-gray-200 dark:hover:bg-gray-800'
           }`}
+          aria-label="Next card"
           title="Next / History Forward"
         >
           <ChevronRight />

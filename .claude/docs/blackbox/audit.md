@@ -9155,3 +9155,19 @@ place 67-69 tasks where it should be
 ## 2026-06-17T20:29:08Z
 git add all changes and commit them with suitable message
 ---
+
+## 2026-06-17T20:31:08Z
+When some file are created and unstage I can't move that from unstaged into staged in intellij idea with UI, but I can move them in console to staged, and after say also are accessed in idea commit UI.
+---
+
+## 2026-06-17T20:34:57Z
+When I work now with claude code from linux for window and I begen to input "/com" I see "/compact" and other command starting with "/com.." but I can't navigate them or I just see the same color by navigation. How to change that and see that I nagivate up and down
+---
+
+## 2026-06-17T22:21:09Z
+Complete the backlog.md task-68
+---
+
+## 2026-06-18T09:34:25Z
+git add all changes and commit them with suitable message
+---

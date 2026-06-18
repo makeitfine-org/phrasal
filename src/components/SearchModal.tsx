@@ -1,5 +1,6 @@
 import React, { useState, useEffect, useRef } from 'react';
 import { XIcon } from './Icons';
+import { useFocusTrap } from '../hooks/useFocusTrap';
 import type { VerbEntry } from '../types';
 
 interface SearchModalProps {
@@ -18,6 +19,8 @@ export default function SearchModal({ allVerbs, excluded, onSelect, onUnexclude,
   const [showExcluded, setShowExcluded] = useState(false);
   const [selectedIndex, setSelectedIndex] = useState(-1);
   const listRef = useRef<HTMLUListElement>(null);
+  const panelRef = useRef<HTMLDivElement>(null);
+  useFocusTrap(panelRef);
 
   useEffect(() => {
     const handler = (e: KeyboardEvent) => { if (e.key === 'Escape') onClose(); };
@@ -72,6 +75,10 @@ export default function SearchModal({ allVerbs, excluded, onSelect, onUnexclude,
       onClick={onClose}
     >
       <div
+        ref={panelRef}
+        role="dialog"
+        aria-modal="true"
+        aria-label="Search"
         className="bg-white dark:bg-gray-900 rounded-2xl shadow-2xl max-w-lg w-full max-h-[60vh] flex flex-col border border-gray-200 dark:border-gray-800"
         onClick={e => e.stopPropagation()}
       >
@@ -88,6 +95,7 @@ export default function SearchModal({ allVerbs, excluded, onSelect, onUnexclude,
             />
             <button
               onClick={onClose}
+              aria-label="Close"
               className="p-2 rounded-full text-gray-500 hover:bg-gray-100 dark:hover:bg-gray-800 transition-colors shrink-0 border border-gray-200 dark:border-gray-700"
             >
               <XIcon />

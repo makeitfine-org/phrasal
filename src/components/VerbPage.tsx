@@ -41,8 +41,12 @@ function Meaning({ number, definition, example, imageSrc, imageAlt, storageKeyPr
 
   return (
     <div
+      role="button"
+      tabIndex={0}
+      aria-expanded={!collapsed}
       className="bg-white dark:bg-gray-900 rounded-2xl border border-gray-600 dark:border-gray-400 shadow-md overflow-hidden cursor-pointer"
       onClick={toggle}
+      onKeyDown={e => { if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); toggle(); } }}
     >
       <div className="p-4">
         {!collapsed && !isDefault && (
@@ -87,8 +91,12 @@ function Section({ particle, meanings, storageKeyPrefix, expanded, onToggle }: S
   return (
     <div id={storageKeyPrefix} className="mb-5">
       <div
+        role="button"
+        tabIndex={0}
+        aria-expanded={expanded}
         className="flex items-center gap-2 cursor-pointer mb-4 px-1"
         onClick={onToggle}
+        onKeyDown={e => { if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); onToggle(); } }}
       >
         <span className={`text-sm transition-transform duration-200 inline-block select-none ${expanded ? 'rotate-90 text-white' : 'text-blue-600 dark:text-blue-400'}`}>
           ▶

@@ -1,5 +1,6 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import { XIcon } from './Icons';
+import { useFocusTrap } from '../hooks/useFocusTrap';
 import type { VerbEntry } from '../types';
 
 interface ExcludedModalProps {
@@ -12,6 +13,8 @@ interface ExcludedModalProps {
 
 export default function ExcludedModal({ excluded, allVerbs, onInclude, onClose, itemLabel = 'Verbs' }: ExcludedModalProps) {
   const [searchQuery, setSearchQuery] = useState('');
+  const panelRef = useRef<HTMLDivElement>(null);
+  useFocusTrap(panelRef);
 
   useEffect(() => {
     const handler = (e: KeyboardEvent) => { if (e.key === 'Escape') onClose(); };
@@ -35,15 +38,20 @@ export default function ExcludedModal({ excluded, allVerbs, onInclude, onClose, 
       onClick={onClose}
     >
       <div
+        ref={panelRef}
+        role="dialog"
+        aria-modal="true"
+        aria-labelledby="excluded-modal-title"
         className="bg-white dark:bg-gray-900 rounded-2xl shadow-2xl max-w-lg w-full max-h-[80vh] flex flex-col border border-gray-200 dark:border-gray-800"
         onClick={e => e.stopPropagation()}
       >
         <div className="flex justify-between items-center p-5 border-b border-gray-200 dark:border-gray-800">
-          <h2 className="text-lg font-bold text-gray-900 dark:text-white">
+          <h2 id="excluded-modal-title" className="text-lg font-bold text-gray-900 dark:text-white">
             Excluded {itemLabel} ({excluded.size})
           </h2>
           <button
             onClick={onClose}
+            aria-label="Close"
             className="p-2 rounded-full text-gray-500 hover:bg-gray-100 dark:hover:bg-gray-800 transition-colors border border-gray-200 dark:border-gray-700"
           >
             <XIcon />
