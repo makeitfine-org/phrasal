@@ -9207,3 +9207,23 @@ Move backlog.md tasks in appropriete folder if it's done
 ## 2026-06-18T10:39:21Z
 git add all changes and commit them with suitable message
 ---
+
+## 2026-06-18T10:42:05Z
+/commit
+---
+
+## 2026-06-18T10:45:27Z
+Analyze the best way to optimze test execution and increase speed tests running
+---
+
+## 2026-06-18T12:23:27Z
+`npm test` faild fix until `npm test` green
+---
+
+## 2026-06-18T12:27:19Z
+fix `npm test` until all tests green
+---
+
+## 2026-06-18T12:32:55Z
+git add all changes and commit them with suitable message
+---

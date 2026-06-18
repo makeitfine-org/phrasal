@@ -1776,3 +1776,38 @@
 - .claude/docs/blackbox/audit.md
 - backlog/tasks/task-69 - Speed-up-test-suite-with-parallel-threads-and-reduced-verb-page-overhead.md
 <!-- end-snapshot -->
+
+<!-- git-snapshot 2026-06-18T11:33:28Z -->
+- .claude/docs/blackbox/audit.md
+- .claude/settings.local.json
+- blackbox/session-log.md
+- package-lock.json
+- package.json
+- src/__tests__/App.test.tsx
+- src/__tests__/PhrasalVerbsListPage.test.tsx
+- src/__tests__/useQuiz.test.ts
+- vite.config.ts
+<!-- end-snapshot -->
+
+<!-- git-snapshot 2026-06-18T12:28:51Z -->
+- .claude/docs/blackbox/audit.md
+- .claude/docs/blackbox/plans/2026-06-18 13:14 Test Suite Speed Optimization Plan.md
+- .claude/docs/blackbox/session-log.md
+- .claude/settings.local.json
+- blackbox/session-log.md
+- package-lock.json
+- package.json
+- src/__tests__/App.test.tsx
+- src/__tests__/PhrasalVerbsListPage.test.tsx
+- src/__tests__/listPage/act-brush.test.tsx
+- src/__tests__/listPage/build-count.test.tsx
+- src/__tests__/listPage/core.test.tsx
+- src/__tests__/listPage/deal-find.test.tsx
+- src/__tests__/listPage/get-come.test.tsx
+- src/__tests__/listPage/grow-lay.test.tsx
+- src/__tests__/listPage/helpers.tsx
+- src/__tests__/listPage/leave-pass.test.tsx
+- src/__tests__/listPage/pay-set.test.tsx
+- src/__tests__/listPage/settle-talk.test.tsx
+- src/__tests__/listPage/think-zip.test.tsx
+<!-- end-snapshot -->

@@ -257,7 +257,7 @@ describe('App — handleToggleExclude / handleIncludeVerb', () => {
 
 describe('App — handleGlobalReset', () => {
   it('clears state and localStorage after confirming reset', async () => {
-    vi.spyOn(window, 'confirm').mockReturnValue(true);
+    vi.stubGlobal('confirm', vi.fn(() => true));
     const user = userEvent.setup();
     renderApp();
     await user.type(getInput(), 'act out');
@@ -272,7 +272,7 @@ describe('App — handleGlobalReset', () => {
   });
 
   it('does not reset when user cancels the confirm dialog', async () => {
-    vi.spyOn(window, 'confirm').mockReturnValue(false);
+    vi.stubGlobal('confirm', vi.fn(() => false));
     const user = userEvent.setup();
     renderApp();
     await user.type(getInput(), 'act out');
@@ -299,7 +299,7 @@ describe('App — StrictMode bootstrap guard', () => {
   });
 
   it('re-bootstraps with exactly one card after global reset under StrictMode', async () => {
-    vi.spyOn(window, 'confirm').mockReturnValue(true);
+    vi.stubGlobal('confirm', vi.fn(() => true));
     const user = userEvent.setup();
     renderStrict();
     await user.click(screen.getByTitle('Global Reset - Clear all progress'));

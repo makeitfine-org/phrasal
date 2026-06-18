@@ -5,15 +5,11 @@ export default defineConfig({
   base: '/phrasal/',
   plugins: [react()],
   test: {
-    environment: 'jsdom',
+    environment: 'happy-dom',
     globals: true,
     setupFiles: ['./src/__tests__/setup.ts'],
     pool: 'threads',
     isolate: false,
-    poolOptions: {
-      threads: {
-        minThreads: 2,
-      },
-    },
+    minWorkers: 2,
   },
 });

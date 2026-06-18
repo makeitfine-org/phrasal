@@ -96,7 +96,8 @@ describe('useQuiz — pick-next-card skipping mastered/excluded', () => {
   });
 
   it('shows completion alert when all items are used or excluded', () => {
-    const alertSpy = vi.spyOn(window, 'alert').mockImplementation(() => {});
+    const alertSpy = vi.fn();
+    vi.stubGlobal('alert', alertSpy);
     localStorage.setItem(STORAGE_KEY, JSON.stringify({
       mastered: [],
       excluded: [1, 2, 3, 4],
@@ -206,7 +207,7 @@ describe('useQuiz — resetState', () => {
 
 describe('useQuiz — handleGlobalReset', () => {
   it('clears all state and localStorage on confirm', () => {
-    vi.spyOn(window, 'confirm').mockReturnValue(true);
+    vi.stubGlobal('confirm', vi.fn(() => true));
     const { result } = renderHook(() => useQuiz(makeConfig()));
     act(() => { result.current.updateInputValue('answer0'); });
     act(() => {
@@ -220,7 +221,7 @@ describe('useQuiz — handleGlobalReset', () => {
   });
 
   it('does not reset when user cancels', () => {
-    vi.spyOn(window, 'confirm').mockReturnValue(false);
+    vi.stubGlobal('confirm', vi.fn(() => false));
     const { result } = renderHook(() => useQuiz(makeConfig()));
     act(() => { result.current.updateInputValue('answer0'); });
     act(() => {

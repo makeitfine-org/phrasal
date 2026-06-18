@@ -13,6 +13,26 @@
 - None
 ---
 
+## 2026-06-18T13:30:00Z
+### Decisions
+- Switched test environment from jsdom to happy-dom (73s → 16s wall-clock)
+- Split PhrasalVerbsListPage.test.tsx (6799 lines, 725 tests, 67s bottleneck) into 10 files under src/__tests__/listPage/
+- Fixed vi.spyOn(window, 'confirm') → vi.stubGlobal for happy-dom compat (App.test.tsx, useQuiz.test.ts)
+- Fixed Object.assign(navigator, {clipboard:...}) → Object.defineProperty with configurable:true for happy-dom compat
+- Added configurable:true to all Object.defineProperty(navigator, 'clipboard', ...) calls
+### Constraints Stated by User
+- None
+### Files Modified
+- vite.config.ts — environment: jsdom → happy-dom
+- src/__tests__/App.test.tsx — vi.stubGlobal for confirm
+- src/__tests__/useQuiz.test.ts — vi.stubGlobal for confirm and alert
+- src/__tests__/PhrasalVerbsListPage.test.tsx — deleted (split into listPage/)
+- src/__tests__/listPage/helpers.tsx — new shared test helpers
+- src/__tests__/listPage/*.test.tsx — 10 new split test files (725 tests total)
+### Deferred
+- jsdom can be removed from devDependencies if no longer needed
+---
+
 ## 2026-06-06T16:12:00Z
 ### Decisions
 - Added "Give" phrasal verb page following the exact TakeVerbPage pattern

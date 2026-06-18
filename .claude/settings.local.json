@@ -64,7 +64,17 @@
       "Bash(git add *)",
       "Bash(grep '_verb_page$')",
       "Bash(node *)",
-      "Bash(grep -v ':0$')"
+      "Bash(grep -v ':0$')",
+      "Bash(awk -F: '{sum+=$2} END{print \"Total verb page it\\(\\) calls:\", sum}')",
+      "Bash(awk -F: '{sum+=$2} END{print \"Total verb page renders:\", sum}')",
+      "Bash(npm ls *)",
+      "Bash(echo \"---exit:$?\")",
+      "Bash(npm install *)",
+      "Bash(awk '{print $2}')",
+      "Bash(awk -F: '{print $1}')",
+      "Bash(awk '{print $2-$1, \"lines starting at\", $1}')",
+      "Bash(awk -F: '{print NR, $1, $2}')",
+      "Bash(awk -F: '{print $1, $2}')"
     ]
   },
   "model": "Opus",
