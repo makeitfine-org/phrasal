@@ -9241,3 +9241,255 @@ Detailed instctuction with schemas.
 ## 2026-06-18T13:35:23Z
 git add all changes and commit them with suitable message
 ---
+
+## 2026-06-18T14:19:04Z
+Fix untill `npm run test:run` and `npm test` and `npm run test` are all green.
+---
+
+## 2026-06-18T14:45:29Z
+gs
+---
+
+## 2026-06-18T14:46:34Z
+Fix untill `npm run test` are all green.
+---
+
+## 2026-06-18T14:47:18Z
+run `npm run test` and fix errors
+---
+
+## 2026-06-18T14:48:07Z
+/commit
+---
+
+## 2026-06-18T14:48:59Z
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[8/8]⎯
+
+
+ Test Files  1 failed | 109 passed (110)
+      Tests  8 failed | 4726 passed (4734)
+   Start at  16:46:03
+   Duration  17.14s (transform 9.49s, setup 2.69s, import 12.61s, tests 98.56s, environment 48.78s)
+
+ FAIL  Tests failed. Watching for file changes...
+       press h to show help, press q to quit
+---
+
+## 2026-06-18T14:54:30Z
+but I get errors
+---
+
+## 2026-06-18T14:58:08Z
+cation acts on the nervous system to reduce pain.
+                "
+ ❯ Object.getElementError node_modules/@testing-library/dom/dist/config.js:37:19
+ ❯ node_modules/@testing-library/dom/dist/query-helpers.js:76:38
+ ❯ node_modules/@testing-library/dom/dist/query-helpers.js:52:17
+ ❯ node_modules/@testing-library/dom/dist/query-helpers.js:95:19
+ ❯ src/__tests__/ListSearchModal.test.tsx:68:19
+     66|   it('displays definition and example for each entry', () => {
+     67|     render(<ListSearchModal onSelect={vi.fn()} onClose={vi.fn()} />);
+     68|     expect(screen.getByText('To leave a form of public transport')).toBeInTheDocument();
+       |                   ^
+     69|     expect(screen.getByText('"She got off the bus"')).toBeInTheDocument();
+     70|   });
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[6/8]⎯
+
+ FAIL  src/__tests__/ListSearchModal.test.tsx > ListSearchModal > finds entry by a non-first meaning definition
+TestingLibraryElementError: Unable to find an element with the text: Make up. This could be because the text is broken up by multiple elements. In this case, you can provide a function for your text matcher to make your matcher more flexible.
+
+Ignored nodes: comments, script, style
+<body>
+  <div>
+    <div
+      class="fixed inset-0 bg-black/50 z-50 flex items-start justify-center p-4 pt-20"
+    >
+      <div
+        aria-label="Search"
+        aria-modal="true"
+        class="bg-white dark:bg-gray-900 rounded-2xl shadow-2xl max-w-lg w-full max-h-[60vh] flex flex-col border border-gray-200 dark:border-gray-800"
+        role="dialog"
+      >
+        <div
+          class="flex items-center gap-3 p-4 border-b border-gray-200 dark:border-gray-800"
+        >
+          <input
+            class="flex-1 px-4 py-2.5 rounded-xl border border-gray-300 dark:border-gray-700 bg-gray-50 dark:bg-gray-800 text-gray-900 dark:text-white focus:outline-none focus:border-blue-500 dark:focus:border-blue-500"
+            placeholder="Search phrasal verbs..."
+            type="text"
+            value="reconcile"
+          />
+          <button
+            aria-label="Close"
+            class="p-2 rounded-full text-gray-500 hover:bg-gray-100 dark:hover:bg-gray-800 transition-colors shrink-0 border border-gray-200 dark:border-gray-700"
+          >
+            <svg
+              fill="none"
+              height="20"
+              stroke="currentColor"
+              stroke-linecap="round"
+              stroke-linejoin="round"
+              stroke-width="2"
+              viewBox="0 0 24 24"
+              width="20"
+              xmlns="http://www.w3.org/2000/svg"
+            >
+              <line
+                x1="18"
+                x2="6"
+                y1="6"
+                y2="18"
+              />
+              <line
+                x1="6"
+                x2="18"
+                y1="6"
+                y2="18"
+              />
+            </svg>
+          </button>
+        </div>
+        <div
+          class="overflow-y-auto flex-1"
+        >
+          <p
+            class="text-center text-gray-400 dark:text-gray-500 py-10 text-sm"
+          >
+            No matches found
+          </p>
+        </div>
+      </div>
+    </div>
+  </div>
+</body>
+ ❯ Object.getElementError node_modules/@testing-library/dom/dist/config.js:37:19
+ ❯ node_modules/@testing-library/dom/dist/query-helpers.js:76:38
+ ❯ node_modules/@testing-library/dom/dist/query-helpers.js:52:17
+ ❯ node_modules/@testing-library/dom/dist/query-helpers.js:95:19
+ ❯ src/__tests__/ListSearchModal.test.tsx:160:19
+    158|     render(<ListSearchModal onSelect={vi.fn()} onClose={vi.fn()} />);
+    159|     await user.type(screen.getByPlaceholderText('Search phrasal verbs...'), 'reconcile');
+    160|     expect(screen.getByText('Make up')).toBeInTheDocument();
+       |                   ^
+    161|     expect(screen.getAllByRole('listitem')).toHaveLength(1);
+    162|   });
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[7/8]⎯
+
+ FAIL  src/__tests__/ListSearchModal.test.tsx > ListSearchModal > finds entry by a word in the example sentence
+TestingLibraryElementError: Unable to find an element with the text: Put off. This could be because the text is broken up by multiple elements. In this case, you can provide a function for your text matcher to make your matcher more flexible.
+
+Ignored nodes: comments, script, style
+<body>
+  <div>
+    <div
+      class="fixed inset-0 bg-black/50 z-50 flex items-start justify-center p-4 pt-20"
+    >
+      <div
+        aria-label="Search"
+        aria-modal="true"
+        class="bg-white dark:bg-gray-900 rounded-2xl shadow-2xl max-w-lg w-full max-h-[60vh] flex flex-col border border-gray-200 dark:border-gray-800"
+        role="dialog"
+      >
+        <div
+          class="flex items-center gap-3 p-4 border-b border-gray-200 dark:border-gray-800"
+        >
+          <input
+            class="flex-1 px-4 py-2.5 rounded-xl border border-gray-300 dark:border-gray-700 bg-gray-50 dark:bg-gray-800 text-gray-900 dark:text-white focus:outline-none focus:border-blue-500 dark:focus:border-blue-500"
+            placeholder="Search phrasal verbs..."
+            type="text"
+            value="disgust"
+          />
+          <button
+            aria-label="Close"
+            class="p-2 rounded-full text-gray-500 hover:bg-gray-100 dark:hover:bg-gray-800 transition-colors shrink-0 border border-gray-200 dark:border-gray-700"
+          >
+            <svg
+              fill="none"
+              height="20"
+              stroke="currentColor"
+              stroke-linecap="round"
+              stroke-linejoin="round"
+              stroke-width="2"
+              viewBox="0 0 24 24"
+              width="20"
+              xmlns="http://www.w3.org/2000/svg"
+            >
+              <line
+                x1="18"
+                x2="6"
+                y1="6"
+                y2="18"
+              />
+              <line
+                x1="6"
+                x2="18"
+                y1="6"
+                y2="18"
+              />
+            </svg>
+          </button>
+        </div>
+        <div
+          class="overflow-y-auto flex-1"
+        >
+          <ul>
+            <li
+              class="flex flex-col px-4 py-3 cursor-pointer border-b border-gray-100 dark:border-gray-800 last:border-0 transition-colors hover:bg-blue-50 dark:hover:bg-blue-900/30"
+            >
+              <span
+                class="font-semibold text-gray-900 dark:text-white"
+              >
+                Turn away
+              </span>
+              <span
+                class="text-sm text-gray-500 dark:text-gray-400 mt-0.5"
+              >
+                To look in a different direction, often out of disgust, shame, or lack of interest.
+              </span>
+              <span
+                class="text-sm text-gray-400 dark:text-gray-500 mt-0.5 italic"
+              >
+                "
+                The movie scene was so gruesome that I had to turn away.
+                "
+              </span>
+            </li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </div>
+</body>
+ ❯ Object.getElementError node_modules/@testing-library/dom/dist/config.js:37:19
+ ❯ node_modules/@testing-library/dom/dist/query-helpers.js:76:38
+ ❯ node_modules/@testing-library/dom/dist/query-helpers.js:52:17
+ ❯ node_modules/@testing-library/dom/dist/query-helpers.js:95:19
+ ❯ src/__tests__/ListSearchModal.test.tsx:168:19
+    166|     render(<ListSearchModal onSelect={vi.fn()} onClose={vi.fn()} />);
+    167|     await user.type(screen.getByPlaceholderText('Search phrasal verbs...'), 'disgust');
+    168|     expect(screen.getByText('Put off')).toBeInTheDocument();
+       |                   ^
+    169|     expect(screen.getAllByRole('listitem')).toHaveLength(1);
+    170|   });
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[8/8]⎯
+
+
+ Test Files  1 failed | 109 passed (110)
+      Tests  8 failed | 4726 passed (4734)
+   Start at  16:46:03
+   Duration  17.14s (transform 9.49s, setup 2.69s, import 12.61s, tests 98.56s, environment 48.78s)
+
+ FAIL  Tests failed. Watching for file changes...
+       press h to show help, press q to quit
+---
+
+## 2026-06-18T15:06:17Z
+git add all changes and commit them with suitable message
+---
+
+## 2026-06-18T15:24:02Z
+git add all changes and commit them with suitable message
+---

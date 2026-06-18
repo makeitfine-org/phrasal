@@ -74,7 +74,9 @@
       "Bash(awk -F: '{print $1}')",
       "Bash(awk '{print $2-$1, \"lines starting at\", $1}')",
       "Bash(awk -F: '{print NR, $1, $2}')",
-      "Bash(awk -F: '{print $1, $2}')"
+      "Bash(awk -F: '{print $1, $2}')",
+      "Bash(timeout 15 npm test)",
+      "Bash(timeout 15 cat)"
     ]
   },
   "model": "Opus",

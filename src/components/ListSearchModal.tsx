@@ -6,9 +6,10 @@ import { listVerbIndex, type ListSearchEntry } from '../data/listVerbIndex';
 interface ListSearchModalProps {
   onSelect: (entry: ListSearchEntry) => void;
   onClose: () => void;
+  entries?: ListSearchEntry[];
 }
 
-export default function ListSearchModal({ onSelect, onClose }: ListSearchModalProps) {
+export default function ListSearchModal({ onSelect, onClose, entries = listVerbIndex }: ListSearchModalProps) {
   const [query, setQuery] = useState('');
   const [selectedIndex, setSelectedIndex] = useState(-1);
   const listRef = useRef<HTMLUListElement>(null);
@@ -31,7 +32,7 @@ export default function ListSearchModal({ onSelect, onClose }: ListSearchModalPr
   }, [selectedIndex]);
 
   const q = query.toLowerCase().trim();
-  const results: ListSearchEntry[] = listVerbIndex
+  const results: ListSearchEntry[] = entries
     .filter(e =>
       !q ||
       e.verb.toLowerCase().includes(q) ||

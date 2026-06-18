@@ -1819,3 +1819,52 @@
 <!-- git-snapshot 2026-06-18T13:35:39Z -->
 - .claude/docs/blackbox/audit.md
 <!-- end-snapshot -->
+
+<!-- git-snapshot 2026-06-18T14:23:29Z -->
+- .claude/docs/blackbox/audit.md
+- .claude/settings.local.json
+<!-- end-snapshot -->
+
+<!-- git-snapshot 2026-06-18T14:47:00Z -->
+- .claude/docs/blackbox/audit.md
+- .claude/docs/blackbox/session-log.md
+- .claude/settings.local.json
+<!-- end-snapshot -->
+
+<!-- git-snapshot 2026-06-18T14:47:40Z -->
+- .claude/docs/blackbox/audit.md
+- .claude/docs/blackbox/session-log.md
+- .claude/settings.local.json
+<!-- end-snapshot -->
+
+<!-- git-snapshot 2026-06-18T14:49:26Z -->
+- .claude/docs/blackbox/audit.md
+- .claude/docs/blackbox/session-log.md
+- .claude/settings.local.json
+<!-- end-snapshot -->
+
+<!-- git-snapshot 2026-06-18T14:55:16Z -->
+- .claude/docs/blackbox/audit.md
+- .claude/docs/blackbox/session-log.md
+- .claude/settings.local.json
+<!-- end-snapshot -->
+
+<!-- git-snapshot 2026-06-18T15:05:23Z -->
+- .claude/docs/blackbox/audit.md
+- .claude/docs/blackbox/session-log.md
+- .claude/settings.local.json
+- src/__tests__/ListSearchModal.test.tsx
+- src/components/ListSearchModal.tsx
+<!-- end-snapshot -->
+
+<!-- git-snapshot 2026-06-18T15:11:25Z -->
+- .claude/docs/blackbox/audit.md
+- .claude/docs/blackbox/session-log.md
+- .claude/settings.local.json
+<!-- end-snapshot -->
+
+<!-- git-snapshot 2026-06-18T15:24:10Z -->
+- .claude/docs/blackbox/audit.md
+- .claude/docs/blackbox/session-log.md
+- .claude/settings.local.json
+<!-- end-snapshot -->
