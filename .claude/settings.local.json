@@ -61,7 +61,10 @@
       "Bash(npm run *)",
       "mcp__context7__resolve-library-id",
       "mcp__context7__query-docs",
-      "Bash(git add *)"
+      "Bash(git add *)",
+      "Bash(grep '_verb_page$')",
+      "Bash(node *)",
+      "Bash(grep -v ':0$')"
     ]
   },
   "model": "Opus",

@@ -12,7 +12,7 @@ export default defineConfig({
     isolate: false,
     poolOptions: {
       threads: {
-        singleThread: true,
+        minThreads: 2,
       },
     },
   },

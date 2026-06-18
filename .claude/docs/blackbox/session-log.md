@@ -1725,3 +1725,49 @@
 - .claude/settings.local.json
 - backlog/tasks/task-67 - Extract-shared-quiz-hook-from-App-and-IWishPage.md
 <!-- end-snapshot -->
+
+<!-- git-snapshot 2026-06-18T10:34:04Z -->
+- .claude/docs/blackbox/audit.md
+- .claude/settings.local.json
+- backlog/tasks/task-69 - Speed-up-test-suite-with-parallel-threads-and-reduced-verb-page-overhead.md
+- blackbox/session-log.md
+- src/__tests__/act_verb_page/against.test.tsx
+- src/__tests__/act_verb_page/for.test.tsx
+- src/__tests__/act_verb_page/on_upon.test.tsx
+- src/__tests__/act_verb_page/out.test.tsx
+- src/__tests__/act_verb_page/up.test.tsx
+- src/__tests__/ask_verb_page/about.test.tsx
+- src/__tests__/ask_verb_page/after.test.tsx
+- src/__tests__/ask_verb_page/around_round.test.tsx
+- src/__tests__/ask_verb_page/away.test.tsx
+- src/__tests__/ask_verb_page/back.test.tsx
+- src/__tests__/ask_verb_page/down.test.tsx
+- src/__tests__/ask_verb_page/for.test.tsx
+- src/__tests__/ask_verb_page/in.test.tsx
+- src/__tests__/ask_verb_page/into.test.tsx
+- src/__tests__/ask_verb_page/off.test.tsx
+- src/__tests__/ask_verb_page/out.test.tsx
+<!-- end-snapshot -->
+
+<!-- git-snapshot 2026-06-18T10:37:14Z -->
+- .claude/docs/blackbox/audit.md
+- .claude/docs/blackbox/session-log.md
+- .claude/settings.local.json
+- backlog/tasks/task-69 - Speed-up-test-suite-with-parallel-threads-and-reduced-verb-page-overhead.md
+- blackbox/session-log.md
+- src/__tests__/act_verb_page/against.test.tsx
+- src/__tests__/act_verb_page/for.test.tsx
+- src/__tests__/act_verb_page/on_upon.test.tsx
+- src/__tests__/act_verb_page/out.test.tsx
+- src/__tests__/act_verb_page/up.test.tsx
+- src/__tests__/ask_verb_page/about.test.tsx
+- src/__tests__/ask_verb_page/after.test.tsx
+- src/__tests__/ask_verb_page/around_round.test.tsx
+- src/__tests__/ask_verb_page/away.test.tsx
+- src/__tests__/ask_verb_page/back.test.tsx
+- src/__tests__/ask_verb_page/down.test.tsx
+- src/__tests__/ask_verb_page/for.test.tsx
+- src/__tests__/ask_verb_page/in.test.tsx
+- src/__tests__/ask_verb_page/into.test.tsx
+- src/__tests__/ask_verb_page/off.test.tsx
+<!-- end-snapshot -->

@@ -31,3 +31,17 @@
 ### Deferred
 - Real images for Give particles (images/phrasal_verbs/list/give/…) — all use default.png for now
 ---
+
+## 2026-06-18T10:30:00Z
+### Decisions
+- Removed `singleThread: true` from vite.config.ts, replaced with `minThreads: 2`
+- Consolidated 869 per-particle verb test files into 71 per-verb test files (one `{verb}.test.tsx` per directory)
+- Kept all `helpers.tsx` files unchanged; shared test helpers still used across all consolidated files
+### Constraints Stated by User
+- None (task-69 fully specified acceptance criteria)
+### Files Modified
+- vite.config.ts — removed singleThread: true, added minThreads: 2
+- src/__tests__/*_verb_page/*.test.tsx — 869 files consolidated into 71
+### Deferred
+- None
+---
