@@ -1714,3 +1714,14 @@
 - src/components/TutorialModal.tsx
 - src/components/VerbPage.tsx
 <!-- end-snapshot -->
+
+<!-- git-snapshot 2026-06-18T09:34:56Z -->
+- .claude/settings.local.json
+<!-- end-snapshot -->
+
+<!-- git-snapshot 2026-06-18T09:38:33Z -->
+- .claude/docs/blackbox/audit.md
+- .claude/docs/blackbox/session-log.md
+- .claude/settings.local.json
+- backlog/tasks/task-67 - Extract-shared-quiz-hook-from-App-and-IWishPage.md
+<!-- end-snapshot -->

@@ -9171,3 +9171,11 @@ Complete the backlog.md task-68
 ## 2026-06-18T09:34:25Z
 git add all changes and commit them with suitable message
 ---
+
+## 2026-06-18T09:37:56Z
+Move backlog.md tasks in appropriete folder if it's done
+---
+
+## 2026-06-18T09:38:44Z
+git add all changes and commit them with suitable message
+---
