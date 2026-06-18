@@ -9237,3 +9237,7 @@ Detailed instctuction with schemas.
 Create an migration instruction (migrate.md) for this project to split it to backend (java, mongo, elastic, etc.) and frontend part (react), also deployment localy with kubernets, skaffold. And then deploy to AWS in the cheapest way.
 Detailed instctuction with schemas.
 ---
+
+## 2026-06-18T13:35:23Z
+git add all changes and commit them with suitable message
+---
