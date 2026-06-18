@@ -1811,3 +1811,7 @@
 - src/__tests__/listPage/settle-talk.test.tsx
 - src/__tests__/listPage/think-zip.test.tsx
 <!-- end-snapshot -->
+
+<!-- git-snapshot 2026-06-18T13:28:25Z -->
+- .claude/docs/blackbox/audit.md
+<!-- end-snapshot -->
