@@ -9199,3 +9199,11 @@ did you finish the backlog.md task?
 ## 2026-06-18T10:37:22Z
 git add all changes and commit them with suitable message
 ---
+
+## 2026-06-18T10:38:39Z
+Move backlog.md tasks in appropriete folder if it's done
+---
+
+## 2026-06-18T10:39:21Z
+git add all changes and commit them with suitable message
+---

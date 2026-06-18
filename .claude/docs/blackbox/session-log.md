@@ -1771,3 +1771,8 @@
 - src/__tests__/ask_verb_page/into.test.tsx
 - src/__tests__/ask_verb_page/off.test.tsx
 <!-- end-snapshot -->
+
+<!-- git-snapshot 2026-06-18T10:38:59Z -->
+- .claude/docs/blackbox/audit.md
+- backlog/tasks/task-69 - Speed-up-test-suite-with-parallel-threads-and-reduced-verb-page-overhead.md
+<!-- end-snapshot -->
