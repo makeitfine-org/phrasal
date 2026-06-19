@@ -9493,3 +9493,32 @@ git add all changes and commit them with suitable message
 ## 2026-06-18T15:24:02Z
 git add all changes and commit them with suitable message
 ---
+
+## 2026-06-19T08:47:03Z
+in @vite.config.ts there is an error:     <html>TS2769: No overload matches this call.<br/>The last overload gave the following error.<br/>Object literal may only specify known properties, but 'minWorkers' does not exist in type 'InlineConfig'. Did you mean to write 'maxWorkers'?
+Fix that
+---
+
+## 2026-06-19T08:47:49Z
+will it impact performance?
+---
+
+## 2026-06-19T08:49:00Z
+how to add that and don't get the error message?
+---
+
+## 2026-06-19T08:49:44Z
+I got <html>TS2769: No overload matches this call.<br/>The last overload gave the following error.<br/>Object literal may only specify known properties, and 'poolOptions' does not exist in type 'InlineConfig'.
+---
+
+## 2026-06-19T08:51:28Z
+what recommendation to set maxWorkers?
+---
+
+## 2026-06-19T08:52:25Z
+how to get the amount of cpu cores?
+---
+
+## 2026-06-19T08:53:57Z
+git add all changes and commit them with suitable message
+---
