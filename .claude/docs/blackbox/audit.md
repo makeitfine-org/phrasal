@@ -9522,3 +9522,15 @@ how to get the amount of cpu cores?
 ## 2026-06-19T08:53:57Z
 git add all changes and commit them with suitable message
 ---
+
+## 2026-06-20T14:50:38Z
+Analyze the project.
+I'd like to decompose the project to front-end (react) and backend (java, spring); and find the best way to develop it locally with local deployment docker compose; and the the most efficiednt and cheapest way to deploy that publicly.
+It should be fast for new releasing, and cheap.
+Let talk about that interactivly, you interviewed me, propose the best hands-on technologies, database, etc.
+And eventually create the best ".doc/decomposition_plan.md" this detailed plan description, explantion why we choose technologies, comparison
+---
+
+## 2026-06-20T16:42:16Z
+git add all changes and commit them with suitable message
+---

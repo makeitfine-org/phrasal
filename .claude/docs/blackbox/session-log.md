@@ -1903,3 +1903,7 @@
 - .claude/docs/blackbox/session-log.md
 - vite.config.ts
 <!-- end-snapshot -->
+
+<!-- git-snapshot 2026-06-20T16:41:22Z -->
+- .claude/docs/blackbox/audit.md
+<!-- end-snapshot -->
