@@ -76,7 +76,15 @@
       "Bash(awk -F: '{print NR, $1, $2}')",
       "Bash(awk -F: '{print $1, $2}')",
       "Bash(timeout 15 npm test)",
-      "Bash(timeout 15 cat)"
+      "Bash(timeout 15 cat)",
+      "Bash(git mv *)",
+      "Bash(java -version)",
+      "Bash(mvn -version)",
+      "Read(//usr/lib/jvm/**)",
+      "Bash(update-alternatives --list java)",
+      "Bash(JAVA_HOME=/usr/lib/jvm/java-21-openjdk-amd64 mvn clean verify)",
+      "Bash(grep -n \"\\(\\\\`src/\" /home/ubuntuu/dev/mine/phrasal/CLAUDE.md)",
+      "Bash(grep *)"
     ]
   },
   "model": "Opus",

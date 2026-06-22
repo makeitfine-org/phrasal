@@ -1,9 +1,16 @@
 import { defineConfig } from 'vitest/config';
 import react from '@vitejs/plugin-react';
 
+const BACKEND = 'http://localhost:8080';
+
 export default defineConfig({
-  base: '/phrasal/',
   plugins: [react()],
+  server: {
+    proxy: {
+      '/api': BACKEND,
+      '/actuator': BACKEND,
+    },
+  },
   test: {
     environment: 'happy-dom',
     globals: true,

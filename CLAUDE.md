@@ -5,18 +5,56 @@ This file provides guidance to Claude Code (claude.ai/code) when working with co
 ## Commands
 
 ```bash
-npm run dev       # dev server at http://localhost:5173
-npm run build     # production build → dist/
-npm run preview   # serve the production build locally
-npm test          # Vitest in watch mode
-npm run test:run  # Vitest one-shot (CI)
+# Frontend (from frontend/)
+cd frontend && npm run dev       # dev server at http://localhost:5173
+cd frontend && npm run build     # production build → dist/
+cd frontend && npm test          # Vitest in watch mode
+cd frontend && npm run test:run  # Vitest one-shot (CI)
+
+# Backend (from backend/, requires Java 21)
+cd backend && JAVA_HOME=/usr/lib/jvm/java-21-openjdk-amd64 mvn clean verify
+
+# Full stack (from root)
+make build        # build all + docker + e2e
+make dockerAll    # build + docker compose up (foreground)
+make dockerDown   # stop containers
+make help         # show all Makefile targets
 ```
+
+## Project Structure
+
+Monorepo with three modules:
+- **`frontend/`** — React 18 + TypeScript SPA (Vite, Tailwind, react-router-dom v7)
+- **`backend/`** — Java 21 + Spring Boot 3.4 + PostgreSQL REST API (Maven, Flyway, MapStruct)
+- **`e2e/`** — Cucumber.js + Playwright acceptance tests
+
+Root files: `Makefile`, `docker-compose.yml`, `.env`, `.github/workflows/ci.yml`
 
 ## Architecture
 
-Multi-page React 18 + TypeScript app (Vite, Tailwind, react-router-dom v7). Base path: `/phrasal/`.
+### Backend
 
-### Routing (`src/main.tsx`)
+Java 21 + Spring Boot 3.4.1 REST API. Clean architecture layers under `net.phrasal`:
+
+| Layer | Package | Contents |
+|---|---|---|
+| Domain | `domain.entity` | `PhrasalVerb`, `GrammarEntry` (JPA entities, JSONB columns) |
+| Domain | `domain.repository` | Spring Data JPA repos with `@Query` search/filter |
+| Application | `application.dto` | Request/Response classes (validation annotations, no Lombok) |
+| Application | `application.mapper` | MapStruct interfaces (`componentModel = "spring"`) |
+| Application | `application.service` | `@Service @Transactional`, constructor injection |
+| Infrastructure | `infrastructure.exception` | `@RestControllerAdvice` with RFC 7807 ProblemDetail |
+| Presentation | `presentation.rest` | REST controllers at `/api/phrasal-verbs` and `/api/grammar-entries` |
+| Config | `config` | `JpaAuditingConfig`, `WebMvcConfig` (CORS) |
+
+Database: PostgreSQL (`phrasaldb`), Flyway migrations in `backend/src/main/resources/db/migration/`.
+Testing: JUnit 5 + Testcontainers + JaCoCo (85% min line coverage).
+
+### Frontend
+
+Multi-page React 18 + TypeScript app (Vite, Tailwind, react-router-dom v7).
+
+### Routing (`frontend/src/main.tsx`)
 
 `ErrorBoundary` > `BrowserRouter` > `PageShell` (layout shell with `<Outlet />`) > all routes:
 
@@ -35,9 +73,9 @@ Multi-page React 18 + TypeScript app (Vite, Tailwind, react-router-dom v7). Base
 ### Component tree
 
 **Structural components:**
-- **`PageShell`** (`src/components/PageShell.tsx`) — wraps all routes via `<Outlet />`. Owns dark mode toggle (reads/writes `darkMode` in `phrasalQuizState` localStorage), home button, and `#verb-page-actions` portal target used by verb pages for the expand-all button.
-- **`ErrorBoundary`** (`src/components/ErrorBoundary.tsx`) — class component wrapping everything.
-- **`VerbPageLayout`** (`src/components/VerbPage.tsx`) — reusable layout for verb detail pages. Renders collapsible particle sections, each with collapsible meaning cards. Exports `VerbPageLayout`, `MeaningData`, `SectionData`. Uses `ReactDOM.createPortal` to render expand-all button into PageShell's `#verb-page-actions` div.
+- **`PageShell`** (`frontend/src/components/PageShell.tsx`) — wraps all routes via `<Outlet />`. Owns dark mode toggle (reads/writes `darkMode` in `phrasalQuizState` localStorage), home button, and `#verb-page-actions` portal target used by verb pages for the expand-all button.
+- **`ErrorBoundary`** (`frontend/src/components/ErrorBoundary.tsx`) — class component wrapping everything.
+- **`VerbPageLayout`** (`frontend/src/components/VerbPage.tsx`) — reusable layout for verb detail pages. Renders collapsible particle sections, each with collapsible meaning cards. Exports `VerbPageLayout`, `MeaningData`, `SectionData`. Uses `ReactDOM.createPortal` to render expand-all button into PageShell's `#verb-page-actions` div.
 
 **Quiz-shared components** (used by both `App` and `IWishPage`): `Header`, `QuizCard`, `Feedback`, `NavigationControls`, `ExcludedModal`, `SearchModal`.
 
@@ -57,7 +95,7 @@ No context or global store. State is component-local + localStorage:
 
 `PageShell` and `App` share the `phrasalQuizState` key. `App` preserves fields it doesn't own (like `darkMode`) by merging with existing data before writing.
 
-### Shared types (`src/types.ts`)
+### Shared types (`frontend/src/types.ts`)
 
 | Type | Shape | Notes |
 |---|---|---|
@@ -68,13 +106,13 @@ No context or global store. State is component-local + localStorage:
 | `BrowseVerbEntry` | `VerbEntry & { quizIndex?: number }` | For AllVerbsModal browse view |
 | `GrammarEntry` | `{ sentence, correctAnswers: string[] }` | Grammar translation exercise |
 
-### Data files (`src/data/`)
+### Data files (`frontend/src/data/`)
 
 - **`phrasalVerbs.ts`** — `rawData: RawVerbEntry[]`. Exports `allVerbs: VerbEntry[]` (filtered to `isLearned === false`), `allVerbsWithLearned: VerbEntry[]` (all entries), and `verbsForBrowse: BrowseVerbEntry[]`.
 - **`wishData.ts`** — `wishData: GrammarEntry[]` (Russian sentences → English translations).
 - **`listVerbIndex.ts`** — builds a flat searchable index from all verb page `sections` exports. Exports `ListSearchEntry` type and `listVerbIndex` array. Used by `ListSearchModal`.
 
-### Verb data format (`src/data/phrasalVerbs.ts`)
+### Verb data format (`frontend/src/data/phrasalVerbs.ts`)
 
 Each entry in `rawData` is typed as `RawVerbEntry` (5-element tuple):
 
@@ -85,30 +123,30 @@ Each entry in `rawData` is typed as `RawVerbEntry` (5-element tuple):
 
 Setting the 5th field to `true` removes a verb from `allVerbs` (the active quiz pool).
 
-`wordsToHide` (index 3) drives `renderSentenceWithMask` in `src/utils/renderSentence.tsx`, which splits the sentence on a case-insensitive regex (longest match first) and renders matched tokens as clickable masked spans.
+`wordsToHide` (index 3) drives `renderSentenceWithMask` in `frontend/src/utils/renderSentence.tsx`, which splits the sentence on a case-insensitive regex (longest match first) and renders matched tokens as clickable masked spans.
 
 ### Answer checking
 
 - **Phrasal quiz** (`App.tsx`): case-insensitive, parentheses stripped — `cleanUser === cleanCorrect`.
-- **Grammar quiz** (`IWishPage`): uses `isAnswerCorrect()` from `src/utils/normalizeAnswer.ts` — lowercases, trims, strips non-word/space chars, collapses whitespace, then checks against all `correctAnswers`.
+- **Grammar quiz** (`IWishPage`): uses `isAnswerCorrect()` from `frontend/src/utils/normalizeAnswer.ts` — lowercases, trims, strips non-word/space chars, collapses whitespace, then checks against all `correctAnswers`.
 
 ### Adding a new verb page
 
-1. Create `src/pages/{verb}/{Verb}VerbPage.tsx`
+1. Create `frontend/src/pages/{verb}/{Verb}VerbPage.tsx`
 2. Define `MeaningData[]` arrays per particle, then export `sections: SectionData[]`
 3. Default export renders `<VerbPageLayout title="Verb" sections={sections} />`
-4. Add route in `src/main.tsx`
-5. Add `VERBS` entry + particle constant in `src/pages/PhrasalVerbsListPage.tsx`
-6. Add import + `buildEntries()` call in `src/data/listVerbIndex.ts`
-7. Add tests in `src/__tests__/{verb}_verb_page/` — create `helpers.tsx` using `createVerbPageHelpers()` from `src/__tests__/verbPage/helpers.tsx`
+4. Add route in `frontend/src/main.tsx`
+5. Add `VERBS` entry + particle constant in `frontend/src/pages/PhrasalVerbsListPage.tsx`
+6. Add import + `buildEntries()` call in `frontend/src/data/listVerbIndex.ts`
+7. Add tests in `frontend/src/__tests__/{verb}_verb_page/` — create `helpers.tsx` using `createVerbPageHelpers()` from `frontend/src/__tests__/verbPage/helpers.tsx`
 
 ## Tests
 
-Vitest + `@testing-library/react`. Setup file: `src/__tests__/setup.ts` (jest-dom matchers, `scrollIntoView` stub, localStorage mock).
+Vitest + `@testing-library/react`. Setup file: `frontend/src/__tests__/setup.ts` (jest-dom matchers, `scrollIntoView` stub, localStorage mock).
 
-Test files live in `src/__tests__/`. One `.test.tsx` per component/page. Verb page tests are in subdirectories `src/__tests__/{verb}_verb_page/` — each has a `helpers.tsx` that calls `createVerbPageHelpers()` from `src/__tests__/verbPage/helpers.tsx`, plus per-particle test files.
+Test files live in `frontend/src/__tests__/`. One `.test.tsx` per component/page. Verb page tests are in subdirectories `frontend/src/__tests__/{verb}_verb_page/` — each has a `helpers.tsx` that calls `createVerbPageHelpers()` from `frontend/src/__tests__/verbPage/helpers.tsx`, plus per-particle test files.
 
-`renderSentenceWithMask` is exported from `src/utils/renderSentence.tsx` so it can be unit tested directly.
+`renderSentenceWithMask` is exported from `frontend/src/utils/renderSentence.tsx` so it can be unit tested directly.
 
 ## Workflow Defaults
 
@@ -122,9 +160,11 @@ Test files live in `src/__tests__/`. One `.test.tsx` per component/page. Verb pa
 ## Delivery Checklist
 
 Before marking any task done:
-1. On adding/modifing/removing any codebase files you **must** always check out all tests pass (`npm run test:run`) on completion.
-2. Every backlog.md task Acceptance Criteria **must** include `npm run test:run` passes
-3. Every backlog.md task which extend/modify existence codebase/functionality **must** always extend/modify tests for it.
+1. On adding/modifying/removing any codebase files you **must** always check that all tests pass on completion:
+   - Frontend: `cd frontend && npm run test:run`
+   - Backend: `cd backend && JAVA_HOME=/usr/lib/jvm/java-21-openjdk-amd64 mvn clean verify`
+2. Every backlog.md task Acceptance Criteria **must** include relevant test suites passing
+3. Every backlog.md task which extend/modify existing codebase/functionality **must** always extend/modify tests for it.
 
 
 <!-- BACKLOG.MD MCP GUIDELINES START -->

@@ -9565,3 +9565,19 @@ Remvoe branches
 ## 2026-06-22T08:37:51Z
 git add all changes and commit them with suitable message
 ---
+
+## 2026-06-22T09:06:59Z
+ - Analyze the current project
+  - Analyze "~/dev/mine/claude-ai-spring-boot" project
+  - Migrate the current project to fullstack application desribed.
+    Consider all as base and ethalon using "~/dev/mine/claude-ai-spring-boot" project, so do similar: create backend,
+  frontend, e2e modules; Makefile, etc.
+---
+
+## 2026-06-22T10:06:00Z
+Based on new changes refactor @README.md
+---
+
+## 2026-06-22T10:11:40Z
+git add all changes and commit them with suitable message
+---

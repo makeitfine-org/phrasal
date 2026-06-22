@@ -1916,3 +1916,49 @@
 - .claude/docs/blackbox/audit.md
 - .claude/docs/blackbox/session-log.md
 <!-- end-snapshot -->
+
+<!-- git-snapshot 2026-06-22T09:46:31Z -->
+- .claude/docs/blackbox/audit.md
+- .claude/settings.local.json
+- .github/workflows/ci.yml
+- .gitignore
+- CLAUDE.md
+- aux/docs/Deploy.md
+- aux/docs/decomposition_plan.md
+- aux/docs/img.png
+- aux/docs/migrate.md
+- aux/docs/notes.md
+- blackbox/session-log.md
+- frontend/index.html
+- frontend/package-lock.json
+- frontend/package.json
+- frontend/postcss.config.js
+- frontend/public/404.html
+- frontend/public/favicon.svg
+- frontend/public/images/phrasal_verbs/list/default.png
+- frontend/public/images/phrasal_verbs/list/get/down/climb_down.png
+- frontend/public/images/phrasal_verbs/list/get/down/focus.png
+<!-- end-snapshot -->
+
+<!-- git-snapshot 2026-06-22T10:07:26Z -->
+- .claude/docs/blackbox/audit.md
+- .claude/docs/blackbox/plans/2026-06-22 11:15 Plan Migrate Phrasal SPA to Full-Stack Monorepo.md
+- .claude/docs/blackbox/session-log.md
+- .claude/settings.local.json
+- .env
+- .github/workflows/ci.yml
+- .gitignore
+- CLAUDE.md
+- Makefile
+- README.md
+- aux/docs/Deploy.md
+- aux/docs/decomposition_plan.md
+- aux/docs/img.png
+- aux/docs/migrate.md
+- aux/docs/notes.md
+- backend/Dockerfile
+- backend/pom.xml
+- backend/src/main/java/net/phrasal/PhrasalApplication.java
+- backend/src/main/java/net/phrasal/application/dto/GrammarEntryRequest.java
+- backend/src/main/java/net/phrasal/application/dto/GrammarEntryResponse.java
+<!-- end-snapshot -->

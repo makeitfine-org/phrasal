@@ -65,3 +65,27 @@
 ### Deferred
 - None
 ---
+
+## 2026-06-22T11:15:00Z
+### Decisions
+- Migrated from single React SPA to full-stack monorepo: frontend/, backend/, e2e/ modules
+- Backend: Java 21 + Spring Boot 3.4.1, clean architecture, net.phrasal package
+- Database: PostgreSQL (phrasaldb), Flyway migrations, 270 phrasal verbs + 3 grammar entries seeded
+- No auth/security — deferred. Frontend data stays hardcoded — API integration deferred
+- MapStruct mapping, no Lombok, RFC 7807 ProblemDetail, JaCoCo 85% coverage
+- Multi-stage Docker builds, nginx reverse proxy, Vite dev proxy
+### Constraints Stated by User
+- Package: net.phrasal, DB: phrasaldb, no auth, infrastructure only
+- Follow claude-ai-spring-boot reference project patterns exactly
+### Files Modified
+- frontend/ — moved all React app files from root; added Dockerfile, nginx.conf, .dockerignore
+- frontend/vite.config.ts — removed base: '/phrasal/', added /api proxy
+- backend/ — new Spring Boot module (pom.xml, Dockerfile, Java sources, Flyway migrations, 53 tests)
+- e2e/ — new Cucumber.js + Playwright acceptance test skeleton
+- docker-compose.yml, Makefile, .env — new root infrastructure
+- .github/workflows/ci.yml — full pipeline (build-and-test, frontend-test, e2e, docker-build)
+- CLAUDE.md — updated for monorepo, .gitignore — updated path exceptions
+### Deferred
+- Docker Compose full-stack verification, e2e test verification against running stack
+- Frontend API integration, authentication/security
+---

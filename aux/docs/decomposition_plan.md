@@ -375,7 +375,7 @@ phrasal/
 ├── .github/workflows/
 │   ├── ci.yml                         # Test on PR
 │   └── deploy-aws.yml                 # Deploy on tag
-└── .docs/
+└── aux/docs/
     └── decomposition_plan.md          # This document
 ```
 

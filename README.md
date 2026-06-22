@@ -1,232 +1,166 @@
-# Phrasal Verbs Master Quiz
+# Phrasal
 
-A flashcard-style quiz app for practising English phrasal verbs. Built with Vite, React 18, and Tailwind CSS — migrated from a legacy single-file HTML/CDN app.
+Full-stack English language learning app featuring phrasal verb quizzes, grammar exercises, and a browsable verb reference library.
+
+## Tech Stack
+
+| Module | Stack |
+|---|---|
+| **frontend/** | React 18, TypeScript, Vite, Tailwind CSS, react-router-dom v7 |
+| **backend/** | Java 21, Spring Boot 3.4, PostgreSQL, Flyway, MapStruct, Maven |
+| **e2e/** | Cucumber.js, Playwright, Axios |
 
 ## Features
 
-- 228 phrasal verbs with definitions, example sentences, and masked hints
-- Answer checking with instant correct/wrong feedback
-- Mastered-verb tracking persisted across sessions
-- Exclude verbs from the quiz pool and re-include them at any time
+- 270 phrasal verbs with definitions, example sentences, and masked hints
+- 71 individual verb detail pages with collapsible particle sections and meaning cards
+- Fill-in-the-blank quiz with answer checking and mastered-verb tracking
+- Grammar exercises (I wish / If only translation quiz)
+- Particle reference page (27 core particle meanings)
 - Search and jump to any verb by name or definition
+- Exclude/re-include verbs from the quiz pool
 - Dark/light mode toggle
-- Keyboard shortcuts for hands-free navigation
-- Touch swipe support for mobile
-- Session history — navigate back to previously seen cards
-- IDK button to reveal the answer without guessing
+- Session history with back/forward navigation
+- Keyboard shortcuts and touch swipe support
+- All user progress persisted in localStorage
 
 ---
 
-## Architecture
+## Quick Start
+
+### Prerequisites
+
+- Node.js 22+
+- Java 21 (`JAVA_HOME=/usr/lib/jvm/java-21-openjdk-amd64`)
+- Docker & Docker Compose
+- PostgreSQL 16 (provided via Docker)
+
+### Development (frontend only)
+
+```bash
+cd frontend && npm install && npm run dev
+# http://localhost:5173
+```
+
+### Full Stack (Docker Compose)
+
+```bash
+make dockerAll
+# Frontend: http://localhost:3000
+# Backend:  http://localhost:8080
+# Postgres: localhost:5432 (phrasaldb)
+```
+
+```bash
+make dockerDown   # stop all containers
+```
+
+### Build & Test
+
+```bash
+# Frontend
+cd frontend && npm run test:run
+
+# Backend (requires Java 21)
+cd backend && JAVA_HOME=/usr/lib/jvm/java-21-openjdk-amd64 mvn clean verify
+
+# Full pipeline: build + docker + e2e
+make build
+
+# See all targets
+make help
+```
+
+---
+
+## Project Structure
 
 ```
 phrasal/
-├── index.html                  # Vite HTML entry point (Inter font, #root div)
-├── vite.config.js              # Vite + @vitejs/plugin-react + Vitest config
-├── tailwind.config.js          # darkMode: 'class', extends gray-850 color
-├── postcss.config.js           # tailwindcss + autoprefixer
-├── package.json
-└── src/
-    ├── main.jsx                # ReactDOM.createRoot bootstrap
-    ├── index.css               # @tailwind directives, fadeIn keyframe, .fade-in class
-    ├── App.jsx                 # Root component: all state, effects, event handlers
-    ├── data/
-    │   └── phrasalVerbs.js     # rawData array + allVerbs derived export
-    ├── utils/
-    │   └── renderSentence.jsx  # renderSentenceWithMask utility (exported for testing)
-    ├── components/
-    │   ├── Icons.jsx           # SVG icon components (SunIcon, MoonIcon, Trash2, etc.)
-    │   ├── Header.jsx          # Title, mastered count, question №, dark toggle, reset
-    │   ├── QuizCard.jsx        # Explanation, hint, masked sentence, answer input form
-    │   ├── Feedback.jsx        # Correct / wrong result panel (fade-in animated)
-    │   ├── NavigationControls.jsx  # Prev/Next history nav + Reset + Skip buttons
-    │   ├── ExcludedModal.jsx   # Modal listing excluded verbs with search and re-include
-    │   └── SearchModal.jsx     # Modal for searching and jumping to any verb
-    └── __tests__/
-        ├── setup.js            # jest-dom, scrollIntoView stub, localStorage mock
-        ├── renderSentence.test.jsx
-        ├── Feedback.test.jsx
-        ├── Header.test.jsx
-        ├── NavigationControls.test.jsx
-        ├── QuizCard.test.jsx
-        ├── ExcludedModal.test.jsx
-        ├── SearchModal.test.jsx
-        └── App.test.jsx
+├── frontend/                   # React SPA
+│   ├── src/
+│   │   ├── main.tsx            # Router setup (ErrorBoundary > BrowserRouter > PageShell)
+│   │   ├── App.tsx             # Phrasal verb quiz
+│   │   ├── components/         # Shared UI (QuizCard, Header, Feedback, modals, etc.)
+│   │   ├── pages/              # Route pages + 71 verb detail pages
+│   │   ├── data/               # Phrasal verb data, grammar data, search index
+│   │   ├── hooks/              # useQuiz, useFocusTrap
+│   │   ├── utils/              # renderSentence, normalizeAnswer
+│   │   └── __tests__/          # Vitest + Testing Library (4700+ tests)
+│   ├── Dockerfile              # Multi-stage: node:22 build → nginx:1.27
+│   ├── nginx.conf              # SPA fallback + /api/ reverse proxy
+│   └── vite.config.ts          # Dev proxy: /api → localhost:8080
+│
+├── backend/                    # Spring Boot REST API
+│   ├── src/main/java/net/phrasal/
+│   │   ├── domain/             # JPA entities (JSONB columns) + repositories
+│   │   ├── application/        # DTOs, MapStruct mappers, services
+│   │   ├── presentation/       # REST controllers (/api/phrasal-verbs, /api/grammar-entries)
+│   │   ├── infrastructure/     # @RestControllerAdvice, RFC 7807 errors
+│   │   └── config/             # JPA auditing, CORS
+│   ├── src/main/resources/
+│   │   ├── db/migration/       # Flyway: schema + seed data (270 verbs, 3 grammar entries)
+│   │   └── application.yml
+│   ├── src/test/               # JUnit 5 + Testcontainers (53 tests, 85% JaCoCo coverage)
+│   ├── Dockerfile              # Multi-stage: maven:3.9 build → temurin:21-jre
+│   └── pom.xml
+│
+├── e2e/                        # Acceptance tests
+│   ├── features/               # Gherkin scenarios
+│   └── src/                    # Step definitions, API/DB clients
+│
+├── docker-compose.yml          # postgres + backend + frontend
+├── Makefile                    # Build, test, and Docker targets
+├── .github/workflows/ci.yml   # CI: backend → frontend → e2e → docker
+└── CLAUDE.md                   # AI assistant project context
 ```
 
-### State model (`App.jsx`)
+## REST API
 
-All application state lives in `App.jsx` and is persisted to `localStorage` under the key `phrasalQuizState`.
-
-| State | Type | Description |
+| Method | Endpoint | Description |
 |---|---|---|
-| `darkMode` | `boolean` | Drives the `dark` class on the root element |
-| `mastered` | `Set<number>` | Indices of correctly answered verbs |
-| `excluded` | `Set<number>` | Indices excluded from the active quiz pool |
-| `history` | `HistoryItem[]` | Ordered list of cards shown this session |
-| `currentIndex` | `number` | Pointer into `history` (enables back navigation) |
-| `revealSentence` | `boolean` | Whether the masked words in the sentence are shown |
+| GET | `/api/phrasal-verbs?page=0&size=20&sort=verb&q=break&learned=false` | Paginated, filterable list |
+| GET | `/api/phrasal-verbs/{id}` | Single verb |
+| POST | `/api/phrasal-verbs` | Create verb |
+| PUT | `/api/phrasal-verbs/{id}` | Update verb |
+| DELETE | `/api/phrasal-verbs/{id}` | Delete verb |
+| GET | `/api/grammar-entries?category=i-wish-if-only` | List by category |
+| GET | `/api/grammar-entries/{id}` | Single entry |
+| POST | `/api/grammar-entries` | Create entry |
+| PUT | `/api/grammar-entries/{id}` | Update entry |
+| DELETE | `/api/grammar-entries/{id}` | Delete entry |
 
-`HistoryItem` shape: `{ index: number, inputValue: string, status: 'idle' | 'correct' | 'wrong' }`.
+## Routes
 
-### Data flow
+| Path | Page |
+|---|---|
+| `/` | Home (choose exercise type) |
+| `/phrasal-verbs` | Phrasal verbs hub |
+| `/phrasal-verbs/test-most-popular` | Fill-in-the-blank quiz |
+| `/phrasal-verbs/particles` | 27 particle core meanings |
+| `/phrasal-verbs/list` | Browse all verbs as cards |
+| `/phrasal-verbs/list/:verb` | Individual verb detail (71 verbs) |
+| `/grammar` | Grammar exercises hub |
+| `/grammar/i-wish-if-only` | Translation quiz (Russian to English) |
 
-```
-phrasalVerbs.js  →  allVerbs[]
-                         ↓
-                      App.jsx  (state + handlers)
-               ↙    ↙    ↓    ↓         ↘         ↘
-          Header  QuizCard  Feedback  NavigationControls  ExcludedModal  SearchModal
-```
-
-`App.jsx` passes data and callbacks as props — no context or global store needed at this scale.
-
-### Sentence masking
-
-`renderSentenceWithMask` (`src/utils/renderSentence.jsx`) splits the example sentence on a case-insensitive regex built from the `wordsToHide` field of each verb entry. Longer phrases are matched first to avoid partial overlaps. Matched tokens are rendered as clickable `<span>` elements that toggle between an `XXX` placeholder and the real text.
-
-### Verb data format
-
-Each entry in `rawData` is a 5-element tuple:
-
-```js
-[verb, definition, exampleSentence, wordsToHide, isLearned]
-//  0        1             2               3           4
-```
-
-`allVerbs` is `rawData` filtered to `isLearned === false` (index 4), so setting the 5th field to `true` removes a verb from the active quiz pool. The example sentence (index 2) can be a string or an array of strings; `allVerbs` normalises both to `string[]`.
-
----
-
-## Deployment
-
-The app is deployed to GitHub Pages and publicly accessible at:
-
-**https://makeitfine-org.github.io/phrasal/**
-
-### Releasing a new version
-
-Tag the commit you want to deploy and push the tag:8
-
-```bash
-git tag -a v1.0.1 -m "Release version 1.0.1"
-git push origin v1.0.1
-```
-
-The `phrasal-deploy.yml` workflow triggers on any `v*.*.*` tag and verifies the
-tag is on `main` before deploying. It runs the test suite, builds the app, and
-deploys to Pages. Track progress under the **Actions** tab; the live URL also
-appears in the deploy job summary once it completes.
-
-To re-deploy without changing source (e.g. after a Pages outage):
-**Actions → Deploy to GitHub Pages → Run workflow**.
-
-> **Prerequisite:** Settings → Pages → Source must be set to **GitHub Actions**
-> in the `makeitfine-org/phrasal` repo before the first deploy.
-
----
-
-## Usage
-
-### Install & run
-
-```bash
-npm install
-npm run dev        # dev server at http://localhost:5173
-```
-
-### Serve on local network (access from phone / tablet)
-
-**Dev server:**
-```bash
-npm run dev -- --host   # binds to 0.0.0.0; Vite prints the LAN URL, e.g. http://192.168.x.x:5173
-```
-
-**Production build:**
-```bash
-npm run build
-npx serve -l tcp://0.0.0.0:4173 dist   # accessible at http://192.168.x.x:4173
-```
-
-Find your machine's IP with `ip route get 1` (Linux) or `ipconfig` (Windows).
-
-### Tests
-
-```bash
-npm test           # Vitest in watch mode
-npm run test:run   # one-shot (CI)
-```
-
-### Build for production
-
-```bash
-npm run build      # output in dist/
-npm run preview    # preview the production build locally
-```
-
-### Serve in production
-
-The build output in `dist/` is a static site — serve it with any static file server.
-
-**Node (`serve` package):**
-```bash
-npx serve dist
-```
-
-**Python (quick check):**
-```bash
-python3 -m http.server 8080 --directory dist
-```
-
-**nginx — minimal config:**
-```nginx
-server {
-    listen 80;
-    root /var/www/phrasal/dist;
-    index index.html;
-
-    # Required for client-side routing (SPA fallback)
-    location / {
-        try_files $uri $uri/ /index.html;
-    }
-
-    # Cache hashed assets indefinitely; revalidate index.html
-    location ~* \.(js|css|woff2|png|svg)$ {
-        expires 1y;
-        add_header Cache-Control "public, immutable";
-    }
-    location = /index.html {
-        add_header Cache-Control "no-cache";
-    }
-}
-```
-
-> All user state is stored in `localStorage` — no backend or database required.
-
-### Keyboard shortcuts
+## Keyboard Shortcuts
 
 | Key | Action |
 |---|---|
 | `←` / `→` | Navigate back / forward through history |
 | `Enter` (after answering) | Go to next card |
-| `Escape` | Mark current card as IDK (reveal answer) |
-| `` ` `` or `Ctrl+R` | Reset current card back to idle |
+| `Escape` | Reveal the answer (IDK) |
+| `` ` `` or `Ctrl+R` | Reset current card |
 
-### Touch / swipe
+Touch: swipe left/right for next/previous card.
 
-| Gesture | Action |
-|---|---|
-| Swipe left | Next card |
-| Swipe right | Previous card |
+## Adding a New Verb
 
-### Adding new verbs
+Append to `frontend/src/data/phrasalVerbs.ts`:
 
-Edit `src/data/phrasalVerbs.js` and append to `rawData`:
-
-```js
-["Verb phrase", "Definition", "Example sentence using the verb phrase.", ["verb", "phrase"], false],
-//                                                                          ^                  ^
-//                                                               words to mask           false = active
+```ts
+["Verb phrase", "Definition", "Example sentence.", ["verb", "phrase"], false],
+//                                                                      ^ false = active in quiz
 ```
 
-Set the 5th field to `true` to mark a verb as already learned — it will be excluded from the quiz pool.
+Set the 5th field to `true` to mark as learned (excluded from quiz pool).
