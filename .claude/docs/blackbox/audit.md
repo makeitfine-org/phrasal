@@ -9534,3 +9534,34 @@ And eventually create the best ".doc/decomposition_plan.md" this detailed plan d
 ## 2026-06-20T16:42:16Z
 git add all changes and commit them with suitable message
 ---
+
+## 2026-06-22T07:43:46Z
++ worktree-agent-aa3a93ff3fcd5453c
++ worktree-agent-aa4a16b6b1fbdde4d
++ worktree-agent-aadf724bb979babd8
++ worktree-agent-ad21f10172dcb0810
++ worktree-agent-ad30e7272ad67f7f3
++ worktree-agent-ae44f5c9baf174646
++ worktree-agent-af0e2068655f5ee3a
++ worktree-agent-af8ff34adf47d9c63
+ubuntuu@LP-BSF-EMALYSH:~/.../phrasal$ gp origin -r
+Current branch main is up to date.
+ubuntuu@LP-BSF-EMALYSH:~/.../phrasal$ gb -d worktree-agent-aa3a93ff3fcd5453c
+error: cannot delete branch 'worktree-agent-aa3a93ff3fcd5453c' used by worktree at '/home/ubuntuu/dev/mine/phrasal/.claude/worktrees/agent-aa3a93ff3fcd5453c'
+
+how to remove that branches
+---
+
+## 2026-06-22T07:54:26Z
+git worktree list | grep '.claude/worktrees' | awk '{print $1}' | xargs -I{} git worktree remove --force {}
+fatal: cannot remove a locked working tree, lock reason: claude agent agent-aa4a16b6b1fbdde4d (pid 84234 start 3163889)
+use 'remove -f -f' to override or unlock first
+fatal: cannot remove a locked working tree, lock reason: claude agent agent-af8ff34adf47d9c63 (pid 84234 start 3163889)
+use 'remove -f -f' to override or unlock first
+
+Remvoe branches
+---
+
+## 2026-06-22T08:37:51Z
+git add all changes and commit them with suitable message
+---
