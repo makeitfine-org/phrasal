@@ -2009,3 +2009,36 @@
 - .claude/settings.local.json
 - CLAUDE.md
 <!-- end-snapshot -->
+
+<!-- git-snapshot 2026-06-22T12:26:12Z -->
+- .claude/docs/blackbox/audit.md
+- CLAUDE.md
+- backend/pom.xml
+- backend/src/main/java/net/phrasal/application/dto/GrammarEntryRequest.java
+- backend/src/main/java/net/phrasal/application/dto/GrammarEntryResponse.java
+- backend/src/main/java/net/phrasal/application/dto/PhrasalVerbRequest.java
+- backend/src/main/java/net/phrasal/application/dto/PhrasalVerbResponse.java
+- backend/src/main/java/net/phrasal/application/service/GrammarEntryService.java
+- backend/src/main/java/net/phrasal/application/service/PhrasalVerbService.java
+- backend/src/main/java/net/phrasal/domain/entity/GrammarEntry.java
+- backend/src/main/java/net/phrasal/domain/entity/PhrasalVerb.java
+- backend/src/main/java/net/phrasal/presentation/rest/GrammarEntryController.java
+- backend/src/main/java/net/phrasal/presentation/rest/PhrasalVerbController.java
+<!-- end-snapshot -->
+
+<!-- git-snapshot 2026-06-22T12:44:49Z -->
+- .claude/docs/blackbox/audit.md
+- .claude/docs/blackbox/session-log.md
+- CLAUDE.md
+- backend/pom.xml
+- backend/src/main/java/net/phrasal/application/dto/GrammarEntryRequest.java
+- backend/src/main/java/net/phrasal/application/dto/GrammarEntryResponse.java
+- backend/src/main/java/net/phrasal/application/dto/PhrasalVerbRequest.java
+- backend/src/main/java/net/phrasal/application/dto/PhrasalVerbResponse.java
+- backend/src/main/java/net/phrasal/application/service/GrammarEntryService.java
+- backend/src/main/java/net/phrasal/application/service/PhrasalVerbService.java
+- backend/src/main/java/net/phrasal/domain/entity/GrammarEntry.java
+- backend/src/main/java/net/phrasal/domain/entity/PhrasalVerb.java
+- backend/src/main/java/net/phrasal/presentation/rest/GrammarEntryController.java
+- backend/src/main/java/net/phrasal/presentation/rest/PhrasalVerbController.java
+<!-- end-snapshot -->

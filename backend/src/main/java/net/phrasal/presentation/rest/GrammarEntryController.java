@@ -1,6 +1,7 @@
 package net.phrasal.presentation.rest;
 
 import jakarta.validation.Valid;
+import lombok.RequiredArgsConstructor;
 import net.phrasal.application.dto.GrammarEntryRequest;
 import net.phrasal.application.dto.GrammarEntryResponse;
 import net.phrasal.application.service.GrammarEntryService;
@@ -14,13 +15,10 @@ import org.springframework.web.bind.annotation.*;
 
 @RestController
 @RequestMapping("/api/grammar-entries")
+@RequiredArgsConstructor
 public class GrammarEntryController {
 
     private final GrammarEntryService service;
-
-    public GrammarEntryController(GrammarEntryService service) {
-        this.service = service;
-    }
 
     @GetMapping
     public ResponseEntity<Page<GrammarEntryResponse>> getAll(

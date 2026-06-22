@@ -3,9 +3,13 @@ package net.phrasal.application.dto;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Size;
+import lombok.Data;
+import lombok.NoArgsConstructor;
 
 import java.util.List;
 
+@Data
+@NoArgsConstructor
 public class GrammarEntryRequest {
 
     @NotBlank(message = "Category is required")
@@ -17,31 +21,4 @@ public class GrammarEntryRequest {
 
     @NotNull(message = "Correct answers are required")
     private List<String> correctAnswers;
-
-    public GrammarEntryRequest() {
-    }
-
-    public String getCategory() {
-        return category;
-    }
-
-    public void setCategory(String category) {
-        this.category = category;
-    }
-
-    public String getSentence() {
-        return sentence;
-    }
-
-    public void setSentence(String sentence) {
-        this.sentence = sentence;
-    }
-
-    public List<String> getCorrectAnswers() {
-        return correctAnswers;
-    }
-
-    public void setCorrectAnswers(List<String> correctAnswers) {
-        this.correctAnswers = correctAnswers;
-    }
 }

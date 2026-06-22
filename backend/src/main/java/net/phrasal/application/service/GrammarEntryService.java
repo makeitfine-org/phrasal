@@ -1,5 +1,6 @@
 package net.phrasal.application.service;
 
+import lombok.RequiredArgsConstructor;
 import net.phrasal.application.dto.GrammarEntryRequest;
 import net.phrasal.application.dto.GrammarEntryResponse;
 import net.phrasal.application.mapper.GrammarEntryMapper;
@@ -17,17 +18,13 @@ import java.util.Set;
 
 @Service
 @Transactional
+@RequiredArgsConstructor
 public class GrammarEntryService {
 
     private static final Set<String> ALLOWED_SORT_FIELDS = Set.of("category", "sentence", "createdAt");
 
     private final GrammarEntryRepository repository;
     private final GrammarEntryMapper mapper;
-
-    public GrammarEntryService(GrammarEntryRepository repository, GrammarEntryMapper mapper) {
-        this.repository = repository;
-        this.mapper = mapper;
-    }
 
     private Pageable sanitize(Pageable pageable) {
         Sort filtered = Sort.by(

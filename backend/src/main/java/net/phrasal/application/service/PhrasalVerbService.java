@@ -1,5 +1,6 @@
 package net.phrasal.application.service;
 
+import lombok.RequiredArgsConstructor;
 import net.phrasal.application.dto.PhrasalVerbRequest;
 import net.phrasal.application.dto.PhrasalVerbResponse;
 import net.phrasal.application.mapper.PhrasalVerbMapper;
@@ -17,17 +18,13 @@ import java.util.Set;
 
 @Service
 @Transactional
+@RequiredArgsConstructor
 public class PhrasalVerbService {
 
     private static final Set<String> ALLOWED_SORT_FIELDS = Set.of("verb", "definition", "isLearned", "createdAt");
 
     private final PhrasalVerbRepository repository;
     private final PhrasalVerbMapper mapper;
-
-    public PhrasalVerbService(PhrasalVerbRepository repository, PhrasalVerbMapper mapper) {
-        this.repository = repository;
-        this.mapper = mapper;
-    }
 
     private Pageable sanitize(Pageable pageable) {
         Sort filtered = Sort.by(

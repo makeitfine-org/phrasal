@@ -25,7 +25,7 @@ make help         # show all Makefile targets
 
 Monorepo with three modules:
 - **`frontend/`** — React 18 + TypeScript SPA (Vite, Tailwind, react-router-dom v7)
-- **`backend/`** — Java 21 + Spring Boot 3.4 + PostgreSQL REST API (Maven, Flyway, MapStruct)
+- **`backend/`** — Java 21 + Spring Boot 3.4 + PostgreSQL REST API (Maven, Flyway, MapStruct, Lombok)
 - **`e2e/`** — Cucumber.js + Playwright acceptance tests
 
 Root files: `Makefile`, `docker-compose.yml`, `.env`, `.github/workflows/ci.yml`
@@ -38,11 +38,11 @@ Java 21 + Spring Boot 3.4.1 REST API. Clean architecture layers under `net.phras
 
 | Layer | Package | Contents |
 |---|---|---|
-| Domain | `domain.entity` | `PhrasalVerb`, `GrammarEntry` (JPA entities, JSONB columns) |
+| Domain | `domain.entity` | `PhrasalVerb`, `GrammarEntry` (JPA entities, JSONB columns, Lombok `@Getter`/`@Setter`/`@EqualsAndHashCode(of=...)`) |
 | Domain | `domain.repository` | Spring Data JPA repos with `@Query` search/filter |
-| Application | `application.dto` | Request/Response classes (validation annotations, no Lombok) |
-| Application | `application.mapper` | MapStruct interfaces (`componentModel = "spring"`) |
-| Application | `application.service` | `@Service @Transactional`, constructor injection |
+| Application | `application.dto` | Request/Response classes (validation annotations, Lombok `@Data`) |
+| Application | `application.mapper` | MapStruct interfaces (`componentModel = "spring"`, with `lombok-mapstruct-binding`) |
+| Application | `application.service` | `@Service @Transactional`, Lombok `@RequiredArgsConstructor` |
 | Infrastructure | `infrastructure.exception` | `@RestControllerAdvice` with RFC 7807 ProblemDetail |
 | Presentation | `presentation.rest` | REST controllers at `/api/phrasal-verbs` and `/api/grammar-entries` |
 | Config | `config` | `JpaAuditingConfig`, `WebMvcConfig` (CORS) |

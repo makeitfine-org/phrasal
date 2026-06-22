@@ -1,6 +1,7 @@
 package net.phrasal.presentation.rest;
 
 import jakarta.validation.Valid;
+import lombok.RequiredArgsConstructor;
 import net.phrasal.application.dto.PhrasalVerbRequest;
 import net.phrasal.application.dto.PhrasalVerbResponse;
 import net.phrasal.application.service.PhrasalVerbService;
@@ -14,13 +15,10 @@ import org.springframework.web.bind.annotation.*;
 
 @RestController
 @RequestMapping("/api/phrasal-verbs")
+@RequiredArgsConstructor
 public class PhrasalVerbController {
 
     private final PhrasalVerbService service;
-
-    public PhrasalVerbController(PhrasalVerbService service) {
-        this.service = service;
-    }
 
     @GetMapping
     public ResponseEntity<Page<PhrasalVerbResponse>> getAll(

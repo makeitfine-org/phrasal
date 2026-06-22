@@ -3,9 +3,13 @@ package net.phrasal.application.dto;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Size;
+import lombok.Data;
+import lombok.NoArgsConstructor;
 
 import java.util.List;
 
+@Data
+@NoArgsConstructor
 public class PhrasalVerbRequest {
 
     @NotBlank(message = "Verb is required")
@@ -22,47 +26,4 @@ public class PhrasalVerbRequest {
     private List<String> wordsToHide;
 
     private Boolean isLearned = false;
-
-    public PhrasalVerbRequest() {
-    }
-
-    public String getVerb() {
-        return verb;
-    }
-
-    public void setVerb(String verb) {
-        this.verb = verb;
-    }
-
-    public String getDefinition() {
-        return definition;
-    }
-
-    public void setDefinition(String definition) {
-        this.definition = definition;
-    }
-
-    public List<String> getSentences() {
-        return sentences;
-    }
-
-    public void setSentences(List<String> sentences) {
-        this.sentences = sentences;
-    }
-
-    public List<String> getWordsToHide() {
-        return wordsToHide;
-    }
-
-    public void setWordsToHide(List<String> wordsToHide) {
-        this.wordsToHide = wordsToHide;
-    }
-
-    public Boolean getIsLearned() {
-        return isLearned;
-    }
-
-    public void setIsLearned(Boolean isLearned) {
-        this.isLearned = isLearned;
-    }
 }

@@ -1,6 +1,11 @@
 package net.phrasal.domain.entity;
 
 import jakarta.persistence.*;
+import lombok.EqualsAndHashCode;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
+import lombok.ToString;
 import org.hibernate.annotations.JdbcTypeCode;
 import org.hibernate.type.SqlTypes;
 import org.springframework.data.annotation.CreatedDate;
@@ -9,7 +14,6 @@ import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 
 import java.time.LocalDateTime;
 import java.util.List;
-import java.util.Objects;
 
 @Entity
 @Table(name = "phrasal_verbs", indexes = {
@@ -17,6 +21,11 @@ import java.util.Objects;
     @Index(name = "idx_phrasal_verbs_is_learned", columnList = "is_learned")
 })
 @EntityListeners(AuditingEntityListener.class)
+@Getter
+@Setter
+@NoArgsConstructor
+@ToString(of = {"id", "verb", "isLearned"})
+@EqualsAndHashCode(of = {"id", "verb"})
 public class PhrasalVerb {
 
     @Id
@@ -56,107 +65,10 @@ public class PhrasalVerb {
     @Version
     private Long version;
 
-    public PhrasalVerb() {
-    }
-
     public PhrasalVerb(String verb, String definition, List<String> sentences, List<String> wordsToHide) {
         this.verb = verb;
         this.definition = definition;
         this.sentences = sentences;
         this.wordsToHide = wordsToHide;
-    }
-
-    public Long getId() {
-        return id;
-    }
-
-    public void setId(Long id) {
-        this.id = id;
-    }
-
-    public String getVerb() {
-        return verb;
-    }
-
-    public void setVerb(String verb) {
-        this.verb = verb;
-    }
-
-    public String getDefinition() {
-        return definition;
-    }
-
-    public void setDefinition(String definition) {
-        this.definition = definition;
-    }
-
-    public List<String> getSentences() {
-        return sentences;
-    }
-
-    public void setSentences(List<String> sentences) {
-        this.sentences = sentences;
-    }
-
-    public List<String> getWordsToHide() {
-        return wordsToHide;
-    }
-
-    public void setWordsToHide(List<String> wordsToHide) {
-        this.wordsToHide = wordsToHide;
-    }
-
-    public Boolean getIsLearned() {
-        return isLearned;
-    }
-
-    public void setIsLearned(Boolean isLearned) {
-        this.isLearned = isLearned;
-    }
-
-    public LocalDateTime getCreatedAt() {
-        return createdAt;
-    }
-
-    public void setCreatedAt(LocalDateTime createdAt) {
-        this.createdAt = createdAt;
-    }
-
-    public LocalDateTime getUpdatedAt() {
-        return updatedAt;
-    }
-
-    public void setUpdatedAt(LocalDateTime updatedAt) {
-        this.updatedAt = updatedAt;
-    }
-
-    public Long getVersion() {
-        return version;
-    }
-
-    public void setVersion(Long version) {
-        this.version = version;
-    }
-
-    @Override
-    public boolean equals(Object o) {
-        if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
-        PhrasalVerb that = (PhrasalVerb) o;
-        return Objects.equals(id, that.id) && Objects.equals(verb, that.verb);
-    }
-
-    @Override
-    public int hashCode() {
-        return Objects.hash(id, verb);
-    }
-
-    @Override
-    public String toString() {
-        return "PhrasalVerb{" +
-                "id=" + id +
-                ", verb='" + verb + '\'' +
-                ", isLearned=" + isLearned +
-                '}';
     }
 }
