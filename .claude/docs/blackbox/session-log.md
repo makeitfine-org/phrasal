@@ -1989,3 +1989,23 @@
 - .claude/docs/blackbox/session-log.md
 - Makefile
 <!-- end-snapshot -->
+
+<!-- git-snapshot 2026-06-22T11:25:08Z -->
+- .claude/docs/blackbox/audit.md
+- .claude/settings.local.json
+- CLAUDE.md
+- e2e/package-lock.json
+- e2e/package.json
+- frontend/package-lock.json
+- frontend/package.json
+- frontend/postcss.config.js
+- frontend/src/index.css
+- frontend/tailwind.config.js
+<!-- end-snapshot -->
+
+<!-- git-snapshot 2026-06-22T11:32:47Z -->
+- .claude/docs/blackbox/audit.md
+- .claude/docs/blackbox/session-log.md
+- .claude/settings.local.json
+- CLAUDE.md
+<!-- end-snapshot -->

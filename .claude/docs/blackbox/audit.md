@@ -9605,3 +9605,11 @@ as it was done for frontend
 ## 2026-06-22T11:00:12Z
 git add all changes and commit them with suitable message
 ---
+
+## 2026-06-22T11:13:56Z
+While run `make clean build` I get error, fix that until `make clean build` is successfull.
+---
+
+## 2026-06-22T11:29:35Z
+git add all changes and commit them with suitable message
+---

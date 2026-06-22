@@ -152,7 +152,7 @@ Test files live in `frontend/src/__tests__/`. One `.test.tsx` per component/page
 
 - Plan mode for any task with 3+ steps or an architectural decision
 - Use **Context7 MCP** proactively for library/API docs — don't wait to be asked
-- Commits: semantic message ≤ 80 chars, no `Co-Authored-By` trailer
+- CRITICAL: Commits: semantic message ≤ 80 chars; DO NOT add `Co-Authored-By` trailer
 - When compacting, always preserve the full list of modified files and any test commands
 - Don't change docs/blackbox/archive-*.md files
 - Don't delete anything from docs/blackbox/plans folder
