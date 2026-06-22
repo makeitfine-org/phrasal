@@ -9581,3 +9581,27 @@ Based on new changes refactor @README.md
 ## 2026-06-22T10:11:40Z
 git add all changes and commit them with suitable message
 ---
+
+## 2026-06-22T10:28:39Z
+linux for window intellij idea does see all files of the project on windows but they exists on linux after reopen idea it sees. How to fix that i Intellij idea?
+---
+
+## 2026-06-22T10:33:26Z
+File > Remote Development I don't have that in File
+---
+
+## 2026-06-22T10:55:31Z
+Add updateAcceptance target in @Makefile as it's done for updateFronted
+---
+
+## 2026-06-22T10:57:11Z
+Add cleaning for acceptance to "clean" target
+---
+
+## 2026-06-22T10:57:55Z
+as it was done for frontend
+---
+
+## 2026-06-22T11:00:12Z
+git add all changes and commit them with suitable message
+---

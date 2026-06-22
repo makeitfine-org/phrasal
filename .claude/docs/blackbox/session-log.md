@@ -1962,3 +1962,30 @@
 - backend/src/main/java/net/phrasal/application/dto/GrammarEntryRequest.java
 - backend/src/main/java/net/phrasal/application/dto/GrammarEntryResponse.java
 <!-- end-snapshot -->
+
+<!-- git-snapshot 2026-06-22T10:28:55Z -->
+- .claude/docs/blackbox/audit.md
+<!-- end-snapshot -->
+
+<!-- git-snapshot 2026-06-22T10:33:39Z -->
+- .claude/docs/blackbox/audit.md
+- .claude/docs/blackbox/session-log.md
+<!-- end-snapshot -->
+
+<!-- git-snapshot 2026-06-22T10:56:19Z -->
+- .claude/docs/blackbox/audit.md
+- .claude/docs/blackbox/session-log.md
+- Makefile
+<!-- end-snapshot -->
+
+<!-- git-snapshot 2026-06-22T10:57:18Z -->
+- .claude/docs/blackbox/audit.md
+- .claude/docs/blackbox/session-log.md
+- Makefile
+<!-- end-snapshot -->
+
+<!-- git-snapshot 2026-06-22T10:58:04Z -->
+- .claude/docs/blackbox/audit.md
+- .claude/docs/blackbox/session-log.md
+- Makefile
+<!-- end-snapshot -->

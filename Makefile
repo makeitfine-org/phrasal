@@ -1,6 +1,6 @@
 # Makefile for phrasal
 
-.PHONY: clean updateFrontend buildBackend buildFrontend acceptanceTest build dockerAll dockerDown \
+.PHONY: clean updateFrontend updateAcceptance buildBackend buildFrontend acceptanceTest build dockerAll dockerDown \
         ghList ghView defaultMessage message help ciCheck
 
 # Function to execute commands sequentially with success and failure messages
@@ -15,7 +15,8 @@ clean:
 		docker compose down ; \
 		docker rmi -f phrasal-backend:latest phrasal-frontend:latest 2>/dev/null || true && \
 		cd backend && JAVA_HOME=/usr/lib/jvm/java-21-openjdk-amd64 mvn clean && \
-		cd ../frontend && rm -rf dist,\
+		cd ../frontend && rm -rf dist && \
+		cd ../e2e && rm -rf reports test-results playwright-report,\
 		"✅ CLEAN SUCCESSFUL (phrasal) ✅",\
 		"❌ CLEAN FAILED (phrasal) ❌")
 
@@ -25,6 +26,13 @@ updateFrontend:
 		cd frontend && rm -rf dist node_modules package-lock.json && npx npm-check-updates -u && npm install,\
 		"✅ UPDATE FRONTEND SUCCESSFUL (phrasal) ✅",\
 		"❌ UPDATE FRONTEND FAILED (phrasal) ❌")
+
+updateAcceptance:
+	@echo "### Updating acceptance tests (phrasal) ..."
+	$(call execute_commands,\
+		cd e2e && rm -rf node_modules package-lock.json && npx npm-check-updates -u && npm install,\
+		"✅ UPDATE ACCEPTANCE SUCCESSFUL (phrasal) ✅",\
+		"❌ UPDATE ACCEPTANCE FAILED (phrasal) ❌")
 
 buildBackend:
 	@echo "### Building backend (phrasal) ..."
@@ -132,6 +140,7 @@ help:
 	@echo "🔨 Build Targets:"
 	@echo "  clean             - Docker down, remove images, mvn clean, remove frontend dist"
 	@echo "  updateFrontend    - Update frontend deps (npm-check-updates -u && npm install)"
+	@echo "  updateAcceptance  - Update e2e deps (npm-check-updates -u && npm install)"
 	@echo "  buildBackend      - Build backend with Maven (mvn clean verify, enforces JaCoCo)"
 	@echo "  buildFrontend     - Build frontend (npm install && npm run build)"
 	@echo "  build             - Full build: backend + frontend + docker rebuild + e2e (--wait)"
