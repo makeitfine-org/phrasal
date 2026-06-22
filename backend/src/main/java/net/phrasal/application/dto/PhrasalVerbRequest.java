@@ -3,27 +3,27 @@ package net.phrasal.application.dto;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Size;
-import lombok.Data;
-import lombok.NoArgsConstructor;
 
 import java.util.List;
 
-@Data
-@NoArgsConstructor
-public class PhrasalVerbRequest {
+public record PhrasalVerbRequest(
 
-    @NotBlank(message = "Verb is required")
-    @Size(max = 100, message = "Verb must not exceed 100 characters")
-    private String verb;
+        @NotBlank(message = "Verb is required")
+        @Size(max = 100, message = "Verb must not exceed 100 characters")
+        String verb,
 
-    @NotBlank(message = "Definition is required")
-    private String definition;
+        @NotBlank(message = "Definition is required")
+        String definition,
 
-    @NotNull(message = "Sentences are required")
-    private List<String> sentences;
+        @NotNull(message = "Sentences are required")
+        List<String> sentences,
 
-    @NotNull(message = "Words to hide are required")
-    private List<String> wordsToHide;
+        @NotNull(message = "Words to hide are required")
+        List<String> wordsToHide,
 
-    private Boolean isLearned = false;
+        Boolean isLearned
+) {
+    public PhrasalVerbRequest {
+        if (isLearned == null) isLearned = false;
+    }
 }

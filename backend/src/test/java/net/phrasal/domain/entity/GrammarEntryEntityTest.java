@@ -1,14 +1,17 @@
 package net.phrasal.domain.entity;
 
+import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 
 import java.util.List;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
+@DisplayName("GrammarEntry Entity")
 class GrammarEntryEntityTest {
 
     @Test
+    @DisplayName("constructor sets fields")
     void constructorAndGetters() {
         GrammarEntry entry = new GrammarEntry("i-wish", "Sentence", List.of("Answer"));
 
@@ -18,6 +21,7 @@ class GrammarEntryEntityTest {
     }
 
     @Test
+    @DisplayName("setters update all fields")
     void setters() {
         GrammarEntry entry = new GrammarEntry();
         entry.setId(1L);
@@ -32,6 +36,7 @@ class GrammarEntryEntityTest {
     }
 
     @Test
+    @DisplayName("equals and hashCode use id only")
     void equalsAndHashCode() {
         GrammarEntry a = new GrammarEntry();
         a.setId(1L);
@@ -44,6 +49,7 @@ class GrammarEntryEntityTest {
     }
 
     @Test
+    @DisplayName("toString includes category")
     void toStringContainsCategory() {
         GrammarEntry entry = new GrammarEntry();
         entry.setCategory("test");

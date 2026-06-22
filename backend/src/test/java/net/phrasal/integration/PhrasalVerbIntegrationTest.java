@@ -2,7 +2,7 @@ package net.phrasal.integration;
 
 import net.phrasal.domain.entity.PhrasalVerb;
 import net.phrasal.domain.repository.PhrasalVerbRepository;
-import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
@@ -26,7 +26,10 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 @AutoConfigureMockMvc
 @Testcontainers
 @ActiveProfiles("test")
+@DisplayName("Phrasal Verbs API Integration")
 class PhrasalVerbIntegrationTest {
+
+    private static final String BASE_URL = "/api/v1/phrasal-verbs";
 
     @Container
     static PostgreSQLContainer<?> postgres = new PostgreSQLContainer<>("postgres:16-alpine")
@@ -48,9 +51,9 @@ class PhrasalVerbIntegrationTest {
     private PhrasalVerbRepository repository;
 
     @Test
+    @DisplayName("GET / returns paginated seeded verbs")
     void shouldReturnSeededVerbsOnGetAll() throws Exception {
-        mockMvc.perform(get("/api/phrasal-verbs")
-                        .param("size", "5"))
+        mockMvc.perform(get(BASE_URL).param("size", "5"))
                 .andExpect(status().isOk())
                 .andExpect(jsonPath("$.content").isArray())
                 .andExpect(jsonPath("$.content", hasSize(5)))
@@ -58,23 +61,26 @@ class PhrasalVerbIntegrationTest {
     }
 
     @Test
+    @DisplayName("GET /{id} returns verb by id")
     void shouldReturnVerbById() throws Exception {
         PhrasalVerb verb = repository.findAll().get(0);
 
-        mockMvc.perform(get("/api/phrasal-verbs/{id}", verb.getId()))
+        mockMvc.perform(get(BASE_URL + "/{id}", verb.getId()))
                 .andExpect(status().isOk())
                 .andExpect(jsonPath("$.verb").value(verb.getVerb()))
                 .andExpect(jsonPath("$.definition").value(verb.getDefinition()));
     }
 
     @Test
+    @DisplayName("GET /{id} returns 404 for non-existent verb")
     void shouldReturn404ForNonExistentVerb() throws Exception {
-        mockMvc.perform(get("/api/phrasal-verbs/{id}", 99999))
+        mockMvc.perform(get(BASE_URL + "/{id}", 99999))
                 .andExpect(status().isNotFound())
                 .andExpect(jsonPath("$.title").value("Phrasal Verb Not Found"));
     }
 
     @Test
+    @DisplayName("POST / creates verb and returns 201 with Location header")
     void shouldCreateNewVerb() throws Exception {
         String json = """
                 {
@@ -86,15 +92,17 @@ class PhrasalVerbIntegrationTest {
                 }
                 """;
 
-        mockMvc.perform(post("/api/phrasal-verbs")
+        mockMvc.perform(post(BASE_URL)
                         .contentType(MediaType.APPLICATION_JSON)
                         .content(json))
                 .andExpect(status().isCreated())
+                .andExpect(header().exists("Location"))
                 .andExpect(jsonPath("$.verb").value("Test out"))
                 .andExpect(jsonPath("$.id").isNumber());
     }
 
     @Test
+    @DisplayName("PUT /{id} updates existing verb")
     void shouldUpdateExistingVerb() throws Exception {
         PhrasalVerb verb = repository.findAll().get(0);
 
@@ -108,7 +116,7 @@ class PhrasalVerbIntegrationTest {
                 }
                 """.formatted(verb.getVerb());
 
-        mockMvc.perform(put("/api/phrasal-verbs/{id}", verb.getId())
+        mockMvc.perform(put(BASE_URL + "/{id}", verb.getId())
                         .contentType(MediaType.APPLICATION_JSON)
                         .content(json))
                 .andExpect(status().isOk())
@@ -117,20 +125,22 @@ class PhrasalVerbIntegrationTest {
     }
 
     @Test
+    @DisplayName("DELETE /{id} removes verb")
     void shouldDeleteVerb() throws Exception {
         PhrasalVerb verb = new PhrasalVerb("Delete me", "To be deleted", List.of("Delete this."), List.of("delete"));
         verb = repository.save(verb);
 
-        mockMvc.perform(delete("/api/phrasal-verbs/{id}", verb.getId()))
+        mockMvc.perform(delete(BASE_URL + "/{id}", verb.getId()))
                 .andExpect(status().isNoContent());
 
-        mockMvc.perform(get("/api/phrasal-verbs/{id}", verb.getId()))
+        mockMvc.perform(get(BASE_URL + "/{id}", verb.getId()))
                 .andExpect(status().isNotFound());
     }
 
     @Test
+    @DisplayName("GET /?q= filters by search query")
     void shouldSearchByQuery() throws Exception {
-        mockMvc.perform(get("/api/phrasal-verbs")
+        mockMvc.perform(get(BASE_URL)
                         .param("q", "break")
                         .param("size", "50"))
                 .andExpect(status().isOk())
@@ -138,8 +148,9 @@ class PhrasalVerbIntegrationTest {
     }
 
     @Test
+    @DisplayName("GET /?learned= filters by learned status")
     void shouldFilterByLearned() throws Exception {
-        mockMvc.perform(get("/api/phrasal-verbs")
+        mockMvc.perform(get(BASE_URL)
                         .param("learned", "false")
                         .param("size", "5"))
                 .andExpect(status().isOk())
@@ -147,6 +158,7 @@ class PhrasalVerbIntegrationTest {
     }
 
     @Test
+    @DisplayName("POST / returns 400 for invalid request body")
     void shouldReturn400ForInvalidRequest() throws Exception {
         String json = """
                 {
@@ -157,7 +169,7 @@ class PhrasalVerbIntegrationTest {
                 }
                 """;
 
-        mockMvc.perform(post("/api/phrasal-verbs")
+        mockMvc.perform(post(BASE_URL)
                         .contentType(MediaType.APPLICATION_JSON)
                         .content(json))
                 .andExpect(status().isBadRequest())

@@ -40,11 +40,11 @@ Java 21 + Spring Boot 3.4.1 REST API. Clean architecture layers under `net.phras
 |---|---|---|
 | Domain | `domain.entity` | `PhrasalVerb`, `GrammarEntry` (JPA entities, JSONB columns, Lombok `@Getter`/`@Setter`/`@EqualsAndHashCode(of=...)`) |
 | Domain | `domain.repository` | Spring Data JPA repos with `@Query` search/filter |
-| Application | `application.dto` | Request/Response classes (validation annotations, Lombok `@Data`) |
+| Application | `application.dto` | Java 21 records (request with validation annotations, response immutable) |
 | Application | `application.mapper` | MapStruct interfaces (`componentModel = "spring"`, with `lombok-mapstruct-binding`) |
-| Application | `application.service` | `@Service @Transactional`, Lombok `@RequiredArgsConstructor` |
-| Infrastructure | `infrastructure.exception` | `@RestControllerAdvice` with RFC 7807 ProblemDetail |
-| Presentation | `presentation.rest` | REST controllers at `/api/phrasal-verbs` and `/api/grammar-entries` |
+| Application | `application.service` | `@Service @Transactional`, Lombok `@RequiredArgsConstructor`, SLF4J logging |
+| Infrastructure | `infrastructure.exception` | `@RestControllerAdvice` with RFC 7807 ProblemDetail, SLF4J logging |
+| Presentation | `presentation.rest` | Versioned REST controllers at `/api/v1/phrasal-verbs` and `/api/v1/grammar-entries` (`@Validated`, Location headers) |
 | Config | `config` | `JpaAuditingConfig`, `WebMvcConfig` (CORS) |
 
 Database: PostgreSQL (`phrasaldb`), Flyway migrations in `backend/src/main/resources/db/migration/`.

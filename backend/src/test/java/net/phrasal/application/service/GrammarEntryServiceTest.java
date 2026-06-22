@@ -7,6 +7,7 @@ import net.phrasal.domain.entity.GrammarEntry;
 import net.phrasal.domain.repository.GrammarEntryRepository;
 import net.phrasal.infrastructure.exception.GrammarEntryNotFoundException;
 import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;
@@ -26,6 +27,7 @@ import static org.mockito.ArgumentMatchers.*;
 import static org.mockito.Mockito.*;
 
 @ExtendWith(MockitoExtension.class)
+@DisplayName("GrammarEntryService")
 class GrammarEntryServiceTest {
 
     @Mock
@@ -46,17 +48,14 @@ class GrammarEntryServiceTest {
         entity = new GrammarEntry("i-wish", "Test sentence", List.of("Answer"));
         entity.setId(1L);
 
-        response = new GrammarEntryResponse();
-        response.setId(1L);
-        response.setCategory("i-wish");
+        response = new GrammarEntryResponse(1L, "i-wish", "Test sentence",
+                List.of("Answer"), null, null, 0L);
 
-        request = new GrammarEntryRequest();
-        request.setCategory("i-wish");
-        request.setSentence("Test sentence");
-        request.setCorrectAnswers(List.of("Answer"));
+        request = new GrammarEntryRequest("i-wish", "Test sentence", List.of("Answer"));
     }
 
     @Test
+    @DisplayName("getAll returns page of entries")
     void getAll_returnsPageOfEntries() {
         Page<GrammarEntry> page = new PageImpl<>(List.of(entity));
         when(repository.search(any(), any(Pageable.class))).thenReturn(page);
@@ -68,6 +67,7 @@ class GrammarEntryServiceTest {
     }
 
     @Test
+    @DisplayName("getAll sanitizes invalid sort fields")
     void getAll_sanitizesInvalidSortField() {
         Page<GrammarEntry> page = new PageImpl<>(List.of(entity));
         when(repository.search(any(), any(Pageable.class))).thenReturn(page);
@@ -81,16 +81,18 @@ class GrammarEntryServiceTest {
     }
 
     @Test
+    @DisplayName("getById returns entry when found")
     void getById_returnsEntryWhenFound() {
         when(repository.findById(1L)).thenReturn(Optional.of(entity));
         when(mapper.toResponse(entity)).thenReturn(response);
 
         GrammarEntryResponse result = service.getById(1L);
 
-        assertThat(result.getCategory()).isEqualTo("i-wish");
+        assertThat(result.category()).isEqualTo("i-wish");
     }
 
     @Test
+    @DisplayName("getById throws when not found")
     void getById_throwsWhenNotFound() {
         when(repository.findById(99L)).thenReturn(Optional.empty());
 
@@ -99,6 +101,7 @@ class GrammarEntryServiceTest {
     }
 
     @Test
+    @DisplayName("create saves and returns entry")
     void create_savesAndReturnsEntry() {
         when(mapper.toEntity(request)).thenReturn(entity);
         when(repository.save(entity)).thenReturn(entity);
@@ -106,11 +109,12 @@ class GrammarEntryServiceTest {
 
         GrammarEntryResponse result = service.create(request);
 
-        assertThat(result.getId()).isEqualTo(1L);
+        assertThat(result.id()).isEqualTo(1L);
         verify(repository).save(entity);
     }
 
     @Test
+    @DisplayName("update modifies existing entry")
     void update_updatesExistingEntry() {
         when(repository.findById(1L)).thenReturn(Optional.of(entity));
         when(repository.save(entity)).thenReturn(entity);
@@ -123,6 +127,7 @@ class GrammarEntryServiceTest {
     }
 
     @Test
+    @DisplayName("update throws when not found")
     void update_throwsWhenNotFound() {
         when(repository.findById(99L)).thenReturn(Optional.empty());
 
@@ -131,6 +136,7 @@ class GrammarEntryServiceTest {
     }
 
     @Test
+    @DisplayName("delete removes entry")
     void delete_removesEntry() {
         when(repository.existsById(1L)).thenReturn(true);
 
@@ -140,6 +146,7 @@ class GrammarEntryServiceTest {
     }
 
     @Test
+    @DisplayName("delete throws when not found")
     void delete_throwsWhenNotFound() {
         when(repository.existsById(99L)).thenReturn(false);
 

@@ -7,6 +7,8 @@ import net.phrasal.application.mapper.GrammarEntryMapper;
 import net.phrasal.domain.entity.GrammarEntry;
 import net.phrasal.domain.repository.GrammarEntryRepository;
 import net.phrasal.infrastructure.exception.GrammarEntryNotFoundException;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
@@ -21,6 +23,7 @@ import java.util.Set;
 @RequiredArgsConstructor
 public class GrammarEntryService {
 
+    private static final Logger log = LoggerFactory.getLogger(GrammarEntryService.class);
     private static final Set<String> ALLOWED_SORT_FIELDS = Set.of("category", "sentence", "createdAt");
 
     private final GrammarEntryRepository repository;
@@ -54,6 +57,7 @@ public class GrammarEntryService {
     public GrammarEntryResponse create(GrammarEntryRequest request) {
         GrammarEntry entity = mapper.toEntity(request);
         GrammarEntry saved = repository.save(entity);
+        log.info("Created grammar entry id={} category='{}'", saved.getId(), saved.getCategory());
         return mapper.toResponse(saved);
     }
 
@@ -62,6 +66,7 @@ public class GrammarEntryService {
                 .orElseThrow(() -> new GrammarEntryNotFoundException(id));
         mapper.updateEntityFromRequest(request, entity);
         GrammarEntry updated = repository.save(entity);
+        log.info("Updated grammar entry id={}", id);
         return mapper.toResponse(updated);
     }
 
@@ -70,5 +75,6 @@ public class GrammarEntryService {
             throw new GrammarEntryNotFoundException(id);
         }
         repository.deleteById(id);
+        log.info("Deleted grammar entry id={}", id);
     }
 }

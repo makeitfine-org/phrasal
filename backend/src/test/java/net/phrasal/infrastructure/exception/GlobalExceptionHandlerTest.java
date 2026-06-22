@@ -1,18 +1,21 @@
 package net.phrasal.infrastructure.exception;
 
+import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ProblemDetail;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
+@DisplayName("GlobalExceptionHandler")
 class GlobalExceptionHandlerTest {
 
     private final GlobalExceptionHandler handler = new GlobalExceptionHandler();
 
     @Test
-    void handlePhrasalVerbNotFoundException() {
-        ProblemDetail detail = handler.handlePhrasalVerbNotFoundException(
+    @DisplayName("returns 404 for phrasal verb not found")
+    void handlePhrasalVerbNotFound() {
+        ProblemDetail detail = handler.handlePhrasalVerbNotFound(
                 new PhrasalVerbNotFoundException(42L));
 
         assertThat(detail.getStatus()).isEqualTo(HttpStatus.NOT_FOUND.value());
@@ -21,8 +24,9 @@ class GlobalExceptionHandlerTest {
     }
 
     @Test
-    void handleGrammarEntryNotFoundException() {
-        ProblemDetail detail = handler.handleGrammarEntryNotFoundException(
+    @DisplayName("returns 404 for grammar entry not found")
+    void handleGrammarEntryNotFound() {
+        ProblemDetail detail = handler.handleGrammarEntryNotFound(
                 new GrammarEntryNotFoundException(99L));
 
         assertThat(detail.getStatus()).isEqualTo(HttpStatus.NOT_FOUND.value());
@@ -31,8 +35,9 @@ class GlobalExceptionHandlerTest {
     }
 
     @Test
-    void handleIllegalArgumentException() {
-        ProblemDetail detail = handler.handleIllegalArgumentException(
+    @DisplayName("returns 400 for illegal argument")
+    void handleIllegalArgument() {
+        ProblemDetail detail = handler.handleIllegalArgument(
                 new IllegalArgumentException("bad input"));
 
         assertThat(detail.getStatus()).isEqualTo(HttpStatus.BAD_REQUEST.value());
@@ -40,11 +45,13 @@ class GlobalExceptionHandlerTest {
     }
 
     @Test
-    void handleGlobalException() {
-        ProblemDetail detail = handler.handleGlobalException(
+    @DisplayName("returns 500 for unexpected errors without leaking details")
+    void handleGlobal() {
+        ProblemDetail detail = handler.handleGlobal(
                 new RuntimeException("unexpected"));
 
         assertThat(detail.getStatus()).isEqualTo(HttpStatus.INTERNAL_SERVER_ERROR.value());
         assertThat(detail.getTitle()).isEqualTo("Internal Server Error");
+        assertThat(detail.getDetail()).isEqualTo("An unexpected error occurred");
     }
 }

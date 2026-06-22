@@ -9,13 +9,17 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
 import org.springframework.data.web.PageableDefault;
-import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
+
+import java.net.URI;
 
 @RestController
-@RequestMapping("/api/grammar-entries")
+@RequestMapping("/api/v1/grammar-entries")
 @RequiredArgsConstructor
+@Validated
 public class GrammarEntryController {
 
     private final GrammarEntryService service;
@@ -38,7 +42,11 @@ public class GrammarEntryController {
     @PostMapping
     public ResponseEntity<GrammarEntryResponse> create(@Valid @RequestBody GrammarEntryRequest request) {
         GrammarEntryResponse response = service.create(request);
-        return ResponseEntity.status(HttpStatus.CREATED).body(response);
+        URI location = ServletUriComponentsBuilder.fromCurrentRequest()
+                .path("/{id}")
+                .buildAndExpand(response.id())
+                .toUri();
+        return ResponseEntity.created(location).body(response);
     }
 
     @PutMapping("/{id}")

@@ -9,13 +9,17 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
 import org.springframework.data.web.PageableDefault;
-import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
+
+import java.net.URI;
 
 @RestController
-@RequestMapping("/api/phrasal-verbs")
+@RequestMapping("/api/v1/phrasal-verbs")
 @RequiredArgsConstructor
+@Validated
 public class PhrasalVerbController {
 
     private final PhrasalVerbService service;
@@ -39,7 +43,11 @@ public class PhrasalVerbController {
     @PostMapping
     public ResponseEntity<PhrasalVerbResponse> create(@Valid @RequestBody PhrasalVerbRequest request) {
         PhrasalVerbResponse response = service.create(request);
-        return ResponseEntity.status(HttpStatus.CREATED).body(response);
+        URI location = ServletUriComponentsBuilder.fromCurrentRequest()
+                .path("/{id}")
+                .buildAndExpand(response.id())
+                .toUri();
+        return ResponseEntity.created(location).body(response);
     }
 
     @PutMapping("/{id}")

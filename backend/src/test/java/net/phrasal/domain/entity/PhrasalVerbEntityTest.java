@@ -1,14 +1,17 @@
 package net.phrasal.domain.entity;
 
+import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 
 import java.util.List;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
+@DisplayName("PhrasalVerb Entity")
 class PhrasalVerbEntityTest {
 
     @Test
+    @DisplayName("constructor sets fields and defaults isLearned to false")
     void constructorAndGetters() {
         PhrasalVerb verb = new PhrasalVerb("Get up", "To rise", List.of("I get up early."), List.of("get up"));
 
@@ -20,6 +23,7 @@ class PhrasalVerbEntityTest {
     }
 
     @Test
+    @DisplayName("setters update all fields")
     void setters() {
         PhrasalVerb verb = new PhrasalVerb();
         verb.setId(1L);
@@ -37,6 +41,7 @@ class PhrasalVerbEntityTest {
     }
 
     @Test
+    @DisplayName("equals and hashCode use id and verb")
     void equalsAndHashCode() {
         PhrasalVerb a = new PhrasalVerb();
         a.setId(1L);
@@ -51,6 +56,7 @@ class PhrasalVerbEntityTest {
     }
 
     @Test
+    @DisplayName("toString includes verb name")
     void toStringContainsVerb() {
         PhrasalVerb verb = new PhrasalVerb();
         verb.setVerb("Break down");

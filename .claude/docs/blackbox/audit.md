@@ -9629,3 +9629,12 @@ Did you use @.claude/skills while generation @backend/ module?
 ## 2026-06-22T12:45:37Z
 git add all changes and commit them with suitable message
 ---
+
+## 2026-06-22T12:49:33Z
+ Refactor fully @backend/ project based full on all @.claude/skills/.
+ Evenutally `make clean build` must pass succesfully.
+---
+
+## 2026-06-22T13:17:02Z
+git add all changes and commit them with suitable message
+---

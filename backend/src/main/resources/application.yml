@@ -52,5 +52,3 @@ management:
 logging:
   level:
     net.phrasal: INFO
-    org.hibernate.SQL: DEBUG
-    org.hibernate.type.descriptor.sql.BasicBinder: TRACE

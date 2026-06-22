@@ -14,7 +14,7 @@ When('I request GET {string}', async function (this: PhrasalWorld, path: string)
 When(
     'I create a phrasal verb with verb {string} and definition {string}',
     async function (this: PhrasalWorld, verb: string, definition: string) {
-        this.lastResponse = await this.apiClient.post('/api/phrasal-verbs', {
+        this.lastResponse = await this.apiClient.post('/api/v1/phrasal-verbs', {
             verb,
             definition,
             sentences: ['Example sentence.'],

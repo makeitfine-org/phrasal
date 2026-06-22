@@ -2042,3 +2042,55 @@
 - backend/src/main/java/net/phrasal/presentation/rest/GrammarEntryController.java
 - backend/src/main/java/net/phrasal/presentation/rest/PhrasalVerbController.java
 <!-- end-snapshot -->
+
+## 2026-06-22T15:00:00+02:00
+### Decisions
+- Refactored backend based on all .claude/skills/ (api-contract-review, clean-code, design-patterns, java-architect, java-code-review, jpa-patterns, logging-patterns, spring-boot-engineer, spring-boot-patterns)
+- Converted DTOs from Lombok @Data classes to Java 21 records (java-architect: "Use Java 21 LTS features")
+- Introduced API versioning: `/api/v1/phrasal-verbs`, `/api/v1/grammar-entries` (api-contract-review, spring-boot-patterns)
+- Added @Validated + Location headers on controllers (spring-boot-engineer MUST DO)
+- Added SLF4J logging to services and GlobalExceptionHandler (logging-patterns)
+- Fixed security: generic exception handler no longer exposes exception.getMessage() (java-code-review)
+- DRY: extracted buildProblem() factory in GlobalExceptionHandler (clean-code)
+- Added @DisplayName to all test classes and methods (testing-patterns)
+- Moved SQL debug logging from default profile to application-dev.yml (logging-patterns)
+### Constraints Stated by User
+- Refactor must be fully based on all .claude/skills/
+- `make clean build` must pass
+### Files Modified
+- backend/src/main/java/net/phrasal/application/dto/*.java — converted to Java 21 records
+- backend/src/main/java/net/phrasal/presentation/rest/*Controller.java — versioned paths, @Validated, Location headers
+- backend/src/main/java/net/phrasal/application/service/*Service.java — added SLF4J logging
+- backend/src/main/java/net/phrasal/infrastructure/exception/GlobalExceptionHandler.java — logging, security fix, DRY
+- backend/src/main/resources/application.yml — removed SQL debug logging from default
+- backend/src/main/resources/application-dev.yml — added SQL debug logging
+- backend/src/test/java/net/phrasal/**/*.java — records, @DisplayName, versioned paths
+- e2e/features/phrasal-verbs-api/crud.feature — versioned API paths
+- e2e/src/steps/phrasal-verbs-api.steps.ts — versioned API path
+- CLAUDE.md — updated architecture table
+### Deferred
+- None
+---
+
+<!-- git-snapshot 2026-06-22T13:11:35Z -->
+- .claude/docs/blackbox/audit.md
+- .claude/docs/blackbox/session-log.md
+- CLAUDE.md
+- backend/src/main/java/net/phrasal/application/dto/GrammarEntryRequest.java
+- backend/src/main/java/net/phrasal/application/dto/GrammarEntryResponse.java
+- backend/src/main/java/net/phrasal/application/dto/PhrasalVerbRequest.java
+- backend/src/main/java/net/phrasal/application/dto/PhrasalVerbResponse.java
+- backend/src/main/java/net/phrasal/application/service/GrammarEntryService.java
+- backend/src/main/java/net/phrasal/application/service/PhrasalVerbService.java
+- backend/src/main/java/net/phrasal/infrastructure/exception/GlobalExceptionHandler.java
+- backend/src/main/java/net/phrasal/presentation/rest/GrammarEntryController.java
+- backend/src/main/java/net/phrasal/presentation/rest/PhrasalVerbController.java
+- backend/src/main/resources/application-dev.yml
+- backend/src/main/resources/application.yml
+- backend/src/test/java/net/phrasal/application/mapper/GrammarEntryMapperTest.java
+- backend/src/test/java/net/phrasal/application/mapper/PhrasalVerbMapperTest.java
+- backend/src/test/java/net/phrasal/application/service/GrammarEntryServiceTest.java
+- backend/src/test/java/net/phrasal/application/service/PhrasalVerbServiceTest.java
+- backend/src/test/java/net/phrasal/domain/entity/GrammarEntryEntityTest.java
+- backend/src/test/java/net/phrasal/domain/entity/PhrasalVerbEntityTest.java
+<!-- end-snapshot -->

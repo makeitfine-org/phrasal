@@ -7,6 +7,7 @@ import net.phrasal.domain.entity.PhrasalVerb;
 import net.phrasal.domain.repository.PhrasalVerbRepository;
 import net.phrasal.infrastructure.exception.PhrasalVerbNotFoundException;
 import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;
@@ -26,6 +27,7 @@ import static org.mockito.ArgumentMatchers.*;
 import static org.mockito.Mockito.*;
 
 @ExtendWith(MockitoExtension.class)
+@DisplayName("PhrasalVerbService")
 class PhrasalVerbServiceTest {
 
     @Mock
@@ -46,18 +48,15 @@ class PhrasalVerbServiceTest {
         entity = new PhrasalVerb("Break down", "To stop working", List.of("It broke down."), List.of("broke down"));
         entity.setId(1L);
 
-        response = new PhrasalVerbResponse();
-        response.setId(1L);
-        response.setVerb("Break down");
+        response = new PhrasalVerbResponse(1L, "Break down", "To stop working",
+                List.of("It broke down."), List.of("broke down"), false, null, null, 0L);
 
-        request = new PhrasalVerbRequest();
-        request.setVerb("Break down");
-        request.setDefinition("To stop working");
-        request.setSentences(List.of("It broke down."));
-        request.setWordsToHide(List.of("broke down"));
+        request = new PhrasalVerbRequest("Break down", "To stop working",
+                List.of("It broke down."), List.of("broke down"), false);
     }
 
     @Test
+    @DisplayName("getAll returns page of verbs")
     void getAll_returnsPageOfVerbs() {
         Page<PhrasalVerb> page = new PageImpl<>(List.of(entity));
         when(repository.search(any(), any(), any(Pageable.class))).thenReturn(page);
@@ -66,10 +65,11 @@ class PhrasalVerbServiceTest {
         Page<PhrasalVerbResponse> result = service.getAll(null, null, PageRequest.of(0, 20, Sort.by("verb")));
 
         assertThat(result.getContent()).hasSize(1);
-        assertThat(result.getContent().get(0).getVerb()).isEqualTo("Break down");
+        assertThat(result.getContent().get(0).verb()).isEqualTo("Break down");
     }
 
     @Test
+    @DisplayName("getAll sanitizes invalid sort fields")
     void getAll_sanitizesInvalidSortField() {
         Page<PhrasalVerb> page = new PageImpl<>(List.of(entity));
         when(repository.search(any(), any(), any(Pageable.class))).thenReturn(page);
@@ -83,16 +83,18 @@ class PhrasalVerbServiceTest {
     }
 
     @Test
+    @DisplayName("getById returns verb when found")
     void getById_returnsVerbWhenFound() {
         when(repository.findById(1L)).thenReturn(Optional.of(entity));
         when(mapper.toResponse(entity)).thenReturn(response);
 
         PhrasalVerbResponse result = service.getById(1L);
 
-        assertThat(result.getVerb()).isEqualTo("Break down");
+        assertThat(result.verb()).isEqualTo("Break down");
     }
 
     @Test
+    @DisplayName("getById throws when not found")
     void getById_throwsWhenNotFound() {
         when(repository.findById(99L)).thenReturn(Optional.empty());
 
@@ -101,6 +103,7 @@ class PhrasalVerbServiceTest {
     }
 
     @Test
+    @DisplayName("create saves and returns verb")
     void create_savesAndReturnsVerb() {
         when(mapper.toEntity(request)).thenReturn(entity);
         when(repository.save(entity)).thenReturn(entity);
@@ -108,11 +111,12 @@ class PhrasalVerbServiceTest {
 
         PhrasalVerbResponse result = service.create(request);
 
-        assertThat(result.getId()).isEqualTo(1L);
+        assertThat(result.id()).isEqualTo(1L);
         verify(repository).save(entity);
     }
 
     @Test
+    @DisplayName("update modifies existing verb")
     void update_updatesExistingVerb() {
         when(repository.findById(1L)).thenReturn(Optional.of(entity));
         when(repository.save(entity)).thenReturn(entity);
@@ -125,6 +129,7 @@ class PhrasalVerbServiceTest {
     }
 
     @Test
+    @DisplayName("update throws when not found")
     void update_throwsWhenNotFound() {
         when(repository.findById(99L)).thenReturn(Optional.empty());
 
@@ -133,6 +138,7 @@ class PhrasalVerbServiceTest {
     }
 
     @Test
+    @DisplayName("delete removes verb")
     void delete_removesVerb() {
         when(repository.existsById(1L)).thenReturn(true);
 
@@ -142,6 +148,7 @@ class PhrasalVerbServiceTest {
     }
 
     @Test
+    @DisplayName("delete throws when not found")
     void delete_throwsWhenNotFound() {
         when(repository.existsById(99L)).thenReturn(false);
 

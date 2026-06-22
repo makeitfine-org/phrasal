@@ -5,12 +5,12 @@ Feature: Phrasal Verbs API CRUD
     Given the API is available
 
   Scenario: List all phrasal verbs
-    When I request GET "/api/phrasal-verbs?size=5"
+    When I request GET "/api/v1/phrasal-verbs?size=5"
     Then the response status should be 200
     And the response should contain a paginated list
 
   Scenario: Get a single phrasal verb
-    When I request GET "/api/phrasal-verbs/1"
+    When I request GET "/api/v1/phrasal-verbs/1"
     Then the response status should be 200
     And the response should contain "verb"
 
@@ -20,5 +20,5 @@ Feature: Phrasal Verbs API CRUD
     And the response should contain "id"
 
   Scenario: Return 404 for non-existent verb
-    When I request GET "/api/phrasal-verbs/99999"
+    When I request GET "/api/v1/phrasal-verbs/99999"
     Then the response status should be 404
