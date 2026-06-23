@@ -9685,3 +9685,34 @@ The phrasal verb:
 Work out
 Work up
 ---
+
+## 2026-06-23T08:38:09Z
+Use mcp postgres: show all about phrasal verb(s), its definitions, and its examples.
+The phrasal verb:
+come on
+---
+
+## 2026-06-23T08:48:34Z
+does backend work?
+---
+
+## 2026-06-23T08:49:49Z
+I run `make dockerAll` all fine. But I want to know is the backend is written and must work for the project?
+---
+
+## 2026-06-23T08:52:30Z
+all works!
+---
+
+## 2026-06-23T08:56:12Z
+Connect backend and frontend, use best practices fullstack web application.
+Cover that all with tests, e2e.
+---
+
+## 2026-06-23T09:22:38Z
+so now the frontend fetch every phrasal verb and its details, examples from backend not from local files?
+---
+
+## 2026-06-23T09:29:01Z
+git add all changes and commit them with suitable message (message starts with starting migration to fullstack)
+---

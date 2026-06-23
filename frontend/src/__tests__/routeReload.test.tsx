@@ -6,10 +6,17 @@ import HomePage from '../pages/HomePage';
 import NotFoundPage from '../pages/NotFoundPage';
 import PageShell from '../components/PageShell';
 
-vi.mock('../data/phrasalVerbs', () => ({
-  allVerbs: [
-    { verb: 'Act out', definition: 'To perform', sentences: ['They acted out the scene.'], wordsToHide: ['acted out'] },
-  ],
+vi.mock('../hooks/usePhrasalVerbs', () => ({
+  usePhrasalVerbs: () => ({
+    allVerbs: [
+      { verb: 'Act out', definition: 'To perform', sentences: ['They acted out the scene.'], wordsToHide: ['acted out'] },
+    ],
+    verbsForBrowse: [
+      { verb: 'Act out', definition: 'To perform', sentences: ['They acted out the scene.'], wordsToHide: ['acted out'], quizIndex: 0 },
+    ],
+    loading: false,
+    error: null,
+  }),
 }));
 
 vi.mock('../utils/renderSentence', () => ({

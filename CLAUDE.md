@@ -77,9 +77,32 @@ Multi-page React 18 + TypeScript app (Vite, Tailwind, react-router-dom v7).
 - **`ErrorBoundary`** (`frontend/src/components/ErrorBoundary.tsx`) — class component wrapping everything.
 - **`VerbPageLayout`** (`frontend/src/components/VerbPage.tsx`) — reusable layout for verb detail pages. Renders collapsible particle sections, each with collapsible meaning cards. Exports `VerbPageLayout`, `MeaningData`, `SectionData`. Uses `ReactDOM.createPortal` to render expand-all button into PageShell's `#verb-page-actions` div.
 
-**Quiz-shared components** (used by both `App` and `IWishPage`): `Header`, `QuizCard`, `Feedback`, `NavigationControls`, `ExcludedModal`, `SearchModal`.
+**Quiz components:**
+- **`PhrasalVerbQuiz`** (`frontend/src/components/PhrasalVerbQuiz.tsx`) — phrasal verb quiz UI. Receives `allVerbs` and `verbsForBrowse` as props from `App`.
+- **`GrammarQuiz`** (`frontend/src/components/GrammarQuiz.tsx`) — grammar quiz UI. Receives `entries` as props from `IWishPage`.
+
+**Quiz-shared components** (used by both `PhrasalVerbQuiz` and `GrammarQuiz`): `Header`, `QuizCard`, `Feedback`, `NavigationControls`, `ExcludedModal`, `SearchModal`.
 
 **Other components:** `AllVerbsModal` (phrasal quiz browse), `TutorialModal` (grammar quiz), `ListSearchModal` (verb list search across all meanings), `Icons` (SVG icon components).
+
+### API client (`frontend/src/api/`)
+
+Frontend fetches quiz data from the backend REST API on mount. Native `fetch` wrapper, no external dependencies.
+
+| File | Exports | Purpose |
+|---|---|---|
+| `client.ts` | `get<T>(path, params?)`, `ApiError` | Typed fetch wrapper, base URL `/api/v1` |
+| `phrasalVerbsApi.ts` | `fetchPhrasalVerbs()` | Fetches all phrasal verbs, maps to `VerbEntry[]` + `BrowseVerbEntry[]` |
+| `grammarEntriesApi.ts` | `fetchGrammarEntries(category)` | Fetches grammar entries by category, maps to `GrammarEntry[]` |
+
+### Data-fetching hooks (`frontend/src/hooks/`)
+
+| Hook | Returns | Used by |
+|---|---|---|
+| `usePhrasalVerbs()` | `{ allVerbs, verbsForBrowse, loading, error }` | `App.tsx` |
+| `useGrammarEntries(category)` | `{ entries, loading, error }` | `IWishPage.tsx` |
+
+`App` and `IWishPage` render loading/error states, then delegate to `PhrasalVerbQuiz` / `GrammarQuiz` once data is available.
 
 ### State management
 
@@ -88,12 +111,12 @@ No context or global store. State is component-local + localStorage:
 | Owner | localStorage key | Manages |
 |---|---|---|
 | `PageShell` | `phrasalQuizState` → `darkMode` field | Dark mode (shared across all pages) |
-| `App` | `phrasalQuizState` | Phrasal quiz: mastered, excluded, history, currentIndex |
-| `IWishPage` | `grammarIWishState` | Grammar quiz: same shape as phrasal quiz |
+| `PhrasalVerbQuiz` | `phrasalQuizState` | Phrasal quiz: mastered, excluded, history, currentIndex |
+| `GrammarQuiz` | `grammarIWishState` | Grammar quiz: same shape as phrasal quiz |
 | `VerbPageLayout` | per-section/meaning keys | Section and meaning expand/collapse |
 | `PhrasalVerbsListPage` | `verbListExpanded` | Verb list card expand/collapse |
 
-`PageShell` and `App` share the `phrasalQuizState` key. `App` preserves fields it doesn't own (like `darkMode`) by merging with existing data before writing.
+`PageShell` and `PhrasalVerbQuiz` share the `phrasalQuizState` key. `PhrasalVerbQuiz` preserves fields it doesn't own (like `darkMode`) by merging with existing data before writing.
 
 ### Shared types (`frontend/src/types.ts`)
 
@@ -108,8 +131,10 @@ No context or global store. State is component-local + localStorage:
 
 ### Data files (`frontend/src/data/`)
 
-- **`phrasalVerbs.ts`** — `rawData: RawVerbEntry[]`. Exports `allVerbs: VerbEntry[]` (filtered to `isLearned === false`), `allVerbsWithLearned: VerbEntry[]` (all entries), and `verbsForBrowse: BrowseVerbEntry[]`.
-- **`wishData.ts`** — `wishData: GrammarEntry[]` (Russian sentences → English translations).
+Static reference data (not consumed by quizzes — quizzes fetch from backend API):
+
+- **`phrasalVerbs.ts`** — `rawData: RawVerbEntry[]`. Exports `allVerbs`, `allVerbsWithLearned`, `verbsForBrowse`. Retained as reference/seed data; quizzes use `usePhrasalVerbs()` hook instead.
+- **`wishData.ts`** — `wishData: GrammarEntry[]`. Retained as reference; quizzes use `useGrammarEntries()` hook instead.
 - **`listVerbIndex.ts`** — builds a flat searchable index from all verb page `sections` exports. Exports `ListSearchEntry` type and `listVerbIndex` array. Used by `ListSearchModal`.
 
 ### Verb data format (`frontend/src/data/phrasalVerbs.ts`)
@@ -127,8 +152,8 @@ Setting the 5th field to `true` removes a verb from `allVerbs` (the active quiz 
 
 ### Answer checking
 
-- **Phrasal quiz** (`App.tsx`): case-insensitive, parentheses stripped — `cleanUser === cleanCorrect`.
-- **Grammar quiz** (`IWishPage`): uses `isAnswerCorrect()` from `frontend/src/utils/normalizeAnswer.ts` — lowercases, trims, strips non-word/space chars, collapses whitespace, then checks against all `correctAnswers`.
+- **Phrasal quiz** (`PhrasalVerbQuiz`): case-insensitive, parentheses stripped — `cleanUser === cleanCorrect`.
+- **Grammar quiz** (`GrammarQuiz`): uses `isAnswerCorrect()` from `frontend/src/utils/normalizeAnswer.ts` — lowercases, trims, strips non-word/space chars, collapses whitespace, then checks against all `correctAnswers`.
 
 ### Adding a new verb page
 

@@ -3,24 +3,28 @@ import { render, screen } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
 import IWishPage from '../pages/IWishPage';
 
-vi.mock('../data/wishData', () => ({
-  wishData: [
-    {
-      sentence: 'Жаль, что я не прочитал документацию',
-      correctAnswers: ['I wish I had read the documentation'],
-    },
-    {
-      sentence: 'Я бы хотел, чтобы компьютер работал быстрее',
-      correctAnswers: ['I wish my computer would work faster'],
-    },
-    {
-      sentence: 'Если бы только я не удалил файл!',
-      correctAnswers: [
-        "If only I hadn't deleted the file",
-        "I wish I hadn't deleted the file",
-      ],
-    },
-  ],
+vi.mock('../hooks/useGrammarEntries', () => ({
+  useGrammarEntries: () => ({
+    entries: [
+      {
+        sentence: 'Жаль, что я не прочитал документацию',
+        correctAnswers: ['I wish I had read the documentation'],
+      },
+      {
+        sentence: 'Я бы хотел, чтобы компьютер работал быстрее',
+        correctAnswers: ['I wish my computer would work faster'],
+      },
+      {
+        sentence: 'Если бы только я не удалил файл!',
+        correctAnswers: [
+          "If only I hadn't deleted the file",
+          "I wish I hadn't deleted the file",
+        ],
+      },
+    ],
+    loading: false,
+    error: null,
+  }),
 }));
 
 vi.mock('../utils/renderSentence', () => ({

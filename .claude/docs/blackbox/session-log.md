@@ -2142,3 +2142,93 @@
 - .claude/settings.local.json
 - .mcp.json
 <!-- end-snapshot -->
+
+<!-- git-snapshot 2026-06-23T08:38:25Z -->
+- .claude/docs/blackbox/audit.md
+<!-- end-snapshot -->
+
+<!-- git-snapshot 2026-06-23T08:50:03Z -->
+- .claude/docs/blackbox/audit.md
+- .claude/docs/blackbox/session-log.md
+<!-- end-snapshot -->
+
+<!-- git-snapshot 2026-06-23T08:52:36Z -->
+- .claude/docs/blackbox/audit.md
+- .claude/docs/blackbox/session-log.md
+<!-- end-snapshot -->
+
+## 2026-06-23T11:15:00Z
+### Decisions
+- Connected frontend to backend API — quizzes now fetch data from REST API instead of hardcoded data files
+- Created API client layer (`frontend/src/api/`) with typed fetch wrapper, no external dependencies
+- Created data-fetching hooks (`usePhrasalVerbs`, `useGrammarEntries`) with loading/error states
+- Extracted quiz UI into `PhrasalVerbQuiz` and `GrammarQuiz` components, `App`/`IWishPage` now handle data loading
+- Quiz progress (mastered/excluded/history) stays in localStorage — not synced to backend
+- Verb detail pages (71 pages) remain static/hardcoded — not API-driven
+- Added frontend e2e tests using Playwright in e2e module
+- Updated CLAUDE.md architecture docs to reflect new API layer
+### Constraints Stated by User
+- Cover with tests and e2e
+### Files Modified
+- `frontend/src/api/client.ts` — new: typed fetch wrapper with ApiError
+- `frontend/src/api/phrasalVerbsApi.ts` — new: fetchPhrasalVerbs → VerbEntry[] + BrowseVerbEntry[]
+- `frontend/src/api/grammarEntriesApi.ts` — new: fetchGrammarEntries → GrammarEntry[]
+- `frontend/src/hooks/usePhrasalVerbs.ts` — new: hook returning allVerbs, verbsForBrowse, loading, error
+- `frontend/src/hooks/useGrammarEntries.ts` — new: hook returning entries, loading, error
+- `frontend/src/components/PhrasalVerbQuiz.tsx` — new: extracted quiz UI from App
+- `frontend/src/components/GrammarQuiz.tsx` — new: extracted quiz UI from IWishPage
+- `frontend/src/App.tsx` — simplified to loading/error/quiz delegation
+- `frontend/src/pages/IWishPage.tsx` — simplified to loading/error/quiz delegation
+- `frontend/src/__tests__/App.test.tsx` — mock usePhrasalVerbs instead of data file
+- `frontend/src/__tests__/IWishPage.test.tsx` — mock useGrammarEntries instead of data file
+- `frontend/src/__tests__/HomePage.test.tsx` — updated mock
+- `frontend/src/__tests__/routeReload.test.tsx` — updated mock
+- `frontend/src/__tests__/api/client.test.ts` — new: 6 tests for API client
+- `frontend/src/__tests__/hooks/usePhrasalVerbs.test.ts` — new: 4 tests
+- `frontend/src/__tests__/hooks/useGrammarEntries.test.ts` — new: 5 tests
+- `e2e/features/frontend/quiz.feature` — new: 3 frontend e2e scenarios
+- `e2e/src/steps/frontend.steps.ts` — new: Playwright step definitions
+- `e2e/src/hooks.ts` — updated: Playwright browser lifecycle
+- `e2e/src/world.ts` — updated: browser/page types
+- `CLAUDE.md` — updated architecture docs
+### Deferred
+- Syncing quiz progress to backend
+- Admin UI for managing verbs/grammar entries
+---
+
+<!-- git-snapshot 2026-06-23T09:14:30Z -->
+- .claude/docs/blackbox/audit.md
+- .claude/docs/blackbox/session-log.md
+- CLAUDE.md
+- e2e/src/hooks.ts
+- e2e/src/world.ts
+- frontend/src/App.tsx
+- frontend/src/__tests__/App.test.tsx
+- frontend/src/__tests__/HomePage.test.tsx
+- frontend/src/__tests__/IWishPage.test.tsx
+- frontend/src/__tests__/routeReload.test.tsx
+- frontend/src/pages/IWishPage.tsx
+<!-- end-snapshot -->
+
+<!-- git-snapshot 2026-06-23T09:22:59Z -->
+- .claude/docs/blackbox/audit.md
+- .claude/docs/blackbox/plans/2026-06-23 11:01 Plan Connect Frontend to Backend API.md
+- .claude/docs/blackbox/session-log.md
+- CLAUDE.md
+- e2e/features/frontend/quiz.feature
+- e2e/src/hooks.ts
+- e2e/src/steps/frontend.steps.ts
+- e2e/src/world.ts
+- frontend/src/App.tsx
+- frontend/src/__tests__/App.test.tsx
+- frontend/src/__tests__/HomePage.test.tsx
+- frontend/src/__tests__/IWishPage.test.tsx
+- frontend/src/__tests__/api/client.test.ts
+- frontend/src/__tests__/hooks/useGrammarEntries.test.ts
+- frontend/src/__tests__/hooks/usePhrasalVerbs.test.ts
+- frontend/src/__tests__/routeReload.test.tsx
+- frontend/src/api/client.ts
+- frontend/src/api/grammarEntriesApi.ts
+- frontend/src/api/phrasalVerbsApi.ts
+- frontend/src/components/GrammarQuiz.tsx
+<!-- end-snapshot -->

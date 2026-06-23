@@ -3,12 +3,21 @@ import { render, screen, within } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
 import App from '../App';
 
-vi.mock('../data/phrasalVerbs', () => ({
-  allVerbs: [
-    { verb: 'Act out',   definition: 'To perform',  sentences: ['They acted out the scene.'], wordsToHide: ['acted out'] },
-    { verb: 'Break out', definition: 'To escape',   sentences: ['A riot broke out.'],          wordsToHide: ['broke out'] },
-    { verb: 'Call up',   definition: 'To phone',    sentences: ['I called up the office.'],    wordsToHide: ['called up'] },
-  ],
+vi.mock('../hooks/usePhrasalVerbs', () => ({
+  usePhrasalVerbs: () => ({
+    allVerbs: [
+      { verb: 'Act out',   definition: 'To perform',  sentences: ['They acted out the scene.'], wordsToHide: ['acted out'] },
+      { verb: 'Break out', definition: 'To escape',   sentences: ['A riot broke out.'],          wordsToHide: ['broke out'] },
+      { verb: 'Call up',   definition: 'To phone',    sentences: ['I called up the office.'],    wordsToHide: ['called up'] },
+    ],
+    verbsForBrowse: [
+      { verb: 'Act out',   definition: 'To perform',  sentences: ['They acted out the scene.'], wordsToHide: ['acted out'], quizIndex: 0 },
+      { verb: 'Break out', definition: 'To escape',   sentences: ['A riot broke out.'],          wordsToHide: ['broke out'], quizIndex: 1 },
+      { verb: 'Call up',   definition: 'To phone',    sentences: ['I called up the office.'],    wordsToHide: ['called up'], quizIndex: 2 },
+    ],
+    loading: false,
+    error: null,
+  }),
 }));
 
 vi.mock('../utils/renderSentence', () => ({
@@ -463,4 +472,3 @@ describe('App — modals', () => {
     expect(screen.getByTestId('question-number')).toHaveTextContent('2');
   });
 });
-
