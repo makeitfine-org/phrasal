@@ -26,7 +26,7 @@ import java.util.List;
 
 @Entity
 @Table(name = "grammar_entries", indexes = {
-    @Index(name = "idx_grammar_entries_category", columnList = "category")
+        @Index(name = "idx_grammar_entries_category", columnList = "category")
 })
 @EntityListeners(AuditingEntityListener.class)
 @Getter
@@ -39,9 +39,9 @@ public class GrammarEntry {
     @Id
     @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "grammar_entry_seq")
     @SequenceGenerator(
-        name = "grammar_entry_seq",
-        sequenceName = "grammar_entries_id_seq",
-        allocationSize = 1
+            name = "grammar_entry_seq",
+            sequenceName = "grammar_entries_id_seq",
+            allocationSize = 1
     )
     private Long id;
 

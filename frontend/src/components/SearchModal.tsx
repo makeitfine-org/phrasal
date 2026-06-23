@@ -1,6 +1,7 @@
-import React, { useState, useEffect, useRef } from 'react';
+import React, { useState, useEffect, useRef, useMemo } from 'react';
 import { XIcon } from './Icons';
 import { useFocusTrap } from '../hooks/useFocusTrap';
+import { useFuzzySearch } from '../hooks/useFuzzySearch';
 import type { VerbEntry } from '../types';
 
 interface SearchModalProps {
@@ -37,15 +38,24 @@ export default function SearchModal({ allVerbs, excluded, onSelect, onUnexclude,
     }
   }, [selectedIndex]);
 
-  const results: SearchResult[] = allVerbs
-    .map((v, i) => ({ ...v, index: i, isExcluded: excluded.has(i) }))
-    .filter(v => showExcluded ? true : !v.isExcluded)
-    .filter(v =>
-      !query.trim() ||
-      v.verb.toLowerCase().includes(query.toLowerCase()) ||
-      v.definition.toLowerCase().includes(query.toLowerCase())
-    )
-    .sort((a, b) => a.verb.localeCompare(b.verb));
+  const searchKeys = useMemo(() => [
+    { name: 'verb' as const, weight: 2 },
+    { name: 'definition' as const, weight: 1.5 },
+  ], []);
+
+  const candidates = useMemo(() =>
+    allVerbs
+      .map((v, i) => ({ ...v, index: i, isExcluded: excluded.has(i) }))
+      .filter(v => showExcluded || !v.isExcluded),
+    [allVerbs, excluded, showExcluded]
+  );
+
+  const results: SearchResult[] = useFuzzySearch({
+    items: candidates,
+    keys: searchKeys,
+    query,
+    sortByField: 'verb',
+  });
 
   const handleSelect = (v: SearchResult) => {
     if (v.isExcluded) {

@@ -23,4 +23,5 @@ public record VerbDetailRequest(
         @NotNull(message = "Sections are required")
         List<VerbDetailSection> sections
 ) {
+
 }

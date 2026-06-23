@@ -12,4 +12,5 @@ public record GrammarEntryResponse(
         LocalDateTime updatedAt,
         Long version
 ) {
+
 }

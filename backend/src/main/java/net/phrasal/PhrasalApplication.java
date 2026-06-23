@@ -9,5 +9,4 @@ public class PhrasalApplication {
     public static void main(String[] args) {
         SpringApplication.run(PhrasalApplication.class, args);
     }
-
 }

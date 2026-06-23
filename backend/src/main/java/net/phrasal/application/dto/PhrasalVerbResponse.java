@@ -14,4 +14,5 @@ public record PhrasalVerbResponse(
         LocalDateTime updatedAt,
         Long version
 ) {
+
 }

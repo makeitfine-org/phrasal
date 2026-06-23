@@ -8,4 +8,5 @@ public record VerbDetailSummaryResponse(
         String label,
         List<String> particles
 ) {
+
 }

@@ -1,0 +1,140 @@
+ I have:
+
+  free -m
+                 total        used        free      shared  buff/cache   available
+  Mem:             954         372         165           4         585         581
+  Swap:              0           0           0
+
+  And VPS on Ubuntu 24.04 mini 1cpu, 1 gb, 47 Gb disk.
+  ---
+  Reminde me the best way to deploy my `phrasal` application on this VPS so that it would be enough.
+
+● With 1 GB RAM, Docker is off the table — the daemon alone eats ~100 MB before any containers start. Here's the plan:
+
+  Native deployment (no Docker)
+
+  RAM budget (~950 MB total):
+
+ With 1 GB RAM, Docker is off the table — the daemon alone eats ~100 MB before any containers start. Here's the plan:
+
+  Native deployment (no Docker)
+
+  RAM budget (~950 MB total):
+
+  ┌─────────────────────────┬───────────────┐
+  │        Component        │ Estimated RAM │
+  ├─────────────────────────┼───────────────┤
+  │ OS + systemd            │ ~200 MB       │
+  ├─────────────────────────┼───────────────┤
+  │ PostgreSQL              │ ~100 MB       │
+  ├─────────────────────────┼───────────────┤
+  │ Spring Boot (tuned JVM) │ ~350 MB       │
+  ├─────────────────────────┼───────────────┤
+  │ Nginx (static React)    │ ~10 MB        │
+  ├─────────────────────────┼───────────────┤
+  │ Swap buffer             │ ~290 MB       │
+  └─────────────────────────┴───────────────┘
+
+  # Step 0 — Add swap (critical with 1 GB)
+  sudo fallocate -l 2G /swapfile
+  sudo chmod 600 /swapfile
+  sudo mkswap /swapfile
+  sudo swapon /swapfile
+  echo '/swapfile none swap sw 0 0' | sudo tee -a /etc/fstab
+
+  # Step 1 — Install PostgreSQL
+  sudo apt update && sudo apt install -y postgresql postgresql-client
+  sudo -u postgres psql -c "CREATE USER phrasaluser WITH PASSWORD 'phrasalpass';"
+  sudo -u postgres psql -c "CREATE DATABASE phrasaldb OWNER phrasal;"
+
+  # Step 2 — Install Java 21 + Nginx
+  sudo apt install -y openjdk-21-jre-headless nginx
+
+  # Step 3 — Build & deploy backend
+  #Build on your local machine (the VPS doesn't have enough RAM to compile):
+  # LOCAL machine
+  cd backend && mvn clean package -DskipTests
+  # scp target/backend-*.jar ubuntu@<VPS_IP>:/opt/phrasal/app.jar
+  ssh -i ~/dev/scripts/vps/ssh-key-2026-06-26.key ubuntu@141.144.227.73 "sudo mkdir -p /opt/phrasal && sudo chown ubuntu:
+  /opt/phrasal"
+
+  scp -i ~/dev/scripts/vps/ssh-key-2026-06-26.key \
+  /home/ubuntuu/dev/mine/phrasal/backend/target/backend-*.jar \
+    ubuntu@141.144.227.73:/opt/phrasal/app.jar
+
+  # Create systemd service /etc/systemd/system/phrasal.service:
+  sudo bash -c 'cat << "EOF" > /etc/systemd/system/phrasal.service
+  [Unit]
+  Description=Phrasal Backend
+  After=postgresql.service
+  Requires=postgresql.service
+
+  [Service]
+  User=phrasal
+  ExecStart=/usr/bin/java \
+    -Xms128m -Xmx256m \
+    -XX:+UseSerialGC \
+    -XX:MaxMetaspaceSize=128m \
+    -jar /opt/phrasal/app.jar \
+    --spring.profiles.active=prod
+  Restart=always
+
+  [Install]
+  WantedBy=multi-user.target
+  EOF'
+
+  sudo useradd -r -s /bin/false phrasal
+  sudo mkdir -p /opt/phrasal && sudo chown phrasal: /opt/phrasal
+  sudo systemctl enable --now phrasal
+
+  # Step 4 — Deploy frontend with Nginx
+  # Build locally, copy dist:
+  # LOCAL machine
+  cd frontend && npm run build
+
+  # On VPS create
+  mkdir -p /var/www/phrasal
+
+  ssh -i ~/dev/scripts/vps/ssh-key-2026-06-26.key \
+  ubuntu@141.144.227.73 "sudo chown ubuntu: \
+  /var/www/phrasal"
+
+  scp -i ~/dev/scripts/vps/ssh-key-2026-06-26.key \
+    -r /home/ubuntuu/dev/mine/phrasal/frontend/dist/* \
+      ubuntu@141.144.227.73:/var/www/phrasal/
+
+  # Nginx config /etc/nginx/sites-available/phrasal:
+  sudo bash -c 'cat << "EOF" > /etc/nginx/sites-available/phrasal
+  server {
+      listen 80;
+      server_name _;
+
+      root /var/www/phrasal;
+      index index.html;
+
+      location / {
+          try_files $uri $uri/ /index.html;
+      }
+
+      location /api/ {
+          proxy_pass http://127.0.0.1:8080;
+          proxy_set_header Host $host;
+          proxy_set_header X-Real-IP $remote_addr;
+      }
+  }
+  EOF'
+
+  sudo ln -s /etc/nginx/sites-available/phrasal /etc/nginx/sites-enabled/
+  sudo rm /etc/nginx/sites-enabled/default
+  sudo nginx -t && sudo systemctl reload nginx
+
+  #The key JVM flags are -Xmx256m and -XX:+UseSerialGC — SerialGC has the lowest memory overhead. The 2 GB swap gives you
+  #headroom so the OOM killer doesn't nuke your app. Want me to check the actual Spring profiles and datasource config to
+  #make these commands copy-paste ready?
+
+---
+  sudo systemctl daemon-reload
+  sudo systemctl restart phrasal
+
+  sudo service phrasal status
+  sudo journalctl -u phrasal.service -f

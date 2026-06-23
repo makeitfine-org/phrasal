@@ -103,6 +103,27 @@
     <!--   <property name="fileExtensions" value="java"/> -->
     <!-- </module> -->
 
+    <!-- CONTINUATION_INDENT_SIZE: parameters in multi-line lists must share the same indentation -->
+    <module name="RegexpMultiline">
+        <property name="format" value="(?:,|\()[ \t]*\r?\n(?:[ \t]*\r?\n)*([ \t]+)\S[^\r\n]*,[ \t]*\r?\n(?:[ \t]*\r?\n)*(?!\1\S)[ \t]+(?!\))\S"/>
+        <property name="message" value="Inconsistent indentation in multi-line parameter list (CONTINUATION_INDENT_SIZE)."/>
+        <property name="fileExtensions" value="java"/>
+    </module>
+
+    <!-- BLANK_LINES_AFTER_CLASS_HEADER=1: class/interface/enum/record opening brace must be followed by a blank line -->
+    <module name="RegexpMultiline">
+        <property name="format" value="(?&lt;![.])\b(?:class|interface|enum|record)\b[^{]{0,500}\{[^\r\n]*\r?\n[ \t]*\S"/>
+        <property name="message" value="Blank line required after opening brace (BLANK_LINES_AFTER_CLASS_HEADER)."/>
+        <property name="fileExtensions" value="java"/>
+    </module>
+
+    <!-- No blank line before closing brace (empty bodies exempt) -->
+    <module name="RegexpMultiline">
+        <property name="format" value="[^{\r\n][ \t]*\r?\n[ \t]*\r?\n[ \t]*\}"/>
+        <property name="message" value="Remove blank line before closing brace."/>
+        <property name="fileExtensions" value="java"/>
+    </module>
+
     <module name="TreeWalker">
 
         <!-- Checks for Javadoc comments.                     -->
@@ -116,7 +137,9 @@
 
         <!-- Checks for Naming Conventions.                  -->
         <!-- See https://checkstyle.org/checks/naming/index.html -->
-        <module name="ConstantName"/>
+        <module name="ConstantName">
+            <property name="format" value="^log$|^[A-Z][A-Z0-9]*(_[A-Z0-9]+)*$"/>
+        </module>
         <module name="LocalFinalVariableName"/>
         <module name="LocalVariableName"/>
         <module name="MemberName"/>
@@ -149,7 +172,9 @@
         <module name="MethodParamPad"/>
         <module name="NoWhitespaceAfter"/>
         <module name="NoWhitespaceBefore"/>
-        <module name="OperatorWrap"/>
+        <module name="OperatorWrap">
+            <property name="option" value="nl"/>
+        </module>
         <module name="ParenPad"/>
         <module name="TypecastParenPad"/>
         <module name="WhitespaceAfter"/>
@@ -197,6 +222,55 @@
         <!--        <module name="FinalParameters"/>-->
         <module name="TodoComment"/>
         <module name="UpperEll"/>
+
+        <!-- Indentation (matches Idea codestyle: indent=4, continuation=8) -->
+        <module name="Indentation">
+            <property name="basicOffset" value="4"/>
+            <property name="braceAdjustment" value="0"/>
+            <property name="caseIndent" value="0"/>
+            <property name="throwsIndent" value="8"/>
+            <property name="lineWrappingIndentation" value="8"/>
+            <property name="arrayInitIndent" value="4"/>
+        </module>
+
+        <!-- Import ordering (matches Idea codestyle: third-party, java/javax, static) -->
+        <module name="CustomImportOrder">
+            <property name="customImportOrderRules"
+                      value="THIRD_PARTY_PACKAGE###STANDARD_JAVA_PACKAGE###STATIC"/>
+            <property name="standardPackageRegExp" value="^javax?\."/>
+            <property name="sortImportsInGroupAlphabetically" value="true"/>
+            <property name="separateLineBetweenGroups" value="true"/>
+        </module>
+
+        <!-- Dot on new line when wrapping method chains -->
+        <module name="SeparatorWrap">
+            <property name="id" value="SeparatorWrapDot"/>
+            <property name="tokens" value="DOT"/>
+            <property name="option" value="nl"/>
+        </module>
+
+        <!-- Comma at end of line when wrapping -->
+        <module name="SeparatorWrap">
+            <property name="id" value="SeparatorWrapComma"/>
+            <property name="tokens" value="COMMA"/>
+            <property name="option" value="EOL"/>
+        </module>
+
+        <!-- Blank line between declarations, no multiple blank lines -->
+        <module name="EmptyLineSeparator">
+            <property name="allowNoEmptyLineBetweenFields" value="true"/>
+            <property name="allowMultipleEmptyLines" value="false"/>
+            <property name="allowMultipleEmptyLinesInsideClassMembers" value="false"/>
+        </module>
+
+        <!-- No double spaces between tokens -->
+        <module name="SingleSpaceSeparator"/>
+
+        <!-- Package and import statements must not be line-wrapped -->
+        <module name="NoLineWrap"/>
+
+        <!-- Comment indentation must match surrounding code -->
+        <module name="CommentsIndentation"/>
 
         <!-- https://checkstyle.org/filters/suppressionxpathfilter.html -->
         <module name="SuppressionXpathFilter">

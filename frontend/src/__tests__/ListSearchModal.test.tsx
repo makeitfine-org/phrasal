@@ -38,8 +38,10 @@ describe('ListSearchModal', () => {
   it('filters results by verb name', async () => {
     const user = userEvent.setup();
     renderModal();
-    await user.type(screen.getByPlaceholderText('Search phrasal verbs...'), 'get');
-    expect(screen.getAllByRole('listitem')).toHaveLength(3);
+    await user.type(screen.getByPlaceholderText('Search phrasal verbs...'), 'Get on');
+    const items = screen.getAllByRole('listitem');
+    const verbs = items.map(li => li.querySelector('.font-semibold')!.textContent);
+    expect(verbs[0]).toBe('Get on');
   });
 
   it('filters results by definition', async () => {
@@ -175,6 +177,13 @@ describe('ListSearchModal', () => {
     await user.type(screen.getByPlaceholderText('Search phrasal verbs...'), 'disgust');
     expect(screen.getByText('Put off')).toBeInTheDocument();
     expect(screen.getAllByRole('listitem')).toHaveLength(1);
+  });
+
+  it('finds entries with typos via fuzzy matching', async () => {
+    const user = userEvent.setup();
+    renderModal();
+    await user.type(screen.getByPlaceholderText('Search phrasal verbs...'), 'postponn');
+    expect(screen.getByText('Put off')).toBeInTheDocument();
   });
 
   it('has role="dialog" on the panel', () => {

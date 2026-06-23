@@ -1,195 +1,93 @@
-# CLAUDE.md
+# CLAUDE.md — phrasal (root)
 
-This file provides guidance to Claude Code (claude.ai/code) when working with code in this repository.
+## Monorepo Layout
 
-## Commands
-
-```bash
-# Frontend (from frontend/)
-cd frontend && npm run dev       # dev server at http://localhost:5173
-cd frontend && npm run build     # production build → dist/
-cd frontend && npm test          # Vitest in watch mode
-cd frontend && npm run test:run  # Vitest one-shot (CI)
-
-# Backend (from backend/, requires Java 21)
-cd backend && JAVA_HOME=/usr/lib/jvm/java-21-openjdk-amd64 mvn clean verify
-
-# Full stack (from root)
-make build        # build all + docker + e2e
-make dockerAll    # build + docker compose up (foreground)
-make dockerDown   # stop containers
-make help         # show all Makefile targets
+```
+backend/    → Spring Boot 3.4.1 REST API (see backend/CLAUDE.md)
+frontend/   → React 18 + Vite SPA        (see frontend/CLAUDE.md)
+e2e/        → Cucumber + Playwright acceptance tests (see e2e/CLAUDE.md)
+docker-compose.yml → postgres:5432, backend:8080, frontend:3000
 ```
 
-## Project Structure
+Module-specific coding rules live in each module's own `CLAUDE.md`.
 
-Monorepo with three modules:
-- **`frontend/`** — React 18 + TypeScript SPA (Vite, Tailwind, react-router-dom v7)
-- **`backend/`** — Java 21 + Spring Boot 3.4 + PostgreSQL REST API (Maven, Flyway, MapStruct, Lombok)
-- **`e2e/`** — Cucumber.js + Playwright acceptance tests
+## Custom Skills (`.claude/skills/`)
 
-Root files: `Makefile`, `docker-compose.yml`, `.env`, `.github/workflows/ci.yml`
+Use these project skills proactively when the task matches — don't wait to be asked:
 
-## Architecture
-
-### Backend
-
-Java 21 + Spring Boot 3.4.1 REST API. Clean architecture layers under `net.phrasal`:
-
-| Layer | Package | Contents |
-|---|---|---|
-| Domain | `domain.entity` | `PhrasalVerb`, `GrammarEntry`, `VerbDetail` (JPA entities, JSONB columns, Lombok `@Getter`/`@Setter`/`@EqualsAndHashCode(of=...)`) |
-| Domain | `domain.repository` | Spring Data JPA repos with `@Query` search/filter |
-| Application | `application.dto` | Java 21 records (request with validation annotations, response immutable) |
-| Application | `application.mapper` | MapStruct interfaces (`componentModel = "spring"`, with `lombok-mapstruct-binding`) |
-| Application | `application.service` | `@Service @Transactional`, Lombok `@RequiredArgsConstructor`, SLF4J logging |
-| Infrastructure | `infrastructure.exception` | `@RestControllerAdvice` with RFC 7807 ProblemDetail, SLF4J logging |
-| Presentation | `presentation.rest` | Versioned REST controllers at `/api/v1/phrasal-verbs`, `/api/v1/grammar-entries`, and `/api/v1/verb-details` (`@Validated`, Location headers) |
-| Config | `config` | `JpaAuditingConfig`, `WebMvcConfig` (CORS) |
-
-Database: PostgreSQL (`phrasaldb`), Flyway migrations in `backend/src/main/resources/db/migration/`.
-Testing: JUnit 5 + Testcontainers + JaCoCo (85% min line coverage).
-
-### Frontend
-
-Multi-page React 18 + TypeScript app (Vite, Tailwind, react-router-dom v7).
-
-### Routing (`frontend/src/main.tsx`)
-
-`ErrorBoundary` > `BrowserRouter` > `PageShell` (layout shell with `<Outlet />`) > all routes:
-
-| Path | Component | Purpose |
-|---|---|---|
-| `/` | `HomePage` | Choose exercise type |
-| `/phrasal-verbs` | `PhrasalVerbsPage` | Choose quiz, list, or particles |
-| `/phrasal-verbs/test-most-popular` | `App` | Phrasal verbs fill-in-the-blank quiz |
-| `/phrasal-verbs/particles` | `ParticlesPage` | Reference: 27 particle core meanings |
-| `/phrasal-verbs/list` | `PhrasalVerbsListPage` | Browse all verbs as expandable cards |
-| `/phrasal-verbs/list/:verb` | `VerbDetailPage` | Dynamic verb detail page (fetches from API) |
-| `/grammar` | `GrammarPage` | Choose grammar exercise |
-| `/grammar/i-wish-if-only` | `IWishPage` | Translation quiz (Russian → English) |
-| `*` | `NotFoundPage` | 404 |
-
-### Component tree
-
-**Structural components:**
-- **`PageShell`** (`frontend/src/components/PageShell.tsx`) — wraps all routes via `<Outlet />`. Owns dark mode toggle (reads/writes `darkMode` in `phrasalQuizState` localStorage), home button, and `#verb-page-actions` portal target used by verb pages for the expand-all button.
-- **`ErrorBoundary`** (`frontend/src/components/ErrorBoundary.tsx`) — class component wrapping everything.
-- **`VerbPageLayout`** (`frontend/src/components/VerbPage.tsx`) — reusable layout for verb detail pages. Renders collapsible particle sections, each with collapsible meaning cards. Exports `VerbPageLayout`, `MeaningData`, `SectionData`. Uses `ReactDOM.createPortal` to render expand-all button into PageShell's `#verb-page-actions` div.
-
-**Quiz components:**
-- **`PhrasalVerbQuiz`** (`frontend/src/components/PhrasalVerbQuiz.tsx`) — phrasal verb quiz UI. Receives `allVerbs` and `verbsForBrowse` as props from `App`.
-- **`GrammarQuiz`** (`frontend/src/components/GrammarQuiz.tsx`) — grammar quiz UI. Receives `entries` as props from `IWishPage`.
-
-**Quiz-shared components** (used by both `PhrasalVerbQuiz` and `GrammarQuiz`): `Header`, `QuizCard`, `Feedback`, `NavigationControls`, `ExcludedModal`, `SearchModal`.
-
-**Other components:** `AllVerbsModal` (phrasal quiz browse), `TutorialModal` (grammar quiz), `ListSearchModal` (verb list search across all meanings), `Icons` (SVG icon components).
-
-### API client (`frontend/src/api/`)
-
-Frontend fetches quiz data from the backend REST API on mount. Native `fetch` wrapper, no external dependencies.
-
-| File | Exports | Purpose |
-|---|---|---|
-| `client.ts` | `get<T>(path, params?)`, `ApiError` | Typed fetch wrapper, base URL `/api/v1` |
-| `phrasalVerbsApi.ts` | `fetchPhrasalVerbs()` | Fetches all phrasal verbs, maps to `VerbEntry[]` + `BrowseVerbEntry[]` |
-| `grammarEntriesApi.ts` | `fetchGrammarEntries(category)` | Fetches grammar entries by category, maps to `GrammarEntry[]` |
-| `verbDetailsApi.ts` | `fetchVerbList()`, `fetchVerbDetail(verb)` | Fetches verb list summaries and full verb detail sections |
-
-### Data-fetching hooks (`frontend/src/hooks/`)
-
-| Hook | Returns | Used by |
-|---|---|---|
-| `usePhrasalVerbs()` | `{ allVerbs, verbsForBrowse, loading, error }` | `App.tsx` |
-| `useGrammarEntries(category)` | `{ entries, loading, error }` | `IWishPage.tsx` |
-| `useVerbList()` | `{ verbs: VerbListItem[], loading, error }` | `PhrasalVerbsListPage.tsx` |
-| `useVerbDetail(verb)` | `{ title, sections: SectionData[], loading, error }` | `VerbDetailPage.tsx` |
-
-`App` and `IWishPage` render loading/error states, then delegate to `PhrasalVerbQuiz` / `GrammarQuiz` once data is available. `PhrasalVerbsListPage` and `VerbDetailPage` similarly fetch verb data from the backend.
-
-### State management
-
-No context or global store. State is component-local + localStorage:
-
-| Owner | localStorage key | Manages |
-|---|---|---|
-| `PageShell` | `phrasalQuizState` → `darkMode` field | Dark mode (shared across all pages) |
-| `PhrasalVerbQuiz` | `phrasalQuizState` | Phrasal quiz: mastered, excluded, history, currentIndex |
-| `GrammarQuiz` | `grammarIWishState` | Grammar quiz: same shape as phrasal quiz |
-| `VerbPageLayout` | per-section/meaning keys | Section and meaning expand/collapse |
-| `PhrasalVerbsListPage` | `verbListExpanded` | Verb list card expand/collapse |
-
-`PageShell` and `PhrasalVerbQuiz` share the `phrasalQuizState` key. `PhrasalVerbQuiz` preserves fields it doesn't own (like `darkMode`) by merging with existing data before writing.
-
-### Shared types (`frontend/src/types.ts`)
-
-| Type | Shape | Notes |
-|---|---|---|
-| `Status` | `'idle' \| 'correct' \| 'wrong'` | Card answer state |
-| `HistoryItem` | `{ index, inputValue, status }` | One card in navigation history |
-| `RawVerbEntry` | 5-tuple `[verb, def, sentence\|string[], wordsToHide[], isLearned]` | Source data shape |
-| `VerbEntry` | `{ verb, definition, sentences, wordsToHide }` | Normalized quiz entry |
-| `BrowseVerbEntry` | `VerbEntry & { quizIndex?: number }` | For AllVerbsModal browse view |
-| `GrammarEntry` | `{ sentence, correctAnswers: string[] }` | Grammar translation exercise |
-
-### Data files (`frontend/src/data/`)
-
-Static reference data (not consumed by quizzes — quizzes fetch from backend API):
-
-- **`phrasalVerbs.ts`** — `rawData: RawVerbEntry[]`. Exports `allVerbs`, `allVerbsWithLearned`, `verbsForBrowse`. Retained as reference/seed data; quizzes use `usePhrasalVerbs()` hook instead.
-- **`wishData.ts`** — `wishData: GrammarEntry[]`. Retained as reference; quizzes use `useGrammarEntries()` hook instead.
-- **`listVerbIndex.ts`** — async `fetchListVerbIndex()` fetches all verb details from `GET /verb-details/all`, builds a flat searchable index, and caches the result. Exports `ListSearchEntry` type. Used by `ListSearchModal`.
-
-### Verb data format (`frontend/src/data/phrasalVerbs.ts`)
-
-Each entry in `rawData` is typed as `RawVerbEntry` (5-element tuple):
-
-```ts
-[verb, definition, exampleSentence, wordsToHide, isLearned]
-//  0        1             2               3           4
-```
-
-Setting the 5th field to `true` removes a verb from `allVerbs` (the active quiz pool).
-
-`wordsToHide` (index 3) drives `renderSentenceWithMask` in `frontend/src/utils/renderSentence.tsx`, which splits the sentence on a case-insensitive regex (longest match first) and renders matched tokens as clickable masked spans.
-
-### Answer checking
-
-- **Phrasal quiz** (`PhrasalVerbQuiz`): case-insensitive, parentheses stripped — `cleanUser === cleanCorrect`.
-- **Grammar quiz** (`GrammarQuiz`): uses `isAnswerCorrect()` from `frontend/src/utils/normalizeAnswer.ts` — lowercases, trims, strips non-word/space chars, collapses whitespace, then checks against all `correctAnswers`.
-
-### Adding a new verb
-
-Verb data is stored in the `verb_details` database table. To add a new verb:
-
-1. Create a Flyway migration inserting the new row with `verb` (slug), `label` (display name), `particles` (JSONB array), and `sections` (JSONB array of `{particle, storageKeyPrefix, meanings: [{definition, example, imageSrc, imageAlt}]}`)
-2. No frontend changes needed — the dynamic `VerbDetailPage` and `PhrasalVerbsListPage` fetch from the API automatically
-
-## Tests
-
-Vitest + `@testing-library/react`. Setup file: `frontend/src/__tests__/setup.ts` (jest-dom matchers, `scrollIntoView` stub, localStorage mock).
-
-Test files live in `frontend/src/__tests__/`. One `.test.tsx` per component/page. List page tests are in `frontend/src/__tests__/listPage/` with a shared `helpers.tsx` that mocks `useVerbList` and provides particle constants.
-
-`renderSentenceWithMask` is exported from `frontend/src/utils/renderSentence.tsx` so it can be unit tested directly.
+| Skill | When to use |
+|---|---|
+| `api-contract-review` | Reviewing or changing REST endpoints, before releasing API changes |
+| `clean-code` | Refactoring, improving readability, reviewing code quality |
+| `design-patterns` | Designing extensible components, implementing GoF patterns |
+| `java-architect` | Building/configuring Spring Boot, microservices, reactive, OAuth2/JWT |
+| `java-code-review` | Reviewing Java code, PR checks, pre-merge reviews |
+| `jpa-patterns` | JPA performance issues (N+1, lazy loading), entity relationships |
+| `logging-patterns` | Adding/improving logging, debugging app flow, structured logging |
+| `spring-boot-engineer` | Creating controllers, security config, Data JPA repos, WebFlux |
+| `spring-boot-patterns` | Spring Boot architecture decisions, exception handling, REST patterns |
 
 ## Workflow Defaults
 
 - Plan mode for any task with 3+ steps or an architectural decision
+- Session logging: see `.claude/rules/blackbox-policy.md`
 - Use **Context7 MCP** proactively for library/API docs — don't wait to be asked
+- Use **Custom Skills** proactively for backend Java/Spring work — load the matching skill before starting
 - CRITICAL: Commits: semantic message ≤ 80 chars; DO NOT add `Co-Authored-By` trailer
 - When compacting, always preserve the full list of modified files and any test commands
 - Don't change docs/blackbox/archive-*.md files
 - Don't delete anything from docs/blackbox/plans folder
 
-## Delivery Checklist
+## Agent Selection Guide
+
+| Task | Agent |
+|---|---|
+| New REST endpoint / JPA entity / Spring service | `spring-boot-engineer` |
+| Architectural decision / package restructure | `java-architect` |
+| React component / frontend feature | `general-purpose` |
+| Backend test gaps / JaCoCo failures | `test-automator` |
+| Security config / auth flows | `security-engineer` |
+| Dockerfile / docker-compose changes | `docker-expert` |
+| k8s manifests / Skaffold | `kubernetes-specialist` |
+| GitHub Actions pipeline changes | `devops-engineer` |
+| New/fix Cucumber+Playwright e2e scenario | `test-automator` |
+| Pre-merge quality gate | `code-reviewer` |
+| Backend naming review | `backend-naming-reviewer` |
+| Frontend naming review | `frontend-naming-reviewer` |
+
+Delegate to subagents liberally — keep the main context window clean.
+Load skills from `.claude/skills/` for targeted in-context capabilities
+(e.g. `jpa-patterns` for N+1 issues, `api-contract-review` before releasing endpoints).
+
+## Makefile
+
+A root `Makefile` provides convenience targets for all common developer workflows. Run `make help` to see the full list.
+
+| Target | What it does |
+|---|---|
+| `make build` | Full build: backend (Maven) + frontend (npm) + docker rebuild + e2e tests |
+| `make buildBackend` | `cd backend && mvn clean verify` |
+| `make buildFrontend` | `cd frontend && npm install && npm run build` |
+| `make acceptanceTest` | `cd e2e && npm ci && npm test` (stack must be running) |
+| `make dockerAll` | Full build then `docker compose up` (foreground) |
+| `make dockerDown` | `docker compose down` |
+| `make clean` | Docker down + remove images + `mvn clean` + remove frontend dist |
+| `make ciCheck` | Strict CI simulation: no-cache docker build, npm ci, mvn verify |
+| `make updateFrontend` | Upgrade frontend deps with `npm-check-updates -u && npm install` |
+| `make updateAcceptance` | Upgrade e2e deps with `npm-check-updates -u && npm install` |
+
+Prefer `make <target>` over raw commands — targets chain steps correctly and emit pass/fail Telegram notifications.
+
+## Delivery Checklist (cross-cutting)
 
 Before marking any task done:
-1. On adding/modifying/removing any codebase files you **must** always check that all tests pass on completion:
-   - Frontend: `cd frontend && npm run test:run`
-   - Backend: `cd backend && JAVA_HOME=/usr/lib/jvm/java-21-openjdk-amd64 mvn clean verify`
-2. Every backlog.md task Acceptance Criteria **must** include relevant test suites passing
-3. Every backlog.md task which extend/modify existing codebase/functionality **must** always extend/modify tests for it.
+1. `docker-compose.yml` reflects any new services or env vars
+2. Root `README.md` updated if ports, services, or quick-start steps changed
+3. GitHub Actions `.github/workflows/ci.yml` updated if pipeline steps changed
+4. If Dockerfile, docker-compose, or env vars changed: `cd e2e && npm test` to confirm all scenarios still pass
+5. If any files in `backend`, `frontend`, `e2e` modules, except `CLAUDE.md` and `README.md`, were added/modified/deleted: run `make build` and confirm it passes before closing the task
+6. Every backlog task Acceptance Criteria **must** include relevant test suites passing
+7. Every backlog task which extend/modify existing codebase/functionality **must** always extend/modify tests for it
 
 
 <!-- BACKLOG.MD MCP GUIDELINES START -->

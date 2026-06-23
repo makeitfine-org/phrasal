@@ -1,0 +1,19 @@
+spring:
+  datasource:
+    url: jdbc:postgresql://localhost:5432/phrasaldb
+    username: phrasaluser
+    password: phrasalpass
+    hikari:
+      maximum-pool-size: 5
+      minimum-idle: 2
+
+  jpa:
+    show-sql: false
+
+  flyway:
+    enabled: true
+
+logging:
+  level:
+    net.phrasal: INFO
+    org.hibernate.SQL: WARN

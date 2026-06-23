@@ -89,7 +89,7 @@ class VerbDetailServiceTest {
         service.getAll(PageRequest.of(0, 100, Sort.by("invalidField")));
 
         verify(repository).findAll(argThat((Pageable p) ->
-            p.getSort().getOrderFor("verb") != null
+                p.getSort().getOrderFor("verb") != null
         ));
     }
 

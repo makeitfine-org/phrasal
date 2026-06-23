@@ -11,8 +11,6 @@ import org.springframework.stereotype.Repository;
 @Repository
 public interface GrammarEntryRepository extends JpaRepository<GrammarEntry, Long> {
 
-    Page<GrammarEntry> findByCategory(String category, Pageable pageable);
-
     @Query("""
             SELECT ge FROM GrammarEntry ge
             WHERE (:category IS NULL OR ge.category = :category)

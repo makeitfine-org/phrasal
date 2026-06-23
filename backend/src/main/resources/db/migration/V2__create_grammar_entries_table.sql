@@ -1,9 +1,10 @@
-CREATE TABLE grammar_entries (
-    id BIGSERIAL PRIMARY KEY,
-    category VARCHAR(100) NOT NULL,
-    sentence TEXT NOT NULL,
-    correct_answers JSONB NOT NULL DEFAULT '[]',
-    created_at TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
-    updated_at TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
-    version BIGINT NOT NULL DEFAULT 0
+CREATE TABLE grammar_entries
+(
+    id              BIGSERIAL PRIMARY KEY,
+    category        VARCHAR(100) NOT NULL,
+    sentence        TEXT         NOT NULL,
+    correct_answers JSONB        NOT NULL DEFAULT '[]',
+    created_at      TIMESTAMP    NOT NULL DEFAULT CURRENT_TIMESTAMP,
+    updated_at      TIMESTAMP    NOT NULL DEFAULT CURRENT_TIMESTAMP,
+    version         BIGINT       NOT NULL DEFAULT 0
 );

@@ -79,7 +79,7 @@ class GrammarEntryServiceTest {
         service.getAll(null, PageRequest.of(0, 20, Sort.by("invalidField")));
 
         verify(repository).search(any(), argThat(p ->
-            p.getSort().getOrderFor("category") != null
+                p.getSort().getOrderFor("category") != null
         ));
     }
 

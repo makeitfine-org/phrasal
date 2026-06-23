@@ -1,0 +1,31 @@
+apiVersion: skaffold/v4beta11
+kind: Config
+metadata:
+  name: backend
+
+build:
+  artifacts:
+    - image: backend
+      docker:
+        dockerfile: Dockerfile
+  local:
+    push: false
+    useBuildkit: true
+
+manifests:
+  rawYaml:
+    - k8s/configmap.yaml
+    - k8s/secret.yaml
+    - k8s/postgres-deployment.yaml
+    - k8s/postgres-service.yaml
+    - k8s/deployment.yaml
+    - k8s/service.yaml
+
+deploy:
+  kubectl: {}
+
+portForward:
+  - resourceType: service
+    resourceName: backend
+    port: 8080
+    localPort: 8080

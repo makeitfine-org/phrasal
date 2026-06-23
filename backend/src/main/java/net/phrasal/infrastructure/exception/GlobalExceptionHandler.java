@@ -1,7 +1,6 @@
 package net.phrasal.infrastructure.exception;
 
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ProblemDetail;
 import org.springframework.validation.FieldError;
@@ -15,10 +14,10 @@ import java.time.Instant;
 import java.util.HashMap;
 import java.util.Map;
 
+@Slf4j
 @RestControllerAdvice
 public class GlobalExceptionHandler {
 
-    private static final Logger LOG = LoggerFactory.getLogger(GlobalExceptionHandler.class);
     private static final String ERROR_BASE_URI = "https://api.phrasal.net/errors/";
 
     private ProblemDetail buildProblem(HttpStatus status, String title, String errorType, String detail) {
@@ -29,25 +28,11 @@ public class GlobalExceptionHandler {
         return problem;
     }
 
-    @ExceptionHandler(PhrasalVerbNotFoundException.class)
-    public ProblemDetail handlePhrasalVerbNotFound(PhrasalVerbNotFoundException ex) {
-        LOG.warn("Phrasal verb not found: {}", ex.getMessage());
-        return buildProblem(HttpStatus.NOT_FOUND, "Phrasal Verb Not Found",
-                "phrasal-verb-not-found", ex.getMessage());
-    }
-
-    @ExceptionHandler(VerbDetailNotFoundException.class)
-    public ProblemDetail handleVerbDetailNotFound(VerbDetailNotFoundException ex) {
-        LOG.warn("Verb detail not found: {}", ex.getMessage());
-        return buildProblem(HttpStatus.NOT_FOUND, "Verb Detail Not Found",
-                "verb-detail-not-found", ex.getMessage());
-    }
-
-    @ExceptionHandler(GrammarEntryNotFoundException.class)
-    public ProblemDetail handleGrammarEntryNotFound(GrammarEntryNotFoundException ex) {
-        LOG.warn("Grammar entry not found: {}", ex.getMessage());
-        return buildProblem(HttpStatus.NOT_FOUND, "Grammar Entry Not Found",
-                "grammar-entry-not-found", ex.getMessage());
+    @ExceptionHandler(ResourceNotFoundException.class)
+    public ProblemDetail handleResourceNotFound(ResourceNotFoundException ex) {
+        log.warn("{} not found: {}", ex.getResourceName(), ex.getMessage());
+        return buildProblem(HttpStatus.NOT_FOUND, ex.getResourceName() + " Not Found",
+                ex.getErrorType(), ex.getMessage());
     }
 
     @ExceptionHandler(MethodArgumentNotValidException.class)
@@ -67,7 +52,7 @@ public class GlobalExceptionHandler {
 
     @ExceptionHandler(IllegalArgumentException.class)
     public ProblemDetail handleIllegalArgument(IllegalArgumentException ex) {
-        LOG.warn("Invalid request: {}", ex.getMessage());
+        log.warn("Invalid request: {}", ex.getMessage());
         return buildProblem(HttpStatus.BAD_REQUEST, "Invalid Request",
                 "invalid-request", ex.getMessage());
     }
@@ -80,7 +65,7 @@ public class GlobalExceptionHandler {
 
     @ExceptionHandler(Exception.class)
     public ProblemDetail handleGlobal(Exception ex) {
-        LOG.error("Unexpected error", ex);
+        log.error("Unexpected error", ex);
         return buildProblem(HttpStatus.INTERNAL_SERVER_ERROR, "Internal Server Error",
                 "internal-error", "An unexpected error occurred");
     }

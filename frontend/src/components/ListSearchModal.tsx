@@ -1,6 +1,7 @@
-import React, { useState, useEffect, useRef } from 'react';
+import React, { useState, useEffect, useRef, useMemo } from 'react';
 import { XIcon } from './Icons';
 import { useFocusTrap } from '../hooks/useFocusTrap';
+import { useFuzzySearch } from '../hooks/useFuzzySearch';
 import { fetchListVerbIndex, type ListSearchEntry } from '../data/listVerbIndex';
 
 interface ListSearchModalProps {
@@ -49,15 +50,18 @@ export default function ListSearchModal({ onSelect, onClose, entries: entriesPro
     }
   }, [selectedIndex]);
 
-  const q = query.toLowerCase().trim();
-  const results: ListSearchEntry[] = entries
-    .filter(e =>
-      !q ||
-      e.verb.toLowerCase().includes(q) ||
-      e.definition.toLowerCase().includes(q) ||
-      e.example.toLowerCase().includes(q)
-    )
-    .sort((a, b) => a.verb.localeCompare(b.verb));
+  const searchKeys = useMemo(() => [
+    { name: 'verb' as const, weight: 2 },
+    { name: 'definition' as const, weight: 1.5 },
+    { name: 'example' as const, weight: 1 },
+  ], []);
+
+  const results: ListSearchEntry[] = useFuzzySearch({
+    items: entries,
+    keys: searchKeys,
+    query,
+    sortByField: 'verb',
+  });
 
   const handleSelect = (entry: ListSearchEntry) => {
     onSelect(entry);

@@ -18,4 +18,5 @@ public record GrammarEntryRequest(
         @NotNull(message = "Correct answers are required")
         List<String> correctAnswers
 ) {
+
 }

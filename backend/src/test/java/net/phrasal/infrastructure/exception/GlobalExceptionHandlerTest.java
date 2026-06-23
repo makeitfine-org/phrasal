@@ -15,7 +15,7 @@ class GlobalExceptionHandlerTest {
     @Test
     @DisplayName("returns 404 for phrasal verb not found")
     void handlePhrasalVerbNotFound() {
-        ProblemDetail detail = handler.handlePhrasalVerbNotFound(
+        ProblemDetail detail = handler.handleResourceNotFound(
                 new PhrasalVerbNotFoundException(42L));
 
         assertThat(detail.getStatus()).isEqualTo(HttpStatus.NOT_FOUND.value());
@@ -26,12 +26,23 @@ class GlobalExceptionHandlerTest {
     @Test
     @DisplayName("returns 404 for grammar entry not found")
     void handleGrammarEntryNotFound() {
-        ProblemDetail detail = handler.handleGrammarEntryNotFound(
+        ProblemDetail detail = handler.handleResourceNotFound(
                 new GrammarEntryNotFoundException(99L));
 
         assertThat(detail.getStatus()).isEqualTo(HttpStatus.NOT_FOUND.value());
         assertThat(detail.getTitle()).isEqualTo("Grammar Entry Not Found");
         assertThat(detail.getDetail()).contains("99");
+    }
+
+    @Test
+    @DisplayName("returns 404 for verb detail not found")
+    void handleVerbDetailNotFound() {
+        ProblemDetail detail = handler.handleResourceNotFound(
+                new VerbDetailNotFoundException(7L));
+
+        assertThat(detail.getStatus()).isEqualTo(HttpStatus.NOT_FOUND.value());
+        assertThat(detail.getTitle()).isEqualTo("Verb Detail Not Found");
+        assertThat(detail.getDetail()).contains("7");
     }
 
     @Test

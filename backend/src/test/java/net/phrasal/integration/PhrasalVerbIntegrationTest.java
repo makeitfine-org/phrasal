@@ -43,18 +43,18 @@ class PhrasalVerbIntegrationTest {
             .withUsername("test")
             .withPassword("test");
 
+    @Autowired
+    private MockMvc mockMvc;
+
+    @Autowired
+    private PhrasalVerbRepository repository;
+
     @DynamicPropertySource
     static void configureProperties(DynamicPropertyRegistry registry) {
         registry.add("spring.datasource.url", postgres::getJdbcUrl);
         registry.add("spring.datasource.username", postgres::getUsername);
         registry.add("spring.datasource.password", postgres::getPassword);
     }
-
-    @Autowired
-    private MockMvc mockMvc;
-
-    @Autowired
-    private PhrasalVerbRepository repository;
 
     @Test
     @DisplayName("GET / returns paginated seeded verbs")

@@ -2420,3 +2420,1259 @@
 - .claude/docs/blackbox/audit.md
 - .claude/docs/blackbox/session-log.md
 <!-- end-snapshot -->
+
+<!-- git-snapshot 2026-06-23T22:34:20Z -->
+- .claude/docs/blackbox/audit.md
+- frontend/package-lock.json
+<!-- end-snapshot -->
+
+<!-- git-snapshot 2026-06-23T22:36:00Z -->
+- .claude/docs/blackbox/audit.md
+- .claude/docs/blackbox/session-log.md
+- frontend/package-lock.json
+<!-- end-snapshot -->
+
+<!-- git-snapshot 2026-06-23T22:46:42Z -->
+- .claude/docs/blackbox/audit.md
+- .claude/docs/blackbox/session-log.md
+- .claude/settings.local.json
+- .github/workflows/ci.yml
+- e2e/package-lock.json
+- frontend/Dockerfile
+- frontend/package-lock.json
+<!-- end-snapshot -->
+
+<!-- git-snapshot 2026-06-23T22:55:01Z -->
+- .claude/docs/blackbox/audit.md
+- .claude/docs/blackbox/session-log.md
+- .claude/settings.local.json
+- .github/workflows/ci.yml
+- e2e/package-lock.json
+- e2e/package.json
+- frontend/Dockerfile
+- frontend/package-lock.json
+- frontend/package.json
+<!-- end-snapshot -->
+
+<!-- git-snapshot 2026-06-23T22:58:10Z -->
+- .claude/docs/blackbox/audit.md
+- .claude/docs/blackbox/session-log.md
+- .claude/settings.local.json
+- .github/workflows/ci.yml
+- README.md
+- e2e/package-lock.json
+- e2e/package.json
+- frontend/Dockerfile
+- frontend/package-lock.json
+- frontend/package.json
+<!-- end-snapshot -->
+
+<!-- git-snapshot 2026-06-23T23:00:04Z -->
+- .claude/docs/blackbox/audit.md
+- .claude/docs/blackbox/session-log.md
+- .claude/settings.local.json
+<!-- end-snapshot -->
+
+<!-- git-snapshot 2026-06-23T23:08:32Z -->
+- .claude/docs/blackbox/audit.md
+<!-- end-snapshot -->
+
+<!-- git-snapshot 2026-06-23T23:18:07Z -->
+- .claude/docs/blackbox/audit.md
+- .claude/docs/blackbox/session-log.md
+- aux/code/checkstyle/checkstyle.xml
+<!-- end-snapshot -->
+
+<!-- git-snapshot 2026-06-24T00:31:17Z -->
+- .claude/docs/blackbox/audit.md
+- .claude/settings.local.json
+- aux/code/checkstyle/checkstyle.xml
+- backend/src/main/java/net/phrasal/application/dto/PhrasalVerbResponse.java
+<!-- end-snapshot -->
+
+<!-- git-snapshot 2026-06-24T00:32:35Z -->
+- .claude/docs/blackbox/audit.md
+- .claude/docs/blackbox/session-log.md
+- .claude/settings.local.json
+- aux/code/checkstyle/checkstyle.xml
+- backend/src/main/java/net/phrasal/application/dto/PhrasalVerbResponse.java
+<!-- end-snapshot -->
+
+<!-- git-snapshot 2026-06-24T00:33:40Z -->
+- .claude/docs/blackbox/audit.md
+- .claude/docs/blackbox/session-log.md
+- .claude/settings.local.json
+- aux/code/checkstyle/checkstyle.xml
+- backend/src/main/java/net/phrasal/application/dto/PhrasalVerbResponse.java
+<!-- end-snapshot -->
+
+<!-- git-snapshot 2026-06-24T00:44:13Z -->
+- .claude/docs/blackbox/audit.md
+- .claude/docs/blackbox/session-log.md
+- .claude/settings.local.json
+- aux/code/checkstyle/checkstyle.xml
+<!-- end-snapshot -->
+
+<!-- git-snapshot 2026-06-24T00:49:10Z -->
+- backend/src/main/java/net/phrasal/application/dto/GrammarEntryResponse.java
+<!-- end-snapshot -->
+
+<!-- git-snapshot 2026-06-24T01:07:52Z -->
+- .claude/docs/blackbox/audit.md
+- .claude/docs/blackbox/session-log.md
+- aux/code/checkstyle/checkstyle.xml
+<!-- end-snapshot -->
+
+<!-- git-snapshot 2026-06-24T01:30:11Z -->
+- .claude/docs/blackbox/audit.md
+- aux/code/checkstyle/checkstyle.xml
+- backend/src/main/java/net/phrasal/PhrasalApplication.java
+<!-- end-snapshot -->
+
+<!-- git-snapshot 2026-06-24T01:41:39Z -->
+- .claude/docs/blackbox/audit.md
+- .claude/docs/blackbox/session-log.md
+<!-- end-snapshot -->
+
+<!-- git-snapshot 2026-06-24T11:11:53Z -->
+- .claude/docs/blackbox/audit.md
+- CLAUDE.md
+- README.md
+<!-- end-snapshot -->
+
+<!-- git-snapshot 2026-06-24T12:19:24Z -->
+- .claude/docs/blackbox/audit.md
+<!-- end-snapshot -->
+
+<!-- git-snapshot 2026-06-24T12:25:02Z -->
+- .claude/docs/blackbox/audit.md
+- .claude/settings.local.json
+<!-- end-snapshot -->
+
+<!-- git-snapshot 2026-06-24T12:46:11Z -->
+- .claude/docs/blackbox/audit.md
+- .claude/docs/blackbox/session-log.md
+- .claude/settings.local.json
+<!-- end-snapshot -->
+
+<!-- git-snapshot 2026-06-24T13:13:48Z -->
+- .claude/docs/blackbox/audit.md
+- .claude/docs/blackbox/session-log.md
+- .claude/settings.local.json
+- frontend/k8s/configmap.yaml
+<!-- end-snapshot -->
+
+<!-- git-snapshot 2026-06-24T13:16:04Z -->
+- .claude/docs/blackbox/audit.md
+- .claude/docs/blackbox/session-log.md
+- .claude/settings.local.json
+- frontend/k8s/configmap.yaml
+<!-- end-snapshot -->
+
+<!-- git-snapshot 2026-06-24T13:29:14Z -->
+- .claude/docs/blackbox/audit.md
+- .claude/docs/blackbox/session-log.md
+- .claude/settings.local.json
+<!-- end-snapshot -->
+
+<!-- git-snapshot 2026-06-24T17:17:32Z -->
+- .claude/docs/blackbox/audit.md
+<!-- end-snapshot -->
+
+<!-- git-snapshot 2026-06-24T17:47:37Z -->
+- .claude/docs/blackbox/audit.md
+- .claude/docs/blackbox/session-log.md
+<!-- end-snapshot -->
+
+<!-- git-snapshot 2026-06-24T19:04:07Z -->
+- .claude/docs/blackbox/audit.md
+- .claude/docs/blackbox/session-log.md
+- backend/src/main/java/net/phrasal/application/service/VerbDetailService.java
+<!-- end-snapshot -->
+
+<!-- git-snapshot 2026-06-24T19:05:36Z -->
+- .claude/docs/blackbox/audit.md
+- .claude/docs/blackbox/session-log.md
+- CLAUDE.md
+- backend/src/main/java/net/phrasal/application/service/VerbDetailService.java
+<!-- end-snapshot -->
+
+<!-- git-snapshot 2026-06-24T19:22:21Z -->
+- .claude/docs/blackbox/audit.md
+- .claude/docs/blackbox/session-log.md
+- CLAUDE.md
+- README.md
+- backend/src/main/java/net/phrasal/application/service/VerbDetailService.java
+<!-- end-snapshot -->
+
+<!-- git-snapshot 2026-06-24T19:36:23Z -->
+- .claude/docs/blackbox/audit.md
+- aux/code/checkstyle/checkstyle.xml
+- backend/src/main/java/net/phrasal/application/service/GrammarEntryService.java
+- backend/src/main/java/net/phrasal/application/service/PhrasalVerbService.java
+- backend/src/main/java/net/phrasal/application/service/VerbDetailService.java
+- backend/src/main/java/net/phrasal/domain/repository/GrammarEntryRepository.java
+- backend/src/main/java/net/phrasal/infrastructure/exception/GlobalExceptionHandler.java
+- backend/src/main/java/net/phrasal/infrastructure/exception/GrammarEntryNotFoundException.java
+- backend/src/main/java/net/phrasal/infrastructure/exception/PhrasalVerbNotFoundException.java
+- backend/src/main/java/net/phrasal/infrastructure/exception/VerbDetailNotFoundException.java
+- backend/src/test/java/net/phrasal/infrastructure/exception/GlobalExceptionHandlerTest.java
+<!-- end-snapshot -->
+
+<!-- git-snapshot 2026-06-24T19:43:40Z -->
+- .claude/docs/blackbox/audit.md
+- .claude/docs/blackbox/plans/2026-06-24 21:33 Plan Backend Code Refactoring Based on Skills.md
+- .claude/docs/blackbox/session-log.md
+- aux/code/checkstyle/checkstyle.xml
+- backend/src/main/java/net/phrasal/application/service/GrammarEntryService.java
+- backend/src/main/java/net/phrasal/application/service/PhrasalVerbService.java
+- backend/src/main/java/net/phrasal/application/service/VerbDetailService.java
+- backend/src/main/java/net/phrasal/application/util/PageableUtils.java
+- backend/src/main/java/net/phrasal/domain/repository/GrammarEntryRepository.java
+- backend/src/main/java/net/phrasal/infrastructure/exception/GlobalExceptionHandler.java
+- backend/src/main/java/net/phrasal/infrastructure/exception/GrammarEntryNotFoundException.java
+- backend/src/main/java/net/phrasal/infrastructure/exception/PhrasalVerbNotFoundException.java
+- backend/src/main/java/net/phrasal/infrastructure/exception/ResourceNotFoundException.java
+- backend/src/main/java/net/phrasal/infrastructure/exception/VerbDetailNotFoundException.java
+- backend/src/test/java/net/phrasal/application/util/PageableUtilsTest.java
+- backend/src/test/java/net/phrasal/infrastructure/exception/GlobalExceptionHandlerTest.java
+<!-- end-snapshot -->
+
+<!-- git-snapshot 2026-06-25T17:13:40Z -->
+- .claude/docs/blackbox/audit.md
+<!-- end-snapshot -->
+
+<!-- git-snapshot 2026-06-25T17:17:20Z -->
+- .claude/docs/blackbox/audit.md
+- .claude/docs/blackbox/session-log.md
+<!-- end-snapshot -->
+
+<!-- git-snapshot 2026-06-25T17:35:42Z -->
+- .claude/docs/blackbox/audit.md
+- .claude/docs/blackbox/session-log.md
+<!-- end-snapshot -->
+
+<!-- git-snapshot 2026-06-25T17:45:06Z -->
+- .claude/docs/blackbox/audit.md
+- .claude/docs/blackbox/session-log.md
+<!-- end-snapshot -->
+
+<!-- git-snapshot 2026-06-25T18:37:39Z -->
+- .claude/docs/blackbox/audit.md
+- .claude/docs/blackbox/session-log.md
+<!-- end-snapshot -->
+
+<!-- git-snapshot 2026-06-25T18:41:17Z -->
+- .claude/docs/blackbox/audit.md
+- .claude/docs/blackbox/session-log.md
+<!-- end-snapshot -->
+
+<!-- git-snapshot 2026-06-25T18:45:01Z -->
+- .claude/docs/blackbox/audit.md
+- .claude/docs/blackbox/session-log.md
+<!-- end-snapshot -->
+
+<!-- git-snapshot 2026-06-25T18:48:17Z -->
+- .claude/docs/blackbox/audit.md
+- .claude/docs/blackbox/session-log.md
+<!-- end-snapshot -->
+
+<!-- git-snapshot 2026-06-26T07:57:13Z -->
+- .claude/docs/blackbox/audit.md
+- .claude/docs/blackbox/session-log.md
+<!-- end-snapshot -->
+
+<!-- git-snapshot 2026-06-26T07:59:20Z -->
+- .claude/docs/blackbox/audit.md
+- .claude/docs/blackbox/session-log.md
+<!-- end-snapshot -->
+
+<!-- git-snapshot 2026-06-26T08:24:14Z -->
+- .claude/docs/blackbox/audit.md
+- .claude/docs/blackbox/session-log.md
+<!-- end-snapshot -->
+
+<!-- git-snapshot 2026-06-26T08:32:11Z -->
+- .claude/docs/blackbox/audit.md
+- .claude/docs/blackbox/session-log.md
+<!-- end-snapshot -->
+
+<!-- git-snapshot 2026-06-26T08:51:21Z -->
+- .claude/docs/blackbox/audit.md
+- .claude/docs/blackbox/session-log.md
+<!-- end-snapshot -->
+
+<!-- git-snapshot 2026-06-26T09:31:13Z -->
+- .claude/docs/blackbox/audit.md
+- .claude/docs/blackbox/session-log.md
+<!-- end-snapshot -->
+
+<!-- git-snapshot 2026-06-26T09:37:34Z -->
+- .claude/docs/blackbox/audit.md
+- .claude/docs/blackbox/session-log.md
+<!-- end-snapshot -->
+
+<!-- git-snapshot 2026-06-26T09:38:58Z -->
+- .claude/docs/blackbox/audit.md
+- .claude/docs/blackbox/session-log.md
+<!-- end-snapshot -->
+
+<!-- git-snapshot 2026-06-26T09:40:46Z -->
+- .claude/docs/blackbox/audit.md
+- .claude/docs/blackbox/session-log.md
+<!-- end-snapshot -->
+
+<!-- git-snapshot 2026-06-26T09:41:52Z -->
+- .claude/docs/blackbox/audit.md
+- .claude/docs/blackbox/session-log.md
+<!-- end-snapshot -->
+
+<!-- git-snapshot 2026-06-26T11:59:57Z -->
+- .claude/docs/blackbox/audit.md
+- .claude/docs/blackbox/session-log.md
+<!-- end-snapshot -->
+
+<!-- git-snapshot 2026-06-26T12:02:50Z -->
+- .claude/docs/blackbox/audit.md
+- .claude/docs/blackbox/session-log.md
+<!-- end-snapshot -->
+
+<!-- git-snapshot 2026-06-26T12:04:50Z -->
+- .claude/docs/blackbox/audit.md
+- .claude/docs/blackbox/session-log.md
+<!-- end-snapshot -->
+
+<!-- git-snapshot 2026-06-26T12:06:23Z -->
+- .claude/docs/blackbox/audit.md
+- .claude/docs/blackbox/session-log.md
+<!-- end-snapshot -->
+
+<!-- git-snapshot 2026-06-26T12:07:54Z -->
+- .claude/docs/blackbox/audit.md
+- .claude/docs/blackbox/session-log.md
+<!-- end-snapshot -->
+
+<!-- git-snapshot 2026-06-26T12:09:36Z -->
+- .claude/docs/blackbox/audit.md
+- .claude/docs/blackbox/session-log.md
+<!-- end-snapshot -->
+
+<!-- git-snapshot 2026-06-26T12:12:37Z -->
+- .claude/docs/blackbox/audit.md
+- .claude/docs/blackbox/session-log.md
+<!-- end-snapshot -->
+
+<!-- git-snapshot 2026-06-26T12:14:23Z -->
+- .claude/docs/blackbox/audit.md
+- .claude/docs/blackbox/session-log.md
+<!-- end-snapshot -->
+
+<!-- git-snapshot 2026-06-26T12:25:52Z -->
+- .claude/docs/blackbox/audit.md
+- .claude/docs/blackbox/session-log.md
+<!-- end-snapshot -->
+
+<!-- git-snapshot 2026-06-26T12:32:43Z -->
+- .claude/docs/blackbox/audit.md
+- .claude/docs/blackbox/session-log.md
+<!-- end-snapshot -->
+
+<!-- git-snapshot 2026-06-26T12:37:02Z -->
+- .claude/docs/blackbox/audit.md
+- .claude/docs/blackbox/session-log.md
+<!-- end-snapshot -->
+
+<!-- git-snapshot 2026-06-26T12:43:02Z -->
+- .claude/docs/blackbox/audit.md
+- .claude/docs/blackbox/session-log.md
+<!-- end-snapshot -->
+
+<!-- git-snapshot 2026-06-26T12:43:28Z -->
+- .claude/docs/blackbox/audit.md
+- .claude/docs/blackbox/session-log.md
+<!-- end-snapshot -->
+
+<!-- git-snapshot 2026-06-26T12:44:53Z -->
+- .claude/docs/blackbox/audit.md
+- .claude/docs/blackbox/session-log.md
+<!-- end-snapshot -->
+
+<!-- git-snapshot 2026-06-26T13:14:24Z -->
+- .claude/docs/blackbox/audit.md
+- .claude/docs/blackbox/session-log.md
+<!-- end-snapshot -->
+
+<!-- git-snapshot 2026-06-26T13:19:00Z -->
+- .claude/docs/blackbox/audit.md
+- .claude/docs/blackbox/session-log.md
+<!-- end-snapshot -->
+
+<!-- git-snapshot 2026-06-26T13:22:17Z -->
+- .claude/docs/blackbox/audit.md
+- .claude/docs/blackbox/session-log.md
+<!-- end-snapshot -->
+
+<!-- git-snapshot 2026-06-26T13:30:11Z -->
+- .claude/docs/blackbox/audit.md
+- .claude/docs/blackbox/session-log.md
+<!-- end-snapshot -->
+
+<!-- git-snapshot 2026-06-26T13:30:42Z -->
+- .claude/docs/blackbox/audit.md
+- .claude/docs/blackbox/session-log.md
+<!-- end-snapshot -->
+
+<!-- git-snapshot 2026-06-26T13:36:46Z -->
+- .claude/docs/blackbox/audit.md
+- .claude/docs/blackbox/session-log.md
+<!-- end-snapshot -->
+
+<!-- git-snapshot 2026-06-26T13:38:40Z -->
+- .claude/docs/blackbox/audit.md
+- .claude/docs/blackbox/session-log.md
+<!-- end-snapshot -->
+
+<!-- git-snapshot 2026-06-26T14:09:32Z -->
+- .claude/docs/blackbox/audit.md
+- .claude/docs/blackbox/session-log.md
+<!-- end-snapshot -->
+
+<!-- git-snapshot 2026-06-26T14:18:59Z -->
+- .claude/docs/blackbox/audit.md
+- .claude/docs/blackbox/session-log.md
+<!-- end-snapshot -->
+
+<!-- git-snapshot 2026-06-26T14:20:31Z -->
+- .claude/docs/blackbox/audit.md
+- .claude/docs/blackbox/session-log.md
+<!-- end-snapshot -->
+
+<!-- git-snapshot 2026-06-26T14:22:04Z -->
+- .claude/docs/blackbox/audit.md
+- .claude/docs/blackbox/session-log.md
+<!-- end-snapshot -->
+
+<!-- git-snapshot 2026-06-26T14:23:57Z -->
+- .claude/docs/blackbox/audit.md
+- .claude/docs/blackbox/session-log.md
+<!-- end-snapshot -->
+
+<!-- git-snapshot 2026-06-26T14:28:17Z -->
+- .claude/docs/blackbox/audit.md
+- .claude/docs/blackbox/session-log.md
+<!-- end-snapshot -->
+
+<!-- git-snapshot 2026-06-26T14:31:02Z -->
+- .claude/docs/blackbox/audit.md
+- .claude/docs/blackbox/session-log.md
+<!-- end-snapshot -->
+
+<!-- git-snapshot 2026-06-26T14:49:26Z -->
+- .claude/docs/blackbox/audit.md
+- .claude/docs/blackbox/session-log.md
+<!-- end-snapshot -->
+
+<!-- git-snapshot 2026-06-26T14:59:10Z -->
+- .claude/docs/blackbox/audit.md
+- .claude/docs/blackbox/session-log.md
+<!-- end-snapshot -->
+
+<!-- git-snapshot 2026-06-26T15:08:21Z -->
+- .claude/docs/blackbox/audit.md
+- .claude/docs/blackbox/session-log.md
+- scratch.sh
+<!-- end-snapshot -->
+
+<!-- git-snapshot 2026-06-26T15:22:41Z -->
+- .claude/docs/blackbox/audit.md
+- .claude/docs/blackbox/session-log.md
+<!-- end-snapshot -->
+
+<!-- git-snapshot 2026-06-26T15:26:37Z -->
+- .claude/docs/blackbox/audit.md
+- .claude/docs/blackbox/session-log.md
+<!-- end-snapshot -->
+
+<!-- git-snapshot 2026-06-26T15:28:01Z -->
+- .claude/docs/blackbox/audit.md
+- .claude/docs/blackbox/session-log.md
+<!-- end-snapshot -->
+
+<!-- git-snapshot 2026-06-26T15:30:03Z -->
+- .claude/docs/blackbox/audit.md
+- .claude/docs/blackbox/session-log.md
+<!-- end-snapshot -->
+
+<!-- git-snapshot 2026-06-26T15:31:57Z -->
+- .claude/docs/blackbox/audit.md
+- .claude/docs/blackbox/session-log.md
+<!-- end-snapshot -->
+
+<!-- git-snapshot 2026-06-26T15:32:32Z -->
+- .claude/docs/blackbox/audit.md
+- .claude/docs/blackbox/session-log.md
+<!-- end-snapshot -->
+
+<!-- git-snapshot 2026-06-26T15:35:13Z -->
+- .claude/docs/blackbox/audit.md
+- .claude/docs/blackbox/session-log.md
+<!-- end-snapshot -->
+
+<!-- git-snapshot 2026-06-26T15:35:58Z -->
+- .claude/docs/blackbox/audit.md
+- .claude/docs/blackbox/session-log.md
+<!-- end-snapshot -->
+
+<!-- git-snapshot 2026-06-26T15:51:42Z -->
+- .claude/docs/blackbox/audit.md
+- .claude/docs/blackbox/session-log.md
+<!-- end-snapshot -->
+
+<!-- git-snapshot 2026-06-26T15:53:53Z -->
+- .claude/docs/blackbox/audit.md
+- .claude/docs/blackbox/session-log.md
+<!-- end-snapshot -->
+
+<!-- git-snapshot 2026-06-26T16:07:58Z -->
+- .claude/docs/blackbox/audit.md
+- .claude/docs/blackbox/session-log.md
+<!-- end-snapshot -->
+
+<!-- git-snapshot 2026-06-26T16:08:48Z -->
+- .claude/docs/blackbox/audit.md
+- .claude/docs/blackbox/session-log.md
+<!-- end-snapshot -->
+
+<!-- git-snapshot 2026-06-26T16:13:30Z -->
+- .claude/docs/blackbox/audit.md
+- .claude/docs/blackbox/session-log.md
+<!-- end-snapshot -->
+
+<!-- git-snapshot 2026-06-26T16:18:01Z -->
+- .claude/docs/blackbox/audit.md
+- .claude/docs/blackbox/session-log.md
+<!-- end-snapshot -->
+
+<!-- git-snapshot 2026-06-26T16:38:25Z -->
+- .claude/docs/blackbox/audit.md
+- .claude/docs/blackbox/session-log.md
+<!-- end-snapshot -->
+
+<!-- git-snapshot 2026-06-26T16:39:55Z -->
+- .claude/docs/blackbox/audit.md
+- .claude/docs/blackbox/session-log.md
+<!-- end-snapshot -->
+
+<!-- git-snapshot 2026-06-26T16:40:48Z -->
+- .claude/docs/blackbox/audit.md
+- .claude/docs/blackbox/session-log.md
+<!-- end-snapshot -->
+
+<!-- git-snapshot 2026-06-26T16:43:13Z -->
+- .claude/docs/blackbox/audit.md
+- .claude/docs/blackbox/session-log.md
+<!-- end-snapshot -->
+
+<!-- git-snapshot 2026-06-26T16:44:05Z -->
+- .claude/docs/blackbox/audit.md
+- .claude/docs/blackbox/session-log.md
+<!-- end-snapshot -->
+
+<!-- git-snapshot 2026-06-26T16:46:14Z -->
+- .claude/docs/blackbox/audit.md
+- .claude/docs/blackbox/session-log.md
+<!-- end-snapshot -->
+
+<!-- git-snapshot 2026-06-26T16:46:46Z -->
+- .claude/docs/blackbox/audit.md
+- .claude/docs/blackbox/session-log.md
+<!-- end-snapshot -->
+
+<!-- git-snapshot 2026-06-26T18:23:50Z -->
+- .claude/docs/blackbox/audit.md
+- .claude/docs/blackbox/session-log.md
+<!-- end-snapshot -->
+
+<!-- git-snapshot 2026-06-26T18:27:03Z -->
+- .claude/docs/blackbox/audit.md
+- .claude/docs/blackbox/session-log.md
+<!-- end-snapshot -->
+
+<!-- git-snapshot 2026-06-26T18:29:11Z -->
+- .claude/docs/blackbox/audit.md
+- .claude/docs/blackbox/session-log.md
+<!-- end-snapshot -->
+
+<!-- git-snapshot 2026-06-26T18:37:24Z -->
+- .claude/docs/blackbox/audit.md
+- .claude/docs/blackbox/session-log.md
+<!-- end-snapshot -->
+
+<!-- git-snapshot 2026-06-26T18:49:45Z -->
+- .claude/docs/blackbox/audit.md
+- .claude/docs/blackbox/session-log.md
+<!-- end-snapshot -->
+
+<!-- git-snapshot 2026-06-26T18:56:20Z -->
+- .claude/docs/blackbox/audit.md
+- .claude/docs/blackbox/session-log.md
+<!-- end-snapshot -->
+
+<!-- git-snapshot 2026-06-26T19:01:10Z -->
+- .claude/docs/blackbox/audit.md
+- .claude/docs/blackbox/session-log.md
+<!-- end-snapshot -->
+
+<!-- git-snapshot 2026-06-26T19:23:29Z -->
+- .claude/docs/blackbox/audit.md
+- .claude/docs/blackbox/session-log.md
+<!-- end-snapshot -->
+
+<!-- git-snapshot 2026-06-26T19:28:29Z -->
+- .claude/docs/blackbox/audit.md
+- .claude/docs/blackbox/session-log.md
+<!-- end-snapshot -->
+
+<!-- git-snapshot 2026-06-26T19:31:08Z -->
+- .claude/docs/blackbox/audit.md
+- .claude/docs/blackbox/session-log.md
+<!-- end-snapshot -->
+
+<!-- git-snapshot 2026-06-26T19:32:51Z -->
+- .claude/docs/blackbox/audit.md
+- .claude/docs/blackbox/session-log.md
+<!-- end-snapshot -->
+
+<!-- git-snapshot 2026-06-26T19:35:44Z -->
+- .claude/docs/blackbox/audit.md
+- .claude/docs/blackbox/session-log.md
+<!-- end-snapshot -->
+
+<!-- git-snapshot 2026-06-26T19:39:56Z -->
+- .claude/docs/blackbox/audit.md
+- .claude/docs/blackbox/session-log.md
+<!-- end-snapshot -->
+
+<!-- git-snapshot 2026-06-26T19:40:22Z -->
+- .claude/docs/blackbox/audit.md
+- .claude/docs/blackbox/session-log.md
+<!-- end-snapshot -->
+
+<!-- git-snapshot 2026-06-26T19:40:36Z -->
+- .claude/docs/blackbox/audit.md
+- .claude/docs/blackbox/session-log.md
+<!-- end-snapshot -->
+
+<!-- git-snapshot 2026-06-26T19:41:14Z -->
+- .claude/docs/blackbox/audit.md
+- .claude/docs/blackbox/session-log.md
+<!-- end-snapshot -->
+
+<!-- git-snapshot 2026-06-26T19:42:04Z -->
+- .claude/docs/blackbox/audit.md
+- .claude/docs/blackbox/session-log.md
+<!-- end-snapshot -->
+
+<!-- git-snapshot 2026-06-26T19:42:49Z -->
+- .claude/docs/blackbox/audit.md
+- .claude/docs/blackbox/session-log.md
+<!-- end-snapshot -->
+
+<!-- git-snapshot 2026-06-26T20:11:27Z -->
+- .claude/docs/blackbox/audit.md
+- .claude/docs/blackbox/session-log.md
+<!-- end-snapshot -->
+
+<!-- git-snapshot 2026-06-26T20:13:57Z -->
+- .claude/docs/blackbox/audit.md
+- .claude/docs/blackbox/session-log.md
+<!-- end-snapshot -->
+
+<!-- git-snapshot 2026-06-26T20:45:54Z -->
+- .claude/docs/blackbox/audit.md
+- .claude/docs/blackbox/save_while_work
+- .claude/docs/blackbox/session-log.md
+- ocivps.sh
+<!-- end-snapshot -->
+
+<!-- git-snapshot 2026-06-26T20:49:11Z -->
+- .claude/docs/blackbox/audit.md
+- .claude/docs/blackbox/save_while_work
+- .claude/docs/blackbox/session-log.md
+- ocivps.sh
+<!-- end-snapshot -->
+
+<!-- git-snapshot 2026-06-26T21:01:33Z -->
+- .claude/docs/blackbox/audit.md
+- .claude/docs/blackbox/save_while_work
+- .claude/docs/blackbox/session-log.md
+- ocivps.sh
+<!-- end-snapshot -->
+
+<!-- git-snapshot 2026-06-26T21:03:04Z -->
+- .claude/docs/blackbox/audit.md
+- .claude/docs/blackbox/save_while_work
+- .claude/docs/blackbox/session-log.md
+- ocivps.sh
+<!-- end-snapshot -->
+
+<!-- git-snapshot 2026-06-26T21:05:54Z -->
+- .claude/docs/blackbox/audit.md
+- .claude/docs/blackbox/save_while_work
+- .claude/docs/blackbox/session-log.md
+- ocivps.sh
+<!-- end-snapshot -->
+
+<!-- git-snapshot 2026-06-26T21:06:51Z -->
+- .claude/docs/blackbox/audit.md
+- .claude/docs/blackbox/save_while_work
+- .claude/docs/blackbox/session-log.md
+- ocivps.sh
+<!-- end-snapshot -->
+
+<!-- git-snapshot 2026-06-26T21:08:00Z -->
+- .claude/docs/blackbox/audit.md
+- .claude/docs/blackbox/save_while_work
+- .claude/docs/blackbox/session-log.md
+- ocivps.sh
+<!-- end-snapshot -->
+
+<!-- git-snapshot 2026-06-26T21:11:01Z -->
+- .claude/docs/blackbox/audit.md
+- .claude/docs/blackbox/save_while_work
+- .claude/docs/blackbox/session-log.md
+- .claude/settings.local.json
+- aux/docs/ocivps.sh
+- aux/docs/save_while_work.txt
+<!-- end-snapshot -->
+
+<!-- git-snapshot 2026-06-26T21:12:30Z -->
+- .claude/docs/blackbox/audit.md
+- .claude/docs/blackbox/save_while_work
+- .claude/docs/blackbox/session-log.md
+- .claude/settings.local.json
+- aux/docs/ocivps.sh
+- aux/docs/save_while_work.txt
+- backend/src/main/resources/application-prod.yml
+- deploy-vps.sh
+<!-- end-snapshot -->
+
+<!-- git-snapshot 2026-06-26T21:13:52Z -->
+- .claude/docs/blackbox/audit.md
+- .claude/docs/blackbox/save_while_work
+- .claude/docs/blackbox/session-log.md
+- .claude/settings.local.json
+- aux/docs/ocivps.sh
+- aux/docs/save_while_work.txt
+- backend/src/main/resources/application-prod.yml
+- deploy-vps.sh
+<!-- end-snapshot -->
+
+<!-- git-snapshot 2026-06-26T21:14:17Z -->
+- .claude/docs/blackbox/audit.md
+- .claude/docs/blackbox/save_while_work
+- .claude/docs/blackbox/session-log.md
+- .claude/settings.local.json
+- aux/docs/ocivps.sh
+- aux/docs/save_while_work.txt
+- backend/src/main/resources/application-prod.yml
+- deploy-vps.sh
+<!-- end-snapshot -->
+
+<!-- git-snapshot 2026-06-26T21:15:40Z -->
+- .claude/docs/blackbox/audit.md
+- .claude/docs/blackbox/save_while_work
+- .claude/docs/blackbox/session-log.md
+- .claude/settings.local.json
+- aux/docs/ocivps.sh
+- aux/docs/save_while_work.txt
+- backend/src/main/resources/application-prod.yml
+- deploy-vps.sh
+<!-- end-snapshot -->
+
+<!-- git-snapshot 2026-06-26T21:20:32Z -->
+- .claude/docs/blackbox/audit.md
+- .claude/docs/blackbox/save_while_work
+- .claude/docs/blackbox/session-log.md
+- .claude/settings.local.json
+- aux/docs/ocivps.sh
+- aux/docs/save_while_work.txt
+- backend/src/main/resources/application-prod.yml
+- deploy-vps.sh
+<!-- end-snapshot -->
+
+<!-- git-snapshot 2026-06-26T21:39:12Z -->
+- .claude/docs/blackbox/audit.md
+- .claude/docs/blackbox/save_while_work
+- .claude/docs/blackbox/session-log.md
+- .claude/settings.local.json
+- aux/docs/ocivps.sh
+- aux/docs/save_while_work.txt
+- backend/src/main/resources/application-prod.yml
+- deploy-vps.sh
+<!-- end-snapshot -->
+
+<!-- git-snapshot 2026-06-26T21:58:29Z -->
+- .claude/docs/blackbox/audit.md
+- .claude/docs/blackbox/save_while_work
+- .claude/docs/blackbox/session-log.md
+- .claude/settings.local.json
+- aux/docs/ocivps.sh
+- aux/docs/save_while_work.txt
+- backend/src/main/resources/application-prod.yml
+- deploy-vps.sh
+<!-- end-snapshot -->
+
+<!-- git-snapshot 2026-06-26T22:14:59Z -->
+- .claude/docs/blackbox/audit.md
+- aux/docs/save_while_work.txt
+<!-- end-snapshot -->
+
+<!-- git-snapshot 2026-06-26T22:15:27Z -->
+- .claude/docs/blackbox/audit.md
+- .claude/docs/blackbox/session-log.md
+- aux/docs/save_while_work.txt
+<!-- end-snapshot -->
+
+<!-- git-snapshot 2026-06-26T22:23:42Z -->
+- .claude/docs/blackbox/audit.md
+- .claude/docs/blackbox/session-log.md
+- aux/docs/save_while_work.txt
+<!-- end-snapshot -->
+
+<!-- git-snapshot 2026-06-26T22:29:22Z -->
+- .claude/docs/blackbox/audit.md
+- .claude/docs/blackbox/session-log.md
+- aux/docs/save_while_work.txt
+<!-- end-snapshot -->
+
+<!-- git-snapshot 2026-06-26T22:30:31Z -->
+- .claude/docs/blackbox/audit.md
+- .claude/docs/blackbox/session-log.md
+- aux/docs/save_while_work.txt
+<!-- end-snapshot -->
+
+<!-- git-snapshot 2026-06-26T22:40:41Z -->
+- .claude/docs/blackbox/audit.md
+- .claude/docs/blackbox/session-log.md
+- aux/docs/save_while_work.txt
+<!-- end-snapshot -->
+
+<!-- git-snapshot 2026-06-26T22:42:08Z -->
+- .claude/docs/blackbox/audit.md
+- .claude/docs/blackbox/session-log.md
+- aux/docs/save_while_work.txt
+<!-- end-snapshot -->
+
+<!-- git-snapshot 2026-06-26T22:44:12Z -->
+- .claude/docs/blackbox/audit.md
+- .claude/docs/blackbox/session-log.md
+- aux/docs/save_while_work.txt
+<!-- end-snapshot -->
+
+<!-- git-snapshot 2026-06-27T07:34:30Z -->
+- .claude/docs/blackbox/audit.md
+<!-- end-snapshot -->
+
+<!-- git-snapshot 2026-06-27T07:35:42Z -->
+- .claude/docs/blackbox/audit.md
+- .claude/docs/blackbox/session-log.md
+<!-- end-snapshot -->
+
+<!-- git-snapshot 2026-06-27T07:52:07Z -->
+- .claude/docs/blackbox/audit.md
+- .claude/docs/blackbox/session-log.md
+<!-- end-snapshot -->
+
+<!-- git-snapshot 2026-06-27T08:02:02Z -->
+- .claude/docs/blackbox/audit.md
+- .claude/docs/blackbox/session-log.md
+<!-- end-snapshot -->
+
+<!-- git-snapshot 2026-06-27T08:06:14Z -->
+- .claude/docs/blackbox/audit.md
+- .claude/docs/blackbox/session-log.md
+<!-- end-snapshot -->
+
+<!-- git-snapshot 2026-06-27T08:14:24Z -->
+- .claude/docs/blackbox/audit.md
+- .claude/docs/blackbox/session-log.md
+<!-- end-snapshot -->
+
+<!-- git-snapshot 2026-06-27T08:15:02Z -->
+- .claude/docs/blackbox/audit.md
+- .claude/docs/blackbox/session-log.md
+<!-- end-snapshot -->
+
+<!-- git-snapshot 2026-06-27T09:36:35Z -->
+- .claude/docs/blackbox/audit.md
+- aux/docs/ocivps.sh
+<!-- end-snapshot -->
+
+<!-- git-snapshot 2026-06-27T09:37:14Z -->
+- .claude/docs/blackbox/audit.md
+- .claude/docs/blackbox/session-log.md
+- aux/docs/ocivps.sh
+<!-- end-snapshot -->
+
+<!-- git-snapshot 2026-06-27T09:50:35Z -->
+- .claude/docs/blackbox/audit.md
+- .claude/docs/blackbox/session-log.md
+- aux/docs/ocivps.sh
+<!-- end-snapshot -->
+
+<!-- git-snapshot 2026-06-27T09:59:37Z -->
+- .claude/docs/blackbox/audit.md
+- .claude/docs/blackbox/session-log.md
+- aux/docs/ocivps.sh
+<!-- end-snapshot -->
+
+<!-- git-snapshot 2026-06-27T10:07:09Z -->
+- .claude/docs/blackbox/audit.md
+- .claude/docs/blackbox/session-log.md
+- aux/docs/ocivps.sh
+<!-- end-snapshot -->
+
+<!-- git-snapshot 2026-06-27T10:08:18Z -->
+- .claude/docs/blackbox/audit.md
+- .claude/docs/blackbox/session-log.md
+- aux/docs/ocivps.sh
+<!-- end-snapshot -->
+
+<!-- git-snapshot 2026-06-27T10:11:05Z -->
+- .claude/docs/blackbox/audit.md
+- .claude/docs/blackbox/session-log.md
+- aux/docs/ocivps.sh
+<!-- end-snapshot -->
+
+<!-- git-snapshot 2026-06-27T10:11:53Z -->
+- .claude/docs/blackbox/audit.md
+- .claude/docs/blackbox/session-log.md
+- aux/docs/ocivps.sh
+<!-- end-snapshot -->
+
+<!-- git-snapshot 2026-06-27T10:16:09Z -->
+- .claude/docs/blackbox/audit.md
+- .claude/docs/blackbox/session-log.md
+- aux/docs/ocivps.sh
+<!-- end-snapshot -->
+
+<!-- git-snapshot 2026-06-27T10:21:53Z -->
+- .claude/docs/blackbox/audit.md
+- .claude/docs/blackbox/session-log.md
+- aux/docs/ocivps.sh
+<!-- end-snapshot -->
+
+<!-- git-snapshot 2026-06-27T10:23:47Z -->
+- .claude/docs/blackbox/audit.md
+- .claude/docs/blackbox/session-log.md
+- aux/docs/ocivps.sh
+<!-- end-snapshot -->
+
+<!-- git-snapshot 2026-06-27T10:24:42Z -->
+- .claude/docs/blackbox/audit.md
+- .claude/docs/blackbox/session-log.md
+- aux/docs/ocivps.sh
+<!-- end-snapshot -->
+
+<!-- git-snapshot 2026-06-27T10:39:23Z -->
+- .claude/docs/blackbox/audit.md
+- .claude/docs/blackbox/session-log.md
+- aux/docs/ocivps.sh
+<!-- end-snapshot -->
+
+<!-- git-snapshot 2026-06-27T10:40:55Z -->
+- .claude/docs/blackbox/audit.md
+- .claude/docs/blackbox/session-log.md
+- aux/docs/ocivps.sh
+<!-- end-snapshot -->
+
+<!-- git-snapshot 2026-06-27T10:46:30Z -->
+- .claude/docs/blackbox/audit.md
+- .claude/docs/blackbox/session-log.md
+- .claude/settings.local.json
+- aux/docs/ocivps.sh
+<!-- end-snapshot -->
+
+<!-- git-snapshot 2026-06-27T10:46:49Z -->
+- .claude/docs/blackbox/audit.md
+- .claude/docs/blackbox/session-log.md
+- .claude/settings.local.json
+- aux/docs/ocivps.sh
+<!-- end-snapshot -->
+
+<!-- git-snapshot 2026-06-27T10:48:09Z -->
+- .claude/docs/blackbox/audit.md
+- .claude/docs/blackbox/session-log.md
+- .claude/settings.local.json
+- aux/docs/ocivps.sh
+<!-- end-snapshot -->
+
+<!-- git-snapshot 2026-06-27T10:49:00Z -->
+- .claude/docs/blackbox/audit.md
+- .claude/docs/blackbox/session-log.md
+- .claude/settings.local.json
+- aux/docs/ocivps.sh
+<!-- end-snapshot -->
+
+<!-- git-snapshot 2026-06-27T10:51:36Z -->
+- .claude/docs/blackbox/audit.md
+- .claude/docs/blackbox/session-log.md
+- .claude/settings.local.json
+- aux/docs/ocivps.sh
+<!-- end-snapshot -->
+
+<!-- git-snapshot 2026-06-27T10:54:09Z -->
+- .claude/docs/blackbox/audit.md
+- .claude/docs/blackbox/session-log.md
+- .claude/settings.local.json
+- aux/scripts/ocivps.sh
+<!-- end-snapshot -->
+
+<!-- git-snapshot 2026-06-27T10:56:30Z -->
+- .claude/docs/blackbox/audit.md
+- .claude/docs/blackbox/session-log.md
+- .claude/settings.local.json
+- aux/scripts/ocivps.sh
+<!-- end-snapshot -->
+
+<!-- git-snapshot 2026-06-27T10:58:23Z -->
+- .claude/docs/blackbox/audit.md
+- .claude/docs/blackbox/session-log.md
+- .claude/settings.local.json
+- aux/scripts/ocivps.sh
+<!-- end-snapshot -->
+
+<!-- git-snapshot 2026-06-27T11:09:58Z -->
+- .claude/docs/blackbox/audit.md
+- .claude/docs/blackbox/session-log.md
+- .claude/settings.local.json
+- aux/scripts/ocivps.sh
+<!-- end-snapshot -->
+
+<!-- git-snapshot 2026-06-27T11:29:46Z -->
+- .claude/docs/blackbox/audit.md
+- .claude/docs/blackbox/session-log.md
+- .claude/settings.local.json
+- aux/scripts/ocivps.sh
+<!-- end-snapshot -->
+
+<!-- git-snapshot 2026-06-27T11:37:40Z -->
+- .claude/docs/blackbox/audit.md
+- .claude/docs/blackbox/session-log.md
+- .claude/settings.local.json
+- aux/scripts/ocivps.sh
+<!-- end-snapshot -->
+
+<!-- git-snapshot 2026-06-27T11:38:46Z -->
+- .claude/docs/blackbox/audit.md
+- .claude/docs/blackbox/session-log.md
+- .claude/settings.local.json
+- aux/scripts/ocivps.sh
+<!-- end-snapshot -->
+
+<!-- git-snapshot 2026-06-27T12:02:15Z -->
+- .claude/docs/blackbox/audit.md
+- .claude/docs/blackbox/session-log.md
+- .claude/settings.local.json
+- aux/scripts/ocivps.sh
+<!-- end-snapshot -->
+
+<!-- git-snapshot 2026-06-27T13:11:01Z -->
+- .claude/docs/blackbox/audit.md
+<!-- end-snapshot -->
+
+<!-- git-snapshot 2026-06-27T13:16:03Z -->
+- .claude/docs/blackbox/audit.md
+- .claude/docs/blackbox/session-log.md
+<!-- end-snapshot -->
+
+<!-- git-snapshot 2026-06-27T13:23:33Z -->
+- .claude/docs/blackbox/audit.md
+- .claude/docs/blackbox/session-log.md
+<!-- end-snapshot -->
+
+<!-- git-snapshot 2026-06-27T13:27:22Z -->
+- .claude/docs/blackbox/audit.md
+- .claude/docs/blackbox/session-log.md
+<!-- end-snapshot -->
+
+<!-- git-snapshot 2026-06-27T13:30:08Z -->
+- .claude/docs/blackbox/audit.md
+- .claude/docs/blackbox/session-log.md
+<!-- end-snapshot -->
+
+<!-- git-snapshot 2026-06-28T10:02:21Z -->
+- .claude/docs/blackbox/audit.md
+- .claude/docs/blackbox/session-log.md
+- aux/scripts/arch/backlog_md_task.sh
+- aux/scripts/arch/backlog_md_task2.sh
+- aux/scripts/deploy-vps.sh
+- deploy-vps.sh
+<!-- end-snapshot -->
+
+<!-- git-snapshot 2026-06-28T10:08:24Z -->
+- .claude/docs/blackbox/audit.md
+- .claude/docs/blackbox/session-log.md
+- aux/scripts/arch/backlog_md_task.sh
+- aux/scripts/arch/backlog_md_task2.sh
+- aux/scripts/deploy-vps.sh
+- deploy-vps.sh
+<!-- end-snapshot -->
+
+<!-- git-snapshot 2026-06-28T10:27:07Z -->
+- .claude/docs/blackbox/audit.md
+- aux/scripts/deploy-vps.sh
+<!-- end-snapshot -->
+
+<!-- git-snapshot 2026-06-28T10:36:32Z -->
+- .claude/docs/blackbox/audit.md
+- .claude/docs/blackbox/session-log.md
+<!-- end-snapshot -->
+
+<!-- git-snapshot 2026-06-28T10:37:41Z -->
+- .claude/docs/blackbox/audit.md
+- .claude/docs/blackbox/session-log.md
+<!-- end-snapshot -->
+
+<!-- git-snapshot 2026-06-28T10:55:45Z -->
+- .claude/docs/blackbox/audit.md
+- .claude/docs/blackbox/session-log.md
+<!-- end-snapshot -->
+
+<!-- git-snapshot 2026-06-28T10:56:38Z -->
+- .claude/docs/blackbox/audit.md
+- .claude/docs/blackbox/session-log.md
+<!-- end-snapshot -->
+
+<!-- git-snapshot 2026-06-28T10:57:34Z -->
+- .claude/docs/blackbox/audit.md
+- .claude/docs/blackbox/session-log.md
+<!-- end-snapshot -->
+
+<!-- git-snapshot 2026-06-28T10:57:56Z -->
+- .claude/docs/blackbox/audit.md
+- .claude/docs/blackbox/session-log.md
+<!-- end-snapshot -->
+
+<!-- git-snapshot 2026-06-28T10:58:29Z -->
+- .claude/docs/blackbox/audit.md
+- .claude/docs/blackbox/session-log.md
+<!-- end-snapshot -->
+
+<!-- git-snapshot 2026-06-28T10:59:06Z -->
+- .claude/docs/blackbox/audit.md
+- .claude/docs/blackbox/session-log.md
+<!-- end-snapshot -->
+
+<!-- git-snapshot 2026-06-28T11:00:06Z -->
+- .claude/docs/blackbox/audit.md
+- .claude/docs/blackbox/session-log.md
+<!-- end-snapshot -->
+
+<!-- git-snapshot 2026-06-28T11:05:38Z -->
+- .claude/docs/blackbox/audit.md
+- .claude/docs/blackbox/session-log.md
+<!-- end-snapshot -->
+
+<!-- git-snapshot 2026-06-28T11:06:21Z -->
+- .claude/docs/blackbox/audit.md
+- .claude/docs/blackbox/session-log.md
+<!-- end-snapshot -->
+
+<!-- git-snapshot 2026-06-28T11:09:27Z -->
+- .claude/docs/blackbox/audit.md
+- .claude/docs/blackbox/session-log.md
+<!-- end-snapshot -->
+
+<!-- git-snapshot 2026-06-28T11:19:54Z -->
+- .claude/docs/blackbox/audit.md
+- .claude/docs/blackbox/save_while_work
+- .claude/docs/blackbox/session-log.md
+<!-- end-snapshot -->
+
+<!-- git-snapshot 2026-06-28T11:20:53Z -->
+- .claude/docs/blackbox/audit.md
+- .claude/docs/blackbox/save_while_work
+- .claude/docs/blackbox/session-log.md
+<!-- end-snapshot -->
+
+<!-- git-snapshot 2026-06-28T11:21:44Z -->
+- .claude/docs/blackbox/audit.md
+- .claude/docs/blackbox/save_while_work
+- .claude/docs/blackbox/session-log.md
+<!-- end-snapshot -->
+
+<!-- git-snapshot 2026-06-28T11:24:06Z -->
+- .claude/docs/blackbox/audit.md
+- .claude/docs/blackbox/save_while_work
+- .claude/docs/blackbox/session-log.md
+<!-- end-snapshot -->
+
+<!-- git-snapshot 2026-06-28T12:06:47Z -->
+- .claude/docs/blackbox/audit.md
+- .claude/docs/blackbox/save_while_work
+- .claude/settings.local.json
+- frontend/package-lock.json
+- frontend/package.json
+- frontend/src/__tests__/ListSearchModal.test.tsx
+- frontend/src/__tests__/SearchModal.test.tsx
+- frontend/src/components/ListSearchModal.tsx
+- frontend/src/components/SearchModal.tsx
+<!-- end-snapshot -->
+
+<!-- git-snapshot 2026-06-28T12:10:51Z -->
+- .claude/docs/blackbox/audit.md
+- .claude/docs/blackbox/save_while_work
+- .claude/docs/blackbox/session-log.md
+- .claude/settings.local.json
+- frontend/package-lock.json
+- frontend/package.json
+- frontend/src/__tests__/ListSearchModal.test.tsx
+- frontend/src/__tests__/SearchModal.test.tsx
+- frontend/src/components/ListSearchModal.tsx
+- frontend/src/components/SearchModal.tsx
+<!-- end-snapshot -->
+
+<!-- git-snapshot 2026-06-28T12:12:34Z -->
+- .claude/docs/blackbox/audit.md
+- .claude/docs/blackbox/save_while_work
+- .claude/docs/blackbox/session-log.md
+- .claude/settings.local.json
+- frontend/package-lock.json
+- frontend/package.json
+- frontend/src/__tests__/ListSearchModal.test.tsx
+- frontend/src/__tests__/SearchModal.test.tsx
+- frontend/src/components/ListSearchModal.tsx
+- frontend/src/components/SearchModal.tsx
+<!-- end-snapshot -->
+
+<!-- git-snapshot 2026-06-28T12:14:55Z -->
+- .claude/docs/blackbox/audit.md
+- .claude/docs/blackbox/plans/2026-06-28 13:49 Plan Add Fuzzy Search with Fusejs.md
+- .claude/docs/blackbox/save_while_work
+- .claude/docs/blackbox/session-log.md
+- .claude/settings.local.json
+- frontend/package-lock.json
+- frontend/package.json
+- frontend/src/__tests__/ListSearchModal.test.tsx
+- frontend/src/__tests__/SearchModal.test.tsx
+- frontend/src/__tests__/hooks/useFuzzySearch.test.ts
+- frontend/src/components/ListSearchModal.tsx
+- frontend/src/components/SearchModal.tsx
+- frontend/src/hooks/useFuzzySearch.ts
+<!-- end-snapshot -->
+
+<!-- git-snapshot 2026-06-28T12:20:07Z -->
+- .claude/docs/blackbox/audit.md
+<!-- end-snapshot -->
+
+<!-- git-snapshot 2026-06-28T12:24:17Z -->
+- .claude/docs/blackbox/audit.md
+- .claude/docs/blackbox/session-log.md
+- .github/workflows/phrasal-deploy.yml
+<!-- end-snapshot -->
+
+<!-- git-snapshot 2026-06-28T12:28:22Z -->
+- .claude/docs/blackbox/audit.md
+<!-- end-snapshot -->

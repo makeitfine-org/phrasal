@@ -45,18 +45,18 @@ class VerbDetailIntegrationTest {
             .withUsername("test")
             .withPassword("test");
 
+    @Autowired
+    private MockMvc mockMvc;
+
+    @Autowired
+    private VerbDetailRepository repository;
+
     @DynamicPropertySource
     static void configureProperties(DynamicPropertyRegistry registry) {
         registry.add("spring.datasource.url", postgres::getJdbcUrl);
         registry.add("spring.datasource.username", postgres::getUsername);
         registry.add("spring.datasource.password", postgres::getPassword);
     }
-
-    @Autowired
-    private MockMvc mockMvc;
-
-    @Autowired
-    private VerbDetailRepository repository;
 
     @Test
     @DisplayName("GET / returns paginated seeded verb details")

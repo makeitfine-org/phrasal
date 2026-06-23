@@ -26,8 +26,8 @@ import java.util.List;
 
 @Entity
 @Table(name = "phrasal_verbs", indexes = {
-    @Index(name = "idx_phrasal_verbs_verb", columnList = "verb"),
-    @Index(name = "idx_phrasal_verbs_is_learned", columnList = "is_learned")
+        @Index(name = "idx_phrasal_verbs_verb", columnList = "verb"),
+        @Index(name = "idx_phrasal_verbs_is_learned", columnList = "is_learned")
 })
 @EntityListeners(AuditingEntityListener.class)
 @Getter
@@ -40,9 +40,9 @@ public class PhrasalVerb {
     @Id
     @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "phrasal_verb_seq")
     @SequenceGenerator(
-        name = "phrasal_verb_seq",
-        sequenceName = "phrasal_verbs_id_seq",
-        allocationSize = 1
+            name = "phrasal_verb_seq",
+            sequenceName = "phrasal_verbs_id_seq",
+            allocationSize = 1
     )
     private Long id;
 

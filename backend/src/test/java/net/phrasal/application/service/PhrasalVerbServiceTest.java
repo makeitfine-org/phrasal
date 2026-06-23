@@ -81,7 +81,7 @@ class PhrasalVerbServiceTest {
         service.getAll(null, null, PageRequest.of(0, 20, Sort.by("invalidField")));
 
         verify(repository).search(any(), any(), argThat(p ->
-            p.getSort().getOrderFor("verb") != null
+                p.getSort().getOrderFor("verb") != null
         ));
     }
 

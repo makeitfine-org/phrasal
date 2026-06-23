@@ -15,4 +15,5 @@ public record VerbDetailResponse(
         LocalDateTime updatedAt,
         Long version
 ) {
+
 }

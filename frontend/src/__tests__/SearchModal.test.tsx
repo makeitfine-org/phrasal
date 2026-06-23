@@ -244,7 +244,7 @@ describe('SearchModal', () => {
     expect(items).toEqual(['break down', 'look up', 'zoom in']);
   });
 
-  it('sorts filtered results alphabetically', async () => {
+  it('returns matching results sorted by relevance for non-empty query', async () => {
     const unordered: VerbEntry[] = [
       { verb: 'zone out', definition: 'stop paying attention', sentences: [], wordsToHide: [] },
       { verb: 'act up', definition: 'behave badly', sentences: [], wordsToHide: [] },
@@ -254,7 +254,32 @@ describe('SearchModal', () => {
     render(<SearchModal {...makeProps({ allVerbs: unordered })} />);
     await user.type(screen.getByPlaceholderText('Search phrasal verbs...'), 'out');
     const items = screen.getAllByRole('listitem').map(li => li.querySelector('.font-semibold')!.textContent);
-    expect(items).toEqual(['burn out', 'zone out']);
+    expect(items).toContain('burn out');
+    expect(items).toContain('zone out');
+    expect(items).not.toContain('act up');
+  });
+
+  it('finds verbs with typos via fuzzy matching', async () => {
+    const verbs: VerbEntry[] = [
+      { verb: 'figure out', definition: 'understand a problem', sentences: [], wordsToHide: [] },
+      { verb: 'look up', definition: 'search for information', sentences: [], wordsToHide: [] },
+    ];
+    const user = userEvent.setup();
+    render(<SearchModal {...makeProps({ allVerbs: verbs })} />);
+    await user.type(screen.getByPlaceholderText('Search phrasal verbs...'), 'figure owt');
+    expect(screen.getByText('figure out')).toBeInTheDocument();
+  });
+
+  it('ranks best match first when query is non-empty', async () => {
+    const verbs: VerbEntry[] = [
+      { verb: 'look out', definition: 'be careful', sentences: [], wordsToHide: [] },
+      { verb: 'look up', definition: 'search for information', sentences: [], wordsToHide: [] },
+    ];
+    const user = userEvent.setup();
+    render(<SearchModal {...makeProps({ allVerbs: verbs })} />);
+    await user.type(screen.getByPlaceholderText('Search phrasal verbs...'), 'look up');
+    const items = screen.getAllByRole('listitem').map(li => li.querySelector('.font-semibold')!.textContent);
+    expect(items[0]).toBe('look up');
   });
 
   it('has role="dialog" on the panel', () => {

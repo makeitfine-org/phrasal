@@ -10063,3 +10063,3998 @@ it would be forcibly inserted.
 ## 2026-06-23T21:56:19Z
 git add all changes and commit them with suitable message
 ---
+
+## 2026-06-23T22:34:00Z
+after `make clean build` @frontend/package-lock.json changed, what's that?
+---
+
+## 2026-06-23T22:35:54Z
+why wasn't it added before?
+---
+
+## 2026-06-23T22:40:09Z
+set in the project Node 26.3.1 everywhere and update libs for @e2e and @frontend/.
+So do `npm audit fix --force`, so that no deprecations and volurabilities exist.
+`make clean build` must pass successfully at the end.
+---
+
+## 2026-06-23T22:43:42Z
+change in the project Node to version 26.3.1 everywhere and update libs for @e2e and @frontend/.
+So do `npm audit fix --force`, so that no deprecations and volurabilities exist.
+`make clean build` must pass successfully at the end.
+---
+
+## 2026-06-23T22:54:16Z
+Analyze the project again and change node version to 26.3.1 everywhere
+---
+
+## 2026-06-23T22:57:57Z
+Consider @CLAUDE.md and @README.md
+---
+
+## 2026-06-23T22:59:43Z
+git add all changes and commit them with suitable message
+---
+
+## 2026-06-23T23:08:14Z
+what env. variable JAVA_HOME do you see? and what current node version do you see?
+---
+
+## 2026-06-23T23:12:26Z
+Extend @aux/code/checkstyle/checkstyle.xml in the way:
+if the code is not stricly follow the format of @"aux/code/checkstyle/Idea codestyle.xml" then checkstyle check must fail.
+---
+
+## 2026-06-23T23:22:43Z
+git add all changes and commit them with suitable message
+---
+
+## 2026-06-24T00:25:31Z
+In @aux/code/checkstyle/ 
+
+this rules:
+<!-- BLANK_LINES_AFTER_CLASS_HEADER=1: opening brace must not be immediately followed by closing brace -->
+    <module name="RegexpMultiline">
+        <property name="format" value="\{[ \t]*\r?\n[ \t]*\}"/>
+        <property name="message" value="Blank line required after opening brace (BLANK_LINES_AFTER_CLASS_HEADER)."/>
+        <property name="fileExtensions" value="java"/>
+    </module>
+not working for:
+package net.phrasal.application.mapper;
+
+import net.phrasal.application.dto.VerbDetailRequest;
+import net.phrasal.application.dto.VerbDetailResponse;
+import net.phrasal.application.dto.VerbDetailSummaryResponse;
+import net.phrasal.domain.entity.VerbDetail;
+import org.mapstruct.Mapper;
+import org.mapstruct.Mapping;
+import org.mapstruct.MappingTarget;
+import org.mapstruct.NullValuePropertyMappingStrategy;
+
+@Mapper(componentModel = "spring", nullValuePropertyMappingStrategy = NullValuePropertyMappingStrategy.IGNORE)
+public interface VerbDetailMapper {
+    VerbDetailResponse toResponse(VerbDetail entity);
+
+    VerbDetailSummaryResponse toSummaryResponse(VerbDetail entity);
+
+    @Mapping(target = "id", ignore = true)
+    @Mapping(target = "createdAt", ignore = true)
+    @Mapping(target = "updatedAt", ignore = true)
+    @Mapping(target = "version", ignore = true)
+    VerbDetail toEntity(VerbDetailRequest request);
+
+    @Mapping(target = "id", ignore = true)
+    @Mapping(target = "createdAt", ignore = true)
+    @Mapping(target = "updatedAt", ignore = true)
+    @Mapping(target = "version", ignore = true)
+    void updateEntityFromRequest(VerbDetailRequest request, @MappingTarget VerbDetail entity);
+}
+---
+
+## 2026-06-24T00:25:46Z
+In @aux/code/checkstyle/ 
+
+this rules:
+<!-- BLANK_LINES_AFTER_CLASS_HEADER=1: opening brace must not be immediately followed by closing brace -->
+    <module name="RegexpMultiline">
+        <property name="format" value="\{[ \t]*\r?\n[ \t]*\}"/>
+        <property name="message" value="Blank line required after opening brace (BLANK_LINES_AFTER_CLASS_HEADER)."/>
+        <property name="fileExtensions" value="java"/>
+    </module>
+not working for:
+package net.phrasal.application.mapper;
+
+import net.phrasal.application.dto.VerbDetailRequest;
+import net.phrasal.application.dto.VerbDetailResponse;
+import net.phrasal.application.dto.VerbDetailSummaryResponse;
+import net.phrasal.domain.entity.VerbDetail;
+import org.mapstruct.Mapper;
+import org.mapstruct.Mapping;
+import org.mapstruct.MappingTarget;
+import org.mapstruct.NullValuePropertyMappingStrategy;
+
+@Mapper(componentModel = "spring", nullValuePropertyMappingStrategy = NullValuePropertyMappingStrategy.IGNORE)
+public interface VerbDetailMapper {
+    VerbDetailResponse toResponse(VerbDetail entity);
+
+    VerbDetailSummaryResponse toSummaryResponse(VerbDetail entity);
+
+    @Mapping(target = "id", ignore = true)
+    @Mapping(target = "createdAt", ignore = true)
+    @Mapping(target = "updatedAt", ignore = true)
+    @Mapping(target = "version", ignore = true)
+    VerbDetail toEntity(VerbDetailRequest request);
+
+    @Mapping(target = "id", ignore = true)
+    @Mapping(target = "createdAt", ignore = true)
+    @Mapping(target = "updatedAt", ignore = true)
+    @Mapping(target = "version", ignore = true)
+    void updateEntityFromRequest(VerbDetailRequest request, @MappingTarget VerbDetail entity);
+}
+fix, it should work
+---
+
+## 2026-06-24T00:29:48Z
+In @aux/code/checkstyle/ 
+
+this rules:
+<!-- BLANK_LINES_AFTER_CLASS_HEADER=1: opening brace must not be immediately followed by closing brace -->
+    <module name="RegexpMultiline">
+        <property name="format" value="\{[ \t]*\r?\n[ \t]*\}"/>
+        <property name="message" value="Blank line required after opening brace (BLANK_LINES_AFTER_CLASS_HEADER)."/>
+        <property name="fileExtensions" value="java"/>
+    </module>
+not working for:
+package net.phrasal.application.mapper;
+
+import net.phrasal.application.dto.VerbDetailRequest;
+import net.phrasal.application.dto.VerbDetailResponse;
+import net.phrasal.application.dto.VerbDetailSummaryResponse;
+import net.phrasal.domain.entity.VerbDetail;
+import org.mapstruct.Mapper;
+import org.mapstruct.Mapping;
+import org.mapstruct.MappingTarget;
+import org.mapstruct.NullValuePropertyMappingStrategy;
+
+@Mapper(componentModel = "spring", nullValuePropertyMappingStrategy = NullValuePropertyMappingStrategy.IGNORE)
+public interface VerbDetailMapper {
+    VerbDetailResponse toResponse(VerbDetail entity);
+
+    VerbDetailSummaryResponse toSummaryResponse(VerbDetail entity);
+
+    @Mapping(target = "id", ignore = true)
+    @Mapping(target = "createdAt", ignore = true)
+    @Mapping(target = "updatedAt", ignore = true)
+    @Mapping(target = "version", ignore = true)
+    VerbDetail toEntity(VerbDetailRequest request);
+
+    @Mapping(target = "id", ignore = true)
+    @Mapping(target = "createdAt", ignore = true)
+    @Mapping(target = "updatedAt", ignore = true)
+    @Mapping(target = "version", ignore = true)
+    void updateEntityFromRequest(VerbDetailRequest request, @MappingTarget VerbDetail entity);
+}
+
+
+but it works here:
+package net.phrasal.application.dto;
+
+import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.NotNull;
+import jakarta.validation.constraints.Size;
+import net.phrasal.domain.entity.VerbDetailSection;
+
+import java.util.List;
+
+public record VerbDetailRequest(
+
+        @NotBlank(message = "Verb is required")
+        @Size(max = 50, message = "Verb must not exceed 50 characters")
+        String verb,
+
+        @NotBlank(message = "Label is required")
+        @Size(max = 50, message = "Label must not exceed 50 characters")
+        String label,
+
+        @NotNull(message = "Particles are required")
+        List<String> particles,
+
+        @NotNull(message = "Sections are required")
+        List<VerbDetailSection> sections
+) {
+
+}
+
+
+fix so that it works for both
+---
+
+## 2026-06-24T00:32:29Z
+If should work for empty and no-empty class, interface, enum, record only
+---
+
+## 2026-06-24T00:33:36Z
+If should work for class, interface, enum, record neverming whether it's empty or non-empty
+---
+
+## 2026-06-24T00:36:37Z
+package net.phrasal.application.dto;
+
+import java.time.LocalDateTime;
+import java.util.List;
+
+public record GrammarEntryResponse(
+        Long id,
+        String category,
+        String sentence,
+        List<String> correctAnswers,
+        LocalDateTime createdAt,
+        LocalDateTime updatedAt,
+        Long version
+) {
+}
+
+
+it must have droped but it didn't
+---
+
+## 2026-06-24T00:47:52Z
+git add all changes and commit them with suitable message
+---
+
+## 2026-06-24T00:52:15Z
+this shift should not be allowed:
+package net.phrasal.application.dto;
+
+import java.time.LocalDateTime;
+import java.util.List;
+
+public record GrammarEntryResponse(
+         Long id,
+            String category,
+            String sentence,
+            List<String> correctAnswers,
+            LocalDateTime createdAt,
+            LocalDateTime updatedAt,
+             Long version
+) {
+
+}
+
+this is correct:
+package net.phrasal.application.dto;
+
+import java.time.LocalDateTime;
+import java.util.List;
+
+public record GrammarEntryResponse(
+         Long id,
+        String category,
+        String sentence,
+        List<String> correctAnswers,
+        LocalDateTime createdAt,
+        LocalDateTime updatedAt,
+        Long version
+) {
+
+}
+
+Write checkstyle rule for that.
+---
+
+## 2026-06-24T00:55:02Z
+this shift should not be allowed:
+package net.phrasal.application.dto;
+
+import java.time.LocalDateTime;
+import java.util.List;
+
+public record GrammarEntryResponse(
+         Long id,
+            String category,
+            String sentence,
+            List<String> correctAnswers,
+            LocalDateTime createdAt,
+            LocalDateTime updatedAt,
+             Long version
+) {
+
+}
+
+this is correct:
+package net.phrasal.application.dto;
+
+import java.time.LocalDateTime;
+import java.util.List;
+
+public record GrammarEntryResponse(
+        Long id,
+        String category,
+        String sentence,
+        List<String> correctAnswers,
+        LocalDateTime createdAt,
+        LocalDateTime updatedAt,
+        Long version
+) {
+
+}
+
+Write checkstyle rule for that.
+---
+
+## 2026-06-24T01:03:28Z
+Write checkstyle rule that check these:
+    <codeStyleSettings language="JAVA">
+        <option name="KEEP_CONTROL_STATEMENT_IN_ONE_LINE" value="false"/>
+        <option name="KEEP_BLANK_LINES_IN_CODE" value="1"/>
+        <option name="BLANK_LINES_AFTER_CLASS_HEADER" value="1"/>
+        <option name="ALIGN_MULTILINE_PARAMETERS" value="false"/>
+        <option name="ALIGN_MULTILINE_RESOURCES" value="false"/>
+        <option name="ALIGN_MULTILINE_FOR" value="false"/>
+        <option name="CALL_PARAMETERS_WRAP" value="1"/>
+        <option name="METHOD_PARAMETERS_WRAP" value="1"/>
+        <option name="EXTENDS_LIST_WRAP" value="1"/>
+        <option name="THROWS_KEYWORD_WRAP" value="1"/>
+        <option name="METHOD_CALL_CHAIN_WRAP" value="1"/>
+        <option name="BINARY_OPERATION_WRAP" value="1"/>
+        <option name="BINARY_OPERATION_SIGN_ON_NEXT_LINE" value="true"/>
+        <option name="TERNARY_OPERATION_WRAP" value="1"/>
+        <option name="TERNARY_OPERATION_SIGNS_ON_NEXT_LINE" value="true"/>
+        <option name="FOR_STATEMENT_WRAP" value="1"/>
+        <option name="ARRAY_INITIALIZER_WRAP" value="1"/>
+        <option name="WRAP_COMMENTS" value="true"/>
+        <option name="IF_BRACE_FORCE" value="3"/>
+        <option name="DOWHILE_BRACE_FORCE" value="3"/>
+        <option name="WHILE_BRACE_FORCE" value="3"/>
+        <option name="FOR_BRACE_FORCE" value="3"/>
+        <option name="PARENT_SETTINGS_INSTALLED" value="true"/>
+        <indentOptions>
+            <option name="INDENT_SIZE" value="4"/>
+            <option name="CONTINUATION_INDENT_SIZE" value="8"/>
+            <option name="TAB_SIZE" value="4"/>
+        </indentOptions>
+    </codeStyleSettings>
+---
+
+## 2026-06-24T01:07:32Z
+Write checkstyle rule(s) that check these:
+    <codeStyleSettings language="JAVA">
+        <indentOptions>
+            <option name="INDENT_SIZE" value="4"/>
+            <option name="CONTINUATION_INDENT_SIZE" value="8"/>
+            <option name="TAB_SIZE" value="4"/>
+        </indentOptions>
+    </codeStyleSettings>
+---
+
+## 2026-06-24T01:15:33Z
+git add all changes and commit them with suitable message
+---
+
+## 2026-06-24T01:20:04Z
+Do not allow empty line in the end before closing clases "}" and last method "}".
+
+This is valid:
+
+package net.phrasal.infrastructure.exception;
+
+public class GrammarEntryNotFoundException extends RuntimeException {
+
+    public GrammarEntryNotFoundException(Long id) {
+        super("Grammar entry not found with id: " + id);
+    }
+}
+
+
+This is not valid:
+package net.phrasal.infrastructure.exception;
+
+public class GrammarEntryNotFoundException extends RuntimeException {
+
+    public GrammarEntryNotFoundException(Long id) {
+        super("Grammar entry not found with id: " + id);
+    }
+    
+}
+---
+
+## 2026-06-24T01:27:03Z
+Do not allow empty line in the end before closing clases "}" and last method "}".
+
+This is valid:
+
+package net.phrasal.infrastructure.exception;
+
+public class GrammarEntryNotFoundException extends RuntimeException {
+
+    public GrammarEntryNotFoundException(Long id) {
+        super("Grammar entry not found with id: " + id);
+    }
+}
+
+
+This is not valid:
+package net.phrasal.infrastructure.exception;
+
+public class GrammarEntryNotFoundException extends RuntimeException {
+
+    public GrammarEntryNotFoundException(Long id) {
+        super("Grammar entry not found with id: " + id);
+    }
+    
+}
+
+
+but if class body is empty that allow:
+{
+
+}
+
+So don't allow if body is not empty
+---
+
+## 2026-06-24T01:36:03Z
+git add all changes and commit them with suitable message
+---
+
+## 2026-06-24T11:03:53Z
+Intro Kubernets and Skaffold for the project.
+Use as ethalon how it's done in "/home/ubuntuu/dev/mine/claude-ai-spring-boot".
+Consider all, including @CLAUDE.md @README.md.
+---
+
+## 2026-06-24T11:05:15Z
+Intro Kubernets and Skaffold for the project.
+Use as ethalon how it's done in "/home/ubuntuu/dev/mine/claude-ai-spring-boot".
+Consider all, including minikube, @CLAUDE.md @README.md.
+---
+
+## 2026-06-24T12:17:49Z
+git add all changes and commit them with suitable message
+---
+
+## 2026-06-24T12:22:51Z
+On:
+~/.../backend$ skaffold dev
+Generating tags...
+ - backend -> backend:v0.7.0-40-g33564fb-dirty
+Checking cache...
+ - backend: Found Locally
+Tags used in deployment:
+ - backend -> backend:3a275aea049f169ee67e85a2b3fed84d5b68f4afa7ba866cf5931cfd5995388c
+Starting deploy...
+ - configmap/app-config created
+ - secret/app-secrets created
+ - statefulset.apps/postgres created
+ - service/postgres-service created
+ - deployment.apps/backend created
+ - service/backend created
+Waiting for deployments to stabilize...
+^G - deployment/backend: waiting for init container wait-for-postgres to complete
+    - pod/backend-59cf6698d8-8x8sf: waiting for init container wait-for-postgres to complete
+      > [backend-59cf6698d8-8x8sf wait-for-postgres] postgres-service:5432 - no response
+      > [backend-59cf6698d8-8x8sf wait-for-postgres] waiting for postgres
+    - pod/backend-59cf6698d8-q2ftw: waiting for init container wait-for-postgres to complete
+      > [backend-59cf6698d8-q2ftw wait-for-postgres] postgres-service:5432 - no response
+      > [backend-59cf6698d8-q2ftw wait-for-postgres] waiting for postgres
+      > [backend-59cf6698d8-q2ftw wait-for-postgres] postgres-service:5432 - no response
+      > [backend-59cf6698d8-q2ftw wait-for-postgres] waiting for postgres
+ - statefulset/postgres: Waiting for 1 pods to be ready...
+ - statefulset/postgres is ready. [1/2 deployment(s) still pending]
+ - deployment/backend: container app terminated with exit code 1
+    - pod/backend-59cf6698d8-8x8sf: container app terminated with exit code 1
+      > [backend-59cf6698d8-8x8sf app]   .   ____          _            __ _ _
+      > [backend-59cf6698d8-8x8sf app]  /\\ / ___'_ __ _ _(_)_ __  __ _ \ \ \ \
+      > [backend-59cf6698d8-8x8sf app] ( ( )\___ | '_ | '_| | '_ \/ _` | \ \ \ \
+      > [backend-59cf6698d8-8x8sf app]  \\/  ___)| |_)| | | | | || (_| |  ) ) ) )
+      > [backend-59cf6698d8-8x8sf app]   '  |____| .__|_| |_|_| |_\__, | / / / /
+      > [backend-59cf6698d8-8x8sf app]  =========|_|==============|___/=/_/_/_/
+      > [backend-59cf6698d8-8x8sf app]  :: Spring Boot ::                (v3.4.1)
+      > [backend-59cf6698d8-8x8sf app] 2026-06-24T12:17:04.505Z  INFO 1 --- [backend] [           main] net.phrasal.PhrasalApplication           : Starting PhrasalApplication v0.1.0 using Java 21.0.11 with PID 1 (/app/app.jar started by root in /app)
+      > [backend-59cf6698d8-8x8sf app] 2026-06-24T12:17:04.511Z  INFO 1 --- [backend] [           main] net.phrasal.PhrasalApplication           : The following 1 profile is active: "prod"
+      > [backend-59cf6698d8-8x8sf app] 2026-06-24T12:17:10.803Z  INFO 1 --- [backend] [           main] .s.d.r.c.RepositoryConfigurationDelegate : Bootstrapping Spring Data JPA repositories in DEFAULT mode.
+      > [backend-59cf6698d8-8x8sf app] 2026-06-24T12:17:11.129Z  INFO 1 --- [backend] [           main] .s.d.r.c.RepositoryConfigurationDelegate : Finished Spring Data repository scanning in 307 ms. Found 3 JPA repository interfaces.
+      > [backend-59cf6698d8-8x8sf app] 2026-06-24T12:17:16.223Z  INFO 1 --- [backend] [           main] o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat initialized with port 8080 (http)
+      > [backend-59cf6698d8-8x8sf app] 2026-06-24T12:17:16.302Z  INFO 1 --- [backend] [           main] o.apache.catalina.core.StandardService   : Starting service [Tomcat]
+      > [backend-59cf6698d8-8x8sf app] 2026-06-24T12:17:16.303Z  INFO 1 --- [backend] [           main] o.apache.catalina.core.StandardEngine    : Starting Servlet engine: [Apache Tomcat/10.1.34]
+      > [backend-59cf6698d8-8x8sf app] 2026-06-24T12:17:16.803Z  INFO 1 --- [backend] [           main] o.a.c.c.C.[Tomcat].[localhost].[/]       : Initializing Spring embedded WebApplicationContext
+      > [backend-59cf6698d8-8x8sf app] 2026-06-24T12:17:16.807Z  INFO 1 --- [backend] [           main] w.s.c.ServletWebServerApplicationContext : Root WebApplicationContext: initialization completed in 12081 ms
+      > [backend-59cf6698d8-8x8sf app] 2026-06-24T12:17:20.485Z  INFO 1 --- [backend] [           main] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Starting...
+      > [backend-59cf6698d8-8x8sf app] 2026-06-24T12:17:22.391Z  WARN 1 --- [backend] [           main] ConfigServletWebServerApplicationContext : Exception encountered during context initialization - cancelling refresh attempt: org.springframework.beans.factory.BeanCreationException: Error creating bean with name 'entityManagerFactory' defined in class path resource [org/springframework/boot/autoconfigure/orm/jpa/HibernateJpaConfiguration.class]: Failed to initialize dependency 'flywayInitializer' of LoadTimeWeaverAware bean 'entityManagerFactory': Error creating bean with name 'flywayInitializer' defined in class path resource [org/springframework/boot/autoconfigure/flyway/FlywayAutoConfiguration$FlywayConfiguration.class]: Unable to obtain connection from database: FATAL: password authentication failed for user "postgres"
+      > [backend-59cf6698d8-8x8sf app] ----------------------------------------------------------------------------------------------------
+      > [backend-59cf6698d8-8x8sf app] SQL State  : 28P01
+      > [backend-59cf6698d8-8x8sf app] Error Code : 0
+      > [backend-59cf6698d8-8x8sf app] Message    : FATAL: password authentication failed for user "postgres"
+      > [backend-59cf6698d8-8x8sf app] 2026-06-24T12:17:22.400Z  INFO 1 --- [backend] [           main] o.apache.catalina.core.StandardService   : Stopping service [Tomcat]
+      > [backend-59cf6698d8-8x8sf app] 2026-06-24T12:17:22.435Z  INFO 1 --- [backend] [           main] .s.b.a.l.ConditionEvaluationReportLogger :
+      > [backend-59cf6698d8-8x8sf app] Error starting ApplicationContext. To display the condition evaluation report re-run your application with 'debug' enabled.
+      > [backend-59cf6698d8-8x8sf app] 2026-06-24T12:17:22.509Z ERROR 1 --- [backend] [           main] o.s.boot.SpringApplication               : Application run failed
+      > [backend-59cf6698d8-8x8sf app] org.springframework.beans.factory.BeanCreationException: Error creating bean with name 'entityManagerFactory' defined in class path resource [org/springframework/boot/autoconfigure/orm/jpa/HibernateJpaConfiguration.class]: Failed to initialize dependency 'flywayInitializer' of LoadTimeWeaverAware bean 'entityManagerFactory': Error creating bean with name 'flywayInitializer' defined in class path resource [org/springframework/boot/autoconfigure/flyway/FlywayAutoConfiguration$FlywayConfiguration.class]: Unable to obtain connection from database: FATAL: password authentication failed for user "postgres"
+      > [backend-59cf6698d8-8x8sf app] ----------------------------------------------------------------------------------------------------
+      > [backend-59cf6698d8-8x8sf app] SQL State  : 28P01
+      > [backend-59cf6698d8-8x8sf app] Error Code : 0
+      > [backend-59cf6698d8-8x8sf app] Message    : FATAL: password authentication failed for user "postgres"
+      > [backend-59cf6698d8-8x8sf app]  at org.springframework.beans.factory.support.AbstractBeanFactory.doGetBean(AbstractBeanFactory.java:325) ~[spring-beans-6.2.1.jar!/:6.2.1]
+      > [backend-59cf6698d8-8x8sf app]  at org.springframework.beans.factory.support.AbstractBeanFactory.getBean(AbstractBeanFactory.java:204) ~[spring-beans-6.2.1.jar!/:6.2.1]
+      > [backend-59cf6698d8-8x8sf app]  at org.springframework.context.support.AbstractApplicationContext.finishBeanFactoryInitialization(AbstractApplicationContext.java:970) ~[spring-context-6.2.1.jar!/:6.2.1]
+      > [backend-59cf6698d8-8x8sf app]  at org.springframework.context.support.AbstractApplicationContext.refresh(AbstractApplicationContext.java:627) ~[spring-context-6.2.1.jar!/:6.2.1]
+      > [backend-59cf6698d8-8x8sf app]  at org.springframework.boot.web.servlet.context.ServletWebServerApplicationContext.refresh(ServletWebServerApplicationContext.java:146) ~[spring-boot-3.4.1.jar!/:3.4.1]
+      > [backend-59cf6698d8-8x8sf app]  at org.springframework.boot.SpringApplication.refresh(SpringApplication.java:752) ~[spring-boot-3.4.1.jar!/:3.4.1]
+      > [backend-59cf6698d8-8x8sf app]  at org.springframework.boot.SpringApplication.refreshContext(SpringApplication.java:439) ~[spring-boot-3.4.1.jar!/:3.4.1]
+      > [backend-59cf6698d8-8x8sf app]  at org.springframework.boot.SpringApplication.run(SpringApplication.java:318) ~[spring-boot-3.4.1.jar!/:3.4.1]
+      > [backend-59cf6698d8-8x8sf app]  at org.springframework.boot.SpringApplication.run(SpringApplication.java:1361) ~[spring-boot-3.4.1.jar!/:3.4.1]
+      > [backend-59cf6698d8-8x8sf app]  at org.springframework.boot.SpringApplication.run(SpringApplication.java:1350) ~[spring-boot-3.4.1.jar!/:3.4.1]
+      > [backend-59cf6698d8-8x8sf app]  at net.phrasal.PhrasalApplication.main(PhrasalApplication.java:10) ~[!/:0.1.0]
+      > [backend-59cf6698d8-8x8sf app]  at java.base/jdk.internal.reflect.DirectMethodHandleAccessor.invoke(Unknown Source) ~[na:na]
+      > [backend-59cf6698d8-8x8sf app]  at java.base/java.lang.reflect.Method.invoke(Unknown Source) ~[na:na]
+      > [backend-59cf6698d8-8x8sf app]  at org.springframework.boot.loader.launch.Launcher.launch(Launcher.java:102) ~[app.jar:0.1.0]
+      > [backend-59cf6698d8-8x8sf app]  at org.springframework.boot.loader.launch.Launcher.launch(Launcher.java:64) ~[app.jar:0.1.0]
+      > [backend-59cf6698d8-8x8sf app]  at org.springframework.boot.loader.launch.JarLauncher.main(JarLauncher.java:40) ~[app.jar:0.1.0]
+      > [backend-59cf6698d8-8x8sf app] Caused by: org.springframework.beans.factory.BeanCreationException: Error creating bean with name 'flywayInitializer' defined in class path resource [org/springframework/boot/autoconfigure/flyway/FlywayAutoConfiguration$FlywayConfiguration.class]: Unable to obtain connection from database: FATAL: password authentication failed for user "postgres"
+      > [backend-59cf6698d8-8x8sf app] ----------------------------------------------------------------------------------------------------
+      > [backend-59cf6698d8-8x8sf app] SQL State  : 28P01
+      > [backend-59cf6698d8-8x8sf app] Error Code : 0
+      > [backend-59cf6698d8-8x8sf app] Message    : FATAL: password authentication failed for user "postgres"
+      > [backend-59cf6698d8-8x8sf app]  at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.initializeBean(AbstractAutowireCapableBeanFactory.java:1808) ~[spring-beans-6.2.1.jar!/:6.2.1]
+      > [backend-59cf6698d8-8x8sf app]  at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.doCreateBean(AbstractAutowireCapableBeanFactory.java:601) ~[spring-beans-6.2.1.jar!/:6.2.1]
+      > [backend-59cf6698d8-8x8sf app]  at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.createBean(AbstractAutowireCapableBeanFactory.java:523) ~[spring-beans-6.2.1.jar!/:6.2.1]
+      > [backend-59cf6698d8-8x8sf app]  at org.springframework.beans.factory.support.AbstractBeanFactory.lambda$doGetBean$0(AbstractBeanFactory.java:336) ~[spring-beans-6.2.1.jar!/:6.2.1]
+      > [backend-59cf6698d8-8x8sf app]  at org.springframework.beans.factory.support.DefaultSingletonBeanRegistry.getSingleton(DefaultSingletonBeanRegistry.java:289) ~[spring-beans-6.2.1.jar!/:6.2.1]
+      > [backend-59cf6698d8-8x8sf app]  at org.springframework.beans.factory.support.AbstractBeanFactory.doGetBean(AbstractBeanFactory.java:334) ~[spring-beans-6.2.1.jar!/:6.2.1]
+      > [backend-59cf6698d8-8x8sf app]  at org.springframework.beans.factory.support.AbstractBeanFactory.getBean(AbstractBeanFactory.java:199) ~[spring-beans-6.2.1.jar!/:6.2.1]
+      > [backend-59cf6698d8-8x8sf app]  at org.springframework.beans.factory.support.AbstractBeanFactory.doGetBean(AbstractBeanFactory.java:312) ~[spring-beans-6.2.1.jar!/:6.2.1]
+      > [backend-59cf6698d8-8x8sf app]  ... 15 common frames omitted
+      > [backend-59cf6698d8-8x8sf app] Caused by: org.flywaydb.core.internal.exception.FlywaySqlException: Unable to obtain connection from database: FATAL: password authentication failed for user "postgres"
+      > [backend-59cf6698d8-8x8sf app] ----------------------------------------------------------------------------------------------------
+      > [backend-59cf6698d8-8x8sf app] SQL State  : 28P01
+      > [backend-59cf6698d8-8x8sf app] Error Code : 0
+      > [backend-59cf6698d8-8x8sf app] Message    : FATAL: password authentication failed for user "postgres"
+      > [backend-59cf6698d8-8x8sf app]  at org.flywaydb.core.internal.jdbc.JdbcUtils.openConnection(JdbcUtils.java:71) ~[flyway-core-10.20.1.jar!/:na]
+      > [backend-59cf6698d8-8x8sf app]  at org.flywaydb.core.internal.jdbc.JdbcConnectionFactory.<init>(JdbcConnectionFactory.java:76) ~[flyway-core-10.20.1.jar!/:na]
+      > [backend-59cf6698d8-8x8sf app]  at org.flywaydb.core.FlywayExecutor.execute(FlywayExecutor.java:137) ~[flyway-core-10.20.1.jar!/:na]
+      > [backend-59cf6698d8-8x8sf app]  at org.flywaydb.core.Flyway.migrate(Flyway.java:176) ~[flyway-core-10.20.1.jar!/:na]
+      > [backend-59cf6698d8-8x8sf app]  at org.springframework.boot.autoconfigure.flyway.FlywayMigrationInitializer.afterPropertiesSet(FlywayMigrationInitializer.java:66) ~[spring-boot-autoconfigure-3.4.1.jar!/:3.4.1]
+      > [backend-59cf6698d8-8x8sf app]  at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.invokeInitMethods(AbstractAutowireCapableBeanFactory.java:1855) ~[spring-beans-6.2.1.jar!/:6.2.1]
+      > [backend-59cf6698d8-8x8sf app]  at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.initializeBean(AbstractAutowireCapableBeanFactory.java:1804) ~[spring-beans-6.2.1.jar!/:6.2.1]
+      > [backend-59cf6698d8-8x8sf app]  ... 22 common frames omitted
+      > [backend-59cf6698d8-8x8sf app] Caused by: org.postgresql.util.PSQLException: FATAL: password authentication failed for user "postgres"
+      > [backend-59cf6698d8-8x8sf app]  at org.postgresql.core.v3.ConnectionFactoryImpl.doAuthentication(ConnectionFactoryImpl.java:711) ~[postgresql-42.7.4.jar!/:42.7.4]
+      > [backend-59cf6698d8-8x8sf app]  at org.postgresql.core.v3.ConnectionFactoryImpl.tryConnect(ConnectionFactoryImpl.java:213) ~[postgresql-42.7.4.jar!/:42.7.4]
+      > [backend-59cf6698d8-8x8sf app]  at org.postgresql.core.v3.ConnectionFactoryImpl.openConnectionImpl(ConnectionFactoryImpl.java:268) ~[postgresql-42.7.4.jar!/:42.7.4]
+      > [backend-59cf6698d8-8x8sf app]  at org.postgresql.core.ConnectionFactory.openConnection(ConnectionFactory.java:54) ~[postgresql-42.7.4.jar!/:42.7.4]
+      > [backend-59cf6698d8-8x8sf app]  at org.postgresql.jdbc.PgConnection.<init>(PgConnection.java:273) ~[postgresql-42.7.4.jar!/:42.7.4]
+      > [backend-59cf6698d8-8x8sf app]  at org.postgresql.Driver.makeConnection(Driver.java:446) ~[postgresql-42.7.4.jar!/:42.7.4]
+      > [backend-59cf6698d8-8x8sf app]  at org.postgresql.Driver.connect(Driver.java:298) ~[postgresql-42.7.4.jar!/:42.7.4]
+      > [backend-59cf6698d8-8x8sf app]  at com.zaxxer.hikari.util.DriverDataSource.getConnection(DriverDataSource.java:137) ~[HikariCP-5.1.0.jar!/:na]
+      > [backend-59cf6698d8-8x8sf app]  at com.zaxxer.hikari.pool.PoolBase.newConnection(PoolBase.java:360) ~[HikariCP-5.1.0.jar!/:na]
+      > [backend-59cf6698d8-8x8sf app]  at com.zaxxer.hikari.pool.PoolBase.newPoolEntry(PoolBase.java:202) ~[HikariCP-5.1.0.jar!/:na]
+      > [backend-59cf6698d8-8x8sf app]  at com.zaxxer.hikari.pool.HikariPool.createPoolEntry(HikariPool.java:461) ~[HikariCP-5.1.0.jar!/:na]
+      > [backend-59cf6698d8-8x8sf app]  at com.zaxxer.hikari.pool.HikariPool.checkFailFast(HikariPool.java:550) ~[HikariCP-5.1.0.jar!/:na]
+      > [backend-59cf6698d8-8x8sf app]  at com.zaxxer.hikari.pool.HikariPool.<init>(HikariPool.java:98) ~[HikariCP-5.1.0.jar!/:na]
+      > [backend-59cf6698d8-8x8sf app]  at com.zaxxer.hikari.HikariDataSource.getConnection(HikariDataSource.java:111) ~[HikariCP-5.1.0.jar!/:na]
+      > [backend-59cf6698d8-8x8sf app]  at org.flywaydb.core.internal.jdbc.JdbcUtils.openConnection(JdbcUtils.java:59) ~[flyway-core-10.20.1.jar!/:na]
+      > [backend-59cf6698d8-8x8sf app]  ... 28 common frames omitted
+    - pod/backend-59cf6698d8-q2ftw: container app terminated with exit code 1
+ - deployment/backend failed. Error: container app terminated with exit code 1.
+Cleaning up...
+ - configmap "app-config" deleted from default namespace
+ - secret "app-secrets" deleted from default namespace
+ - statefulset.apps "postgres" deleted from default namespace
+ - service "postgres-service" deleted from default namespace
+ - deployment.apps "backend" deleted from default namespace
+ - service "backend" deleted from default namespace
+1/2 deployment(s) failed
+
+Util it failed I saw wit kubectl:
+NAME                           READY   STATUS              RESTARTS   AGE
+pod/backend-59cf6698d8-8x8sf   0/1     Init:0/1            0          2s
+pod/backend-59cf6698d8-q2ftw   0/1     Init:0/1            0          2s
+pod/postgres-0                 0/1     ContainerCreating   0          2s
+
+NAME                       TYPE           CLUSTER-IP       EXTERNAL-IP   PORT(S)          AGE
+service/backend            LoadBalancer   10.107.21.211    <pending>     8080:30899/TCP   2s
+service/kubernetes         ClusterIP      10.96.0.1        <none>        443/TCP          3d20h
+service/postgres-service   ClusterIP      10.110.187.172   <none>        5432/TCP         2s
+
+NAME                      READY   UP-TO-DATE   AVAILABLE   AGE
+deployment.apps/backend   0/2     2            0           2s
+
+NAME                                 DESIRED   CURRENT   READY   AGE
+replicaset.apps/backend-59cf6698d8   2         2         0       2s
+
+NAME                        READY   AGE
+statefulset.apps/postgres   0/1     2s
+
+But after failing:
+NAME                 TYPE        CLUSTER-IP   EXTERNAL-IP   PORT(S)   AGE
+service/kubernetes   ClusterIP   10.96.0.1    <none>        443/TCP   3d20h
+
+Fix that.
+---
+
+## 2026-06-24T12:27:56Z
+Still get:
+
+/backend$ skaffold dev
+Generating tags...
+ - backend -> backend:v0.7.0-41-gb04bf01
+Checking cache...
+ - backend: Found. Tagging
+Tags used in deployment:
+ - backend -> backend:3a275aea049f169ee67e85a2b3fed84d5b68f4afa7ba866cf5931cfd5995388c
+Starting deploy...
+ - configmap/app-config created
+ - secret/app-secrets created
+ - statefulset.apps/postgres created
+ - service/postgres-service created
+ - deployment.apps/backend created
+ - service/backend created
+Waiting for deployments to stabilize...
+ - deployment/backend: waiting for init container wait-for-postgres to complete
+    - pod/backend-7f64bdf9b8-khqrk: waiting for init container wait-for-postgres to complete
+      > [backend-7f64bdf9b8-khqrk wait-for-postgres] postgres-service:5432 - no response
+      > [backend-7f64bdf9b8-khqrk wait-for-postgres] waiting for postgres
+    - pod/backend-7f64bdf9b8-vll79: waiting for init container wait-for-postgres to complete
+      > [backend-7f64bdf9b8-vll79 wait-for-postgres] postgres-service:5432 - no response
+      > [backend-7f64bdf9b8-vll79 wait-for-postgres] waiting for postgres
+      > [backend-7f64bdf9b8-vll79 wait-for-postgres] postgres-service:5432 - no response
+      > [backend-7f64bdf9b8-vll79 wait-for-postgres] waiting for postgres
+ - statefulset/postgres: Waiting for 1 pods to be ready...
+ - statefulset/postgres is ready. [1/2 deployment(s) still pending]
+ - deployment/backend: container app terminated with exit code 1
+    - pod/backend-7f64bdf9b8-khqrk: container app terminated with exit code 1
+ - deployment/backend failed. Error: container app terminated with exit code 1.
+Cleaning up...
+ - configmap "app-config" deleted from default namespace
+ - secret "app-secrets" deleted from default namespace
+ - statefulset.apps "postgres" deleted from default namespace
+ - service "postgres-service" deleted from default namespace
+ - deployment.apps "backend" deleted from default namespace
+ - service "backend" deleted from default namespace
+1/2 deployment(s) failed
+---
+
+## 2026-06-24T13:13:33Z
+On `frontend` `skaffold dev` a get each second  log in terminal:
+[frontend]10.244.0.1 - - [24/Jun/2026:13:11:29 +0000] "GET / HTTP/1.1" 200 1201 "-" "kube-probe/1.35" "-"
+[frontend]10.244.0.1 - - [24/Jun/2026:13:11:32 +0000] "GET / HTTP/1.1" 200 1201 "-" "kube-probe/1.35" "-"
+[frontend]10.244.0.1 - - [24/Jun/2026:13:11:34 +0000] "GET / HTTP/1.1" 200 1201 "-" "kube-probe/1.35" "-"
+[frontend]10.244.0.1 - - [24/Jun/2026:13:11:34 +0000] "GET / HTTP/1.1" 200 1201 "-" "kube-probe/1.35" "-"
+[frontend]10.244.0.1 - - [24/Jun/2026:13:11:36 +0000] "GET / HTTP/1.1" 200 1201 "-" "kube-probe/1.35" "-"
+[frontend]10.244.0.1 - - [24/Jun/2026:13:11:37 +0000] "GET / HTTP/1.1" 200 1201 "-" "kube-probe/1.35" "-"
+[frontend]10.244.0.1 - - [24/Jun/2026:13:11:39 +0000] "GET / HTTP/1.1" 200 1201 "-" "kube-probe/1.35" "-"
+[frontend]10.244.0.1 - - [24/Jun/2026:13:11:42 +0000] "GET / HTTP/1.1" 200 1201 "-" "kube-probe/1.35" "-"
+[frontend]10.244.0.1 - - [24/Jun/2026:13:11:44 +0000] "GET / HTTP/1.1" 200 1201 "-" "kube-probe/1.35" "-"
+[frontend]10.244.0.1 - - [24/Jun/2026:13:11:44 +0000] "GET / HTTP/1.1" 200 1201 "-" "kube-probe/1.35" "-"
+[frontend]10.244.0.1 - - [24/Jun/2026:13:11:46 +0000] "GET / HTTP/1.1" 200 1201 "-" "kube-probe/1.35" "-"
+[frontend]10.244.0.1 - - [24/Jun/2026:13:11:47 +0000] "GET / HTTP/1.1" 200 1201 "-" "kube-probe/1.35" "-"
+[frontend]10.244.0.1 - - [24/Jun/2026:13:11:49 +0000] "GET / HTTP/1.1" 200 1201 "-" "kube-probe/1.35" "-"
+
+hot to stop getting that?
+---
+
+## 2026-06-24T13:15:01Z
+Afte your changes the log is still outputing.
+---
+
+## 2026-06-24T13:28:43Z
+git add all changes and commit them with suitable message
+---
+
+## 2026-06-24T17:17:16Z
+can skaffold work with helm? what's the difference?
+---
+
+## 2026-06-24T17:47:29Z
+The Invalidate Caches operation requested embedded browser engine cache cleanup. The operation failed due to I/O error: C:\Users\malysh.evgen\AppData\Local\JetBrains\IntelliJIdea2026.1\jcef_cache\Default\Account Web Data: The process cannot access the file because it is being used by another process
+---
+
+## 2026-06-24T19:00:59Z
+Move in @backend java private static final Logger LOG = LoggerFactory.getLogger(VerbDetailService.class); to @Slf4j
+`make clean build` must successfully passed at the end.
+---
+
+## 2026-06-24T19:05:12Z
+Add to @CLAUDE.md to use @.claude/skills when it's it suitable
+---
+
+## 2026-06-24T19:11:55Z
+As it was done in `/home/ubuntuu/dev/mine/claude-ai-spring-boot` project for the current `phrasal` project create separate README.md and CLAUDE.md for `backend`, `frontend`, `e2e` and root project.
+---
+
+## 2026-06-24T19:25:04Z
+git add all changes and commit them with suitable message
+---
+
+## 2026-06-24T19:29:51Z
+based on @.claude/skills refactor in the best way @backend code
+---
+
+## 2026-06-24T19:42:01Z
+fix until `make clean build` successfully passed.
+---
+
+## 2026-06-24T19:46:33Z
+git add all changes and commit them with suitable message
+---
+
+## 2026-06-25T15:01:45Z
+are you working?
+---
+
+## 2026-06-25T17:13:26Z
+I choose on Oracle Cloud free trier always free option VPS which of these are free:
+
+
+Canonical Ubuntu 22.04 Minimal aarch64
+Oracle
+Free
+BM Confidential computing
+
+Canonical Ubuntu 24.04
+Oracle
+Free
+Shielded instance, Confidential computing, BM Confidential computing
+
+Canonical Ubuntu 24.04 Minimal
+Oracle
+Free
+Shielded instance, Confidential computing, BM Confidential computing
+
+Canonical Ubuntu 24.04 Minimal aarch64
+Oracle
+Free
+BM Confidential computing
+---
+
+## 2026-06-25T17:17:09Z
+ Shielded instance, Confidential computing, BM Confidential computing
+
+What are these mean here?
+---
+
+## 2026-06-25T17:35:25Z
+While creating VPS:
+---
+
+## 2026-06-25T17:35:32Z
+While creating VPS:
+API Error
+Out of capacity for shape VM.Standard.A1.Flex in availability domain AD-3. Create the instance in a different availability domain or try again later.If you specified a fault domain, try creating the instance without specifying a fault domain. If that doesn’t work, please try again later.Learn more about host capacity.
+---
+
+## 2026-06-25T17:45:00Z
+In chrome:
+
+Warning: Don’t paste code into the DevTools Console that you don’t understand or haven’t reviewed yourself. This could allow attackers to steal your identity or take control of your computer. Please type “allow pasting” below and press Enter to allow pasting.
+---
+
+## 2026-06-25T18:37:30Z
+when upgrage to pay as you go oracle charge 100$ dollars and return?
+---
+
+## 2026-06-25T18:40:57Z
+I run script in console and it works background how to stop it works, without reload the page?
+---
+
+## 2026-06-25T18:41:09Z
+I run script in browser dev. console and it works background how to stop it works, without reload the page?
+---
+
+## 2026-06-25T18:44:46Z
+I try to create ARM VPS on Oracle Cloud but get error that no capacities.
+I'm on Germany Central (Frankfurt) - Home Region
+If I change the region of infrastructure does it help?
+---
+
+## 2026-06-25T18:48:08Z
+I can't change region, what is the reason to change VCN for creation VPS?
+---
+
+## 2026-06-26T07:56:53Z
+To deploy and run on production all my these application with up to 10 user wheat the hardware parameters (cpu, memory, disk, etc.)  are enough?
+---
+
+## 2026-06-26T07:59:06Z
+If not to use k8s what the best alternative on free aws tier or oracle cloud free tier always free?
+---
+
+## 2026-06-26T08:24:00Z
+Oracle:
+Shape
+VM.Standard.E2.1.Micro
+Always Free-eligible
+Shape build
+Virtual machine, 1 core OCPU, 1 GB memory, 0.48 Gbps network bandwidth
+
+Will be enough
+---
+
+## 2026-06-26T08:31:59Z
+Shape
+VM.Standard.E2.1.Micro
+Always Free-eligible
+Shape build
+Virtual machine, 1 core OCPU, 1 GB memory, 0.48 Gbps network bandwidth
+Even if to run all with docker compose?
+---
+
+## 2026-06-26T08:51:06Z
+Shape
+VM.Standard.E2.1.Micro
+Always Free-eligible
+Shape build
+Virtual machine, 1 core OCPU, 1 GB memory, 0.48 Gbps network bandwidth
+
+How to optimize the app to run it there.
+---
+
+## 2026-06-26T09:31:03Z
+I haven't to run a new version?
+---
+
+## 2026-06-26T09:37:21Z
+but updating with k8s cluster would be easier right?
+---
+
+## 2026-06-26T09:38:44Z
+If I have a 4 cpu and 16 ram application with k8s will it be easier to deploy new versions?
+---
+
+## 2026-06-26T09:40:34Z
+The aws free tier VPS max param?
+---
+
+## 2026-06-26T09:41:37Z
+But I can't create for 10 hours the 4 ocpu/24 gb (arm) it says all capacities is fullfilled.
+---
+
+## 2026-06-26T11:59:45Z
+If I have pay as you go Oracle 2 node with 2 cpu and 12 ram each are free?
+---
+
+## 2026-06-26T12:02:39Z
+ If you accidentally exceed limits (e.g. create a 5th OCPU), Oracle will charge you — so just be careful with the totals.
+How can I do that? just create some new vm?
+---
+
+## 2026-06-26T12:04:40Z
+so if I have 2 nodes with 2 cpu and 12 memory on arm. and deploy all in docker Oracle would not pay anything from me?
+---
+
+## 2026-06-26T12:06:13Z
+I can create and delete that vps any time I want?
+---
+
+## 2026-06-26T12:07:11Z
+If I deploy there some web application what the free way to get that application?
+---
+
+## 2026-06-26T12:07:41Z
+If I deploy there some web application what the free way to acces that application in broswer? should i pay for domain?
+---
+
+## 2026-06-26T12:09:25Z
+when I create 2 notes disk memory is created separatly?
+---
+
+## 2026-06-26T12:12:09Z
+Can I send deploy all my phrasal verb app with teraform for free on that severs?
+---
+
+## 2026-06-26T12:12:25Z
+Can I then deploy all my phrasal verb app with teraform for free on that severs?
+---
+
+## 2026-06-26T12:14:11Z
+I have VCN on Oracle how to see that from terminal on my machine not from console oracle, and how to see instances I created?
+---
+
+## 2026-06-26T12:25:47Z
+  x86_64-linux-gnu-gcc -fno-strict-overflow -Wsign-compare -DNDEBUG -g -O2 -Wall -fPIC -DNDEBUG -Isrc/cc32c/ext/ -I/ho
+me/ubuntuu/lib/oracle-cli/include -I/usr/include/python3.14 -c src/crc32c/ext/_crc32c.c -o build/temp.linux-x86_64-cpython
+-314/src/crc32c/ext/_crc32c.o
+      error: command 'x86_64-linux-gnu-gcc' failed: No such file or directory
+      [end of output]
+
+  note: This error originates from a subprocess, and is likely not a problem with pip.
+  ERROR: Failed building wheel for crc32c
+  Building wheel for PyYAML (pyproject.toml) ... done
+  Created wheel for PyYAML: filename=pyyaml-6.0.2-cp314-cp314-linux_x86_64.whl size=45458 sha256=8beff55f676d19b7934badac0
+e30d7ba350cec5372e635c13a092624809afcad
+  Stored in directory: /tmp/tmpllkzozrm/wheels/16/d3/3b/1f603c475e2c00f8749b9c112c874a87093b6fc1ef4a11ce07
+Successfully built PyYAML
+Failed to build crc32c
+error: failed-wheel-build-for-install
+
+× Failed to build installable wheels for some pyproject.toml based projects
+╰─> crc32c
+Traceback (most recent call last):
+  File "/tmp/oci_cli_install_tmp_8VKs", line 767, in <module>
+    main()
+    ~~~~^^
+  File "/tmp/oci_cli_install_tmp_8VKs", line 720, in main
+    install_cli(install_dir, tmp_dir, cli_version, OPTIONAL_FEATURES, dependency_dir)
+    ~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/tmp/oci_cli_install_tmp_8VKs", line 350, in install_cli
+    exec_command(cmd, env=env)
+    ~~~~~~~~~~~~^^^^^^^^^^^^^^
+  File "/tmp/oci_cli_install_tmp_8VKs", line 166, in exec_command
+    subprocess.check_call(command_list, cwd=cwd, env=env)
+    ~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/lib/python3.14/subprocess.py", line 420, in check_call
+    raise CalledProcessError(retcode, cmd)
+subprocess.CalledProcessError: Command '['/home/ubuntuu/lib/oracle-cli/bin/pip', 'install', '--cache-dir', '/tmp/tmpllkzoz
+rm', 'oci_cli', '--upgrade']' returned non-zero exit status 1.
+---
+
+## 2026-06-26T12:32:39Z
+===> Modify profile to update your $PATH and enable shell/tab completion now? (Y/n): Y
+
+===> Enter a path to an rc file to update (file will be created if it does not exist) (leave blank to use '/home/ubuntuu/.bashrc'):
+---
+
+## 2026-06-26T12:36:52Z
+oci setup config
+    This command provides a walkthrough of creating a valid CLI config file.
+
+    The following links explain where to find the information required by this
+    script:
+
+    User API Signing Key, OCID and Tenancy OCID:
+
+        https://docs.cloud.oracle.com/Content/API/Concepts/apisigningkey.htm#Other
+
+    Region:
+
+        https://docs.cloud.oracle.com/Content/General/Concepts/regions.htm
+
+    General config documentation:
+
+        https://docs.cloud.oracle.com/Content/API/Concepts/sdkconfig.htm
+
+
+Enter a location for your config [/home/ubuntuu/.oci/config]:
+---
+
+## 2026-06-26T12:42:57Z
+Enter a passphrase for your private key ("N/A" for no passphrase):
+---
+
+## 2026-06-26T12:43:24Z
+I write N/A but it asks repeat
+---
+
+## 2026-06-26T12:44:49Z
+I don't see public key:
+
+Private key written to: /home/ubuntuu/.oci/oci_api_key.pem
+Fingerprint: b1:f3:c1:ed:78:28:30:37:50:74:5c:c9:e6:f6:1d:37
+Config written to /home/ubuntuu/.oci/config
+
+
+    If you haven't already uploaded your API Signing public key through the
+    console, follow the instructions on the page linked below in the section
+    'How to upload the public key':
+
+        https://docs.cloud.oracle.com/Content/API/Concepts/apisigningkey.htm#How2
+---
+
+## 2026-06-26T13:14:16Z
+ oci iam region list --output table
+ServiceError:
+{
+    "client_version": "Oracle-PythonSDK/2.180.0, Oracle-PythonCLI/3.88.0",
+    "code": "NotAuthenticated",
+    "logging_tips": "Please run the OCI CLI command using --debug flag to find more debug information.",
+    "message": "The required information to complete authentication was not provided or was incorrect.",
+    "opc-request-id": "3D37877EB4464FADB31FAF615E59F226/F8900B08763B9A4641753E6A46524114/066F75FA8C2BA9F2AB67501008924C45",
+    "operation_name": "list_regions",
+    "request_endpoint": "GET https://identity.eu-frankfurt-1.oci.oraclecloud.com/20160918/regions",
+    "status": 401,
+    "target_service": "identity",
+    "timestamp": "2026-06-26T12:49:02.364272+00:00",
+    "troubleshooting_tips": "See [https://docs.oracle.com/iaas/Content/API/References/apierrors.htm] for more information about resolving this error. If you are unable to resolve this issue, run this CLI command with --debug option and contact Oracle support and provide them the full error message."
+}
+---
+
+## 2026-06-26T13:18:54Z
+# List all VCNs
+  oci network vcn list --compartment-id <your-compartment-ocid>
+
+Where to take compartment-id
+---
+
+## 2026-06-26T13:22:08Z
+set autocompletion for oci command
+---
+
+## 2026-06-26T13:30:05Z
+in ~/.bashrc it's added, but it doesn't work:
+
+[[ -e "/home/ubuntuu/lib/oracle-cli/lib/python3.14/site-packages/oci_cli/bin/oci_autocomplete.sh" ]] && source "/home/ubuntuu/lib/oracle-cli/lib/python3.14/site-packages/oci_cli/bin/oci_autocomplete.sh"
+
+[[ -e "/home/ubuntuu/lib/oci_autocomplete.sh" ]] && source "/home/ubuntuu/lib/oci_autocomplete.sh"
+---
+
+## 2026-06-26T13:30:37Z
+if move that to /ect/bash_completion.d/ folder?
+---
+
+## 2026-06-26T13:36:37Z
+I set:
+ cat /etc/bash_completion.d/oci
+# coding: utf-8
+# Copyright (c) 2016, 2026, Oracle and/or its affiliates. All rights reserved.
+# This software is dual-licensed to you under the Universal Permissive License (UPL) 1.0 as shown at https://oss.oracle.com/licenses/upl or Apache License 2.0 as shown at http://www.apache.org/licenses/LICENSE-2.0. You may choose either license.
+
+_oci_completion() {
+    COMPREPLY=( $( env COMP_WORDS="${COMP_WORDS[*]}" \
+                   COMP_CWORD=$COMP_CWORD \
+                   _OCI_COMPLETE=complete $1 ) )
+    return 0
+}
+
+complete -F _oci_completion -o default oci;
+
+but `oci net` and that tab nothing autocomplete
+---
+
+## 2026-06-26T13:38:34Z
+ubuntuu@LP-BSF-EMALYSH:~/.../phrasal$ which oci
+/home/ubuntuu/bin/oci
+---
+
+## 2026-06-26T14:09:24Z
+ # List all VCNs
+  oci network vcn list --compartment-id <your-compartment-ocid>
+
+So on each request I should have --comparatment-id?
+---
+
+## 2026-06-26T14:18:55Z
+I have ~/.bashrc:
+
+# ~/.bashrc: executed by bash(1) for non-login shells.
+# see /usr/share/doc/bash/examples/startup-files (in the package bash-doc)
+# for examples
+
+# If not running interactively, don't do anything
+case $- in
+    *i*) ;;
+      *) return;;
+esac
+
+# don't put duplicate lines or lines starting with space in the history.
+# See bash(1) for more options
+HISTCONTROL=ignoreboth
+
+# append to the history file, don't overwrite it
+shopt -s histappend
+
+# for setting history length see HISTSIZE and HISTFILESIZE in bash(1)
+HISTSIZE=1000
+HISTFILESIZE=2000
+
+# check the window size after each command and, if necessary,
+# update the values of LINES and COLUMNS.
+shopt -s checkwinsize
+
+# If set, the pattern "**" used in a pathname expansion context will
+# match all files and zero or more directories and subdirectories.
+#shopt -s globstar
+
+# make less more friendly for non-text input files, see lesspipe(1)
+[ -x /usr/bin/lesspipe ] && eval "$(SHELL=/bin/sh lesspipe)"
+
+# set variable identifying the chroot you work in (used in the prompt below)
+if [ -z "${debian_chroot:-}" ] && [ -r /etc/debian_chroot ]; then
+    debian_chroot=$(cat /etc/debian_chroot)
+fi
+
+# set a fancy prompt (non-color, unless we know we "want" color)
+case "$TERM" in
+    xterm-color|*-256color) color_prompt=yes;;
+esac
+
+# uncomment for a colored prompt, if the terminal has the capability; turned
+# off by default to not distract the user: the focus in a terminal window
+# should be on the output of commands, not on the prompt
+#force_color_prompt=yes
+
+if [ -n "$force_color_prompt" ]; then
+    if [ -x /usr/bin/tput ] && tput setaf 1 >&/dev/null; then
+    # We have color support; assume it's compliant with Ecma-48
+    # (ISO/IEC-6429). (Lack of such support is extremely rare, and such
+    # a case would tend to support setf rather than setaf.)
+    color_prompt=yes
+    else
+    color_prompt=
+    fi
+fi
+
+if [ "$color_prompt" = yes ]; then
+    PS1='${debian_chroot:+($debian_chroot)}\[\033[01;32m\]\u@\h\[\033[00m\]:\[\033[01;34m\]\w\[\033[00m\]\$ '
+else
+    PS1='${debian_chroot:+($debian_chroot)}\u@\h:\w\$ '
+fi
+unset color_prompt force_color_prompt
+
+# If this is an xterm set the title to user@host:dir
+case "$TERM" in
+xterm*|rxvt*)
+    PS1="\[\e]0;${debian_chroot:+($debian_chroot)}\u@\h: \w\a\]$PS1"
+    ;;
+*)
+    ;;
+esac
+
+# enable color support of ls and also add handy aliases
+if [ -x /usr/bin/dircolors ]; then
+    test -r ~/.dircolors && eval "$(dircolors -b ~/.dircolors)" || eval "$(dircolors -b)"
+    alias ls='ls --color=auto'
+    #alias dir='dir --color=auto'
+    #alias vdir='vdir --color=auto'
+
+    alias grep='grep --color=auto'
+    alias fgrep='fgrep --color=auto'
+    alias egrep='egrep --color=auto'
+fi
+
+# colored GCC warnings and errors
+#export GCC_COLORS='error=01;31:warning=01;35:note=01;36:caret=01;32:locus=01:quote=01'
+
+# some more ls aliases
+alias ll='ls -alF'
+alias la='ls -A'
+alias l='ls -CF'
+
+# Add an "alert" alias for long running commands.  Use like so:
+#   sleep 10; alert
+alias alert='notify-send --urgency=low -i "$([ $? = 0 ] && echo terminal || echo error)" "$(history|tail -n1|sed -e '\''s/^\s*[0-9]\+\s*//;s/[;&|]\s*alert$//'\'')"'
+
+# Alias definitions.
+# You may want to put all your additions into a separate file like
+# ~/.bash_aliases, instead of adding them here directly.
+# See /usr/share/doc/bash-doc/examples in the bash-doc package.
+
+if [ -f ~/.bash_aliases ]; then
+    . ~/.bash_aliases
+fi
+
+# enable programmable completion features (you don't need to enable
+# this, if it's already enabled in /etc/bash.bashrc and /etc/profile
+# sources /etc/bash.bashrc).
+if ! shopt -oq posix; then
+  if [ -f /usr/share/bash-completion/bash_completion ]; then
+    . /usr/share/bash-completion/bash_completion
+  elif [ -f /etc/bash_completion ]; then
+    . /etc/bash_completion
+  fi
+fi
+
+###
+# Automatically add completion for all aliases to commands having completion functions
+function alias_completion {
+    local namespace="alias_completion"
+
+    # parse function based completion definitions, where capture group 2 => function and 3 => trigger
+    local compl_regex='complete( +[^ ]+)* -F ([^ ]+) ("[^"]+"|[^ ]+)'
+    # parse alias definitions, where capture group 1 => trigger, 2 => command, 3 => command arguments
+    local alias_regex="alias ([^=]+)='(\"[^\"]+\"|[^ ]+)(( +[^ ]+)*)'"
+
+    # create array of function completion triggers, keeping multi-word triggers together
+    eval "local completions=($(complete -p | sed -Ene "/$compl_regex/s//'\3'/p"))"
+    (( ${#completions[@]} == 0 )) && return 0
+
+    # create temporary file for wrapper functions and completions
+    rm -f "/tmp/${namespace}-*.tmp" # preliminary cleanup
+    local tmp_file; tmp_file="$(mktemp "/tmp/${namespace}-${RANDOM}XXX.tmp")" || return 1
+
+    local completion_loader; completion_loader="$(complete -p -D 2>/dev/null | sed -Ene 's/.* -F ([^ ]*).*/\1/p')"
+
+    # read in "<alias> '<aliased command>' '<command args>'" lines from defined aliases
+    local line; while read line; do
+        eval "local alias_tokens; alias_tokens=($line)" 2>/dev/null || continue # some alias arg patterns cause an eval parse error
+        local alias_name="${alias_tokens[0]}" alias_cmd="${alias_tokens[1]}" alias_args="${alias_tokens[2]# }"
+
+        # skip aliases to pipes, boolean control structures and other command lists
+        # (leveraging that eval errs out if $alias_args contains unquoted shell metacharacters)
+        eval "local alias_arg_words; alias_arg_words=($alias_args)" 2>/dev/null || continue
+        # avoid expanding wildcards
+        read -a alias_arg_words <<< "$alias_args"
+
+        # skip alias if there is no completion function triggered by the aliased command
+        if [[ ! " ${completions[*]} " =~ " $alias_cmd " ]]; then
+            if [[ -n "$completion_loader" ]]; then
+                # force loading of completions for the aliased command
+                eval "$completion_loader $alias_cmd"
+                # 124 means completion loader was successful
+                [[ $? -eq 124 ]] || continue
+                completions+=($alias_cmd)
+            else
+                continue
+            fi
+        fi
+        local new_completion="$(complete -p "$alias_cmd")"
+
+        # create a wrapper inserting the alias arguments if any
+        if [[ -n $alias_args ]]; then
+            local compl_func="${new_completion/#* -F /}"; compl_func="${compl_func%% *}"
+            # avoid recursive call loops by ignoring our own functions
+            if [[ "${compl_func#_$namespace::}" == $compl_func ]]; then
+                local compl_wrapper="_${namespace}::${alias_name}"
+                    echo "function $compl_wrapper {
+                        (( COMP_CWORD += ${#alias_arg_words[@]} ))
+                        COMP_WORDS=($alias_cmd $alias_args \${COMP_WORDS[@]:1})
+                        (( COMP_POINT -= \${#COMP_LINE} ))
+                        COMP_LINE=\${COMP_LINE/$alias_name/$alias_cmd $alias_args}
+                        (( COMP_POINT += \${#COMP_LINE} ))
+                        $compl_func
+                    }" >> "$tmp_file"
+                    new_completion="${new_completion/ -F $compl_func / -F $compl_wrapper }"
+            fi
+        fi
+
+        # replace completion trigger by alias
+        new_completion="${new_completion% *} $alias_name"
+        echo "$new_completion" >> "$tmp_file"
+    done < <(alias -p | sed -Ene "s/$alias_regex/\1 '\2' '\3'/p")
+    source "$tmp_file" && rm -f "$tmp_file"
+};
+
+# ~/.bashrc
+load_renovation_env() {
+  # shellcheck disable=SC1090
+  source ~/.secrets.d/secrets.sh
+  echo "Sensitive env loaded for this shell."
+}
+
+load_renovation_env
+
+#export JAVA_HOME="/usr/lib/jvm/java-17-openjdk-amd64"
+export JAVA_HOME="/usr/lib/jvm/zulu17"
+export M2_HOME="/usr/share/maven"
+export MAVEN_OPTS="-Xss16M"
+
+export GRADLE_HOME=/opt/gradle/gradle-9.6.0
+export PATH=${GRADLE_HOME}/bin:${PATH}
+
+#Anthropic
+export ANTHROPIC_DEFAULT_OPUS_MODEL="claude-opus-4-6"
+export ANTHROPIC_FOUNDRY_API_KEY="<>"
+export ANTHROPIC_FOUNDRY_RESOURCE="<>"
+export CLAUDE_CODE_USE_FOUNDRY="<>"
+
+PATH="$JAVA_HOME/bin:$M2_HOME/bin:$PATH"
+
+export PATH
+
+export NVM_DIR="$HOME/.nvm"
+[ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"  # This loads nvm
+[ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion"  # This loads nvm bash_completion
+
+PROMPT_DIRTRIM=1
+PS1="\[\e[32m\]\u\[\e[0m\]@\[\e[34m\]\h\[\e[0m\]:\[\e[33m\]\w\[\e[0m\]\$ "
+export TERM=xterm-mono
+alias ls='ls --color=never'
+
+##Aliases
+#Common
+alias j17="export JAVA_HOME=/usr/lib/jvm/java-1.17.0-openjdk-amd64"
+alias j21="export JAVA_HOME=/usr/lib/jvm/java-1.21.0-openjdk-amd64"
+alias ..="cd .."
+alias l="ls"
+alias c="cd "
+#alias wd="cd ~/dev/projects/"
+alias pj="cd ~/dev/projects/"
+alias r="reset"
+alias cl="clear"
+alias e="exit"
+alias n="npm"
+alias nr="npm run"
+alias ni="npm install"
+alias no="node"
+alias bpb="source ~/.bashrc && source ~/.profile && source ~/.bashrc"
+alias ns="netstat -lpn | grep "
+alias ki="sudo kill -9 "
+alias sau="sudo apt update && sudo apt autoremove && sudo apt update"
+alias gpua="git push origin develop && git push x7warrior develop && git push github develop"
+#alias rm='stop'
+alias cla="claude"
+alias w="watch -n 1 "
+alias eb="exec bash"
+alias st="speedtest"
+
+#Maven
+source ~/mvn_autocomplete.bash
+alias m="mvn"
+alias mc="mvn clean"
+alias mco="mvn compile"
+alias mp="mvn package"
+alias mt="mvn test"
+#alias mi="mvn install"
+alias mcc="mvn clean compile"
+alias mctc="mvn clean test-compile"
+alias mcp="mvn clean package"
+alias mct="mvn clean test"
+alias mcv="mvn clean verify"
+alias mcin="mvn clean integration-test"
+alias mci="mvn clean install"
+alias mcis="mvn clean install -DskipTests=true"
+alias mid="mvn idea:clean idea:idea"
+alias mdr="mvn dependency:resolve dependency:sources"
+alias mcva="mvn clean validate"
+alias mdt="mvn dependency:tree"
+alias mdg="mvn dependency:tree | grep "
+alias mdi='function mdi(){ mvn dependency:tree -Dincludes=$1; };mdi'
+
+#Makefile
+alias ma="make"
+alias macb="make clean build"
+
+#Git (it considers git aliases described in the snippet: https://bitbucket.org/snippets/iCreators/dRdyj)
+alias g='git'
+alias gf='git fetch'
+alias gpu='git push'
+alias gp='git pull'
+alias gl='git log -5 --oneline'
+alias gpl='git pull origin develop'
+alias gps='git push origin develop'
+alias gb='git branch'
+alias gch='git checkout'
+alias gs='git status'
+alias gc='git commit -m'
+alias ga='git add'
+alias gaa='git add .'
+alias gac='git add . && git commit -m'
+alias gd='git diff'
+#alias gr='git reset'
+alias grs='git reset --soft'
+alias gcl='git clean -f'
+alias grc='g rc' #!git reset --hard && git clean -f
+alias gm='git merge'
+alias gco='git commit'
+alias gca='git commit --amend'
+alias gt='git tag'
+
+#Gradle
+alias gr="./gradlew"
+alias grc="./gradlew clean"
+alias grb="./gradlew build"
+alias grt="./gradlew test"
+alias grj="./gradlew jar"
+alias grcb="./gradlew clean build --no-build-cache"
+alias idea="/bin/bash -l -c ~/dev/software/idea-IU-253.30387.90/bin/idea"
+
+#Docker
+alias d='docker'
+alias dl='docker logs'
+alias dp='docker ps -a'
+alias di='docker images'
+alias dc='docker compose' 
+alias dcu='docker compose up'
+alias dcd='docker compose up -d'
+alias dcp='docker compose ps'
+alias dcdw='docker compose down'
+alias dkc='docker kill $(docker ps -q) && docker rm $(docker ps -a -q)'
+alias des='function des(){ docker exec -it $1 sh; };des'
+alias deb='function deb(){ docker exec -it $1 bash; };deb'
+
+#Kubenetes
+source  ~/kubectl-completion
+alias k="kubectl"
+#alias ka="kubectl get pod && kubectl get service && kubectl get deployments && kubectl get replicasets.apps && kubectl get statefulsets.apps"
+alias kg="kubectl get"
+alias kd="kubectl delete"
+alias kde="kubectl describe"
+alias kga="kubectl get all"
+alias kgp="kubectl get pv"
+alias kgpc="kubectl get pvc"
+alias kn="kubectl config view --minify -o jsonpath='{..namespace}' && echo"
+alias kns="kubectl config set-context --current --namespace"
+
+#Minikube
+source ~/minikube-completion
+alias mi="minikube"
+alias min="minikube -p mn"
+alias mis="minikube ssh"
+
+# after any command just put tnot(), e.g. gradle build; tnot
+alias tnsimple="curl -X POST \"https://api.telegram.org/bot$NOTIFICATION_TELEGRAM_BOT_TOKEN/sendMessage\" -H \"Content-Type: application/json\" -d \"{\\\"chat_id\\\": \\\"$NOTIFICATION_TELEGRAM_CHAT_ID\\\", \\\"text\\\": \\\"🔔 Job finished 🔔\\\"}\""
+
+# using: tnot "<message>"
+tn() {
+  local msg="${*:-🔔 Job finished 🔔}"
+  local api="https://api.telegram.org/bot${NOTIFICATION_TELEGRAM_BOT_TOKEN}/sendMessage"
+  curl -sS -X POST "$api" \
+    --data "chat_id=${NOTIFICATION_TELEGRAM_CHAT_ID}" \
+    --data-urlencode "text=$msg"
+}
+
+tncut() {
+  local raw="${*:-🔔 Job finished 🔔}"
+  # Fast substring (may cut a multi-byte char in UTF-8 edge cases)
+  local msg="${raw:0:1000}"
+
+  # HTML-escape for parse_mode=HTML
+  local esc
+  esc=$(printf '%s' "$msg" | sed -e 's/&/\&amp;/g' -e 's/</\&lt;/g' -e 's/>/\&gt;/g')
+
+  local api="https://api.telegram.org/bot${NOTIFICATION_TELEGRAM_BOT_TOKEN}/sendMessage"
+  curl -sS -X POST "$api" \
+    --data "chat_id=${NOTIFICATION_TELEGRAM_CHAT_ID}" \
+    --data "parse_mode=HTML" \
+    --data-urlencode "text=<pre><code>${esc}</code></pre>"
+}
+
+# Add the hook to your shell (add to ~/.bashrc)
+eval "$(direnv hook bash)"
+
+alias_completion
+
+# `ma` is an alias for `make`. The standard _make completion uses $1 as the
+# binary to invoke for harvesting targets — and aliases don't expand inside
+# functions, so passing $1=ma fails. Wrap it to pass $1=make instead.
+_install_ma_completion() {
+      if ! complete -p make &>/dev/null; then
+          if declare -F _completion_loader &>/dev/null; then
+              _completion_loader make 2>/dev/null
+          elif declare -F _comp_load &>/dev/null; then
+              _comp_load make 2>/dev/null
+          fi
+      fi
+      local make_func
+      for fn in _make _comp_cmd_make; do
+          declare -F "$fn" &>/dev/null && make_func="$fn" && break
+      done
+      if [[ -z "${make_func:-}" ]]; then
+          for f in /usr/share/bash-completion/completions/make \
+                   /etc/bash_completion.d/make; do
+              [ -r "$f" ] && . "$f" && break
+          done
+          for fn in _make _comp_cmd_make; do
+              declare -F "$fn" &>/dev/null && make_func="$fn" && break
+          done
+      fi
+      if [[ -n "${make_func:-}" ]]; then
+          eval "_ma() { $make_func make \"\$2\" \"\$3\"; }"
+          complete -F _ma ma
+      fi
+  }
+  _install_ma_completion
+  unset -f _install_ma_completion
+
+
+
+
+export PATH=/home/ubuntuu/bin:$PATH
+
+[[ -e "/home/ubuntuu/lib/oci_autocomplete.sh" ]] && source "/home/ubuntuu/lib/oci_autocomplete.sh"
+
+
+when I enter `oci n` and  <TAB> nothing appears on autocompletion, but autocompletion installed
+---
+
+## 2026-06-26T14:20:26Z
+/home/ubuntuu/lib/oracle-cli/lib/python3.14/site-packages/oci_cli/bin/oci_autocomplete.sh
+---
+
+## 2026-06-26T14:22:00Z
+sed -i 's|source "/home/ubuntuu/lib/oci_autocomplete.sh"|source
+  "/home/ubuntuu/lib/oracle-cli/lib/python3.14/site-packages/oci_cli/bin/oci_autocomplete.sh"|' ~/.bashrc
+sed: -e expression #1, char 55: unterminated `s' command
+---
+
+## 2026-06-26T14:23:47Z
+still doesn't work
+---
+
+## 2026-06-26T14:28:04Z
+I doesn't work, but `oci -i` work fine
+---
+
+## 2026-06-26T14:30:57Z
+env COMP_WORDS="oci network" COMP_CWORD=1 _OCI_COMPLETE=bash_complete oci
+plain,network
+plain,network-firewall
+---
+
+## 2026-06-26T14:49:18Z
+No on `oci ne` it shows:  `oci plain,ne`
+---
+
+## 2026-06-26T14:59:03Z
+===> Enter a path to an rc file to update (file will be created if it does not exist) (leave blank to use '/home/ubuntuu/.bashrc'):
+Using tab completion script at: /home/ubuntuu/lib/oracle-cli/lib/python3.14/site-packages/oci_cli/bin/oci_autocomplete.sh
+We need to add a few lines to your /home/ubuntuu/.bashrc file. Please confirm this is ok. [Y/n]: Y
+Success!
+ Restart your terminal or Run '[[ -e "/home/ubuntuu/lib/oci_autocomplete.sh" ]] && source "/home/ubuntuu/lib/oci_autocomplete.sh"' for the changes to take effect.
+ubuntuu@LP-BSF-EMALYSH:~/.../phrasal$ cat /home/ubuntuu/lib/oci_autocomplete.sh
+ubuntuu@LP-BSF-EMALYSH:~/.../phrasal$ ll cat /home/ubuntuu/lib/oci_autocomplete.sh
+ls: cannot access 'cat': No such file or directory
+lrwxrwxrwx 1 ubuntuu ubuntuu 89 Jun 26 16:56 /home/ubuntuu/lib/oci_autocomplete.sh@ -> /home/ubuntuu/lib/oracle-cli/lib/python3.14/site-packages/oci_cli/bin/oci_autocomplete.sh
+ubuntuu@LP-BSF-EMALYSH:~/.../phrasal$ oci setup autocomplete
+To set up autocomplete, we would update few lines in rc/bash_profile file.
+
+===> Enter a path to an rc file to update (file will be created if it does not exist) (leave blank to use '/home/ubuntuu/.bashrc'):
+Could not locate autocomplete script at /home/ubuntuu/lib/oracle-cli/lib/python3.14/site-packages/oci_cli/bin/oci_autocomplete.sh. Exiting script.
+---
+
+## 2026-06-26T15:08:13Z
+ cat > ~/lib/oracle-cli/lib/python3.14/site-packages/oci_cli/bin/oci_autocomplete.sh << 'EOF'
+_oci_completion() {
+  local IFS=$'\n'
+  COMPREPLY=( $( env COMP_WORDS="${COMP_WORDS[*]}" \
+                 COMP_CWORD=$COMP_CWORD \
+                 _OCI_COMPLETE=bash_complete $1 | sed 's/^plain,//' ) )
+  return 0
+}
+
+  complete -F _oci_completion -o default oci;
+EOF
+
+/home/ubuntuu/dev/mine/phrasal/scratch.sh: line 11: warning: here-document at line 1 delimited by end-of-file (wanted `EOF')
+---
+
+## 2026-06-26T15:22:05Z
+on `oci ` and tab:
+
+ oci
+Display all 171 possibilities? (y or n)
+access-governance-cp             devops                           occ
+adm                              dif                              oce
+ai                               disaster-recovery                ocvs
+ai-data-platform                 distributed-database             oda
+
+but `oci ne` and tab there is nothing
+
+My ~/.bashrc:
+# ~/.bashrc: executed by bash(1) for non-login shells.
+# see /usr/share/doc/bash/examples/startup-files (in the package bash-doc)
+# for examples
+
+# If not running interactively, don't do anything
+case $- in
+    *i*) ;;
+      *) return;;
+esac
+
+# don't put duplicate lines or lines starting with space in the history.
+# See bash(1) for more options
+HISTCONTROL=ignoreboth
+
+# append to the history file, don't overwrite it
+shopt -s histappend
+
+# for setting history length see HISTSIZE and HISTFILESIZE in bash(1)
+HISTSIZE=1000
+HISTFILESIZE=2000
+
+# check the window size after each command and, if necessary,
+# update the values of LINES and COLUMNS.
+shopt -s checkwinsize
+
+# If set, the pattern "**" used in a pathname expansion context will
+# match all files and zero or more directories and subdirectories.
+#shopt -s globstar
+
+# make less more friendly for non-text input files, see lesspipe(1)
+[ -x /usr/bin/lesspipe ] && eval "$(SHELL=/bin/sh lesspipe)"
+
+# set variable identifying the chroot you work in (used in the prompt below)
+if [ -z "${debian_chroot:-}" ] && [ -r /etc/debian_chroot ]; then
+    debian_chroot=$(cat /etc/debian_chroot)
+fi
+
+# set a fancy prompt (non-color, unless we know we "want" color)
+case "$TERM" in
+    xterm-color|*-256color) color_prompt=yes;;
+esac
+
+# uncomment for a colored prompt, if the terminal has the capability; turned
+# off by default to not distract the user: the focus in a terminal window
+# should be on the output of commands, not on the prompt
+#force_color_prompt=yes
+
+if [ -n "$force_color_prompt" ]; then
+    if [ -x /usr/bin/tput ] && tput setaf 1 >&/dev/null; then
+    # We have color support; assume it's compliant with Ecma-48
+    # (ISO/IEC-6429). (Lack of such support is extremely rare, and such
+    # a case would tend to support setf rather than setaf.)
+    color_prompt=yes
+    else
+    color_prompt=
+    fi
+fi
+
+if [ "$color_prompt" = yes ]; then
+    PS1='${debian_chroot:+($debian_chroot)}\[\033[01;32m\]\u@\h\[\033[00m\]:\[\033[01;34m\]\w\[\033[00m\]\$ '
+else
+    PS1='${debian_chroot:+($debian_chroot)}\u@\h:\w\$ '
+fi
+unset color_prompt force_color_prompt
+
+# If this is an xterm set the title to user@host:dir
+case "$TERM" in
+xterm*|rxvt*)
+    PS1="\[\e]0;${debian_chroot:+($debian_chroot)}\u@\h: \w\a\]$PS1"
+    ;;
+*)
+    ;;
+esac
+
+# enable color support of ls and also add handy aliases
+if [ -x /usr/bin/dircolors ]; then
+    test -r ~/.dircolors && eval "$(dircolors -b ~/.dircolors)" || eval "$(dircolors -b)"
+    alias ls='ls --color=auto'
+    #alias dir='dir --color=auto'
+    #alias vdir='vdir --color=auto'
+
+    alias grep='grep --color=auto'
+    alias fgrep='fgrep --color=auto'
+    alias egrep='egrep --color=auto'
+fi
+
+# colored GCC warnings and errors
+#export GCC_COLORS='error=01;31:warning=01;35:note=01;36:caret=01;32:locus=01:quote=01'
+
+# some more ls aliases
+alias ll='ls -alF'
+alias la='ls -A'
+alias l='ls -CF'
+
+# Add an "alert" alias for long running commands.  Use like so:
+#   sleep 10; alert
+alias alert='notify-send --urgency=low -i "$([ $? = 0 ] && echo terminal || echo error)" "$(history|tail -n1|sed -e '\''s/^\s*[0-9]\+\s*//;s/[;&|]\s*alert$//'\'')"'
+
+# Alias definitions.
+# You may want to put all your additions into a separate file like
+# ~/.bash_aliases, instead of adding them here directly.
+# See /usr/share/doc/bash-doc/examples in the bash-doc package.
+
+if [ -f ~/.bash_aliases ]; then
+    . ~/.bash_aliases
+fi
+
+# enable programmable completion features (you don't need to enable
+# this, if it's already enabled in /etc/bash.bashrc and /etc/profile
+# sources /etc/bash.bashrc).
+if ! shopt -oq posix; then
+  if [ -f /usr/share/bash-completion/bash_completion ]; then
+    . /usr/share/bash-completion/bash_completion
+  elif [ -f /etc/bash_completion ]; then
+    . /etc/bash_completion
+  fi
+fi
+
+###
+# Automatically add completion for all aliases to commands having completion functions
+function alias_completion {
+    local namespace="alias_completion"
+
+    # parse function based completion definitions, where capture group 2 => function and 3 => trigger
+    local compl_regex='complete( +[^ ]+)* -F ([^ ]+) ("[^"]+"|[^ ]+)'
+    # parse alias definitions, where capture group 1 => trigger, 2 => command, 3 => command arguments
+    local alias_regex="alias ([^=]+)='(\"[^\"]+\"|[^ ]+)(( +[^ ]+)*)'"
+
+    # create array of function completion triggers, keeping multi-word triggers together
+    eval "local completions=($(complete -p | sed -Ene "/$compl_regex/s//'\3'/p"))"
+    (( ${#completions[@]} == 0 )) && return 0
+
+    # create temporary file for wrapper functions and completions
+    rm -f "/tmp/${namespace}-*.tmp" # preliminary cleanup
+    local tmp_file; tmp_file="$(mktemp "/tmp/${namespace}-${RANDOM}XXX.tmp")" || return 1
+
+    local completion_loader; completion_loader="$(complete -p -D 2>/dev/null | sed -Ene 's/.* -F ([^ ]*).*/\1/p')"
+
+    # read in "<alias> '<aliased command>' '<command args>'" lines from defined aliases
+    local line; while read line; do
+        eval "local alias_tokens; alias_tokens=($line)" 2>/dev/null || continue # some alias arg patterns cause an eval parse error
+        local alias_name="${alias_tokens[0]}" alias_cmd="${alias_tokens[1]}" alias_args="${alias_tokens[2]# }"
+
+        # skip aliases to pipes, boolean control structures and other command lists
+        # (leveraging that eval errs out if $alias_args contains unquoted shell metacharacters)
+        eval "local alias_arg_words; alias_arg_words=($alias_args)" 2>/dev/null || continue
+        # avoid expanding wildcards
+        read -a alias_arg_words <<< "$alias_args"
+
+        # skip alias if there is no completion function triggered by the aliased command
+        if [[ ! " ${completions[*]} " =~ " $alias_cmd " ]]; then
+            if [[ -n "$completion_loader" ]]; then
+                # force loading of completions for the aliased command
+                eval "$completion_loader $alias_cmd"
+                # 124 means completion loader was successful
+                [[ $? -eq 124 ]] || continue
+                completions+=($alias_cmd)
+            else
+                continue
+            fi
+        fi
+        local new_completion="$(complete -p "$alias_cmd")"
+
+        # create a wrapper inserting the alias arguments if any
+        if [[ -n $alias_args ]]; then
+            local compl_func="${new_completion/#* -F /}"; compl_func="${compl_func%% *}"
+            # avoid recursive call loops by ignoring our own functions
+            if [[ "${compl_func#_$namespace::}" == $compl_func ]]; then
+                local compl_wrapper="_${namespace}::${alias_name}"
+                    echo "function $compl_wrapper {
+                        (( COMP_CWORD += ${#alias_arg_words[@]} ))
+                        COMP_WORDS=($alias_cmd $alias_args \${COMP_WORDS[@]:1})
+                        (( COMP_POINT -= \${#COMP_LINE} ))
+                        COMP_LINE=\${COMP_LINE/$alias_name/$alias_cmd $alias_args}
+                        (( COMP_POINT += \${#COMP_LINE} ))
+                        $compl_func
+                    }" >> "$tmp_file"
+                    new_completion="${new_completion/ -F $compl_func / -F $compl_wrapper }"
+            fi
+        fi
+
+        # replace completion trigger by alias
+        new_completion="${new_completion% *} $alias_name"
+        echo "$new_completion" >> "$tmp_file"
+    done < <(alias -p | sed -Ene "s/$alias_regex/\1 '\2' '\3'/p")
+    source "$tmp_file" && rm -f "$tmp_file"
+};
+
+# ~/.bashrc
+load_renovation_env() {
+  # shellcheck disable=SC1090
+  source ~/.secrets.d/secrets.sh
+  echo "Sensitive env loaded for this shell."
+}
+
+load_renovation_env
+
+#export JAVA_HOME="/usr/lib/jvm/java-17-openjdk-amd64"
+export JAVA_HOME="/usr/lib/jvm/zulu17"
+export M2_HOME="/usr/share/maven"
+export MAVEN_OPTS="-Xss16M"
+
+export GRADLE_HOME=/opt/gradle/gradle-9.6.0
+export PATH=${GRADLE_HOME}/bin:${PATH}
+
+#Anthropic
+export ANTHROPIC_DEFAULT_OPUS_MODEL="claude-opus-4-6"
+export ANTHROPIC_FOUNDRY_API_KEY="<>"
+export ANTHROPIC_FOUNDRY_RESOURCE="<>"
+export CLAUDE_CODE_USE_FOUNDRY="<>"
+
+PATH="$JAVA_HOME/bin:$M2_HOME/bin:$PATH"
+
+export PATH
+
+export NVM_DIR="$HOME/.nvm"
+[ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"  # This loads nvm
+[ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion"  # This loads nvm bash_completion
+
+PROMPT_DIRTRIM=1
+PS1="\[\e[32m\]\u\[\e[0m\]@\[\e[34m\]\h\[\e[0m\]:\[\e[33m\]\w\[\e[0m\]\$ "
+export TERM=xterm-mono
+alias ls='ls --color=never'
+
+##Aliases
+#Common
+alias j17="export JAVA_HOME=/usr/lib/jvm/java-1.17.0-openjdk-amd64"
+alias j21="export JAVA_HOME=/usr/lib/jvm/java-1.21.0-openjdk-amd64"
+alias ..="cd .."
+alias l="ls"
+alias c="cd "
+#alias wd="cd ~/dev/projects/"
+alias pj="cd ~/dev/projects/"
+alias r="reset"
+alias cl="clear"
+alias e="exit"
+alias n="npm"
+alias nr="npm run"
+alias ni="npm install"
+alias no="node"
+alias bpb="source ~/.bashrc && source ~/.profile && source ~/.bashrc"
+alias ns="netstat -lpn | grep "
+alias ki="sudo kill -9 "
+alias sau="sudo apt update && sudo apt autoremove && sudo apt update"
+alias gpua="git push origin develop && git push x7warrior develop && git push github develop"
+#alias rm='stop'
+alias cla="claude"
+alias w="watch -n 1 "
+alias eb="exec bash"
+alias st="speedtest"
+
+#Maven
+source ~/mvn_autocomplete.bash
+alias m="mvn"
+alias mc="mvn clean"
+alias mco="mvn compile"
+alias mp="mvn package"
+alias mt="mvn test"
+#alias mi="mvn install"
+alias mcc="mvn clean compile"
+alias mctc="mvn clean test-compile"
+alias mcp="mvn clean package"
+alias mct="mvn clean test"
+alias mcv="mvn clean verify"
+alias mcin="mvn clean integration-test"
+alias mci="mvn clean install"
+alias mcis="mvn clean install -DskipTests=true"
+alias mid="mvn idea:clean idea:idea"
+alias mdr="mvn dependency:resolve dependency:sources"
+alias mcva="mvn clean validate"
+alias mdt="mvn dependency:tree"
+alias mdg="mvn dependency:tree | grep "
+alias mdi='function mdi(){ mvn dependency:tree -Dincludes=$1; };mdi'
+
+#Makefile
+alias ma="make"
+alias macb="make clean build"
+
+#Git (it considers git aliases described in the snippet: https://bitbucket.org/snippets/iCreators/dRdyj)
+alias g='git'
+alias gf='git fetch'
+alias gpu='git push'
+alias gp='git pull'
+alias gl='git log -5 --oneline'
+alias gpl='git pull origin develop'
+alias gps='git push origin develop'
+alias gb='git branch'
+alias gch='git checkout'
+alias gs='git status'
+alias gc='git commit -m'
+alias ga='git add'
+alias gaa='git add .'
+alias gac='git add . && git commit -m'
+alias gd='git diff'
+#alias gr='git reset'
+alias grs='git reset --soft'
+alias gcl='git clean -f'
+alias grc='g rc' #!git reset --hard && git clean -f
+alias gm='git merge'
+alias gco='git commit'
+alias gca='git commit --amend'
+alias gt='git tag'
+
+#Gradle
+alias gr="./gradlew"
+alias grc="./gradlew clean"
+alias grb="./gradlew build"
+alias grt="./gradlew test"
+alias grj="./gradlew jar"
+alias grcb="./gradlew clean build --no-build-cache"
+alias idea="/bin/bash -l -c ~/dev/software/idea-IU-253.30387.90/bin/idea"
+
+#Docker
+alias d='docker'
+alias dl='docker logs'
+alias dp='docker ps -a'
+alias di='docker images'
+alias dc='docker compose' 
+alias dcu='docker compose up'
+alias dcd='docker compose up -d'
+alias dcp='docker compose ps'
+alias dcdw='docker compose down'
+alias dkc='docker kill $(docker ps -q) && docker rm $(docker ps -a -q)'
+alias des='function des(){ docker exec -it $1 sh; };des'
+alias deb='function deb(){ docker exec -it $1 bash; };deb'
+
+#Kubenetes
+source  ~/kubectl-completion
+alias k="kubectl"
+#alias ka="kubectl get pod && kubectl get service && kubectl get deployments && kubectl get replicasets.apps && kubectl get statefulsets.apps"
+alias kg="kubectl get"
+alias kd="kubectl delete"
+alias kde="kubectl describe"
+alias kga="kubectl get all"
+alias kgp="kubectl get pv"
+alias kgpc="kubectl get pvc"
+alias kn="kubectl config view --minify -o jsonpath='{..namespace}' && echo"
+alias kns="kubectl config set-context --current --namespace"
+
+#Minikube
+source ~/minikube-completion
+alias mi="minikube"
+alias min="minikube -p mn"
+alias mis="minikube ssh"
+
+# after any command just put tnot(), e.g. gradle build; tnot
+alias tnsimple="curl -X POST \"https://api.telegram.org/bot$NOTIFICATION_TELEGRAM_BOT_TOKEN/sendMessage\" -H \"Content-Type: application/json\" -d \"{\\\"chat_id\\\": \\\"$NOTIFICATION_TELEGRAM_CHAT_ID\\\", \\\"text\\\": \\\"🔔 Job finished 🔔\\\"}\""
+
+# using: tnot "<message>"
+tn() {
+  local msg="${*:-🔔 Job finished 🔔}"
+  local api="https://api.telegram.org/bot${NOTIFICATION_TELEGRAM_BOT_TOKEN}/sendMessage"
+  curl -sS -X POST "$api" \
+    --data "chat_id=${NOTIFICATION_TELEGRAM_CHAT_ID}" \
+    --data-urlencode "text=$msg"
+}
+
+tncut() {
+  local raw="${*:-🔔 Job finished 🔔}"
+  # Fast substring (may cut a multi-byte char in UTF-8 edge cases)
+  local msg="${raw:0:1000}"
+
+  # HTML-escape for parse_mode=HTML
+  local esc
+  esc=$(printf '%s' "$msg" | sed -e 's/&/\&amp;/g' -e 's/</\&lt;/g' -e 's/>/\&gt;/g')
+
+  local api="https://api.telegram.org/bot${NOTIFICATION_TELEGRAM_BOT_TOKEN}/sendMessage"
+  curl -sS -X POST "$api" \
+    --data "chat_id=${NOTIFICATION_TELEGRAM_CHAT_ID}" \
+    --data "parse_mode=HTML" \
+    --data-urlencode "text=<pre><code>${esc}</code></pre>"
+}
+
+# Add the hook to your shell (add to ~/.bashrc)
+eval "$(direnv hook bash)"
+
+alias_completion
+
+# `ma` is an alias for `make`. The standard _make completion uses $1 as the
+# binary to invoke for harvesting targets — and aliases don't expand inside
+# functions, so passing $1=ma fails. Wrap it to pass $1=make instead.
+_install_ma_completion() {
+      if ! complete -p make &>/dev/null; then
+          if declare -F _completion_loader &>/dev/null; then
+              _completion_loader make 2>/dev/null
+          elif declare -F _comp_load &>/dev/null; then
+              _comp_load make 2>/dev/null
+          fi
+      fi
+      local make_func
+      for fn in _make _comp_cmd_make; do
+          declare -F "$fn" &>/dev/null && make_func="$fn" && break
+      done
+      if [[ -z "${make_func:-}" ]]; then
+          for f in /usr/share/bash-completion/completions/make \
+                   /etc/bash_completion.d/make; do
+              [ -r "$f" ] && . "$f" && break
+          done
+          for fn in _make _comp_cmd_make; do
+              declare -F "$fn" &>/dev/null && make_func="$fn" && break
+          done
+      fi
+      if [[ -n "${make_func:-}" ]]; then
+          eval "_ma() { $make_func make \"\$2\" \"\$3\"; }"
+          complete -F _ma ma
+      fi
+  }
+  _install_ma_completion
+  unset -f _install_ma_completion
+
+
+export PATH=/home/ubuntuu/bin:$PATH
+
+
+[[ -e "/home/ubuntuu/lib/oci_autocomplete.sh" ]] && source "/home/ubuntuu/lib/oci_autocomplete.sh"
+---
+
+## 2026-06-26T15:26:15Z
+ubuntuu@LP-BSF-EMALYSH:~/.../phrasal$  env COMP_WORDS="oci ne" COMP_CWORD=1 _OCI_COMPLETE=bash_complete oci
+plain,network
+plain,network-firewall
+ubuntuu@LP-BSF-EMALYSH:~/.../phrasal$  env COMP_WORDS="oci ai" COMP_CWORD=1 _OCI_COMPLETE=bash_complete oci
+plain,ai
+plain,ai-data-platform
+plain,ai-document
+plain,ai-vision
+---
+
+## 2026-06-26T15:27:48Z
+# coding: utf-8
+# Copyright (c) 2016, 2026, Oracle and/or its affiliates. All rights reserved.
+# This software is dual-licensed to you under the Universal Permissive License (UPL) 1.0 as shown at https://oss.oracle.com/licenses/upl or Apache License 2.0 as shown at http://www.apache.org/licenses/LICENSE-2.0. You may choose either license.
+
+_oci_completion() {
+    COMPREPLY=( $( env COMP_WORDS="${COMP_WORDS[*]}" \
+                   COMP_CWORD=$COMP_CWORD \
+                   _OCI_COMPLETE=complete $1 ) )
+    return 0
+}
+
+complete -F _oci_completion -o default oci;
+---
+
+## 2026-06-26T15:29:20Z
+Analyze my bash and its alias_completion it can change the behavior
+---
+
+## 2026-06-26T15:29:50Z
+Analyze my .bashrc and its alias_completion it can change the behavior of oci autocompletion
+
+# ~/.bashrc: executed by bash(1) for non-login shells.
+# see /usr/share/doc/bash/examples/startup-files (in the package bash-doc)
+# for examples
+
+# If not running interactively, don't do anything
+case $- in
+    *i*) ;;
+      *) return;;
+esac
+
+# don't put duplicate lines or lines starting with space in the history.
+# See bash(1) for more options
+HISTCONTROL=ignoreboth
+
+# append to the history file, don't overwrite it
+shopt -s histappend
+
+# for setting history length see HISTSIZE and HISTFILESIZE in bash(1)
+HISTSIZE=1000
+HISTFILESIZE=2000
+
+# check the window size after each command and, if necessary,
+# update the values of LINES and COLUMNS.
+shopt -s checkwinsize
+
+# If set, the pattern "**" used in a pathname expansion context will
+# match all files and zero or more directories and subdirectories.
+#shopt -s globstar
+
+# make less more friendly for non-text input files, see lesspipe(1)
+[ -x /usr/bin/lesspipe ] && eval "$(SHELL=/bin/sh lesspipe)"
+
+# set variable identifying the chroot you work in (used in the prompt below)
+if [ -z "${debian_chroot:-}" ] && [ -r /etc/debian_chroot ]; then
+    debian_chroot=$(cat /etc/debian_chroot)
+fi
+
+# set a fancy prompt (non-color, unless we know we "want" color)
+case "$TERM" in
+    xterm-color|*-256color) color_prompt=yes;;
+esac
+
+# uncomment for a colored prompt, if the terminal has the capability; turned
+# off by default to not distract the user: the focus in a terminal window
+# should be on the output of commands, not on the prompt
+#force_color_prompt=yes
+
+if [ -n "$force_color_prompt" ]; then
+    if [ -x /usr/bin/tput ] && tput setaf 1 >&/dev/null; then
+    # We have color support; assume it's compliant with Ecma-48
+    # (ISO/IEC-6429). (Lack of such support is extremely rare, and such
+    # a case would tend to support setf rather than setaf.)
+    color_prompt=yes
+    else
+    color_prompt=
+    fi
+fi
+
+if [ "$color_prompt" = yes ]; then
+    PS1='${debian_chroot:+($debian_chroot)}\[\033[01;32m\]\u@\h\[\033[00m\]:\[\033[01;34m\]\w\[\033[00m\]\$ '
+else
+    PS1='${debian_chroot:+($debian_chroot)}\u@\h:\w\$ '
+fi
+unset color_prompt force_color_prompt
+
+# If this is an xterm set the title to user@host:dir
+case "$TERM" in
+xterm*|rxvt*)
+    PS1="\[\e]0;${debian_chroot:+($debian_chroot)}\u@\h: \w\a\]$PS1"
+    ;;
+*)
+    ;;
+esac
+
+# enable color support of ls and also add handy aliases
+if [ -x /usr/bin/dircolors ]; then
+    test -r ~/.dircolors && eval "$(dircolors -b ~/.dircolors)" || eval "$(dircolors -b)"
+    alias ls='ls --color=auto'
+    #alias dir='dir --color=auto'
+    #alias vdir='vdir --color=auto'
+
+    alias grep='grep --color=auto'
+    alias fgrep='fgrep --color=auto'
+    alias egrep='egrep --color=auto'
+fi
+
+# colored GCC warnings and errors
+#export GCC_COLORS='error=01;31:warning=01;35:note=01;36:caret=01;32:locus=01:quote=01'
+
+# some more ls aliases
+alias ll='ls -alF'
+alias la='ls -A'
+alias l='ls -CF'
+
+# Add an "alert" alias for long running commands.  Use like so:
+#   sleep 10; alert
+alias alert='notify-send --urgency=low -i "$([ $? = 0 ] && echo terminal || echo error)" "$(history|tail -n1|sed -e '\''s/^\s*[0-9]\+\s*//;s/[;&|]\s*alert$//'\'')"'
+
+# Alias definitions.
+# You may want to put all your additions into a separate file like
+# ~/.bash_aliases, instead of adding them here directly.
+# See /usr/share/doc/bash-doc/examples in the bash-doc package.
+
+if [ -f ~/.bash_aliases ]; then
+    . ~/.bash_aliases
+fi
+
+# enable programmable completion features (you don't need to enable
+# this, if it's already enabled in /etc/bash.bashrc and /etc/profile
+# sources /etc/bash.bashrc).
+if ! shopt -oq posix; then
+  if [ -f /usr/share/bash-completion/bash_completion ]; then
+    . /usr/share/bash-completion/bash_completion
+  elif [ -f /etc/bash_completion ]; then
+    . /etc/bash_completion
+  fi
+fi
+
+###
+# Automatically add completion for all aliases to commands having completion functions
+function alias_completion {
+    local namespace="alias_completion"
+
+    # parse function based completion definitions, where capture group 2 => function and 3 => trigger
+    local compl_regex='complete( +[^ ]+)* -F ([^ ]+) ("[^"]+"|[^ ]+)'
+    # parse alias definitions, where capture group 1 => trigger, 2 => command, 3 => command arguments
+    local alias_regex="alias ([^=]+)='(\"[^\"]+\"|[^ ]+)(( +[^ ]+)*)'"
+
+    # create array of function completion triggers, keeping multi-word triggers together
+    eval "local completions=($(complete -p | sed -Ene "/$compl_regex/s//'\3'/p"))"
+    (( ${#completions[@]} == 0 )) && return 0
+
+    # create temporary file for wrapper functions and completions
+    rm -f "/tmp/${namespace}-*.tmp" # preliminary cleanup
+    local tmp_file; tmp_file="$(mktemp "/tmp/${namespace}-${RANDOM}XXX.tmp")" || return 1
+
+    local completion_loader; completion_loader="$(complete -p -D 2>/dev/null | sed -Ene 's/.* -F ([^ ]*).*/\1/p')"
+
+    # read in "<alias> '<aliased command>' '<command args>'" lines from defined aliases
+    local line; while read line; do
+        eval "local alias_tokens; alias_tokens=($line)" 2>/dev/null || continue # some alias arg patterns cause an eval parse error
+        local alias_name="${alias_tokens[0]}" alias_cmd="${alias_tokens[1]}" alias_args="${alias_tokens[2]# }"
+
+        # skip aliases to pipes, boolean control structures and other command lists
+        # (leveraging that eval errs out if $alias_args contains unquoted shell metacharacters)
+        eval "local alias_arg_words; alias_arg_words=($alias_args)" 2>/dev/null || continue
+        # avoid expanding wildcards
+        read -a alias_arg_words <<< "$alias_args"
+
+        # skip alias if there is no completion function triggered by the aliased command
+        if [[ ! " ${completions[*]} " =~ " $alias_cmd " ]]; then
+            if [[ -n "$completion_loader" ]]; then
+                # force loading of completions for the aliased command
+                eval "$completion_loader $alias_cmd"
+                # 124 means completion loader was successful
+                [[ $? -eq 124 ]] || continue
+                completions+=($alias_cmd)
+            else
+                continue
+            fi
+        fi
+        local new_completion="$(complete -p "$alias_cmd")"
+
+        # create a wrapper inserting the alias arguments if any
+        if [[ -n $alias_args ]]; then
+            local compl_func="${new_completion/#* -F /}"; compl_func="${compl_func%% *}"
+            # avoid recursive call loops by ignoring our own functions
+            if [[ "${compl_func#_$namespace::}" == $compl_func ]]; then
+                local compl_wrapper="_${namespace}::${alias_name}"
+                    echo "function $compl_wrapper {
+                        (( COMP_CWORD += ${#alias_arg_words[@]} ))
+                        COMP_WORDS=($alias_cmd $alias_args \${COMP_WORDS[@]:1})
+                        (( COMP_POINT -= \${#COMP_LINE} ))
+                        COMP_LINE=\${COMP_LINE/$alias_name/$alias_cmd $alias_args}
+                        (( COMP_POINT += \${#COMP_LINE} ))
+                        $compl_func
+                    }" >> "$tmp_file"
+                    new_completion="${new_completion/ -F $compl_func / -F $compl_wrapper }"
+            fi
+        fi
+
+        # replace completion trigger by alias
+        new_completion="${new_completion% *} $alias_name"
+        echo "$new_completion" >> "$tmp_file"
+    done < <(alias -p | sed -Ene "s/$alias_regex/\1 '\2' '\3'/p")
+    source "$tmp_file" && rm -f "$tmp_file"
+};
+
+# ~/.bashrc
+load_renovation_env() {
+  # shellcheck disable=SC1090
+  source ~/.secrets.d/secrets.sh
+  echo "Sensitive env loaded for this shell."
+}
+
+load_renovation_env
+
+#export JAVA_HOME="/usr/lib/jvm/java-17-openjdk-amd64"
+export JAVA_HOME="/usr/lib/jvm/zulu17"
+export M2_HOME="/usr/share/maven"
+export MAVEN_OPTS="-Xss16M"
+
+export GRADLE_HOME=/opt/gradle/gradle-9.6.0
+export PATH=${GRADLE_HOME}/bin:${PATH}
+
+#Anthropic
+export ANTHROPIC_DEFAULT_OPUS_MODEL="claude-opus-4-6"
+export ANTHROPIC_FOUNDRY_API_KEY="<>"
+export ANTHROPIC_FOUNDRY_RESOURCE="<>"
+export CLAUDE_CODE_USE_FOUNDRY="<>"
+
+PATH="$JAVA_HOME/bin:$M2_HOME/bin:$PATH"
+
+export PATH
+
+export NVM_DIR="$HOME/.nvm"
+[ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"  # This loads nvm
+[ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion"  # This loads nvm bash_completion
+
+PROMPT_DIRTRIM=1
+PS1="\[\e[32m\]\u\[\e[0m\]@\[\e[34m\]\h\[\e[0m\]:\[\e[33m\]\w\[\e[0m\]\$ "
+export TERM=xterm-mono
+alias ls='ls --color=never'
+
+##Aliases
+#Common
+alias j17="export JAVA_HOME=/usr/lib/jvm/java-1.17.0-openjdk-amd64"
+alias j21="export JAVA_HOME=/usr/lib/jvm/java-1.21.0-openjdk-amd64"
+alias ..="cd .."
+alias l="ls"
+alias c="cd "
+#alias wd="cd ~/dev/projects/"
+alias pj="cd ~/dev/projects/"
+alias r="reset"
+alias cl="clear"
+alias e="exit"
+alias n="npm"
+alias nr="npm run"
+alias ni="npm install"
+alias no="node"
+alias bpb="source ~/.bashrc && source ~/.profile && source ~/.bashrc"
+alias ns="netstat -lpn | grep "
+alias ki="sudo kill -9 "
+alias sau="sudo apt update && sudo apt autoremove && sudo apt update"
+alias gpua="git push origin develop && git push x7warrior develop && git push github develop"
+#alias rm='stop'
+alias cla="claude"
+alias w="watch -n 1 "
+alias eb="exec bash"
+alias st="speedtest"
+
+#Maven
+source ~/mvn_autocomplete.bash
+alias m="mvn"
+alias mc="mvn clean"
+alias mco="mvn compile"
+alias mp="mvn package"
+alias mt="mvn test"
+#alias mi="mvn install"
+alias mcc="mvn clean compile"
+alias mctc="mvn clean test-compile"
+alias mcp="mvn clean package"
+alias mct="mvn clean test"
+alias mcv="mvn clean verify"
+alias mcin="mvn clean integration-test"
+alias mci="mvn clean install"
+alias mcis="mvn clean install -DskipTests=true"
+alias mid="mvn idea:clean idea:idea"
+alias mdr="mvn dependency:resolve dependency:sources"
+alias mcva="mvn clean validate"
+alias mdt="mvn dependency:tree"
+alias mdg="mvn dependency:tree | grep "
+alias mdi='function mdi(){ mvn dependency:tree -Dincludes=$1; };mdi'
+
+#Makefile
+alias ma="make"
+alias macb="make clean build"
+
+#Git (it considers git aliases described in the snippet: https://bitbucket.org/snippets/iCreators/dRdyj)
+alias g='git'
+alias gf='git fetch'
+alias gpu='git push'
+alias gp='git pull'
+alias gl='git log -5 --oneline'
+alias gpl='git pull origin develop'
+alias gps='git push origin develop'
+alias gb='git branch'
+alias gch='git checkout'
+alias gs='git status'
+alias gc='git commit -m'
+alias ga='git add'
+alias gaa='git add .'
+alias gac='git add . && git commit -m'
+alias gd='git diff'
+#alias gr='git reset'
+alias grs='git reset --soft'
+alias gcl='git clean -f'
+alias grc='g rc' #!git reset --hard && git clean -f
+alias gm='git merge'
+alias gco='git commit'
+alias gca='git commit --amend'
+alias gt='git tag'
+
+#Gradle
+alias gr="./gradlew"
+alias grc="./gradlew clean"
+alias grb="./gradlew build"
+alias grt="./gradlew test"
+alias grj="./gradlew jar"
+alias grcb="./gradlew clean build --no-build-cache"
+alias idea="/bin/bash -l -c ~/dev/software/idea-IU-253.30387.90/bin/idea"
+
+#Docker
+alias d='docker'
+alias dl='docker logs'
+alias dp='docker ps -a'
+alias di='docker images'
+alias dc='docker compose' 
+alias dcu='docker compose up'
+alias dcd='docker compose up -d'
+alias dcp='docker compose ps'
+alias dcdw='docker compose down'
+alias dkc='docker kill $(docker ps -q) && docker rm $(docker ps -a -q)'
+alias des='function des(){ docker exec -it $1 sh; };des'
+alias deb='function deb(){ docker exec -it $1 bash; };deb'
+
+#Kubenetes
+source  ~/kubectl-completion
+alias k="kubectl"
+#alias ka="kubectl get pod && kubectl get service && kubectl get deployments && kubectl get replicasets.apps && kubectl get statefulsets.apps"
+alias kg="kubectl get"
+alias kd="kubectl delete"
+alias kde="kubectl describe"
+alias kga="kubectl get all"
+alias kgp="kubectl get pv"
+alias kgpc="kubectl get pvc"
+alias kn="kubectl config view --minify -o jsonpath='{..namespace}' && echo"
+alias kns="kubectl config set-context --current --namespace"
+
+#Minikube
+source ~/minikube-completion
+alias mi="minikube"
+alias min="minikube -p mn"
+alias mis="minikube ssh"
+
+# after any command just put tnot(), e.g. gradle build; tnot
+alias tnsimple="curl -X POST \"https://api.telegram.org/bot$NOTIFICATION_TELEGRAM_BOT_TOKEN/sendMessage\" -H \"Content-Type: application/json\" -d \"{\\\"chat_id\\\": \\\"$NOTIFICATION_TELEGRAM_CHAT_ID\\\", \\\"text\\\": \\\"🔔 Job finished 🔔\\\"}\""
+
+# using: tnot "<message>"
+tn() {
+  local msg="${*:-🔔 Job finished 🔔}"
+  local api="https://api.telegram.org/bot${NOTIFICATION_TELEGRAM_BOT_TOKEN}/sendMessage"
+  curl -sS -X POST "$api" \
+    --data "chat_id=${NOTIFICATION_TELEGRAM_CHAT_ID}" \
+    --data-urlencode "text=$msg"
+}
+
+tncut() {
+  local raw="${*:-🔔 Job finished 🔔}"
+  # Fast substring (may cut a multi-byte char in UTF-8 edge cases)
+  local msg="${raw:0:1000}"
+
+  # HTML-escape for parse_mode=HTML
+  local esc
+  esc=$(printf '%s' "$msg" | sed -e 's/&/\&amp;/g' -e 's/</\&lt;/g' -e 's/>/\&gt;/g')
+
+  local api="https://api.telegram.org/bot${NOTIFICATION_TELEGRAM_BOT_TOKEN}/sendMessage"
+  curl -sS -X POST "$api" \
+    --data "chat_id=${NOTIFICATION_TELEGRAM_CHAT_ID}" \
+    --data "parse_mode=HTML" \
+    --data-urlencode "text=<pre><code>${esc}</code></pre>"
+}
+
+# Add the hook to your shell (add to ~/.bashrc)
+eval "$(direnv hook bash)"
+
+alias_completion
+
+# `ma` is an alias for `make`. The standard _make completion uses $1 as the
+# binary to invoke for harvesting targets — and aliases don't expand inside
+# functions, so passing $1=ma fails. Wrap it to pass $1=make instead.
+_install_ma_completion() {
+      if ! complete -p make &>/dev/null; then
+          if declare -F _completion_loader &>/dev/null; then
+              _completion_loader make 2>/dev/null
+          elif declare -F _comp_load &>/dev/null; then
+              _comp_load make 2>/dev/null
+          fi
+      fi
+      local make_func
+      for fn in _make _comp_cmd_make; do
+          declare -F "$fn" &>/dev/null && make_func="$fn" && break
+      done
+      if [[ -z "${make_func:-}" ]]; then
+          for f in /usr/share/bash-completion/completions/make \
+                   /etc/bash_completion.d/make; do
+              [ -r "$f" ] && . "$f" && break
+          done
+          for fn in _make _comp_cmd_make; do
+              declare -F "$fn" &>/dev/null && make_func="$fn" && break
+          done
+      fi
+      if [[ -n "${make_func:-}" ]]; then
+          eval "_ma() { $make_func make \"\$2\" \"\$3\"; }"
+          complete -F _ma ma
+      fi
+  }
+  _install_ma_completion
+  unset -f _install_ma_completion
+
+
+export PATH=/home/ubuntuu/bin:$PATH
+
+
+[[ -e "/home/ubuntuu/lib/oci_autocomplete.sh" ]] && source "/home/ubuntuu/lib/oci_autocomplete.sh"
+---
+
+## 2026-06-26T15:31:52Z
+ubuntuu@LP-BSF-EMALYSH:~/.../phrasal$ complete -p oci
+complete -o default -F _oci_completion oci
+---
+
+## 2026-06-26T15:32:26Z
+type _oci_completion
+_oci_completion is a function
+_oci_completion ()
+{
+    COMPREPLY=($(env COMP_WORDS="${COMP_WORDS[*]}" COMP_CWORD=$COMP_CWORD _OCI_COMPLETE=complete $1));
+    return 0
+}
+---
+
+## 2026-06-26T15:34:28Z
+ubuntuu@LP-BSF-EMALYSH:~/.../phrasal$  cat ~/lib/oci_autocomplete.sh
+# coding: utf-8
+# Copyright (c) 2016, 2026, Oracle and/or its affiliates. All rights reserved.
+# This software is dual-licensed to you under the Universal Permissive License (UPL) 1.0 as shown at https://oss.oracle.c
+om/licenses/upl or Apache License 2.0 as shown at http://www.apache.org/licenses/LICENSE-2.0. You may choose either licen
+se.
+
+_oci_completion() {
+    COMPREPLY=( $( env COMP_WORDS="${COMP_WORDS[*]}" \
+                   COMP_CWORD=$COMP_CWORD \
+                   _OCI_COMPLETE=complete $1 ) )
+    return 0
+}
+
+complete -F _oci_completion -o default oci;
+ubuntuu@LP-BSF-EMALYSH:~/.../phrasal$ ls -la /etc/bash_completion.d/oci 2>/dev/null
+ubuntuu@LP-BSF-EMALYSH:~/.../phrasal$
+ubuntuu@LP-BSF-EMALYSH:~/.../phrasal$ ls -la /etc/bash_completion.d/oci 2>/dev/null
+ubuntuu@LP-BSF-EMALYSH:~/.../phrasal$ ls -la /etc/bash_completion.d/oci 2>/dev/null
+ubuntuu@LP-BSF-EMALYSH:~/.../phrasal$ ls -la /etc/bash_completion.d/oci 2>/dev/null
+---
+
+## 2026-06-26T15:35:51Z
+helped
+---
+
+## 2026-06-26T15:51:27Z
+Done, thanks
+---
+
+## 2026-06-26T15:53:41Z
+How to create oci free trie always free 2 core 8 gb arm virtual machine on ubuntu 24.04 mini aarch64?
+Write steps or just single command.
+---
+
+## 2026-06-26T16:07:49Z
+oci compute instance launch \
+    --compartment-id <your-compartment-ocid> \
+    --availability-domain <your-AD> \
+    --shape VM.Standard.A1.Flex \
+    --shape-config '{"ocpus": 2, "memoryInGBs": 8}' \
+    --image-id <ubuntu-24.04-aarch64-image-ocid> \
+    --subnet-id <your-subnet-ocid> \
+    --assign-public-ip true \
+    --ssh-authorized-keys-file ~/.ssh/id_rsa.pub \
+    --display-name "phrasal-arm-1"
+
+I set
+oci compute instance launch \
+    --availability-domain Vcji:EU-FRANKFURT-1-AD-1 \
+    --shape VM.Standard.A1.Flex \
+    --shape-config '{"ocpus": 2, "memoryInGBs": 8}' \
+    --image-id ocid1.image.oc1.eu-frankfurt-1.aaaaaaaa33mxho6qsnmm4yu7xo3nrnvjubiimgqpsc5ycpoakz6pb4cts2ma \
+    --subnet-id ocid1.subnet.oc1.eu-frankfurt-1.aaaaaaaahsuuw4tlf3axapvev5vqt6oztiqgs44tvsf2zhbm5ar7feydnyea \
+    --assign-public-ip true \
+    --ssh-authorized-keys-file ~/.ssh/id_rsa.pub \
+    --display-name "phrasal-arm-1"
+
+ oci network vcn list 
+{
+  "data": [
+    {
+      "byoipv6-cidr-blocks": null,
+      "cidr-block": "10.0.0.0/16",
+      "cidr-blocks": [
+        "10.0.0.0/16"
+      ],
+      "compartment-id": "ocid1.tenancy.oc1..aaaaaaaapllfascgsx52zahz2h66bybqtgejspeh2p3ygxvptyw7us3cxsiq",
+      "default-dhcp-options-id": "ocid1.dhcpoptions.oc1.eu-frankfurt-1.aaaaaaaafuoth46u5zpao3znanx3qkpfgszptctwair3rcdeisxpcnjedebq",
+      "default-route-table-id": "ocid1.routetable.oc1.eu-frankfurt-1.aaaaaaaafzhcajdnqnpy3xd23u7huixtutzaqn5arlephzit7a2dc4kakhjq",
+      "default-security-list-id": "ocid1.securitylist.oc1.eu-frankfurt-1.aaaaaaaawebbhuw3klputcewpzdpe5edalakvall6ohjaonmf6xiv22e2bxa",
+      "defined-tags": {
+        "Oracle-Tags": {
+          "CreatedBy": "default/questtv8@gmail.com",
+          "CreatedOn": "2026-06-25T16:41:50.283Z"
+        }
+      },
+      "display-name": "VCN-t1",
+      "dns-label": "vcnt1",
+      "freeform-tags": {
+        "VCN": "2026-06-25T16:41:47.223Z"
+      },
+      "id": "ocid1.vcn.oc1.eu-frankfurt-1.amaaaaaaw6ts67qamumz5ruvuy47l2s47bn5fwz3aooyotld4xcwcpr2qioa",
+      "ipv6-cidr-blocks": null,
+      "ipv6-private-cidr-blocks": null,
+      "is-zpr-only": null,
+      "lifecycle-state": "AVAILABLE",
+      "security-attributes": {},
+      "time-created": "2026-06-25T16:41:50.345000+00:00",
+      "vcn-domain-name": "vcnt1.oraclevcn.com"
+    }
+  ]
+}
+
+how to set the vcn?
+---
+
+## 2026-06-26T16:08:41Z
+I set compartmant-id as default in configs
+---
+
+## 2026-06-26T16:13:21Z
+ubuntuu@LP-BSF-EMALYSH:~/.../phrasal$  oci compute instance launch \
+      --availability-domain Vcji:EU-FRANKFURT-1-AD-1 \
+      --shape VM.Standard.A1.Flex \
+      --shape-config '{"ocpus": 2, "memoryInGBs": 8}' \
+      --image-id ocid1.image.oc1.eu-frankfurt-1.aaaaaaaa33mxho6qsnmm4yu7xo3nrnvjubiimgqpsc5ycpoakz6pb4cts2ma \
+      --subnet-id ocid1.subnet.oc1.eu-frankfurt-1.aaaaaaaahsuuw4tlf3axapvev5vqt6oztiqgs44tvsf2zhbm5ar7feydnyea \
+      --assign-public-ip true \
+      --ssh-authorized-keys-file ~/.ssh/id_rsa.pub \
+      --display-name "phrasal-arm-1"
+RequestException:
+{
+    "client_version": "Oracle-PythonCLI/3.88.0",
+    "logging_tips": "Please run the OCI CLI command using --debug flag to find more debug information.",
+    "message": "The connection to endpoint timed out.",
+    "request_endpoint": null,
+    "target_service": "CLI",
+    "timestamp": "2026-06-26T16:11:02.423851",
+    "troubleshooting_tips": " See [https://docs.oracle.com/iaas/Content/API/SDKDocs/clitroubleshooting.htm] for more info
+rmation about resolving this error. If you are unable to resolve this issue, run this CLI command with --debug option and
+ contact Oracle support and provide them the full error message."
+}
+---
+
+## 2026-06-26T16:17:47Z
+ oci compute instance launch \
+      --availability-domain Vcji:EU-FRANKFURT-1-AD-1 \
+      --shape VM.Standard.A1.Flex \
+      --shape-config '{"ocpus": 2, "memoryInGBs": 8}' \
+      --image-id ocid1.image.oc1.eu-frankfurt-1.aaaaaaaa33mxho6qsnmm4yu7xo3nrnvjubiimgqpsc5ycpoakz6pb4cts2ma \
+      --subnet-id ocid1.subnet.oc1.eu-frankfurt-1.aaaaaaaahsuuw4tlf3axapvev5vqt6oztiqgs44tvsf2zhbm5ar7feydnyea \
+      --assign-public-ip true \
+      --ssh-authorized-keys-file ~/.ssh/id_rsa.pub \
+      --display-name "phrasal-arm-1" \
+      --debug 2>&1 | tail -20
+           ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^
+        self.base_client.call_api,
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^
+    ...<8 lines>...
+        api_reference_link=api_reference_link,
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+        required_arguments=required_arguments)
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/ubuntuu/lib/oracle-cli/lib/python3.14/site-packages/oci/retry/retry.py", line 308, in make_retrying_call
+    response = func_ref(*func_args, **func_kwargs)
+  File "/home/ubuntuu/lib/oracle-cli/lib/python3.14/site-packages/oci/base_client.py", line 796, in call_api
+    response = self.request(request, allow_control_chars, operation_name, api_reference_link)
+  File "/home/ubuntuu/lib/oracle-cli/lib/python3.14/site-packages/oci/base_client.py", line 1138, in request
+    self.raise_service_error(request, response, service_code, message, operation_name, api_reference_link, target_service, request_endpoint, client_version, timestamp, deserialized_data)
+    ~~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/ubuntuu/lib/oracle-cli/lib/python3.14/site-packages/oci/base_client.py", line 1324, in raise_service_error
+    raise exceptions.ServiceError(
+    ...<11 lines>...
+        deserialized_data=deserialized_data)
+oci.exceptions.ServiceError: {'target_service': 'compute', 'status': 500, 'code': 'InternalError', 'opc-request-id': '99953F5B4EDC47479242576D09442564/5A81B23E4EA81E001DA63E6A465241CE/D8C299157BA2EAFF3E26EB449E5AD98B', 'message': 'Out of host capacity.', 'operation_name': 'launch_instance', 'timestamp': '2026-06-26T16:17:31.406059+00:00', 'client_version': 'Oracle-PythonSDK/2.180.0', 'request_endpoint': 'POST https://iaas.eu-frankfurt-1.oraclecloud.com/20160918/instances', 'logging_tips': 'To get more info on the failing request, refer to https://docs.oracle.com/en-us/iaas/tools/python/latest/logging.html for ways to log the request/response details.', 'troubleshooting_tips': "See https://docs.oracle.com/iaas/Content/API/References/apierrors.htm#apierrors_500__500_internalerror for more information about resolving this error. Also see https://docs.oracle.com/iaas/api/#/en/iaas/20160918/Instance/LaunchInstance for details on this operation's requirements. If you are unable to resolve this compute issue, please contact Oracle support and provide them this full error message."}
+---
+
+## 2026-06-26T16:38:18Z
+get param of instance vps to connect
+---
+
+## 2026-06-26T16:39:51Z
+get all list than choose needed
+---
+
+## 2026-06-26T16:40:43Z
+ok by name get all info to connect with sh
+---
+
+## 2026-06-26T16:43:06Z
+ oci compute instance list --query "data[].{name:\"display-name\", state:\"lifecycle
+-state\", id:id, shape:shape}"
+  --output table
+[
+  {
+    "id": "ocid1.instance.oc1.eu-frankfurt-1.antheljtw6ts67qc4odrpmsgq6amfcvsifilbcov64tmmrumcx4osav7zd7a",
+    "name": "VPS-t1",
+    "shape": "VM.Standard.E2.1.Micro",
+    "state": "RUNNING"
+  }
+]
+--output: command not found
+---
+
+## 2026-06-26T16:43:58Z
+ oci compute instance list-vnics --instance-id
+  ocid1.instance.oc1.eu-frankfurt-1.antheljtw6ts67qc4odrpmsgq6amfcvsifilbcov64tmmrumcx4osav7zd7a --query
+  "data[0].\"public-ip\"" --raw-output
+Error: Option '--instance-id' requires an argument.
+
+For OCI CLI commands and parameters suggestion, auto completion and other useful features, try the Interactive mode by typing `oci -i`.
+ocid1.instance.oc1.eu-frankfurt-1.antheljtw6ts67qc4odrpmsgq6amfcvsifilbcov64tmmrumcx4osav7zd7a: command not found
+data[0]."public-ip": command not found
+---
+
+## 2026-06-26T16:46:05Z
+{
+  "data": [
+    {
+      "agent-config": {
+        "are-all-plugins-disabled": false,
+        "is-management-disabled": false,
+        "is-monitoring-disabled": false,
+        "plugins-config": [
+          {
+            "desired-state": "DISABLED",
+            "name": "Vulnerability Scanning"
+          },
+          {
+            "desired-state": "DISABLED",
+            "name": "OS Management Hub Agent"
+          },
+          {
+            "desired-state": "DISABLED",
+            "name": "Management Agent"
+          },
+          {
+            "desired-state": "ENABLED",
+            "name": "Custom Logs Monitoring"
+          },
+          {
+            "desired-state": "DISABLED",
+            "name": "Compute RDMA GPU Monitoring"
+          },
+          {
+            "desired-state": "ENABLED",
+            "name": "Compute Instance Monitoring"
+          },
+          {
+            "desired-state": "DISABLED",
+            "name": "Compute HPC RDMA Auto-Configuration"
+          },
+          {
+            "desired-state": "DISABLED",
+            "name": "Compute HPC RDMA Authentication"
+          },
+          {
+            "desired-state": "ENABLED",
+            "name": "Cloud Guard Workload Protection"
+          },
+          {
+            "desired-state": "DISABLED",
+            "name": "Block Volume Management"
+          },
+          {
+            "desired-state": "DISABLED",
+            "name": "Bastion"
+          }
+        ]
+      },
+      "availability-config": {
+        "is-live-migration-preferred": null,
+        "recovery-action": "RESTORE_INSTANCE"
+      },
+      "availability-domain": "Vcji:EU-FRANKFURT-1-AD-2",
+      "capacity-reservation-id": null,
+      "cluster-placement-group-id": null,
+      "compartment-id": "ocid1.tenancy.oc1..aaaaaaaapllfascgsx52zahz2h66bybqtgejspeh2p3ygxvptyw7us3cxsiq",
+      "dedicated-vm-host-id": null,
+      "defined-tags": {
+        "Oracle-Tags": {
+          "CreatedBy": "default/questtv8@gmail.com",
+          "CreatedOn": "2026-06-26T16:12:32.372Z"
+        }
+      },
+      "display-name": "VPS-t1",
+      "extended-metadata": {},
+      "fault-domain": "FAULT-DOMAIN-2",
+      "freeform-tags": {},
+      "id": "ocid1.instance.oc1.eu-frankfurt-1.antheljtw6ts67qc4odrpmsgq6amfcvsifilbcov64tmmrumcx4osav7zd7a",
+      "image-id": "ocid1.image.oc1.eu-frankfurt-1.aaaaaaaaola3pvhd5tx7nnyt3ohx3ef62thau2nuxmbd7geg2u7jxvsruqmq",
+      "instance-configuration-id": null,
+      "instance-options": {
+        "are-legacy-imds-endpoints-disabled": true
+      },
+      "ipxe-script": null,
+      "is-ai-enterprise-enabled": null,
+      "is-cross-numa-node": false,
+      "launch-mode": "PARAVIRTUALIZED",
+      "launch-options": {
+        "boot-volume-type": "PARAVIRTUALIZED",
+        "firmware": "UEFI_64",
+        "is-consistent-volume-naming-enabled": true,
+        "is-pv-encryption-in-transit-enabled": true,
+        "network-type": "PARAVIRTUALIZED",
+        "remote-data-volume-type": "PARAVIRTUALIZED"
+      },
+      "licensing-configs": null,
+      "lifecycle-state": "RUNNING",
+      "metadata": {
+        "ssh_authorized_keys": "ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAABAQDbntJBsh1mQPGrk5rhGP2Zalj93vNIxLgyKt2N9Am55RUrxrwX82Awajuu49pSgydHst6qvbNaApQV+7Z9sNsv9FPQF00kzTWmy1BttjhR52d3bCJE9O1gm6VQCdKkNMcno25Uez6wHe2tRw0jaOrgGGxaZkj+6O0f+C4b3D0zE6Um92gElRWnS+NXZoj2mgxpwSA58EZhlNtQ4kRDcrWITHB66oaesfF914j+p+jpQUgP0IiWSpjiPsBtm820vOX6SFlBiGzUwjdceUEdwYlD5CKZoCiRBmO4WJBlLrTJkuYKdG0Pc5P5KrnBHPblstNj9HA3HSs2z7bH5Cj8sMbj ssh-key-2026-06-26"
+      },
+      "placement-constraint-details": null,
+      "platform-config": null,
+      "preemptible-instance-config": null,
+      "region": "eu-frankfurt-1",
+      "security-attributes": {},
+      "security-attributes-state": "STABLE",
+      "shape": "VM.Standard.E2.1.Micro",
+      "shape-config": {
+        "baseline-ocpu-utilization": null,
+        "gpu-description": null,
+        "gpus": 0,
+        "local-disk-description": null,
+        "local-disks": 0,
+        "local-disks-total-size-in-gbs": null,
+        "local-volume-size-in-gbs": null,
+        "max-vnic-attachments": 1,
+        "memory-in-gbs": 1.0,
+        "networking-bandwidth-in-gbps": 0.48,
+        "ocpus": 1.0,
+        "processor-description": "2.0 GHz AMD EPYC™ 7551 (Naples)",
+        "resource-management": null,
+        "vcpus": 2
+      },
+      "source-details": {
+        "boot-volume-size-in-gbs": null,
+        "boot-volume-vpus-per-gb": null,
+        "image-id": "ocid1.image.oc1.eu-frankfurt-1.aaaaaaaaola3pvhd5tx7nnyt3ohx3ef62thau2nuxmbd7geg2u7jxvsruqmq",
+        "instance-source-image-filter-details": null,
+        "kms-key-id": null,
+        "source-type": "image"
+      },
+      "system-tags": {
+        "orcl-cloud": {
+          "free-tier-retained": "true"
+        }
+      },
+      "time-created": "2026-06-26T16:12:32.926000+00:00",
+      "time-maintenance-reboot-due": null
+    }
+  ]
+}
+---
+
+## 2026-06-26T16:46:41Z
+ oci compute instance list-vnics --instance-id
+  ocid1.instance.oc1.eu-frankfurt-1.antheljtw6ts67qc4odrpmsgq6amfcvsifilbcov64tmmrumcx4osav7zd7a --query
+  "data[0].\"public-ip\"" --raw-output
+Error: Option '--instance-id' requires an argument.
+
+For OCI CLI commands and parameters suggestion, auto completion and other useful features, try the Interactive mode by typing `oci -i`.
+ocid1.instance.oc1.eu-frankfurt-1.antheljtw6ts67qc4odrpmsgq6amfcvsifilbcov64tmmrumcx4osav7zd7a: command not found
+data[0]."public-ip": command not found
+---
+
+## 2026-06-26T18:23:38Z
+I run multi line command in linux terminal and get error that the command should be placed in a single line. How to make multiline command exec?
+---
+
+## 2026-06-26T18:26:57Z
+oci compute instance list-vnics --instance-id
+  ocid1.instance.oc1.eu-frankfurt-1.antheljtw6ts67qc4odrpmsgq6amfcvsifilbcov64tmmrumcx4osav7zd7a --query
+$: command not found
+ocid1.instance.oc1.eu-frankfurt-1.antheljtw6ts67qc4odrpmsgq6amfcvsifilbcov64tmmrumcx4osav7zd7a: command not found
+---
+
+## 2026-06-26T18:29:02Z
+If I want the tmux terminal understand that without "\"?
+---
+
+## 2026-06-26T18:37:18Z
+set the beatuful color in terminal ubuntu?
+---
+
+## 2026-06-26T18:49:17Z
+I have:
+
+free -m
+               total        used        free      shared  buff/cache   available
+Mem:             954         372         165           4         585         581
+Swap:              0           0           0
+
+And VPS on Ubuntu 24.04 mini 1cpu, 1 gb, 47 Gb disk.
+---
+Reminde me the best way to deploy my `phrasal` application on this VPS so that it would be enough.
+---
+
+## 2026-06-26T18:55:59Z
+Open port 8080 on VSP for it to be seen from public browser
+---
+
+## 2026-06-26T19:01:00Z
+python3 -m http.server 8000
+Serving HTTP on 0.0.0.0 port 8000 (http://0.0.0.0:8000/) ...
+127.0.0.1 - - [26/Jun/2026 18:54:03] "GET / HTTP/1.1" 200 -
+
+─────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────
+ --query "data[].{name:\"display-name\", id:id}" --output table
++----------------------------------------------------------------------------------------------------+-----------------------------------------+
+| id                                                                                                 | name                                    |
++----------------------------------------------------------------------------------------------------+-----------------------------------------+
+| ocid1.securitylist.oc1.eu-frankfurt-1.aaaaaaaasoz5r5hvsdisk6nchllmeawjc5lr5xnj75y5tcpk565pva2d6tla | security list for private subnet-VCN-t1 |
+| ocid1.securitylist.oc1.eu-frankfurt-1.aaaaaaaawebbhuw3klputcewpzdpe5edalakvall6ohjaonmf6xiv22e2bxa | Default Security List for VCN-t1        |
++----------------------------------------------------------------------------------------------------+-----------------------------------------+
+---
+
+## 2026-06-26T19:23:23Z
+how to check opened publicly ports for vps?
+---
+
+## 2026-06-26T19:25:28Z
+ oci network security-list get --security-list-id \
+  ocid1.securitylist.oc1.eu-frankfurt-1.aaaaaaaawebbhuw3klputcewpzdpe5edalakvall6ohjaonmf6xiv22e2bxa \
+  --query "data.\"ingress-security-rules\"[].{protocol:protocol, \
+  port:\"tcp-options\".\"destination-port-range\", source:source}"  --output table
+---
+
+## 2026-06-26T19:28:21Z
+I have:
+
+ oci network security-list get --security-list-id \                  21:25 [0/1984]
+  ocid1.securitylist.oc1.eu-frankfurt-1.aaaaaaaawebbhuw3klputcewpzdpe5edalakvall6ohjaonmf6xiv22e2bxa \
+  --query "data.\"ingress-security-rules\"[].{protocol:protocol, \
+  port:\"tcp-options\".\"destination-port-range\", source:source}"  --output table
++----------------------------+----------+-------------+
+| port                       | protocol | source      |
++----------------------------+----------+-------------+
+| {'max': 22, 'min': 22}     | 6        | 0.0.0.0/0   |
+| None                       | 1        | 0.0.0.0/0   |
+| None                       | 1        | 10.0.0.0/16 |
+| {'max': 80, 'min': 80}     | 6        | 0.0.0.0/0   |
+| {'max': 443, 'min': 443}   | 6        | 0.0.0.0/0   |
+| {'max': 8080, 'min': 8080} | 6        | 0.0.0.0/0   |
+| {'max': 8000, 'min': 8000} | 6        | 0.0.0.0/0   |
++----------------------------+----------+-------------+
+etag: 56d27bff
+
+python3 -m http.server 8000
+Serving HTTP on 0.0.0.0 port 8000 (http://0.0.0.0:8000/) ...
+
+ubuntu@vps-t1:~$ sudo ufw status
+Status: active
+
+To                         Action      From
+--                         ------      ----
+80                         ALLOW       Anywhere
+8080                       ALLOW       Anywhere
+22/tcp                     ALLOW       Anywhere
+443                        ALLOW       Anywhere
+8000                       ALLOW       Anywhere
+80 (v6)                    ALLOW       Anywhere (v6)
+8080 (v6)                  ALLOW       Anywhere (v6)
+22/tcp (v6)                ALLOW       Anywhere (v6)
+443 (v6)                   ALLOW       Anywhere (v6)
+8000 (v6)                  ALLOW       Anywhere (v6)
+
+ubuntu@vps-t1:~$ curl localhost:8000
+<!DOCTYPE HTML>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>Directory listing for /</title>
+</head>
+<body>
+<h1>Directory listing for /</h1>
+<hr>
+<ul>
+<li><a href=".bash_history">.bash_history</a></li>
+<li><a href=".bash_logout">.bash_logout</a></li>
+<li><a href=".bashrc">.bashrc</a></li>
+<li><a href=".cache/">.cache/</a></li>
+<li><a href=".config/">.config/</a></li>
+<li><a href=".profile">.profile</a></li>
+<li><a href=".ssh/">.ssh/</a></li>
+<li><a href=".sudo_as_admin_successful">.sudo_as_admin_successful</a></li>
+<li><a href=".viminfo">.viminfo</a></li>
+</ul>
+<hr>
+</body>
+</html>
+
+But when I try to access the server from outside I get error:
+curl 141.144.227.73:8000
+curl: (7) Failed to connect to 141.144.227.73 port 8000 after 40 ms: Could not connect to server
+---
+
+## 2026-06-26T19:31:02Z
+Should do the same in iptables for 443 and 22 ports?
+---
+
+## 2026-06-26T19:32:45Z
+Now I see:
+  sudo iptables -L INPUT -n --line-numbers
+Chain INPUT (policy DROP)
+num  target     prot opt source               destination
+1    ACCEPT     0    --  0.0.0.0/0            0.0.0.0/0            state RELATED,ESTABLISHED
+2    ACCEPT     1    --  0.0.0.0/0            0.0.0.0/0
+3    ACCEPT     0    --  0.0.0.0/0            0.0.0.0/0
+4    ACCEPT     6    --  0.0.0.0/0            0.0.0.0/0            state NEW tcp dpt:22
+5    REJECT     0    --  0.0.0.0/0            0.0.0.0/0            reject-with icmp-host-prohibited
+6    ACCEPT     6    --  0.0.0.0/0            0.0.0.0/0            tcp dpt:8080 state NEW
+7    ACCEPT     6    --  0.0.0.0/0            0.0.0.0/0            tcp dpt:8000 state NEW
+8    ufw-before-logging-input  0    --  0.0.0.0/0            0.0.0.0/0
+9    ufw-before-input  0    --  0.0.0.0/0            0.0.0.0/0
+10   ufw-after-input  0    --  0.0.0.0/0            0.0.0.0/0
+11   ufw-after-logging-input  0    --  0.0.0.0/0            0.0.0.0/0
+12   ufw-reject-input  0    --  0.0.0.0/0            0.0.0.0/0
+13   ufw-track-input  0    --  0.0.0.0/0            0.0.0.0/0
+---
+
+## 2026-06-26T19:35:39Z
+So I did:
+sudo iptables -D INPUT -p tcp --dport 8080 -m state --state NEW -j ACCEPT
+  sudo iptables -D INPUT -p tcp --dport 8000 -m state --state NEW -j ACCEPT
+  sudo iptables -I INPUT 5 -p tcp --dport 8080 -m state --state NEW -j ACCEPT
+  sudo iptables -I INPUT 5 -p tcp --dport 8000 -m state --state NEW -j ACCEPT
+  sudo netfilter-persistent save
+sudo: netfilter-persistent: command not found
+and now:
+ sudo iptables -L INPUT -n --line-numbers
+Chain INPUT (policy DROP)
+num  target     prot opt source               destination
+1    ACCEPT     0    --  0.0.0.0/0            0.0.0.0/0            state RELATED,ESTABLISHED
+2    ACCEPT     1    --  0.0.0.0/0            0.0.0.0/0
+3    ACCEPT     0    --  0.0.0.0/0            0.0.0.0/0
+4    ACCEPT     6    --  0.0.0.0/0            0.0.0.0/0            state NEW tcp dpt:22
+5    ACCEPT     6    --  0.0.0.0/0            0.0.0.0/0            tcp dpt:8000 state NEW
+6    ACCEPT     6    --  0.0.0.0/0            0.0.0.0/0            tcp dpt:8080 state NEW
+7    REJECT     0    --  0.0.0.0/0            0.0.0.0/0            reject-with icmp-host-prohibited
+8    ufw-before-logging-input  0    --  0.0.0.0/0            0.0.0.0/0
+9    ufw-before-input  0    --  0.0.0.0/0            0.0.0.0/0
+10   ufw-after-input  0    --  0.0.0.0/0            0.0.0.0/0
+11   ufw-after-logging-input  0    --  0.0.0.0/0            0.0.0.0/0
+12   ufw-reject-input  0    --  0.0.0.0/0            0.0.0.0/0
+13   ufw-track-input  0    --  0.0.0.0/0            0.0.0.0/0
+---
+
+## 2026-06-26T19:39:52Z
+Now: ubuntu@vps-t1:~$ sudo  service ufw status
+Unit ufw.service could not be found.
+ubuntu@vps-t1:~$ sudo ufw status
+sudo: ufw: command not found
+---
+
+## 2026-06-26T19:40:16Z
+how to check now?
+---
+
+## 2026-06-26T19:40:33Z
+check ports in iptables
+---
+
+## 2026-06-26T19:41:09Z
+is it better to install ufw instead and use?
+---
+
+## 2026-06-26T19:41:58Z
+why should i write: curl -I http://141.144.227.73:8000 with I?
+---
+
+## 2026-06-26T19:42:46Z
+NO:
+ curl http://141.144.227.73:8000
+curl: (7) Failed to connect to 141.144.227.73 port 8000 after 29 ms: Could not connect to server
+---
+
+## 2026-06-26T20:11:22Z
+ sudo scp /home/ubuntuu/dev/mine/phrasal/backend/target/backend-*.jar ubuntu@141.144.227.73:/opt/phrasal/app.jar
+[sudo: authenticate] Password:
+The authenticity of host '141.144.227.73 (141.144.227.73)' can't be established.
+ED25519 key fingerprint is: SHA256:NpXPfVU29jVW9w9xKZDfDMPaaedCTxuG19+EXDTXKvI
+This key is not known by any other names.
+Are you sure you want to continue connecting (yes/no/[fingerprint])? yes
+Warning: Permanently added '141.144.227.73' (ED25519) to the list of known hosts.
+ubuntu@141.144.227.73: Permission denied (publickey).
+scp: Connection closed
+
+but works:
+ssh -i ~/dev/scripts/vps/ssh-key-2026-06-26.key ubuntu@141.144.227.73
+---
+
+## 2026-06-26T20:13:51Z
+scp -i ~/dev/scripts/vps/ssh-key-2026-06-26.key \
+/home/ubuntuu/dev/mine/phrasal/backend/target/backend-*.jar \
+  ubuntu@141.144.227.73:/opt/phrasal/app.jar
+scp: dest open "/opt/phrasal/app.jar": Permission denied
+scp: failed to upload file /home/ubuntuu/dev/mine/phrasal/backend/target/backend-0.1.0.jar to /opt/phrasal/app.jar
+ubuntuu@LP-BSF-EMALYSH:~/.../phrasal$ sudo scp -i ~/dev/scripts/vps/ssh-key-2026-06-26.key /home/ubuntuu/dev/mine/phrasal/backend/target/backend-*.jar   ubuntu@141.144.227.73:/opt/phrasal/app.jar
+scp: dest open "/opt/phrasal/app.jar": Permission denied
+scp: failed to upload file /home/ubuntuu/dev/mine/phrasal/backend/target/backend-0.1.0.jar to /opt/phrasal/app.jar
+---
+
+## 2026-06-26T20:45:48Z
+ scp -i ~/dev/scripts/vps/ssh-key-2026-06-26.key -r /home/ubuntuu/dev/mine/phrasal/frontend/dist/*  \    ubuntu@141.144.227.73:/var/www/phrasal/
+---
+
+## 2026-06-26T20:49:06Z
+ssh -i ~/dev/scripts/vps/ssh-key-2026-06-26.key ubuntu@141.144.227.73 "sudo mkdir \
+  -p /var/www/phrasal && sudo chown ubuntu: \
+  /var/www/phrasal"
+Warning: Identity file /home/ubuntu/dev/scripts/vps/ssh-key-2026-06-26.key not accessible: No such file or directory.
+ubuntu@141.144.227.73: Permission denied (publickey).
+---
+
+## 2026-06-26T21:01:26Z
+I have:
+
+  free -m
+                 total        used        free      shared  buff/cache   available
+  Mem:             954         372         165           4         585         581
+  Swap:              0           0           0
+
+  And VPS on Ubuntu 24.04 mini 1cpu, 1 gb, 47 Gb disk.
+  ---
+  Reminde me the best way to deploy my `phrasal` application on this VPS so that it would be enough.
+
+● With 1 GB RAM, Docker is off the table — the daemon alone eats ~100 MB before any containers start. Here's the plan:
+
+  Native deployment (no Docker)
+
+  RAM budget (~950 MB total):
+
+ With 1 GB RAM, Docker is off the table — the daemon alone eats ~100 MB before any containers start. Here's the plan:
+
+  Native deployment (no Docker)
+
+  RAM budget (~950 MB total):
+
+  ┌─────────────────────────┬───────────────┐
+  │        Component        │ Estimated RAM │
+  ├─────────────────────────┼───────────────┤
+  │ OS + systemd            │ ~200 MB       │
+  ├─────────────────────────┼───────────────┤
+  │ PostgreSQL              │ ~100 MB       │
+  ├─────────────────────────┼───────────────┤
+  │ Spring Boot (tuned JVM) │ ~350 MB       │
+  ├─────────────────────────┼───────────────┤
+  │ Nginx (static React)    │ ~10 MB        │
+  ├─────────────────────────┼───────────────┤
+  │ Swap buffer             │ ~290 MB       │
+  └─────────────────────────┴───────────────┘
+
+  # Step 0 — Add swap (critical with 1 GB)
+  sudo fallocate -l 2G /swapfile
+  sudo chmod 600 /swapfile
+  sudo mkswap /swapfile
+  sudo swapon /swapfile
+  echo '/swapfile none swap sw 0 0' | sudo tee -a /etc/fstab
+
+  # Step 1 — Install PostgreSQL
+  sudo apt update && sudo apt install -y postgresql postgresql-client
+  sudo -u postgres psql -c "CREATE USER phrasaluser WITH PASSWORD 'phrasalpass';"
+  sudo -u postgres psql -c "CREATE DATABASE phrasaldb OWNER phrasal;"
+
+  # Step 2 — Install Java 21 + Nginx
+  sudo apt install -y openjdk-21-jre-headless nginx
+
+  # Step 3 — Build & deploy backend
+  #Build on your local machine (the VPS doesn't have enough RAM to compile):
+  # LOCAL machine
+  cd backend && mvn clean package -DskipTests
+  # scp target/backend-*.jar ubuntu@<VPS_IP>:/opt/phrasal/app.jar
+  ssh -i ~/dev/scripts/vps/ssh-key-2026-06-26.key ubuntu@141.144.227.73 "sudo mkdir -p /opt/phrasal && sudo chown ubuntu:
+  /opt/phrasal"
+
+  scp -i ~/dev/scripts/vps/ssh-key-2026-06-26.key \
+  /home/ubuntuu/dev/mine/phrasal/backend/target/backend-*.jar \
+    ubuntu@141.144.227.73:/opt/phrasal/app.jar
+
+  # Create systemd service /etc/systemd/system/phrasal.service:
+  sudo bash -c 'cat << "EOF" > /etc/systemd/system/phrasal.service
+  [Unit]
+  Description=Phrasal Backend
+  After=postgresql.service
+  Requires=postgresql.service
+
+  [Service]
+  User=phrasal
+  ExecStart=/usr/bin/java \
+    -Xms128m -Xmx256m \
+    -XX:+UseSerialGC \
+    -XX:MaxMetaspaceSize=128m \
+    -jar /opt/phrasal/app.jar \
+    --spring.datasource.url=jdbc:postgresql://localhost:5432/phrasal \
+    --spring.datasource.username=phrasal \
+    --spring.datasource.password=your_password
+  Restart=always
+
+  [Install]
+  WantedBy=multi-user.target
+  EOF'
+
+  sudo useradd -r -s /bin/false phrasal
+  sudo mkdir -p /opt/phrasal && sudo chown phrasal: /opt/phrasal
+  sudo systemctl enable --now phrasal
+
+  # Step 4 — Deploy frontend with Nginx
+  # Build locally, copy dist:
+  # LOCAL machine
+  cd frontend && npm run build
+
+  # On VPS create
+  mkdir -p /var/www/phrasal
+
+  ssh -i ~/dev/scripts/vps/ssh-key-2026-06-26.key \
+  ubuntu@141.144.227.73 "sudo chown ubuntu: \
+  /var/www/phrasal"
+
+  scp -i ~/dev/scripts/vps/ssh-key-2026-06-26.key \
+    -r /home/ubuntuu/dev/mine/phrasal/frontend/dist/* \
+      ubuntu@141.144.227.73:/var/www/phrasal/
+
+  # Nginx config /etc/nginx/sites-available/phrasal:
+  sudo bash -c 'cat << "EOF" > /etc/nginx/sites-available/phrasal
+  server {
+      listen 80;
+      server_name your-domain.com;
+
+      root /var/www/phrasal;
+      index index.html;
+
+      location / {
+          try_files $uri $uri/ /index.html;
+      }
+
+      location /api/ {
+          proxy_pass http://127.0.0.1:8080;
+          proxy_set_header Host $host;
+          proxy_set_header X-Real-IP $remote_addr;
+      }
+  }
+  EOF'
+
+  sudo ln -s /etc/nginx/sites-available/phrasal /etc/nginx/sites-enabled/
+  sudo rm /etc/nginx/sites-enabled/default
+  sudo nginx -t && sudo systemctl reload nginx
+
+  #The key JVM flags are -Xmx256m and -XX:+UseSerialGC — SerialGC has the lowest memory overhead. The 2 GB swap gives you
+  #headroom so the OOM killer doesn't nuke your app. Want me to check the actual Spring profiles and datasource config to
+  #make these commands copy-paste ready?
+
+
+
+I've just configured server with above instruction.
+What's port for frontend? for backend? for postgres?
+---
+
+## 2026-06-26T21:02:59Z
+but with netstate I see only :80 port
+(No info could be read for "-p": geteuid()=1001 but you should be root.)
+tcp        0      0 127.0.0.53:53           0.0.0.0:*               LISTEN      -
+tcp        0      0 127.0.0.54:53           0.0.0.0:*               LISTEN      -
+tcp        0      0 127.0.0.1:5432          0.0.0.0:*               LISTEN      -
+tcp        0      0 0.0.0.0:80              0.0.0.0:*               LISTEN      -
+tcp        0      0 0.0.0.0:111             0.0.0.0:*               LISTEN      -
+tcp        0      0 0.0.0.0:22              0.0.0.0:*               LISTEN      -
+tcp6       0      0 :::111                  :::*                    LISTEN      -
+tcp6       0      0 :::22                   :::*                    LISTEN      -
+udp        0      0 127.0.0.54:53           0.0.0.0:*                           -
+udp        0      0 127.0.0.53:53           0.0.0.0:*                           -
+udp        0      0 10.0.0.2:68             0.0.0.0:*                           -
+udp        0      0 0.0.0.0:111             0.0.0.0:*                           -
+udp6       0      0 :::111                  :::*                                -
+raw6       0      0 :::58                   :::*                    7           -
+
+So backend is not working?
+---
+
+## 2026-06-26T21:05:47Z
+ubuntu@vps-t1:~$  sudo systemctl status phrasal
+● phrasal.service - Phrasal Backend
+     Loaded: loaded (/etc/systemd/system/phrasal.service; enabled; preset: enabled)
+     Active: active (running) since Fri 2026-06-26 21:03:40 UTC; 14s ago
+   Main PID: 25750 (java)
+      Tasks: 15 (limit: 1031)
+     Memory: 117.6M (peak: 117.6M)
+        CPU: 28.490s
+     CGroup: /system.slice/phrasal.service
+             └─25750 /usr/bin/java -Xms128m -Xmx256m -XX:+UseSerialGC -XX:MaxMetaspaceSize=128m -jar /opt/phrasal/app.jar --spring.datasource.url=jdbc:postgresql://localhost:5432/phrasal --spring.datasource.username=phrasal --spring.datasource.password=your_password
+
+Jun 26 21:03:40 vps-t1 systemd[1]: Started phrasal.service - Phrasal Backend.
+Jun 26 21:03:49 vps-t1 java[25750]:   .   ____          _            __ _ _
+Jun 26 21:03:49 vps-t1 java[25750]:  /\\ / ___'_ __ _ _(_)_ __  __ _ \ \ \ \
+Jun 26 21:03:49 vps-t1 java[25750]: ( ( )\___ | '_ | '_| | '_ \/ _` | \ \ \ \
+Jun 26 21:03:49 vps-t1 java[25750]:  \\/  ___)| |_)| | | | | || (_| |  ) ) ) )
+Jun 26 21:03:49 vps-t1 java[25750]:   '  |____| .__|_| |_|_| |_\__, | / / / /
+Jun 26 21:03:49 vps-t1 java[25750]:  =========|_|==============|___/=/_/_/_/
+Jun 26 21:03:49 vps-t1 java[25750]:  :: Spring Boot ::                (v3.4.1)
+Jun 26 21:03:50 vps-t1 java[25750]: 2026-06-26T21:03:50.118Z  INFO 25750 --- [backend] [           main] net.phrasal.PhrasalApplication           : Starting PhrasalApplication v0.1.0 using Java 21.0.11 with PID 25750 (/opt/phrasal/app.jar started by phrasal in /)
+Jun 26 21:03:50 vps-t1 java[25750]: 2026-06-26T21:03:50.123Z  INFO 25750 --- [backend] [           main] net.phrasal.PhrasalApplication           : No active profile set, falling back to 1 default profile: "default"
+---
+
+## 2026-06-26T21:06:44Z
+no 5 min past
+---
+
+## 2026-06-26T21:07:41Z
+so in phrasal/backend see db credit and create profile with correct db credentials
+---
+
+## 2026-06-26T21:09:38Z
+so in phrasal/backend see db credit and create profile with correct db credentials.
+Write script for deploying new compiled jar and I appliy it to upload to VPS
+Do it in project codebase
+---
+
+## 2026-06-26T21:12:10Z
+for db I use these in postgres:
+sudo -u postgres psql -c "CREATE USER phrasaluser WITH PASSWORD 'phrasalpass';"
+  sudo -u postgres psql -c "CREATE DATABASE phrasaldb OWNER phrasal;"
+---
+
+## 2026-06-26T21:13:41Z
+script must only deploy backend
+---
+
+## 2026-06-26T21:14:01Z
+and also create correct jar for prod
+---
+
+## 2026-06-26T21:15:34Z
+did you consider prod profile in jar?
+---
+
+## 2026-06-26T21:20:27Z
+how to change: /etc/systemd/system/phrasal.service to and restart?
+[Unit]
+  Description=Phrasal Backend
+  After=postgresql.service
+  Requires=postgresql.service
+
+  [Service]
+  User=phrasal
+  ExecStart=/usr/bin/java \
+    -Xms128m -Xmx256m \
+    -XX:+UseSerialGC \
+    -XX:MaxMetaspaceSize=128m \
+    -jar /opt/phrasal/app.jar \
+    --spring.datasource.url=jdbc:postgresql://localhost:5432/phrasal \
+    --spring.datasource.username=phrasaluser \
+    --spring.datasource.password=phrasalpass
+  Restart=always
+
+  [Install]
+  WantedBy=multi-user.target
+---
+
+## 2026-06-26T21:39:04Z
+ sudo service phrasal status
+● phrasal.service - Phrasal Backend
+     Loaded: loaded (/etc/systemd/system/phrasal.service; enabled; preset: enabled)
+     Active: active (running) since Fri 2026-06-26 21:23:25 UTC; 15min ago
+   Main PID: 26997 (java)
+      Tasks: 31 (limit: 1031)
+     Memory: 165.8M (peak: 384.6M swap: 209.9M swap peak: 210.2M)
+        CPU: 2min 13.868s
+     CGroup: /system.slice/phrasal.service
+             └─26997 /usr/bin/java -Xms128m -Xmx256m -XX:+UseSerialGC -XX:MaxMetaspaceSize=128m -jar /opt/phrasal/app.jar --spring.profiles.active=prod --spring.datasource.url=jdbc:postgresql://localhost:5432/phrasaldb --spring.datasource.username=phrasaluser --spring.datasource.password=phrasalpass
+
+Jun 26 21:25:18 vps-t1 java[26997]:         at org.apache.coyote.AbstractProtocol$ConnectionHandler.process(AbstractProtocol.java:905) ~[tomcat-embed-core-10.1.34.jar!/:na]
+Jun 26 21:25:18 vps-t1 java[26997]:         at org.apache.tomcat.util.net.NioEndpoint$SocketProcessor.doRun(NioEndpoint.java:1741) ~[tomcat-embed-core-10.1.34.jar!/:na]
+Jun 26 21:25:18 vps-t1 java[26997]:         at org.apache.tomcat.util.net.SocketProcessorBase.run(SocketProcessorBase.java:52) ~[tomcat-embed-core-10.1.34.jar!/:na]
+Jun 26 21:25:18 vps-t1 java[26997]:         at org.apache.tomcat.util.threads.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1190) ~[tomcat-embed-core-10.1.34.jar!/:na]
+Jun 26 21:25:18 vps-t1 java[26997]:         at org.apache.tomcat.util.threads.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:659) ~[tomcat-embed-core-10.1.34.jar!/:na]
+Jun 26 21:25:18 vps-t1 java[26997]:         at org.apache.tomcat.util.threads.TaskThread$WrappingRunnable.run(TaskThread.java:63) ~[tomcat-embed-core-10.1.34.jar!/:na]
+Jun 26 21:25:18 vps-t1 java[26997]:         at java.base/java.lang.Thread.run(Thread.java:1583) ~[na:na]
+Jun 26 21:26:02 vps-t1 java[26997]: 2026-06-26T21:26:02.557Z  INFO 26997 --- [backend] [nio-8080-exec-3] o.a.c.c.C.[Tomcat].[localhost].[/]       : Initializing Spring DispatcherServlet 'dispatcherServlet'
+Jun 26 21:26:02 vps-t1 java[26997]: 2026-06-26T21:26:02.557Z  INFO 26997 --- [backend] [nio-8080-exec-3] o.s.web.servlet.DispatcherServlet        : Initializing Servlet 'dispatcherServlet'
+Jun 26 21:26:02 vps-t1 java[26997]: 2026-06-26T21:26:02.562Z  INFO 26997 --- [backend] [nio-8080-exec-3] o.s.web.servlet.DispatcherServlet        : Completed initialization in 5 ms
+---
+
+## 2026-06-26T21:58:17Z
+I have:
+
+ cat /etc/systemd/system/phrasal.service
+[Unit]
+Description=Phrasal Backend
+After=postgresql.service
+Requires=postgresql.service
+
+[Service]
+User=phrasal
+ExecStart=/usr/bin/java \
+  -Xms128m -Xmx256m \
+  -XX:+UseSerialGC \
+  -XX:MaxMetaspaceSize=128m \
+  -jar /opt/phrasal/app.jar \
+  -Dspring.profiles.active=prod
+Restart=always
+
+[Install]
+WantedBy=multi-user.target
+but
+     CGroup: /system.slice/phrasal.service
+             └─30021 /usr/bin/java -Xms128m -Xmx256m -XX:+UseSerialGC -XX:MaxMetaspaceSize=128m -jar /opt/phrasal/app.jar -Dspring.profiles.active=prod
+
+Jun 26 21:57:48 vps-t1 java[30021]:   .   ____          _            __ _ _
+Jun 26 21:57:48 vps-t1 java[30021]:  /\\ / ___'_ __ _ _(_)_ __  __ _ \ \ \ \
+Jun 26 21:57:48 vps-t1 java[30021]: ( ( )\___ | '_ | '_| | '_ \/ _` | \ \ \ \
+Jun 26 21:57:48 vps-t1 java[30021]:  \\/  ___)| |_)| | | | | || (_| |  ) ) ) )
+Jun 26 21:57:48 vps-t1 java[30021]:   '  |____| .__|_| |_|_| |_\__, | / / / /
+Jun 26 21:57:48 vps-t1 java[30021]:  =========|_|==============|___/=/_/_/_/
+Jun 26 21:57:48 vps-t1 java[30021]:  :: Spring Boot ::                (v3.4.1)
+Jun 26 21:57:49 vps-t1 java[30021]: 2026-06-26T21:57:49.315Z  INFO 30021 --- [backend] [           main] net.phrasal.PhrasalApplication           : Starting PhrasalApplication v0.1.0 using Java 21.0.11 with PID 30021 (/opt/phrasal/app.jar started by phrasal in /)
+Jun 26 21:57:49 vps-t1 java[30021]: 2026-06-26T21:57:49.324Z  INFO 30021 --- [backend] [           main] net.phrasal.PhrasalApplication           : No active profile set, falling back to 1 default profile: "default"
+Jun 26 21:57:59 vps-t1 java[30021]: 2026-06-26T21:57:59.321Z  INFO 30021 --- [backend] [           main] .s.d.r.c.RepositoryConfigurationDelegate : Bootstrapping Spring Data JPA repositories in DEFAULT mode.
+why default?
+---
+
+## 2026-06-26T22:11:12Z
+I have access to backend (http://141.144.227.73:8080), but no frontend (http://141.144.227.73)
+
+server {
+    listen 80;
+    server_name your-domain.com;
+
+    root /var/www/phrasal;
+    index index.html;
+
+    location / {
+        try_files $uri $uri/ /index.html;
+    }
+
+    location /api/ {
+        proxy_pass http://127.0.0.1:8080;
+        proxy_set_header Host $host;
+        proxy_set_header X-Real-IP $remote_addr;
+    }
+}
+---
+
+## 2026-06-26T22:11:19Z
+I have access to backend (http://141.144.227.73:8080), but no frontend (http://141.144.227.73)
+
+
+server {
+    listen 80;
+    server_name your-domain.com;
+
+    root /var/www/phrasal;
+    index index.html;
+
+    location / {
+        try_files $uri $uri/ /index.html;
+    }
+
+    location /api/ {
+        proxy_pass http://127.0.0.1:8080;
+        proxy_set_header Host $host;
+        proxy_set_header X-Real-IP $remote_addr;
+    }
+}
+---
+
+## 2026-06-26T22:14:51Z
+Activate in iptable 5434 port to access postgres
+---
+
+## 2026-06-26T22:15:25Z
+how to see current iptable?
+---
+
+## 2026-06-26T22:23:35Z
+I also open 5432 on VPS Ingres:
+And by connection: 141.144.227.73:5432 db: phrasaldb, user: phrasaluser, pass: phrasalpass [jdbc:postgresql://141.144.227.73:5432/phrasaldb]
+I got: DBMS: PostgreSQL (no ver.)
+Case sensitivity: plain=mixed, delimited=exact
+The connection attempt failed.
+---
+
+## 2026-06-26T22:29:16Z
+ I have access to backend (http://141.144.227.73:8080), but no frontend (http://141.144.227.73)
+
+  [Pasted text #6 +3 lines]
+
+   cat /etc/nginx/sites-available/phrasal
+  server {
+      listen 80;
+      server_name your-domain.com;
+
+      root /var/www/phrasal;
+      index index.html;
+
+      location / {
+          try_files $uri $uri/ /index.html;
+      }
+
+      location /api/ {
+          proxy_pass http://127.0.0.1:8080;
+          proxy_set_header Host $host;
+          proxy_set_header X-Real-IP $remote_addr;
+      }
+  }
+---
+
+## 2026-06-26T22:30:26Z
+If I don't have domain and I want only use by IP?
+---
+
+## 2026-06-26T22:40:34Z
+ sudo python3 -m http.server 8000 and 8080 is access outside
+ sudo python3 -m http.server 80 is not. (I turned it on VSP ingres)
+
+ sudo iptables -L INPUT -n --line-numbers
+Chain INPUT (policy ACCEPT)
+num  target     prot opt source               destination
+1    ACCEPT     0    --  0.0.0.0/0            0.0.0.0/0            state RELATED,ESTABLISHED
+2    ACCEPT     1    --  0.0.0.0/0            0.0.0.0/0
+3    ACCEPT     0    --  0.0.0.0/0            0.0.0.0/0
+4    ACCEPT     6    --  0.0.0.0/0            0.0.0.0/0            state NEW tcp dpt:22
+5    ACCEPT     6    --  0.0.0.0/0            0.0.0.0/0            tcp dpt:5432
+6    ACCEPT     6    --  0.0.0.0/0            0.0.0.0/0            tcp dpt:5434
+7    ACCEPT     6    --  0.0.0.0/0            0.0.0.0/0            tcp dpt:8000 state NEW
+8    ACCEPT     6    --  0.0.0.0/0            0.0.0.0/0            tcp dpt:8080 state NEW
+9    REJECT     0    --  0.0.0.0/0            0.0.0.0/0            reject-with icmp-host-prohibited
+10   ufw-before-logging-input  0    --  0.0.0.0/0            0.0.0.0/0
+11   ufw-before-input  0    --  0.0.0.0/0            0.0.0.0/0
+12   ufw-after-input  0    --  0.0.0.0/0            0.0.0.0/0
+13   ufw-after-logging-input  0    --  0.0.0.0/0            0.0.0.0/0
+14   ufw-reject-input  0    --  0.0.0.0/0            0.0.0.0/0
+15   ufw-track-input  0    --  0.0.0.0/0            0.0.0.0/0
+16   ACCEPT     0    --  0.0.0.0/0            0.0.0.0/0            state RELATED,ESTABLISHED
+17   ACCEPT     1    --  0.0.0.0/0            0.0.0.0/0
+18   ACCEPT     0    --  0.0.0.0/0            0.0.0.0/0
+19   ACCEPT     6    --  0.0.0.0/0            0.0.0.0/0            state NEW tcp dpt:22
+20   REJECT     0    --  0.0.0.0/0            0.0.0.0/0            reject-with icmp-host-prohibited
+---
+
+## 2026-06-26T22:41:06Z
+sudo iptables -I INPUT 5 -p tcp --dport 80 -j ACCEPT
+---
+
+## 2026-06-26T22:42:02Z
+but `sudo python3 -m http.server 80` runs only with sudo on 80 but on 8000 withot also.
+---
+
+## 2026-06-26T22:44:07Z
+Is `sudo service nginx status` and `sudo systemcl status nginx` the same?
+---
+
+## 2026-06-27T07:34:24Z
+iptables deny/allow 8080 port
+---
+
+## 2026-06-27T07:35:31Z
+they boss write
+---
+
+## 2026-06-27T07:35:35Z
+they boss write ACCEPT
+---
+
+## 2026-06-27T07:52:03Z
+Install browsh terminal console browser
+---
+
+## 2026-06-27T08:01:57Z
+ ////  ////
+  / /   / /
+  //    //
+  //    //    ,,,,,,,,
+  ////////  ..,,,,,,,,,
+  //    //  .., ,,, .,.
+  ////////  .., ,,,,,..
+  ////////  ..,,,,,,,,,
+  ////////    ...........
+  //////////
+  ****///////////////////
+    ********///////////////
+      ***********************
+
+Starting Browsh v1.8.0, the modern text-based web browser.
+Waiting for Firefox to connect...
+---
+
+## 2026-06-27T08:06:02Z
+linux teminal console browser watch pages with javascript
+---
+
+## 2026-06-27T08:13:58Z
+install http application on linux
+---
+
+## 2026-06-27T08:14:16Z
+install http application on linux (showing json in pretty way)
+---
+
+## 2026-06-27T08:14:59Z
+is httpie is RAM after showin in pretty way the paga?
+---
+
+## 2026-06-27T09:31:09Z
+do you active?
+---
+
+## 2026-06-27T09:33:48Z
+do you active?
+---
+
+## 2026-06-27T09:35:03Z
+fine?
+---
+
+## 2026-06-27T09:35:27Z
+fine?
+---
+
+## 2026-06-27T09:36:31Z
+fine?
+---
+
+## 2026-06-27T09:37:06Z
+I will work with frontend part of the project in this chat
+---
+
+## 2026-06-27T09:50:29Z
+npm vs npx, difference on simple example.
+---
+
+## 2026-06-27T09:59:18Z
+In typescript types: any, unknown, never, undefined, null. Difference, when to use what
+---
+
+## 2026-06-27T10:07:01Z
+name?: string. So ?: in javascript and kotlin are different?
+---
+
+## 2026-06-27T10:08:12Z
+No kotlin (?:) and typescript (?:)
+---
+
+## 2026-06-27T10:10:59Z
+so is it possible to write in typescript ?:
+---
+
+## 2026-06-27T10:11:47Z
+give example with "// ? = optional, : = type annotation
+  name?: string"
+---
+
+## 2026-06-27T10:15:57Z
+javascript different:
+a=2
+var a=3
+let a=2
+const a=3
+When to use, recomendations, etc.
+---
+
+## 2026-06-27T10:21:46Z
+TS: <string>x vs x as string
+---
+
+## 2026-06-27T10:23:40Z
+const a = <string>x;  what does it not work with JSX?
+---
+
+## 2026-06-27T10:24:31Z
+Force casting
+To override type errors that TypeScript may throw when casting, first cast to unknown, then to the target type.
+
+Example
+let x = 'hello';
+console.log(((x as unknown) as number).length); // x is not actually a number so this will return undefined
+
+what does it work?
+---
+
+## 2026-06-27T10:39:08Z
+exec typescript interactive mode in linux
+---
+
+## 2026-06-27T10:40:50Z
+ubuntuu@LP-BSF-EMALYSH:~/.../phrasal$ npx ts-node
+> 2+3
+|
+|
+
+But I cant make it execute (I press Enter, Shift+Enter no executiohns)
+---
+
+## 2026-06-27T10:46:12Z
+let isActive:boolean = true;
+isActive=5;
+
+console.log(isActive);
+Why is it work, I set boolean type
+---
+
+## 2026-06-27T10:46:40Z
+let isActive:boolean = true;
+isActive=5;
+
+console.log(isActive);
+Why is it work in TypeScript, I set boolean type
+---
+
+## 2026-06-27T10:48:01Z
+ npx tsx
+Welcome to Node.js v26.3.1.
+Type ".help" for more information.
+> 2
+2
+> let isActive:boolean = true;
+undefined
+> isActive=5;
+5
+> console.log(isActive);
+5
+undefined
+>
+---
+
+## 2026-06-27T10:48:55Z
+Wht's better?
+---
+
+## 2026-06-27T10:51:31Z
+I want console
+---
+
+## 2026-06-27T10:54:00Z
+why no errors: ubuntuu@LP-BSF-EMALYSH:~/.../phrasal$ npx tsx
+Welcome to Node.js v26.3.1.
+Type ".help" for more information.
+> let isActive:boolean=5
+undefined
+> isActive:boolean="abc"
+'abc'
+> isActive:boolean=true
+true
+---
+
+## 2026-06-27T10:56:22Z
+> let isActive:boolean=5
+undefined
+
+Why no error?
+---
+
+## 2026-06-27T10:57:58Z
+Ok node-ts is give error. But I don't know to to run that javascript I see only "
+---
+
+## 2026-06-27T10:58:07Z
+Ok node-ts is give error. But I don't know to to run that javascript I see only "|" on new line on entering
+---
+
+## 2026-06-27T10:58:17Z
+Ok node-ts is give error. But I don't know to to run that javascript I see only "|" on new line on Enter pressing
+---
+
+## 2026-06-27T11:09:44Z
+TS: partial, Keyof
+---
+
+## 2026-06-27T11:29:36Z
+what's eslint?
+---
+
+## 2026-06-27T11:37:16Z
+type guards
+---
+
+## 2026-06-27T11:37:25Z
+TS: type guards
+---
+
+## 2026-06-27T11:38:33Z
+TS has private, public, etc. modifier like Java?
+---
+
+## 2026-06-27T12:02:01Z
+TS: analogy throws of Java
+---
+
+## 2026-06-27T13:10:43Z
+What's Vite build tool? Alternatives, cons, pros
+---
+
+## 2026-06-27T13:15:38Z
+server-side rendering. What's that? alternative. Exaplaine with simple conseptual examples
+---
+
+## 2026-06-27T13:23:12Z
+SSR would add server complexity (Node.js server running React).
+Explain
+---
+
+## 2026-06-27T13:27:05Z
+But I have java backend with handle info. Isn't it rendering?
+---
+
+## 2026-06-27T13:29:50Z
+what's the way not if some json data needed for browser from backend? What calls what in what a sequnce?
+---
+
+## 2026-06-28T09:57:34Z
+Extend @aux/scripts/deploy-vps.sh but deploying fronend. So I can choose what to deploy or all
+---
+
+## 2026-06-28T10:01:38Z
+Extend @aux/scripts/deploy-vps.sh but deploying fronend. So I can choose what to deploy or all
+---
+
+## 2026-06-28T10:07:49Z
+On ./aux/scripts/deploy-vps.sh and pressing <tab> show option to choose.
+Just ./aux/scripts/deploy-vps.sh should not just run all script but force to choose options
+---
+
+## 2026-06-28T10:21:33Z
+git add all changes and commit them with suitable message
+---
+
+## 2026-06-28T10:26:48Z
+in @aux/scripts/deploy-vps.sh 
+
+./aux/scripts/deploy-vps.sh frontend 
+=== Building frontend ===
+
+> phrasal-verbs-quiz@1.0.0 build
+> vite build
+
+vite v8.1.0 building client environment for production...
+✓ 56 modules transformed.
+computing gzip size...
+dist/index.html                   1.20 kB │ gzip:  0.63 kB
+dist/assets/index-BvIaYAhn.css   35.01 kB │ gzip:  6.77 kB
+dist/assets/index-XX0Dl2Li.js   299.22 kB │ gzip: 89.37 kB
+
+✓ built in 416ms
+=== Uploading frontend to VPS ===
+bash: line 1: rsync: command not found
+rsync: connection unexpectedly closed (0 bytes received so far) [sender]
+rsync error: error in rsync protocol data stream (code 12) at io.c(232) [sender=3.4.1]
+---
+
+## 2026-06-28T10:36:20Z
+git add all changes and commit them with suitable message
+---
+
+## 2026-06-28T10:37:31Z
+Recommend free dns to get domain name and bind my VPS IP
+---
+
+## 2026-06-28T10:55:33Z
+Add free domain using my.noip.com
+---
+
+## 2026-06-28T10:56:32Z
+What type of ip to chose A, AAAA, URL, etc?
+---
+
+## 2026-06-28T10:57:29Z
+Wildcard enbale? 
+Enable Dynamic DNS?
+---
+
+## 2026-06-28T10:57:51Z
+But if in future I need?
+---
+
+## 2026-06-28T10:58:22Z
+Add I add that api.phrasal.ddns.net later?
+---
+
+## 2026-06-28T10:59:02Z
+I just enable but use only phrasal.ddns.net is ok?
+---
+
+## 2026-06-28T11:00:01Z
+But if enable I get button instead of "Create" -> "Create with DDNS Key"
+---
+
+## 2026-06-28T11:05:30Z
+I set, when will it be active?
+hot to get from browser? what's url?
+---
+
+## 2026-06-28T11:06:14Z
+All good.
+Hot to make that https?
+---
+
+## 2026-06-28T11:09:20Z
+If I set that I get get to not only by "http://phrasal.ddns.net" but also by "https://phrasal.ddns.net"?
+---
+
+## 2026-06-28T11:19:32Z
+show iptables
+---
+
+## 2026-06-28T11:19:51Z
+show iptables (just command)
+---
+
+## 2026-06-28T11:20:48Z
+is 443 open?
+
+num  target     prot opt source               destination
+1    ACCEPT     0    --  0.0.0.0/0            0.0.0.0/0            state RELATED,ESTABLISHED
+2    ACCEPT     1    --  0.0.0.0/0            0.0.0.0/0
+3    ACCEPT     0    --  0.0.0.0/0            0.0.0.0/0
+4    ACCEPT     6    --  0.0.0.0/0            0.0.0.0/0            state NEW tcp dpt:22
+5    ACCEPT     6    --  0.0.0.0/0            0.0.0.0/0            tcp dpt:80
+6    ACCEPT     6    --  0.0.0.0/0            0.0.0.0/0            tcp dpt:5432
+7    ACCEPT     6    --  0.0.0.0/0            0.0.0.0/0            tcp dpt:5434
+8    ACCEPT     6    --  0.0.0.0/0            0.0.0.0/0            tcp dpt:8000 state NEW
+9    REJECT     0    --  0.0.0.0/0            0.0.0.0/0            reject-with icmp-host-prohibited
+10   ufw-before-logging-input  0    --  0.0.0.0/0            0.0.0.0/0
+11   ufw-before-input  0    --  0.0.0.0/0            0.0.0.0/0
+12   ufw-after-input  0    --  0.0.0.0/0            0.0.0.0/0
+13   ufw-after-logging-input  0    --  0.0.0.0/0            0.0.0.0/0
+14   ufw-reject-input  0    --  0.0.0.0/0            0.0.0.0/0
+15   ufw-track-input  0    --  0.0.0.0/0            0.0.0.0/0
+16   ACCEPT     0    --  0.0.0.0/0            0.0.0.0/0            state RELATED,ESTABLISHED
+17   ACCEPT     1    --  0.0.0.0/0            0.0.0.0/0
+18   ACCEPT     0    --  0.0.0.0/0            0.0.0.0/0
+19   ACCEPT     6    --  0.0.0.0/0            0.0.0.0/0            state NEW tcp dpt:22
+20   REJECT     0    --  0.0.0.0/0            0.0.0.0/0            reject-with icmp-host-prohibited
+---
+
+## 2026-06-28T11:21:07Z
+sudo iptables -I INPUT 5 -p tcp --dport 443 -j ACCEPT && sudo netfilter-persistent save
+---
+
+## 2026-06-28T11:21:39Z
+Now?
+
+sudo iptables -L INPUT -n --line-numbers
+Chain INPUT (policy ACCEPT)
+num  target     prot opt source               destination
+1    ACCEPT     0    --  0.0.0.0/0            0.0.0.0/0            state RELATED,ESTABLISHED
+2    ACCEPT     1    --  0.0.0.0/0            0.0.0.0/0
+3    ACCEPT     0    --  0.0.0.0/0            0.0.0.0/0
+4    ACCEPT     6    --  0.0.0.0/0            0.0.0.0/0            state NEW tcp dpt:22
+5    ACCEPT     6    --  0.0.0.0/0            0.0.0.0/0            tcp dpt:443
+6    ACCEPT     6    --  0.0.0.0/0            0.0.0.0/0            tcp dpt:80
+7    ACCEPT     6    --  0.0.0.0/0            0.0.0.0/0            tcp dpt:5432
+8    ACCEPT     6    --  0.0.0.0/0            0.0.0.0/0            tcp dpt:5434
+9    ACCEPT     6    --  0.0.0.0/0            0.0.0.0/0            tcp dpt:8000 state NEW
+10   REJECT     0    --  0.0.0.0/0            0.0.0.0/0            reject-with icmp-host-prohibited
+11   ufw-before-logging-input  0    --  0.0.0.0/0            0.0.0.0/0
+12   ufw-before-input  0    --  0.0.0.0/0            0.0.0.0/0
+13   ufw-after-input  0    --  0.0.0.0/0            0.0.0.0/0
+14   ufw-after-logging-input  0    --  0.0.0.0/0            0.0.0.0/0
+15   ufw-reject-input  0    --  0.0.0.0/0            0.0.0.0/0
+16   ufw-track-input  0    --  0.0.0.0/0            0.0.0.0/0
+17   ACCEPT     0    --  0.0.0.0/0            0.0.0.0/0            state RELATED,ESTABLISHED
+18   ACCEPT     1    --  0.0.0.0/0            0.0.0.0/0
+19   ACCEPT     0    --  0.0.0.0/0            0.0.0.0/0
+20   ACCEPT     6    --  0.0.0.0/0            0.0.0.0/0            state NEW tcp dpt:22
+21   REJECT     0    --  0.0.0.0/0            0.0.0.0/0            reject-with icmp-host-prohibited
+---
+
+## 2026-06-28T11:24:01Z
+show commands to open and close 8080 in iptbles
+---
+
+## 2026-06-28T11:27:18Z
+git add all changes and commit them with suitable message
+---
+
+## 2026-06-28T11:33:00Z
+git add all changes and commit them with suitable message
+---
+
+## 2026-06-28T11:38:43Z
+I have a problem:
+
+I can search even not fully contained words by parts.
+
+For example for:
+Figure out
+To understand a problem and find a solution.
+"It took the team three hours to figure out why the Java application was crashing."
+
+examples:
+"understand a problem"
+"the team three"
+"tethree"
+"Te thrh"
+"figure owt"
+""figure oWt"
+etc.
+
+What the best way to do that, intro elastic search or make that with postgres and spring data.
+You can know:
+For deploying I use VPS 1 cpu, 1 gb memory (ngix, java, postgres install standalon) @aux/scripts/deploy-vps.sh
+
+Analyze what the best balance of performance and limited hardware.
+---
+
+## 2026-06-28T12:10:42Z
+so all is on the fronent no changes on the backend module?
+---
+
+## 2026-06-28T12:12:10Z
+But is there sens to keep postgres? did you relate with db?
+---
+
+## 2026-06-28T12:14:43Z
+so no data from postgres is taken only when load first time the localhost, and than no?
+---
+
+## 2026-06-28T12:15:49Z
+git add all changes and commit them with suitable message
+---
+
+## 2026-06-28T12:16:35Z
+git add all changes and commit them with suitable message
+---
+
+## 2026-06-28T12:17:50Z
+Analyze the git log and see the last release, also create the new release with good descriptions.
+Write me steps to do that
+---
+
+## 2026-06-28T12:22:55Z
+Disable @.github/workflows/phrasal-deploy.yml
+---
+
+## 2026-06-28T12:23:56Z
+Disable @.github/workflows/phrasal-deploy.yml without deletion lines
+---
+
+## 2026-06-28T12:28:03Z
+gpu origin fullstack -f
+Enumerating objects: 119, done.
+Counting objects: 100% (119/119), done.
+Delta compression using up to 20 threads
+Compressing objects: 100% (83/83), done.
+Writing objects: 100% (90/90), 47.51 KiB | 2.79 MiB/s, done.
+Total 90 (delta 60), reused 0 (delta 0), pack-reused 0 (from 0)
+remote: Resolving deltas: 100% (60/60), completed with 23 local objects.
+remote: error: GH013: Repository rule violations found for refs/heads/fullstack.
+remote: 
+remote: - GITHUB PUSH PROTECTION
+remote:   —————————————————————————————————————————
+remote:     Resolve the following violations before pushing again
+remote: 
+remote:     - Push cannot contain secrets
+remote: 
+remote:     
+remote:      (?) Learn how to resolve a blocked push
+remote:      https://docs.github.com/code-security/secret-scanning/working-with-secret-scanning-and-push-protection/working-with-push-protection-from-the-command-line#resolving-a-blocked-push
+remote:     
+remote:      (?) This repository does not have Secret Scanning enabled, but is eligible. Enable Secret Scanning to view and manage detected secrets.
+remote:      Visit the repository settings page, https://github.com/makeitfine-org/phrasal/settings/security_analysis
+remote:     
+remote:     
+remote:       —— Azure AI Services Key —————————————————————————————
+remote:        locations:
+remote:          - commit: 3f586146ff3a6b9403b439310edb5b53866cab1b
+remote:            path: .claude/docs/blackbox/audit.md:11325
+remote:          - commit: d14469b9f24bb6dbbe65bb66f031e03b41e2a3c6
+remote:            path: .claude/docs/blackbox/audit.md:11325
+remote:          - commit: 3f586146ff3a6b9403b439310edb5b53866cab1b
+remote:            path: .claude/docs/blackbox/audit.md:11820
+remote:          - commit: d14469b9f24bb6dbbe65bb66f031e03b41e2a3c6
+remote:            path: .claude/docs/blackbox/audit.md:11820
+remote:          - commit: d14469b9f24bb6dbbe65bb66f031e03b41e2a3c6
+remote:            path: .claude/docs/blackbox/audit.md:12270
+remote:     
+remote:        (?) To push, remove secret from commit(s) or follow this URL to allow the secret.
+remote:        https://github.com/makeitfine-org/phrasal/security/secret-scanning/unblock-secret/3FlGEJ4WuQVN5uUuBCvntlnjjBF
+remote:     
+remote: 
+remote: 
+To github.com:makeitfine-org/phrasal.git
+ ! [remote rejected] fullstack -> fullstack (push declined due to repository rule violations)
+error: failed to push some refs to 'github.com:makeitfine-org/phrasal.git'
+---
