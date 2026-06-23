@@ -2094,3 +2094,51 @@
 - backend/src/test/java/net/phrasal/domain/entity/GrammarEntryEntityTest.java
 - backend/src/test/java/net/phrasal/domain/entity/PhrasalVerbEntityTest.java
 <!-- end-snapshot -->
+
+<!-- git-snapshot 2026-06-23T08:23:14Z -->
+- .claude/docs/blackbox/audit.md
+- .claude/settings.local.json
+- .mcp.json
+<!-- end-snapshot -->
+
+<!-- git-snapshot 2026-06-23T08:26:05Z -->
+- .claude/docs/blackbox/audit.md
+- .claude/docs/blackbox/session-log.md
+- .claude/settings.local.json
+- .mcp.json
+<!-- end-snapshot -->
+
+<!-- git-snapshot 2026-06-23T08:27:50Z -->
+- .claude/docs/blackbox/audit.md
+- .claude/docs/blackbox/session-log.md
+- .claude/settings.local.json
+- .mcp.json
+<!-- end-snapshot -->
+
+<!-- git-snapshot 2026-06-23T08:32:40Z -->
+- .claude/docs/blackbox/audit.md
+- .claude/docs/blackbox/session-log.md
+- .claude/settings.local.json
+- .mcp.json
+<!-- end-snapshot -->
+
+<!-- git-snapshot 2026-06-23T08:33:14Z -->
+- .claude/docs/blackbox/audit.md
+- .claude/docs/blackbox/session-log.md
+- .claude/settings.local.json
+- .mcp.json
+<!-- end-snapshot -->
+
+<!-- git-snapshot 2026-06-23T08:35:40Z -->
+- .claude/docs/blackbox/audit.md
+- .claude/docs/blackbox/session-log.md
+- .claude/settings.local.json
+- .mcp.json
+<!-- end-snapshot -->
+
+<!-- git-snapshot 2026-06-23T08:36:34Z -->
+- .claude/docs/blackbox/audit.md
+- .claude/docs/blackbox/session-log.md
+- .claude/settings.local.json
+- .mcp.json
+<!-- end-snapshot -->

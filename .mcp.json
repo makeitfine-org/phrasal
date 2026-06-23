@@ -1,0 +1,23 @@
+{
+  "mcpServers": {
+    "postgres-phrasaldb": {
+      "type": "stdio",
+      "disabled": false,
+      "command": "npx",
+      "args": [
+        "-y",
+        "@modelcontextprotocol/server-postgres",
+        "postgresql://postgres:postgres@localhost:5432/phrasaldb"
+      ]
+    },
+    "playwright": {
+      "type": "stdio",
+      "disabled": false,
+      "command": "npx",
+      "args": [
+        "@playwright/mcp@latest"
+      ],
+      "env": {}
+    }
+  }
+}

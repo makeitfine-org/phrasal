@@ -86,10 +86,17 @@
       "Bash(grep -n \"\\(\\\\`src/\" /home/ubuntuu/dev/mine/phrasal/CLAUDE.md)",
       "Bash(grep *)",
       "Bash(make clean *)",
-      "Bash(npm uninstall *)"
+      "Bash(npm uninstall *)",
+      "Bash(npx -y @modelcontextprotocol/server-postgres --help)",
+      "Bash(npx -y @modelcontextprotocol/server-postgres \"postgresql://postgres:postgres@localhost:5432/phrasaldb\")",
+      "mcp__postgres-phrasaldb__*"
     ]
   },
   "model": "Opus",
+  "enabledMcpjsonServers": [
+    "postgres-phrasaldb",
+    "playwright"
+  ],
   "hooks": {
     "Stop": [
       {

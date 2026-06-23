@@ -9638,3 +9638,50 @@ git add all changes and commit them with suitable message
 ## 2026-06-22T13:17:02Z
 git add all changes and commit them with suitable message
 ---
+
+## 2026-06-23T08:14:37Z
+use mcp postgres show all about "Break out" phrasal verb
+---
+
+## 2026-06-23T08:19:56Z
+is postgress mcp configured properly?
+---
+
+## 2026-06-23T08:21:30Z
+cl
+---
+
+## 2026-06-23T08:22:36Z
+Is postgress mcp configured properly?
+---
+
+## 2026-06-23T08:25:55Z
+Is postgress mcp configured properly?
+---
+
+## 2026-06-23T08:27:00Z
+ Still no postgres MCP tools loaded
+
+How to fix that?
+---
+
+## 2026-06-23T08:31:49Z
+use mcp postgres show all about "Break out" phrasal verb
+---
+
+## 2026-06-23T08:33:06Z
+use mcp postgres show all about "Break out" phrasal verb. show definitions and its examples
+---
+
+## 2026-06-23T08:35:24Z
+Use mcp postgres: show all about phrasal verb(s), its definitions, and its examples.
+The phrasal verb:
+Work off
+---
+
+## 2026-06-23T08:36:25Z
+Use mcp postgres: show all about phrasal verb(s), its definitions, and its examples.
+The phrasal verb:
+Work out
+Work up
+---
