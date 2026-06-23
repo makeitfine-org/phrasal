@@ -36,6 +36,13 @@ public class GlobalExceptionHandler {
                 "phrasal-verb-not-found", ex.getMessage());
     }
 
+    @ExceptionHandler(VerbDetailNotFoundException.class)
+    public ProblemDetail handleVerbDetailNotFound(VerbDetailNotFoundException ex) {
+        log.warn("Verb detail not found: {}", ex.getMessage());
+        return buildProblem(HttpStatus.NOT_FOUND, "Verb Detail Not Found",
+                "verb-detail-not-found", ex.getMessage());
+    }
+
     @ExceptionHandler(GrammarEntryNotFoundException.class)
     public ProblemDetail handleGrammarEntryNotFound(GrammarEntryNotFoundException ex) {
         log.warn("Grammar entry not found: {}", ex.getMessage());

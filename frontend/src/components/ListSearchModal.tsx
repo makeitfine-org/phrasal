@@ -1,7 +1,7 @@
 import React, { useState, useEffect, useRef } from 'react';
 import { XIcon } from './Icons';
 import { useFocusTrap } from '../hooks/useFocusTrap';
-import { listVerbIndex, type ListSearchEntry } from '../data/listVerbIndex';
+import { fetchListVerbIndex, type ListSearchEntry } from '../data/listVerbIndex';
 
 interface ListSearchModalProps {
   onSelect: (entry: ListSearchEntry) => void;
@@ -9,12 +9,30 @@ interface ListSearchModalProps {
   entries?: ListSearchEntry[];
 }
 
-export default function ListSearchModal({ onSelect, onClose, entries = listVerbIndex }: ListSearchModalProps) {
+export default function ListSearchModal({ onSelect, onClose, entries: entriesProp }: ListSearchModalProps) {
   const [query, setQuery] = useState('');
   const [selectedIndex, setSelectedIndex] = useState(-1);
+  const [entries, setEntries] = useState<ListSearchEntry[]>(entriesProp ?? []);
+  const [loadingEntries, setLoadingEntries] = useState(!entriesProp);
   const listRef = useRef<HTMLUListElement>(null);
   const panelRef = useRef<HTMLDivElement>(null);
   useFocusTrap(panelRef);
+
+  useEffect(() => {
+    if (entriesProp) return;
+    let cancelled = false;
+    fetchListVerbIndex()
+      .then(data => {
+        if (!cancelled) {
+          setEntries(data);
+          setLoadingEntries(false);
+        }
+      })
+      .catch(() => {
+        if (!cancelled) setLoadingEntries(false);
+      });
+    return () => { cancelled = true; };
+  }, [entriesProp]);
 
   useEffect(() => {
     const handler = (e: KeyboardEvent) => { if (e.key === 'Escape') onClose(); };
@@ -92,7 +110,11 @@ export default function ListSearchModal({ onSelect, onClose, entries = listVerbI
         </div>
 
         <div className="overflow-y-auto flex-1">
-          {results.length === 0 ? (
+          {loadingEntries ? (
+            <p className="text-center text-gray-400 dark:text-gray-500 py-10 text-sm">
+              Loading...
+            </p>
+          ) : results.length === 0 ? (
             <p className="text-center text-gray-400 dark:text-gray-500 py-10 text-sm">
               No matches found
             </p>

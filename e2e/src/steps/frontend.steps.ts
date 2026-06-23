@@ -37,3 +37,35 @@ Then('I should see a quiz input field', async function (this: PhrasalWorld) {
     const input = await this.page!.locator('[placeholder="Type phrasal verb"]').first();
     assert.ok(await input.isVisible(), 'Expected quiz input field to be visible');
 });
+
+When('I navigate to the verb list page', async function (this: PhrasalWorld) {
+    await this.page!.goto(`${FRONTEND_URL}/phrasal-verbs/list`);
+    await this.page!.waitForSelector('[data-testid^="verb-card-"]', { timeout: 10000 });
+});
+
+When('I navigate to the verb detail page for {string}', async function (this: PhrasalWorld, verb: string) {
+    await this.page!.goto(`${FRONTEND_URL}/phrasal-verbs/list/${verb}`);
+    await this.page!.waitForLoadState('networkidle');
+});
+
+When('I click on the verb card for {string}', async function (this: PhrasalWorld, label: string) {
+    const card = this.page!.locator(`h2:has-text("${label}")`).first();
+    await card.click();
+    await this.page!.waitForLoadState('networkidle');
+});
+
+Then('I should see at least {int} verb cards', async function (this: PhrasalWorld, count: number) {
+    const cards = await this.page!.locator('[data-testid^="verb-card-"]:not([data-testid="verb-card-particles"])').all();
+    assert.ok(cards.length >= count, `Expected at least ${count} verb cards, found ${cards.length}`);
+});
+
+Then('I should see a verb card for {string}', async function (this: PhrasalWorld, label: string) {
+    const heading = this.page!.locator(`h2:has-text("${label}")`).first();
+    assert.ok(await heading.isVisible(), `Expected verb card for "${label}" to be visible`);
+});
+
+Then('I should see at least one particle section', async function (this: PhrasalWorld) {
+    const section = this.page!.locator('button[class*="rounded"]').first();
+    await section.waitFor({ timeout: 10000 });
+    assert.ok(await section.isVisible(), 'Expected at least one particle section');
+});

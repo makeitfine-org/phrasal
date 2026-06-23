@@ -4,6 +4,7 @@ import { Link, useNavigate } from 'react-router-dom';
 import { SearchIcon, ExpandAllIcon, CollapseAllIcon } from '../components/Icons';
 import ListSearchModal from '../components/ListSearchModal';
 import type { ListSearchEntry } from '../data/listVerbIndex';
+import { useVerbList } from '../hooks/useVerbList';
 
 const PARTICLE_NAMES = [
   'off', 'on', 'up', 'down', 'in', 'into', 'out', 'away', 'cross / across',
@@ -12,349 +13,7 @@ const PARTICLE_NAMES = [
   'to', 'against', 'along',
 ];
 
-const GET_PARTICLES = [
-  'off', 'on', 'up', 'down', 'in', 'into', 'out', 'away', 'across',
-  'forward', 'back', 'by', 'together', 'with', 'over', 'ahead', 'after',
-  'behind', 'through', 'about / around', 'to',
-];
-
-const MAKE_PARTICLES = [
-  'after', 'away (with)', 'for', 'into', 'off (with)', 'out', 'over', 'up', 'up for', 'with',
-];
-
-const PUT_PARTICLES = [
-  'off', 'on', 'up', 'down', 'in', 'into', 'out', 'away', 'across / over',
-  'forward', 'back', 'by', 'together', 'with', 'ahead', 'behind', 'through',
-  'about / around / round', 'to',
-];
-
-const GIVE_PARTICLES = [
-  'away', 'back', 'in', 'in to', 'off', 'on / onto', 'out', 'over', 'up', '(it) up for', 'with',
-];
-
-const GO_PARTICLES = [
-  'off', 'on', 'up', 'down', 'in', 'into', 'out', 'away', 'across',
-  'forward', 'back', 'for', 'by', 'together', 'with', 'without',
-  'over', 'ahead', 'after', 'behind', 'through', 'about', 'around / round',
-  'to', 'against',
-];
-
-const COME_PARTICLES = [
-  'about', 'across', 'after', 'against', 'ahead', 'apart', 'around / round',
-  'away', 'back', 'behind', 'by', 'down', 'for', 'forward', 'in', 'into',
-  'off', 'on', 'out', 'over', 'through', 'to', 'together', 'up', 'with', 'without',
-];
-
-const TAKE_PARTICLES = [
-  'off', 'on', 'up', 'down', 'in', 'into', 'out', 'away', 'cross / across',
-  'forward', 'back', 'for', 'by', 'together', 'with', 'without', 'apart',
-  'over', 'ahead', 'after', 'behind', 'through', 'about', 'around / round',
-  'to', 'against',
-];
-
-const ACT_PARTICLES = ['on / upon', 'up', 'out', 'for', 'against'];
-
-const CUT_PARTICLES = [
-  'off', 'on', 'up', 'down', 'in', 'into', 'out', 'away', 'across',
-  'back', 'together', 'apart', 'over', 'ahead', 'through', 'about / round', 'to', 'against',
-];
-
-const ASK_PARTICLES = [
-  'about', 'after', 'around / round', 'away', 'back', 'down', 'for',
-  'in', 'into', 'off', 'out', 'over', 'up',
-];
-
-const BACK_PARTICLES = [
-  'away', 'down', 'in', 'into', 'off', 'onto', 'out / out of', 'over', 'up',
-];
-
-const BE_PARTICLES = [
-  'off', 'on', 'up', 'down', 'in', 'into', 'out', 'away', 'across',
-  'forward', 'back', 'for', 'by', 'together', 'with', 'without', 'apart',
-  'over', 'ahead', 'after', 'behind', 'through', 'about', 'around / round',
-  'to', 'against',
-];
-
-const BREAK_PARTICLES = [
-  'off', 'up', 'down', 'in', 'into', 'out', 'away', 'back', 'for',
-  'with', 'apart', 'over', 'through', 'to', 'against',
-];
-
-const BRING_PARTICLES = [
-  'about', 'around / round', 'away', 'back', 'by', 'down', 'forward',
-  'in', 'into', 'off', 'on', 'out', 'over', 'through', 'to', 'together', 'up',
-];
-
-const BLOW_PARTICLES = [
-  'about / around (round)', 'apart', 'away', 'back', 'by', 'down', 'in',
-  'into', 'off', 'out', 'over', 'through', 'up',
-];
-
-const BRUSH_PARTICLES = [
-  'off', 'up / up on', 'away', 'down', 'out', 'on', 'over', 'against', 'by', 'back', 'through',
-];
-
-const BUILD_PARTICLES = ['around / round', 'in / into', 'on', 'out', 'up', 'to'];
-
-const CALL_PARTICLES = [
-  'off', 'on / upon', 'up', 'down', 'in', 'into', 'out', 'away', 'across',
-  'forward', 'back', 'for', 'by', 'together', 'over', 'ahead', 'after',
-  'through', 'about', 'around / round', 'to',
-];
-
-const CARRY_PARTICLES = [
-  'about / around / round', 'away', 'back', 'forward', 'off', 'on', 'out', 'over', 'through',
-];
-
-const CATCH_PARTICLES = ['in', 'on', 'out', 'up'];
-
-const CHECK_PARTICLES = [
-  'against', 'around / round', 'back', 'down', 'for', 'in', 'into',
-  'off', 'on', 'out', 'over', 'through', 'up', 'with',
-];
-
-const CHEER_PARTICLES = ['against', 'for', 'off', 'on', 'up'];
-
-const CLEAN_PARTICLES = ['around', 'away', 'down', 'off', 'out', 'up', 'up after'];
-
-const COUNT_PARTICLES = ['against', 'back', 'down', 'for', 'in', 'off', 'on', 'out', 'up'];
-
-const DEAL_PARTICLES = ['around / round', 'away', 'by', 'in', 'into', 'out', 'to', 'with'];
-
-const DO_PARTICLES = [
-  'about', 'away', 'by', 'down', 'for', 'in', 'into', 'out', 'over', 'to', 'up', 'with', 'without',
-];
-
-const DRESS_PARTICLES = ['back', 'by', 'down', 'off', 'on', 'out', 'up'];
-
-const DROP_PARTICLES = [
-  'across', 'around / round', 'away', 'back', 'behind', 'by', 'down',
-  'in', 'into', 'off', 'on', 'out', 'over', 'through', 'to',
-];
-
-const EAT_PARTICLES = [
-  'up', 'into', 'away', 'out', 'in', 'through', 'around / round', 'on', 'down', 'off',
-];
-
-const FALL_PARTICLES = [
-  'about / around / round', 'apart', 'away', 'back', 'behind', 'down',
-  'for', 'in', 'into', 'off', 'on / upon', 'out', 'over', 'through', 'to',
-];
-
-const FIGURE_PARTICLES = ['for', 'in', 'into', 'on', 'out', 'up'];
-
-const FILL_PARTICLES = ['down', 'in', 'out', 'up', 'with'];
-
-const FIND_PARTICLES = ['out', 'for', 'against'];
-
-const GROW_PARTICLES = ['apart', 'away', 'back', 'in', 'into', 'on', 'out / out of', 'over', 'to', 'together', 'up', 'with'];
-
-const HAND_PARTICLES = ['back', 'down', 'in', 'off', 'on', 'out', 'over', 'around / round / about', 'to'];
-
-const HANG_PARTICLES = ['about / around / round', 'back', 'behind', 'down', 'in', 'off', 'on', 'out', 'over', 'together', 'up', 'with'];
-
-const HOLD_PARTICLES = ['against', 'back', 'down', 'in', 'off', 'on', 'out', 'over', 'to', 'together', 'up', 'with'];
-
-const KEEP_PARTICLES = ['about / around / round', 'across', 'after', 'ahead', 'apart', 'away', 'back', 'behind', 'down', 'in', 'off', 'on', 'out', 'to', 'together', 'up'];
-
-const KNOCK_PARTICLES = ['about / around / round', 'against', 'apart', 'back', 'down', 'in', 'into', 'off', 'on', 'out', 'over', 'through', 'together', 'up'];
-
-const LAY_PARTICLES = ['about', 'away', 'by', 'down', 'for', 'in', 'into', 'off', 'on', 'out', 'over', 'to', 'up'];
-
-const LEAVE_PARTICLES = ['about / around', 'back', 'behind', 'for', 'in', 'off', 'on', 'out', 'over', 'to', 'up (to)', 'with'];
-
-const LET_PARTICLES = ['down', 'in', 'into', 'off', 'on', 'out', 'up', 'by', 'through'];
-
-const LOG_PARTICLES = ['in / into', 'out', 'on', 'off', 'up'];
-
-const LOOK_PARTICLES = [
-  'after', 'ahead', 'around / round / about', 'away', 'back (on)', 'down on',
-  'for', 'forward to', 'in (on)', 'into', 'on', 'out', 'over', 'through', 'to', 'up',
-];
-
-const MIX_PARTICLES = ['up', 'in / into', 'with', 'together', 'down'];
-
-const PASS_PARTICLES = [
-  'away', 'by', 'down', 'for', 'in', 'into', 'off', 'on', 'out',
-  'over', 'through', 'to', 'up', 'around / round / about',
-];
-
-const PAY_PARTICLES = [
-  'off', 'up', 'down', 'in / into', 'out', 'away', 'forward', 'back', 'for', 'over',
-];
-
-const PICK_PARTICLES = [
-  'apart', 'away', 'off', 'on', 'out', 'over', 'through', 'up',
-];
-
-const POINT_PARTICLES = [
-  'ahead / forward', 'back', 'off', 'out', 'to', 'up',
-];
-
-const PULL_PARTICLES = [
-  'about', 'ahead', 'against', 'apart', 'around / round', 'away', 'back',
-  'down', 'for', 'forward', 'in', 'into', 'off', 'on', 'out', 'over',
-  'through', 'to', 'together', 'up',
-];
-
-const RUN_PARTICLES = [
-  'about / around / round', 'across', 'after', 'against', 'ahead', 'away', 'back',
-  'behind', 'by', 'down', 'for', 'in', 'into', 'off', 'on', 'out', 'over',
-  'through', 'to', 'together', 'up', 'with', 'without',
-];
-
-const SET_PARTICLES = [
-  'about', 'against', 'ahead', 'apart', 'back', 'by', 'down', 'in', 'off', 'on', 'out', 'over', 'to', 'up',
-];
-
-const SETTLE_PARTICLES = [
-  'back', 'down', 'for', 'in', 'into', 'on', 'out', 'over', 'to', 'up', 'with',
-];
-
-const SHOW_PARTICLES = [
-  'around / round / about', 'down', 'for', 'in / into', 'off', 'out', 'over', 'through', 'to', 'up',
-];
-
-const SHUT_PARTICLES = [
-  'away', 'down', 'in', 'off', 'out', 'up',
-];
-
-const SIT_PARTICLES = [
-  'about / around / round', 'back', 'by', 'down', 'for', 'in', 'on', 'out', 'over', 'through', 'up', 'with',
-];
-
-const STAND_PARTICLES = [
-  'about / around', 'against', 'apart', 'away', 'back', 'behind', 'by', 'down', 'for', 'in', 'into',
-  'off', 'on', 'out', 'over', 'to', 'together', 'up', 'with',
-];
-
-const STICK_PARTICLES = [
-  'about / around', 'away', 'by', 'down', 'for', 'in', 'out', 'to', 'together', 'up', 'with',
-];
-
-const TALK_PARTICLES = [
-  'about', 'across', 'against', 'around / round', 'away', 'back', 'down', 'for', 'into', 'on',
-  'out', 'over', 'through', 'to', 'together', 'up', 'with',
-];
-
-const THINK_PARTICLES = [
-  'about', 'ahead', 'around / round', 'back', 'for', 'on', 'out', 'over', 'through', 'to', 'up',
-];
-
-const THROW_PARTICLES = [
-  'about / around / round', 'away', 'back', 'down', 'in', 'into', 'off', 'on', 'out', 'over', 'together', 'up',
-];
-
-const TRY_PARTICLES = [
-  'back', 'for', 'on', 'out', 'out for', 'over',
-];
-
-const TURN_PARTICLES = [
-  'about', 'against', 'around / round', 'away', 'back', 'down',
-  'in', 'into', 'off', 'on', 'out', 'over', 'to', 'up',
-];
-
-const USE_PARTICLES = ['against', 'to / used to', 'up'];
-
-const WAKE_PARTICLES = ['to', 'up', 'up to'];
-
-const WARM_PARTICLES = ['down', 'over', 'through', 'to', 'up'];
-
-const WATCH_PARTICLES = ['back', 'for', 'on', 'out', 'out for', 'over', 'through'];
-
-const WEAR_PARTICLES = ['away', 'down', 'in', 'off', 'on', 'out', 'through'];
-
-const WORK_PARTICLES = [
-  'against', 'ahead', 'around / round', 'away', 'back', 'down', 'for',
-  'in', 'into', 'off', 'on', 'out', 'over', 'through', 'to', 'together', 'up', 'with',
-];
-
-const WRITE_PARTICLES = [
-  'about', 'against', 'around / round', 'away', 'back', 'down', 'for',
-  'in', 'into', 'off', 'on', 'out', 'over', 'through', 'to', 'up',
-];
-
-const ZIP_PARTICLES = [
-  'about / around / round', 'across', 'ahead', 'apart', 'away', 'back', 'by',
-  'down', 'in', 'into', 'off', 'on', 'out', 'over', 'through', 'to', 'together', 'up',
-];
-
-const VERBS = [
-  { key: 'act',    label: 'Act',    to: '/phrasal-verbs/list/act',    particles: ACT_PARTICLES },
-  { key: 'ask',    label: 'Ask',    to: '/phrasal-verbs/list/ask',    particles: ASK_PARTICLES },
-  { key: 'back',   label: 'Back',   to: '/phrasal-verbs/list/back',   particles: BACK_PARTICLES },
-  { key: 'be',     label: 'Be',     to: '/phrasal-verbs/list/be',     particles: BE_PARTICLES },
-  { key: 'blow',   label: 'Blow',   to: '/phrasal-verbs/list/blow',   particles: BLOW_PARTICLES },
-  { key: 'break',  label: 'Break',  to: '/phrasal-verbs/list/break',  particles: BREAK_PARTICLES },
-  { key: 'bring',  label: 'Bring',  to: '/phrasal-verbs/list/bring',  particles: BRING_PARTICLES },
-  { key: 'brush',  label: 'Brush',  to: '/phrasal-verbs/list/brush',  particles: BRUSH_PARTICLES },
-  { key: 'build',  label: 'Build',  to: '/phrasal-verbs/list/build',  particles: BUILD_PARTICLES },
-  { key: 'call',   label: 'Call',   to: '/phrasal-verbs/list/call',   particles: CALL_PARTICLES },
-  { key: 'carry',  label: 'Carry',  to: '/phrasal-verbs/list/carry',  particles: CARRY_PARTICLES },
-  { key: 'catch',  label: 'Catch',  to: '/phrasal-verbs/list/catch',  particles: CATCH_PARTICLES },
-  { key: 'check',  label: 'Check',  to: '/phrasal-verbs/list/check',  particles: CHECK_PARTICLES },
-  { key: 'cheer',  label: 'Cheer',  to: '/phrasal-verbs/list/cheer',  particles: CHEER_PARTICLES },
-  { key: 'clean',  label: 'Clean',  to: '/phrasal-verbs/list/clean',  particles: CLEAN_PARTICLES },
-  { key: 'come',   label: 'Come',   to: '/phrasal-verbs/list/come',   particles: COME_PARTICLES },
-  { key: 'count',  label: 'Count',  to: '/phrasal-verbs/list/count',  particles: COUNT_PARTICLES },
-  { key: 'cut',    label: 'Cut',    to: '/phrasal-verbs/list/cut',    particles: CUT_PARTICLES },
-  { key: 'deal',   label: 'Deal',   to: '/phrasal-verbs/list/deal',   particles: DEAL_PARTICLES },
-  { key: 'do',     label: 'Do',     to: '/phrasal-verbs/list/do',     particles: DO_PARTICLES },
-  { key: 'dress',  label: 'Dress',  to: '/phrasal-verbs/list/dress',  particles: DRESS_PARTICLES },
-  { key: 'drop',   label: 'Drop',   to: '/phrasal-verbs/list/drop',   particles: DROP_PARTICLES },
-  { key: 'eat',    label: 'Eat',    to: '/phrasal-verbs/list/eat',    particles: EAT_PARTICLES },
-  { key: 'fall',   label: 'Fall',   to: '/phrasal-verbs/list/fall',   particles: FALL_PARTICLES },
-  { key: 'figure', label: 'Figure', to: '/phrasal-verbs/list/figure', particles: FIGURE_PARTICLES },
-  { key: 'fill',   label: 'Fill',   to: '/phrasal-verbs/list/fill',   particles: FILL_PARTICLES },
-  { key: 'find',   label: 'Find',   to: '/phrasal-verbs/list/find',   particles: FIND_PARTICLES },
-  { key: 'get',    label: 'Get',    to: '/phrasal-verbs/list/get',    particles: GET_PARTICLES },
-  { key: 'give',   label: 'Give',   to: '/phrasal-verbs/list/give',   particles: GIVE_PARTICLES },
-  { key: 'go',     label: 'Go',     to: '/phrasal-verbs/list/go',     particles: GO_PARTICLES },
-  { key: 'grow',   label: 'Grow',   to: '/phrasal-verbs/list/grow',   particles: GROW_PARTICLES },
-  { key: 'hand',   label: 'Hand',   to: '/phrasal-verbs/list/hand',   particles: HAND_PARTICLES },
-  { key: 'hang',   label: 'Hang',   to: '/phrasal-verbs/list/hang',   particles: HANG_PARTICLES },
-  { key: 'hold',   label: 'Hold',   to: '/phrasal-verbs/list/hold',   particles: HOLD_PARTICLES },
-  { key: 'keep',   label: 'Keep',   to: '/phrasal-verbs/list/keep',   particles: KEEP_PARTICLES },
-  { key: 'knock',  label: 'Knock',  to: '/phrasal-verbs/list/knock',  particles: KNOCK_PARTICLES },
-  { key: 'lay',    label: 'Lay',    to: '/phrasal-verbs/list/lay',    particles: LAY_PARTICLES },
-  { key: 'leave',  label: 'Leave',  to: '/phrasal-verbs/list/leave',  particles: LEAVE_PARTICLES },
-  { key: 'let',    label: 'Let',    to: '/phrasal-verbs/list/let',    particles: LET_PARTICLES },
-  { key: 'log',    label: 'Log',    to: '/phrasal-verbs/list/log',    particles: LOG_PARTICLES },
-  { key: 'look',   label: 'Look',   to: '/phrasal-verbs/list/look',   particles: LOOK_PARTICLES },
-  { key: 'make',   label: 'Make',   to: '/phrasal-verbs/list/make',   particles: MAKE_PARTICLES },
-  { key: 'mix',    label: 'Mix',    to: '/phrasal-verbs/list/mix',    particles: MIX_PARTICLES },
-  { key: 'pass',   label: 'Pass',   to: '/phrasal-verbs/list/pass',   particles: PASS_PARTICLES },
-  { key: 'pay',    label: 'Pay',    to: '/phrasal-verbs/list/pay',    particles: PAY_PARTICLES },
-  { key: 'pick',   label: 'Pick',   to: '/phrasal-verbs/list/pick',   particles: PICK_PARTICLES },
-  { key: 'point',  label: 'Point',  to: '/phrasal-verbs/list/point',  particles: POINT_PARTICLES },
-  { key: 'pull',   label: 'Pull',   to: '/phrasal-verbs/list/pull',   particles: PULL_PARTICLES },
-  { key: 'put',    label: 'Put',    to: '/phrasal-verbs/list/put',    particles: PUT_PARTICLES },
-  { key: 'run',    label: 'Run',    to: '/phrasal-verbs/list/run',    particles: RUN_PARTICLES },
-  { key: 'set',    label: 'Set',    to: '/phrasal-verbs/list/set',    particles: SET_PARTICLES },
-  { key: 'settle', label: 'Settle', to: '/phrasal-verbs/list/settle', particles: SETTLE_PARTICLES },
-  { key: 'show',   label: 'Show',   to: '/phrasal-verbs/list/show',   particles: SHOW_PARTICLES },
-  { key: 'shut',   label: 'Shut',   to: '/phrasal-verbs/list/shut',   particles: SHUT_PARTICLES },
-  { key: 'sit',    label: 'Sit',    to: '/phrasal-verbs/list/sit',    particles: SIT_PARTICLES },
-  { key: 'stand',  label: 'Stand',  to: '/phrasal-verbs/list/stand',  particles: STAND_PARTICLES },
-  { key: 'stick',  label: 'Stick',  to: '/phrasal-verbs/list/stick',  particles: STICK_PARTICLES },
-  { key: 'take',   label: 'Take',   to: '/phrasal-verbs/list/take',   particles: TAKE_PARTICLES },
-  { key: 'talk',   label: 'Talk',   to: '/phrasal-verbs/list/talk',   particles: TALK_PARTICLES },
-  { key: 'think',  label: 'Think',  to: '/phrasal-verbs/list/think',  particles: THINK_PARTICLES },
-  { key: 'throw',  label: 'Throw',  to: '/phrasal-verbs/list/throw',  particles: THROW_PARTICLES },
-  { key: 'try',    label: 'Try',    to: '/phrasal-verbs/list/try',    particles: TRY_PARTICLES },
-  { key: 'turn',   label: 'Turn',   to: '/phrasal-verbs/list/turn',   particles: TURN_PARTICLES },
-  { key: 'use',    label: 'Use',    to: '/phrasal-verbs/list/use',    particles: USE_PARTICLES },
-  { key: 'wake',   label: 'Wake',   to: '/phrasal-verbs/list/wake',   particles: WAKE_PARTICLES },
-  { key: 'warm',   label: 'Warm',   to: '/phrasal-verbs/list/warm',   particles: WARM_PARTICLES },
-  { key: 'watch',  label: 'Watch',  to: '/phrasal-verbs/list/watch',  particles: WATCH_PARTICLES },
-  { key: 'wear',   label: 'Wear',   to: '/phrasal-verbs/list/wear',   particles: WEAR_PARTICLES },
-  { key: 'work',   label: 'Work',   to: '/phrasal-verbs/list/work',   particles: WORK_PARTICLES },
-  { key: 'write',  label: 'Write',  to: '/phrasal-verbs/list/write',  particles: WRITE_PARTICLES },
-  { key: 'zip',    label: 'Zip',    to: '/phrasal-verbs/list/zip',    particles: ZIP_PARTICLES },
-];
-
 const EXPANDED_KEY = 'verbListExpanded';
-const ALL_KEYS = ['particles', ...VERBS.map(v => v.key)];
 
 function loadExpanded(): Set<string> {
   try {
@@ -367,19 +26,44 @@ function loadExpanded(): Set<string> {
 
 export default function PhrasalVerbsListPage() {
   const navigate = useNavigate();
+  const { verbs, loading, error } = useVerbList();
   const [showSearch, setShowSearch] = useState(false);
   const [expanded, setExpanded] = useState<Set<string>>(loadExpanded);
   const [copiedVerb, setCopiedVerb] = useState<string | null>(null);
 
-  const allExpanded = ALL_KEYS.every(k => expanded.has(k));
+  if (loading) {
+    return (
+      <div className="min-h-screen bg-gray-50 dark:bg-gray-950 flex items-center justify-center">
+        <p className="text-gray-500 dark:text-gray-400 text-lg">Loading verb list...</p>
+      </div>
+    );
+  }
+
+  if (error) {
+    return (
+      <div className="min-h-screen bg-gray-50 dark:bg-gray-950 flex items-center justify-center">
+        <p className="text-red-500 text-lg">{error}</p>
+      </div>
+    );
+  }
+
+  const verbCards = verbs.map(v => ({
+    key: v.verb,
+    label: v.label,
+    to: `/phrasal-verbs/list/${v.verb}`,
+    particles: v.particles,
+  }));
+
+  const allKeys = ['particles', ...verbCards.map(v => v.key)];
+  const allExpanded = allKeys.every(k => expanded.has(k));
 
   const toggleAll = () => {
     if (allExpanded) {
       setExpanded(new Set());
       localStorage.setItem(EXPANDED_KEY, JSON.stringify([]));
     } else {
-      setExpanded(new Set(ALL_KEYS));
-      localStorage.setItem(EXPANDED_KEY, JSON.stringify(ALL_KEYS));
+      setExpanded(new Set(allKeys));
+      localStorage.setItem(EXPANDED_KEY, JSON.stringify(allKeys));
     }
   };
 
@@ -483,7 +167,7 @@ export default function PhrasalVerbsListPage() {
           )}
         </div>
         <hr className="border-gray-600 dark:border-gray-500" />
-        {VERBS.map(({ key, label, to, particles }) => {
+        {verbCards.map(({ key, label, to, particles }) => {
           const isExpanded = expanded.has(key);
           const isCopied = copiedVerb === label;
           return (

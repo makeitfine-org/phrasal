@@ -9716,3 +9716,22 @@ so now the frontend fetch every phrasal verb and its details, examples from back
 ## 2026-06-23T09:29:01Z
 git add all changes and commit them with suitable message (message starts with starting migration to fullstack)
 ---
+
+## 2026-06-23T09:39:19Z
+Did you move all frontend calls to backend?
+---
+
+## 2026-06-23T09:41:59Z
+What about other phrasal verbs in "/phrasal-verbs/list"?
+---
+
+## 2026-06-23T09:49:23Z
+Yes, move the verb list and detail page data to the backend as well.
+
+Cover that all with tests, e2e.
+`make clean build` must pass successfully in the end.
+---
+
+## 2026-06-23T11:13:49Z
+git add all changes and commit them with suitable message
+---

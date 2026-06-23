@@ -89,7 +89,12 @@
       "Bash(npm uninstall *)",
       "Bash(npx -y @modelcontextprotocol/server-postgres --help)",
       "Bash(npx -y @modelcontextprotocol/server-postgres \"postgresql://postgres:postgres@localhost:5432/phrasaldb\")",
-      "mcp__postgres-phrasaldb__*"
+      "mcp__postgres-phrasaldb__*",
+      "Bash(awk -F: '{sum += $2} END {print \"Total sections:\", sum}')",
+      "Bash(awk -F: '{sum += $2} END {print \"Total meanings:\", sum}')",
+      "Bash(awk -F' ' '{print $2}')",
+      "Bash(awk -F' >' '{print $1}')",
+      "Bash(git -C /home/ubuntuu/dev/mine/phrasal status --short)"
     ]
   },
   "model": "Opus",

@@ -2232,3 +2232,55 @@
 - frontend/src/api/phrasalVerbsApi.ts
 - frontend/src/components/GrammarQuiz.tsx
 <!-- end-snapshot -->
+
+<!-- git-snapshot 2026-06-23T09:39:32Z -->
+- .claude/docs/blackbox/audit.md
+<!-- end-snapshot -->
+
+<!-- git-snapshot 2026-06-23T09:42:14Z -->
+- .claude/docs/blackbox/audit.md
+- .claude/docs/blackbox/session-log.md
+<!-- end-snapshot -->
+
+## 2026-06-23T12:35:00+02:00
+### Decisions
+- Migrated verb list and detail page data from 71 hardcoded frontend TSX files to backend VerbDetail entity with JSONB sections/particles
+- Single dynamic route `/phrasal-verbs/list/:verb` with VerbDetailPage replaces 71 static verb page routes
+- ListSearchModal search index converted from synchronous static imports to async API fetch with client-side caching
+- Backend GET /verb-details/all endpoint provides full sections data for search index; GET /verb-details returns paginated summaries for list page
+### Constraints Stated by User
+- All tests must pass: frontend, backend, e2e
+- `make clean build` must pass end-to-end
+### Files Modified
+- backend: VerbDetail entity, repository, service, controller, mapper, DTOs, exception, 2 Flyway migrations (V7 DDL, V8 seed 71 verbs), 4 test files
+- frontend: VerbDetailPage.tsx, verbDetailsApi.ts, useVerbList.ts, useVerbDetail.ts, listVerbIndex.ts (async), ListSearchModal.tsx, PhrasalVerbsListPage.tsx, main.tsx
+- frontend tests: VerbDetailPage, verbDetailsApi, useVerbList, useVerbDetail, listVerbIndex (rewritten for async), listPage helpers (mock useVerbList)
+- Deleted 71 verb page directories, 71 verb page test directories, shared verbPage test directory
+- e2e: verb-list.feature (4 scenarios), frontend.steps.ts (new step definitions)
+- CLAUDE.md updated for new architecture
+### Deferred
+- None
+---
+
+<!-- git-snapshot 2026-06-23T11:11:56Z -->
+- .claude/docs/blackbox/audit.md
+- .claude/docs/blackbox/plans/2026-06-23 12:05 Plan Move Verb List Detail Pages to Backend API.md
+- .claude/docs/blackbox/session-log.md
+- .claude/settings.local.json
+- CLAUDE.md
+- backend/src/main/java/net/phrasal/application/dto/VerbDetailRequest.java
+- backend/src/main/java/net/phrasal/application/dto/VerbDetailResponse.java
+- backend/src/main/java/net/phrasal/application/dto/VerbDetailSummaryResponse.java
+- backend/src/main/java/net/phrasal/application/mapper/VerbDetailMapper.java
+- backend/src/main/java/net/phrasal/application/service/VerbDetailService.java
+- backend/src/main/java/net/phrasal/domain/entity/VerbDetail.java
+- backend/src/main/java/net/phrasal/domain/entity/VerbDetailMeaning.java
+- backend/src/main/java/net/phrasal/domain/entity/VerbDetailSection.java
+- backend/src/main/java/net/phrasal/domain/repository/VerbDetailRepository.java
+- backend/src/main/java/net/phrasal/infrastructure/exception/GlobalExceptionHandler.java
+- backend/src/main/java/net/phrasal/infrastructure/exception/VerbDetailNotFoundException.java
+- backend/src/main/java/net/phrasal/presentation/rest/VerbDetailController.java
+- backend/src/main/resources/db/migration/V7__create_verb_details_table.sql
+- backend/src/main/resources/db/migration/V8__seed_verb_details.sql
+- backend/src/test/java/net/phrasal/application/mapper/VerbDetailMapperTest.java
+<!-- end-snapshot -->

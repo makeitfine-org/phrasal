@@ -2,6 +2,96 @@ import React from 'react';
 import { render, screen, fireEvent } from '@testing-library/react';
 import { MemoryRouter, Routes, Route, useLocation } from 'react-router-dom';
 import PhrasalVerbsListPage from '../../pages/PhrasalVerbsListPage';
+import type { VerbListItem } from '../../api/verbDetailsApi';
+
+const { MOCK_VERBS } = vi.hoisted(() => {
+  const MOCK_VERBS: VerbListItem[] = [
+    { verb: 'act', label: 'Act', particles: ['on / upon', 'up', 'out', 'for', 'against'] },
+  { verb: 'ask', label: 'Ask', particles: ['about', 'after', 'around / round', 'away', 'back', 'down', 'for', 'in', 'into', 'off', 'out', 'over', 'up'] },
+  { verb: 'back', label: 'Back', particles: ['away', 'down', 'in', 'into', 'off', 'onto', 'out / out of', 'over', 'up'] },
+  { verb: 'be', label: 'Be', particles: ['off', 'on', 'up', 'down', 'in', 'into', 'out', 'away', 'across', 'forward', 'back', 'for', 'by', 'together', 'with', 'without', 'apart', 'over', 'ahead', 'after', 'behind', 'through', 'about', 'around / round', 'to', 'against'] },
+  { verb: 'blow', label: 'Blow', particles: ['about / around (round)', 'apart', 'away', 'back', 'by', 'down', 'in', 'into', 'off', 'out', 'over', 'through', 'up'] },
+  { verb: 'break', label: 'Break', particles: ['off', 'up', 'down', 'in', 'into', 'out', 'away', 'back', 'for', 'with', 'apart', 'over', 'through', 'to', 'against'] },
+  { verb: 'bring', label: 'Bring', particles: ['about', 'around / round', 'away', 'back', 'by', 'down', 'forward', 'in', 'into', 'off', 'on', 'out', 'over', 'through', 'to', 'together', 'up'] },
+  { verb: 'brush', label: 'Brush', particles: ['off', 'up / up on', 'away', 'down', 'out', 'on', 'over', 'against', 'by', 'back', 'through'] },
+  { verb: 'build', label: 'Build', particles: ['around / round', 'in / into', 'on', 'out', 'up', 'to'] },
+  { verb: 'call', label: 'Call', particles: ['off', 'on / upon', 'up', 'down', 'in', 'into', 'out', 'away', 'across', 'forward', 'back', 'for', 'by', 'together', 'over', 'ahead', 'after', 'through', 'about', 'around / round', 'to'] },
+  { verb: 'carry', label: 'Carry', particles: ['about / around / round', 'away', 'back', 'forward', 'off', 'on', 'out', 'over', 'through'] },
+  { verb: 'catch', label: 'Catch', particles: ['in', 'on', 'out', 'up'] },
+  { verb: 'check', label: 'Check', particles: ['against', 'around / round', 'back', 'down', 'for', 'in', 'into', 'off', 'on', 'out', 'over', 'through', 'up', 'with'] },
+  { verb: 'cheer', label: 'Cheer', particles: ['against', 'for', 'off', 'on', 'up'] },
+  { verb: 'clean', label: 'Clean', particles: ['around', 'away', 'down', 'off', 'out', 'up', 'up after'] },
+  { verb: 'come', label: 'Come', particles: ['about', 'across', 'after', 'against', 'ahead', 'apart', 'around / round', 'away', 'back', 'behind', 'by', 'down', 'for', 'forward', 'in', 'into', 'off', 'on', 'out', 'over', 'through', 'to', 'together', 'up', 'with', 'without'] },
+  { verb: 'count', label: 'Count', particles: ['against', 'back', 'down', 'for', 'in', 'off', 'on', 'out', 'up'] },
+  { verb: 'cut', label: 'Cut', particles: ['off', 'on', 'up', 'down', 'in', 'into', 'out', 'away', 'across', 'back', 'together', 'apart', 'over', 'ahead', 'through', 'about / round', 'to', 'against'] },
+  { verb: 'deal', label: 'Deal', particles: ['around / round', 'away', 'by', 'in', 'into', 'out', 'to', 'with'] },
+  { verb: 'do', label: 'Do', particles: ['about', 'away', 'by', 'down', 'for', 'in', 'into', 'out', 'over', 'to', 'up', 'with', 'without'] },
+  { verb: 'dress', label: 'Dress', particles: ['back', 'by', 'down', 'off', 'on', 'out', 'up'] },
+  { verb: 'drop', label: 'Drop', particles: ['across', 'around / round', 'away', 'back', 'behind', 'by', 'down', 'in', 'into', 'off', 'on', 'out', 'over', 'through', 'to'] },
+  { verb: 'eat', label: 'Eat', particles: ['up', 'into', 'away', 'out', 'in', 'through', 'around / round', 'on', 'down', 'off'] },
+  { verb: 'fall', label: 'Fall', particles: ['about / around / round', 'apart', 'away', 'back', 'behind', 'down', 'for', 'in', 'into', 'off', 'on / upon', 'out', 'over', 'through', 'to'] },
+  { verb: 'figure', label: 'Figure', particles: ['for', 'in', 'into', 'on', 'out', 'up'] },
+  { verb: 'fill', label: 'Fill', particles: ['down', 'in', 'out', 'up', 'with'] },
+  { verb: 'find', label: 'Find', particles: ['out', 'for', 'against'] },
+  { verb: 'get', label: 'Get', particles: ['off', 'on', 'up', 'down', 'in', 'into', 'out', 'away', 'across', 'forward', 'back', 'by', 'together', 'with', 'over', 'ahead', 'after', 'behind', 'through', 'about / around', 'to'] },
+  { verb: 'give', label: 'Give', particles: ['away', 'back', 'in', 'in to', 'off', 'on / onto', 'out', 'over', 'up', '(it) up for', 'with'] },
+  { verb: 'go', label: 'Go', particles: ['off', 'on', 'up', 'down', 'in', 'into', 'out', 'away', 'across', 'forward', 'back', 'for', 'by', 'together', 'with', 'without', 'over', 'ahead', 'after', 'behind', 'through', 'about', 'around / round', 'to', 'against'] },
+  { verb: 'grow', label: 'Grow', particles: ['apart', 'away', 'back', 'in', 'into', 'on', 'out / out of', 'over', 'to', 'together', 'up', 'with'] },
+  { verb: 'hand', label: 'Hand', particles: ['back', 'down', 'in', 'off', 'on', 'out', 'over', 'around / round / about', 'to'] },
+  { verb: 'hang', label: 'Hang', particles: ['about / around / round', 'back', 'behind', 'down', 'in', 'off', 'on', 'out', 'over', 'together', 'up', 'with'] },
+  { verb: 'hold', label: 'Hold', particles: ['against', 'back', 'down', 'in', 'off', 'on', 'out', 'over', 'to', 'together', 'up', 'with'] },
+  { verb: 'keep', label: 'Keep', particles: ['about / around / round', 'across', 'after', 'ahead', 'apart', 'away', 'back', 'behind', 'down', 'in', 'off', 'on', 'out', 'to', 'together', 'up'] },
+  { verb: 'knock', label: 'Knock', particles: ['about / around / round', 'against', 'apart', 'back', 'down', 'in', 'into', 'off', 'on', 'out', 'over', 'through', 'together', 'up'] },
+  { verb: 'lay', label: 'Lay', particles: ['about', 'away', 'by', 'down', 'for', 'in', 'into', 'off', 'on', 'out', 'over', 'to', 'up'] },
+  { verb: 'leave', label: 'Leave', particles: ['about / around', 'back', 'behind', 'for', 'in', 'off', 'on', 'out', 'over', 'to', 'up (to)', 'with'] },
+  { verb: 'let', label: 'Let', particles: ['down', 'in', 'into', 'off', 'on', 'out', 'up', 'by', 'through'] },
+  { verb: 'log', label: 'Log', particles: ['in / into', 'out', 'on', 'off', 'up'] },
+  { verb: 'look', label: 'Look', particles: ['after', 'ahead', 'around / round / about', 'away', 'back (on)', 'down on', 'for', 'forward to', 'in (on)', 'into', 'on', 'out', 'over', 'through', 'to', 'up'] },
+  { verb: 'make', label: 'Make', particles: ['after', 'away (with)', 'for', 'into', 'off (with)', 'out', 'over', 'up', 'up for', 'with'] },
+  { verb: 'mix', label: 'Mix', particles: ['up', 'in / into', 'with', 'together', 'down'] },
+  { verb: 'pass', label: 'Pass', particles: ['away', 'by', 'down', 'for', 'in', 'into', 'off', 'on', 'out', 'over', 'through', 'to', 'up', 'around / round / about'] },
+  { verb: 'pay', label: 'Pay', particles: ['off', 'up', 'down', 'in / into', 'out', 'away', 'forward', 'back', 'for', 'over'] },
+  { verb: 'pick', label: 'Pick', particles: ['apart', 'away', 'off', 'on', 'out', 'over', 'through', 'up'] },
+  { verb: 'point', label: 'Point', particles: ['ahead / forward', 'back', 'off', 'out', 'to', 'up'] },
+  { verb: 'pull', label: 'Pull', particles: ['about', 'ahead', 'against', 'apart', 'around / round', 'away', 'back', 'down', 'for', 'forward', 'in', 'into', 'off', 'on', 'out', 'over', 'through', 'to', 'together', 'up'] },
+  { verb: 'put', label: 'Put', particles: ['off', 'on', 'up', 'down', 'in', 'into', 'out', 'away', 'across / over', 'forward', 'back', 'by', 'together', 'with', 'ahead', 'behind', 'through', 'about / around / round', 'to'] },
+  { verb: 'run', label: 'Run', particles: ['about / around / round', 'across', 'after', 'against', 'ahead', 'away', 'back', 'behind', 'by', 'down', 'for', 'in', 'into', 'off', 'on', 'out', 'over', 'through', 'to', 'together', 'up', 'with', 'without'] },
+  { verb: 'set', label: 'Set', particles: ['about', 'against', 'ahead', 'apart', 'back', 'by', 'down', 'in', 'off', 'on', 'out', 'over', 'to', 'up'] },
+  { verb: 'settle', label: 'Settle', particles: ['back', 'down', 'for', 'in', 'into', 'on', 'out', 'over', 'to', 'up', 'with'] },
+  { verb: 'show', label: 'Show', particles: ['around / round / about', 'down', 'for', 'in / into', 'off', 'out', 'over', 'through', 'to', 'up'] },
+  { verb: 'shut', label: 'Shut', particles: ['away', 'down', 'in', 'off', 'out', 'up'] },
+  { verb: 'sit', label: 'Sit', particles: ['about / around / round', 'back', 'by', 'down', 'for', 'in', 'on', 'out', 'over', 'through', 'up', 'with'] },
+  { verb: 'stand', label: 'Stand', particles: ['about / around', 'against', 'apart', 'away', 'back', 'behind', 'by', 'down', 'for', 'in', 'into', 'off', 'on', 'out', 'over', 'to', 'together', 'up', 'with'] },
+  { verb: 'stick', label: 'Stick', particles: ['about / around', 'away', 'by', 'down', 'for', 'in', 'out', 'to', 'together', 'up', 'with'] },
+  { verb: 'take', label: 'Take', particles: ['off', 'on', 'up', 'down', 'in', 'into', 'out', 'away', 'cross / across', 'forward', 'back', 'for', 'by', 'together', 'with', 'without', 'apart', 'over', 'ahead', 'after', 'behind', 'through', 'about', 'around / round', 'to', 'against'] },
+  { verb: 'talk', label: 'Talk', particles: ['about', 'across', 'against', 'around / round', 'away', 'back', 'down', 'for', 'into', 'on', 'out', 'over', 'through', 'to', 'together', 'up', 'with'] },
+  { verb: 'think', label: 'Think', particles: ['about', 'ahead', 'around / round', 'back', 'for', 'on', 'out', 'over', 'through', 'to', 'up'] },
+  { verb: 'throw', label: 'Throw', particles: ['about / around / round', 'away', 'back', 'down', 'in', 'into', 'off', 'on', 'out', 'over', 'together', 'up'] },
+  { verb: 'try', label: 'Try', particles: ['back', 'for', 'on', 'out', 'out for', 'over'] },
+  { verb: 'turn', label: 'Turn', particles: ['about', 'against', 'around / round', 'away', 'back', 'down', 'in', 'into', 'off', 'on', 'out', 'over', 'to', 'up'] },
+  { verb: 'use', label: 'Use', particles: ['against', 'to / used to', 'up'] },
+  { verb: 'wake', label: 'Wake', particles: ['to', 'up', 'up to'] },
+  { verb: 'warm', label: 'Warm', particles: ['down', 'over', 'through', 'to', 'up'] },
+  { verb: 'watch', label: 'Watch', particles: ['back', 'for', 'on', 'out', 'out for', 'over', 'through'] },
+  { verb: 'wear', label: 'Wear', particles: ['away', 'down', 'in', 'off', 'on', 'out', 'through'] },
+  { verb: 'work', label: 'Work', particles: ['against', 'ahead', 'around / round', 'away', 'back', 'down', 'for', 'in', 'into', 'off', 'on', 'out', 'over', 'through', 'to', 'together', 'up', 'with'] },
+  { verb: 'write', label: 'Write', particles: ['about', 'against', 'around / round', 'away', 'back', 'down', 'for', 'in', 'into', 'off', 'on', 'out', 'over', 'through', 'to', 'up'] },
+    { verb: 'zip', label: 'Zip', particles: ['about / around / round', 'across', 'ahead', 'apart', 'away', 'back', 'by', 'down', 'in', 'into', 'off', 'on', 'out', 'over', 'through', 'to', 'together', 'up'] },
+  ];
+  return { MOCK_VERBS };
+});
+
+vi.mock('../../hooks/useVerbList', () => ({
+  useVerbList: () => ({ verbs: MOCK_VERBS, loading: false, error: null }),
+}));
+
+vi.mock('../../data/listVerbIndex', () => ({
+  fetchListVerbIndex: () => Promise.resolve([
+    { verb: 'Get off', definition: 'To leave or dismount', example: 'Get off the bus', route: '/phrasal-verbs/list/get', storageKey: 'getOff_section_expanded', sectionId: 'getOff', entryId: 'getOff_0' },
+    { verb: 'Get on', definition: 'To board or mount', example: 'Get on the train', route: '/phrasal-verbs/list/get', storageKey: 'getOn_section_expanded', sectionId: 'getOn', entryId: 'getOn_0' },
+    { verb: 'Act on', definition: 'To take action because of', example: 'Act on the advice', route: '/phrasal-verbs/list/act', storageKey: 'actOn_section_expanded', sectionId: 'actOn', entryId: 'actOn_0' },
+  ]),
+}));
 
 export function setupPortal() {
   let portalDiv: HTMLDivElement;

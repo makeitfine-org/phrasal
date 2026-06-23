@@ -38,13 +38,13 @@ Java 21 + Spring Boot 3.4.1 REST API. Clean architecture layers under `net.phras
 
 | Layer | Package | Contents |
 |---|---|---|
-| Domain | `domain.entity` | `PhrasalVerb`, `GrammarEntry` (JPA entities, JSONB columns, Lombok `@Getter`/`@Setter`/`@EqualsAndHashCode(of=...)`) |
+| Domain | `domain.entity` | `PhrasalVerb`, `GrammarEntry`, `VerbDetail` (JPA entities, JSONB columns, Lombok `@Getter`/`@Setter`/`@EqualsAndHashCode(of=...)`) |
 | Domain | `domain.repository` | Spring Data JPA repos with `@Query` search/filter |
 | Application | `application.dto` | Java 21 records (request with validation annotations, response immutable) |
 | Application | `application.mapper` | MapStruct interfaces (`componentModel = "spring"`, with `lombok-mapstruct-binding`) |
 | Application | `application.service` | `@Service @Transactional`, Lombok `@RequiredArgsConstructor`, SLF4J logging |
 | Infrastructure | `infrastructure.exception` | `@RestControllerAdvice` with RFC 7807 ProblemDetail, SLF4J logging |
-| Presentation | `presentation.rest` | Versioned REST controllers at `/api/v1/phrasal-verbs` and `/api/v1/grammar-entries` (`@Validated`, Location headers) |
+| Presentation | `presentation.rest` | Versioned REST controllers at `/api/v1/phrasal-verbs`, `/api/v1/grammar-entries`, and `/api/v1/verb-details` (`@Validated`, Location headers) |
 | Config | `config` | `JpaAuditingConfig`, `WebMvcConfig` (CORS) |
 
 Database: PostgreSQL (`phrasaldb`), Flyway migrations in `backend/src/main/resources/db/migration/`.
@@ -65,7 +65,7 @@ Multi-page React 18 + TypeScript app (Vite, Tailwind, react-router-dom v7).
 | `/phrasal-verbs/test-most-popular` | `App` | Phrasal verbs fill-in-the-blank quiz |
 | `/phrasal-verbs/particles` | `ParticlesPage` | Reference: 27 particle core meanings |
 | `/phrasal-verbs/list` | `PhrasalVerbsListPage` | Browse all verbs as expandable cards |
-| `/phrasal-verbs/list/:verb` | `{Verb}VerbPage` | Individual verb detail (71 verbs) |
+| `/phrasal-verbs/list/:verb` | `VerbDetailPage` | Dynamic verb detail page (fetches from API) |
 | `/grammar` | `GrammarPage` | Choose grammar exercise |
 | `/grammar/i-wish-if-only` | `IWishPage` | Translation quiz (Russian → English) |
 | `*` | `NotFoundPage` | 404 |
@@ -94,6 +94,7 @@ Frontend fetches quiz data from the backend REST API on mount. Native `fetch` wr
 | `client.ts` | `get<T>(path, params?)`, `ApiError` | Typed fetch wrapper, base URL `/api/v1` |
 | `phrasalVerbsApi.ts` | `fetchPhrasalVerbs()` | Fetches all phrasal verbs, maps to `VerbEntry[]` + `BrowseVerbEntry[]` |
 | `grammarEntriesApi.ts` | `fetchGrammarEntries(category)` | Fetches grammar entries by category, maps to `GrammarEntry[]` |
+| `verbDetailsApi.ts` | `fetchVerbList()`, `fetchVerbDetail(verb)` | Fetches verb list summaries and full verb detail sections |
 
 ### Data-fetching hooks (`frontend/src/hooks/`)
 
@@ -101,8 +102,10 @@ Frontend fetches quiz data from the backend REST API on mount. Native `fetch` wr
 |---|---|---|
 | `usePhrasalVerbs()` | `{ allVerbs, verbsForBrowse, loading, error }` | `App.tsx` |
 | `useGrammarEntries(category)` | `{ entries, loading, error }` | `IWishPage.tsx` |
+| `useVerbList()` | `{ verbs: VerbListItem[], loading, error }` | `PhrasalVerbsListPage.tsx` |
+| `useVerbDetail(verb)` | `{ title, sections: SectionData[], loading, error }` | `VerbDetailPage.tsx` |
 
-`App` and `IWishPage` render loading/error states, then delegate to `PhrasalVerbQuiz` / `GrammarQuiz` once data is available.
+`App` and `IWishPage` render loading/error states, then delegate to `PhrasalVerbQuiz` / `GrammarQuiz` once data is available. `PhrasalVerbsListPage` and `VerbDetailPage` similarly fetch verb data from the backend.
 
 ### State management
 
@@ -135,7 +138,7 @@ Static reference data (not consumed by quizzes — quizzes fetch from backend AP
 
 - **`phrasalVerbs.ts`** — `rawData: RawVerbEntry[]`. Exports `allVerbs`, `allVerbsWithLearned`, `verbsForBrowse`. Retained as reference/seed data; quizzes use `usePhrasalVerbs()` hook instead.
 - **`wishData.ts`** — `wishData: GrammarEntry[]`. Retained as reference; quizzes use `useGrammarEntries()` hook instead.
-- **`listVerbIndex.ts`** — builds a flat searchable index from all verb page `sections` exports. Exports `ListSearchEntry` type and `listVerbIndex` array. Used by `ListSearchModal`.
+- **`listVerbIndex.ts`** — async `fetchListVerbIndex()` fetches all verb details from `GET /verb-details/all`, builds a flat searchable index, and caches the result. Exports `ListSearchEntry` type. Used by `ListSearchModal`.
 
 ### Verb data format (`frontend/src/data/phrasalVerbs.ts`)
 
@@ -155,21 +158,18 @@ Setting the 5th field to `true` removes a verb from `allVerbs` (the active quiz 
 - **Phrasal quiz** (`PhrasalVerbQuiz`): case-insensitive, parentheses stripped — `cleanUser === cleanCorrect`.
 - **Grammar quiz** (`GrammarQuiz`): uses `isAnswerCorrect()` from `frontend/src/utils/normalizeAnswer.ts` — lowercases, trims, strips non-word/space chars, collapses whitespace, then checks against all `correctAnswers`.
 
-### Adding a new verb page
+### Adding a new verb
 
-1. Create `frontend/src/pages/{verb}/{Verb}VerbPage.tsx`
-2. Define `MeaningData[]` arrays per particle, then export `sections: SectionData[]`
-3. Default export renders `<VerbPageLayout title="Verb" sections={sections} />`
-4. Add route in `frontend/src/main.tsx`
-5. Add `VERBS` entry + particle constant in `frontend/src/pages/PhrasalVerbsListPage.tsx`
-6. Add import + `buildEntries()` call in `frontend/src/data/listVerbIndex.ts`
-7. Add tests in `frontend/src/__tests__/{verb}_verb_page/` — create `helpers.tsx` using `createVerbPageHelpers()` from `frontend/src/__tests__/verbPage/helpers.tsx`
+Verb data is stored in the `verb_details` database table. To add a new verb:
+
+1. Create a Flyway migration inserting the new row with `verb` (slug), `label` (display name), `particles` (JSONB array), and `sections` (JSONB array of `{particle, storageKeyPrefix, meanings: [{definition, example, imageSrc, imageAlt}]}`)
+2. No frontend changes needed — the dynamic `VerbDetailPage` and `PhrasalVerbsListPage` fetch from the API automatically
 
 ## Tests
 
 Vitest + `@testing-library/react`. Setup file: `frontend/src/__tests__/setup.ts` (jest-dom matchers, `scrollIntoView` stub, localStorage mock).
 
-Test files live in `frontend/src/__tests__/`. One `.test.tsx` per component/page. Verb page tests are in subdirectories `frontend/src/__tests__/{verb}_verb_page/` — each has a `helpers.tsx` that calls `createVerbPageHelpers()` from `frontend/src/__tests__/verbPage/helpers.tsx`, plus per-particle test files.
+Test files live in `frontend/src/__tests__/`. One `.test.tsx` per component/page. List page tests are in `frontend/src/__tests__/listPage/` with a shared `helpers.tsx` that mocks `useVerbList` and provides particle constants.
 
 `renderSentenceWithMask` is exported from `frontend/src/utils/renderSentence.tsx` so it can be unit tested directly.
 
