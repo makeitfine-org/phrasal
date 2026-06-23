@@ -95,7 +95,9 @@
       "Bash(awk -F' ' '{print $2}')",
       "Bash(awk -F' >' '{print $1}')",
       "Bash(git -C /home/ubuntuu/dev/mine/phrasal status --short)",
-      "Bash(JAVA_HOME=/usr/lib/jvm/java-21-openjdk-amd64 mvn clean verify -DskipTests)"
+      "Bash(JAVA_HOME=/usr/lib/jvm/java-21-openjdk-amd64 mvn clean verify -DskipTests)",
+      "Bash(JAVA_HOME=/usr/lib/jvm/java-21-openjdk-amd64 mvn checkstyle:check -q)",
+      "Bash(JAVA_HOME=/usr/lib/jvm/java-21-openjdk-amd64 mvn clean verify -q)"
     ]
   },
   "model": "Opus",
