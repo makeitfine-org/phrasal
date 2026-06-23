@@ -2398,3 +2398,8 @@
 - .claude/docs/blackbox/audit.md
 - .claude/docs/blackbox/session-log.md
 <!-- end-snapshot -->
+
+<!-- git-snapshot 2026-06-23T20:52:42Z -->
+- .claude/docs/blackbox/audit.md
+- README.md
+<!-- end-snapshot -->

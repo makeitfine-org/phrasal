@@ -73,6 +73,18 @@ make help
 
 ---
 
+## Code Style
+
+IntelliJ IDEA code style settings live in `aux/code/checkstyle/Idea codestyle.xml` (Google Style base, customized for this project).
+
+**Key Java settings:** 4-space indent, 4-space continuation indent, 120-char line length, no star imports (threshold 999), blank line after class header, K&R braces forced on all control statements.
+
+To import in IntelliJ: **Settings → Editor → Code Style → ⚙ → Import Scheme → IntelliJ IDEA code style XML**, then select the file.
+
+Checkstyle rules enforced during `mvn verify` are in `aux/code/checkstyle/checkstyle.xml`.
+
+---
+
 ## Project Structure
 
 ```

@@ -9873,3 +9873,11 @@ what's the best way to save java checkstyle code in file in order to import that
 ## 2026-06-23T19:45:46Z
 "Enable EditorConfig support" what's that?
 ---
+
+## 2026-06-23T20:50:09Z
+Add info about @"aux/code/checkstyle/Idea codestyle.xml" into @README.md
+---
+
+## 2026-06-23T20:53:24Z
+git add all changes and commit them with suitable message
+---
