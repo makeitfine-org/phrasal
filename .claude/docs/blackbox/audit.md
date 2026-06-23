@@ -9757,3 +9757,51 @@ set this nginx timeout to 30 seconds
 ## 2026-06-23T11:30:37Z
 git add all changes and commit them with suitable message
 ---
+
+## 2026-06-23T11:59:29Z
+While ci.yml execution on github actions I got:
+Run npm --prefix e2e test
+  npm --prefix e2e test
+  shell: /usr/bin/bash -e {0}
+  env:
+    E2E_MANAGE_STACK: 0
+    FRONTEND_URL: http://localhost:3000
+    API_BASE_URL: http://localhost:8080
+    DB_HOST: localhost
+    DB_PORT: 5432
+    DB_NAME: phrasaldb
+    DB_USER: postgres
+    DB_PASSWORD: postgres
+
+> e2e@1.0.0 test
+> cucumber-js
+
+◇ injected env (0) from .env // tip: ⌘ override existing { override: true }
+Cannot use 'progress-bar' formatter for output to 'stdout' as not a TTY. Switching to 'progress' formatter.
+◇ injected env (0) from .env // tip: ⌘ custom filepath { path: '/custom/path/.env' }
+F.
+
+Failed hooks:
+  1) BeforeAll # src/hooks.ts:12
+       browserType.launch: Executable doesn't exist at /home/runner/.cache/ms-playwright/chromium_headless_shell-1228/chrome-headless-shell-linux64/chrome-headless-shell
+       ╔════════════════════════════════════════════════════════════╗
+       ║ Looks like Playwright was just installed or updated.       ║
+       ║ Please run the following command to download new browsers: ║
+       ║                                                            ║
+       ║     npx playwright install                                 ║
+       ║                                                            ║
+       ║ <3 Playwright Team                                         ║
+       ╚════════════════════════════════════════════════════════════╝
+           at Object.<anonymous> (/home/runner/work/phrasal/phrasal/e2e/src/hooks.ts:13:30)
+
+2 hooks (1 passed, 1 failed)
+0 scenarios
+0 steps
+0m 2.93s (0m 0.19s executing your code)
+Error: Process completed with exit code 1.
+Fix that
+---
+
+## 2026-06-23T12:08:36Z
+git add all changes and commit them with suitable message
+---
