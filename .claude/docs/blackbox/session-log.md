@@ -2403,3 +2403,20 @@
 - .claude/docs/blackbox/audit.md
 - README.md
 <!-- end-snapshot -->
+
+<!-- git-snapshot 2026-06-23T21:45:12Z -->
+- .claude/docs/blackbox/audit.md
+- aux/code/checkstyle/Idea codestyle.xml
+<!-- end-snapshot -->
+
+<!-- git-snapshot 2026-06-23T21:50:42Z -->
+- .claude/docs/blackbox/audit.md
+- .claude/docs/blackbox/session-log.md
+- aux/code/checkstyle/Idea codestyle.xml
+- backend/src/main/java/net/phrasal/domain/entity/PhrasalVerb.java
+<!-- end-snapshot -->
+
+<!-- git-snapshot 2026-06-23T21:53:37Z -->
+- .claude/docs/blackbox/audit.md
+- .claude/docs/blackbox/session-log.md
+<!-- end-snapshot -->
