@@ -24,6 +24,8 @@ public record PhrasalVerbRequest(
         Boolean isLearned
 ) {
     public PhrasalVerbRequest {
-        if (isLearned == null) isLearned = false;
+        if (isLearned == null) {
+            isLearned = false;
+        }
     }
 }

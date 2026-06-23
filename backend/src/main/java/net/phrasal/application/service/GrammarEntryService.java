@@ -23,7 +23,7 @@ import java.util.Set;
 @RequiredArgsConstructor
 public class GrammarEntryService {
 
-    private static final Logger log = LoggerFactory.getLogger(GrammarEntryService.class);
+    private static final Logger LOG = LoggerFactory.getLogger(GrammarEntryService.class);
     private static final Set<String> ALLOWED_SORT_FIELDS = Set.of("category", "sentence", "createdAt");
 
     private final GrammarEntryRepository repository;
@@ -57,7 +57,7 @@ public class GrammarEntryService {
     public GrammarEntryResponse create(GrammarEntryRequest request) {
         GrammarEntry entity = mapper.toEntity(request);
         GrammarEntry saved = repository.save(entity);
-        log.info("Created grammar entry id={} category='{}'", saved.getId(), saved.getCategory());
+        LOG.info("Created grammar entry id={} category='{}'", saved.getId(), saved.getCategory());
         return mapper.toResponse(saved);
     }
 
@@ -66,7 +66,7 @@ public class GrammarEntryService {
                 .orElseThrow(() -> new GrammarEntryNotFoundException(id));
         mapper.updateEntityFromRequest(request, entity);
         GrammarEntry updated = repository.save(entity);
-        log.info("Updated grammar entry id={}", id);
+        LOG.info("Updated grammar entry id={}", id);
         return mapper.toResponse(updated);
     }
 
@@ -75,6 +75,6 @@ public class GrammarEntryService {
             throw new GrammarEntryNotFoundException(id);
         }
         repository.deleteById(id);
-        log.info("Deleted grammar entry id={}", id);
+        LOG.info("Deleted grammar entry id={}", id);
     }
 }

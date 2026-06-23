@@ -9845,3 +9845,11 @@ undo root.dir env. var
 ## 2026-06-23T19:05:45Z
 remove symbol " " in audit.md
 ---
+
+## 2026-06-23T19:07:42Z
+run `mvn clean verify -DskipTests` and fix the build until the mentioned command has passed successfully.
+---
+
+## 2026-06-23T19:14:32Z
+git add all changes and commit them with suitable message
+---

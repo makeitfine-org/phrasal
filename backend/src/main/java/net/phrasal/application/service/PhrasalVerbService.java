@@ -23,7 +23,7 @@ import java.util.Set;
 @RequiredArgsConstructor
 public class PhrasalVerbService {
 
-    private static final Logger log = LoggerFactory.getLogger(PhrasalVerbService.class);
+    private static final Logger LOG = LoggerFactory.getLogger(PhrasalVerbService.class);
     private static final Set<String> ALLOWED_SORT_FIELDS = Set.of("verb", "definition", "isLearned", "createdAt");
 
     private final PhrasalVerbRepository repository;
@@ -57,7 +57,7 @@ public class PhrasalVerbService {
     public PhrasalVerbResponse create(PhrasalVerbRequest request) {
         PhrasalVerb entity = mapper.toEntity(request);
         PhrasalVerb saved = repository.save(entity);
-        log.info("Created phrasal verb id={} verb='{}'", saved.getId(), saved.getVerb());
+        LOG.info("Created phrasal verb id={} verb='{}'", saved.getId(), saved.getVerb());
         return mapper.toResponse(saved);
     }
 
@@ -66,7 +66,7 @@ public class PhrasalVerbService {
                 .orElseThrow(() -> new PhrasalVerbNotFoundException(id));
         mapper.updateEntityFromRequest(request, entity);
         PhrasalVerb updated = repository.save(entity);
-        log.info("Updated phrasal verb id={}", id);
+        LOG.info("Updated phrasal verb id={}", id);
         return mapper.toResponse(updated);
     }
 
@@ -75,6 +75,6 @@ public class PhrasalVerbService {
             throw new PhrasalVerbNotFoundException(id);
         }
         repository.deleteById(id);
-        log.info("Deleted phrasal verb id={}", id);
+        LOG.info("Deleted phrasal verb id={}", id);
     }
 }

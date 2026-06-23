@@ -2358,3 +2358,24 @@
 - aux/code/checkstyle/suppressions.xml
 - backend/pom.xml
 <!-- end-snapshot -->
+
+<!-- git-snapshot 2026-06-23T19:12:06Z -->
+- .claude/docs/blackbox/audit.md
+- .claude/settings.local.json
+- aux/code/checkstyle/checkstyle.xml
+- backend/src/main/java/net/phrasal/application/dto/PhrasalVerbRequest.java
+- backend/src/main/java/net/phrasal/application/service/GrammarEntryService.java
+- backend/src/main/java/net/phrasal/application/service/PhrasalVerbService.java
+- backend/src/main/java/net/phrasal/application/service/VerbDetailService.java
+- backend/src/main/java/net/phrasal/domain/entity/GrammarEntry.java
+- backend/src/main/java/net/phrasal/domain/entity/PhrasalVerb.java
+- backend/src/main/java/net/phrasal/domain/entity/VerbDetail.java
+- backend/src/main/java/net/phrasal/infrastructure/exception/GlobalExceptionHandler.java
+- backend/src/main/java/net/phrasal/presentation/rest/GrammarEntryController.java
+- backend/src/main/java/net/phrasal/presentation/rest/PhrasalVerbController.java
+- backend/src/main/java/net/phrasal/presentation/rest/VerbDetailController.java
+<!-- end-snapshot -->
+
+<!-- git-snapshot 2026-06-23T19:15:11Z -->
+- .claude/settings.local.json
+<!-- end-snapshot -->

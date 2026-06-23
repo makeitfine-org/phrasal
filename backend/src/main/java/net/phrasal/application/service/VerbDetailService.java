@@ -25,7 +25,7 @@ import java.util.Set;
 @RequiredArgsConstructor
 public class VerbDetailService {
 
-    private static final Logger log = LoggerFactory.getLogger(VerbDetailService.class);
+    private static final Logger LOG = LoggerFactory.getLogger(VerbDetailService.class);
     private static final Set<String> ALLOWED_SORT_FIELDS = Set.of("verb", "label", "createdAt");
 
     private final VerbDetailRepository repository;
@@ -73,7 +73,7 @@ public class VerbDetailService {
     public VerbDetailResponse create(VerbDetailRequest request) {
         VerbDetail entity = mapper.toEntity(request);
         VerbDetail saved = repository.save(entity);
-        log.info("Created verb detail id={} verb='{}'", saved.getId(), saved.getVerb());
+        LOG.info("Created verb detail id={} verb='{}'", saved.getId(), saved.getVerb());
         return mapper.toResponse(saved);
     }
 
@@ -82,7 +82,7 @@ public class VerbDetailService {
                 .orElseThrow(() -> new VerbDetailNotFoundException(id));
         mapper.updateEntityFromRequest(request, entity);
         VerbDetail updated = repository.save(entity);
-        log.info("Updated verb detail id={}", id);
+        LOG.info("Updated verb detail id={}", id);
         return mapper.toResponse(updated);
     }
 
@@ -91,6 +91,6 @@ public class VerbDetailService {
             throw new VerbDetailNotFoundException(id);
         }
         repository.deleteById(id);
-        log.info("Deleted verb detail id={}", id);
+        LOG.info("Deleted verb detail id={}", id);
     }
 }
