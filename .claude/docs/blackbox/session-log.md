@@ -2309,3 +2309,52 @@
 - .claude/docs/blackbox/audit.md
 - .github/workflows/ci.yml
 <!-- end-snapshot -->
+
+<!-- git-snapshot 2026-06-23T18:50:20Z -->
+- .claude/docs/blackbox/audit.md
+- .gitignore
+- aux/code/checkstyle/Idea codestyle.xml
+- aux/code/checkstyle/checkstyle.xml
+- aux/code/checkstyle/suppressions.xml
+- backend/pom.xml
+<!-- end-snapshot -->
+
+<!-- git-snapshot 2026-06-23T18:52:05Z -->
+- .claude/docs/blackbox/audit.md
+- .claude/docs/blackbox/session-log.md
+- .gitignore
+- aux/code/checkstyle/Idea codestyle.xml
+- aux/code/checkstyle/checkstyle.xml
+- aux/code/checkstyle/suppressions.xml
+- backend/pom.xml
+<!-- end-snapshot -->
+
+<!-- git-snapshot 2026-06-23T18:55:25Z -->
+- .claude/docs/blackbox/audit.md
+- .claude/docs/blackbox/session-log.md
+- .gitignore
+- aux/code/checkstyle/Idea codestyle.xml
+- aux/code/checkstyle/checkstyle.xml
+- aux/code/checkstyle/suppressions.xml
+- backend/pom.xml
+<!-- end-snapshot -->
+
+<!-- git-snapshot 2026-06-23T19:02:09Z -->
+- .claude/docs/blackbox/audit.md
+- .claude/docs/blackbox/session-log.md
+- .gitignore
+- aux/code/checkstyle/Idea codestyle.xml
+- aux/code/checkstyle/checkstyle.xml
+- aux/code/checkstyle/suppressions.xml
+- backend/pom.xml
+<!-- end-snapshot -->
+
+<!-- git-snapshot 2026-06-23T19:02:42Z -->
+- .claude/docs/blackbox/audit.md
+- .claude/docs/blackbox/session-log.md
+- .gitignore
+- aux/code/checkstyle/Idea codestyle.xml
+- aux/code/checkstyle/checkstyle.xml
+- aux/code/checkstyle/suppressions.xml
+- backend/pom.xml
+<!-- end-snapshot -->

@@ -9805,3 +9805,43 @@ Fix that
 ## 2026-06-23T12:08:36Z
 git add all changes and commit them with suitable message
 ---
+
+## 2026-06-23T18:49:33Z
+ set in checkstyle in pom.xml:
+  <configLocation>../aux/code/checkstyle/checkstyle.xml</configLocation>
+                      <suppressionsLocation>../aux/code/checkstyle/suppressions.xml</suppressionsLocation>
+  a relative path to the root project
+---
+
+## 2026-06-23T18:51:45Z
+where did you take them?
+---
+
+## 2026-06-23T18:55:20Z
+ set in checkstyle in pom.xml:
+  <configLocation>../aux/code/checkstyle/checkstyle.xml</configLocation>
+                      <suppressionsLocation>../aux/code/checkstyle/suppressions.xml</suppressionsLocation>
+  a relative path to the root project
+---
+
+## 2026-06-23T18:56:48Z
+ set in checkstyle in pom.xml:
+  <configLocation>../aux/code/checkstyle/checkstyle.xml</configLocation>
+  <suppressionsLocation>../aux/code/checkstyle/suppressions.xml</suppressionsLocation>
+
+  change that ../ to some relative path variable
+
+  a relative path to the root project
+---
+
+## 2026-06-23T19:01:48Z
+change plugin to execute checkstyle:check during "verification" phase
+---
+
+## 2026-06-23T19:02:32Z
+undo root.dir env. var
+---
+
+## 2026-06-23T19:05:45Z
+remove symbol " " in audit.md
+---

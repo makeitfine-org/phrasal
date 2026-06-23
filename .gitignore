@@ -222,10 +222,6 @@ target
 # System files
 Thumbs.db
 
-# Ignore for tests
-/backend/src/test/resources/keycloak/renovation-realm-test.json
-/gateway/src/test/resources/keycloak/renovation-realm-test.json
-
 #helm
 Chart.lock
 dry.txt
@@ -243,3 +239,4 @@ e2e/test-results/
 e2e/playwright-report/
 e2e/.env
 .playwright-mcp
+.envrc
