@@ -2284,3 +2284,23 @@
 - backend/src/main/resources/db/migration/V8__seed_verb_details.sql
 - backend/src/test/java/net/phrasal/application/mapper/VerbDetailMapperTest.java
 <!-- end-snapshot -->
+
+<!-- git-snapshot 2026-06-23T11:18:11Z -->
+- .claude/docs/blackbox/audit.md
+<!-- end-snapshot -->
+
+<!-- git-snapshot 2026-06-23T11:19:32Z -->
+- .claude/docs/blackbox/audit.md
+- .claude/docs/blackbox/session-log.md
+<!-- end-snapshot -->
+
+<!-- git-snapshot 2026-06-23T11:21:19Z -->
+- .claude/docs/blackbox/audit.md
+- .claude/docs/blackbox/session-log.md
+<!-- end-snapshot -->
+
+<!-- git-snapshot 2026-06-23T11:25:16Z -->
+- .claude/docs/blackbox/audit.md
+- .claude/docs/blackbox/session-log.md
+- frontend/nginx.conf
+<!-- end-snapshot -->

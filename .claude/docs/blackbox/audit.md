@@ -9735,3 +9735,25 @@ Cover that all with tests, e2e.
 ## 2026-06-23T11:13:49Z
 git add all changes and commit them with suitable message
 ---
+
+## 2026-06-23T11:18:04Z
+What's "Request failed: Gateway Time-out" for now?
+---
+
+## 2026-06-23T11:18:53Z
+I mean what time out in seconds and where is it set?
+---
+
+## 2026-06-23T11:21:06Z
+when I see on "http://localhost:3000/phrasal-verbs/list" this: "Request failed: Gateway Time-out"
+what's timeout in second for that page to appear, where did it form, did backend or frontend form that?
+Give me code where we set that?
+---
+
+## 2026-06-23T11:24:53Z
+set this nginx timeout to 30 seconds
+---
+
+## 2026-06-23T11:30:37Z
+git add all changes and commit them with suitable message
+---
