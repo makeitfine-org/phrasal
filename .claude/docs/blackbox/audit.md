@@ -9853,3 +9853,23 @@ run `mvn clean verify -DskipTests` and fix the build until the mentioned command
 ## 2026-06-23T19:14:32Z
 git add all changes and commit them with suitable message
 ---
+
+## 2026-06-23T19:38:51Z
+I reset that changes.
+---
+
+## 2026-06-23T19:39:08Z
+it did work.
+---
+
+## 2026-06-23T19:41:15Z
+what check style did you use while generation this @backend/ java code?
+---
+
+## 2026-06-23T19:43:10Z
+what's the best way to save java checkstyle code in file in order to import that in idea for other develops to use?
+---
+
+## 2026-06-23T19:45:46Z
+"Enable EditorConfig support" what's that?
+---

@@ -2379,3 +2379,22 @@
 <!-- git-snapshot 2026-06-23T19:15:11Z -->
 - .claude/settings.local.json
 <!-- end-snapshot -->
+
+<!-- git-snapshot 2026-06-23T19:39:07Z -->
+- .claude/docs/blackbox/audit.md
+<!-- end-snapshot -->
+
+<!-- git-snapshot 2026-06-23T19:41:32Z -->
+- .claude/docs/blackbox/audit.md
+- .claude/docs/blackbox/session-log.md
+<!-- end-snapshot -->
+
+<!-- git-snapshot 2026-06-23T19:43:27Z -->
+- .claude/docs/blackbox/audit.md
+- .claude/docs/blackbox/session-log.md
+<!-- end-snapshot -->
+
+<!-- git-snapshot 2026-06-23T19:45:55Z -->
+- .claude/docs/blackbox/audit.md
+- .claude/docs/blackbox/session-log.md
+<!-- end-snapshot -->
