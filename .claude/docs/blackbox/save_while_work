@@ -162,4 +162,44 @@
  tail log:
  >journalctl -u phrasal -f
 
+---
+  Step-by-step (Releasing)
 
+  1. Make sure fullstack branch is clean and pushed
+  git status
+  git push origin fullstack
+  2. Create the annotated tag
+  git tag -a v0.8.0 -m "v0.8.0
+
+  Full-Stack Monorepo Migration
+
+  Architecture:
+  - Migrated from frontend-only SPA to full-stack monorepo (backend/frontend/e2e)
+  - Spring Boot 3.4.1 REST API serving verb data from PostgreSQL
+  - Verb list and detail pages now powered by backend API
+  - Kubernetes manifests and Skaffold config for minikube deployment
+
+  Features:
+  - Fuzzy search with Fuse.js in search modals
+  - Keyboard navigation and accessibility for quizzes and modals
+  - VPS deploy script with interactive menu and tab completion
+
+  Code Quality:
+  - Google Checkstyle enforced across backend (all violations resolved)
+  - Lombok introduced across backend module
+  - Clean-code and Spring Boot patterns refactoring
+  - Tailwind CSS v3 to v4 migration
+
+  Performance:
+  - Test files consolidated (869 to 71) with multi-threading
+  - Switched to happy-dom and split list page tests (73s to 16s)
+
+  Infrastructure:
+  - Node upgraded to 26.3.1
+  - Nginx proxy timeout set to 30s
+  - Playwright browser install added to CI e2e job
+  - Frontend deploy switched from rsync to scp"
+  3. Push the tag
+  git push origin v0.8.0
+  4. Create the GitHub Release (optional, gives you a nice UI page)
+  gh release create v0.8.0 --title "v0.8.0 — Full-Stack Monorepo Migration" --notes "..."
