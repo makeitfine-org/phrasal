@@ -14,7 +14,7 @@ clean:
 	$(call execute_commands,\
 		docker compose down ; \
 		docker rmi -f phrasal-backend:latest phrasal-frontend:latest 2>/dev/null || true && \
-		cd backend && JAVA_HOME=/usr/lib/jvm/java-21-openjdk-amd64 mvn clean && \
+		cd backend && \
 		cd ../frontend && rm -rf dist && \
 		cd ../e2e && rm -rf reports test-results playwright-report,\
 		"✅ CLEAN SUCCESSFUL (phrasal) ✅",\
@@ -37,7 +37,7 @@ updateAcceptance:
 buildBackend:
 	@echo "### Building backend (phrasal) ..."
 	$(call execute_commands,\
-		cd backend && JAVA_HOME=/usr/lib/jvm/java-21-openjdk-amd64 mvn clean verify,\
+		cd backend,\
 		"✅ BUILD BACKEND SUCCESSFUL (phrasal) ✅",\
 		"❌ BUILD BACKEND FAILED (phrasal) ❌")
 
@@ -70,7 +70,7 @@ build:
 ciCheck:
 	@echo "### CI simulation (phrasal) ..."
 	$(call execute_commands,\
-		cd backend && JAVA_HOME=/usr/lib/jvm/java-21-openjdk-amd64 mvn clean verify && \
+		cd backend && \
 		cd .. && cd frontend && npm ci && npm run build && \
 		cd .. && docker compose build --no-cache && \
 		docker compose up -d --wait && \
