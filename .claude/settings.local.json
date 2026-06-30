@@ -114,7 +114,10 @@
       "Bash(curl -s *)",
       "Bash(mvn *)",
       "Bash(JAVA_HOME=/usr/lib/jvm/java-25-openjdk-amd64 mvn *)",
-      "Bash(JAVA_HOME=/usr/lib/jvm/java-25-openjdk-amd64 mvn dependency:tree -Dincludes=org.mockito)"
+      "Bash(JAVA_HOME=/usr/lib/jvm/java-25-openjdk-amd64 mvn dependency:tree -Dincludes=org.mockito)",
+      "Bash(direnv status *)",
+      "Read(//etc/docker/**)",
+      "Bash(docker buildx *)"
     ]
   },
   "model": "Opus",

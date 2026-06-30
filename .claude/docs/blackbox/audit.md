@@ -14179,3 +14179,143 @@ in settings.local.json I set Bash(JAVA_HOME=/usr/lib/jvm/java-25-openjdk-amd64 m
 ## 2026-06-30T10:21:14Z
 Until `make clean build` is successful fix that.
 ---
+
+## 2026-06-30T10:43:20Z
+I work in linux for Window when I run `make clean install` in powershell terminal of Ubuntu it successful, but when I run in idea terminal `/bin/bash` it failed
+---
+
+## 2026-06-30T11:05:36Z
+but I have .envrc with java 25 set?
+---
+
+## 2026-06-30T11:07:46Z
+In intellij idea ~/phrasal:
+
+mvn --version
+Apache Maven 3.9.12
+Maven home: /usr/share/maven
+Java version: 25.0.3, vendor: Ubuntu, runtime: /usr/lib/jvm/java-25-openjdk-amd64
+Default locale: en, platform encoding: UTF-8
+OS name: "linux", version: "6.6.87.2-microsoft-standard-wsl2", arch: "amd64", family: "unix"
+---
+
+## 2026-06-30T11:09:26Z
+ make clean build
+### Cleaning (phrasal) ...
+make[1]: Entering directory '/home/ubuntuu/dev/mine/phrasal'
+==============================================
+============= MESSAGE (TELEGRAM) =============
+==============================================
+Sending message:
+✅ CLEAN SUCCESSFUL (phrasal) ✅
+
+bash -c ' \
+        tn() { \
+                local msg="${*:-🔔 Job finished (phrasal) 🔔}"; \
+                local api="https://api.telegram.org/bot${NOTIFICATION_TELEGRAM_BOT_TOKEN}/sendMessage"; \
+                curl -sS -X POST "$api" \
+                        --data "chat_id=${NOTIFICATION_TELEGRAM_CHAT_ID}" \
+                        --data-urlencode "text=$msg"; \
+        }; \
+        tn "✅ CLEAN SUCCESSFUL (phrasal) ✅" \
+'
+{"ok":true,"result":{"message_id":3859,"from":{"id":6106447531,"is_bot":true,"first_name":"MBot","username":"TestDev0001Bot"},"chat":{"id":-1001933314383,"title":"MChat","type":"supergroup"},"date":1782817737,"text":"\u2705 CLEAN SUCCESSFUL (phrasal) \u2705"}}
+make[1]: Leaving directory '/home/ubuntuu/dev/mine/phrasal'
+### Full build (phrasal) ...
+make[1]: Entering directory '/home/ubuntuu/dev/mine/phrasal'
+### Building backend (phrasal) ...
+make[2]: Entering directory '/home/ubuntuu/dev/mine/phrasal'
+==============================================
+============= MESSAGE (TELEGRAM) =============
+==============================================
+Sending message:
+✅ BUILD BACKEND SUCCESSFUL (phrasal) ✅
+
+bash -c ' \
+        tn() { \
+                local msg="${*:-🔔 Job finished (phrasal) 🔔}"; \
+                local api="https://api.telegram.org/bot${NOTIFICATION_TELEGRAM_BOT_TOKEN}/sendMessage"; \
+                curl -sS -X POST "$api" \
+                        --data "chat_id=${NOTIFICATION_TELEGRAM_CHAT_ID}" \
+                        --data-urlencode "text=$msg"; \
+        }; \
+        tn "✅ BUILD BACKEND SUCCESSFUL (phrasal) ✅" \
+'
+{"ok":true,"result":{"message_id":3860,"from":{"id":6106447531,"is_bot":true,"first_name":"MBot","username":"TestDev0001Bot"},"chat":{"id":-1001933314383,"title":"MChat","type":"supergroup"},"date":1782817737,"text":"\u2705 BUILD BACKEND SUCCESSFUL (phrasal) \u2705"}}
+make[2]: Leaving directory '/home/ubuntuu/dev/mine/phrasal'
+make[1]: Leaving directory '/home/ubuntuu/dev/mine/phrasal'
+make[1]: Entering directory '/home/ubuntuu/dev/mine/phrasal'
+### Building frontend (phrasal) ...
+
+up to date, audited 147 packages in 557ms
+
+32 packages are looking for funding
+  run `npm fund` for details
+
+found 0 vulnerabilities
+
+> phrasal-verbs-quiz@1.0.0 build
+> vite build
+
+vite v8.1.0 building client environment for production...
+✓ 58 modules transformed.
+computing gzip size...
+dist/index.html                   1.20 kB │ gzip:  0.63 kB
+dist/assets/index-BvIaYAhn.css   35.01 kB │ gzip:  6.77 kB
+dist/assets/index-SpdfVM7q.js   325.76 kB │ gzip: 99.23 kB
+
+✓ built in 332ms
+make[2]: Entering directory '/home/ubuntuu/dev/mine/phrasal'
+==============================================
+============= MESSAGE (TELEGRAM) =============
+==============================================
+Sending message:
+✅ BUILD FRONTEND SUCCESSFUL (phrasal) ✅
+
+bash -c ' \
+        tn() { \
+                local msg="${*:-🔔 Job finished (phrasal) 🔔}"; \
+                local api="https://api.telegram.org/bot${NOTIFICATION_TELEGRAM_BOT_TOKEN}/sendMessage"; \
+                curl -sS -X POST "$api" \
+                        --data "chat_id=${NOTIFICATION_TELEGRAM_CHAT_ID}" \
+                        --data-urlencode "text=$msg"; \
+        }; \
+        tn "✅ BUILD FRONTEND SUCCESSFUL (phrasal) ✅" \
+'
+{"ok":true,"result":{"message_id":3861,"from":{"id":6106447531,"is_bot":true,"first_name":"MBot","username":"TestDev0001Bot"},"chat":{"id":-1001933314383,"title":"MChat","type":"supergroup"},"date":1782817739,"text":"\u2705 BUILD FRONTEND SUCCESSFUL (phrasal) \u2705"}}
+make[2]: Leaving directory '/home/ubuntuu/dev/mine/phrasal'
+make[1]: Leaving directory '/home/ubuntuu/dev/mine/phrasal'
+Sending build context to Docker daemon  54.53MB
+Step 1/12 : FROM maven:3.9-eclipse-temurin-25 AS build
+ ---> 01ef98a139ed
+Step 2/12 : WORKDIR /app
+ ---> Using cache
+ ---> ce3109552812
+Step 3/12 : COPY pom.xml .
+ ---> Using cache
+ ---> e87228a8311c
+Step 4/12 : RUN --mount=type=cache,target=/root/.m2 mvn -B -ntp dependency:go-offline -q
+[+] build 0/1
+ ⠙ Image phrasal-backend Building                                                                                                                                                                                                               2.0s
+the --mount option requires BuildKit. Refer to https://docs.docker.com/go/buildkit/ to learn how to build images with BuildKit enabled
+make[1]: Entering directory '/home/ubuntuu/dev/mine/phrasal'
+==============================================
+============= MESSAGE (TELEGRAM) =============
+==============================================
+Sending message:
+❌ BUILD FAILED (phrasal) ❌
+
+bash -c ' \
+        tn() { \
+                local msg="${*:-🔔 Job finished (phrasal) 🔔}"; \
+                local api="https://api.telegram.org/bot${NOTIFICATION_TELEGRAM_BOT_TOKEN}/sendMessage"; \
+                curl -sS -X POST "$api" \
+                        --data "chat_id=${NOTIFICATION_TELEGRAM_CHAT_ID}" \
+                        --data-urlencode "text=$msg"; \
+        }; \
+        tn "❌ BUILD FAILED (phrasal) ❌" \
+'
+{"ok":true,"result":{"message_id":3862,"from":{"id":6106447531,"is_bot":true,"first_name":"MBot","username":"TestDev0001Bot"},"chat":{"id":-1001933314383,"title":"MChat","type":"supergroup"},"date":1782817741,"text":"\u274c BUILD FAILED (phrasal) \u274c"}}
+make[1]: Leaving directory '/home/ubuntuu/dev/mine/phrasal'
+make: *** [Makefile:60: build] Error 1
+---
