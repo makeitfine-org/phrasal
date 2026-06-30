@@ -14153,3 +14153,29 @@ I found this in skills "<java.version>21
 ## 2026-06-30T09:37:51Z
 | [java-migration](java-migration/) | Java version upgrade guide (8→11→17→21) |
 ---
+
+## 2026-06-30T09:41:40Z
+Migrate in all the project from java 21 to 25
+---
+
+## 2026-06-30T09:46:23Z
+continue
+---
+
+## 2026-06-30T10:00:37Z
+In @backend `mvn clean install` is failed.
+Fix
+---
+
+## 2026-06-30T10:07:21Z
+In @backend `mvn clean install` is failed.
+Fix.
+---
+
+## 2026-06-30T10:11:02Z
+in settings.local.json I set Bash(JAVA_HOME=/usr/lib/jvm/java-25-openjdk-amd64 mvn *) but claude ask meJAVA_HOME=/usr/lib/jvm/java-25-openjdk-amd64 mvn dependency:tree permissions why?
+---
+
+## 2026-06-30T10:21:14Z
+Until `make clean build` is successful fix that.
+---

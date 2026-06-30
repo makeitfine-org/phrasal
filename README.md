@@ -55,7 +55,7 @@ Then open **http://localhost:3000** in your browser.
 ## Prerequisites
 
 - Node.js 26+
-- Java 21 (`JAVA_HOME=/usr/lib/jvm/java-21-openjdk-amd64`)
+- Java 25 (`JAVA_HOME=/usr/lib/jvm/java-25-openjdk-amd64`)
 - Docker & Docker Compose
 - PostgreSQL 16 (provided via Docker)
 
@@ -67,8 +67,8 @@ Then open **http://localhost:3000** in your browser.
 # Frontend
 cd frontend && npm run test:run
 
-# Backend (requires Java 21)
-cd backend && JAVA_HOME=/usr/lib/jvm/java-21-openjdk-amd64 mvn clean verify
+# Backend (requires Java 25)
+cd backend && JAVA_HOME=/usr/lib/jvm/java-25-openjdk-amd64 mvn clean verify
 
 # Full pipeline: build + docker + e2e
 make build
@@ -191,7 +191,7 @@ minikube delete   # full reset
 ## Repository Layout
 
 ```
-backend/              → Spring Boot application (Java 21, Maven)
+backend/              → Spring Boot application (Java 25, Maven)
   src/                → source code and tests
   k8s/                → Kubernetes manifests
   Dockerfile

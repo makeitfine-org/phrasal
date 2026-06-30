@@ -1,12 +1,12 @@
 # Phrasal — Backend
 
-Spring Boot 3.4.1 REST API for the Phrasal language learning app. Provides CRUD endpoints for phrasal verbs, grammar entries, and verb details, backed by PostgreSQL with Flyway migrations.
+Spring Boot 3.5.9 REST API for the Phrasal language learning app. Provides CRUD endpoints for phrasal verbs, grammar entries, and verb details, backed by PostgreSQL with Flyway migrations.
 
 Part of the full-stack **Phrasal** project. Running `docker compose up` from the repository root also starts the React frontend on **port 3000**. See [`../frontend/README.md`](../frontend/README.md) for frontend documentation.
 
 ## Features
 
-- **Spring Boot 3.4.1** with Java 21
+- **Spring Boot 3.5.9** with Java 25
 - **PostgreSQL 16** with Flyway migrations
 - **RESTful API** with full CRUD for phrasal verbs, grammar entries, and verb details
 - **Pagination and sorting** on list endpoints with sort-field whitelisting
@@ -23,7 +23,7 @@ Part of the full-stack **Phrasal** project. Running `docker compose up` from the
 
 ## Prerequisites
 
-- Java 21+
+- Java 25+
 - Maven 3.8+
 - Docker and Docker Compose
 - PostgreSQL 16 (optional — only for bare-metal local dev)
@@ -115,14 +115,14 @@ curl http://localhost:8080/actuator/health/readiness
 
 ```bash
 docker compose up postgres -d
-cd backend && JAVA_HOME=/usr/lib/jvm/java-21-openjdk-amd64 mvn spring-boot:run
+cd backend && JAVA_HOME=/usr/lib/jvm/java-25-openjdk-amd64 mvn spring-boot:run
 ```
 
 ### Build and test
 
 ```bash
 # Full test suite including Testcontainers integration tests + JaCoCo
-JAVA_HOME=/usr/lib/jvm/java-21-openjdk-amd64 mvn clean verify
+JAVA_HOME=/usr/lib/jvm/java-25-openjdk-amd64 mvn clean verify
 
 # Coverage report (opens at target/site/jacoco/index.html)
 mvn jacoco:report
@@ -202,7 +202,7 @@ Flyway runs migrations automatically on startup. Migration files: `src/main/reso
 
 ```bash
 # Full suite (integration + coverage gate)
-JAVA_HOME=/usr/lib/jvm/java-21-openjdk-amd64 mvn verify
+JAVA_HOME=/usr/lib/jvm/java-25-openjdk-amd64 mvn verify
 ```
 
 Docker must be running for Testcontainers (PostgreSQL `postgres:16-alpine`).
@@ -220,7 +220,7 @@ src/
 │   │   │   ├── entity/       # PhrasalVerb, GrammarEntry, VerbDetail
 │   │   │   └── repository/   # Spring Data JPA repos with @Query
 │   │   ├── application/
-│   │   │   ├── dto/          # Java 21 records (request + response)
+│   │   │   ├── dto/          # Java 25 records (request + response)
 │   │   │   ├── mapper/       # MapStruct interfaces
 │   │   │   └── service/      # Business logic (@Transactional)
 │   │   ├── infrastructure/
@@ -240,11 +240,11 @@ src/
 
 | Layer | Technology |
 |---|---|
-| Framework | Spring Boot 3.4.1, Java 21 |
+| Framework | Spring Boot 3.5.9, Java 25 |
 | Database | PostgreSQL 16, Spring Data JPA, Flyway |
 | Mapping | MapStruct 1.6.3 + Lombok |
 | Testing | JUnit 5, Mockito, Testcontainers |
-| Coverage | JaCoCo 0.8.12 |
+| Coverage | JaCoCo 0.8.15 |
 | Build | Maven |
 | Containers | Docker, Docker Compose |
 | Orchestration | Kubernetes, Skaffold |

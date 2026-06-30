@@ -85,7 +85,6 @@
       "Bash(JAVA_HOME=/usr/lib/jvm/java-25-openjdk-amd64 mvn clean verify)",
       "Bash(grep -n \"\\(\\\\`src/\" /home/ubuntuu/dev/mine/phrasal/CLAUDE.md)",
       "Bash(grep *)",
-      "Bash(make clean *)",
       "Bash(npm uninstall *)",
       "Bash(npx -y @modelcontextprotocol/server-postgres --help)",
       "Bash(npx -y @modelcontextprotocol/server-postgres \"postgresql://postgres:postgres@localhost:5432/phrasaldb\")",
@@ -111,7 +110,11 @@
       "Bash(kubectl rollout restart *)",
       "Bash(chmod +x *)",
       "Bash(npx tsx *)",
-      "Bash(make build *)"
+      "Bash(make *)",
+      "Bash(curl -s *)",
+      "Bash(mvn *)",
+      "Bash(JAVA_HOME=/usr/lib/jvm/java-25-openjdk-amd64 mvn *)",
+      "Bash(JAVA_HOME=/usr/lib/jvm/java-25-openjdk-amd64 mvn dependency:tree -Dincludes=org.mockito)"
     ]
   },
   "model": "Opus",

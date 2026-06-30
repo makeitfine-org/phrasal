@@ -3760,3 +3760,41 @@
 - .claude/skills/java-architect/SKILL.md
 - .claude/skills/java-architect/references/spring-boot-setup.md
 <!-- end-snapshot -->
+
+<!-- git-snapshot 2026-06-30T10:11:18Z -->
+- .claude/docs/blackbox/audit.md
+- .claude/docs/blackbox/plans/2026-06-30 11:43 Plan Migrate Project from Java 21 to Java 25.md
+- .claude/settings.local.json
+- .github/workflows/ci.yml
+- README.md
+- backend/CLAUDE.md
+- backend/Dockerfile
+- backend/README.md
+- backend/pom.xml
+<!-- end-snapshot -->
+
+<!-- git-snapshot 2026-06-30T10:13:56Z -->
+- .claude/docs/blackbox/audit.md
+- .claude/docs/blackbox/plans/2026-06-30 11:43 Plan Migrate Project from Java 21 to Java 25.md
+- .claude/docs/blackbox/session-log.md
+- .claude/settings.local.json
+- .github/workflows/ci.yml
+- README.md
+- backend/CLAUDE.md
+- backend/Dockerfile
+- backend/README.md
+- backend/pom.xml
+<!-- end-snapshot -->
+
+<!-- git-snapshot 2026-06-30T10:22:46Z -->
+- .claude/docs/blackbox/audit.md
+- .claude/docs/blackbox/plans/2026-06-30 11:43 Plan Migrate Project from Java 21 to Java 25.md
+- .claude/docs/blackbox/session-log.md
+- .claude/settings.local.json
+- .github/workflows/ci.yml
+- README.md
+- backend/CLAUDE.md
+- backend/Dockerfile
+- backend/README.md
+- backend/pom.xml
+<!-- end-snapshot -->

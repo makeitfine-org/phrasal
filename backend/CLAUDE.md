@@ -2,9 +2,9 @@
 
 ## Stack
 
-- Java 21, Spring Boot 3.4.1, PostgreSQL 16
+- Java 25, Spring Boot 3.5.9, PostgreSQL 16
 - MapStruct 1.6.3, Lombok (getter/setter/constructor/slf4j)
-- Testcontainers, JaCoCo 0.8.12
+- Testcontainers, JaCoCo 0.8.15
 - Maven, Flyway, Docker, Kubernetes + Skaffold
 
 ## Architecture Layers
@@ -19,7 +19,7 @@ config/         → Spring @Configuration classes
 
 - Base package: `net.phrasal`
 - Never let a lower layer import from a higher layer.
-- DTOs live in `application/dto/` — Java 21 records (request with validation, response immutable).
+- DTOs live in `application/dto/` — Java 25 records (request with validation, response immutable).
 - Mappers in `application/mapper/` — always use MapStruct interfaces (`componentModel = "spring"`), never manual mapping.
 - Entities use Lombok `@Getter`/`@Setter`/`@EqualsAndHashCode(of=...)` and JSONB columns.
 - Services use `@Slf4j`, `@RequiredArgsConstructor`, `@Service @Transactional`.
