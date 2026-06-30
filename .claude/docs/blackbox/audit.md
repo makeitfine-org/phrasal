@@ -14058,3 +14058,98 @@ To github.com:makeitfine-org/phrasal.git
  ! [remote rejected] fullstack -> fullstack (push declined due to repository rule violations)
 error: failed to push some refs to 'github.com:makeitfine-org/phrasal.git'
 ---
+
+## 2026-06-28T15:30:51Z
+Remind me step by step isntall oci on linux and install its autcompletion
+---
+
+## 2026-06-29T10:23:37Z
+[6/29/2026 12:18] Mn Eu: ilaptop@ilaptop-Latitude-5521:~$ free -m
+               total        used        free      shared  buff/cache   available
+Mem:           31820       10281       17690         804        5111       21539
+Swap:          32767           0       32767
+ilaptop@ilaptop-Latitude-5521:~$ df -T /swapfile
+Filesystem     Type 1K-blocks      Used Available Use% Mounted on
+/dev/nvme0n1p5 ext4 223156956 195090288  16658080  93% /
+ilaptop@ilaptop-Latitude-5521:~$ swapon --show 
+NAME      TYPE SIZE USED PRIO
+/swapfile file  32G   0B   -2
+ilaptop@ilaptop-Latitude-5521:~$ systemctl hibernate
+Call to Hibernate failed: Not enough suitable swap space for hibernation available on compatible block devices and file systems
+ilaptop@ilaptop-Latitude-5521:~$ ^C
+ilaptop@ilaptop-Latitude-5521:~$ mokutil --sb-state
+SecureBoot disabled
+ilaptop@ilaptop-Latitude-5521:~$ df -T /swapfile
+Filesystem     Type 1K-blocks      Used Available Use% Mounted on
+/dev/nvme0n1p5 ext4 223156956 195090348  16658020  93% /
+ilaptop@ilaptop-Latitude-5521:~$
+[6/29/2026 12:21] Mn Eu: Sensitive env loaded for this shell.
+ilaptop@ilaptop-Latitude-5521:~$ systemctl hibernate
+Call to Hibernate failed: Not enough suitable swap space for hibernation available on compatible block devices and file systems
+ilaptop@ilaptop-Latitude-5521:~$ df -T /swapfile
+Filesystem     Type 1K-blocks      Used Available Use% Mounted on
+/dev/nvme0n1p5 ext4 223156956 194873696  16874672  93% /
+ilaptop@ilaptop-Latitude-5521:~$ swapon --show 
+NAME      TYPE SIZE USED PRIO
+/swapfile file  32G   0B   -2
+ilaptop@ilaptop-Latitude-5521:~$ free -m
+               total        used        free      shared  buff/cache   available
+Mem:           31820        2366       27752         228        2338       29454
+Swap:          32767           0       32767
+
+I tried to config hibernate but issue.
+---
+
+## 2026-06-29T10:30:46Z
+GRUB_CMDLINE_LINUX_DEFAULT="quiet splash resume=9ccfe84d-906b-4b06-b433-28e8ac244ba5 resume_offset=46104576"
+---
+
+## 2026-06-29T10:36:29Z
+ilaptop@ilaptop-Latitude-5521:~$   sudo systemctl hibernate
+[sudo] password for ilaptop: 
+Call to Hibernate failed: Not enough suitable swap space for hibernation available on compatible block devices and file systems
+ilaptop@ilaptop-Latitude-5521:~$ ^C
+ilaptop@ilaptop-Latitude-5521:~$ free -m
+               total        used        free      shared  buff/cache   available
+Mem:           31820        2974       24217         272        5360       28846
+Swap:          32767           0       32767
+ilaptop@ilaptop-Latitude-5521:~$ swapon --show 
+NAME      TYPE SIZE USED PRIO
+/swapfile file  32G   0B   -2
+---
+
+## 2026-06-29T10:55:42Z
+can I delete inside ~/.cache?
+---
+
+## 2026-06-29T11:01:59Z
+.config/google-chrome takes 13 gb, how can I clean that?
+---
+
+## 2026-06-29T11:10:00Z
+create ubuntu keyboard shortcut Cntr+Shift+H on command `sudo systemctl hibernate`
+---
+
+## 2026-06-29T11:20:47Z
+I cant't anything in Keyborad shortcuts
+---
+
+## 2026-06-29T11:21:47Z
+Also in system settings
+---
+
+## 2026-06-29T11:22:21Z
+it opens but I cant enter anything, but in terminal I can
+---
+
+## 2026-06-30T09:33:22Z
+Change skills in @.claude/ to use Java 25 instead of Java 21
+---
+
+## 2026-06-30T09:36:38Z
+I found this in skills "<java.version>21
+---
+
+## 2026-06-30T09:37:51Z
+| [java-migration](java-migration/) | Java version upgrade guide (8→11→17→21) |
+---

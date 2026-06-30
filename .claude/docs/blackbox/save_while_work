@@ -203,3 +203,26 @@
   git push origin v0.8.0
   4. Create the GitHub Release (optional, gives you a nice UI page)
   gh release create v0.8.0 --title "v0.8.0 — Full-Stack Monorepo Migration" --notes "..."
+
+---
+ Install OCI CLI on Linux:
+
+  1. Run the installer:
+  bash -c "$(curl -L https://raw.githubusercontent.com/oracle/oci-cli/master/scripts/install/install.sh)"
+  1. Accept defaults or customize paths when prompted.
+  2. Restart your shell (or source the profile):
+  source ~/.bashrc
+  3. Verify:
+  oci --version
+  4. Configure credentials:
+  oci setup config
+  4. It will ask for tenancy OCID, user OCID, region, and generate an API key pair.
+
+  Enable bash autocompletion:
+
+  5. Add to ~/.bashrc:
+  eval "$(oci setup autocomplete)"
+  6. Reload:
+  source ~/.bashrc
+
+  After that, oci <tab> will autocomplete commands and subcommands.

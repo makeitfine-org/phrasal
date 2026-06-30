@@ -3676,3 +3676,87 @@
 <!-- git-snapshot 2026-06-28T12:28:22Z -->
 - .claude/docs/blackbox/audit.md
 <!-- end-snapshot -->
+
+<!-- git-snapshot 2026-06-28T15:30:59Z -->
+- .claude/docs/blackbox/audit.md
+<!-- end-snapshot -->
+
+<!-- git-snapshot 2026-06-29T10:23:57Z -->
+- .claude/docs/blackbox/audit.md
+- .claude/docs/blackbox/save_while_work
+- .claude/docs/blackbox/session-log.md
+<!-- end-snapshot -->
+
+<!-- git-snapshot 2026-06-29T10:30:52Z -->
+- .claude/docs/blackbox/audit.md
+- .claude/docs/blackbox/save_while_work
+- .claude/docs/blackbox/session-log.md
+<!-- end-snapshot -->
+
+<!-- git-snapshot 2026-06-29T10:36:51Z -->
+- .claude/docs/blackbox/audit.md
+- .claude/docs/blackbox/save_while_work
+- .claude/docs/blackbox/session-log.md
+<!-- end-snapshot -->
+
+<!-- git-snapshot 2026-06-29T10:55:49Z -->
+- .claude/docs/blackbox/audit.md
+- .claude/docs/blackbox/save_while_work
+- .claude/docs/blackbox/session-log.md
+<!-- end-snapshot -->
+
+<!-- git-snapshot 2026-06-29T11:02:17Z -->
+- .claude/docs/blackbox/audit.md
+- .claude/docs/blackbox/save_while_work
+- .claude/docs/blackbox/session-log.md
+<!-- end-snapshot -->
+
+<!-- git-snapshot 2026-06-29T11:10:21Z -->
+- .claude/docs/blackbox/audit.md
+- .claude/docs/blackbox/save_while_work
+- .claude/docs/blackbox/session-log.md
+<!-- end-snapshot -->
+
+<!-- git-snapshot 2026-06-29T11:21:01Z -->
+- .claude/docs/blackbox/audit.md
+- .claude/docs/blackbox/save_while_work
+- .claude/docs/blackbox/session-log.md
+<!-- end-snapshot -->
+
+<!-- git-snapshot 2026-06-29T11:21:54Z -->
+- .claude/docs/blackbox/audit.md
+- .claude/docs/blackbox/save_while_work
+- .claude/docs/blackbox/session-log.md
+<!-- end-snapshot -->
+
+<!-- git-snapshot 2026-06-29T11:22:31Z -->
+- .claude/docs/blackbox/audit.md
+- .claude/docs/blackbox/save_while_work
+- .claude/docs/blackbox/session-log.md
+<!-- end-snapshot -->
+
+<!-- git-snapshot 2026-06-30T09:34:05Z -->
+- .claude/docs/blackbox/audit.md
+- .claude/docs/blackbox/save_while_work
+- .claude/docs/blackbox/session-log.md
+- .claude/skills/java-architect/SKILL.md
+<!-- end-snapshot -->
+
+<!-- git-snapshot 2026-06-30T09:37:02Z -->
+- .claude/docs/blackbox/audit.md
+- .claude/docs/blackbox/save_while_work
+- .claude/docs/blackbox/session-log.md
+- .claude/settings.local.json
+- .claude/skills/java-architect/SKILL.md
+- .claude/skills/java-architect/references/spring-boot-setup.md
+<!-- end-snapshot -->
+
+<!-- git-snapshot 2026-06-30T09:38:15Z -->
+- .claude/docs/blackbox/audit.md
+- .claude/docs/blackbox/save_while_work
+- .claude/docs/blackbox/session-log.md
+- .claude/settings.local.json
+- .claude/skills/README.md
+- .claude/skills/java-architect/SKILL.md
+- .claude/skills/java-architect/references/spring-boot-setup.md
+<!-- end-snapshot -->

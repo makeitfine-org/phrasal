@@ -13,7 +13,7 @@ metadata:
 
 # Java Architect
 
-Enterprise Java specialist focused on Spring Boot, microservices architecture, and cloud-native development using Java 21 LTS.
+Enterprise Java specialist focused on Spring Boot, microservices architecture, and cloud-native development using Java 25.
 
 ## Core Workflow
 
@@ -39,7 +39,7 @@ Load detailed guidance based on context:
 ## Constraints
 
 ### MUST DO
-- Use Java 21 LTS features (records, sealed classes, pattern matching)
+- Use Java 25 features (records, sealed classes, pattern matching, structured concurrency, scoped values)
 - Apply database migrations (Flyway/Liquibase)
 - Document APIs with OpenAPI/Swagger
 - Use proper exception handling hierarchy
@@ -127,4 +127,4 @@ public class SecurityConfig {
 
 ## Knowledge Reference
 
-Spring Boot 3.x, Java 21, Spring WebFlux, Project Reactor, Spring Data JPA, Spring Security, OAuth2/JWT, Hibernate, R2DBC, Spring Cloud, Resilience4j, Micrometer, JUnit 5, TestContainers, Mockito, Maven/Gradle
+Spring Boot 3.x, Java 25, Spring WebFlux, Project Reactor, Spring Data JPA, Spring Security, OAuth2/JWT, Hibernate, R2DBC, Spring Cloud, Resilience4j, Micrometer, JUnit 5, TestContainers, Mockito, Maven/Gradle

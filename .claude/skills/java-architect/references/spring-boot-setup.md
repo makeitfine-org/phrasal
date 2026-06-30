@@ -39,7 +39,7 @@ src/main/java/com/example/
     <packaging>jar</packaging>
 
     <properties>
-        <java.version>21</java.version>
+        <java.version>25</java.version>
         <mapstruct.version>1.5.5.Final</mapstruct.version>
         <testcontainers.version>2.0.3</testcontainers.version>
     </properties>
