@@ -317,3 +317,247 @@ Fix that in @Makefile
 ## 2026-07-01T12:32:07Z
 git add all changes and commit them with suitable message
 ---
+
+## 2026-07-01T12:39:07Z
+how to run *.test.tsx from intellij idea, cause there is not button to run test as it's for java tests
+---
+
+## 2026-07-01T12:41:12Z
+No such plugin Vitest
+---
+
+## 2026-07-01T12:46:11Z
+windows remove files for intellij idea ultimate trial
+---
+
+## 2026-07-01T16:49:07Z
+I'm going to use Oracle pay as you go 2 VMs on arm 12 RAM and 2 cpu each is free?
+---
+
+## 2026-07-01T16:54:44Z
+If I already have 1 VM: 1 cpu 1 ram on Ubuntu. How much capacities is awailable for free for me?
+---
+
+## 2026-07-01T17:03:58Z
+I uze tmux in ubuntu (linux for windows), I split window on 2 by hirizontal, when I click on below window cntr+b, z, I get window full screen, and I try to copy text of by holding cntr and scrolling the mouse but I get copy text which more then screen
+---
+
+## 2026-07-01T17:08:42Z
+Not working
+---
+
+## 2026-07-01T17:13:14Z
+I run `oci compute instance list` and get
+
+{
+  "data": [
+    {
+      "agent-config": {
+        "are-all-plugins-disabled": false,
+        "is-management-disabled": false,
+        "is-monitoring-disabled": false,
+        "plugins-config": [
+          {
+            "desired-state": "DISABLED",
+            "name": "Vulnerability Scanning"
+          },
+          {
+            "desired-state": "DISABLED",
+            "name": "OS Management Hub Agent"
+          },
+          {
+            "desired-state": "DISABLED",
+            "name": "Management Agent"
+          },
+          {
+            "desired-state": "ENABLED",
+            "name": "Custom Logs Monitoring"
+          },
+          {
+            "desired-state": "DISABLED",
+            "name": "Compute RDMA GPU Monitoring"
+          },
+          {
+            "desired-state": "ENABLED",
+            "name": "Compute Instance Monitoring"
+          },
+          {
+            "desired-state": "DISABLED",
+            "name": "Compute HPC RDMA Auto-Configuration"
+          },
+          {
+            "desired-state": "DISABLED",
+            "name": "Compute HPC RDMA Authentication"
+          },
+          {
+            "desired-state": "ENABLED",
+            "name": "Cloud Guard Workload Protection"
+          },
+          {
+            "desired-state": "DISABLED",
+            "name": "Block Volume Management"
+          },
+          {
+            "desired-state": "DISABLED",
+            "name": "Bastion"
+          }
+        ]
+      },
+      "availability-config": {
+        "is-live-migration-preferred": null,
+        "recovery-action": "RESTORE_INSTANCE"
+      },
+      "availability-domain": "Vcji:EU-FRANKFURT-1-AD-2",
+      "capacity-reservation-id": null,
+      "cluster-placement-group-id": null,
+      "compartment-id": "ocid1.tenancy.oc1..aaaaaaaapllfascgsx52zahz2h66bybqtgejspeh2p3ygxvptyw7us3cxsiq",
+      "dedicated-vm-host-id": null,
+      "defined-tags": {
+        "Oracle-Tags": {
+          "CreatedBy": "default/questtv8@gmail.com",
+          "CreatedOn": "2026-06-26T16:12:32.372Z"
+        }
+      },
+      "display-name": "VPS-t1",
+      "extended-metadata": {},
+      "fault-domain": "FAULT-DOMAIN-2",
+      "freeform-tags": {},
+      "id": "ocid1.instance.oc1.eu-frankfurt-1.antheljtw6ts67qc4odrpmsgq6amfcvsifilbcov64tmmrumcx4osav7zd7a",
+      "image-id": "ocid1.image.oc1.eu-frankfurt-1.aaaaaaaaola3pvhd5tx7nnyt3ohx3ef62thau2nuxmbd7geg2u7jxvsruqmq",
+      "instance-configuration-id": null,
+      "instance-options": {
+        "are-legacy-imds-endpoints-disabled": true
+      },
+      "ipxe-script": null,
+      "is-ai-enterprise-enabled": null,
+      "is-cross-numa-node": false,
+      "launch-mode": "PARAVIRTUALIZED",
+      "launch-options": {
+        "boot-volume-type": "PARAVIRTUALIZED",
+        "firmware": "UEFI_64",
+        "is-consistent-volume-naming-enabled": true,
+        "is-pv-encryption-in-transit-enabled": true,
+        "network-type": "PARAVIRTUALIZED",
+        "remote-data-volume-type": "PARAVIRTUALIZED"
+      },
+      "licensing-configs": null,
+      "lifecycle-state": "RUNNING",
+      "metadata": {
+        "ssh_authorized_keys": "ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAABAQDbntJBsh1mQPGrk5rhGP2Zalj93vNIxLgyKt2N9Am55RUrxrwX82Awajuu49pSgydHst6qvbNaApQV+7Z9sNsv9FPQF00kzTWmy1BttjhR52d3bCJE9O1gm6VQCdKkNMcno25Uez6wHe2tRw0jaOrgGGxaZkj+6O0f+C4b3D0zE6Um92gElRWnS+NXZoj2mgxpwSA58EZhlNtQ4kRDcrWITHB66oaesfF914j+p+jpQUgP0IiWSpjiPsBtm820vOX6SFlBiGzUwjdceUEdwYlD5CKZoCiRBmO4WJBlLrTJkuYKdG0Pc5P5KrnBHPblstNj9HA3HSs2z7bH5Cj8sMbj ssh-key-2026-06-26"
+      },
+      "placement-constraint-details": null,
+      "platform-config": null,
+      "preemptible-instance-config": null,
+      "region": "eu-frankfurt-1",
+      "security-attributes": {},
+      "security-attributes-state": "STABLE",
+      "shape": "VM.Standard.E2.1.Micro",
+      "shape-config": {
+        "baseline-ocpu-utilization": null,
+        "gpu-description": null,
+        "gpus": 0,
+        "local-disk-description": null,
+        "local-disks": 0,
+        "local-disks-total-size-in-gbs": null,
+        "local-volume-size-in-gbs": null,
+        "max-vnic-attachments": 1,
+        "memory-in-gbs": 1.0,
+        "networking-bandwidth-in-gbps": 0.48,
+        "ocpus": 1.0,
+        "processor-description": "2.0 GHz AMD EPYC™ 7551 (Naples)",
+        "resource-management": null,
+        "vcpus": 2
+      },
+      "source-details": {
+        "boot-volume-size-in-gbs": null,
+        "boot-volume-vpus-per-gb": null,
+        "image-id": "ocid1.image.oc1.eu-frankfurt-1.aaaaaaaaola3pvhd5tx7nnyt3ohx3ef62thau2nuxmbd7geg2u7jxvsruqmq",
+        "instance-source-image-filter-details": null,
+        "kms-key-id": null,
+        "source-type": "image"
+      },
+      "system-tags": {
+        "orcl-cloud": {
+          "free-tier-retained": "true"
+        }
+      },
+      "time-created": "2026-06-26T16:12:32.926000+00:00",
+      "time-maintenance-reboot-due": null
+    }
+  ]
+}
+
+
+What that mean?
+---
+
+## 2026-07-01T17:16:27Z
+What did I use, how much free I still have?
+---
+
+## 2026-07-01T17:17:31Z
+  - 2 VMs total, each 1/8 OCPU + 1 GB RAM. You say 1/8 OCPU but I see 1 OCPU, right? didn't catch the differenct, I didn't see 1/8 OCPU
+---
+
+## 2026-07-01T17:20:09Z
+1/8 of a core, but I run my fullstack web app: java + nginx + postgres, and it's work fine.
+---
+
+## 2026-07-01T17:21:29Z
+- so how much users simultaniously can the app handle now?
+- it is better to move to Node? how much users simultln. then the app. will be able to handle?
+---
+
+## 2026-07-01T19:26:11Z
+If turn on virtual threads in spring boot backend?
+---
+
+## 2026-07-01T19:30:01Z
+If rewrite backend postrgess spring boot to reactive non-blocking approach?
+---
+
+## 2026-07-01T19:32:04Z
+I don't understand the issue with RAM which you are talking about all the time? explain simpler, simple example
+---
+
+## 2026-07-01T19:34:15Z
+- but disk is SSD, it very fast
+- it to connect virtual threads and use non-blockin IO drivers for postgres
+---
+
+## 2026-07-01T19:37:53Z
+You're right that this combo uses less memory per request — maybe ~0.1 MB instead of ~1 MB per connection. So:
+
+  50 users: ~5 MB instead of ~50 MB for threads
+
+  That saves ~45 MB.
+
+but was
+  50 users at the same time = ~300 MB. Problem:
+
+so its 6x users more?
+---
+
+## 2026-07-01T19:39:50Z
+Is there any sense not just turn on virtual thread in spring without non-blocking postgress driver
+---
+
+## 2026-07-01T19:41:07Z
+but if in addition to switch to non-bloking postgress IO driver
+---
+
+## 2026-07-01T19:42:45Z
+But if in addition to migrate to webflux
+---
+
+## 2026-07-01T19:44:08Z
+activate virtual threads in spring
+---
+
+## 2026-07-01T19:44:59Z
+Will it now be active in all @backend/src/main/resources/application-dev.yml and @backend/src/main/resources/application-prod.yml?
+---
+
+## 2026-07-01T19:46:59Z
+git add all changes and commit them with suitable message
+---
