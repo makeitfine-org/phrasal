@@ -1,13 +1,13 @@
 #!/usr/bin/env bash
 #
 #  Tab completion — source it once (or add to .bashrc):
-#  source aux/scripts/deploy-vps-completion.bash
-#  Then ./aux/scripts/deploy-vps.sh <tab> shows backend  frontend  all.
+#  source aux/scripts/vps/mini/redeploy-vps-completion.bash
+#  Then ./aux/scripts/vps/mini/redeploy-vps.sh <tab> shows backend  frontend  all.
 #
 set -euo pipefail
 
 SCRIPT_DIR="$(cd "$(dirname "$0")" && pwd)"
-PROJECT_DIR="$(cd "$SCRIPT_DIR/../.." && pwd)"
+PROJECT_DIR="$(cd "$SCRIPT_DIR/../../../.." && pwd)"
 
 VPS_IP="141.144.227.73"
 VPS_USER="ubuntu"

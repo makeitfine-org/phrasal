@@ -5,5 +5,5 @@ _deploy_vps() {
     fi
 }
 
-complete -F _deploy_vps deploy-vps.sh
-complete -F _deploy_vps ./aux/scripts/deploy-vps.sh
+complete -F _deploy_vps redeploy-vps.sh
+complete -F _deploy_vps ./aux/scripts/vps/mini/redeploy-vps.sh

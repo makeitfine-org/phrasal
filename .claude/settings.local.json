@@ -117,7 +117,8 @@
       "Bash(JAVA_HOME=/usr/lib/jvm/java-25-openjdk-amd64 mvn dependency:tree -Dincludes=org.mockito)",
       "Bash(direnv status *)",
       "Read(//etc/docker/**)",
-      "Bash(docker buildx *)"
+      "Bash(docker buildx *)",
+      "Bash(git reset *)"
     ]
   },
   "model": "Opus",
