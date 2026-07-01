@@ -215,3 +215,40 @@ previously it works on https://phrasal.ddns.net  but now only on http://141.144.
 ## 2026-07-01T11:32:16Z
 update
 ---
+
+## 2026-07-01T11:43:47Z
+git add all changes and commit them with suitable message
+---
+
+## 2026-07-01T11:45:12Z
+Also in @aux/scripts/vps/mini/special/install-infra.sh add opening ports 80, 443 in iptable
+---
+
+## 2026-07-01T11:49:08Z
+Also install iptablees
+---
+
+## 2026-07-01T11:49:22Z
+git add all changes and commit them with suitable message
+---
+
+## 2026-07-01T11:53:03Z
+Check @aux/scripts/vps/mini/special/deploy-after-undeploy-vps.sh postgress if necessary db and user exists
+---
+
+## 2026-07-01T11:54:55Z
+git add all changes and commit them with suitable message
+---
+
+## 2026-07-01T11:57:49Z
+In @.github/workflows/phrasal-deploy.yml on `all`
+
+=== Restoring backend ===
+  Creating systemd service...
+999
+  Uploading JAR...
+---
+
+## 2026-07-01T11:59:31Z
+git add all changes and commit them with suitable message
+---

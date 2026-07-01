@@ -132,9 +132,13 @@
   #headroom so the OOM killer doesn't nuke your app. Want me to check the actual Spring profiles and datasource config to
   #make these commands copy-paste ready?
 
+--- Certificates
+  sudo certbot --nginx -d phrasal.ddns.net
+
 ---
   sudo systemctl daemon-reload
   sudo systemctl restart phrasal
 
   sudo service phrasal status
   sudo journalctl -u phrasal.service -f
+

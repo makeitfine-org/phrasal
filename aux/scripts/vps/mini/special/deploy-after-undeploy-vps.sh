@@ -97,7 +97,7 @@ WantedBy=multi-user.target
 UNIT'"
     fi
 
-    ssh_vps "id -u phrasal 2>/dev/null || sudo useradd -r -s /bin/false phrasal"
+    ssh_vps "id -u phrasal >/dev/null 2>&1 || sudo useradd -r -s /bin/false phrasal"
 
     # Upload JAR if missing
     if [ "$has_jar" != "y" ]; then
