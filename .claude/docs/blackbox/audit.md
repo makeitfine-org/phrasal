@@ -252,3 +252,52 @@ In @.github/workflows/phrasal-deploy.yml on `all`
 ## 2026-07-01T11:59:31Z
 git add all changes and commit them with suitable message
 ---
+
+## 2026-07-01T12:02:35Z
+Is all good?:
+
+Jul 01 12:00:48 vps-t1 java[124734]: 2026-07-01T12:00:48.518Z  INFO 124734 --- [backend] [           main] o.f.core.internal.command.DbMigrate      : Migrating schema "public" to version "7 - create verb details table"
+Jul 01 12:00:49 vps-t1 java[124734]: 2026-07-01T12:00:49.104Z  INFO 124734 --- [backend] [           main] o.f.core.internal.command.DbMigrate      : Migrating schema "public" to version "8 - seed verb details"
+Jul 01 12:00:49 vps-t1 java[124734]: 2026-07-01T12:00:49.727Z  INFO 124734 --- [backend] [           main] o.f.core.internal.command.DbMigrate      : Successfully applied 8 migrations to schema "public", now at version v8 (execution time 00:01.162s)
+Jul 01 12:00:50 vps-t1 java[124734]: 2026-07-01T12:00:50.617Z  INFO 124734 --- [backend] [           main] o.hibernate.jpa.internal.util.LogHelper  : HHH000204: Processing PersistenceUnitInfo [name: default]
+Jul 01 12:00:51 vps-t1 java[124734]: 2026-07-01T12:00:51.406Z  INFO 124734 --- [backend] [           main] org.hibernate.Version                    : HHH000412: Hibernate ORM core version 6.6.39.Final
+Jul 01 12:00:51 vps-t1 java[124734]: 2026-07-01T12:00:51.631Z  INFO 124734 --- [backend] [           main] o.h.c.internal.RegionFactoryInitiator    : HHH000026: Second-level cache disabled
+Jul 01 12:00:54 vps-t1 java[124734]: 2026-07-01T12:00:54.123Z  INFO 124734 --- [backend] [           main] o.s.o.j.p.SpringPersistenceUnitInfo      : No LoadTimeWeaver setup: ignoring JPA class transformer
+Jul 01 12:00:54 vps-t1 java[124734]: 2026-07-01T12:00:54.506Z  INFO 124734 --- [backend] [           main] org.hibernate.orm.connections.pooling    : HHH10001005: Database info:
+Jul 01 12:00:54 vps-t1 java[124734]:         Database JDBC URL [Connecting through datasource 'HikariDataSource (HikariPool-1)']
+Jul 01 12:00:54 vps-t1 java[124734]:         Database driver: undefined/unknown
+Jul 01 12:00:54 vps-t1 java[124734]:         Database version: 16.14
+Jul 01 12:00:54 vps-t1 java[124734]:         Autocommit mode: undefined/unknown
+Jul 01 12:00:54 vps-t1 java[124734]:         Isolation level: undefined/unknown
+Jul 01 12:00:54 vps-t1 java[124734]:         Minimum pool size: undefined/unknown
+Jul 01 12:00:54 vps-t1 java[124734]:         Maximum pool size: undefined/unknown
+Jul 01 12:01:00 vps-t1 java[124734]: 2026-07-01T12:01:00.831Z  INFO 124734 --- [backend] [           main] o.h.e.t.j.p.i.JtaPlatformInitiator       : HHH000489: No JTA platform available (set 'hibernate.transaction.jta.platform' to enable JTA platform integration)
+Jul 01 12:01:01 vps-t1 java[124734]: 2026-07-01T12:01:01.223Z  INFO 124734 --- [backend] [           main] j.LocalContainerEntityManagerFactoryBean : Initialized JPA EntityManagerFactory for persistence unit 'default'
+Jul 01 12:01:03 vps-t1 java[124734]: 2026-07-01T12:01:03.432Z  INFO 124734 --- [backend] [           main] o.s.d.j.r.query.QueryEnhancerFactory     : Hibernate is in classpath; If applicable, HQL parser will be used.
+Jul 01 12:01:16 vps-t1 java[124734]: 2026-07-01T12:01:16.721Z  INFO 124734 --- [backend] [           main] o.s.b.a.e.web.EndpointLinksResolver      : Exposing 3 endpoints beneath base path '/actuator'
+Jul 01 12:01:17 vps-t1 java[124734]: 2026-07-01T12:01:17.528Z  INFO 124734 --- [backend] [           main] o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat started on port 8080 (http) with context path '/'
+Jul 01 12:01:17 vps-t1 java[124734]: 2026-07-01T12:01:17.905Z  INFO 124734 --- [backend] [           main] net.phrasal.PhrasalApplication           : Started PhrasalApplication in 68.424 seconds (process running for 73.776)
+Jul 01 12:01:19 vps-t1 java[124734]: 2026-07-01T12:01:19.016Z  INFO 124734 --- [backend] [nio-8080-exec-1] o.a.c.c.C.[Tomcat].[localhost].[/]       : Initializing Spring DispatcherServlet 'dispatcherServlet'
+Jul 01 12:01:19 vps-t1 java[124734]: 2026-07-01T12:01:19.019Z  INFO 124734 --- [backend] [nio-8080-exec-1] o.s.web.servlet.DispatcherServlet        : Initializing Servlet 'dispatcherServlet'
+Jul 01 12:01:19 vps-t1 java[124734]: 2026-07-01T12:01:19.025Z  INFO 124734 --- [backend] [nio-8080-exec-1] o.s.web.servlet.DispatcherServlet        : Completed initialization in 5 ms
+Jul 01 12:01:21 vps-t1 java[124734]: 2026-07-01T12:01:21.717Z  WARN 124734 --- [backend] [nio-8080-exec-1] ration$PageModule$WarningLoggingModifier : Serializing PageImpl instances as-is is not supported, meaning that there is no guarantee about the stability of the resulting JSON structure!
+Jul 01 12:01:21 vps-t1 java[124734]:         For a stable JSON structure, please use Spring Data's PagedModel (globally via @EnableSpringDataWebSupport(pageSerializationMode = VIA_DTO))
+Jul 01 12:01:21 vps-t1 java[124734]:         or Spring HATEOAS and Spring Data's PagedResourcesAssembler as documented in https://docs.spring.io/spring-data/commons/reference/repositories/core-extensions.html#core.web.pageables.
+---
+
+## 2026-07-01T12:07:49Z
+./aux/scripts/vps/mini/redeploy-vps.sh backend 
+=== Building backend ===
+Built: target/backend-0.1.0.jar
+=== Uploading JAR to VPS ===
+scp: dest open "/opt/phrasal/app.jar": Permission denied
+scp: failed to upload file target/backend-0.1.0.jar to /opt/phrasal/app.jar
+---
+
+## 2026-07-01T12:15:42Z
+Change @aux/scripts/vps/mini/special/install-infra.sh to do script to execute on vps like in uddeply-vsp.sh etc.
+---
+
+## 2026-07-01T12:16:44Z
+git add all changes and commit them with suitable message
+---

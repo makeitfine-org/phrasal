@@ -178,3 +178,21 @@
 - .claude/docs/blackbox/session-log.md
 - aux/docs/save_while_work.txt
 <!-- end-snapshot -->
+
+<!-- git-snapshot 2026-07-01T12:02:42Z -->
+- .claude/docs/blackbox/audit.md
+<!-- end-snapshot -->
+
+<!-- git-snapshot 2026-07-01T12:08:12Z -->
+- .claude/docs/blackbox/audit.md
+- .claude/docs/blackbox/session-log.md
+- aux/scripts/vps/mini/redeploy-vps.sh
+- backend/src/main/java/net/phrasal/presentation/rest/PhrasalVerbController.java
+<!-- end-snapshot -->
+
+<!-- git-snapshot 2026-07-01T12:16:06Z -->
+- .claude/docs/blackbox/audit.md
+- .claude/docs/blackbox/session-log.md
+- aux/scripts/vps/mini/redeploy-vps.sh
+- aux/scripts/vps/mini/special/install-infra.sh
+<!-- end-snapshot -->

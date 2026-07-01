@@ -55,8 +55,9 @@ deploy_backend() {
     echo "Built: $JAR"
 
     echo "=== Uploading JAR to VPS ==="
-    ssh_vps "sudo mkdir -p /opt/phrasal && sudo chown $VPS_USER: /opt/phrasal"
+    ssh_vps "sudo mkdir -p /opt/phrasal && sudo chown -R $VPS_USER: /opt/phrasal"
     scp $SSH_OPTS "$JAR" "$VPS_USER@$VPS_IP:/opt/phrasal/app.jar"
+    ssh_vps "sudo chown -R phrasal: /opt/phrasal"
 
     echo "=== Ensuring prod profile in systemd service ==="
     ssh_vps "grep -q 'spring.profiles.active=prod' /etc/systemd/system/phrasal.service || sudo sed -i 's|--spring.profiles.active=[^ ]*|--spring.profiles.active=prod|; t; s|-jar /opt/phrasal/app.jar|-jar /opt/phrasal/app.jar --spring.profiles.active=prod|' /etc/systemd/system/phrasal.service && sudo systemctl daemon-reload"
