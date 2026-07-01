@@ -6,6 +6,8 @@ VPS_USER="ubuntu"
 SSH_KEY="$HOME/dev/scripts/vps/ssh-key-2026-06-26.key"
 SSH_OPTS="-i $SSH_KEY -o StrictHostKeyChecking=accept-new"
 
+#todo: set: jar name, db creds names
+
 ssh_vps() { ssh $SSH_OPTS "$VPS_USER@$VPS_IP" "$@"; }
 
 TARGETS=("backend" "frontend" "postgres" "all")
@@ -54,7 +56,26 @@ undeploy_frontend() {
     fi
     echo "=== Undeploying frontend ==="
     ssh_vps "sudo rm -rf /var/www/phrasal"
-    ssh_vps "sudo rm -f /etc/nginx/sites-enabled/phrasal /etc/nginx/sites-available/phrasal"
+
+    if ssh_vps "test -f /etc/systemd/system/phrasal.service" 2>/dev/null; then
+        # Backend still deployed — keep /api/ proxy, remove static serving
+        ssh_vps "sudo bash -c 'cat << \"NGINX\" > /etc/nginx/sites-available/phrasal
+server {
+    listen 80;
+    server_name phrasal.ddns.net;
+
+    location /api/ {
+        proxy_pass http://127.0.0.1:8080;
+        proxy_set_header Host \$host;
+        proxy_set_header X-Real-IP \$remote_addr;
+    }
+}
+NGINX'"
+        echo "  Restoring SSL certificate..."
+        ssh_vps "sudo certbot --nginx -d phrasal.ddns.net --non-interactive"
+    else
+        ssh_vps "sudo rm -f /etc/nginx/sites-enabled/phrasal /etc/nginx/sites-available/phrasal"
+    fi
     ssh_vps "sudo nginx -t 2>/dev/null && sudo systemctl reload nginx || true"
     echo "Frontend removed"
 }

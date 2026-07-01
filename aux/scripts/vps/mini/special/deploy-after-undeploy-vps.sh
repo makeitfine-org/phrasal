@@ -106,17 +106,24 @@ UNIT'"
 }
 
 deploy_frontend() {
-    if ssh_vps "test -f /etc/nginx/sites-available/phrasal" 2>/dev/null; then
-        echo "Nginx site already exists — skipping"
+    local has_config has_files has_root_location
+    has_config=$(ssh_vps "test -f /etc/nginx/sites-available/phrasal && echo y || echo n")
+    has_files=$(ssh_vps "test -d /var/www/phrasal && test -f /var/www/phrasal/index.html && echo y || echo n")
+    has_root_location=$(ssh_vps "grep -q 'root /var/www/phrasal' /etc/nginx/sites-available/phrasal 2>/dev/null && echo y || echo n")
+
+    if [ "$has_config" = "y" ] && [ "$has_files" = "y" ] && [ "$has_root_location" = "y" ]; then
+        echo "Frontend fully deployed — skipping"
         return
     fi
     echo "=== Restoring frontend ==="
 
-    # Recreate nginx site config
-    ssh_vps "sudo bash -c 'cat << \"NGINX\" > /etc/nginx/sites-available/phrasal
+    # Recreate full nginx config if missing or api-only
+    if [ "$has_config" != "y" ] || [ "$has_root_location" != "y" ]; then
+        echo "  Creating nginx site config..."
+        ssh_vps "sudo bash -c 'cat << \"NGINX\" > /etc/nginx/sites-available/phrasal
 server {
     listen 80;
-    server_name _;
+    server_name phrasal.ddns.net;
 
     root /var/www/phrasal;
     index index.html;
@@ -132,17 +139,22 @@ server {
     }
 }
 NGINX'"
-
-    ssh_vps "sudo ln -sf /etc/nginx/sites-available/phrasal /etc/nginx/sites-enabled/"
-
-    # Upload dist
-    cd "$PROJECT_DIR/frontend"
-    if [ ! -d "dist" ]; then
-        echo "ERROR: No dist/ directory — build first with: npm run build"
-        exit 1
+        ssh_vps "sudo ln -sf /etc/nginx/sites-available/phrasal /etc/nginx/sites-enabled/"
+        echo "  Restoring SSL certificate..."
+        ssh_vps "sudo certbot --nginx -d phrasal.ddns.net --non-interactive"
     fi
-    ssh_vps "sudo mkdir -p /var/www/phrasal && sudo chown -R $VPS_USER: /var/www/phrasal"
-    scp -r $SSH_OPTS dist/* "$VPS_USER@$VPS_IP:/var/www/phrasal/"
+
+    # Upload dist if missing
+    if [ "$has_files" != "y" ]; then
+        echo "  Uploading static files..."
+        cd "$PROJECT_DIR/frontend"
+        if [ ! -d "dist" ]; then
+            echo "ERROR: No dist/ directory — build first with: npm run build"
+            exit 1
+        fi
+        ssh_vps "sudo mkdir -p /var/www/phrasal && sudo chown -R $VPS_USER: /var/www/phrasal"
+        scp -r $SSH_OPTS dist/* "$VPS_USER@$VPS_IP:/var/www/phrasal/"
+    fi
 
     ssh_vps "sudo nginx -t && sudo systemctl reload nginx && echo 'Frontend deployed'"
 }

@@ -77,3 +77,53 @@
 - .claude/docs/blackbox/audit.md
 - aux/scripts/vps/mini/special/deploy-after-undeploy-vps.sh
 <!-- end-snapshot -->
+
+<!-- git-snapshot 2026-07-01T11:07:12Z -->
+- .claude/docs/blackbox/audit.md
+- .claude/docs/blackbox/session-log.md
+- aux/scripts/vps/mini/special/deploy-after-undeploy-vps.sh
+<!-- end-snapshot -->
+
+<!-- git-snapshot 2026-07-01T11:09:45Z -->
+- .claude/docs/blackbox/audit.md
+- .claude/docs/blackbox/session-log.md
+<!-- end-snapshot -->
+
+<!-- git-snapshot 2026-07-01T11:17:02Z -->
+- .claude/docs/blackbox/audit.md
+- .claude/docs/blackbox/session-log.md
+<!-- end-snapshot -->
+
+<!-- git-snapshot 2026-07-01T11:17:45Z -->
+- .claude/docs/blackbox/audit.md
+- .claude/docs/blackbox/session-log.md
+- aux/scripts/vps/mini/special/undeploy-vps.sh
+<!-- end-snapshot -->
+
+<!-- git-snapshot 2026-07-01T11:19:02Z -->
+- .claude/docs/blackbox/audit.md
+- .claude/docs/blackbox/session-log.md
+- aux/scripts/vps/mini/special/deploy-after-undeploy-vps.sh
+- aux/scripts/vps/mini/special/undeploy-vps.sh
+<!-- end-snapshot -->
+
+<!-- git-snapshot 2026-07-01T11:29:06Z -->
+- .claude/docs/blackbox/audit.md
+- .claude/docs/blackbox/session-log.md
+- aux/scripts/vps/mini/special/deploy-after-undeploy-vps.sh
+- aux/scripts/vps/mini/special/undeploy-vps.sh
+<!-- end-snapshot -->
+
+<!-- git-snapshot 2026-07-01T11:30:35Z -->
+- .claude/docs/blackbox/audit.md
+- .claude/docs/blackbox/session-log.md
+- aux/scripts/vps/mini/special/deploy-after-undeploy-vps.sh
+- aux/scripts/vps/mini/special/undeploy-vps.sh
+<!-- end-snapshot -->
+
+<!-- git-snapshot 2026-07-01T11:33:01Z -->
+- .claude/docs/blackbox/audit.md
+- .claude/docs/blackbox/session-log.md
+- aux/scripts/vps/mini/special/deploy-after-undeploy-vps.sh
+- aux/scripts/vps/mini/special/undeploy-vps.sh
+<!-- end-snapshot -->
