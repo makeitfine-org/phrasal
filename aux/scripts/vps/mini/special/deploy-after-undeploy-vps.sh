@@ -33,14 +33,31 @@ pick_target() {
 }
 
 deploy_postgres() {
-    if ssh_vps "systemctl is-active postgresql 2>/dev/null" | grep -q active; then
-        echo "PostgreSQL already running — skipping"
+    local is_active has_user has_db
+    is_active=$(ssh_vps "systemctl is-active postgresql 2>/dev/null || echo inactive")
+
+    if [ "$is_active" != "active" ]; then
+        echo "=== Restoring PostgreSQL ==="
+        echo "  Starting service..."
+        ssh_vps "sudo systemctl enable --now postgresql"
+    fi
+
+    has_user=$(ssh_vps "sudo -u postgres psql -tc \"SELECT 1 FROM pg_roles WHERE rolname='phrasaluser'\"" | grep -q 1 && echo y || echo n)
+    has_db=$(ssh_vps "sudo -u postgres psql -tc \"SELECT 1 FROM pg_database WHERE datname='phrasaldb'\"" | grep -q 1 && echo y || echo n)
+
+    if [ "$is_active" = "active" ] && [ "$has_user" = "y" ] && [ "$has_db" = "y" ]; then
+        echo "PostgreSQL fully running — skipping"
         return
     fi
-    echo "=== Restoring PostgreSQL ==="
-    ssh_vps "sudo systemctl enable --now postgresql"
-    ssh_vps "sudo -u postgres psql -tc \"SELECT 1 FROM pg_roles WHERE rolname='phrasaluser'\" | grep -q 1 || sudo -u postgres psql -c \"CREATE USER phrasaluser WITH PASSWORD 'phrasalpass';\""
-    ssh_vps "sudo -u postgres psql -tc \"SELECT 1 FROM pg_database WHERE datname='phrasaldb'\" | grep -q 1 || sudo -u postgres psql -c \"CREATE DATABASE phrasaldb OWNER phrasaluser;\""
+
+    if [ "$has_user" != "y" ]; then
+        echo "  Creating user phrasaluser..."
+        ssh_vps "sudo -u postgres psql -c \"CREATE USER phrasaluser WITH PASSWORD 'phrasalpass';\""
+    fi
+    if [ "$has_db" != "y" ]; then
+        echo "  Creating database phrasaldb..."
+        ssh_vps "sudo -u postgres psql -c \"CREATE DATABASE phrasaldb OWNER phrasaluser;\""
+    fi
     echo "PostgreSQL restored"
 }
 
