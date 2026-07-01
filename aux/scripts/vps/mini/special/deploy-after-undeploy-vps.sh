@@ -45,14 +45,21 @@ deploy_postgres() {
 }
 
 deploy_backend() {
-    if ssh_vps "test -f /etc/systemd/system/phrasal.service" 2>/dev/null; then
-        echo "Backend service already exists — skipping"
+    local has_service has_jar is_active
+    has_service=$(ssh_vps "test -f /etc/systemd/system/phrasal.service && echo y || echo n")
+    has_jar=$(ssh_vps "test -f /opt/phrasal/app.jar && echo y || echo n")
+    is_active=$(ssh_vps "systemctl is-active phrasal 2>/dev/null || echo inactive")
+
+    if [ "$has_service" = "y" ] && [ "$has_jar" = "y" ] && [ "$is_active" = "active" ]; then
+        echo "Backend fully running — skipping"
         return
     fi
     echo "=== Restoring backend ==="
 
-    # Recreate systemd service
-    ssh_vps "sudo bash -c 'cat << \"UNIT\" > /etc/systemd/system/phrasal.service
+    # Recreate systemd service if missing
+    if [ "$has_service" != "y" ]; then
+        echo "  Creating systemd service..."
+        ssh_vps "sudo bash -c 'cat << \"UNIT\" > /etc/systemd/system/phrasal.service
 [Unit]
 Description=Phrasal Backend
 After=postgresql.service
@@ -71,23 +78,31 @@ Restart=always
 [Install]
 WantedBy=multi-user.target
 UNIT'"
+    fi
 
     ssh_vps "id -u phrasal 2>/dev/null || sudo useradd -r -s /bin/false phrasal"
-    ssh_vps "sudo mkdir -p /opt/phrasal && sudo chown phrasal: /opt/phrasal"
 
-    # Upload JAR
-    cd "$PROJECT_DIR/backend"
-    JAR=$(ls target/backend-*.jar 2>/dev/null | head -1)
-    if [ -z "$JAR" ]; then
-        echo "ERROR: No JAR found in target/ — build first with: mvn clean package -DskipTests"
-        exit 1
+    # Upload JAR if missing
+    if [ "$has_jar" != "y" ]; then
+        echo "  Uploading JAR..."
+        ssh_vps "sudo mkdir -p /opt/phrasal && sudo chown $VPS_USER: /opt/phrasal"
+        cd "$PROJECT_DIR/backend"
+        JAR=$(ls target/backend-*.jar 2>/dev/null | head -1)
+        if [ -z "$JAR" ]; then
+            echo "ERROR: No JAR found in target/ — build first with: mvn clean package -DskipTests"
+            exit 1
+        fi
+        scp $SSH_OPTS "$JAR" "$VPS_USER@$VPS_IP:/opt/phrasal/app.jar"
+        ssh_vps "sudo chown -R phrasal: /opt/phrasal"
     fi
-    scp $SSH_OPTS "$JAR" "$VPS_USER@$VPS_IP:/opt/phrasal/app.jar"
-    ssh_vps "sudo chown phrasal: /opt/phrasal/app.jar"
 
-    ssh_vps "sudo systemctl daemon-reload && sudo systemctl enable --now phrasal"
-    sleep 3
-    ssh_vps "sudo systemctl is-active phrasal && echo 'Backend is running' || (echo 'Backend FAILED'; sudo journalctl -u phrasal -n 20 --no-pager; exit 1)"
+    # Start service if not active
+    if [ "$is_active" != "active" ]; then
+        echo "  Starting service..."
+        ssh_vps "sudo systemctl daemon-reload && sudo systemctl enable --now phrasal"
+        sleep 3
+        ssh_vps "sudo systemctl is-active phrasal && echo 'Backend is running' || (echo 'Backend FAILED'; sudo journalctl -u phrasal -n 20 --no-pager; exit 1)"
+    fi
 }
 
 deploy_frontend() {

@@ -70,3 +70,11 @@ extend @aux/scripts/vps/mini/vps-completion.bash with @aux/scripts/vps/mini/depl
 ## 2026-07-01T11:00:02Z
 git add all changes and commit them with suitable message
 ---
+
+## 2026-07-01T11:02:44Z
+./aux/scripts/vps/mini/special/deploy-after-undeploy-vps.sh backend 
+=== Restoring backend ===
+999
+scp: dest open "/opt/phrasal/app.jar": Permission denied
+scp: failed to upload file target/backend-0.1.0.jar to /opt/phrasal/app.jar
+---

@@ -72,3 +72,8 @@
 - aux/scripts/vps/mini/special/deploy-after-undeploy.sh
 - aux/scripts/vps/mini/vps-completion.bash
 <!-- end-snapshot -->
+
+<!-- git-snapshot 2026-07-01T11:03:10Z -->
+- .claude/docs/blackbox/audit.md
+- aux/scripts/vps/mini/special/deploy-after-undeploy-vps.sh
+<!-- end-snapshot -->
