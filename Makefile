@@ -44,7 +44,7 @@ buildBackend:
 buildFrontend:
 	@echo "### Building frontend (phrasal) ..."
 	$(call execute_commands,\
-		cd frontend && npm install && npm run build,\
+		cd frontend && npm install && npx vitest run && npm run build,\
 		"✅ BUILD FRONTEND SUCCESSFUL (phrasal) ✅",\
 		"❌ BUILD FRONTEND FAILED (phrasal) ❌")
 

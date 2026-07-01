@@ -196,3 +196,22 @@
 - aux/scripts/vps/mini/redeploy-vps.sh
 - aux/scripts/vps/mini/special/install-infra.sh
 <!-- end-snapshot -->
+
+<!-- git-snapshot 2026-07-01T12:22:28Z -->
+- .claude/docs/blackbox/audit.md
+- frontend/src/__tests__/GrammarPage.test.tsx
+- frontend/src/pages/GrammarPage.tsx
+<!-- end-snapshot -->
+
+<!-- git-snapshot 2026-07-01T12:25:24Z -->
+- .claude/docs/blackbox/audit.md
+- .claude/docs/blackbox/session-log.md
+- frontend/src/pages/GrammarPage.tsx
+<!-- end-snapshot -->
+
+<!-- git-snapshot 2026-07-01T12:26:38Z -->
+- .claude/docs/blackbox/audit.md
+- .claude/docs/blackbox/session-log.md
+- Makefile
+- frontend/src/pages/GrammarPage.tsx
+<!-- end-snapshot -->

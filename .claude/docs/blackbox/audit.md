@@ -301,3 +301,19 @@ Change @aux/scripts/vps/mini/special/install-infra.sh to do script to execute on
 ## 2026-07-01T12:16:44Z
 git add all changes and commit them with suitable message
 ---
+
+## 2026-07-01T12:22:05Z
+I changed @frontend/src/pages/GrammarPage.tsx but @frontend/src/__tests__/GrammarPage.test.tsx didn't fail
+---
+
+## 2026-07-01T12:25:02Z
+I change @frontend/src/pages/GrammarPage.tsx and run `make clean build` but @frontend/src/__tests__/GrammarPage.test.tsx didn't fail
+---
+
+## 2026-07-01T12:26:29Z
+Fix that in @Makefile
+---
+
+## 2026-07-01T12:32:07Z
+git add all changes and commit them with suitable message
+---
