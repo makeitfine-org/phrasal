@@ -17,3 +17,11 @@ sudo apt install -y openjdk-25-jre-headless
 
 # Nginx (serves React static files, reverse-proxies /api to Spring Boot)
 sudo apt install -y nginx
+
+# iptables persistence
+sudo apt install -y iptables-persistent
+
+# Open HTTP/HTTPS ports in iptables
+sudo iptables -I INPUT -p tcp --dport 80 -j ACCEPT
+sudo iptables -I INPUT -p tcp --dport 443 -j ACCEPT
+sudo sh -c 'iptables-save > /etc/iptables/rules.v4'
