@@ -37,6 +37,11 @@ pick_target() {
 }
 
 deploy_backend() {
+    if ! ssh_vps "test -f /etc/systemd/system/phrasal.service" 2>/dev/null; then
+        echo "ERROR: Backend not deployed — run install-infra.sh and set up the systemd service first"
+        exit 1
+    fi
+
     echo "=== Building backend ==="
     cd "$PROJECT_DIR/backend"
     ## Todo: uncomment?
@@ -63,6 +68,11 @@ deploy_backend() {
 }
 
 deploy_frontend() {
+    if ! ssh_vps "test -f /etc/nginx/sites-available/phrasal" 2>/dev/null; then
+        echo "ERROR: Frontend not deployed — run install-infra.sh and set up the nginx site first"
+        exit 1
+    fi
+
     echo "=== Building frontend ==="
     cd "$PROJECT_DIR/frontend"
     ## Todo: uncomment?

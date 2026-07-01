@@ -35,6 +35,10 @@ confirm() {
 }
 
 undeploy_backend() {
+    if ! ssh_vps "test -f /etc/systemd/system/phrasal.service" 2>/dev/null; then
+        echo "Backend not deployed — skipping"
+        return
+    fi
     echo "=== Undeploying backend ==="
     ssh_vps "sudo systemctl stop phrasal 2>/dev/null || true"
     ssh_vps "sudo systemctl disable phrasal 2>/dev/null || true"
@@ -44,6 +48,10 @@ undeploy_backend() {
 }
 
 undeploy_frontend() {
+    if ! ssh_vps "test -d /var/www/phrasal" 2>/dev/null; then
+        echo "Frontend not deployed — skipping"
+        return
+    fi
     echo "=== Undeploying frontend ==="
     ssh_vps "sudo rm -rf /var/www/phrasal"
     ssh_vps "sudo rm -f /etc/nginx/sites-enabled/phrasal /etc/nginx/sites-available/phrasal"
@@ -52,6 +60,10 @@ undeploy_frontend() {
 }
 
 undeploy_postgres() {
+    if ! ssh_vps "systemctl is-enabled postgresql 2>/dev/null" | grep -q enabled; then
+        echo "PostgreSQL not running — skipping"
+        return
+    fi
     echo "=== Undeploying PostgreSQL ==="
     ssh_vps "sudo -u postgres psql -c \"DROP DATABASE IF EXISTS phrasaldb;\""
     ssh_vps "sudo -u postgres psql -c \"DROP USER IF EXISTS phrasaluser;\""

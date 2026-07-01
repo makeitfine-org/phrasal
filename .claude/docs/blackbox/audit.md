@@ -42,3 +42,15 @@ extend @aux/scripts/vps/mini/redeploy-vps-completion.bash with @aux/scripts/vps/
 ## 2026-07-01T10:34:42Z
 move @aux/scripts/vps/mini/undeploy-vps.sh and @aux/scripts/vps/mini/install-infra.sh into `special` folder
 ---
+
+## 2026-07-01T10:42:33Z
+based on @aux/scripts/vps/mini/special/undeploy-vps.sh extend @aux/scripts/vps/mini/  considering if service was redeployed
+---
+
+## 2026-07-01T10:44:43Z
+based on @aux/scripts/vps/mini/special/undeploy-vps.sh extend redeploy-vps.sh  considering if services were undeploy
+---
+
+## 2026-07-01T10:48:59Z
+git add all changes and commit them with suitable message
+---
