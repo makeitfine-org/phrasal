@@ -36,19 +36,19 @@
   └─────────────────────────┴───────────────┘
 
   # Step 0 — Add swap (critical with 1 GB)
-  sudo fallocate -l 2G /swapfile
-  sudo chmod 600 /swapfile
-  sudo mkswap /swapfile
-  sudo swapon /swapfile
-  echo '/swapfile none swap sw 0 0' | sudo tee -a /etc/fstab
+  + sudo fallocate -l 2G /swapfile
+  + sudo chmod 600 /swapfile
+  + sudo mkswap /swapfile
+  + sudo swapon /swapfile
+  + echo '/swapfile none swap sw 0 0' | sudo tee -a /etc/fstab
 
   # Step 1 — Install PostgreSQL
-  sudo apt update && sudo apt install -y postgresql postgresql-client
-  sudo -u postgres psql -c "CREATE USER phrasaluser WITH PASSWORD 'phrasalpass';"
-  sudo -u postgres psql -c "CREATE DATABASE phrasaldb OWNER phrasal;"
+  + sudo apt update && sudo apt install -y postgresql postgresql-client
+  + sudo -u postgres psql -c "CREATE USER phrasaluser WITH PASSWORD 'phrasalpass';"
+  + sudo -u postgres psql -c "CREATE DATABASE phrasaldb OWNER phrasal;"
 
   # Step 2 — Install Java 21 + Nginx
-  sudo apt install -y openjdk-21-jre-headless nginx
+  + sudo apt install -y openjdk-21-jre-headless nginx
 
   # Step 3 — Build & deploy backend
   #Build on your local machine (the VPS doesn't have enough RAM to compile):

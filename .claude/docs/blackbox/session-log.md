@@ -13,3 +13,7 @@
 - aux/scripts/vps/mini/redeploy-vps-completion.bash
 - aux/scripts/vps/mini/redeploy-vps.sh
 <!-- end-snapshot -->
+
+<!-- git-snapshot 2026-07-01T10:10:48Z -->
+- .claude/docs/blackbox/audit.md
+<!-- end-snapshot -->
