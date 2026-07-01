@@ -17,3 +17,6 @@ complete -F _redeploy_vps ./aux/scripts/vps/mini/redeploy-vps.sh
 
 complete -F _undeploy_vps undeploy-vps.sh
 complete -F _undeploy_vps ./aux/scripts/vps/mini/special/undeploy-vps.sh
+
+complete -F _undeploy_vps deploy-after-undeploy.sh
+complete -F _undeploy_vps ./aux/scripts/vps/mini/special/deploy-after-undeploy-vps.sh

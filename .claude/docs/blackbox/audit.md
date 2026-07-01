@@ -54,3 +54,19 @@ based on @aux/scripts/vps/mini/special/undeploy-vps.sh extend redeploy-vps.sh  c
 ## 2026-07-01T10:48:59Z
 git add all changes and commit them with suitable message
 ---
+
+## 2026-07-01T10:51:31Z
+Based on @aux/docs/save_while_work.txt and @aux/scripts/vps/mini/*.sh create in @aux/scripts/vps/mini/special/deploy-after-undeploy.sh with will check and install what needed after @aux/scripts/vps/mini/special/undeploy-vps.sh
+---
+
+## 2026-07-01T10:52:17Z
+Based on @aux/docs/save_while_work.txt and @aux/scripts/vps/mini/*.sh create in @aux/scripts/vps/mini/special/deploy-after-undeploy.sh with will check and install what needed if undeployed @aux/scripts/vps/mini/special/undeploy-vps.sh used
+---
+
+## 2026-07-01T10:56:47Z
+extend @aux/scripts/vps/mini/vps-completion.bash with @aux/scripts/vps/mini/deploy-after-undeploy-vps.sh commands
+---
+
+## 2026-07-01T11:00:02Z
+git add all changes and commit them with suitable message
+---
