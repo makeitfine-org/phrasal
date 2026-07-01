@@ -1,7 +1,7 @@
 #!/usr/bin/env bash
 #
 #  Tab completion — source it once (or add to .bashrc):
-#  source aux/scripts/vps/mini/redeploy-vps-completion.bash
+#  source aux/scripts/vps/mini/vps-completion.bash
 #  Then ./aux/scripts/vps/mini/redeploy-vps.sh <tab> shows backend  frontend  all.
 #
 set -euo pipefail
@@ -39,7 +39,8 @@ pick_target() {
 deploy_backend() {
     echo "=== Building backend ==="
     cd "$PROJECT_DIR/backend"
-    mvn clean package -DskipTests -q
+    ## Todo: uncomment?
+    #mvn clean package -DskipTests -q
 
     JAR=$(ls target/backend-*.jar 2>/dev/null | head -1)
     if [ -z "$JAR" ]; then
@@ -64,8 +65,9 @@ deploy_backend() {
 deploy_frontend() {
     echo "=== Building frontend ==="
     cd "$PROJECT_DIR/frontend"
-    npm ci --silent
-    npm run build
+    ## Todo: uncomment?
+    #npm ci --silent
+    #npm run build
 
     if [ ! -d "dist" ]; then
         echo "ERROR: No dist/ directory after build"
