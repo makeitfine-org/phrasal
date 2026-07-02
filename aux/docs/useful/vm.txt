@@ -1,0 +1,692 @@
+● You're right, my math was off. Let me correct:
+
+  Total: 4 cores, 24GB RAM across 2 VMs
+
+  K8s overhead: ~0.5 core, ~1.5–2GB RAM (system components)
+
+  Left for your app: ~3.5 cores, ~22GB RAM
+
+  I overstated the K8s overhead. Still, the point stands — K8s is heavy machinery for a 3-container app. Docker Compose
+  gives you the full 4 cores and 24GB with zero overhead tax.
+
+✻ Baked for 9s
+
+---
+❯ But if I want to use K8s with 2 VMs, is it good for 100 users simultaniously? Will it work fine?
+---
+
+● Yes, it will work fine for 100 simultaneous users. Even after K8s overhead, you'd have ~3.5 cores and ~22GB RAM — your app
+  needs only ~2GB and barely any CPU at that load.
+
+  The real question with 2 VMs and K8s is the topology:
+
+  ┌──────────────────────────────────────────────────┬─────────────────────┬───────────────────────────────────────────┐
+  │                      Setup                       │        Pros         │                   Cons                    │
+  ├──────────────────────────────────────────────────┼─────────────────────┼───────────────────────────────────────────┤
+  │ VM1 = control plane + worker, VM2 = worker       │ More worker         │ Control plane crash = cluster down anyway │
+  │                                                  │ capacity            │                                           │
+  ├──────────────────────────────────────────────────┼─────────────────────┼───────────────────────────────────────────┤
+  │ VM1 = dedicated control plane, VM2 = all         │ Clean separation    │ All your app runs on 1 node (2 cores,     │
+  │ workloads                                        │                     │ 12GB)                                     │
+  └──────────────────────────────────────────────────┴─────────────────────┴───────────────────────────────────────────┘
+
+  With only 2 nodes, you don't get real high availability either way — if one VM dies, your app goes down. So K8s doesn't
+  buy you resilience at this scale.
+
+  It will work, but you're paying a complexity tax for no practical benefit. K8s shines at 5+ nodes with auto-scaling. At 2
+  VMs it's just a harder way to run Docker Compose.
+
+  If you still want K8s for learning purposes — totally valid reason, go for it. It'll handle 100 users without any issues.
+
+✻ Crunched for 13s
+
+---
+❯ How's better to divide the noted in such case for control plane and workers? what benefit of k8s instead of docker
+  compose here?
+---
+
+● Node Division (best option for 2 VMs)
+
+  VM1 (2 cores, 12GB): Control plane + worker (dual role)
+  VM2 (2 cores, 12GB): Worker only
+
+  This way both VMs run your workloads. K8s control plane uses ~0.5 core and ~1.5GB on VM1, rest is available for pods.
+
+  Your pods would be:
+  - PostgreSQL → schedule on VM2 (dedicated, no control plane competition)
+  - Spring Boot backend → can run on either/both
+  - Frontend (nginx) → can run on either/both
+
+  Honest K8s vs Docker Compose comparison at this scale
+
+  ┌────────────────────┬───────────────────────────────────────────┬───────────────────────────────────────────┐
+  │       Aspect       │                    K8s                    │              Docker Compose               │
+  ├────────────────────┼───────────────────────────────────────────┼───────────────────────────────────────────┤
+  │ Self-healing       │ Restarts crashed pods automatically       │ Need to set restart: always (same result) │
+  ├────────────────────┼───────────────────────────────────────────┼───────────────────────────────────────────┤
+  │ Rolling updates    │ Zero-downtime deploys built-in            │ Brief downtime on redeploy                │
+  ├────────────────────┼───────────────────────────────────────────┼───────────────────────────────────────────┤
+
+● Node Division (best option for 2 VMs)
+
+  VM1 (2 cores, 12GB): Control plane + worker (dual role)
+  VM2 (2 cores, 12GB): Worker only
+
+  This way both VMs run your workloads. K8s control plane uses ~0.5 core and ~1.5GB on VM1, rest is available for pods.
+
+  Your pods would be:
+  - PostgreSQL → schedule on VM2 (dedicated, no control plane competition)
+  - Spring Boot backend → can run on either/both
+  - Frontend (nginx) → can run on either/both
+
+  Honest K8s vs Docker Compose comparison at this scale
+
+  ┌────────────────────┬───────────────────────────────────────────┬───────────────────────────────────────────┐
+  │       Aspect       │                    K8s                    │              Docker Compose               │
+  ├────────────────────┼───────────────────────────────────────────┼───────────────────────────────────────────┤
+  │ Self-healing       │ Restarts crashed pods automatically       │ Need to set restart: always (same result) │
+  ├────────────────────┼───────────────────────────────────────────┼───────────────────────────────────────────┤
+  │ Rolling updates    │ Zero-downtime deploys built-in            │ Brief downtime on redeploy                │
+  ├────────────────────┼───────────────────────────────────────────┼───────────────────────────────────────────┤
+  │ Scaling            │ kubectl scale replicas=3                  │ Manual, edit compose file                 │
+  ├────────────────────┼───────────────────────────────────────────┼───────────────────────────────────────────┤
+  │ SSL/Ingress        │ Nginx Ingress + cert-manager (auto-renew) │ Certbot + nginx (manual renew)            │
+  ├────────────────────┼───────────────────────────────────────────┼───────────────────────────────────────────┤
+  │ Secrets management │ K8s Secrets (basic but built-in)          │ .env files                                │
+  ├────────────────────┼───────────────────────────────────────────┼───────────────────────────────────────────┤
+  │ Resource limits    │ Per-pod CPU/RAM limits                    │ Compose supports this too                 │
+  ├────────────────────┼───────────────────────────────────────────┼───────────────────────────────────────────┤
+  │ Monitoring         │ Rich ecosystem (Prometheus, etc.)         │ DIY                                       │
+  ├────────────────────┼───────────────────────────────────────────┼───────────────────────────────────────────┤
+  │ Complexity         │ High — etcd, kubelet, networking, YAML    │ Low — one file, done                      │
+  ├────────────────────┼───────────────────────────────────────────┼───────────────────────────────────────────┤
+  │ RAM overhead       │ ~1.5–2GB wasted                           │ ~0                                        │
+  ├────────────────────┼───────────────────────────────────────────┼───────────────────────────────────────────┤
+  │ Learning value     │ High                                      │ Low                                       │
+  └────────────────────┴───────────────────────────────────────────┴───────────────────────────────────────────┘
+
+  Bottom line
+
+  Docker Compose wins on practicality for 100 users on 2 VMs. The only real benefits K8s gives you here are zero-downtime
+  deploys and the learning experience.
+
+  If your goal is production reliability → Docker Compose.
+  If your goal is learning K8s → go for it, your app will run fine either way.
+
+✻ Cogitated for 15s
+
+---
+❯ How to redeploy with docker compose in case I choose that? is it possible zero downtime?
+  ⎿  1 skill available
+---
+
+● Simple redeploy (few seconds downtime)
+
+  docker compose pull        # or rebuild: docker compose build
+  docker compose up -d       # recreates changed containers
+
+  Downtime: ~2–5 seconds per container that changed.
+
+  Zero-downtime with Docker Compose
+
+  Possible, but requires a trick — blue-green with a reverse proxy:
+
+  # docker-compose.yml
+  services:
+    nginx:
+      image: nginx
+      ports:
+        - "80:80"
+        - "443:443"
+      volumes:
+        - ./nginx.conf:/etc/nginx/nginx.conf
+      depends_on:
+        - backend
+
+    backend:
+      image: your-backend:latest
+      deploy:
+        replicas: 2          # run 2 instances
+      # no ports exposed —
+      image: your-frontend:latest
+
+    db:
+      image: postgres:17
+
+  Then redeploy one replica at a time:
+
+  # Scale up new version alongside old
+  docker compose up -d --no-deps --scale backend=3 --build backend
+  # Wait for new container to be healthy
+  # Scale back down to 2 (old one gets removed)
+  docker compose up -d --no-deps --scale backend=2 backend
+
+  Simpler alternative: health check + restart policy
+
+  backend:
+    restart: always
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost:8080/actuator/health"]
+      interval: 10s
+      timeout: 5s
+      retries: 3
+
+  This gives you ~2 second downtime on redeploy, but automatic recovery if the app crashes. For 100 users on a learning app,
+  nobody will notice 2 seconds.
+
+  Realistic recommendation
+
+  For your phrasal app, just use:
+                                                                                                              13:59 [15/744]
+    backend:
+      image: your-backend:latest
+      deploy:
+        replicas: 2          # run 2 instances
+      # no ports exposed — nginx routes to them
+
+    frontend:
+      image: your-frontend:latest
+
+    db:
+      image: postgres:17
+
+  Then redeploy one replica at a time:
+
+  # Scale up new version alongside old
+  docker compose up -d --no-deps --scale backend=3 --build backend
+  # Wait for new container to be healthy
+  # Scale back down to 2 (old one gets removed)
+  docker compose up -d --no-deps --scale backend=2 backend
+
+  Simpler alternative: health check + restart policy
+
+  backend:
+    restart: always
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost:8080/actuator/health"]
+      interval: 10s
+      timeout: 5s
+      retries: 3
+
+  This gives you ~2 second downtime on redeploy, but automatic recovery if the app crashes. For 100 users on a learning app,
+  nobody will notice 2 seconds.
+
+  Realistic recommendation
+
+  For your phrasal app, just use:
+
+  docker compose build && docker compose up -d
+
+  With restart: always on all services. The 2-second restart gap is fine — even big companies have maintenance windows
+  longer than that. Zero-downtime only matters for apps where every second of downtime costs money.
+
+---
+❯ what the reason of docker compose? can it be replicated on diff nodes like k8s?
+---
+
+● No, Docker Compose only runs on a single host. It can't spread containers across multiple VMs.
+
+  Why use Docker Compose at all then?
+
+  ┌───────────────────────┬───────────────────────────────────────────┬─────────────────────────────────────────────┐
+  │        Reason         │              Without Compose              │                With Compose                 │
+  ├───────────────────────┼───────────────────────────────────────────┼─────────────────────────────────────────────┤
+  │ Start 3 services      │ 3 separate docker run commands with flags │ docker compose up                           │
+  ├───────────────────────┼───────────────────────────────────────────┼─────────────────────────────────────────────┤
+  │ Networking            │ Manually create networks, link containers │ Automatic — services see each other by name │
+  ├───────────────────────┼───────────────────────────────────────────┼─────────────────────────────────────────────┤
+  │ Environment variables │ Pass with -e flags each time              │ Defined once in YAML                        │
+  ├───────────────────────┼───────────────────────────────────────────┼─────────────────────────────────────────────┤
+  │ Restart after reboot  │ Set up each container individually        │ restart: always, done                       │
+  ├───────────────────────┼───────────────────────────────────────────┼─────────────────────────────────────────────┤
+  │ Rebuild & redeploy    │ Stop, remove, rebuild, run each container │ docker compose up -d --build                │
+  └───────────────────────┴───────────────────────────────────────────┴─────────────────────────────────────────────┘
+
+  It's basically a single-host orchestrator — one file defines your entire stack, one command runs it.
+
+  Multi-node options (if you outgrow 1 VM)
+
+  ┌────────────────┬────────────┬─────────────────────────────────────────────────┐
+  │      Tool      │ Complexity │                   When to use                   │
+  ├────────────────┼────────────┼─────────────────────────────────────────────────┤
+  │ Docker Compose │ Low        │ 1 VM, < 1000 users                              │
+  ├────────────────┼────────────┼─────────────────────────────────────────────────┤
+  │ Docker Swarm   │ Medium     │ 2–5 VMs, Compose-like syntax, built into Docker │
+  ├────────────────┼────────────┼─────────────────────────────────────────────────┤
+  │ Kubernetes     │ High       │ 5+ nodes, auto-scaling, enterprise              │
+  └────────────────┴────────────┴─────────────────────────────────────────────────┘
+
+  Docker Swarm is the natural step up from Compose — same YAML format, just add docker swarm init and docker stack deploy.
+  It spreads containers across nodes. But Docker mostly abandoned it in favor of K8s.
+
+  For your phrasal app at 100 users: Docker Compose on 1 VM. Don't solve problems you don't have yet.
+
+✻ Sautéed for 15s
+
+---
+❯ if I split k8s to 4 VM: 1 cpu 6 ram each? cons, proc? best way to do that for my app?
+---
+
+● 4 VMs x 1 CPU x 6GB RAM
+
+  Topology
+
+  ┌─────┬────────────────────────┬──────────────────────────────┐
+  │ VM  │          Role          │ Available after K8s overhead │
+  ├─────┼────────────────────────┼──────────────────────────────┤
+  │ VM1 │ Control plane + worker │ ~0.5 CPU, ~4GB RAM           │
+  ├─────┼────────────────────────┼──────────────────────────────┤
+  │ VM2 │ Worker                 │ ~0.9 CPU, ~5.5GB RAM         │
+  ├─────┼────────────────────────┼──────────────────────────────┤
+  │ VM3 │ Worker                 │ ~0.9 CPU, ~5.5GB RAM         │
+  ├─────┼────────────────────────┼──────────────────────────────┤
+  │ VM4 │ Worker                 │ ~0.9 CPU, ~5.5GB RAM         │
+  └─────┴────────────────────────┴──────────────────────────────┘
+
+  Pros
+
+  - Real HA — if one worker dies, pods reschedule to others
+  - Isolation — DB on one node, backend on another, no resource competition
+  - Rolling updates — genuine zero-downtime deploys
+  - Closer to production K8s — great learning experience
+  - Resource limits per pod — prevent one service from starving others
+
+  Cons
+
+  - 1 CPU per VM is tight — Java (Spring Boot) alone can spike to 1 full core on startup
+  - Control plane on 1 CPU — etcd + API server + scheduler on 0.5 CPU remaining is sluggish
+  - Network overhead — inter-node traffic between pods (DB on VM2, backend on VM3 = network latency vs localhost on single
+  VM)
+  - 4x the maintenance — OS updates, security patches, SSH keys on 4 machines
+  - Storage — 200GB free total split across 4 VMs = 50GB each (tight for OS + Docker images + DB)
+
+  Best layout for your app
+
+  VM1 (control plane + worker):  nginx ingress
+  VM2 (worker):                  PostgreSQL (dedicated, pin it here)
+  VM3 (worker):                  Spring Boot backend
+  VM4 (worker):                  React frontend + spare capacity
+
+  The real problem: 1 CPU
+
+  Spring Boot on 1 CPU works but feels slow — startup takes 15-30 seconds, and under load you'll hit the ceiling fast.
+  Compare:
+
+  ┌──────────────────────┬────────────┬──────────────┬─────────────┐
+  │        Split         │ CPU per VM │ Startup feel │  Headroom   │
+  ├──────────────────────┼────────────┼──────────────┼─────────────┤
+  │ 4 VMs x 1 CPU x 6GB  │ 1 core     │ Sluggish     │ Tight       │
+  ├──────────────────────┼────────────┼──────────────┼─────────────┤
+  │ 2 VMs x 2 CPU x 12GB │ 2 cores    │ Normal       │ Comfortable │
+  ├──────────────────────┼────────────┼──────────────┼─────────────┤
+  │ 1 VM x 4 CPU x 24GB  │ 4 cores    │ Fast         │ Plenty      │
+  └──────────────────────┴────────────┴──────────────┴─────────────┘
+
+  My recommendation
+
+  If you want K8s: go with 2 VMs x 2 CPU x 12GB — enough CPU to breathe, still learn K8s properly.
+
+  If you want reliability: go with 1 VM x 4 CPU x 24GB + Docker Compose — simplest, fastest, most headroom.
+
+  The 4-VM split spreads your resources too thin for the benefit it gives at 100 users.
+
+---
+What happens when a VM goes down
+---
+
+  ┌──────────────────────────┬───────────────────────────────────────────────────────────────┬───────────────────────────┐
+  │         Scenario         │                         What happens                          │      Auto-recovery?       │
+  ├──────────────────────────┼───────────────────────────────────────────────────────────────┼───────────────────────────┤
+  │ VM2 (worker) dies        │ Pods on VM2 get rescheduled to VM1                            │ Yes, automatic (~1-5 min) │
+  ├──────────────────────────┼───────────────────────────────────────────────────────────────┼───────────────────────────┤
+  │ VM1 (control plane) dies │ Entire cluster is dead — no rescheduling, no kubectl, nothing │ No                        │
+  ├──────────────────────────┼───────────────────────────────────────────────────────────────┼───────────────────────────┤
+  │ Both die                 │ Everything down                                               │ No                        │
+  └──────────────────────────┴───────────────────────────────────────────────────────────────┴───────────────────────────┘
+
+  VM2 dies — K8s handles it
+
+  1. Control plane on VM1 detects VM2 is unreachable (~40 seconds by default)
+  2. Marks VM2 as NotReady
+  3. After 5 minutes (default pod-eviction-timeout), reschedules pods to VM1
+  4. Your app comes back on VM1 automatically
+
+  But — VM1 needs enough resources to run everything (control plane + all your pods). With 2 CPU / 12GB this is tight but
+  doable.
+
+  VM1 dies — you're stuck
+
+  Single control plane = single point of failure. K8s cannot fix this because the brain is dead. You'd need to:
+
+  1. SSH into VM1 (once OCI restores it) or rebuild it
+  2. Restart kubelet / control plane components
+  3. Pods come back after control plane recovers
+
+  To fix this properly you'd need 3 control planes (etcd quorum requires odd numbers) — not realistic on 2 VMs.
+
+  What you should activate
+
+  K8s self-healing is on by default, but configure these:
+
+  # Pod disruption budget — keeps at least 1 backend running
+  apiVersion: policy/v1
+  kind: PodDisruptionBudget
+  metadata:
+    name: backend-pdb
+  spec:
+    minAvailable: 1
+    selector:
+      matchLabels:
+        app: backend
+
+  # Liveness + readiness probes — K8s restarts unhealthy pods
+  livenessProbe:
+    httpGet:
+      path: /actuator/health
+      port: 8080
+    initialDelaySeconds: 30
+    periodSeconds: 10
+  readinessProbe:
+    httpGet:
+      path: /actuator/health/readiness
+      port: 8080
+    initialDelaySeconds: 10
+    periodSeconds: 5
+
+  # Run 2 backend replicas across both nodes
+  replicas: 2
+  affinity:
+    podAntiAffinity:
+      preferredDuringSchedulingIgnoredDuringExecution:
+        - weight: 100
+          podAffinityTerm:
+            labelSelector:
+              matchLabels:
+                app: backend
+            topologyKey: kubernetes.io/hostname
+
+  Reasons VMs go down
+
+  ┌────────────────────────────┬──────────────────────────────────────────────────────────┐
+  │           Reason           │                    Likelihood on OCI                     │
+  ├────────────────────────────┼──────────────────────────────────────────────────────────┤
+  │ OCI maintenance/reboot     │ Rare, usually scheduled with notice                      │
+  ├────────────────────────────┼──────────────────────────────────────────────────────────┤
+  │ OS crash / kernel panic    │ Very rare                                                │
+  ├────────────────────────────┼──────────────────────────────────────────────────────────┤
+  │ Disk full                  │ Common if you don't monitor — Docker images fill up fast │
+  ├────────────────────────────┼──────────────────────────────────────────────────────────┤
+  │ OOM (out of memory)        │ Possible if no resource limits set                       │
+  ├────────────────────────────┼──────────────────────────────────────────────────────────┤
+  │ You accidentally delete it │ It happens                                               │
+  └────────────────────────────┴──────────────────────────────────────────────────────────┘
+
+  Bottom line
+
+  K8s auto-heals worker failures. It cannot auto-heal control plane failure with only 1 control plane node. For 100 users on
+  a learning app, this is perfectly acceptable — just set up the health probes and you're good.
+
+✻ Brewed for 20s
+
+---
+❯ If to have cluster: 1 VM 1 cpu 4 ram for controll and 1 VM 3 cpu 20 ram for worker? or you can propose somthing better?
+---
+
+● That's the best split for 2 VMs with K8s. You figured out the right idea — give the control plane just enough, maximize
+  the worker.
+
+  Your proposed split
+
+  ┌─────┬─────┬──────┬────────────────────┐
+  │ VM  │ CPU │ RAM  │        Role        │
+  ├─────┼─────┼──────┼────────────────────┤
+  │ VM1 │ 1   │ 4GB  │ Control plane only │
+  ├─────┼─────┼──────┼────────────────────┤
+  │ VM2 │ 3   │ 20GB │ Worker (all pods)  │
+  └─────┴─────┴──────┴────────────────────┘
+
+  This works well because:
+  - Control plane needs ~0.5 CPU and ~1.5GB — 1 CPU / 4GB is comfortable
+  - All your app resources get 3 CPU / 20GB — plenty for 100 users
+  - Clean separation — control plane crash doesn't kill running pods immediately (they keep running on VM2, just no
+  rescheduling until VM1 is back)
+
+  One concern
+
+  Since you have only 1 worker, there's nowhere to reschedule if VM2 dies. K8s self-healing doesn't help with a single
+  worker. You get the same resilience as Docker Compose on 1 VM.
+
+  Better alternative: 3 VMs
+
+  ┌─────┬─────┬──────┬───────────────────────────────┐
+  │ VM  │ CPU │ RAM  │             Role              │
+  ├─────┼─────┼──────┼───────────────────────────────┤
+  │ VM1 │ 1   │ 4GB  │ Control plane only            │
+  ├─────┼─────┼──────┼───────────────────────────────┤
+  │ VM2 │ 2   │ 12GB │ Worker 1 (backend + frontend) │
+  ├─────┼─────┼──────┼───────────────────────────────┤
+  │ VM3 │ 1   │ 8GB  │ Worker 2 (PostgreSQL)         │
+  └─────┴─────┴──────┴───────────────────────────────┘
+
+  Why this is better:
+  - If VM2 dies → backend reschedules to VM3
+  - If VM3 dies → DB reschedules to VM2
+  - DB gets its own node — no competition with Java
+  - Still within free tier (4 CPU, 24GB total)
+
+  This gives you actual K8s self-healing that the 2-VM setup can't provide.
+
+✻ Sautéed for 19s
+
+❯  - If VM2 dies → backend reschedules to VM3
+    - If VM3 dies → DB reschedules to VM2
+
+  What does it mean reschedule
+
+● Reschedule means K8s automatically moves your app from the dead VM to a healthy one.
+
+  Example: VM3 dies
+
+  BEFORE                          AFTER (automatic, ~1-5 min)
+
+  VM1 (control plane)             VM1 (control plane)
+    - watches everything            - detects VM3 is gone
+                                    - creates PostgreSQL pod on VM2
+
+  VM2 (worker)                    VM2 (worker)
+    - backend                       - backend
+    - frontend                      - frontend
+                                    - PostgreSQL ← moved here
+
+  VM3 (worker)                    VM3 💀 dead
+    - PostgreSQL
+
+---
+  K8s doesn't literally "move" the container — it starts a brand new pod on the surviving VM from the same image. The old
+  pod on the dead VM is gone.
+---
+
+  Important for PostgreSQL
+
+  This means the pod is new — if your database data was stored on VM3's local disk, it's lost. You need one of:
+
+  ┌─────────────────────────────────┬───────────────────────────────────────────────┐
+  │        Storage approach         │           Data survives reschedule?           │
+  ├─────────────────────────────────┼───────────────────────────────────────────────┤
+  │ Local disk (default)            │ No — data dies with VM                        │
+  ├─────────────────────────────────┼───────────────────────────────────────────────┤
+  │ OCI Block Volume (network disk) │ Yes — K8s reattaches it to the new pod on VM2 │
+  ├─────────────────────────────────┼───────────────────────────────────────────────┤
+  │ OCI Block Volume replicated     │ Yes + survives disk failure                   │
+  └─────────────────────────────────┴───────────────────────────────────────────────┘
+
+  So for your PostgreSQL, you must use a PersistentVolume backed by OCI Block Volume. Otherwise rescheduling "saves" the app
+  but loses all your data.
+
+  apiVersion: v1
+  kind: PersistentVolumeClaim
+  metadata:
+    name: postgres-data
+  spec:
+    accessModes:
+      - ReadWriteOnce
+    resources:
+      requests:
+        storage: 50Gi
+    storageClassName: oci-bv    # OCI Block Volume
+
+  This way when PostgreSQL reschedules to VM2, the same disk gets reattached and all data is intact.
+
+✻ Worked for 19s
+
+---
+❯  OCI Block Volume (network disk) │ Yes — K8s reattaches it to the new pod on VM2? Is it free? when to say to create that
+  for OCI while createing that VMs
+---
+
+● OCI Block Volume — Free Tier
+
+  Yes, it's free. OCI gives you 200GB total block storage in the Always Free tier. This is shared across all your VMs (boot
+  volumes + extra volumes).
+
+  Typical usage:
+
+  ┌────────────────────────┬────────────────┬─────────────────────────┐
+  │         Volume         │      Size      │         Purpose         │
+  ├────────────────────────┼────────────────┼─────────────────────────┤
+  │ VM1 boot volume        │ 47GB (minimum) │ OS + control plane      │
+  ├────────────────────────┼────────────────┼─────────────────────────┤
+  │ VM2 boot volume        │ 47GB           │ OS + containers         │
+  ├────────────────────────┼────────────────┼─────────────────────────┤
+  │ VM3 boot volume        │ 47GB           │ OS + containers         │
+  ├────────────────────────┼────────────────┼─────────────────────────┤
+  │ PostgreSQL data volume │ 50GB           │ Database data           │
+  ├────────────────────────┼────────────────┼─────────────────────────┤
+  │ Total                  │ ~191GB         │ Within 200GB free limit │
+  └────────────────────────┴────────────────┴─────────────────────────┘
+
+  When to create it
+
+  Step 1 — Create VMs (OCI Console or CLI)
+  Each VM automatically gets a boot volume. Nothing extra to do here.
+
+  Step 2 — Create the Block Volume separately
+
+  OCI Console → Storage → Block Volumes → Create Block Volume
+    - Name: phrasal-postgres-data
+    - Size: 50GB
+    - Availability Domain: same as VM3 (important!)
+
+  Step 3 — Don't attach it to any VM manually. Let K8s handle it via the OCI CSI driver. You just create the
+  PersistentVolumeClaim in K8s and it attaches/detaches automatically — including during rescheduling.
+
+  How it works during reschedule
+
+  VM3 dies
+    ↓
+  K8s detaches block volume from VM3
+    ↓
+  K8s attaches block volume to VM2
+    ↓
+  K8s starts PostgreSQL pod on VM2 with same volume
+    ↓
+  PostgreSQL starts, reads existing data — nothing lost
+
+  One caveat
+
+  Block volumes are availability-domain specific on OCI. If your VMs are in different availability domains, the volume can't
+  reattach. So when creating VMs:
+
+  Put all 3 VMs in the same Availability Domain.
+
+  This is the most common mistake — if you skip this, rescheduling works but the disk can't follow.
+
+✻ Sautéed for 16s
+
+---
+❯ That VM is separate and used for other purposes. So in such case show be the best way to create k8s cluster?
+---
+
+● Best K8s cluster with 153GB storage remaining
+
+  ┌─────────────┬──────┬─────┬──────┬───────┬───────────────────────────────┐
+  │     VM      │ Type │ CPU │ RAM  │ Boot  │             Role              │
+  ├─────────────┼──────┼─────┼──────┼───────┼───────────────────────────────┤
+  │ New VM1     │ ARM  │ 1   │ 4GB  │ 47GB  │ K8s control plane only        │
+  ├─────────────┼──────┼─────┼──────┼───────┼───────────────────────────────┤
+  │ New VM2     │ ARM  │ 2   │ 12GB │ 47GB  │ Worker 1 (backend + frontend) │
+  ├─────────────┼──────┼─────┼──────┼───────┼───────────────────────────────┤
+  │ New VM3     │ ARM  │ 1   │ 8GB  │ 47GB  │ Worker 2 (PostgreSQL)         │
+  ├─────────────┼──────┼─────┼──────┼───────┼───────────────────────────────┤
+  │ PG data vol │ —    │ —   │ —    │ 12GB  │ PostgreSQL persistent data    │
+  ├─────────────┼──────┼─────┼──────┼───────┼───────────────────────────────┤
+  │ Total       │      │ 4   │ 24GB │ 200GB │ 0GB free                      │
+  └─────────────┴──────┴─────┴──────┴───────┴───────────────────────────────┘
+
+  This gives you:
+  - Real self-healing — 2 workers, pods reschedule between them
+  - DB isolation — PostgreSQL on its own node
+  - Zero-downtime deploys — rolling updates across workers
+  - All within free tier
+
+  Storage is tight though
+
+  200GB - 47GB (AMD VM) - 47GB×3 (ARM VMs) - 12GB (PG vol) = 0GB free
+
+  To get some breathing room, reduce the PG volume:
+
+  ┌────────────────┬──────────────┐
+  │ PG volume size │ Storage free │
+  ├────────────────┼──────────────┤
+  │ 12GB           │ 0GB          │
+  ├────────────────┼──────────────┤
+  │ 5GB            │ 7GB          │
+  └────────────────┴──────────────┘
+  └─────────────┴──────┴─────┴──────┴───────┴───────────────────────────────┘
+
+  This gives you:
+  - Real self-healing — 2 workers, pods reschedule between them
+  - DB isolation — PostgreSQL on its own node
+  - Zero-downtime deploys — rolling updates across workers
+  - All within free tier
+
+  Storage is tight though
+
+  200GB - 47GB (AMD VM) - 47GB×3 (ARM VMs) - 12GB (PG vol) = 0GB free
+
+  To get some breathing room, reduce the PG volume:
+
+  ┌────────────────┬──────────────┐
+  │ PG volume size │ Storage free │
+  ├────────────────┼──────────────┤
+  │ 12GB           │ 0GB          │
+  ├────────────────┼──────────────┤
+  │ 5GB            │ 7GB          │
+  └────────────────┴──────────────┘
+
+  For a language learning app, 5GB is plenty for the database.
+
+  Alternative: 2 VMs (safer on storage)
+
+  ┌─────────────┬──────┬─────┬──────┬───────┬─────────────────────┐
+  │     VM      │ Type │ CPU │ RAM  │ Boot  │        Role         │
+  ├─────────────┼──────┼─────┼──────┼───────┼─────────────────────┤
+  │ New VM1     │ ARM  │ 1   │ 4GB  │ 47GB  │ Control plane only  │
+  ├─────────────┼──────┼─────┼──────┼───────┼─────────────────────┤
+  │ New VM2     │ ARM  │ 3   │ 20GB │ 47GB  │ Worker (everything) │
+  ├─────────────┼──────┼─────┼──────┼───────┼─────────────────────┤
+  │ PG data vol │ —    │ —   │ —    │ 12GB  │ PostgreSQL data     │
+  ├─────────────┼──────┼─────┼──────┼───────┼─────────────────────┤
+  │ Total       │      │ 4   │ 24GB │ 200GB │ 0GB free            │
+  └─────────────┴──────┴─────┴──────┴───────┴─────────────────────┘
+
+  No self-healing across workers, but simpler and same storage usage since minimum boot volume is 47GB anyway.
+
+  My pick
+
+  3 VMs — you're paying 47GB per boot volume regardless of 2 or 3 VMs difference is only one extra 47GB. And 3 VMs gives you
+  actual K8s self-healing which is the whole point of choosing K8s.
+
+  Just keep the PG data volume small (5-10GB) and run docker system prune regularly on each node.
+
+✻ Crunched for 15s

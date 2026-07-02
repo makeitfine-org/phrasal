@@ -561,3 +561,264 @@ Will it now be active in all @backend/src/main/resources/application-dev.yml and
 ## 2026-07-01T19:46:59Z
 git add all changes and commit them with suitable message
 ---
+
+## 2026-07-02T08:05:37Z
+Liquibase or mongock
+---
+
+## 2026-07-02T08:07:33Z
+If migrate from mysql to mongo
+---
+
+## 2026-07-02T11:11:09Z
+What does this mean?:
+
+
+Cost Management
+Overview
+Cost analysis
+Cost and Usage Reports
+Budgets
+Scheduled reports
+Oracle FinOps Hub
+The FinOps Hub is your centralized place to allocate, analyze, and optimize your cloud cost on OCI.
+Inform
+
+Active subscriptions
+Subscription
+
+77112865-Universal Credits
+Usage period:
+Jun 25, 2026 - Jul 24, 2026
+Usage
+-&#x2F;PLN 1,150.00
+Expires: Jul 24, 2026
+
+Costs
+Time Frame
+
+Last Month
+Analyze costs
+Cost by compartment
+Cost by region
+Cost by product description
+No data found for this request
+No data found for this request
+No data found for this request
+Budgets & forecasts
+Create budget
+Name
+Budget type
+Amount
+Spent
+% spent in period
+Forecast
+Row header
+Budget
+Monthly    PLN1.00    PLN0.00    Not available    PLN0.00    Row with I.D. row_ocid1.budget.oc1.eu-frankfurt-1.amaaaaaaw6ts67qa24zkc37vnzg32fmeajc5vo56whpvchrk4yau35vpjdka
+Showing 1 item
+Previous page
+1 of 1
+Next page
+Optimize
+
+All recommendations
+Potential savings per month
+Recommendations
+Recommendation type
+Potential/monthly savings
+Row header
+Improve fault tolerance
+-    Row with I.D. high-availability-compute-fault-domain-name
+Enable object versioning
+-    Row with I.D. high-availability-object-storage-enable-object-versioning
+Enable object replication
+-    Row with I.D. high-availability-object-storage-enable-replication
+Downsize underutilized ADW and ATP databases
+-    Row with I.D. cost-management-autonomous-database-underutilized-name
+Delete unattached block volumes
+-    Row with I.D. cost-management-block-volume-attachment-name
+Showing 5 items
+Previous page
+1 of 5
+Next to page 2
+Operate
+FinOps FOCUS compliant data export
+Export your OCI usage & cost data in the standardized FOCUS CSV format to manage costs outside of OCI.
+
+Exports
+Control User Access
+Create policies to enable user access for cost management
+
+Identity Access Policies
+Manage resource metadata
+Define resource metadata using Tags. Automate tagging using Tag default values.
+
+Tag Namespaces
+Find savings opportunities
+Analyze resource usage to identify waste
+
+Resource Utilization Monitoring
+Documentation
+Understand usage and cost
+Reporting & analytics
+Business planning
+Budgeting
+Forecasting
+Planning & estimating
+Optimize usage and cost
+Cloud sustainability
+Workload optimization
+Manage FinOps
+Cloud policy
+Governance
+Invoicing
+Organization Management cost reporting integration
+Use arrow keys to read it, To move around, please hold and drag
+The FinOps Hub is your centralized place to access FinOps capabilities in the Oracle Cloud Console. Explore the FinOps hub to learn about the features and tools available to you.
+
+Start the tour
+---
+
+## 2026-07-02T11:12:06Z
+But I set bugdet:
+
+Billing & Cost Management
+
+
+Cost Management
+Overview
+Cost Analysis
+Cost and Usage Reports
+Budgets
+Scheduled Reports
+Cost Anomaly Detection
+Budgets
+You can use budgets to track costs in your tenancy. After creating a budget for a compartment, you can set up alerts that will notify you if a budget is forecast to be exceeded or if spending surpasses a certain amount.
+Search and Filter
+Search
+Create Budget
+
+Name
+Status
+Budget Type
+Budget Scope
+Target
+Amount
+Spent
+% Spent In Period
+Forecast
+Budget
+Active
+Monthly
+Compartment
+questtv8 (root)
+
+zł1
+zł0
+N/A
+zł0
+
+
+
+Page 1 of 1
+Items per page
+25
+---
+
+## 2026-07-02T11:13:08Z
+I didn't set that 1150 zlt budged, how torestict that to 1 zlt?
+---
+
+## 2026-07-02T11:14:47Z
+Is it possible to set budget so that oracle just not to take more? Not only alert
+---
+
+## 2026-07-02T11:39:21Z
+If I set up 2 VM arm 2 cpu and 12 each with cubernetes? What should I pay for? what traffic limits? is it enough for 100 users simultaniously on a month for my `phrasal` app?
+---
+
+## 2026-07-02T11:43:01Z
+ - ~20GB left for your actual app
+  - ~3 cores left for your workloads
+
+Where is 1 core? and 4 GB RAM?
+---
+
+## 2026-07-02T11:44:46Z
+But if I want to use K8s with 2 VMs, is it good for 100 users simultaniously? Will it work fine?
+---
+
+## 2026-07-02T11:54:26Z
+How's better to divide the noted in such case for control plane and workers? what benefit of k8s instead of docker compose here?
+---
+
+## 2026-07-02T11:59:41Z
+How to redeploy with docker compose in case I choose that? is it possible zero downtime?
+---
+
+## 2026-07-02T12:02:08Z
+shoud it be deployed on single VM docker compose?
+---
+
+## 2026-07-02T12:03:27Z
+what the reason of docker compose? can it be replicated on diff nodes like k8s?
+---
+
+## 2026-07-02T12:06:56Z
+if I split k8s to 4 VM: 1 cpu 6 ram each? cons, proc?
+---
+
+## 2026-07-02T12:07:06Z
+if I split k8s to 4 VM: 1 cpu 6 ram each? cons, proc? best way to do that for my app?
+---
+
+## 2026-07-02T12:14:31Z
+If I choose 2 VM with 2 cpu  X 12 Gb each on k8s: 1 vm (control + worker), 1 vm (worker).
+What the reason for donw first VM or second VM, or even both.  will k8s solve that automatically if it happen or I should do/activate something?
+---
+
+## 2026-07-02T12:23:08Z
+If to have cluster: 1 VM 1 cpu 4 ram for controll and 1 VM 3 cpu 20 ram for worker? or you can propose somthing better?
+---
+
+## 2026-07-02T12:26:43Z
+ - If VM2 dies → backend reschedules to VM3
+  - If VM3 dies → DB reschedules to VM2
+
+What does it mean reschedule
+---
+
+## 2026-07-02T12:51:32Z
+ OCI Block Volume (network disk) │ Yes — K8s reattaches it to the new pod on VM2? Is it free? when to say to create that for OCI while createing that VMs
+---
+
+## 2026-07-02T12:58:03Z
+So I have 200 gb free is there sense to create VMs with smaller boot storage to have more disk memory in spare for other usage?
+---
+
+## 2026-07-02T13:04:05Z
+But as for the storage, I have already 1 VM with 1 cpu, 1 RAM with ubuntu.
+---
+
+## 2026-07-02T13:09:23Z
+But as for the storage, I have already 1 VM with 1 cpu, 1 RAM with ubuntu (not from ARM).
+---
+
+## 2026-07-02T13:11:24Z
+on that vm:
+ uname -m
+x86_64
+---
+
+## 2026-07-02T13:14:01Z
+But in such case show be the best way to create k8s cluster?
+---
+
+## 2026-07-02T13:14:30Z
+That VM is separate and used for other purposes. So in such case show be the best way to create k8s cluster?
+---
+
+## 2026-07-02T13:20:47Z
+git add all changes and commit them with suitable message
+---

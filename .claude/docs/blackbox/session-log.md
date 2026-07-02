@@ -331,3 +331,143 @@
 - .claude/docs/blackbox/audit.md
 - .claude/docs/blackbox/session-log.md
 <!-- end-snapshot -->
+
+<!-- git-snapshot 2026-07-02T08:05:46Z -->
+- .claude/docs/blackbox/audit.md
+<!-- end-snapshot -->
+
+<!-- git-snapshot 2026-07-02T08:07:44Z -->
+- .claude/docs/blackbox/audit.md
+- .claude/docs/blackbox/session-log.md
+<!-- end-snapshot -->
+
+<!-- git-snapshot 2026-07-02T11:11:20Z -->
+- .claude/docs/blackbox/audit.md
+- .claude/docs/blackbox/session-log.md
+<!-- end-snapshot -->
+
+<!-- git-snapshot 2026-07-02T11:12:18Z -->
+- .claude/docs/blackbox/audit.md
+- .claude/docs/blackbox/session-log.md
+<!-- end-snapshot -->
+
+<!-- git-snapshot 2026-07-02T11:13:19Z -->
+- .claude/docs/blackbox/audit.md
+- .claude/docs/blackbox/session-log.md
+<!-- end-snapshot -->
+
+<!-- git-snapshot 2026-07-02T11:14:57Z -->
+- .claude/docs/blackbox/audit.md
+- .claude/docs/blackbox/session-log.md
+<!-- end-snapshot -->
+
+<!-- git-snapshot 2026-07-02T11:39:49Z -->
+- .claude/docs/blackbox/audit.md
+- .claude/docs/blackbox/session-log.md
+<!-- end-snapshot -->
+
+<!-- git-snapshot 2026-07-02T11:43:10Z -->
+- .claude/docs/blackbox/audit.md
+- .claude/docs/blackbox/session-log.md
+<!-- end-snapshot -->
+
+<!-- git-snapshot 2026-07-02T11:45:00Z -->
+- .claude/docs/blackbox/audit.md
+- .claude/docs/blackbox/session-log.md
+<!-- end-snapshot -->
+
+<!-- git-snapshot 2026-07-02T11:54:42Z -->
+- .claude/docs/blackbox/audit.md
+- .claude/docs/blackbox/session-log.md
+<!-- end-snapshot -->
+
+<!-- git-snapshot 2026-07-02T11:59:57Z -->
+- .claude/docs/blackbox/audit.md
+- .claude/docs/blackbox/session-log.md
+- aux/docs/saves/save_while_work.txt
+- aux/docs/saves/vm.txt
+<!-- end-snapshot -->
+
+<!-- git-snapshot 2026-07-02T12:02:16Z -->
+- .claude/docs/blackbox/audit.md
+- .claude/docs/blackbox/session-log.md
+- aux/docs/saves/save_while_work.txt
+- aux/docs/saves/vm.txt
+<!-- end-snapshot -->
+
+<!-- git-snapshot 2026-07-02T12:03:43Z -->
+- .claude/docs/blackbox/audit.md
+- .claude/docs/blackbox/session-log.md
+- aux/docs/saves/save_while_work.txt
+- aux/docs/saves/vm.txt
+<!-- end-snapshot -->
+
+<!-- git-snapshot 2026-07-02T12:07:25Z -->
+- .claude/docs/blackbox/audit.md
+- .claude/docs/blackbox/session-log.md
+- aux/docs/saves/save_while_work.txt
+- aux/docs/saves/vm.txt
+<!-- end-snapshot -->
+
+<!-- git-snapshot 2026-07-02T12:14:51Z -->
+- .claude/docs/blackbox/audit.md
+- .claude/docs/blackbox/session-log.md
+- aux/docs/saves/save_while_work.txt
+- aux/docs/saves/vm.txt
+<!-- end-snapshot -->
+
+<!-- git-snapshot 2026-07-02T12:23:27Z -->
+- .claude/docs/blackbox/audit.md
+- .claude/docs/blackbox/session-log.md
+- aux/docs/saves/save_while_work.txt
+- aux/docs/saves/vm.txt
+<!-- end-snapshot -->
+
+<!-- git-snapshot 2026-07-02T12:27:03Z -->
+- .claude/docs/blackbox/audit.md
+- .claude/docs/blackbox/session-log.md
+- aux/docs/saves/save_while_work.txt
+- aux/docs/saves/vm.txt
+<!-- end-snapshot -->
+
+<!-- git-snapshot 2026-07-02T12:51:49Z -->
+- .claude/docs/blackbox/audit.md
+- .claude/docs/blackbox/session-log.md
+- aux/docs/saves/save_while_work.txt
+- aux/docs/saves/vm.txt
+<!-- end-snapshot -->
+
+<!-- git-snapshot 2026-07-02T12:58:17Z -->
+- .claude/docs/blackbox/audit.md
+- .claude/docs/blackbox/session-log.md
+- aux/docs/saves/save_while_work.txt
+- aux/docs/saves/vm.txt
+<!-- end-snapshot -->
+
+<!-- git-snapshot 2026-07-02T13:04:24Z -->
+- .claude/docs/blackbox/audit.md
+- .claude/docs/blackbox/session-log.md
+- aux/docs/saves/save_while_work.txt
+- aux/docs/saves/vm.txt
+<!-- end-snapshot -->
+
+<!-- git-snapshot 2026-07-02T13:09:36Z -->
+- .claude/docs/blackbox/audit.md
+- .claude/docs/blackbox/session-log.md
+- aux/docs/saves/save_while_work.txt
+- aux/docs/saves/vm.txt
+<!-- end-snapshot -->
+
+<!-- git-snapshot 2026-07-02T13:11:31Z -->
+- .claude/docs/blackbox/audit.md
+- .claude/docs/blackbox/session-log.md
+- aux/docs/saves/save_while_work.txt
+- aux/docs/saves/vm.txt
+<!-- end-snapshot -->
+
+<!-- git-snapshot 2026-07-02T13:14:45Z -->
+- .claude/docs/blackbox/audit.md
+- .claude/docs/blackbox/session-log.md
+- aux/docs/saves/save_while_work.txt
+- aux/docs/saves/vm.txt
+<!-- end-snapshot -->
