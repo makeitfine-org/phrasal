@@ -2,6 +2,37 @@
 LOG=/tmp/oci-launch.log
 time_a=75
 
+RED='\033[0;31m'
+GREEN='\033[0;32m'
+YELLOW='\033[1;33m'
+CYAN='\033[0;36m'
+MAGENTA='\033[0;35m'
+WHITE='\033[1;37m'
+DIM='\033[2m'
+NC='\033[0m'
+
+colorize_json() {
+  while IFS= read -r line; do
+    if [[ "$line" =~ ^[[:space:]]*\"([^\"]+)\":[[:space:]]*\"(.*)\"[,]?$ ]]; then
+      key="${BASH_REMATCH[1]}"
+      val="${BASH_REMATCH[2]}"
+      if [[ "$val" == "Out of host capacity." || "$val" == "InternalError" ]]; then
+        echo -e "    ${GREEN}\"${key}\"${NC}: ${RED}\"${val}\"${NC}"
+      elif [[ "$val" == "RUNNING" || "$val" == "PROVISIONING" ]]; then
+        echo -e "    ${GREEN}\"${key}\"${NC}: ${GREEN}\"${val}\"${NC}"
+      else
+        echo -e "    ${GREEN}\"${key}\"${NC}: ${CYAN}\"${val}\"${NC}"
+      fi
+    elif [[ "$line" =~ ^[[:space:]]*\"([^\"]+)\":[[:space:]]*([0-9]+)[,]?$ ]]; then
+      key="${BASH_REMATCH[1]}"
+      val="${BASH_REMATCH[2]}"
+      echo -e "    ${GREEN}\"${key}\"${NC}: ${YELLOW}${val}${NC}"
+    else
+      echo "$line"
+    fi
+  done
+}
+
 # Telegram
 source ~/.secrets.d/secrets.sh
 
@@ -22,7 +53,7 @@ ADS=(
 while true; do
   for ad in "${ADS[@]}"; do
     ts=$(date '+%Y-%m-%d %H:%M:%S')
-    echo "[$ts] Trying $ad..." | tee -a "$LOG"
+    echo -e "${CYAN}[$ts]${NC} ${YELLOW}Trying $ad...${NC}" | tee -a "$LOG"
     result=$(oci compute instance launch \
       --availability-domain "$ad" \
       --shape VM.Standard.A1.Flex \
@@ -32,16 +63,18 @@ while true; do
       --assign-public-ip true \
       --ssh-authorized-keys-file ~/.ssh/id_rsa.pub \
       --display-name "phrasal-arm-1" 2>&1)
-    echo "$result" | tee -a "$LOG"
+    colored=$(echo "$result" | colorize_json)
+    echo -e "$colored"
+    echo -e "$colored" >> "$LOG"
 
     if echo "$result" | grep -q '"lifecycle-state"'; then
-      echo "[$(date '+%Y-%m-%d %H:%M:%S')] SUCCESS in $ad!" | tee -a "$LOG"
+      echo -e "${GREEN}[$(date '+%Y-%m-%d %H:%M:%S')] SUCCESS in $ad!${NC}" | tee -a "$LOG"
       tn "🖥 VPS created in $ad 🖥"
       exit 0
     fi
-    echo "[$ts] Failed in $ad" | tee -a "$LOG"
+    echo -e "${RED}[$ts] Failed in $ad${NC}" | tee -a "$LOG"
   done
 
-  echo "[$(date '+%Y-%m-%d %H:%M:%S')] All ADs full — retrying in $time_a sec..." | tee -a "$LOG"
+  echo -e "${YELLOW}[$(date '+%Y-%m-%d %H:%M:%S')] All ADs full — retrying in ${time_a}s...${NC}" | tee -a "$LOG"
   sleep $time_a
 done

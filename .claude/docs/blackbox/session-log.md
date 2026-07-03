@@ -897,3 +897,26 @@
 - .claude/docs/blackbox/session-log.md
 - aux/scripts/ocivps.sh
 <!-- end-snapshot -->
+
+<!-- git-snapshot 2026-07-03T18:23:28Z -->
+- .claude/docs/blackbox/audit.md
+- aux/scripts/ocivps.sh
+<!-- end-snapshot -->
+
+<!-- git-snapshot 2026-07-03T18:26:04Z -->
+- .claude/docs/blackbox/audit.md
+- .claude/docs/blackbox/session-log.md
+- aux/scripts/ocivps.sh
+<!-- end-snapshot -->
+
+<!-- git-snapshot 2026-07-03T18:32:09Z -->
+- .claude/docs/blackbox/audit.md
+- .claude/docs/blackbox/session-log.md
+- aux/scripts/ocivps.sh
+<!-- end-snapshot -->
+
+<!-- git-snapshot 2026-07-03T18:39:22Z -->
+- .claude/docs/blackbox/audit.md
+- .claude/docs/blackbox/session-log.md
+- aux/scripts/ocivps.sh
+<!-- end-snapshot -->

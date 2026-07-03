@@ -1549,3 +1549,43 @@ acle support and provide them the full error message."
 [2026-07-03 20:14:44] Failed — retrying in 90 sec...
 [2026-07-03 20:17:57] Attempting launch...
 ---
+
+## 2026-07-03T18:23:07Z
+Add colour to script logs and errors messages
+---
+
+## 2026-07-03T18:25:42Z
+Also add collor to json fields which return as response of OCI
+---
+
+## 2026-07-03T18:31:44Z
+If you get json response, for example:
+
+[2026-07-03 20:27:26] Trying Vcji:EU-FRANKFURT-1-AD-1...
+ServiceError:
+{
+    "client_version": "Oracle-PythonSDK/2.181.0, Oracle-PythonCLI/3.89.0",
+    "code": "InternalError",
+    "logging_tips": "Please run the OCI CLI command using --debug flag to find more debug information.",
+    "message": "Out of host capacity.",
+    "opc-request-id": "8D159D715046419BB7EBF3245AEC9636/B10D0207AC40018475FF476A4652413A/F26A024721BFC393BA88DF2D48D69902",
+    "operation_name": "launch_instance",
+    "request_endpoint": "POST https://iaas.eu-frankfurt-1.oraclecloud.com/20160918/instances",
+    "status": 500,
+    "target_service": "compute",
+    "timestamp": "2026-07-03T18:29:11.123932+00:00",
+    "troubleshooting_tips": "See [https://docs.oracle.com/iaas/Content/API/References/apierrors.htm] for more information a
+bout resolving this error. If you are unable to resolve this issue, run this CLI command with --debug option and contact Or
+acle support and provide them the full error message."
+}
+
+you should parse set and make green color for json field and blue collor for value
+---
+
+## 2026-07-03T18:39:10Z
+and write into $LOG colorized result also
+---
+
+## 2026-07-03T18:43:02Z
+git add all changes and commit them with suitable message
+---
