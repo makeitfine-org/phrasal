@@ -1818,7 +1818,8 @@ What happens when a VM goes down
 
   To check it's still running later:
 
-  ps aux | grep ocivps # ps aux | grep ocivps | grep -v grep
+  ps aux | grep ocivps
+  ps aux | grep ocivps | grep -v grep # better
 
   To stop it:
 

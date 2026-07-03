@@ -887,3 +887,13 @@
 - aux/docs/useful/vm.txt
 - aux/scripts/ocivps.sh
 <!-- end-snapshot -->
+
+<!-- git-snapshot 2026-07-03T18:10:51Z -->
+- .claude/docs/blackbox/audit.md
+<!-- end-snapshot -->
+
+<!-- git-snapshot 2026-07-03T18:19:37Z -->
+- .claude/docs/blackbox/audit.md
+- .claude/docs/blackbox/session-log.md
+- aux/scripts/ocivps.sh
+<!-- end-snapshot -->

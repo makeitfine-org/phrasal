@@ -1478,3 +1478,74 @@ ServiceError:
     "troubleshooting_tips": "See [https://docs.oracle.com/iaas/Content/API/References/apierrors.htm] for more information about resolving this error. If you are unable to resolve this issue, run this CLI command with --debug option and contact Oracle support and provide them the full error message."
 }
 ---
+
+## 2026-07-03T18:10:41Z
+Is it fully correct command?
+
+oci compute instance launch \
+      --availability-domain Vcji:EU-FRANKFURT-1-AD-2 \
+      --shape VM.Standard.A1.Flex \
+      --shape-config '{"ocpus": 1, "memoryInGBs": 8}' \
+      --image-id ocid1.image.oc1.eu-frankfurt-1.aaaaaaaa33mxho6qsnmm4yu7xo3nrnvjubiimgqpsc5ycpoakz6pb4cts2ma \
+      --subnet-id ocid1.subnet.oc1.eu-frankfurt-1.aaaaaaaahsuuw4tlf3axapvev5vqt6oztiqgs44tvsf2zhbm5ar7feydnyea \
+      --assign-public-ip true \
+      --ssh-authorized-keys-file ~/.ssh/id_rsa.pub \
+      --display-name "phrasal-arm-1" 2>&1
+---
+
+## 2026-07-03T18:19:08Z
+ServiceError:                                                                                                20:09 [0/1397]
+{
+    "client_version": "Oracle-PythonSDK/2.181.0, Oracle-PythonCLI/3.89.0",
+    "code": "InternalError",
+    "logging_tips": "Please run the OCI CLI command using --debug flag to find more debug information.",
+    "message": "Out of host capacity.",
+    "opc-request-id": "BB3A508C353E4417B924F9A8311E1E74/5C9C0D327E535571F8FA476A465241E9/B65919829F27ABD673FA51B3547B4769",
+    "operation_name": "launch_instance",
+    "request_endpoint": "POST https://iaas.eu-frankfurt-1.oraclecloud.com/20160918/instances",
+    "status": 500,
+    "target_service": "compute",
+    "timestamp": "2026-07-03T18:10:01.116595+00:00",
+    "troubleshooting_tips": "See [https://docs.oracle.com/iaas/Content/API/References/apierrors.htm] for more information a
+bout resolving this error. If you are unable to resolve this issue, run this CLI command with --debug option and contact Or
+acle support and provide them the full error message."
+}
+[2026-07-03 20:08:21] Failed — retrying in 90 sec...
+[2026-07-03 20:11:31] Attempting launch...
+ServiceError:
+{
+    "client_version": "Oracle-PythonSDK/2.181.0, Oracle-PythonCLI/3.89.0",
+    "code": "InternalError",
+    "logging_tips": "Please run the OCI CLI command using --debug flag to find more debug information.",
+    "message": "Out of host capacity.",
+    "opc-request-id": "1DF3975A32F04BAC815B4CF25F39BD67/915E97F1CC68F93FB9FB476A4652412A/E64784CEEFB3C37376D86DD34DFE73D5",
+    "operation_name": "launch_instance",
+    "request_endpoint": "POST https://iaas.eu-frankfurt-1.oraclecloud.com/20160918/instances",
+    "status": 500,
+    "target_service": "compute",
+    "timestamp": "2026-07-03T18:13:13.796651+00:00",
+    "troubleshooting_tips": "See [https://docs.oracle.com/iaas/Content/API/References/apierrors.htm] for more information a
+bout resolving this error. If you are unable to resolve this issue, run this CLI command with --debug option and contact Or
+acle support and provide them the full error message."
+}
+[2026-07-03 20:11:31] Failed — retrying in 90 sec...
+[2026-07-03 20:14:44] Attempting launch...
+ServiceError:
+{
+    "client_version": "Oracle-PythonSDK/2.181.0, Oracle-PythonCLI/3.89.0",
+    "code": "InternalError",
+    "logging_tips": "Please run the OCI CLI command using --debug flag to find more debug information.",
+    "message": "Out of host capacity.",
+    "opc-request-id": "29686B170B91479D91175F2D366F6EAA/9E47A71AAE588E7279FC476A46524163/4C741F7BA601918AA73BC21C389BF227",
+    "operation_name": "launch_instance",
+    "request_endpoint": "POST https://iaas.eu-frankfurt-1.oraclecloud.com/20160918/instances",
+    "status": 500,
+    "target_service": "compute",
+    "timestamp": "2026-07-03T18:16:26.610755+00:00",
+    "troubleshooting_tips": "See [https://docs.oracle.com/iaas/Content/API/References/apierrors.htm] for more information a
+bout resolving this error. If you are unable to resolve this issue, run this CLI command with --debug option and contact Or
+acle support and provide them the full error message."
+}
+[2026-07-03 20:14:44] Failed — retrying in 90 sec...
+[2026-07-03 20:17:57] Attempting launch...
+---
