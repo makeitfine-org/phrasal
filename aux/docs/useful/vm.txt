@@ -689,4 +689,1145 @@ What happens when a VM goes down
 
   Just keep the PG data volume small (5-10GB) and run docker system prune regularly on each node.
 
+
+❯ On OCI on
+  Upgrade your account
+  It ask my tax details. What if I set Tax information is not available.
+
+● That's fine — select "Tax information is not available." It won't block your account or affect the free tier.
+
+  OCI asks for tax details for billing compliance. If you're not a registered business or don't have a VAT/NIP number,
+  choosing "not available" is the correct option. You can always update it later if needed.
+
+  It only matters if you start paying for services beyond the free tier — Oracle would need tax info to generate proper
+  invoices. For Always Free resources, it makes no difference.
+
+✻ Cogitated for 6s
+
+❯ But it asks the reson "Applied for" or "Not registered"
+
+● Choose "Not registered" — unless you actually have a tax ID/VAT number application in progress.
+
+  "Applied for" means you've submitted paperwork and are waiting for a tax registration number. "Not registered" simply
+  means you don't have one, which is normal for personal/hobby projects.
+
+✻ Churned for 5s
+
+❯ ID/VAT is it in Ukrainina ІПН?
+
+● Yes, VAT = ПДВ (податок на додану вартість), and the tax ID in Ukraine is:
+
+  - ІПН (Індивідуальний податковий номер) — for individuals, 10 digits
+  - ЄДРПОУ — for businesses/legal entities, 8 digits
+
+  If you have your ІПН and want to provide it, you can. But for a personal free-tier OCI account, "Not registered" is
+  perfectly fine — it just means you're not VAT-registered, which is true for most individuals.
+
+✻ Worked for 6s
+
+❯ How to remove card from oracle?
+
+● You can't fully remove a payment method from OCI if it's the only one on the account. Oracle requires at least one payment
+  method to keep the account active — even on the free tier.
+
+  Your options:
+
+  1. Replace it — add a different card, then delete the original:
+  OCI Console → Billing → Payment Methods → Add → then delete the old one
+  2. Use a virtual/prepaid card — create a virtual card with a low limit (e.g. Revolut, Mono) and replace your real card
+  with it. This way even if Oracle tries to charge, it fails.
+  3. Close the account entirely — if you don't want any card on file:
+  OCI Console → Administration → Tenancy Details → Close Account
+  3. This deletes everything.
+
+  Practically: Oracle won't charge you if you stay on Always Free resources. The card is only there as a fallback. If you're
+  worried, the virtual card with a $1 limit trick is the safest approach.
+
+✻ Brewed for 22s
+
+❯ I sse in pyament method only add, no delete card how to handle that?
+
+● Once you add a second card, the delete option appears on the first one. OCI just won't let you have zero payment methods.
+
+  Steps:
+
+  1. Add a new card (virtual/prepaid with low limit is ideal)
+  2. Set the new card as default
+  3. Now the delete/remove option appears on the old card
+  4. Delete the old card
+
+  If you don't want any real card exposed — use a Mono or Revolut virtual card with a ~5 PLN limit as the replacement.
+
+✻ Cooked for 11s
+
+❯ No fucntionaly set as default
+
+● Try this path:
+
+  OCI Console → Billing & Cost Management → Payment Methods
+
+  After adding the second card, click the three dots menu (⋮) or actions menu next to the old card — the delete option
+  should appear there.
+
+  If there's no menu or delete button even with 2 cards, you may need to contact Oracle support:
+
+  OCI Console → Help (?) → Create Support Request
+
+  Or go directly to:
+  - My Oracle Support portal
+  - Request: "Remove payment method"
+
+  Oracle's billing UI is notoriously clunky — sometimes options only appear after a few minutes or a page refresh. Try
+  refreshing the page after adding the second card.
+
+✻ Crunched for 8s
+
+❯ there is not payment methods:
+
+  Skip to main content
+  Free Tier account
+  You are in a Free Trial. When your trial is over, your account is limited to Always Free resources. Upgrade at any time.
+  Learn more
+
+  Messages region has new messages. Press F6 to navigate.
+  Search
+  Home
+  Compute
+  Storage
+  Networking
+  Oracle AI Database
+  Databases
+  Analytics & AI
+  Developer Services
+  Identity & Security
+  Observability & Management
+  Hybrid & Multicloud
+  Migration & Recovery
+  Billing & Cost Management
+  Governance & Administration
+  Marketplace
+  Billing & Cost Management
+  Billing
+  Subscriptions
+  Invoices
+  Usage Statements
+  Payment History
+  Upgrade and Manage Payment
+  Cost Management
+  Overview
+  Cost Analysis
+  Cost and Usage Reports
+  Budgets
+  Scheduled Reports
+  Cost Anomaly Detection
+  Programs and Rewards
+  Oracle Support Rewards
+  Rewards Redemption History
+  Search resources, services, documentation, and Marketplace
+
+  Terms of Use and PrivacyCookie Preferences
+  Copyright © 2026, Oracle and/or its affiliates. All rights reserved.
+
+
+● You're on a Free Trial account, not a paid one — that's why there's no "Payment Methods" section. Free Trial accounts
+  handle billing differently.
+
+  Your card is managed under:
+
+  Upgrade and Manage Payment
+
+  That's the option in your sidebar under Billing. Click that — it should show your current card and let you manage it.
+
+  If it only shows an "Upgrade" button and no card management, then your card details are tied to the trial setup and can't
+  be changed until you upgrade to Pay-As-You-Go.
+
+  Good news though: You're on Free Trial, which means:
+  - Oracle gave you free credits (likely $300 USD / 30 days)
+  - After trial ends, account converts to Always Free only
+  - If you don't upgrade, Oracle never charges your card
+  - The card was only for identity verification
+
+  So if you just let the trial expire without upgrading, your card won't be charged. The safest move is simply don't click
+  "Upgrade".
+
+✻ Worked for 12s
+
+❯ I have all the time issues with support on OCI, aws is better in that case?
+
+● AWS has better support, but the free tier comparison matters more:
+
+  ┌──────────────────────────┬─────────────────────────────────────┬───────────────────────────────────────────────────┐
+  │          Aspect          │                 OCI                 │                        AWS                        │
+  ├──────────────────────────┼─────────────────────────────────────┼───────────────────────────────────────────────────┤
+  │ Support                  │ Slow, clunky portal, hard to reach  │ Fast, good docs, huge community                   │
+  ├──────────────────────────┼─────────────────────────────────────┼───────────────────────────────────────────────────┤
+  │ Free ARM compute         │ 4 cores, 24GB RAM — forever         │ None (ARM = paid only)                            │
+  ├──────────────────────────┼─────────────────────────────────────┼───────────────────────────────────────────────────┤
+  │ Free x86 compute         │ 2 VMs, 1/8 OCPU, 1GB each — forever │ 1 VM, 1 vCPU, 1GB — 12 months only                │
+  ├──────────────────────────┼─────────────────────────────────────┼───────────────────────────────────────────────────┤
+  │ Free storage             │ 200GB — forever                     │ 30GB EBS — 12 months only                         │
+  ├──────────────────────────┼─────────────────────────────────────┼───────────────────────────────────────────────────┤
+  │ Always Free (permanent)  │ Very generous                       │ Very limited (Lambda, DynamoDB, S3 small amounts) │
+  ├──────────────────────────┼─────────────────────────────────────┼───────────────────────────────────────────────────┤
+  │ Community/Stack Overflow │ Small                               │ Massive                                           │
+  ├──────────────────────────┼─────────────────────────────────────┼───────────────────────────────────────────────────┤
+  │ Documentation            │ OK                                  │ Excellent                                         │
+  ├──────────────────────────┼─────────────────────────────────────┼───────────────────────────────────────────────────┤
+  │ Console UI               │ Buggy, confusing                    │ Complex but functional                            │
+  └──────────────────────────┴─────────────────────────────────────┴───────────────────────────────────────────────────┘
+
+  Bottom line
+
+  - AWS is better in support, docs, ecosystem, and reliability
+  - OCI is better in free tier — it's not even close. 4 ARM cores + 24GB RAM for free forever is unmatched
+  - AWS equivalent of your OCI setup would cost ~$30-50/month
+
+  If you can tolerate OCI's rough edges, the free compute is worth it for a personal project like phrasal. No other cloud
+  gives you that much for free.
+
+  Practical tip: For OCI support issues, skip the portal — search on Reddit (r/oraclecloud) or Oracle's community forums.
+  The community is small but active and usually more helpful than official support on free tier.
+
+✻ Crunched for 16s
+
+❯ Something went wrong
+  We're unable to complete your request. Common errors are due to: (a) Using prepaid cards. Oracle only accepts credit card
+  and debit cards (b) Intentionally or unintentionally masking one's location or identity (c) Entering incomplete or
+  inaccurate account details. Please try again if this applies to you. Otherwise, contact Oracle Customer Service.
+
+● This is a common OCI signup issue. Most likely causes:
+
+  1. VPN/proxy is on — turn it off, Oracle blocks masked locations
+  2. Browser privacy extensions — disable ad blockers, privacy badger, etc.
+  3. Card type — Mono/Revolut virtual cards often get rejected. Use a physical bank card (Visa/Mastercard debit or credit)
+  4. Address mismatch — the address you entered must exactly match what your bank has on file
+  5. Browser — try Chrome in incognito mode (no extensions)
+
+  Try this
+
+  1. Disable VPN
+  2. Open Chrome incognito
+  3. Use a physical bank card (not virtual/prepaid)
+  4. Make sure name and address match your bank records exactly
+  5. Try again
+
+  If it still fails
+
+  - Try a different card from a different bank
+  - Try a different browser or device
+  - Try different home region (e.g. Germany instead of Netherlands)
+  - Clear cookies and try again
+
+  If nothing works
+
+  Oracle's verification is notoriously strict. Many people need 2-3 attempts with different cards/details. Contact Oracle
+  Customer Service directly:
+
+  https://www.oracle.com/corporate/contact/
+
+  Or call their support line — it's faster than the web portal for account creation issues.
+
+✻ Brewed for 14s
+
+❯ Change the profile country in OCI
+
+● You cannot change the home region or country of an existing OCI tenancy. It's locked at account creation.
+
+  For your profile/billing address, try:
+
+  OCI Console → Profile (top-right avatar) → My Profile → Edit
+
+  Or:
+
+  OCI Console → Billing & Cost Management → Upgrade and Manage Payment → Edit details
+
+  If neither works
+
+  The only option is to create a new OCI account with the correct country:
+
+  1. Use a different email address
+  2. Select the right country during signup
+  3. Choose your preferred home region (e.g. eu-frankfurt-1 for Europe)
+
+  You can have multiple OCI accounts — each gets its own free tier. Your old account will just expire after the trial ends
+  if you don't use it.
+
+✻ Churned for 12s
+
+❯ But then after registration pay as you go can I remove the card?
+
+● No. OCI always requires at least one payment method on a Pay-As-You-Go account. You can't remove the last card.
+
+  But your card won't be charged if you only use Always Free resources. The card is just a requirement Oracle enforces — it
+  sits there unused.
+
+  Safest approach:
+
+  1. Register with a real card (to pass verification)
+  2. After account is active, add a virtual card with low limit (Mono/Revolut, ~5 PLN)
+  3. Delete the real card
+  4. Only use Always Free resources
+
+  Even if something goes wrong, the virtual card with a low limit blocks any real charge.
+
+✻ Cogitated for 8s
+
+❯ so if I reg. pay as you go with one card and then attach second, can I remove that what I used for reg.?
+
+● Yes. Once you have two cards on a Pay-As-You-Go account:
+
+  1. Add second card
+  2. Set second card as default (or it becomes default automatically)
+  3. Delete the first card
+
+  That's the standard flow. The issue you hit earlier was because you're still on Free Trial — card management is limited
+  there. On Pay-As-You-Go it works normally.
+
+  Your plan:
+  1. Register/upgrade with a real bank card
+  2. Add a Mono/Revolut virtual card (low limit)
+  3. Delete the real card
+  4. Sleep well
+
+✻ Sautéed for 7s
+
+❯ If I buy 2 VMPs on other provider can I run k8s cluster for free?
+
+● Yes, K8s itself is free — it's open-source software. You only pay for the VMs.
+
+  Options for self-managed K8s on bare VMs
+
+  ┌──────────┬────────────┬───────────────────────────────────────────┐
+  │   Tool   │ Complexity │                 Best for                  │
+  ├──────────┼────────────┼───────────────────────────────────────────┤
+  │ k3s      │ Very easy  │ 2-3 small VMs, lightweight, single binary │
+  ├──────────┼────────────┼───────────────────────────────────────────┤
+  │ MicroK8s │ Easy       │ Ubuntu-focused, snap install              │
+  ├──────────┼────────────┼───────────────────────────────────────────┤
+  │ kubeadm  │ Medium     │ Standard K8s, full control                │
+  ├──────────┼────────────┼───────────────────────────────────────────┤
+  │ k0s      │ Easy       │ Zero dependencies, single binary          │
+  └──────────┴────────────┴───────────────────────────────────────────┘
+
+  For 2 VMs, k3s is the best choice — it's a lightweight K8s distribution that uses ~512MB RAM vs ~1.5GB for standard K8s.
+  Perfect for small clusters.
+
+  Setup with k3s on 2 VMs
+
+  # VM1 — control plane + worker
+  curl -sfL https://get.k3s.io | sh -
+
+  # Get the token
+  sudo cat /var/lib/rancher/k3s/server/node-token
+
+  # VM2 — worker
+  curl -sfL https://get.k3s.io | K3S_URL=https://VM1_IP:6443 K3S_TOKEN=<token> sh -
+
+  That's it — full K8s cluster in 2 minutes.
+
+  Cheap VPS providers for 2 VMs
+
+  ┌──────────┬───────────────────────┬────────────┐
+  │ Provider │      Cheapest VM      │ 2 VMs cost │
+  ├──────────┼───────────────────────┼────────────┤
+  │ Hetzner  │ €3.79/mo (2 CPU, 2GB) │ ~€8/mo     │
+  ├──────────┼───────────────────────┼────────────┤
+  │ Netcup   │ €3.99/mo (2 CPU, 4GB) │ ~€8/mo     │
+  ├──────────┼───────────────────────┼────────────┤
+  │ OVH      │ €3.50/mo (1 CPU, 2GB) │ ~€7/mo     │
+  ├──────────┼───────────────────────┼────────────┤
+  │ Contabo  │ €4.99/mo (4 CPU, 8GB) │ ~€10/mo    │
+  └──────────┴───────────────────────┴────────────┘
+
+  Hetzner is the most recommended for K8s — fast, reliable, good network, EU-based.
+
+  But again — OCI gives you 4 cores + 24GB free forever. That beats any paid 2-VM setup at these prices.
+
+✻ Sautéed for 14s
+
+❯ But what should I also install, compared to OCI? what willl I not have?
+
+● What you get on OCI managed vs bare VMs
+
+  ┌───────────────────────────────┬─────────────────────────────────┬───────────────────────────────────────────────────┐
+  │            Feature            │          OCI (managed)          │              Bare VMs (Hetzner etc.)              │
+  ├───────────────────────────────┼─────────────────────────────────┼───────────────────────────────────────────────────┤
+  │ K8s control plane             │ OKE manages it for free         │ You install & maintain (k3s/kubeadm)              │
+  ├───────────────────────────────┼─────────────────────────────────┼───────────────────────────────────────────────────┤
+  │ OS updates / patching         │ Your job                        │ Your job                                          │
+  ├───────────────────────────────┼─────────────────────────────────┼───────────────────────────────────────────────────┤
+  │ Block storage (persistent     │ OCI CSI driver — auto           │ Manual setup — use local disk or install          │
+  │ volumes)                      │ attach/detach                   │ Longhorn/OpenEBS                                  │
+  ├───────────────────────────────┼─────────────────────────────────┼───────────────────────────────────────────────────┤
+  │ Load balancer                 │ 1 free OCI LB, auto-provisioned │ You install — MetalLB or use NodePort             │
+  ├───────────────────────────────┼─────────────────────────────────┼───────────────────────────────────────────────────┤
+  │ Container registry            │ OCI Registry (free)             │ You set up — Docker Hub (free, limited) or        │
+  │                               │                                 │ self-host                                         │
+  ├───────────────────────────────┼─────────────────────────────────┼───────────────────────────────────────────────────┤
+  │ Ingress + SSL                 │ OCI LB + cert-manager           │ You install — nginx-ingress + cert-manager +      │
+  │                               │                                 │ Let's Encrypt                                     │
+  ├───────────────────────────────┼─────────────────────────────────┼───────────────────────────────────────────────────┤
+  │ Monitoring                    │ OCI Monitoring (basic, free)    │ You install — Prometheus + Grafana                │
+  ├───────────────────────────────┼─────────────────────────────────┼───────────────────────────────────────────────────┤
+  │ Logging                       │ OCI Logging (basic, free)       │ You install — Loki or just kubectl logs           │
+  ├───────────────────────────────┼─────────────────────────────────┼───────────────────────────────────────────────────┤
+  │ Backups                       │ OCI Block Volume backups (free  │ You set up — cron + pg_dump + rsync to somewhere  │
+  │                               │ tier)                           │                                                   │
+  ├───────────────────────────────┼─────────────────────────────────┼───────────────────────────────────────────────────┤
+  │ DNS                           │ OCI DNS (free)                  │ You buy domain + configure externally             │
+  ├───────────────────────────────┼─────────────────────────────────┼───────────────────────────────────────────────────┤
+  │ Firewall                      │ OCI Security Lists (built-in)   │ You configure — ufw or iptables on each VM        │
+  ├───────────────────────────────┼─────────────────────────────────┼───────────────────────────────────────────────────┤
+  │ Private networking            │ OCI VCN (free, built-in)        │ You configure — WireGuard or VLAN if provider     │
+  │                               │                                 │ supports                                          │
+  ├───────────────────────────────┼─────────────────────────────────┼───────────────────────────────────────────────────┤
+  │ Auto-healing (volume          │ OCI CSI handles it              │ Longhorn does it, but more fragile                │
+  │ reattach)                     │                                 │                                                   │
+  └───────────────────────────────┴─────────────────────────────────┴───────────────────────────────────────────────────┘
+
+  What you'd need to install on bare VMs
+
+  k3s                  — K8s itself
+  MetalLB              — load balancer (replaces OCI LB)
+  Longhorn or OpenEBS  — persistent storage (replaces OCI Block Volumes)
+  cert-manager         — SSL certificates from Let's Encrypt
+  nginx-ingress        — route traffic to services
+
+  That's ~2-3 hours of setup. After that it works the same.
+
+  Bottom line
+
+  ┌──────────────┬─────────────┬────────────────────────────┐
+  │              │  OCI Free   │          Bare VMs          │
+  ├──────────────┼─────────────┼────────────────────────────┤
+  │ Cost         │ Free        │ €7-10/mo                   │
+  ├──────────────┼─────────────┼────────────────────────────┤
+  │ Setup effort │ Medium      │ High                       │
+  ├──────────────┼─────────────┼────────────────────────────┤
+  │ Maintenance  │ Low         │ You are the cloud provider │
+  ├──────────────┼─────────────┼────────────────────────────┤
+  │ Resources    │ 4 CPU, 24GB │ Depends on plan            │
+  └──────────────┴─────────────┴────────────────────────────┘
+
+  On bare VMs you become your own DevOps team — storage, networking, backups, security are all on you. OCI gives you those
+  for free.
+
+  Stick with OCI unless their support issues become a real blocker.
+
+✻ Cooked for 20s
+
+❯ Is it possible in OCI for free to use teraform for creating VMs and its configs?
+
+● Yes, Terraform is free — it's open-source. And OCI has a free built-in alternative too.
+
+  Two options
+
+  ┌──────────────────────────┬──────┬───────────────────────────────────────────────────────────────────────────────┐
+  │           Tool           │ Cost │                                  What it is                                   │
+  ├──────────────────────────┼──────┼───────────────────────────────────────────────────────────────────────────────┤
+  │ Terraform + OCI Provider │ Free │ Standard Terraform, you run it locally                                        │
+  ├──────────────────────────┼──────┼───────────────────────────────────────────────────────────────────────────────┤
+  │ OCI Resource Manager     │ Free │ OCI's built-in Terraform service — runs in the cloud, no local install needed │
+  └──────────────────────────┴──────┴───────────────────────────────────────────────────────────────────────────────┘
+
+  Option 1 — Terraform locally
+
+  # Install Terraform
+  sudo apt install terraform
+
+  # main.tf — example: create ARM VM
+  provider "oci" {
+    region = "eu-frankfurt-1"
+  }
+
+  resource "oci_core_instance" "k8s_control" {
+    display_name        = "k8s-control"
+    availability_domain = data.oci_identity_availability_domains.ads.availability_domains[0].name
+    compartment_id      = var.compartment_id
+    shape               = "VM.Standard.A1.Flex"
+    shape_config {
+      ocpus         = 1
+      memory_in_gbs = 4
+    }
+    # ... source image, subnet, SSH key, etc.
+  }
+
+  You'd need to set up OCI API keys:
+  OCI Console → Profile → API Keys → Add API Key
+
+  Option 2 — OCI Resource Manager (easier)
+
+  OCI Console → Developer Services → Resource Manager → Stacks → Create Stack
+
+  - Upload your .tf files or point to a GitHub repo
+  - OCI runs Terraform for you — no local install
+  - Free, includes state management
+  - Plan, Apply, Destroy — all from the console
+
+  My recommendation
+
+  OCI Resource Manager — zero setup, runs in the cloud, stores Terraform state for you. Write your .tf files, upload, click
+  Apply. Perfect for your 3-VM K8s cluster setup.
+
+  Want me to write the Terraform files for your K8s cluster (3 ARM VMs + block volume)?
+
+✻ Crunched for 17s
+
+❯ So in OCI I can use  Terraform + OCI Provider or OCI Resource Manager for free?
+
+● Yes, both are completely free.
+
+  - Terraform — open-source tool, always free everywhere
+  - OCI Provider — Oracle's Terraform plugin, free
+  - OCI Resource Manager — Oracle's hosted Terraform service, free
+
+  You only pay for the resources Terraform creates (VMs, storage, etc.) — not for Terraform itself. And if those resources
+  are Always Free tier, you pay nothing at all.
+
+✻ Baked for 8s
+
+❯ What's better to use in OCI?
+
+● OCI Resource Manager — it's the better choice for OCI specifically.
+
+  ┌─────────────────┬───────────────────────────────────────────┬───────────────────────────────────┐
+  │     Aspect      │             Terraform locally             │       OCI Resource Manager        │
+  ├─────────────────┼───────────────────────────────────────────┼───────────────────────────────────┤
+  │ Install         │ You install + configure API keys          │ Nothing — it's in the console     │
+  ├─────────────────┼───────────────────────────────────────────┼───────────────────────────────────┤
+  │ State file      │ You manage (local file or remote backend) │ OCI stores it for you             │
+  ├─────────────────┼───────────────────────────────────────────┼───────────────────────────────────┤
+  │ Auth            │ API keys + config file setup              │ Already authenticated via console │
+  ├─────────────────┼───────────────────────────────────────────┼───────────────────────────────────┤
+  │ Run             │ CLI on your machine                       │ Click "Apply" in browser          │
+  ├─────────────────┼───────────────────────────────────────────┼───────────────────────────────────┤
+  │ Version control │ You manage                                │ Built-in, or link GitHub repo     │
+  ├─────────────────┼───────────────────────────────────────────┼───────────────────────────────────┤
+  │ Cost            │ Free                                      │ Free                              │
+  ├─────────────────┼───────────────────────────────────────────┼───────────────────────────────────┤
+  │ Same .tf files  │ Yes                                       │ Yes                               │
+  └─────────────────┴───────────────────────────────────────────┴───────────────────────────────────┘
+
+  The .tf files are identical — you can write them locally, upload to Resource Manager, and switch between the two anytime.
+  No lock-in.
+
+  Use Resource Manager. Less setup, less to maintain, same result.
+
+✻ Brewed for 10s
+
+❯ I don't understand I can you terform to create claude OCI resouces and provision it, or I can use terafform only locally
+  on my machine?
+
+● Terraform can do both — it's confusing because the name is used for two different things:
+
+  What Terraform actually does
+
+  Your .tf file:                    Terraform creates it on OCI:
+  "I want 3 ARM VMs"        →      3 real VMs in OCI cloud
+  "I want a block volume"    →      real block volume in OCI
+  "I want a VCN network"     →      real network in OCI
+
+  Terraform talks to OCI's API and creates real cloud resources remotely. It doesn't matter where Terraform runs — your
+  laptop or OCI Resource Manager — the result is the same: real VMs in OCI.
+
+  Two ways to run the same thing
+
+  ┌──────────────────────┬───────────────────┬──────────────────────┐
+  │                      │ Terraform locally │ OCI Resource Manager │
+  ├──────────────────────┼───────────────────┼──────────────────────┤
+  │ Where Terraform runs │ Your laptop       │ OCI's servers        │
+  ├──────────────────────┼───────────────────┼──────────────────────┤
+  │ What it creates      │ Resources on OCI  │ Resources on OCI     │
+  ├──────────────────────┼───────────────────┼──────────────────────┤
+  │ Same .tf files       │ Yes               │ Yes                  │
+  ├──────────────────────┼───────────────────┼──────────────────────┤
+  │ Same result          │ Yes               │ Yes                  │
+  └──────────────────────┴───────────────────┴──────────────────────┘
+
+  Think of it like Google Docs:
+  - Terraform locally = Word on your computer, saving to the cloud
+  - Resource Manager = Google Docs in the browser, saving to the cloud
+
+  Both edit the same document (your OCI infrastructure) — just different places to press the button.
+
+  So yes
+
+  You write a .tf file saying "create 3 VMs with these specs", Terraform calls OCI's API, and real VMs appear in your OCI
+  account. You then SSH into them, install k3s, deploy your app. Terraform handles the infrastructure creation, not the
+  software installation.
+
+✻ Worked for 11s
+
+❯ But what the difference with OCI Resouce Manager then
+
+● There is no difference in result. OCI Resource Manager is Terraform — Oracle just hosts it for you.
+
+  Terraform locally:
+    Your laptop → runs Terraform → calls OCI API → creates VMs
+
+  OCI Resource Manager:
+    OCI console → runs Terraform (for you) → calls OCI API → creates VMs
+
+  It's the same engine, same .tf files, same API calls, same VMs at the end. The only difference is where the engine runs:
+
+  ┌───────────────────────┬─────────────────────────────┬──────────────────────────┐
+  │                       │      Terraform locally      │   OCI Resource Manager   │
+  ├───────────────────────┼─────────────────────────────┼──────────────────────────┤
+  │ Engine runs on        │ Your machine                │ OCI's servers            │
+  ├───────────────────────┼─────────────────────────────┼──────────────────────────┤
+  │ You install Terraform │ Yes                         │ No                       │
+  ├───────────────────────┼─────────────────────────────┼──────────────────────────┤
+  │ You set up API keys   │ Yes                         │ No                       │
+  ├───────────────────────┼─────────────────────────────┼──────────────────────────┤
+  │ State file stored     │ On your disk                │ On OCI                   │
+  ├───────────────────────┼─────────────────────────────┼──────────────────────────┤
+  │ How you trigger it    │ terraform apply in terminal │ Click "Apply" in browser │
+  ├───────────────────────┼─────────────────────────────┼──────────────────────────┤
+  │ End result            │ Identical                   │ Identical                │
+  └───────────────────────┴─────────────────────────────┴──────────────────────────┘
+
+  OCI Resource Manager = Terraform-as-a-Service. Oracle took Terraform, put it in their cloud, and gave it a fancy name.
+  That's it.
+
+  Use Resource Manager — same thing, less setup.
+
+✻ Baked for 13s
+
+❯ Oracle support isn't answer, I can't upgrate to pay as you go, it didn't take even correct account? is there better
+  clouds services?
+
+● For your use case (personal project, K8s learning, low cost), here are the best alternatives:
+
+  Best Options
+
+  ┌───────────────────┬────────────────────────────┬─────────────────────────────────┬─────────────────────────────────┐
+  │     Provider      │         Free tier          │           K8s support           │         Support quality         │
+  ├───────────────────┼────────────────────────────┼─────────────────────────────────┼─────────────────────────────────┤
+  │ Hetzner           │ None, but very cheap       │ k3s yourself                    │ Good, fast                      │
+  ├───────────────────┼────────────────────────────┼─────────────────────────────────┼─────────────────────────────────┤
+  │ Google Cloud      │ $300 / 90 days + Always    │ GKE Autopilot (free control     │ Excellent                       │
+  │ (GCP)             │ Free                       │ plane)                          │                                 │
+  ├───────────────────┼────────────────────────────┼─────────────────────────────────┼─────────────────────────────────┤
+  │ AWS               │ 12 months free tier        │ EKS ($0.10/hr control plane)    │ Excellent                       │
+  ├───────────────────┼────────────────────────────┼─────────────────────────────────┼─────────────────────────────────┤
+  │ Azure             │ $200 / 30 days + Always    │ AKS (free control plane)        │ Good                            │
+  │                   │ Free                       │                                 │                                 │
+  ├───────────────────┼────────────────────────────┼─────────────────────────────────┼─────────────────────────────────┤
+  │ DigitalOcean      │ $200 / 60 days             │ Managed K8s (free control       │ Excellent, very                 │
+  │                   │                            │ plane)                          │ beginner-friendly               │
+  ├───────────────────┼────────────────────────────┼─────────────────────────────────┼─────────────────────────────────┤
+  │ Linode (Akamai)   │ $100 / 60 days             │ Managed K8s (free control       │ Good                            │
+  │                   │                            │ plane)                          │                                 │
+  └───────────────────┴────────────────────────────┴─────────────────────────────────┴─────────────────────────────────┘
+
+  My recommendation for you
+
+  1. Best overall: Hetzner (~€8/mo after trial)
+  - Cheapest good-quality VMs in Europe
+  - 2 VMs (2 CPU, 4GB each) = ~€8/mo
+  - Install k3s yourself — 10 minutes
+  - No free tier but so cheap it doesn't matter
+  - Support is responsive
+
+  2. Best free start: GCP
+  - $300 free credits for 90 days
+  - Only cloud with hard spending cap — you can disable billing
+  - GKE Autopilot = managed K8s, no VM management
+  - Best support and docs
+  - Always Free includes 1 small VM permanently
+
+  3. Best for learning: DigitalOcean
+  - $200 free credits for 60 days
+  - Simplest UI of all clouds
+  - Best tutorials/documentation for beginners
+  - Managed K8s with free control plane
+
+  For phrasal app specifically
+
+  Hetzner + k3s — €8/mo, reliable, EU-based, no card games or trial expiration anxiety. Just pay €8 and everything works.
+
+  Want help setting up on any of these?
+
+✻ Churned for 17s
+
+❯ The most free oracle zone to create free VMs on arm
+
+● The best OCI regions for ARM Always Free availability (least contention for free VMs):
+
+  Most likely to succeed
+
+  ┌─────────────────────────────┬───────────────────┬───────────────────────────┐
+  │           Region            │     Location      │            Why            │
+  ├─────────────────────────────┼───────────────────┼───────────────────────────┤
+  │ US Midwest (Chicago)        │ us-chicago-1      │ Newer region, less demand │
+  ├─────────────────────────────┼───────────────────┼───────────────────────────┤
+  │ US West (San Jose)          │ us-sanjose-1      │ Newer, less crowded       │
+  ├─────────────────────────────┼───────────────────┼───────────────────────────┤
+  │ Spain (Madrid)              │ eu-madrid-1       │ Newer EU region           │
+  ├─────────────────────────────┼───────────────────┼───────────────────────────┤
+  │ France South (Marseille)    │ eu-marseille-1    │ Newer EU region           │
+  ├─────────────────────────────┼───────────────────┼───────────────────────────┤
+  │ Israel (Jerusalem)          │ il-jerusalem-1    │ Very low demand           │
+  ├─────────────────────────────┼───────────────────┼───────────────────────────┤
+  │ South Africa (Johannesburg) │ af-johannesburg-1 │ Very low demand           │
+  └─────────────────────────────┴───────────────────┴───────────────────────────┘
+
+  Avoid (most crowded)
+  │ Good  │ us-chicago-1      │ USA          │ Newer US                  │
+  ├───────┼───────────────────┼──────────────┼───────────────────────────┤
+  │ Good  │ mx-monterrey-1    │ Mexico       │ Very new                  │
+  ├───────┼───────────────────┼──────────────┼───────────────────────────┤
+  │ Avoid │ us-phoenix-1      │ USA          │ Old, crowded              │
+  ├───────┼───────────────────┼──────────────┼───────────────────────────┤
+  │ Avoid │ us-ashburn-1      │ USA          │ Most popular              │
+  ├───────┼───────────────────┼──────────────┼───────────────────────────┤
+  │ Avoid │ eu-frankfurt-1    │ Germany      │ Most popular EU           │
+  ├───────┼───────────────────┼──────────────┼───────────────────────────┤
+  │ Avoid │ eu-amsterdam-1    │ Netherlands  │ High demand               │
+  ├───────┼───────────────────┼──────────────┼───────────────────────────┤
+  │ Avoid │ uk-london-1       │ UK           │ High demand               │
+  └───────┴───────────────────┴──────────────┴───────────────────────────┘
+
+  Rule of thumb
+
+  Newer region + less popular country = better ARM availability
+
+  Latency doesn't matter much for a learning app — even Bogota or Johannesburg would be fine for 100 users. Your app is
+  mostly static frontend + small API calls.
+
+  If you don't care about latency: Bogota or Jeddah. If you want EU: Madrid or Marseille.
+
+✻ Crunched for 11s
+
+❯ What to choose?
+
+● Madrid (eu-madrid-1).
+
+  - Close to Ukraine — low latency (~50ms)
+  - Newer region — good ARM availability
+  - EU data residency
+  - Your users are likely European
+
+✻ Baked for 4s
+
+❯ How actual your data?
+
+● My knowledge cutoff is May 2025 — over a year old. OCI regions, capacity, and availability change constantly.
+
+  Verify before choosing:
+
+  1. Check current OCI regions list:
+  https://docs.oracle.com/en-us/iaas/Content/General/Concepts/regions.htm
+  2. The real test is try to create the VM — you'll instantly see "Out of host capacity" if it's full
+  3. Check Reddit r/oraclecloud for recent reports on which regions have ARM capacity right now
+
+  The general principle still holds — newer, less popular regions = better availability — but specific regions may have
+  changed since my data.
+
+✻ Cooked for 11s
+
+❯ " The real test is try to create the VM — you'll instantly see "Out of host capacity" if it's full"
+
+  How can I do that I registarte in franfurt region.
+
+● You can't create VMs in other regions by default on a free account — you're locked to your home region (Frankfurt).
+
+  Your options
+
+  1. Try Frankfurt anyway — create the ARM VM, see if you get capacity. Sometimes it works, sometimes not.
+  2. Create a new account — different email, choose Madrid or Marseille as home region. Each account gets its own free tier.
+  3. Subscribe to other regions (paid accounts only) — free tier doesn't allow this.
+
+  If Frankfurt gives "Out of host capacity"
+
+  Set up an auto-retry script on your existing AMD VM:
+
+  # retry.sh — tries to create ARM VM every 60 seconds until it works
+  while true; do
+    oci compute instance launch \
+      --availability-domain "AD-1" \
+      --compartment-id "your-compartment-ocid" \
+      --shape "VM.Standard.A1.Flex" \
+      --shape-config '{"ocpus":4,"memoryInGBs":24}' \
+      --image-id "your-image-ocid" \
+      --subnet-id "your-subnet-ocid" \
+      --ssh-authorized-keys-file ~/.ssh/id_rsa.pub \
+      --display-name "k8s-arm" \
+      2>&1
+
+    if [ $? -eq 0 ]; then
+      echo "VM created!"
+      break
+    fi
+
+    echo "No capacity, retrying in 60s..."
+    sleep 60
+  done
+
+  Run it with nohup bash retry.sh & — it'll keep trying until capacity opens up. Many people get their Frankfurt ARM VMs
+ ▐▛███▜▌   Claude Code v2.1.198
+▝▜█████▛▘  Opus with high effort · Microsoft Foundry
+  ▘▘ ▝▝    ~/dev/mine/phrasal
+
+
+✻ Conversation compacted (ctrl+o for history)
+
+
+● Skill(commit-and-push)
+  ⎿  Initializing…
+  ⎿  Interrupted · What should Claude do instead?
+
+❯ /compact
+  ⎿  Compacted
+  ⎿  Read .claude/rules/version-bump-procedure.md (26 lines)
+  ⎿  Read .claude/rules/blackbox-policy.md (84 lines)
+  ⎿  Read .claude/settings.local.json (170 lines)
+
+❯ oci terminal command to see all payment methods I bound to account
+
+● oci oss payment-method list --compartment-id <tenancy-ocid>
+
+  Unfortunately, OCI CLI doesn't have a direct command for payment methods — billing/payment management is only available
+  through the OCI Console UI, not the CLI or API. The oci CLI covers infrastructure resources but not account billing
+  operations like payment methods.
+
+  What you can do via CLI:
+
+  # View your tenancy info
+  oci iam tenancy get --tenancy-id $(oci iam compartment list --query 'data[0]."compartment-id"' --raw-output)
+
+  # View current subscriptions/billing
+  oci account subscription list --compartment-id <tenancy-ocid>
+
+  # View cost data
+  oci usage-api usage-summary request-summarized-usages --tenant-id <tenancy-ocid> --time-usage-started 2026-06-01T00:00:00Z
+  --time-usage-ended 2026-07-02T00:00:00Z --granularity DAILY
+
+  To manage payment methods, you must go to:
+  Console → Billing & Cost Management → Payment Methods
+
+  That's the only place to add, remove, or set a default card. OCI hasn't exposed payment method management through their
+  API/CLI.
+
+✻ Cooked for 10s
+
+❯ $>oci iam compartment list
+
+  Is empty
+
+● That's likely because you need to pass your tenancy OCID explicitly. Try:
+
+  # Check your CLI config first
+  cat ~/.oci/config
+
+  You should see a tenancy=ocid1.tenancy.oc1..xxxxx line there. Then use it:
+
+  # List compartments in your tenancy
+  oci iam compartment list --compartment-id ocid1.tenancy.oc1..YOUR_TENANCY_OCID
+
+  # Or to get just the root tenancy info
+  oci iam tenancy get --tenancy-id ocid1.tenancy.oc1..YOUR_TENANCY_OCID
+
+  If your ~/.oci/config has the tenancy set correctly, this shortcut should also work:
+
+  oci iam compartment list --all
+
+  If that's also empty, your account might only have the root compartment (which isn't listed by default — it's the tenancy
+  itself). You can verify your CLI is working with:
+
+  oci iam region list
+
+  This doesn't need any OCID and will confirm your CLI auth is set up correctly.
+
+✻ Brewed for 10s
+
+❯  oci account subscription list
+  Usage: oci [OPTIONS] COMMAND [ARGS]...
+
+  Error: No such command 'account'.
+
+● The account module isn't available in your OCI CLI version. Try these instead:
+
+  # Check CLI version
+  oci --version
+
+  # Verify CLI auth works
+  oci iam region list
+
+  # List your subscribed regions
+  oci iam region-subscription list --tenancy-id $(grep tenancy ~/.oci/config | head -1 | cut -d= -f2)
+
+  # View cost/usage data
+  oci ce cluster list --compartment-id $(grep tenancy ~/.oci/config | head -1 | cut -d= -f2)
+
+  For billing specifically:
+
+  # List budgets
+  oci budgets budget list --compartment-id $(grep tenancy ~/.oci/config | head -1 | cut -d= -f2)
+
+  # View usage/cost summary
+  oci usage-api usage-summary request-summarized-usages \
+    --tenant-id $(grep tenancy ~/.oci/config | head -1 | cut -d= -f2) \
+    --time-usage-started 2026-06-01T00:00:00Z \
+    --time-usage-ended 2026-07-02T00:00:00Z \
+    --granularity MONTHLY
+
+  But payment methods management (add/remove cards) — there's no CLI command for it. That's console-only at cloud.oracle.com
+  → Billing → Payment Methods.
+
+✻ Brewed for 8s
+
+❯  oci budgets budget list --compartment-id $(grep tenancy ~/.oci/config | head -1 | cut -d= -f2)
+  Usage: oci budgets budget [OPTIONS] COMMAND [ARGS]...
+
+  Error: No such command 'list'.
+
+  For OCI CLI commands and parameters suggestion, auto completion and other useful features, try the Interactive mode by
+  typing `oci -i`.
+
+● The subcommand name differs. Try:
+
+  oci budgets budget-summary list-budgets --compartment-id $(grep tenancy ~/.oci/config | head -1 | cut -d= -f2)
+
+  If that doesn't work either, check what's available:
+
+  oci budgets budget --help
+
+  That will show the exact subcommands your CLI version supports.
+
+✻ Brewed for 4s
+
+❯  oci budgets budget --help
+  Usage: oci budgets budget [OPTIONS] COMMAND [ARGS]...
+
+    Use the Budgets CLI to manage budgets and budget alerts. For more
+    information, see [Budgets Overview].
+
+  Options:
+    -?, -h, --help  For detailed help on any of these individual commands, enter
+                    <command> --help.
+
+  Commands:
+    alert-rule  The alert rule.
+    budget      A budget.
+
+● One more level of nesting:
+
+  oci budgets budget budget list --compartment-id $(grep tenancy ~/.oci/config | head -1 | cut -d= -f2)
+
+  Or check:
+
+  oci budgets budget budget --help
+
+  OCI CLI has some awkwardly nested command groups — budgets budget budget list is the actual path to list budgets.
+
+✻ Crunched for 4s
+
+❯ it works:  oci budgets budget budget list --compartment-id $(grep tenancy ~/.oci/config | head -1
+   | cut -d= -f2)
+
+● Now you can manage your budgets from CLI. Some other useful budget commands:
+
+  # View a specific budget
+  oci budgets budget budget get --budget-id <budget-ocid>
+
+  # Update budget amount (e.g., set to 1 PLN)
+  oci budgets budget budget update --budget-id <budget-ocid> --amount 1
+
+  # Delete a budget
+  oci budgets budget budget delete --budget-id <budget-ocid>
+
+  Remember though — OCI budgets are alerts only, they won't stop spending. The budget will notify you when the threshold is
+  reached but won't block resource creation or shut anything down.
+
+✻ Crunched for 5s
+
+❯ how to see all cards bound?
+
+● There's no OCI CLI command for that — payment methods are managed exclusively through the web console.
+
+  Go to: cloud.oracle.com → Billing & Cost Management → Payment Methods
+
+  OCI doesn't expose payment/card management through their API or CLI. It's one of the few things that's console-only.
+
+✻ Cogitated for 5s
+
+❯ can I upgrade to "pay as you go" through console terminal?
+
+● No, upgrading to Pay-As-You-Go is also console-only. You have to do it through:
+
+  cloud.oracle.com → Billing & Cost Management → Upgrade and Manage Payment
+
+  There's no CLI or API for account type changes. OCI keeps all account management operations (upgrade, payment methods,
+  identity verification) restricted to the web console for security reasons.
+
+  Since you were getting "Something went wrong" errors when trying to upgrade earlier, you could try:
+
+  1. Chrome incognito + disable VPN/ad blockers
+  2. Different browser (Firefox/Edge)
+  3. Make sure billing address exactly matches what your bank has on file
+  4. Try a different card if possible
+  5. Open a billing support request (not technical support — billing tickets get different routing): cloud.oracle.com → Help
+  → Create Support Request → select "Billing" category
+
+✻ Cooked for 8s
+
+❯ I write to support few days ago That I cannot. Registry. Pay as you go and they don't answer.
+
+● OCI support is notoriously slow, especially for free tier accounts. A few options:
+
+  1. Escalate the ticket — reply to the same ticket with "Please escalate, blocking issue, no response in X days"
+  2. Try Oracle Live Chat — cloud.oracle.com → Help → Chat. Sometimes faster than tickets.
+  3. Try Twitter/X — tweet at @OracleCloud with your ticket number. Public visibility often speeds things up.
+  4. Try a new account — if your current account is stuck, create a fresh one with a different email. Pick Madrid
+  (eu-madrid-1) as home region for better ARM availability. Use the same card — OCI allows it on a different account.
+  5. Consider alternatives — given the ongoing issues (can't upgrade, support not responding), it might be worth looking at:
+    - Hetzner — cheapest for what you need (~€5-10/mo for ARM VMs)
+    - DigitalOcean — $200 free credits for 60 days
+    - GCP — $300 free credits for 90 days, plus always-free e2-micro
+    - AWS — 12-month free tier with t2.micro
+
+  If you're spending days fighting OCI support just to get an account working, the time cost alone makes alternatives worth
+  considering.
+
+✻ Cooked for 13s
+
+❯ digital ocean cost for 4 cpu 24 ram VMs?
+
+● DigitalOcean doesn't offer a single 4 CPU / 24GB RAM droplet — their plans come in fixed tiers:
+
+  ┌──────────────────┬───────┬──────┬─────────┬──────────┐
+  │       Plan       │ vCPUs │ RAM  │ Storage │  Price   │
+  ├──────────────────┼───────┼──────┼─────────┼──────────┤
+  │ Regular (shared) │ 4     │ 8GB  │ 160GB   │ $48/mo   │
+  ├──────────────────┼───────┼──────┼─────────┼──────────┤
+  │ Regular (shared) │ 8     │ 16GB │ 320GB   │ $96/mo   │
+  ├──────────────────┼───────┼──────┼─────────┼──────────┤
+  │ CPU-Optimized    │ 4     │ 8GB  │ 100GB   │ $84/mo   │
+  ├──────────────────┼───────┼──────┼─────────┼──────────┤
+    - Hetzner — cheapest for what you need (~€5-10/mo for ARM VMs)                                                  [0/1830]
+    - DigitalOcean — $200 free credits for 60 days
+    - GCP — $300 free credits for 90 days, plus always-free e2-micro
+    - AWS — 12-month free tier with t2.micro
+
+  If you're spending days fighting OCI support just to get an account working, the time cost alone makes alternatives worth
+  considering.
+
+✻ Cooked for 13s
+
+❯ digital ocean cost for 4 cpu 24 ram VMs?
+
+● DigitalOcean doesn't offer a single 4 CPU / 24GB RAM droplet — their plans come in fixed tiers:
+
+  ┌──────────────────┬───────┬──────┬─────────┬──────────┐
+  │       Plan       │ vCPUs │ RAM  │ Storage │  Price   │
+  ├──────────────────┼───────┼──────┼─────────┼──────────┤
+  │ Regular (shared) │ 4     │ 8GB  │ 160GB   │ $48/mo   │
+  ├──────────────────┼───────┼──────┼─────────┼──────────┤
+  │ Regular (shared) │ 8     │ 16GB │ 320GB   │ $96/mo   │
+  ├──────────────────┼───────┼──────┼─────────┼──────────┤
+  │ CPU-Optimized    │ 4     │ 8GB  │ 100GB   │ $84/mo   │
+  ├──────────────────┼───────┼──────┼─────────┼──────────┤
+  │ Memory-Optimized │ 4     │ 32GB │ 100GB   │ ~$126/mo │
+  └──────────────────┴───────┴──────┴─────────┴──────────┘
+
+  Closest to your 4 CPU / 24GB need would be the Memory-Optimized 4 vCPU / 32GB at ~$126/mo, but that's overkill on RAM.
+
+  Cheaper alternatives for similar specs:
+
+  ┌─────────────────────┬───────────────┬──────────────────┐
+  │      Provider       │ 4 CPU / 24GB  │      Price       │
+  ├─────────────────────┼───────────────┼──────────────────┤
+  │ Hetzner (CAX31 ARM) │ 4 vCPU / 16GB │ €7.50/mo (~$8)   │
+  ├─────────────────────┼───────────────┼──────────────────┤
+  │ Hetzner (CAX41 ARM) │ 8 vCPU / 32GB │ €14.50/mo (~$16) │
+  ├─────────────────────┼───────────────┼──────────────────┤
+  │ Contabo             │ 4 vCPU / 24GB │ ~€10/mo          │
+  ├─────────────────────┼───────────────┼──────────────────┤
+  │ Netcup              │ 4 vCPU / 16GB │ ~€8/mo           │
+  ├─────────────────────┼───────────────┼──────────────────┤
+  │ OCI Free            │ 4 ARM / 24GB  │ Free             │
+  └─────────────────────┴───────────────┴──────────────────┘
+
+  Hetzner is the clear winner for price/performance if OCI free tier isn't working out. Their ARM servers (Ampere) are
+  extremely cheap and well-regarded.
+
+✻ Churned for 10s
+
+
 ✻ Crunched for 15s
+
+---
+
+ How to run that as separate process and follow it log if I want
+
+● On the VPS:
+
+  # Run in background (survives logout)
+  nohup bash ~/ocivps.sh &
+
+  # Follow the log anytime
+  tail -f /tmp/oci-launch.log
+
+  Or with tmux (better — you can reattach):
+
+  tmux new -s oci        # start session
+  bash ~/ocivps.sh       # run script
+  # Ctrl+B, D            # detach (script keeps running)
+
+  tmux attach -t oci     # reattach later to see live output
+
+---
+
+● That works fine — it's nested tmux. But the inner tmux uses the same Ctrl+B prefix, so commands go to the outer tmux
+  instead.
+
+  To send commands to the inner tmux, press Ctrl+B twice:
+
+  - Ctrl+B, D → detaches outer (local) tmux
+  - Ctrl+B, Ctrl+B, D → detaches inner (VPS) tmux
+
+  Or change the inner tmux prefix on the VPS. Add to ~/.tmux.conf on the VPS:
+
+  set -g prefix C-a
+
+  Then:
+  - Ctrl+B → local tmux
+  - Ctrl+A → VPS tmux
+
+  The simplest approach: just use nohup on the VPS instead of nested tmux:
+
+  # From your local tmux, SSH into VPS and run:
+  nohup bash ~/ocivps.sh &
+  tail -f /tmp/oci-launch.log
+  # Ctrl+C to stop following (script keeps running)
+
+✻ Sautéed for 9s
+
+❯ ubuntu@vps-t1:~$ nohup bash ~/ocivps.sh &
+  [1] 145998
+  ubuntu@vps-t1:~$ nohup: ignoring input and appending output to 'nohup.out'
+
+● That's normal — it's running. The output goes to both nohup.out and /tmp/oci-launch.log.
+
+  Follow the log:
+
+  tail -f /tmp/oci-launch.log
+
+  Ctrl+C to stop following (the script keeps running in the background).
+
+  To check it's still running later:
+
+  ps aux | grep ocivps # ps aux | grep ocivps | grep -v grep
+
+  To stop it:
+
+  kill 145998
+
+✻ Cooked for 3s
+
+---
+
+   scp -i ~/dev/scripts/vps/ssh-key-2026-06-26.key \
+      aux/scripts/ocivps.sh \
+      ubuntu@141.144.227.73:~/ocivps.sh

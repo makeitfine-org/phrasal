@@ -471,3 +471,419 @@
 - aux/docs/saves/save_while_work.txt
 - aux/docs/saves/vm.txt
 <!-- end-snapshot -->
+
+<!-- git-snapshot 2026-07-02T14:36:19Z -->
+- .claude/docs/blackbox/audit.md
+<!-- end-snapshot -->
+
+<!-- git-snapshot 2026-07-02T14:38:08Z -->
+- .claude/docs/blackbox/audit.md
+- .claude/docs/blackbox/session-log.md
+<!-- end-snapshot -->
+
+<!-- git-snapshot 2026-07-02T14:38:59Z -->
+- .claude/docs/blackbox/audit.md
+- .claude/docs/blackbox/session-log.md
+<!-- end-snapshot -->
+
+<!-- git-snapshot 2026-07-02T14:50:45Z -->
+- .claude/docs/blackbox/audit.md
+- .claude/docs/blackbox/session-log.md
+<!-- end-snapshot -->
+
+<!-- git-snapshot 2026-07-02T15:00:32Z -->
+- .claude/docs/blackbox/audit.md
+- .claude/docs/blackbox/session-log.md
+<!-- end-snapshot -->
+
+<!-- git-snapshot 2026-07-02T15:01:05Z -->
+- .claude/docs/blackbox/audit.md
+- .claude/docs/blackbox/session-log.md
+<!-- end-snapshot -->
+
+<!-- git-snapshot 2026-07-02T15:04:00Z -->
+- .claude/docs/blackbox/audit.md
+- .claude/docs/blackbox/session-log.md
+<!-- end-snapshot -->
+
+<!-- git-snapshot 2026-07-02T15:14:13Z -->
+- .claude/docs/blackbox/audit.md
+- .claude/docs/blackbox/session-log.md
+<!-- end-snapshot -->
+
+<!-- git-snapshot 2026-07-02T15:29:55Z -->
+- .claude/docs/blackbox/audit.md
+- .claude/docs/blackbox/session-log.md
+<!-- end-snapshot -->
+
+<!-- git-snapshot 2026-07-02T15:36:43Z -->
+- .claude/docs/blackbox/audit.md
+- .claude/docs/blackbox/session-log.md
+<!-- end-snapshot -->
+
+<!-- git-snapshot 2026-07-02T15:39:04Z -->
+- .claude/docs/blackbox/audit.md
+- .claude/docs/blackbox/session-log.md
+<!-- end-snapshot -->
+
+<!-- git-snapshot 2026-07-02T15:40:15Z -->
+- .claude/docs/blackbox/audit.md
+- .claude/docs/blackbox/session-log.md
+<!-- end-snapshot -->
+
+<!-- git-snapshot 2026-07-02T15:41:52Z -->
+- .claude/docs/blackbox/audit.md
+- .claude/docs/blackbox/session-log.md
+<!-- end-snapshot -->
+
+<!-- git-snapshot 2026-07-02T15:43:18Z -->
+- .claude/docs/blackbox/audit.md
+- .claude/docs/blackbox/session-log.md
+<!-- end-snapshot -->
+
+<!-- git-snapshot 2026-07-02T16:21:36Z -->
+- .claude/docs/blackbox/audit.md
+- .claude/docs/blackbox/session-log.md
+<!-- end-snapshot -->
+
+<!-- git-snapshot 2026-07-02T16:23:39Z -->
+- .claude/docs/blackbox/audit.md
+- .claude/docs/blackbox/session-log.md
+<!-- end-snapshot -->
+
+<!-- git-snapshot 2026-07-02T16:24:02Z -->
+- .claude/docs/blackbox/audit.md
+- .claude/docs/blackbox/session-log.md
+<!-- end-snapshot -->
+
+<!-- git-snapshot 2026-07-02T16:25:16Z -->
+- .claude/docs/blackbox/audit.md
+- .claude/docs/blackbox/session-log.md
+<!-- end-snapshot -->
+
+<!-- git-snapshot 2026-07-02T16:27:56Z -->
+- .claude/docs/blackbox/audit.md
+- .claude/docs/blackbox/session-log.md
+<!-- end-snapshot -->
+
+<!-- git-snapshot 2026-07-02T16:52:46Z -->
+- .claude/docs/blackbox/audit.md
+- .claude/docs/blackbox/session-log.md
+<!-- end-snapshot -->
+
+<!-- git-snapshot 2026-07-02T17:11:42Z -->
+- .claude/docs/blackbox/audit.md
+- .claude/docs/blackbox/session-log.md
+<!-- end-snapshot -->
+
+<!-- git-snapshot 2026-07-02T17:12:45Z -->
+- .claude/docs/blackbox/audit.md
+- .claude/docs/blackbox/session-log.md
+<!-- end-snapshot -->
+
+<!-- git-snapshot 2026-07-02T17:13:54Z -->
+- .claude/docs/blackbox/audit.md
+- .claude/docs/blackbox/session-log.md
+<!-- end-snapshot -->
+
+<!-- git-snapshot 2026-07-02T17:15:38Z -->
+- .claude/docs/blackbox/audit.md
+- .claude/docs/blackbox/session-log.md
+<!-- end-snapshot -->
+
+<!-- git-snapshot 2026-07-02T17:16:50Z -->
+- .claude/docs/blackbox/audit.md
+- .claude/docs/blackbox/session-log.md
+<!-- end-snapshot -->
+
+<!-- git-snapshot 2026-07-02T17:30:50Z -->
+- .claude/docs/blackbox/audit.md
+- .claude/docs/blackbox/session-log.md
+<!-- end-snapshot -->
+
+<!-- git-snapshot 2026-07-02T17:32:39Z -->
+- .claude/docs/blackbox/audit.md
+- .claude/docs/blackbox/session-log.md
+<!-- end-snapshot -->
+
+<!-- git-snapshot 2026-07-02T17:37:42Z -->
+- .claude/docs/blackbox/audit.md
+- .claude/docs/blackbox/session-log.md
+<!-- end-snapshot -->
+
+<!-- git-snapshot 2026-07-02T17:39:23Z -->
+- .claude/docs/blackbox/audit.md
+- .claude/docs/blackbox/session-log.md
+<!-- end-snapshot -->
+
+<!-- git-snapshot 2026-07-02T17:40:02Z -->
+- .claude/docs/blackbox/audit.md
+- .claude/docs/blackbox/session-log.md
+<!-- end-snapshot -->
+
+<!-- git-snapshot 2026-07-02T17:40:57Z -->
+- .claude/docs/blackbox/audit.md
+- .claude/docs/blackbox/session-log.md
+<!-- end-snapshot -->
+
+<!-- git-snapshot 2026-07-02T17:41:12Z -->
+- .claude/docs/blackbox/audit.md
+- .claude/docs/blackbox/session-log.md
+<!-- end-snapshot -->
+
+<!-- git-snapshot 2026-07-02T17:42:07Z -->
+- .claude/docs/blackbox/audit.md
+- .claude/docs/blackbox/session-log.md
+<!-- end-snapshot -->
+
+<!-- git-snapshot 2026-07-02T17:44:15Z -->
+- .claude/docs/blackbox/audit.md
+- .claude/docs/blackbox/session-log.md
+<!-- end-snapshot -->
+
+<!-- git-snapshot 2026-07-02T17:46:08Z -->
+- .claude/docs/blackbox/audit.md
+- .claude/docs/blackbox/session-log.md
+<!-- end-snapshot -->
+
+<!-- git-snapshot 2026-07-02T20:25:26Z -->
+- .claude/docs/blackbox/audit.md
+- .claude/docs/blackbox/session-log.md
+- aux/docs/useful/vm.txt
+<!-- end-snapshot -->
+
+<!-- git-snapshot 2026-07-03T15:13:57Z -->
+- .claude/docs/blackbox/audit.md
+- .claude/docs/blackbox/session-log.md
+- aux/docs/useful/vm.txt
+<!-- end-snapshot -->
+
+<!-- git-snapshot 2026-07-03T15:20:58Z -->
+- .claude/docs/blackbox/audit.md
+- .claude/docs/blackbox/session-log.md
+- aux/docs/useful/vm.txt
+<!-- end-snapshot -->
+
+<!-- git-snapshot 2026-07-03T15:30:34Z -->
+- .claude/docs/blackbox/audit.md
+- .claude/docs/blackbox/session-log.md
+- aux/docs/useful/vm.txt
+- aux/scripts/ocivps.sh
+<!-- end-snapshot -->
+
+<!-- git-snapshot 2026-07-03T15:31:16Z -->
+- .claude/docs/blackbox/audit.md
+- .claude/docs/blackbox/session-log.md
+- aux/docs/useful/vm.txt
+- aux/scripts/ocivps.sh
+<!-- end-snapshot -->
+
+<!-- git-snapshot 2026-07-03T15:38:28Z -->
+- .claude/docs/blackbox/audit.md
+- .claude/docs/blackbox/session-log.md
+- aux/docs/useful/vm.txt
+- aux/scripts/ocivps.sh
+<!-- end-snapshot -->
+
+<!-- git-snapshot 2026-07-03T15:39:33Z -->
+- .claude/docs/blackbox/audit.md
+- .claude/docs/blackbox/session-log.md
+- aux/docs/useful/vm.txt
+- aux/scripts/ocivps.sh
+<!-- end-snapshot -->
+
+<!-- git-snapshot 2026-07-03T15:40:19Z -->
+- .claude/docs/blackbox/audit.md
+- .claude/docs/blackbox/session-log.md
+- aux/docs/useful/vm.txt
+- aux/scripts/ocivps.sh
+<!-- end-snapshot -->
+
+<!-- git-snapshot 2026-07-03T15:43:21Z -->
+- .claude/docs/blackbox/audit.md
+- .claude/docs/blackbox/session-log.md
+- aux/docs/useful/vm.txt
+- aux/scripts/ocivps.sh
+<!-- end-snapshot -->
+
+<!-- git-snapshot 2026-07-03T15:44:19Z -->
+- .claude/docs/blackbox/audit.md
+- .claude/docs/blackbox/session-log.md
+- aux/docs/useful/vm.txt
+- aux/scripts/ocivps.sh
+<!-- end-snapshot -->
+
+<!-- git-snapshot 2026-07-03T15:45:09Z -->
+- .claude/docs/blackbox/audit.md
+- .claude/docs/blackbox/session-log.md
+- aux/docs/useful/vm.txt
+- aux/scripts/ocivps.sh
+<!-- end-snapshot -->
+
+<!-- git-snapshot 2026-07-03T15:47:23Z -->
+- .claude/docs/blackbox/audit.md
+- .claude/docs/blackbox/session-log.md
+- aux/docs/useful/vm.txt
+- aux/scripts/ocivps.sh
+<!-- end-snapshot -->
+
+<!-- git-snapshot 2026-07-03T15:58:42Z -->
+- .claude/docs/blackbox/audit.md
+- .claude/docs/blackbox/session-log.md
+- aux/docs/useful/vm.txt
+- aux/scripts/ocivps.sh
+<!-- end-snapshot -->
+
+<!-- git-snapshot 2026-07-03T16:01:17Z -->
+- .claude/docs/blackbox/audit.md
+- .claude/docs/blackbox/session-log.md
+- aux/docs/useful/vm.txt
+- aux/scripts/ocivps.sh
+<!-- end-snapshot -->
+
+<!-- git-snapshot 2026-07-03T16:02:09Z -->
+- .claude/docs/blackbox/audit.md
+- .claude/docs/blackbox/session-log.md
+- aux/docs/useful/vm.txt
+- aux/scripts/ocivps.sh
+<!-- end-snapshot -->
+
+<!-- git-snapshot 2026-07-03T16:05:38Z -->
+- .claude/docs/blackbox/audit.md
+- .claude/docs/blackbox/session-log.md
+- aux/docs/useful/vm.txt
+- aux/scripts/ocivps.sh
+<!-- end-snapshot -->
+
+<!-- git-snapshot 2026-07-03T16:07:21Z -->
+- .claude/docs/blackbox/audit.md
+- .claude/docs/blackbox/session-log.md
+- aux/docs/useful/vm.txt
+- aux/scripts/ocivps.sh
+<!-- end-snapshot -->
+
+<!-- git-snapshot 2026-07-03T16:12:41Z -->
+- .claude/docs/blackbox/audit.md
+- .claude/docs/blackbox/session-log.md
+- aux/docs/useful/vm.txt
+- aux/scripts/ocivps.sh
+<!-- end-snapshot -->
+
+<!-- git-snapshot 2026-07-03T16:15:34Z -->
+- .claude/docs/blackbox/audit.md
+- .claude/docs/blackbox/session-log.md
+- aux/docs/useful/vm.txt
+- aux/scripts/ocivps.sh
+<!-- end-snapshot -->
+
+<!-- git-snapshot 2026-07-03T16:16:34Z -->
+- .claude/docs/blackbox/audit.md
+- .claude/docs/blackbox/session-log.md
+- aux/docs/useful/vm.txt
+- aux/scripts/ocivps.sh
+<!-- end-snapshot -->
+
+<!-- git-snapshot 2026-07-03T16:28:18Z -->
+- .claude/docs/blackbox/audit.md
+- .claude/docs/blackbox/session-log.md
+- aux/docs/useful/vm.txt
+- aux/scripts/ocivps.sh
+<!-- end-snapshot -->
+
+<!-- git-snapshot 2026-07-03T16:29:01Z -->
+- .claude/docs/blackbox/audit.md
+- .claude/docs/blackbox/session-log.md
+- aux/docs/useful/vm.txt
+- aux/scripts/ocivps.sh
+<!-- end-snapshot -->
+
+<!-- git-snapshot 2026-07-03T16:30:26Z -->
+- .claude/docs/blackbox/audit.md
+- .claude/docs/blackbox/session-log.md
+- aux/docs/useful/vm.txt
+- aux/scripts/ocivps.sh
+<!-- end-snapshot -->
+
+<!-- git-snapshot 2026-07-03T16:33:35Z -->
+- .claude/docs/blackbox/audit.md
+- .claude/docs/blackbox/session-log.md
+- aux/docs/useful/vm.txt
+- aux/scripts/ocivps.sh
+<!-- end-snapshot -->
+
+<!-- git-snapshot 2026-07-03T16:35:15Z -->
+- .claude/docs/blackbox/audit.md
+- .claude/docs/blackbox/session-log.md
+- aux/docs/useful/vm.txt
+- aux/scripts/ocivps.sh
+<!-- end-snapshot -->
+
+<!-- git-snapshot 2026-07-03T16:40:31Z -->
+- .claude/docs/blackbox/audit.md
+- .claude/docs/blackbox/session-log.md
+- aux/docs/useful/vm.txt
+- aux/scripts/ocivps.sh
+<!-- end-snapshot -->
+
+<!-- git-snapshot 2026-07-03T16:45:56Z -->
+- .claude/docs/blackbox/audit.md
+- .claude/docs/blackbox/session-log.md
+- aux/docs/useful/vm.txt
+- aux/scripts/ocivps.sh
+<!-- end-snapshot -->
+
+<!-- git-snapshot 2026-07-03T16:52:42Z -->
+- .claude/docs/blackbox/audit.md
+- .claude/docs/blackbox/session-log.md
+- aux/docs/useful/vm.txt
+- aux/scripts/ocivps.sh
+<!-- end-snapshot -->
+
+<!-- git-snapshot 2026-07-03T16:53:12Z -->
+- .claude/docs/blackbox/audit.md
+- .claude/docs/blackbox/session-log.md
+- aux/docs/useful/vm.txt
+- aux/scripts/ocivps.sh
+<!-- end-snapshot -->
+
+<!-- git-snapshot 2026-07-03T16:55:57Z -->
+- .claude/docs/blackbox/audit.md
+- .claude/docs/blackbox/session-log.md
+- aux/docs/useful/vm.txt
+- aux/scripts/ocivps.sh
+<!-- end-snapshot -->
+
+<!-- git-snapshot 2026-07-03T17:13:04Z -->
+- .claude/docs/blackbox/audit.md
+- .claude/docs/blackbox/session-log.md
+- aux/docs/useful/vm.txt
+- aux/scripts/ocivps.sh
+<!-- end-snapshot -->
+
+<!-- git-snapshot 2026-07-03T17:31:21Z -->
+- .claude/docs/blackbox/audit.md
+- .claude/docs/blackbox/session-log.md
+- aux/docs/useful/vm.txt
+- aux/scripts/ocivps.sh
+<!-- end-snapshot -->
+
+<!-- git-snapshot 2026-07-03T17:39:22Z -->
+- .claude/docs/blackbox/audit.md
+- .claude/docs/blackbox/session-log.md
+- aux/docs/useful/vm.txt
+- aux/scripts/ocivps.sh
+<!-- end-snapshot -->
+
+<!-- git-snapshot 2026-07-03T17:42:17Z -->
+- .claude/docs/blackbox/audit.md
+- .claude/docs/blackbox/session-log.md
+- aux/docs/useful/vm.txt
+- aux/scripts/ocivps.sh
+<!-- end-snapshot -->
+
+<!-- git-snapshot 2026-07-03T17:43:38Z -->
+- .claude/docs/blackbox/audit.md
+- .claude/docs/blackbox/session-log.md
+- aux/docs/useful/vm.txt
+- aux/scripts/ocivps.sh
+<!-- end-snapshot -->
