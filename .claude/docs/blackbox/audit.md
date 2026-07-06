@@ -2324,3 +2324,70 @@ ServiceError:
 ## 2026-07-06T16:12:01Z
 Is it posible in OCI after creation VPS add Block volume and place DB there?
 ---
+
+## 2026-07-06T16:56:29Z
+in @aux/scripts/vps/deployment/ files  change VPS_IP="141.144.227.73" to VPS_IP="129.159.221.205"
+---
+
+## 2026-07-06T17:02:23Z
+With ssh like in @aux/scripts/vps/deployment/mini/special/install-infra.sh add to @aux/scripts/vps/init/init.sh 
+
+PROMPT_DIRTRIM=1
+PS1="\[\e[32m\]\u\[\e[0m\]@\[\e[34m\]\h\[\e[0m\]:\[\e[33m\]\w\[\e[0m\]\$ "
+export TERM=xterm-mono
+alias ls='ls --color=never'
+---
+
+## 2026-07-06T17:03:12Z
+If it's already added don't add.
+---
+
+## 2026-07-06T17:16:12Z
+Add to @aux/scripts/vps/init/init.sh to vps .bashrc the content @aux/scripts/vps/init/.bashrc.txt
+---
+
+## 2026-07-06T17:16:57Z
+Add to @aux/scripts/vps/init/init.sh to vps .bashrc end of file the content @aux/scripts/vps/init/.bashrc.txt
+---
+
+## 2026-07-06T17:17:45Z
+yes
+---
+
+## 2026-07-06T17:18:46Z
+no just add to the end of .bashrc file the content of @aux/scripts/vps/init/.bashrc.txt
+---
+
+## 2026-07-06T17:21:03Z
+Add to @aux/scripts/vps/init/init.sh the command for adding to the end of vps .bashrc the content @aux/scripts/vps/init/.bashrc.txt
+---
+
+## 2026-07-06T17:22:00Z
+Add to @aux/scripts/vps/init/init.sh the command for adding to the end of vps .bashrc the content @aux/scripts/vps/init/.bashrc.txt
+---
+
+## 2026-07-06T17:23:28Z
+if /tmp/.bashrc_append exists on vps don't append
+---
+
+## 2026-07-06T17:25:18Z
+in @aux/scripts/vps/deployment/ files  change $HOME/dev/scripts/vps/ssh-key-2026-06-26.key to $HOME/dev/scripts/vps/n1-ssh-key-2026-07-06.key
+---
+
+## 2026-07-06T17:28:58Z
+ubuntu@vps-n1:~$ exec bash
+bash: /home/ubuntu/.bashrc: line 120: syntax error near unexpected token `$'{\r''
+'ash: /home/ubuntu/.bashrc: line 120: `function alias_completion {
+---
+
+## 2026-07-06T17:30:12Z
+add to init.sh install vim if it not installed yet
+---
+
+## 2026-07-06T17:31:58Z
+Add `sudo apt update` and `sudo apt upgrade`
+---
+
+## 2026-07-06T17:32:46Z
+Add `sudo apt update` and `sudo apt upgrade`
+---

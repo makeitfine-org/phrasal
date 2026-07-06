@@ -1338,3 +1338,152 @@
 - aux/docs/useful/vm_light.txt
 - aux/scripts/ocivps.sh
 <!-- end-snapshot -->
+
+<!-- git-snapshot 2026-07-06T16:57:02Z -->
+- .claude/docs/blackbox/audit.md
+- aux/scripts/vps/deployment/mini/redeploy-vps.sh
+- aux/scripts/vps/deployment/mini/special/deploy-after-undeploy-vps.sh
+- aux/scripts/vps/deployment/mini/special/install-infra.sh
+- aux/scripts/vps/deployment/mini/special/undeploy-vps.sh
+<!-- end-snapshot -->
+
+<!-- git-snapshot 2026-07-06T17:02:33Z -->
+- .claude/docs/blackbox/audit.md
+- .claude/docs/blackbox/session-log.md
+- aux/scripts/vps/deployment/mini/redeploy-vps.sh
+- aux/scripts/vps/deployment/mini/special/deploy-after-undeploy-vps.sh
+- aux/scripts/vps/deployment/mini/special/install-infra.sh
+- aux/scripts/vps/deployment/mini/special/undeploy-vps.sh
+- aux/scripts/vps/init/init.sh
+<!-- end-snapshot -->
+
+<!-- git-snapshot 2026-07-06T17:03:21Z -->
+- .claude/docs/blackbox/audit.md
+- .claude/docs/blackbox/session-log.md
+- aux/scripts/vps/deployment/mini/redeploy-vps.sh
+- aux/scripts/vps/deployment/mini/special/deploy-after-undeploy-vps.sh
+- aux/scripts/vps/deployment/mini/special/install-infra.sh
+- aux/scripts/vps/deployment/mini/special/undeploy-vps.sh
+- aux/scripts/vps/init/init.sh
+<!-- end-snapshot -->
+
+<!-- git-snapshot 2026-07-06T17:16:27Z -->
+- .claude/docs/blackbox/audit.md
+- .claude/docs/blackbox/session-log.md
+- aux/scripts/vps/deployment/mini/redeploy-vps.sh
+- aux/scripts/vps/deployment/mini/special/deploy-after-undeploy-vps.sh
+- aux/scripts/vps/deployment/mini/special/install-infra.sh
+- aux/scripts/vps/deployment/mini/special/undeploy-vps.sh
+- aux/scripts/vps/init/.bashrc.txt
+- aux/scripts/vps/init/init.sh
+<!-- end-snapshot -->
+
+<!-- git-snapshot 2026-07-06T17:17:01Z -->
+- .claude/docs/blackbox/audit.md
+- .claude/docs/blackbox/session-log.md
+- aux/scripts/vps/deployment/mini/redeploy-vps.sh
+- aux/scripts/vps/deployment/mini/special/deploy-after-undeploy-vps.sh
+- aux/scripts/vps/deployment/mini/special/install-infra.sh
+- aux/scripts/vps/deployment/mini/special/undeploy-vps.sh
+- aux/scripts/vps/init/.bashrc.txt
+- aux/scripts/vps/init/init.sh
+<!-- end-snapshot -->
+
+<!-- git-snapshot 2026-07-06T17:17:56Z -->
+- .claude/docs/blackbox/audit.md
+- .claude/docs/blackbox/session-log.md
+- aux/scripts/vps/deployment/mini/redeploy-vps.sh
+- aux/scripts/vps/deployment/mini/special/deploy-after-undeploy-vps.sh
+- aux/scripts/vps/deployment/mini/special/install-infra.sh
+- aux/scripts/vps/deployment/mini/special/undeploy-vps.sh
+- aux/scripts/vps/init/.bashrc.txt
+- aux/scripts/vps/init/init.sh
+<!-- end-snapshot -->
+
+<!-- git-snapshot 2026-07-06T17:18:59Z -->
+- .claude/docs/blackbox/audit.md
+- .claude/docs/blackbox/session-log.md
+- aux/scripts/vps/deployment/mini/redeploy-vps.sh
+- aux/scripts/vps/deployment/mini/special/deploy-after-undeploy-vps.sh
+- aux/scripts/vps/deployment/mini/special/install-infra.sh
+- aux/scripts/vps/deployment/mini/special/undeploy-vps.sh
+- aux/scripts/vps/init/.bashrc.txt
+- aux/scripts/vps/init/init.sh
+<!-- end-snapshot -->
+
+<!-- git-snapshot 2026-07-06T17:21:13Z -->
+- .claude/docs/blackbox/audit.md
+- .claude/docs/blackbox/session-log.md
+- aux/scripts/vps/deployment/mini/redeploy-vps.sh
+- aux/scripts/vps/deployment/mini/special/deploy-after-undeploy-vps.sh
+- aux/scripts/vps/deployment/mini/special/install-infra.sh
+- aux/scripts/vps/deployment/mini/special/undeploy-vps.sh
+- aux/scripts/vps/init/.bashrc.txt
+- aux/scripts/vps/init/init.sh
+<!-- end-snapshot -->
+
+<!-- git-snapshot 2026-07-06T17:22:08Z -->
+- .claude/docs/blackbox/audit.md
+- .claude/docs/blackbox/session-log.md
+- aux/scripts/vps/deployment/mini/redeploy-vps.sh
+- aux/scripts/vps/deployment/mini/special/deploy-after-undeploy-vps.sh
+- aux/scripts/vps/deployment/mini/special/install-infra.sh
+- aux/scripts/vps/deployment/mini/special/undeploy-vps.sh
+- aux/scripts/vps/init/.bashrc.txt
+- aux/scripts/vps/init/init.sh
+<!-- end-snapshot -->
+
+<!-- git-snapshot 2026-07-06T17:23:41Z -->
+- .claude/docs/blackbox/audit.md
+- .claude/docs/blackbox/session-log.md
+- aux/scripts/vps/deployment/mini/redeploy-vps.sh
+- aux/scripts/vps/deployment/mini/special/deploy-after-undeploy-vps.sh
+- aux/scripts/vps/deployment/mini/special/install-infra.sh
+- aux/scripts/vps/deployment/mini/special/undeploy-vps.sh
+- aux/scripts/vps/init/.bashrc.txt
+- aux/scripts/vps/init/init.sh
+<!-- end-snapshot -->
+
+<!-- git-snapshot 2026-07-06T17:25:30Z -->
+- .claude/docs/blackbox/audit.md
+- .claude/docs/blackbox/session-log.md
+- aux/scripts/vps/deployment/mini/redeploy-vps.sh
+- aux/scripts/vps/deployment/mini/special/deploy-after-undeploy-vps.sh
+- aux/scripts/vps/deployment/mini/special/install-infra.sh
+- aux/scripts/vps/deployment/mini/special/undeploy-vps.sh
+- aux/scripts/vps/init/.bashrc.txt
+- aux/scripts/vps/init/init.sh
+<!-- end-snapshot -->
+
+<!-- git-snapshot 2026-07-06T17:29:11Z -->
+- .claude/docs/blackbox/audit.md
+- .claude/docs/blackbox/session-log.md
+- aux/scripts/vps/deployment/mini/redeploy-vps.sh
+- aux/scripts/vps/deployment/mini/special/deploy-after-undeploy-vps.sh
+- aux/scripts/vps/deployment/mini/special/install-infra.sh
+- aux/scripts/vps/deployment/mini/special/undeploy-vps.sh
+- aux/scripts/vps/init/.bashrc.txt
+- aux/scripts/vps/init/init.sh
+<!-- end-snapshot -->
+
+<!-- git-snapshot 2026-07-06T17:30:22Z -->
+- .claude/docs/blackbox/audit.md
+- .claude/docs/blackbox/session-log.md
+- aux/scripts/vps/deployment/mini/redeploy-vps.sh
+- aux/scripts/vps/deployment/mini/special/deploy-after-undeploy-vps.sh
+- aux/scripts/vps/deployment/mini/special/install-infra.sh
+- aux/scripts/vps/deployment/mini/special/undeploy-vps.sh
+- aux/scripts/vps/init/.bashrc.txt
+- aux/scripts/vps/init/init.sh
+<!-- end-snapshot -->
+
+<!-- git-snapshot 2026-07-06T17:33:01Z -->
+- .claude/docs/blackbox/audit.md
+- .claude/docs/blackbox/session-log.md
+- aux/scripts/vps/deployment/mini/redeploy-vps.sh
+- aux/scripts/vps/deployment/mini/special/deploy-after-undeploy-vps.sh
+- aux/scripts/vps/deployment/mini/special/install-infra.sh
+- aux/scripts/vps/deployment/mini/special/undeploy-vps.sh
+- aux/scripts/vps/init/.bashrc.txt
+- aux/scripts/vps/init/init.sh
+<!-- end-snapshot -->

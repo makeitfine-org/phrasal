@@ -1,6 +1,6 @@
 #!/usr/bin/env bash
 #
-#  Tab completion — source it once (or add to .bashrc):
+#  Tab completion — source it once (or add to .bashrc.txt):
 #  source aux/scripts/vps/mini/vps-completion.bash
 #  Then ./aux/scripts/vps/mini/redeploy-vps.sh <tab> shows backend  frontend  all.
 #
@@ -9,9 +9,9 @@ set -euo pipefail
 SCRIPT_DIR="$(cd "$(dirname "$0")" && pwd)"
 PROJECT_DIR="$(cd "$SCRIPT_DIR/../../../.." && pwd)"
 
-VPS_IP="141.144.227.73"
+VPS_IP="129.159.221.205"
 VPS_USER="ubuntu"
-SSH_KEY="$HOME/dev/scripts/vps/ssh-key-2026-06-26.key"
+SSH_KEY="$HOME/dev/scripts/vps/n1-ssh-key-2026-07-06.key"
 SSH_OPTS="-i $SSH_KEY -o StrictHostKeyChecking=accept-new"
 
 ssh_vps() { ssh $SSH_OPTS "$VPS_USER@$VPS_IP" "$@"; }
