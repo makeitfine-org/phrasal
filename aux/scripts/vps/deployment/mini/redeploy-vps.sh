@@ -7,7 +7,7 @@
 set -euo pipefail
 
 SCRIPT_DIR="$(cd "$(dirname "$0")" && pwd)"
-PROJECT_DIR="$(cd "$SCRIPT_DIR/../../../.." && pwd)"
+PROJECT_DIR="$(cd "$SCRIPT_DIR/../../../../.." && pwd)"
 
 VPS_IP="129.159.221.205"
 VPS_USER="ubuntu"

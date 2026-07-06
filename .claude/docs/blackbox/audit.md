@@ -2431,3 +2431,60 @@ with not "abc !!!"
 ## 2026-07-06T18:00:10Z
 why ubuntu@vps-n1:~$ not on new line?
 ---
+
+## 2026-07-06T18:28:24Z
+how to check wheather postgres install
+---
+
+## 2026-07-06T18:28:39Z
+how to check wheather postgresql postgresql-client install
+---
+
+## 2026-07-06T18:28:45Z
+how to check wheather postgresql postgresql-client installed
+---
+
+## 2026-07-06T18:29:14Z
+client?
+---
+
+## 2026-07-06T18:36:01Z
+IN @aux/scripts/vps/deployment/ folder fix  PROJECT_DIR="$(cd "$SCRIPT_DIR/../../../../.." && pwd)"
+---
+
+## 2026-07-06T18:44:22Z
+sudo: certbot: command not found
+---
+
+## 2026-07-06T18:44:39Z
+add to init.sh
+---
+
+## 2026-07-06T18:45:31Z
+check if ssh_vps "mkdir -p ~/.secrets.d"
+ssh_vps "cat > ~/.secrets.d/secrets.sh << 'EOF'
+
+
+then don't create again
+---
+
+## 2026-07-06T18:48:23Z
+Add ` net-tools` command
+---
+
+## 2026-07-06T19:08:55Z
+=== Restoring frontend ===
+  Creating nginx site config...
+  Restoring SSL certificate...
+Saving debug log to /var/log/letsencrypt/letsencrypt.log
+You should register before running non-interactively, or provide --agree-tos and --email <email_address> flags.
+Ask for help or search for solutions at https://community.letsencrypt.org. See the logfile /var/log/letsencrypt/letsencrypt.log or re-run Certbot with -v for more details.
+---
+
+## 2026-07-06T19:09:32Z
+x7warrio@gmail.com
+---
+
+## 2026-07-06T19:16:49Z
+after applying @aux/scripts/vps/deployment/mini/ port 80 still listening and nginx works
+---

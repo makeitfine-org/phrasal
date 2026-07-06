@@ -72,7 +72,7 @@ server {
 }
 NGINX'"
         echo "  Restoring SSL certificate..."
-        ssh_vps "sudo certbot --nginx -d phrasal.ddns.net --non-interactive"
+        ssh_vps "sudo certbot --nginx -d phrasal.ddns.net --non-interactive --agree-tos --email x7warrio@gmail.com"
     else
         ssh_vps "sudo rm -f /etc/nginx/sites-enabled/phrasal /etc/nginx/sites-available/phrasal"
     fi

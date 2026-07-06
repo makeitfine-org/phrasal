@@ -19,15 +19,18 @@ ssh_vps "grep -q '/swapfile' /etc/fstab || echo '/swapfile none swap sw 0 0' | s
 # PostgreSQL
 echo "=== Installing PostgreSQL ==="
 ssh_vps "sudo apt update"
-ssh_vps "sudo apt install -y postgresql postgresql-client"
+ssh_vps "sudo apt-get install -y postgresql postgresql-client"
+
+# dpkg -s postgresql-client >/dev/null 2>&1 && echo "installed" || echo "not installed"
+# dpkg -s postgresql >/dev/null 2>&1 && echo "installed" || echo "not installed"
 
 # Java 25
 echo "=== Installing Java 25 ==="
-ssh_vps "sudo apt install -y openjdk-25-jre-headless"
+ssh_vps "sudo apt-get install -y openjdk-25-jre-headless"
 
 # Nginx (serves React static files, reverse-proxies /api to Spring Boot)
 echo "=== Installing Nginx ==="
-ssh_vps "sudo apt install -y nginx"
+ssh_vps "sudo apt-get install -y nginx"
 
 # iptables persistence
 echo "=== Setting up iptables ==="

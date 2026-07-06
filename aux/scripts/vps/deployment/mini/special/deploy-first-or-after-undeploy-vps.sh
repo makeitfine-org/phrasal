@@ -2,7 +2,7 @@
 set -euo pipefail
 
 SCRIPT_DIR="$(cd "$(dirname "$0")" && pwd)"
-PROJECT_DIR="$(cd "$SCRIPT_DIR/../../../../.." && pwd)"
+PROJECT_DIR="$(cd "$SCRIPT_DIR/../../../../../.." && pwd)"
 
 VPS_IP="129.159.221.205"
 VPS_USER="ubuntu"
@@ -158,7 +158,7 @@ server {
 NGINX'"
         ssh_vps "sudo ln -sf /etc/nginx/sites-available/phrasal /etc/nginx/sites-enabled/"
         echo "  Restoring SSL certificate..."
-        ssh_vps "sudo certbot --nginx -d phrasal.ddns.net --non-interactive"
+        ssh_vps "sudo certbot --nginx -d phrasal.ddns.net --non-interactive --agree-tos --email x7warrio@gmail.com"
     fi
 
     # Upload dist if missing
