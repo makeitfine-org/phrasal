@@ -1487,3 +1487,44 @@
 - aux/scripts/vps/init/.bashrc.txt
 - aux/scripts/vps/init/init.sh
 <!-- end-snapshot -->
+
+<!-- git-snapshot 2026-07-06T17:46:49Z -->
+- .claude/docs/blackbox/audit.md
+- aux/scripts/vps/init/init.sh
+<!-- end-snapshot -->
+
+<!-- git-snapshot 2026-07-06T17:50:24Z -->
+- .claude/docs/blackbox/audit.md
+- .claude/docs/blackbox/session-log.md
+- aux/scripts/vps/init/.bashrc.txt
+- aux/scripts/vps/init/init.sh
+<!-- end-snapshot -->
+
+<!-- git-snapshot 2026-07-06T17:53:53Z -->
+- .claude/docs/blackbox/audit.md
+<!-- end-snapshot -->
+
+<!-- git-snapshot 2026-07-06T17:54:52Z -->
+- .claude/docs/blackbox/audit.md
+- .claude/docs/blackbox/session-log.md
+- aux/scripts/vps/init/init.sh
+<!-- end-snapshot -->
+
+<!-- git-snapshot 2026-07-06T17:58:50Z -->
+- .claude/docs/blackbox/audit.md
+- .claude/docs/blackbox/session-log.md
+- aux/scripts/vps/init/init.sh
+<!-- end-snapshot -->
+
+<!-- git-snapshot 2026-07-06T17:59:19Z -->
+- .claude/docs/blackbox/audit.md
+- .claude/docs/blackbox/session-log.md
+- aux/scripts/vps/init/init.sh
+<!-- end-snapshot -->
+
+<!-- git-snapshot 2026-07-06T18:00:22Z -->
+- .claude/docs/blackbox/audit.md
+- .claude/docs/blackbox/session-log.md
+- aux/scripts/vps/init/.bashrc.txt
+- aux/scripts/vps/init/init.sh
+<!-- end-snapshot -->

@@ -2391,3 +2391,43 @@ Add `sudo apt update` and `sudo apt upgrade`
 ## 2026-07-06T17:32:46Z
 Add `sudo apt update` and `sudo apt upgrade`
 ---
+
+## 2026-07-06T17:46:22Z
+WARNING: apt does not have a stable CLI interface. Use with caution in scripts.
+---
+
+## 2026-07-06T17:50:18Z
+sudo apt-get upgrade
+Reading package lists... Done
+Building dependency tree... Done
+Reading state information... Done
+Calculating upgrade... Done
+The following upgrades have been deferred due to phasing:
+  fwupd
+0 upgraded, 0 newly installed, 0 to remove and 1 not upgraded.
+---
+
+## 2026-07-06T17:53:40Z
+Add to init.sh: Creation of ~/.secrets.d/secrets.sh with content:
+
+export NOTIFICATION_TELEGRAM_BOT_TOKEN="6106447531:AAE2EjO6JK-QNB8kdKxCeUMW_iYW803lTQk"
+export NOTIFICATION_TELEGRAM_CHAT_ID="-1001933314383"
+---
+
+## 2026-07-06T17:54:42Z
+change to placefolder the secrets
+---
+
+## 2026-07-06T17:58:43Z
+@> tn "abc !!!"
+tn "abc tn "abc <>tn "abc <><>"!"!"
+{"ok":true,"result":{"message_id":4177,"from":{"id":6106447531,"is_bot":true,"first_name":"MBot","username":"TestDev0001Bot"},"chat":{"id":-1001933314383,"title":"MChat","type":"supergroup"},"date":1783360673,"text":"abc tn abc abc <><>!!"}}ubuntu@vps-n1:~$
+---
+
+## 2026-07-06T17:59:15Z
+with not "abc !!!"
+---
+
+## 2026-07-06T18:00:10Z
+why ubuntu@vps-n1:~$ not on new line?
+---

@@ -78,7 +78,7 @@ load_renovation_env() {
 load_renovation_env
 
 PROMPT_DIRTRIM=1
-PS1="\[\e[32m\]\u\[\e[0m\]@\[\e[34m\]\h\[\e[0m\]:\[\e[33m\]\w\[\e[0m\]\$ "
+PS1="\[\e[36m\]\u\[\e[0m\]@\[\e[34m\]\h\[\e[0m\]:\[\e[33m\]\w\[\e[0m\]\$ "
 export TERM=xterm-mono
 alias ls='ls --color=never'
 
@@ -108,6 +108,7 @@ tn() {
   curl -sS -X POST "$api" \
     --data "chat_id=${NOTIFICATION_TELEGRAM_CHAT_ID}" \
     --data-urlencode "text=$msg"
+  echo
 }
 
 alias_completion
