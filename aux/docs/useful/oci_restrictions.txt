@@ -1,0 +1,93 @@
+I accedenlty removed VPS in OCI.
+  I'd like to protect that for the future. How to creats some group or privilages for that from oci cli or in OCI
+  console I can't do that for the future.
+  The best approaches?
+
+● Several layers of protection, from simplest to most robust:
+
+  1. Termination Protection (simplest)
+
+  OCI has a built-in flag to prevent accidental deletion:
+
+  # Enable on existing instance
+  oci compute instance update \
+    --instance-id <instance-ocid> \
+    --is-delete-protected true
+
+  # Or when launching a new instance, add:
+  --is-delete-protected true
+
+  In console: Instance Details → Edit →
+
+  2. IAM Policy to Deny Deletion
+
+  Create a policy that blocks instance termination for regular users:
+
+  Allow group VPS-Admins to manage instances in compartment <name> where request.permission != 'INSTANCE_DELETE'
+
+  Or allow full management but require a specific group for deletion:
+
+  Allow group VPS-Admins to manage instances in compartment <name>
+  Allow group VPS-Deleters to use instances in compartment <name> where request.permission = 'INSTANCE_DELETE'
+
+  Only members of VPS-Deleters can terminate.
+
+  3. Separate Compartment
+
+  Put production instances in their own compartment with strict policies:
+
+  oci iam compartment create \
+    --name "production" \
+  OCI has a built-in flag to prevent accidental deletion:                                                  13:30 [5/1875]
+
+  # Enable on existing instance
+  oci compute instance update \
+    --instance-id <instance-ocid> \
+    --is-delete-protected true
+
+  # Or when launching a new instance, add:
+  --is-delete-protected true
+
+  In console: Instance Details → Edit → Enable Delete Protection
+
+  This blocks termination until you explicitly disable it first. Best first line of defense.
+
+  2. IAM Policy to Deny Deletion
+
+  Create a policy that blocks instance termination for regular users:
+
+  Allow group VPS-Admins to manage instances in compartment <name> where request.permission != 'INSTANCE_DELETE'
+
+  Or allow full management but require a specific group for deletion:
+
+  Allow group VPS-Admins to manage instances in compartment <name>
+  Allow group VPS-Deleters to use instances in compartment <name> where request.permission = 'INSTANCE_DELETE'
+
+  Only members of VPS-Deleters can terminate.
+
+  3. Separate Compartment
+
+  Put production instances in their own compartment with strict policies:
+
+  oci iam compartment create \
+    --name "production" \
+    --description "Protected production resources"
+
+  Then move your instance there and apply restrictive policies to that compartment only.
+
+  4. MFA Required for Destructive Actions
+
+  In Identity → Authentication Settings, you can require MFA for all operations or specific ones. This forces a second
+  confirmation before any destructive action.
+
+  ---
+  Recommended Combo
+
+  For your setup (single user, few instances):
+
+  1. Enable delete protection on every instance at launch — catches accidental clicks/commands
+  2. Separate compartment for production — keeps it visually and logically isolated from experiments
+
+  That's enough. IAM policies and MFA are more relevant for teams with multiple users.
+
+---

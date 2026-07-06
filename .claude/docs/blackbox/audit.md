@@ -1589,3 +1589,738 @@ and write into $LOG colorized result also
 ## 2026-07-03T18:43:02Z
 git add all changes and commit them with suitable message
 ---
+
+## 2026-07-06T10:15:52Z
+Cheap and good uptime and quality VPS servers in Europe
+---
+
+## 2026-07-06T10:22:11Z
+Console
+Search…
+Ctrl K
+
+1
+Activities
+View all 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+
+K0733309926
+Important status messages
+Maintenance:
+1
+Other:
+2
+Last updated:
+about 2 hours ago
+Hetzner Accounts routine maintenance work
+Start at:
+2026-07-06 21:00 GMT+2
+End at:
+2026-07-06 21:30 GMT+2
+Last updated:
+about 2 hours ago
+Details
+Limited availability of cloud instances
+Created:
+2026-06-26 08:00 GMT+2
+Last updated:
+10 days ago
+Details
+High traffic of Object Storage may lead to timeouts
+Created:
+2026-01-15 16:39 GMT+1
+Last updated:
+about 2 months ago
+Details
+
+Dismiss all
+Back to servers
+Create a server
+Type
+Shared Resources
+Dedicated Resources
+Traffic
+cpx22
+2
+4 GB
+80 GB
+20 TB
+€0.031
+ / h
+€19.49
+ / mo
+cpx32
+4
+8 GB
+160 GB
+20 TB
+€0.057
+ / h
+€35.49
+ / mo
+cpx42
+8
+16 GB
+320 GB
+20 TB
+€0.111
+ / h
+€69.49
+ / mo
+cpx52
+12
+24 GB
+480 GB
+20 TB
+€0.161
+ / h
+€100.49
+ / mo
+cpx62
+16
+32 GB
+640 GB
+20 TB
+€0.208
+ / h
+€129.99
+ / mo
+Location
+Choose a location for your server. You can only select some features, such as private Networks and Load Balancers, if they are in the same network zone as the server. You can only select Primary IPs and Volumes that are in the same location as the server.
+
+Image
+Ubuntu, Fedora, Debian, CentOS and Rocky Linux – you have a wide variety of operating systems to choose from, and of course, we provide the most current release. Our apps provide you easy access to popular software, such as Docker, WordPress or Nextcloud and comes pre-installed and ready to use when you create your server.
+
+OS Images
+Apps
+Networking
+Choose from three networking options for your server. You can also create servers without a public network. If you want to disable the public network, you need to select a private network first. You can also assign existing and available Primary IPs.
+
+Primary IPs of type IPv4 cost €0.0008/h, regardless of being attached to a server or not.
+
+IPv6 addresses are free of charge.
+
+Private networks allow your servers to communicate with each other over a dedicated link. You can also disable the public network with this function, so that your server can be reached only within this network. Only networks of the same network zone are available.
+
+SSH keys
+Use SSH keys for secure and efficient authentication. Ensure the key is in OpenSSH format. If you add an SSH key, no root credentials will be sent via email. Learn more.
+
+No SSH key selected.
+We recommend using an SSH key. Otherwise you will receive the root password via email.
+Add SSH key
+Volumes
+Volumes offer you highly available and reliable SSD-based storage space for your cloud servers. You can expand each Volume to up to 10 TB at any time. The Volume must be in the same location as the server that you are creating.
+
+Create Volume
+Firewalls
+Firewalls allow you to easily secure your servers by restricting or allowing traffic based on rules.
+
+There are no Firewalls in this project yet. Go to Firewalls to create your first one.
+Backups
+Backups are daily automatic copies of your server's disk. With Backups, you can easily restore a server to a previous state or use it to create a new server. Learn more.
+
+Backups cost an additional 20 % of the server price. Volumes are not included in backups.
+
+Placement groups
+Group multiple servers into a placement group to optimize your availability requirements. The type “spread” ensures that servers in a group use different hosts to reduce downtime and achieve maximum availability. Learn more.
+
+Create placement group
+Labels
+Labels are key-value pairs. Both key and value must be 63 characters or less, and must begin and end with an alphanumeric character. Alphanumerics or dashes, hyphens, and dots can be used in-between. The value is optional. Learn more.
+
+Cloud config
+When creating a server, you can use cloud-init to process and execute scripts of up to 32 KiB for your server configuration. Learn more.
+
+Name
+1
+ubuntu-4gb-fsn1-1
+Legal NoticeData PrivacySystem PoliciesTerms and Conditions
+---
+
+## 2026-07-06T10:26:00Z
+Console
+Search…
+Ctrl K
+
+1
+Activities
+View all 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+
+K0733309926
+Important status messages
+Maintenance:
+1
+Other:
+2
+Last updated:
+about 2 hours ago
+Hetzner Accounts routine maintenance work
+Start at:
+2026-07-06 21:00 GMT+2
+End at:
+2026-07-06 21:30 GMT+2
+Last updated:
+about 2 hours ago
+Details
+Limited availability of cloud instances
+Created:
+2026-06-26 08:00 GMT+2
+Last updated:
+10 days ago
+Details
+High traffic of Object Storage may lead to timeouts
+Created:
+2026-01-15 16:39 GMT+1
+Last updated:
+about 2 months ago
+Details
+
+Dismiss all
+Back to servers
+Create a server
+Type
+Shared Resources
+Dedicated Resources
+Traffic
+cx23
+2
+4 GB
+40 GB
+20 TB
+€0.009
+ / h
+€5.49
+ / mo
+cx33
+4
+8 GB
+80 GB
+20 TB
+€0.014
+ / h
+€8.49
+ / mo
+cx43
+8
+16 GB
+160 GB
+20 TB
+€0.026
+ / h
+€15.99
+ / mo
+cx53
+16
+32 GB
+320 GB
+20 TB
+€0.047
+ / h
+€29.49
+ / mo
+Location
+Choose a location for your server. You can only select some features, such as private Networks and Load Balancers, if they are in the same network zone as the server. You can only select Primary IPs and Volumes that are in the same location as the server.
+
+Image
+Ubuntu, Fedora, Debian, CentOS and Rocky Linux – you have a wide variety of operating systems to choose from, and of course, we provide the most current release. Our apps provide you easy access to popular software, such as Docker, WordPress or Nextcloud and comes pre-installed and ready to use when you create your server.
+
+OS Images
+Apps
+Networking
+Choose from three networking options for your server. You can also create servers without a public network. If you want to disable the public network, you need to select a private network first. You can also assign existing and available Primary IPs.
+
+Primary IPs of type IPv4 cost €0.0008/h, regardless of being attached to a server or not.
+
+IPv6 addresses are free of charge.
+
+Private networks allow your servers to communicate with each other over a dedicated link. You can also disable the public network with this function, so that your server can be reached only within this network. Only networks of the same network zone are available.
+
+SSH keys
+Use SSH keys for secure and efficient authentication. Ensure the key is in OpenSSH format. If you add an SSH key, no root credentials will be sent via email. Learn more.
+
+No SSH key selected.
+We recommend using an SSH key. Otherwise you will receive the root password via email.
+Add SSH key
+Volumes
+Volumes offer you highly available and reliable SSD-based storage space for your cloud servers. You can expand each Volume to up to 10 TB at any time. The Volume must be in the same location as the server that you are creating.
+
+Create Volume
+Firewalls
+Firewalls allow you to easily secure your servers by restricting or allowing traffic based on rules.
+
+There are no Firewalls in this project yet. Go to Firewalls to create your first one.
+Backups
+Backups are daily automatic copies of your server's disk. With Backups, you can easily restore a server to a previous state or use it to create a new server. Learn more.
+
+Backups cost an additional 20 % of the server price. Volumes are not included in backups.
+
+Placement groups
+Group multiple servers into a placement group to optimize your availability requirements. The type “spread” ensures that servers in a group use different hosts to reduce downtime and achieve maximum availability. Learn more.
+
+Create placement group
+Labels
+Labels are key-value pairs. Both key and value must be 63 characters or less, and must begin and end with an alphanumeric character. Alphanumerics or dashes, hyphens, and dots can be used in-between. The value is optional. Learn more.
+
+Cloud config
+When creating a server, you can use cloud-init to process and execute scripts of up to 32 KiB for your server configuration. Learn more.
+
+Name
+1
+ubuntu-8gb-nbg1-3
+Legal NoticeData PrivacySystem PoliciesTerms and Conditions
+---
+
+## 2026-07-06T10:28:25Z
+The cx33 at 4 vCPU / 8GB / 80GB SSD. Does Hetzner use NVMe? Is it enough for deploying with k3m?
+---
+
+## 2026-07-06T10:33:22Z
+e cx33 at 4 vCPU / 8GB / 80GB SSD for €8.49/mo is it full price all vat will be included?
+---
+
+## 2026-07-06T10:36:39Z
+"Primary IPs of type IPv4 cost €0.0008/h, regardless of being attached to a server or not." what's that mean?
+Should I add IPv4 (0.5 euro)?
+---
+
+## 2026-07-06T10:41:18Z
+Compare support of Hetzner and OCI?
+---
+
+## 2026-07-06T10:46:24Z
+Analyze my `phrasal` project answer if deploy it on "cx33 at 4 vCPU / 8GB / 80GB SSD for €8.49/mo" with k3s.
+- What's the best config for such k3s server.
+- How many users simultaniously it can handle?
+---
+
+## 2026-07-06T10:52:50Z
+Did you consider that all fullstack app with deploy with k3s (docker)?
+---
+
+## 2026-07-06T10:55:54Z
+so how many user simultaniously?
+---
+
+## 2026-07-06T10:58:28Z
+with the configs of k3m I can handle my k8s with kubectl, rancher, helm, etc. and any other tools for k8s, as usual I handle on minikube?
+---
+
+## 2026-07-06T10:58:48Z
+with the configs of k3m you provided, I can handle my k8s with kubectl, rancher, helm, etc. and any other tools for k8s, as usual I handle on minikube?
+---
+
+## 2026-07-06T11:03:10Z
+Maybe you recomend better alternative of k8s then k3s for production for up 100 users simultaniously on such hatzner server?
+---
+
+## 2026-07-06T11:04:55Z
+" Cost-efficient on older hardware generations, with limited availability. Ideal for variable workloads that can handle changing CPU performance. Optimized for low CPU usage with variable workloads. "
+
+This server for 8.49 euro + 0.5 for IPv4 has the above desc. Is it fine?
+---
+
+## 2026-07-06T11:10:53Z
+e cx33 at 4 vCPU / 8GB / 80GB SSD for €8.49/mo I have x86 (intel/amd) and arm64 (ampere). But ampere isn't available. what do I lose without ampere?
+---
+
+## 2026-07-06T11:12:47Z
+The price is the same on hetzner for x86 and arm64.
+---
+
+## 2026-07-06T11:14:05Z
+x86 is 32 or 64 bit?
+---
+
+## 2026-07-06T11:25:44Z
+- What's the purpose of a private network?
+- Can I create private network between OCI VPS and Hetzner VPS?
+---
+
+## 2026-07-06T11:29:48Z
+I accedenlty removed VPS in OCI.
+I'd like to protect that for the future. How to creats some group or privilages for that from oci cli or in OCI console I can't do that for the future.
+The best approaches?
+---
+
+## 2026-07-06T11:36:17Z
+ MFA Required for Destructive Actions
+
+  In Identity → Authentication Settings, you can require MFA for all operations or specific ones. This forces a second
+  confirmation before any destructive action.
+
+Where? cant find?
+---
+
+## 2026-07-06T11:38:23Z
+Identity & Security
+
+Identity
+Overview
+Domains
+Network Sources
+Policies
+Compartments
+My profile
+
+
+Domains
+Default
+Active
+Domain
+
+Actions
+Factors
+Enable or Disable factors
+Mobile app passcode
+Enabled
+Edit
+Mobile app notification
+Enabled
+Enable mobile app notifications by first enabling a mobile app passcode.
+Phone call
+Disabled
+Edit
+Text message (SMS)
+Disabled
+Edit
+Email
+Disabled
+Edit
+DUO security
+Disabled
+Edit
+Security questions
+Disabled
+Edit
+Fast ID Online (FIDO) passkey authenticator
+Enabled
+Edit
+Bypass code
+Enabled
+Maximum number of enrolled factors
+5
+Trusted devices
+Trusted devices
+Enabled
+Edit
+Maximum number of trusted devices
+5
+Number of days a device can be trusted
+15
+Sign-in rules
+Maximum unsuccessful MFA attempts
+10
+Edit
+---
+
+## 2026-07-06T11:41:39Z
+ 4. Left sidebar → Security
+  5. MFA or Sign-on policies
+
+Cant find
+---
+
+## 2026-07-06T11:46:34Z
+  2. IAM policy — if you want a second layer:
+  Go to Identity & Security → Policies → Create Policy and add:
+  Deny any-user to manage instances in tenancy where request.permission='INSTANCE_DELETE'
+
+Details
+---
+
+## 2026-07-06T11:49:13Z
+API Error
+Deny statement passed into a Allow compilation
+---
+
+## 2026-07-06T12:05:27Z
+What compartment and tenacy?
+---
+
+## 2026-07-06T12:05:32Z
+What compartment and tenacy? diff?
+---
+
+## 2026-07-06T12:08:17Z
+create comparment and vps inside that
+---
+
+## 2026-07-06T12:08:59Z
+Inside OCI Console
+---
+
+## 2026-07-06T12:14:31Z
+- Can  I apply some policies for created compartment that forbid to remove intances?
+- Can I change VPS to other compartment?
+---
+
+## 2026-07-06T12:20:44Z
+  3. Statement:
+  Allow any-user to use instances in compartment production
+
+  use allows start/stop/reboot but not terminate. Only manage includes delete permission. As long as no policy grants
+  manage instances on that compartment, nobody can delete.
+
+  Catch: If you have a tenancy-level policy like Allow group Administrators to manage all-resources in tenancy, it
+  overrides this. Check your existing policies first:
+
+What should I insert?
+---
+
+## 2026-07-06T12:23:37Z
+ALLOW GROUP Administrators to manage all-resources IN TENANCY
+---
+
+## 2026-07-06T12:26:06Z
+  Options
+
+  Option A: Replace the broad policy (recommended)
+
+  Delete the current policy and create two:
+
+  Allow group Administrators to manage all-resources in tenancy where request.permission != 'INSTANCE_DELETE'
+  Allow group Administrators to use instances in tenancy
+
+  This keeps full access to everything but blocks instance termination.
+
+If I do that how to delete instance if I need?
+---
+
+## 2026-07-06T12:32:00Z
+Is policie applied for compartment, or they are independent?
+---
+
+## 2026-07-06T12:35:10Z
+Write step by step.
+- reduce root policy to delete all.
+- create compartment, in that compartment create vps, and add some policity to that comparmtnet
+---
+
+## 2026-07-06T12:38:54Z
+can policies be applied to multiple compartment.
+If 2 policies of same level on compartment they additive
+---
+
+## 2026-07-06T13:36:35Z
+API Error
+Cannot update policy - Tenant Admin Policy. Only Service Principal can update this policy
+---
+
+## 2026-07-06T13:49:58Z
+I'm the root user, I I can't?
+---
+
+## 2026-07-06T13:56:03Z
+I OCI policies I have 2 policies:
+deny any-user to manage policies in tenancy where all {target.policy.type = 'deny', request.principal.id != 'ocid1.user.oc1..aaaaaaaaenyllidaxbzgu5unommz3h4jeagjk5ff44egrmi5ajgf575soa7q'}
+
+ALLOW GROUP Administrators to manage all-resources IN TENANCY
+
+What's different, and meaning?
+---
+
+## 2026-07-06T13:58:40Z
+How to modify policie to prevent deletion of the intances?
+---
+
+## 2026-07-06T14:05:05Z
+Policy Builder
+Hide manual editor
+
+
+  deny any-user to manage instance-family in tenancy
+    where all {
+      any {request.operation = 'TerminateInstance', request.operation = 'InstanceAction'},
+      request.principal.id != 'ocid1.user.oc1..aaaaaaaaenyllidaxbzgu5unommz3h4jeagjk5ff44egrmi5ajgf575soa7q'
+    }
+
+Tags
+Add tags to organize your resources. What can I do with tagging?
+No items to display
+Add tag
+API Error
+Failed to parse policy due to an issue with token: where at character: 0
+---
+
+## 2026-07-06T14:15:04Z
+I have 2 policies:
+ALLOW GROUP Administrators to manage all-resources IN TENANCY
+deny any-user to manage instance-family in tenancy where all {request.operation = 'TerminateInstance'}
+
+How in result will them work in combination?
+---
+
+## 2026-07-06T14:17:34Z
+But I click teminate on instance and it was teminated.
+---
+
+## 2026-07-06T14:23:39Z
+ oci iam user get --user-id $(oci iam user list --query 'data[0].id' --raw-output) 2>/dev/null
+{
+  "data": {
+    "capabilities": {
+      "can-use-api-keys": true,
+      "can-use-auth-tokens": true,
+      "can-use-console-password": true,
+      "can-use-customer-secret-keys": true,
+      "can-use-db-credentials": true,
+      "can-use-o-auth2-client-credentials": true,
+      "can-use-smtp-credentials": true
+    },
+    "compartment-id": "ocid1.tenancy.oc1..aaaaaaaapllfascgsx52zahz2h66bybqtgejspeh2p3ygxvptyw7us3cxsiq",
+    "db-user-name": null,
+    "defined-tags": {},
+    "description": null,
+    "email": "questtv8@gmail.com",
+    "email-verified": true,
+    "external-identifier": "aeade55b585545119a27b47721e48558",
+    "freeform-tags": {},
+    "id": "ocid1.user.oc1..aaaaaaaaenyllidaxbzgu5unommz3h4jeagjk5ff44egrmi5ajgf575soa7q",
+    "identity-provider-id": null,
+    "inactive-status": null,
+    "is-mfa-activated": true,
+    "last-successful-login-time": "2026-07-06T09:20:02.096000+00:00",
+    "lifecycle-state": "ACTIVE",
+    "name": "questtv8@gmail.com",
+    "previous-successful-login-time": null,
+    "time-created": "2026-06-25T07:26:33.872000+00:00"
+  },
+  "etag": "32dcf04249224c0aa26f100c96ab1e02"
+}
+---
+
+## 2026-07-06T14:40:12Z
+I checked the policy deny doesn't work
+---
+
+## 2026-07-06T15:07:43Z
+I have that 2 policies I mentioned.
+I create User, how to make it admin without rule to delete.
+How compartment, policy and group related?
+---
+
+## 2026-07-06T15:38:50Z
+I use oci cli, how to set my user not admin in order to prevert deletion of intanse?
+---
+
+## 2026-07-06T15:43:25Z
+no, I want my OCI cli works not as admin but like user I created in console just right previousely
+---
+
+## 2026-07-06T15:53:03Z
+auth token vs api key
+---
+
+## 2026-07-06T15:54:07Z
+auth token vs api key in general difference, simple example
+---
+
+## 2026-07-06T15:56:15Z
+delete instance in OCI
+---
+
+## 2026-07-06T15:56:34Z
+from OCI cli
+---
+
+## 2026-07-06T15:59:50Z
+oci compute instance terminate --instance-id ocid1.instance.oc1.eu-frankfurt-1.antheljtw6ts67qcnzvgz3zv45v7xxcugqswmvzxqnff44okzulmnvyrnnka --preserve-boot-volume false
+Are you sure you want to delete this resource? [y/N]: y
+ServiceError:
+{
+    "client_version": "Oracle-PythonSDK/2.180.0, Oracle-PythonCLI/3.88.0",
+    "code": "InvalidParameter",
+    "logging_tips": "Please run the OCI CLI command using --debug flag to find more debug information.",
+    "message": "instance ocid1.instance.oc1.eu-frankfurt-1.antheljtw6ts67qcnzvgz3zv45v7xxcugqswmvzxqnff44okzulmnvyrnnka cannot be terminated because this user does not have sufficient permissions",
+    "opc-request-id": "EC1F1AEAC72C448C880347AA4DBC48DD/C1BA05B583FDAB2AD9D04B6A46524175/1C49C545BED49C468B976493311B3C0C",
+    "operation_name": "terminate_instance",
+    "request_endpoint": "DELETE https://iaas.eu-frankfurt-1.oraclecloud.com/20160918/instances/ocid1.instance.oc1.eu-frankfurt-1.antheljtw6ts67qcnzvgz3zv45v7xxcugqswmvzxqnff44okzulmnvyrnnka",
+    "status": 400,
+    "target_service": "compute",
+    "timestamp": "2026-07-06T15:59:21.852783+00:00",
+    "troubleshooting_tips": "See [https://docs.oracle.com/iaas/Content/API/References/apierrors.htm] for more information about resolving this error. If you are unable to resolve this issue, run this CLI command with --debug option and contact Oracle support and provide them the full error message."
+}
+---
+
+## 2026-07-06T16:12:01Z
+Is it posible in OCI after creation VPS add Block volume and place DB there?
+---
