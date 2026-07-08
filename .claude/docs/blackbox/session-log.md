@@ -1935,3 +1935,9 @@
 - .claude/docs/blackbox/session-log.md
 - aux/scripts/vps/init/init-user.sh
 <!-- end-snapshot -->
+
+<!-- git-snapshot 2026-07-08T08:09:19Z -->
+- .claude/docs/blackbox/audit.md
+- aux/scripts/vps/init/1_init-user.sh
+- aux/scripts/vps/init/1_init_bash.sh
+<!-- end-snapshot -->

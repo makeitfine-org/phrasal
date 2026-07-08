@@ -2743,3 +2743,10 @@ The following packages have been kept back:
 sudo apt-get dist-upgrade
 Will it upgrade to ubuntu 26?
 ---
+
+## 2026-07-08T08:09:06Z
+change in @aux/scripts/vps/init/1_init_bash.sh when export NOTIFICATION_TELEGRAM_BOT_TOKEN=\"<TELEGRAM_BOT_TOKEN>\"
+export NOTIFICATION_TELEGRAM_CHAT_ID=\"<TELEGRAM_CHAT_ID>\"
+
+Ask interactivly these 2 tokens
+---

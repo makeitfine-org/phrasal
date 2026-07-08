@@ -3,9 +3,9 @@ set -euo pipefail
 
 SCRIPT_DIR="$(cd "$(dirname "$0")" && pwd)"
 
-VPS_IP="129.159.221.205"
-VPS_USER="ubuntu"
-SSH_KEY="$HOME/dev/scripts/vps/n1-ssh-key-2026-07-06.key"
+VPS_IP="116.203.78.118"
+VPS_USER="vpsuser"
+SSH_KEY="$HOME/dev/scripts/vps/ssh-key-h1.key"
 SSH_OPTS="-i $SSH_KEY -o StrictHostKeyChecking=accept-new"
 
 ssh_vps() { ssh $SSH_OPTS "$VPS_USER@$VPS_IP" "$@"; }
@@ -26,10 +26,12 @@ echo "=== Creating secrets ==="
 if ssh_vps "test -f ~/.secrets.d/secrets.sh" 2>/dev/null; then
     echo "secrets.sh already exists — skipping"
 else
+    read -rp "Telegram bot token: " BOT_TOKEN
+    read -rp "Telegram chat ID: " CHAT_ID
     ssh_vps "mkdir -p ~/.secrets.d"
-    ssh_vps "cat > ~/.secrets.d/secrets.sh << 'EOF'
-export NOTIFICATION_TELEGRAM_BOT_TOKEN=\"<TELEGRAM_BOT_TOKEN>\"
-export NOTIFICATION_TELEGRAM_CHAT_ID=\"<TELEGRAM_CHAT_ID>\"
+    ssh_vps "cat > ~/.secrets.d/secrets.sh << EOF
+export NOTIFICATION_TELEGRAM_BOT_TOKEN=\"$BOT_TOKEN\"
+export NOTIFICATION_TELEGRAM_CHAT_ID=\"$CHAT_ID\"
 EOF"
 fi
 
