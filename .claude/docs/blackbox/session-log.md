@@ -1606,3 +1606,272 @@
 - .claude/docs/blackbox/audit.md
 - aux/scripts/vps/deployment/mini/special/deploy-first-or-after-undeploy-vps.sh
 <!-- end-snapshot -->
+
+<!-- git-snapshot 2026-07-06T19:23:35Z -->
+- .claude/docs/blackbox/audit.md
+- aux/scripts/vps/deployment/mini/vps-completion.bash
+<!-- end-snapshot -->
+
+<!-- git-snapshot 2026-07-06T19:26:37Z -->
+- .claude/docs/blackbox/audit.md
+- .claude/docs/blackbox/session-log.md
+- aux/scripts/vps/deployment/mini/vps-completion.bash
+<!-- end-snapshot -->
+
+<!-- git-snapshot 2026-07-06T19:27:14Z -->
+- .claude/docs/blackbox/audit.md
+- .claude/docs/blackbox/session-log.md
+- aux/scripts/vps/deployment/mini/vps-completion.bash
+<!-- end-snapshot -->
+
+<!-- git-snapshot 2026-07-06T19:30:01Z -->
+- .claude/docs/blackbox/audit.md
+- .claude/docs/blackbox/session-log.md
+- aux/scripts/vps/deployment/mini/vps-completion.bash
+<!-- end-snapshot -->
+
+<!-- git-snapshot 2026-07-06T19:30:44Z -->
+- .claude/docs/blackbox/audit.md
+- .claude/docs/blackbox/session-log.md
+- aux/scripts/vps/deployment/mini/vps-completion.bash
+<!-- end-snapshot -->
+
+<!-- git-snapshot 2026-07-08T06:16:54Z -->
+- .claude/docs/blackbox/audit.md
+- .claude/docs/blackbox/session-log.md
+- aux/scripts/vps/deployment/mini/vps-completion.bash
+<!-- end-snapshot -->
+
+<!-- git-snapshot 2026-07-08T06:19:11Z -->
+- .claude/docs/blackbox/audit.md
+- .claude/docs/blackbox/session-log.md
+- aux/scripts/vps/deployment/mini/vps-completion.bash
+<!-- end-snapshot -->
+
+<!-- git-snapshot 2026-07-08T06:21:29Z -->
+- .claude/docs/blackbox/audit.md
+- .claude/docs/blackbox/session-log.md
+- aux/scripts/vps/deployment/mini/vps-completion.bash
+<!-- end-snapshot -->
+
+<!-- git-snapshot 2026-07-08T06:23:17Z -->
+- .claude/docs/blackbox/audit.md
+- .claude/docs/blackbox/session-log.md
+- aux/scripts/vps/deployment/mini/vps-completion.bash
+<!-- end-snapshot -->
+
+<!-- git-snapshot 2026-07-08T06:26:29Z -->
+- .claude/docs/blackbox/audit.md
+- .claude/docs/blackbox/session-log.md
+- aux/scripts/vps/deployment/mini/vps-completion.bash
+<!-- end-snapshot -->
+
+<!-- git-snapshot 2026-07-08T06:32:08Z -->
+- .claude/docs/blackbox/audit.md
+- .claude/docs/blackbox/session-log.md
+- aux/scripts/vps/deployment/mini/vps-completion.bash
+<!-- end-snapshot -->
+
+<!-- git-snapshot 2026-07-08T06:41:55Z -->
+- .claude/docs/blackbox/audit.md
+- .claude/docs/blackbox/session-log.md
+- aux/docs/useful/arch/oci/oci_restrictions.txt
+- aux/docs/useful/arch/oci/save_while_work.txt
+- aux/docs/useful/arch/oci/vm.txt
+- aux/docs/useful/arch/oci/vm_light.txt
+- aux/docs/useful/hatzner-vps.txt
+- aux/scripts/vps/deployment/mini/vps-completion.bash
+- aux/scripts/vps/init/init-user.sh
+<!-- end-snapshot -->
+
+<!-- git-snapshot 2026-07-08T06:43:54Z -->
+- .claude/docs/blackbox/audit.md
+- .claude/docs/blackbox/session-log.md
+- aux/docs/useful/arch/oci/oci_restrictions.txt
+- aux/docs/useful/arch/oci/save_while_work.txt
+- aux/docs/useful/arch/oci/vm.txt
+- aux/docs/useful/arch/oci/vm_light.txt
+- aux/docs/useful/hatzner-vps.txt
+- aux/scripts/vps/deployment/mini/vps-completion.bash
+- aux/scripts/vps/init/init-user.sh
+<!-- end-snapshot -->
+
+<!-- git-snapshot 2026-07-08T06:45:35Z -->
+- .claude/docs/blackbox/audit.md
+- .claude/docs/blackbox/session-log.md
+- aux/docs/useful/arch/oci/oci_restrictions.txt
+- aux/docs/useful/arch/oci/save_while_work.txt
+- aux/docs/useful/arch/oci/vm.txt
+- aux/docs/useful/arch/oci/vm_light.txt
+- aux/docs/useful/hatzner-vps.txt
+- aux/scripts/vps/deployment/mini/vps-completion.bash
+- aux/scripts/vps/init/init-user.sh
+<!-- end-snapshot -->
+
+<!-- git-snapshot 2026-07-08T06:45:53Z -->
+- .claude/docs/blackbox/audit.md
+- .claude/docs/blackbox/session-log.md
+- aux/docs/useful/arch/oci/oci_restrictions.txt
+- aux/docs/useful/arch/oci/save_while_work.txt
+- aux/docs/useful/arch/oci/vm.txt
+- aux/docs/useful/arch/oci/vm_light.txt
+- aux/docs/useful/hatzner-vps.txt
+- aux/scripts/vps/deployment/mini/vps-completion.bash
+- aux/scripts/vps/init/init-user.sh
+<!-- end-snapshot -->
+
+<!-- git-snapshot 2026-07-08T06:46:55Z -->
+- .claude/docs/blackbox/audit.md
+- .claude/docs/blackbox/session-log.md
+- aux/docs/useful/arch/oci/oci_restrictions.txt
+- aux/docs/useful/arch/oci/save_while_work.txt
+- aux/docs/useful/arch/oci/vm.txt
+- aux/docs/useful/arch/oci/vm_light.txt
+- aux/docs/useful/hatzner-vps.txt
+- aux/scripts/vps/deployment/mini/vps-completion.bash
+- aux/scripts/vps/init/init-user.sh
+<!-- end-snapshot -->
+
+<!-- git-snapshot 2026-07-08T06:48:11Z -->
+- .claude/docs/blackbox/audit.md
+- .claude/docs/blackbox/session-log.md
+- aux/docs/useful/arch/oci/oci_restrictions.txt
+- aux/docs/useful/arch/oci/save_while_work.txt
+- aux/docs/useful/arch/oci/vm.txt
+- aux/docs/useful/arch/oci/vm_light.txt
+- aux/docs/useful/hatzner-vps.txt
+- aux/scripts/vps/deployment/mini/vps-completion.bash
+- aux/scripts/vps/init/init-user.sh
+<!-- end-snapshot -->
+
+<!-- git-snapshot 2026-07-08T06:49:15Z -->
+- .claude/docs/blackbox/audit.md
+- .claude/docs/blackbox/session-log.md
+- aux/docs/useful/arch/oci/oci_restrictions.txt
+- aux/docs/useful/arch/oci/save_while_work.txt
+- aux/docs/useful/arch/oci/vm.txt
+- aux/docs/useful/arch/oci/vm_light.txt
+- aux/docs/useful/hatzner-vps.txt
+- aux/scripts/vps/deployment/mini/vps-completion.bash
+- aux/scripts/vps/init/init-user.sh
+<!-- end-snapshot -->
+
+<!-- git-snapshot 2026-07-08T06:54:11Z -->
+- .claude/docs/blackbox/audit.md
+- .claude/docs/blackbox/session-log.md
+- aux/docs/useful/arch/oci/oci_restrictions.txt
+- aux/docs/useful/arch/oci/save_while_work.txt
+- aux/docs/useful/arch/oci/vm.txt
+- aux/docs/useful/arch/oci/vm_light.txt
+- aux/docs/useful/hatzner-vps.txt
+- aux/scripts/vps/deployment/mini/vps-completion.bash
+- aux/scripts/vps/init/init-user.sh
+<!-- end-snapshot -->
+
+<!-- git-snapshot 2026-07-08T06:58:59Z -->
+- .claude/docs/blackbox/audit.md
+- .claude/docs/blackbox/session-log.md
+- aux/docs/useful/arch/oci/oci_restrictions.txt
+- aux/docs/useful/arch/oci/save_while_work.txt
+- aux/docs/useful/arch/oci/vm.txt
+- aux/docs/useful/arch/oci/vm_light.txt
+- aux/docs/useful/hatzner-vps.txt
+- aux/scripts/vps/deployment/mini/vps-completion.bash
+- aux/scripts/vps/init/init-user.sh
+<!-- end-snapshot -->
+
+<!-- git-snapshot 2026-07-08T07:00:40Z -->
+- .claude/docs/blackbox/audit.md
+- .claude/docs/blackbox/session-log.md
+- aux/docs/useful/arch/oci/oci_restrictions.txt
+- aux/docs/useful/arch/oci/save_while_work.txt
+- aux/docs/useful/arch/oci/vm.txt
+- aux/docs/useful/arch/oci/vm_light.txt
+- aux/docs/useful/hatzner-vps.txt
+- aux/scripts/vps/deployment/mini/vps-completion.bash
+- aux/scripts/vps/init/init-user.sh
+<!-- end-snapshot -->
+
+<!-- git-snapshot 2026-07-08T07:02:24Z -->
+- .claude/docs/blackbox/audit.md
+- .claude/docs/blackbox/session-log.md
+- aux/docs/useful/arch/oci/oci_restrictions.txt
+- aux/docs/useful/arch/oci/save_while_work.txt
+- aux/docs/useful/arch/oci/vm.txt
+- aux/docs/useful/arch/oci/vm_light.txt
+- aux/docs/useful/hatzner-vps.txt
+- aux/scripts/vps/deployment/mini/vps-completion.bash
+- aux/scripts/vps/init/init-user.sh
+<!-- end-snapshot -->
+
+<!-- git-snapshot 2026-07-08T07:04:56Z -->
+- .claude/docs/blackbox/audit.md
+- .claude/docs/blackbox/session-log.md
+- aux/docs/useful/arch/oci/oci_restrictions.txt
+- aux/docs/useful/arch/oci/save_while_work.txt
+- aux/docs/useful/arch/oci/vm.txt
+- aux/docs/useful/arch/oci/vm_light.txt
+- aux/docs/useful/hatzner-vps.txt
+- aux/scripts/vps/deployment/mini/vps-completion.bash
+- aux/scripts/vps/init/init-user.sh
+<!-- end-snapshot -->
+
+<!-- git-snapshot 2026-07-08T07:06:44Z -->
+- .claude/docs/blackbox/audit.md
+- .claude/docs/blackbox/session-log.md
+- aux/docs/useful/arch/oci/oci_restrictions.txt
+- aux/docs/useful/arch/oci/save_while_work.txt
+- aux/docs/useful/arch/oci/vm.txt
+- aux/docs/useful/arch/oci/vm_light.txt
+- aux/docs/useful/hatzner-vps.txt
+- aux/scripts/vps/deployment/mini/vps-completion.bash
+- aux/scripts/vps/init/init-user.sh
+<!-- end-snapshot -->
+
+<!-- git-snapshot 2026-07-08T07:08:04Z -->
+- .claude/docs/blackbox/audit.md
+- .claude/docs/blackbox/session-log.md
+- aux/docs/useful/arch/oci/oci_restrictions.txt
+- aux/docs/useful/arch/oci/save_while_work.txt
+- aux/docs/useful/arch/oci/vm.txt
+- aux/docs/useful/arch/oci/vm_light.txt
+- aux/docs/useful/hatzner-vps.txt
+- aux/scripts/vps/deployment/mini/vps-completion.bash
+- aux/scripts/vps/init/init-user.sh
+<!-- end-snapshot -->
+
+<!-- git-snapshot 2026-07-08T07:13:32Z -->
+- .claude/docs/blackbox/audit.md
+- .claude/docs/blackbox/session-log.md
+- aux/docs/useful/arch/oci/oci_restrictions.txt
+- aux/docs/useful/arch/oci/save_while_work.txt
+- aux/docs/useful/arch/oci/vm.txt
+- aux/docs/useful/arch/oci/vm_light.txt
+- aux/docs/useful/hatzner-vps.txt
+- aux/scripts/vps/deployment/mini/vps-completion.bash
+- aux/scripts/vps/init/init-user.sh
+<!-- end-snapshot -->
+
+<!-- git-snapshot 2026-07-08T07:15:52Z -->
+- .claude/docs/blackbox/audit.md
+- .claude/docs/blackbox/session-log.md
+- aux/docs/useful/arch/oci/oci_restrictions.txt
+- aux/docs/useful/arch/oci/save_while_work.txt
+- aux/docs/useful/arch/oci/vm.txt
+- aux/docs/useful/arch/oci/vm_light.txt
+- aux/docs/useful/hatzner-vps.txt
+- aux/scripts/vps/deployment/mini/vps-completion.bash
+- aux/scripts/vps/init/init-user.sh
+<!-- end-snapshot -->
+
+<!-- git-snapshot 2026-07-08T07:16:55Z -->
+- .claude/docs/blackbox/audit.md
+- .claude/docs/blackbox/session-log.md
+- aux/docs/useful/arch/oci/oci_restrictions.txt
+- aux/docs/useful/arch/oci/save_while_work.txt
+- aux/docs/useful/arch/oci/vm.txt
+- aux/docs/useful/arch/oci/vm_light.txt
+- aux/docs/useful/hatzner-vps.txt
+- aux/scripts/vps/deployment/mini/vps-completion.bash
+- aux/scripts/vps/init/init-user.sh
+<!-- end-snapshot -->

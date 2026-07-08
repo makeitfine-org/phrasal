@@ -1,0 +1,39 @@
+❯ I connect to vps on ubuntu with root user and ssh key file. Is it good idea to create separate user with sudo right
+  and don't use root? Is so how to do that?
+
+● Yes, it's a standard security practice. Root login over SSH is a common attack target — using a named sudo user +
+  disabling root SSH login reduces exposure.
+
+  Create the user and grant sudo:
+
+  # On VPS as root
+  adduser deploy                        # creates user, sets password
+  usermod -aG sudo deploy               # grant sudo
+
+  Copy your SSH key to the new user:
+
+  mkdir -p /home/deploy/.ssh
+  cp /root/.ssh/authorized_keys /home/deploy/.ssh/
+  chown -R deploy:deploy /home/deploy/.ssh
+  chmod 700 /home/deploy/.ssh
+  chmod 600 /home/deploy/.ssh/authorized_keys
+
+  Test login with the new user before locking root:
+
+  ssh -i your-key.key deploy@129.159.221.205
+  sudo whoami   # should print "root"
+
+  Then disable root SSH login:
+
+  sudo sed -i 's/^PermitRootLogin.*/PermitRootLogin no/' /etc/ssh/sshd_config
+  sudo systemctl restart sshd
+
+  Optional but recommended — also disable password auth entirely (key-only):
+
+  sudo sed -i 's/^#\?PasswordAuthentication.*/PasswordAuthentication no/' /etc/ssh/sshd_config
+  sudo systemctl restart sshd
+
+  Keep your current root session open until you've confirmed the new user can SSH in and sudo — that way you can't lock
+  yourself out.
+
+  ---

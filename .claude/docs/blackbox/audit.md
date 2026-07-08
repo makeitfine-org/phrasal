@@ -2488,3 +2488,209 @@ x7warrio@gmail.com
 ## 2026-07-06T19:16:49Z
 after applying @aux/scripts/vps/deployment/mini/ port 80 still listening and nginx works
 ---
+
+## 2026-07-06T19:23:18Z
+in @aux/scripts/vps/deployment/mini/vps-completion.bash deploy-fist not workin
+---
+
+## 2026-07-06T19:26:32Z
+how to make @aux/scripts/vps/deployment/mini/vps-completion.bash work?
+---
+
+## 2026-07-06T19:27:09Z
+temporary
+---
+
+## 2026-07-06T19:29:56Z
+source aux/scripts/vps/deployment/mini/vps-completion.bash
+ubuntuu@LP-BSF-EMALYSH:~/.../phrasal$ ./aux/scripts/vps/deployment/mini/special/deploy-first-or-after-undeploy-vps.sh
+.claude/            .github/            CLAUDE.md           aux/                docker-compose.yml  phrasal.iml
+.env                .gitignore          GEMINI.md           backend/            e2e/
+.envrc              .idea/              Makefile            backlog/            frontend/
+.git/               .mcp.json           README.md           blackbox/           node_modules/
+
+On tab I get list of files in folder
+---
+
+## 2026-07-06T19:30:29Z
+rename
+---
+
+## 2026-07-08T06:16:42Z
+I created hatzner server with ssh key  but on login with root user it asked password? why? what user should I use for just login with ssh key file private key?
+---
+
+## 2026-07-08T06:19:07Z
+chmod 600 helped, thanks!
+Does all hatzner vps use NVMe?
+---
+
+## 2026-07-08T06:21:23Z
+I bought:
+4
+vCPU
+8 GB
+RAM
+80 GB
+Disk local
+0.01
+Usage
+0/20
+ TB
+Traffic out
+8.49
+/mo
+Price
+
+I see:
+root@vps-h1:~# free -m
+               total        used        free      shared  buff/cache   available
+Mem:            7751         425        7345           4         220        7325
+Swap:              0           0           0
+root@vps-h1:~# df -h
+Filesystem      Size  Used Avail Use% Mounted on
+tmpfs           776M  844K  775M   1% /run
+/dev/sda1        75G  1.2G   71G   2% /
+tmpfs           3.8G     0  3.8G   0% /dev/shm
+tmpfs           5.0M     0  5.0M   0% /run/lock
+/dev/sda15      253M  146K  252M   1% /boot/efi
+tmpfs           776M   12K  776M   1% /run/user/0
+root@vps-h1:~# cpu
+Command 'cpu' not found, but can be installed with:
+apt install cpu
+root@vps-h1:~# free -m
+               total        used        free      shared  buff/cache   available
+Mem:            7751         423        7346           4         222        7327
+Swap:              0           0           0
+root@vps-h1:~# nproc --all
+4
+
+Correct?
+---
+
+## 2026-07-08T06:23:12Z
+lsblk -io NAME,TYPE,SIZE,MOUNTPOINT,FSTYPE,MODEL
+NAME    TYPE  SIZE MOUNTPOIN FSTYPE MODEL
+sda     disk 76.3G                  QEMU HARDDISK
+|-sda1  part   76G /         ext4
+|-sda14 part    1M
+`-sda15 part  256M /boot/efi vfat
+sr0     rom  1024M                  QEMU DVD-ROM
+
+Is NVMe drive?
+---
+
+## 2026-07-08T06:26:23Z
+drive is listed as sda, which indicates a traditional SATA-emulated device, and the model is QEMU HARDDISK, meaning this is a standard virtual disk inside a QEMU/KVM virtual machine.
+
+No?
+---
+
+## 2026-07-08T06:31:55Z
+I connect to vps on ubuntu with root user and ssh key file. Is it good idea to create separate user with sudo right and don't use root? Is so how to do that?
+---
+
+## 2026-07-08T06:41:33Z
+Add to @aux/scripts/vps/init/init-user.sh these instructions:
+
+  Copy your SSH key to the new user:
+
+  chmod 600 /home/deploy/.ssh/authorized_keys
+
+  Test login with the new user before locking root:
+
+  ssh -i your-key.key deploy@129.159.221.205
+  sudo whoami   # should print "root"
+
+  Then disable root SSH login:
+
+  sudo sed -i 's/^PermitRootLogin.*/PermitRootLogin no/' /etc/ssh/sshd_config
+  sudo systemctl restart sshd
+
+  Optional but recommended — also disable password auth entirely (key-only):
+
+  sudo sed -i 's/^#\?PasswordAuthentication.*/PasswordAuthentication no/' /etc/ssh/sshd_config
+  sudo systemctl restart sshd
+
+  Keep your current root session open until you've confirmed the new user can SSH in and sudo — that way you can't lock
+  yourself out.
+
+But name user not deploy but vpsuser
+---
+
+## 2026-07-08T06:43:45Z
+what the password for vpsuser?
+---
+
+## 2026-07-08T06:45:28Z
+1
+---
+
+## 2026-07-08T06:45:47Z
+what about passord for root?
+---
+
+## 2026-07-08T06:46:37Z
+if I switch locally on vps on root don't I need password?
+---
+
+## 2026-07-08T06:48:02Z
+make @aux/scripts/vps/init/init-user.sh executable
+---
+
+## 2026-07-08T06:49:10Z
+so now I can just run @aux/scripts/vps/init/init-user.sh ?
+---
+
+## 2026-07-08T06:53:33Z
+info: Copying files from `/etc/skel' ...
+New password: vpsuserpass1
+Retype new password: vpsuserpass1
+passwd: password updated successfully
+info: Adding new user `vpsuser' to supplemental / extra groups `users' ...
+info: Adding user `vpsuser' to group `users' ...
+=== Copying SSH key to vpsuser ===
+=== Testing login with vpsuser ===
+sudo: a terminal is required to read the password; either use the -S option to read from standard input or configure an askpass helper
+sudo: a password is required
+---
+
+## 2026-07-08T06:58:19Z
+disable password for vpsuser and add it to sudo without password
+---
+
+## 2026-07-08T07:00:13Z
+check again script and fix
+---
+
+## 2026-07-08T07:02:13Z
+how to rm vpsuser and rm it from sudo just show command
+---
+
+## 2026-07-08T07:04:38Z
+can script be applied and also check condition if user created, dont crate it again
+---
+
+## 2026-07-08T07:06:40Z
+when `sudo whoami` will it ask root password?
+---
+
+## 2026-07-08T07:07:40Z
+but did script is still running in root?
+---
+
+## 2026-07-08T07:13:22Z
+echo "=== Disabling root SSH login and password authentication ==="
+ssh_new "sudo sed -i 's/^PermitRootLogin.*/PermitRootLogin no/' /etc/ssh/sshd_config"
+ssh_new "sudo sed -i 's/^#\?PasswordAuthentication.*/PasswordAuthentication no/' /etc/ssh/sshd_config"
+
+rollback
+---
+
+## 2026-07-08T07:15:35Z
+Failed to restart sshd.service: Unit sshd.service not found.
+---
+
+## 2026-07-08T07:16:45Z
+disabling
+---

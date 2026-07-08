@@ -13,10 +13,10 @@ _undeploy_vps() {
 }
 
 complete -F _redeploy_vps redeploy-vps.sh
-complete -F _redeploy_vps ./aux/scripts/vps/mini/redeploy-vps.sh
+complete -F _redeploy_vps ./aux/scripts/vps/deployment/mini/redeploy-vps.sh
 
 complete -F _undeploy_vps undeploy-vps.sh
-complete -F _undeploy_vps ./aux/scripts/vps/mini/special/undeploy-vps.sh
+complete -F _undeploy_vps ./aux/scripts/vps/deployment/mini/special/undeploy-vps.sh
 
-complete -F _undeploy_vps deploy-after-undeploy.sh
-complete -F _undeploy_vps ./aux/scripts/vps/mini/special/deploy-after-undeploy-vps.sh
+complete -F _undeploy_vps deploy-first-or-after-undeploy-vps.sh
+complete -F _undeploy_vps ./aux/scripts/vps/deployment/mini/special/deploy-first-or-after-undeploy-vps.sh
