@@ -2750,3 +2750,18 @@ export NOTIFICATION_TELEGRAM_CHAT_ID=\"<TELEGRAM_CHAT_ID>\"
 
 Ask interactivly these 2 tokens
 ---
+
+## 2026-07-08T08:16:21Z
+Change in @aux/scripts/vps/deployment/ access to VPS to VPS_IP="116.203.78.118"
+VPS_USER="vpsuser"
+SSH_KEY="$HOME/dev/scripts/vps/ssh-key-h1.key"
+SSH_OPTS="-i $SSH_KEY -o StrictHostKeyChecking=accept-new"
+---
+
+## 2026-07-08T08:20:26Z
+in @aux/scripts/vps/deployment/mini/special/install-infra.sh ask interactivly if to "Setting up swap" what's size
+---
+
+## 2026-07-08T08:25:45Z
+how to remove just setting swap. Just write don't do it?
+---

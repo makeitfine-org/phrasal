@@ -1941,3 +1941,29 @@
 - aux/scripts/vps/init/1_init-user.sh
 - aux/scripts/vps/init/1_init_bash.sh
 <!-- end-snapshot -->
+
+<!-- git-snapshot 2026-07-08T08:16:55Z -->
+- .claude/docs/blackbox/audit.md
+- aux/scripts/vps/deployment/mini/redeploy-vps.sh
+- aux/scripts/vps/deployment/mini/special/deploy-first-or-after-undeploy-vps.sh
+- aux/scripts/vps/deployment/mini/special/install-infra.sh
+- aux/scripts/vps/deployment/mini/special/undeploy-vps.sh
+<!-- end-snapshot -->
+
+<!-- git-snapshot 2026-07-08T08:20:47Z -->
+- .claude/docs/blackbox/audit.md
+- .claude/docs/blackbox/session-log.md
+- aux/scripts/vps/deployment/mini/redeploy-vps.sh
+- aux/scripts/vps/deployment/mini/special/deploy-first-or-after-undeploy-vps.sh
+- aux/scripts/vps/deployment/mini/special/install-infra.sh
+- aux/scripts/vps/deployment/mini/special/undeploy-vps.sh
+<!-- end-snapshot -->
+
+<!-- git-snapshot 2026-07-08T08:25:50Z -->
+- .claude/docs/blackbox/audit.md
+- .claude/docs/blackbox/session-log.md
+- aux/scripts/vps/deployment/mini/redeploy-vps.sh
+- aux/scripts/vps/deployment/mini/special/deploy-first-or-after-undeploy-vps.sh
+- aux/scripts/vps/deployment/mini/special/install-infra.sh
+- aux/scripts/vps/deployment/mini/special/undeploy-vps.sh
+<!-- end-snapshot -->

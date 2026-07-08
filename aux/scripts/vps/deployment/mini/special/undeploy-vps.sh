@@ -1,9 +1,9 @@
 #!/usr/bin/env bash
 set -euo pipefail
 
-VPS_IP="129.159.221.205"
-VPS_USER="ubuntu"
-SSH_KEY="$HOME/dev/scripts/vps/n1-ssh-key-2026-07-06.key"
+VPS_IP="116.203.78.118"
+VPS_USER="vpsuser"
+SSH_KEY="$HOME/dev/scripts/vps/ssh-key-h1.key"
 SSH_OPTS="-i $SSH_KEY -o StrictHostKeyChecking=accept-new"
 
 #todo: set: jar name, db creds names

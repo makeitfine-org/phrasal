@@ -1,20 +1,26 @@
 #!/usr/bin/env bash
 set -euo pipefail
 
-VPS_IP="129.159.221.205"
-VPS_USER="ubuntu"
-SSH_KEY="$HOME/dev/scripts/vps/n1-ssh-key-2026-07-06.key"
+VPS_IP="116.203.78.118"
+VPS_USER="vpsuser"
+SSH_KEY="$HOME/dev/scripts/vps/ssh-key-h1.key"
 SSH_OPTS="-i $SSH_KEY -o StrictHostKeyChecking=accept-new"
 
 ssh_vps() { ssh $SSH_OPTS "$VPS_USER@$VPS_IP" "$@"; }
 
 # Swap (critical with 1 GB RAM)
-echo "=== Setting up swap ==="
-ssh_vps "sudo fallocate -l 2G /swapfile"
+read -rp "Set up swap? [y/N] " SETUP_SWAP
+if [[ "$SETUP_SWAP" =~ ^[Yy]$ ]]; then
+    read -rp "Swap size (e.g. 1G, 2G, 4G): " SWAP_SIZE
+    echo "=== Setting up ${SWAP_SIZE} swap ==="
+    ssh_vps "sudo fallocate -l $SWAP_SIZE /swapfile"
 ssh_vps "sudo chmod 600 /swapfile"
 ssh_vps "sudo mkswap /swapfile"
 ssh_vps "sudo swapon /swapfile"
 ssh_vps "grep -q '/swapfile' /etc/fstab || echo '/swapfile none swap sw 0 0' | sudo tee -a /etc/fstab"
+else
+    echo "Skipping swap setup"
+fi
 
 # PostgreSQL
 echo "=== Installing PostgreSQL ==="
