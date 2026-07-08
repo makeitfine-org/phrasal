@@ -247,3 +247,12 @@
         tags: [postgres]
 
       Running without --tags runs everything; with --tags backend runs only backend tasks.
+
+      ---
+
+      scp -i ~/dev/scripts/vps/ssh-key-h1.key vpsuser@116.203.78.118:~/Downloads/.bashrc.copy vpsuser@116.203.78.118:~/Downloads/.bashrc.curr ~/Downloads/
+
+      ---
+
+      sudo iptables -nL --line-numbers
+

@@ -6,6 +6,11 @@
   environment:
     DEBIAN_FRONTEND: noninteractive
 
+- name: Set INPUT policy to ACCEPT before flush
+  ansible.builtin.iptables:
+    chain: INPUT
+    policy: ACCEPT
+
 - name: Flush INPUT chain
   ansible.builtin.iptables:
     chain: INPUT

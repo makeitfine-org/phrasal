@@ -21,3 +21,5 @@
       tags: [shell]
     - role: soft
       tags: [soft]
+    - role: infra
+      tags: [infra]

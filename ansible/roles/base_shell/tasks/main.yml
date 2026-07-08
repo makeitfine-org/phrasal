@@ -34,18 +34,29 @@
     force: false
   when: telegram_bot_token is defined and telegram_chat_id is defined
 
+- name: Remove old .bashrc_ansible if present
+  ansible.builtin.file:
+    path: "/home/{{ vps_user }}/.bashrc_ansible"
+    state: absent
+
+- name: Remove old source line from .bashrc
+  ansible.builtin.lineinfile:
+    path: "/home/{{ vps_user }}/.bashrc"
+    line: "source ~/.bashrc_ansible"
+    state: absent
+
 - name: Deploy .bashrc additions
   ansible.builtin.copy:
     src: bashrc.txt
-    dest: "/home/{{ vps_user }}/.bashrc_ansible"
+    dest: "/home/{{ vps_user }}/.bashrc_custom"
     owner: "{{ vps_user }}"
     group: "{{ vps_user }}"
     mode: "0644"
 
-- name: Source .bashrc_ansible from .bashrc
+- name: Source .bashrc_custom from .bashrc
   ansible.builtin.lineinfile:
     path: "/home/{{ vps_user }}/.bashrc"
-    line: "source ~/.bashrc_ansible"
+    line: "source ~/.bashrc_custom"
     create: true
     owner: "{{ vps_user }}"
     group: "{{ vps_user }}"

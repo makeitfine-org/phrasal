@@ -8,7 +8,5 @@
   hosts: hetzner1
   become: true
   roles:
-    - role: infra
-      tags: [infra]
     - role: deploy
       tags: [deploy]

@@ -3428,3 +3428,253 @@ when it's removed?
 ## 2026-07-08T17:36:30Z
 with @aux/scripts/vps/arch/bash/deployment/mini/special/3.undeploy-vps.sh is it removed?
 ---
+
+## 2026-07-08T17:42:21Z
+I changed in @frontend/src/pages/GrammarPage.tsx "Choose a grammar topic to practice" to "Choose a grammar topic to practice1" and in test file @frontend/src/__tests__/GrammarPage.test.tsx", then run `make buildFrontend`, then ` ansible-playbook playbooks/setup.yml --tags frontend` got:
+
+ ansible-playbook playbooks/setup.yml --tags frontend
+
+PLAY [Install infrastructure and deploy application] ********************************************************************
+
+TASK [Gathering Facts] **************************************************************************************************
+[WARNING]: Host 'hetzner1' is using the discovered Python interpreter at '/usr/bin/python3.12', but future installation of another Python interpreter could cause a different interpreter to be discovered. See https://docs.ansible.com/ansible-core/2.21/reference_appendices/interpreter_discovery.html for more information.
+ok: [hetzner1]
+
+TASK [deploy : Create web directory] ************************************************************************************
+ok: [hetzner1]
+
+TASK [deploy : Check local dist directory] ******************************************************************************
+ok: [hetzner1 -> localhost]
+
+TASK [deploy : Fail if no dist] *****************************************************************************************
+skipping: [hetzner1]
+
+TASK [deploy : Upload frontend files] ***********************************************************************************
+changed: [hetzner1]
+
+TASK [deploy : Check if full nginx site config exists] ******************************************************************
+ok: [hetzner1]
+
+TASK [deploy : Deploy nginx site config] ********************************************************************************
+skipping: [hetzner1]
+
+TASK [deploy : Enable nginx site] ***************************************************************************************
+ok: [hetzner1]
+
+TASK [deploy : Check if SSL is configured in nginx] *********************************************************************
+ok: [hetzner1]
+
+TASK [deploy : Set up SSL with certbot] *********************************************************************************
+skipping: [hetzner1]
+
+PLAY RECAP **************************************************************************************************************
+hetzner1                   : ok=7    changed=1    unreachable=0    failed=0    skipped=3    rescued=0    ignored=0
+
+
+but on `phrasal.ddns.net` site I still get: "Choose a grammar topic to practice".
+---
+
+## 2026-07-08T17:43:12Z
+No all right it's my fault
+---
+
+## 2026-07-08T17:43:54Z
+all right, I've already commited
+---
+
+## 2026-07-08T19:10:43Z
+
+TASK [infra : Flush INPUT chain] ****************************************************************************************
+
+ is hunging
+---
+
+## 2026-07-08T19:15:09Z
+No I can't enter the VPS:
+
+Not  ssh -i ~/dev/scripts/vps/ssh-key-h1.key vpsuser@116.203.78.118
+nor
+ubuntuu@LP-BSF-EMALYSH:~/.../ansible$ ssh -i ~/dev/scripts/vps/ssh-key-h1.key root@116.203.78.118
+---
+
+## 2026-07-08T19:18:17Z
+But it asks login and password but I'd dont have password not for "root" not for "vpsuser"
+---
+
+## 2026-07-08T19:20:30Z
+"  minimal Linux. Mount your disk, edit /etc/iptables/rules.v4 to set :INPUT ACCEPT, then reboot normall"
+
+Give command
+---
+
+## 2026-07-08T19:20:51Z
+iptables add 22 port to accept
+---
+
+## 2026-07-08T19:23:39Z
+see port ip tables
+---
+
+## 2026-07-08T19:25:49Z
+fix that issue with deny of firewall it shouldn't set accept it should first accept 22 port and then deny all, and then that other port from that list
+---
+
+## 2026-07-08T19:27:44Z
+what's that the policy:
+
+sudo iptables -L INPUT -n --line-numbers
+Chain INPUT (policy DROP)
+num  target     prot opt source               destination
+1    ACCEPT     6    --  0.0.0.0/0            0.0.0.0/0            tcp dpt:22
+---
+
+## 2026-07-08T19:29:36Z
+ - Policy: DROP — anything not matched by a rule is blocked
+  - Rule 1: only port 22 (SSH) is allowed
+
+  So SSH works, but everything else (HTTP 80, HTTPS 443, your app 8080, Postgres 5432) is blocked.
+
+  Run the Ansible playbook to fix it properly — it will set policy to ACCEPT, flush, add all the rules, then set policy
+  back to DROP:
+
+But why should you set Accept? you have ssh, it's enough to just add accept for some port
+---
+
+## 2026-07-08T19:30:20Z
+show me that flush
+---
+
+## 2026-07-08T19:31:30Z
+but previously in @"backlog/completed/task-1 - Extend-phrasalVerbs.js-with-new-entries-and-meanings-from-provided-data.md" :
+
+# Firewall: allow only SSH, HTTP, HTTPS — drop everything else
+ssh_vps "sudo iptables -F INPUT"
+ssh_vps "sudo iptables -A INPUT -i lo -j ACCEPT"
+ssh_vps "sudo iptables -A INPUT -m state --state ESTABLISHED,RELATED -j ACCEPT"
+ssh_vps "sudo iptables -A INPUT -p tcp --dport 22 -j ACCEPT"
+ssh_vps "sudo iptables -A INPUT -p tcp --dport 80 -j ACCEPT"
+ssh_vps "sudo iptables -A INPUT -p tcp --dport 443 -j ACCEPT"
+ssh_vps "sudo iptables -A INPUT -p tcp --dport 8080 -j ACCEPT"
+ssh_vps "sudo iptables -A INPUT -p tcp --dport 5432 -j ACCEPT"
+ssh_vps "sudo iptables -P INPUT DROP"
+ssh_vps "sudo sh -c 'iptables-save > /etc/iptables/rules.v4'"
+
+it works.
+---
+
+## 2026-07-08T19:34:08Z
+I don't understand, maybe you wrong.
+
+You just set Accept, then set 22 port accept, then set Deny, then one by one all acceptance for other ports? what's the problem?
+---
+
+## 2026-07-08T19:37:44Z
+run just task firewall
+---
+
+## 2026-07-08T19:40:50Z
+whot to run only infra role
+---
+
+## 2026-07-08T19:41:16Z
+whot to run only `infra` role
+---
+
+## 2026-07-08T19:41:24Z
+how to run only `infra` role
+---
+
+## 2026-07-08T19:42:01Z
+if I run `ansible-playbook playbooks/setup.yml --tags infra` it's not a problem?
+---
+
+## 2026-07-08T19:43:14Z
+but if that all are installed?
+---
+
+## 2026-07-08T19:45:07Z
+if I run `ansible-playbook playbooks/init.yaml` it will add the same to ~/.bashrc? and ~/.tmux twice?
+---
+
+## 2026-07-08T19:47:34Z
+woth about `soft` role?
+---
+
+## 2026-07-08T19:48:48Z
+base_shell, base_user?
+---
+
+## 2026-07-08T19:50:51Z
+move `infra` from setup to `init`
+---
+
+## 2026-07-08T19:51:39Z
+not if run init again is it safe?
+---
+
+## 2026-07-08T19:52:18Z
+Did you check very carefully?
+---
+
+## 2026-07-08T19:55:43Z
+cp file from vps to host
+---
+
+## 2026-07-08T20:01:04Z
+cp file from vps ~/Downloads/.bashrc.copy and ~/Downloads/.bashrc.curr file  to host into Downloads folder
+---
+
+## 2026-07-08T20:01:13Z
+how to "cp file from vps ~/Downloads/.bashrc.copy and ~/Downloads/.bashrc.curr file  to host into Downloads folder"
+---
+
+## 2026-07-08T20:02:10Z
+ scp -i ~/dev/scripts/vps/ssh-key-h1.key vpsuser@116.203.78.118:~/Downloads/.bashrc.copy
+  vpsuser@116.203.78.118:~/Downloads/.bashrc.curr ~/Downloads/
+usage: scp [-346ABCOpqRrsTv] [-c cipher] [-D sftp_server_path] [-F ssh_config]
+           [-i identity_file] [-J destination] [-l limit] [-o ssh_option]
+           [-P port] [-S program] [-X sftp_option] source ... target
+bash: vpsuser@116.203.78.118:~/Downloads/.bashrc.curr: No such file or directory but on vps:
+
+ll ~/Downloads/.bashrc.copy
+-rw-r--r-- 1 vpsuser vpsuser 8563 Jul  8 21:46 /home/vpsuser/Downloads/.bashrc.copy
+---
+
+## 2026-07-08T20:07:06Z
+you added to .bashrc on vps the line "source ~/.bashrc_ansible" what's the reason?
+---
+
+## 2026-07-08T20:09:36Z
+but it's vps should it know about ansible on host?
+---
+
+## 2026-07-08T20:10:12Z
+there is even no ansbile on vps installed
+---
+
+## 2026-07-08T20:11:57Z
+so why on VPS there are:
+vpsuser@vps-h1:~$ ll | grep ans
+drwx------ 3 vpsuser vpsuser 4096 Jul  8 18:00 .ansible/
+-rw-r--r-- 1 vpsuser vpsuser 4620 Jul  8 21:48 .bashrc_ansible
+
+and the line: "source ~/.bashrc_ansible" at the end of .barhrc file?
+---
+
+## 2026-07-08T20:21:23Z
+yes
+---
+
+## 2026-07-08T20:22:21Z
+also consider if `source ~/.bashrc_ansible` is present in bashrc then don't add it again
+---
+
+## 2026-07-08T20:23:12Z
+ The cleanup tasks I added will remove the old source ~/.bashrc_ansible line, so you won't end up with both.
+
+Where is that cleanup?
+---
+
+## 2026-07-08T20:28:49Z
+git add all changes and commit them with suitable message
+---

@@ -2498,3 +2498,248 @@
 - .claude/docs/blackbox/session-log.md
 - ansible/roles/deploy/tasks/frontend.yml
 <!-- end-snapshot -->
+
+<!-- git-snapshot 2026-07-08T17:42:41Z -->
+- .claude/docs/blackbox/audit.md
+- frontend/src/__tests__/GrammarPage.test.tsx
+- frontend/src/pages/GrammarPage.tsx
+<!-- end-snapshot -->
+
+<!-- git-snapshot 2026-07-08T17:43:15Z -->
+- .claude/docs/blackbox/audit.md
+- .claude/docs/blackbox/session-log.md
+- frontend/src/__tests__/GrammarPage.test.tsx
+- frontend/src/pages/GrammarPage.tsx
+<!-- end-snapshot -->
+
+<!-- git-snapshot 2026-07-08T17:43:58Z -->
+- .claude/docs/blackbox/audit.md
+- .claude/docs/blackbox/session-log.md
+<!-- end-snapshot -->
+
+<!-- git-snapshot 2026-07-08T19:11:50Z -->
+- .claude/docs/blackbox/audit.md
+- .claude/docs/blackbox/session-log.md
+- ansible/roles/infra/tasks/firewall.yml
+<!-- end-snapshot -->
+
+<!-- git-snapshot 2026-07-08T19:15:23Z -->
+- .claude/docs/blackbox/audit.md
+- .claude/docs/blackbox/session-log.md
+- ansible/roles/infra/tasks/firewall.yml
+<!-- end-snapshot -->
+
+<!-- git-snapshot 2026-07-08T19:18:25Z -->
+- .claude/docs/blackbox/audit.md
+- .claude/docs/blackbox/session-log.md
+- ansible/roles/infra/tasks/firewall.yml
+<!-- end-snapshot -->
+
+<!-- git-snapshot 2026-07-08T19:20:35Z -->
+- .claude/docs/blackbox/audit.md
+- .claude/docs/blackbox/session-log.md
+- ansible/roles/infra/tasks/firewall.yml
+<!-- end-snapshot -->
+
+<!-- git-snapshot 2026-07-08T19:20:55Z -->
+- .claude/docs/blackbox/audit.md
+- .claude/docs/blackbox/session-log.md
+- ansible/roles/infra/tasks/firewall.yml
+<!-- end-snapshot -->
+
+<!-- git-snapshot 2026-07-08T19:23:44Z -->
+- .claude/docs/blackbox/audit.md
+- .claude/docs/blackbox/session-log.md
+- ansible/roles/infra/tasks/firewall.yml
+<!-- end-snapshot -->
+
+<!-- git-snapshot 2026-07-08T19:26:17Z -->
+- .claude/docs/blackbox/audit.md
+- .claude/docs/blackbox/session-log.md
+- ansible/roles/infra/tasks/firewall.yml
+<!-- end-snapshot -->
+
+<!-- git-snapshot 2026-07-08T19:27:50Z -->
+- .claude/docs/blackbox/audit.md
+- .claude/docs/blackbox/session-log.md
+- ansible/roles/infra/tasks/firewall.yml
+<!-- end-snapshot -->
+
+<!-- git-snapshot 2026-07-08T19:29:42Z -->
+- .claude/docs/blackbox/audit.md
+- .claude/docs/blackbox/session-log.md
+- ansible/roles/infra/tasks/firewall.yml
+<!-- end-snapshot -->
+
+<!-- git-snapshot 2026-07-08T19:30:27Z -->
+- .claude/docs/blackbox/audit.md
+- .claude/docs/blackbox/session-log.md
+- ansible/roles/infra/tasks/firewall.yml
+<!-- end-snapshot -->
+
+<!-- git-snapshot 2026-07-08T19:31:57Z -->
+- .claude/docs/blackbox/audit.md
+- .claude/docs/blackbox/session-log.md
+- ansible/roles/infra/tasks/firewall.yml
+<!-- end-snapshot -->
+
+<!-- git-snapshot 2026-07-08T19:34:46Z -->
+- .claude/docs/blackbox/audit.md
+- .claude/docs/blackbox/session-log.md
+- ansible/roles/infra/tasks/firewall.yml
+<!-- end-snapshot -->
+
+<!-- git-snapshot 2026-07-08T19:40:54Z -->
+- .claude/docs/blackbox/audit.md
+- .claude/docs/blackbox/session-log.md
+- ansible/roles/infra/tasks/firewall.yml
+<!-- end-snapshot -->
+
+<!-- git-snapshot 2026-07-08T19:41:19Z -->
+- .claude/docs/blackbox/audit.md
+- .claude/docs/blackbox/session-log.md
+- ansible/roles/infra/tasks/firewall.yml
+<!-- end-snapshot -->
+
+<!-- git-snapshot 2026-07-08T19:41:29Z -->
+- .claude/docs/blackbox/audit.md
+- .claude/docs/blackbox/session-log.md
+- ansible/roles/infra/tasks/firewall.yml
+<!-- end-snapshot -->
+
+<!-- git-snapshot 2026-07-08T19:42:05Z -->
+- .claude/docs/blackbox/audit.md
+- .claude/docs/blackbox/session-log.md
+- ansible/roles/infra/tasks/firewall.yml
+<!-- end-snapshot -->
+
+<!-- git-snapshot 2026-07-08T19:43:20Z -->
+- .claude/docs/blackbox/audit.md
+- .claude/docs/blackbox/session-log.md
+- ansible/roles/infra/tasks/firewall.yml
+<!-- end-snapshot -->
+
+<!-- git-snapshot 2026-07-08T19:45:34Z -->
+- .claude/docs/blackbox/audit.md
+- .claude/docs/blackbox/session-log.md
+- ansible/roles/infra/tasks/firewall.yml
+<!-- end-snapshot -->
+
+<!-- git-snapshot 2026-07-08T19:47:41Z -->
+- .claude/docs/blackbox/audit.md
+- .claude/docs/blackbox/session-log.md
+- ansible/roles/infra/tasks/firewall.yml
+<!-- end-snapshot -->
+
+<!-- git-snapshot 2026-07-08T19:48:57Z -->
+- .claude/docs/blackbox/audit.md
+- .claude/docs/blackbox/session-log.md
+- ansible/roles/infra/tasks/firewall.yml
+<!-- end-snapshot -->
+
+<!-- git-snapshot 2026-07-08T19:51:07Z -->
+- .claude/docs/blackbox/audit.md
+- .claude/docs/blackbox/session-log.md
+- ansible/playbooks/init.yml
+- ansible/playbooks/setup.yml
+- ansible/roles/infra/tasks/firewall.yml
+<!-- end-snapshot -->
+
+<!-- git-snapshot 2026-07-08T19:51:46Z -->
+- .claude/docs/blackbox/audit.md
+- .claude/docs/blackbox/session-log.md
+- ansible/playbooks/init.yml
+- ansible/playbooks/setup.yml
+- ansible/roles/infra/tasks/firewall.yml
+<!-- end-snapshot -->
+
+<!-- git-snapshot 2026-07-08T19:52:34Z -->
+- .claude/docs/blackbox/audit.md
+- .claude/docs/blackbox/session-log.md
+- ansible/playbooks/init.yml
+- ansible/playbooks/setup.yml
+- ansible/roles/infra/tasks/firewall.yml
+<!-- end-snapshot -->
+
+<!-- git-snapshot 2026-07-08T19:55:49Z -->
+- .claude/docs/blackbox/audit.md
+- .claude/docs/blackbox/session-log.md
+- ansible/playbooks/init.yml
+- ansible/playbooks/setup.yml
+- ansible/roles/infra/tasks/firewall.yml
+<!-- end-snapshot -->
+
+<!-- git-snapshot 2026-07-08T20:01:17Z -->
+- .claude/docs/blackbox/audit.md
+- .claude/docs/blackbox/session-log.md
+- ansible/playbooks/init.yml
+- ansible/playbooks/setup.yml
+- ansible/roles/infra/tasks/firewall.yml
+<!-- end-snapshot -->
+
+<!-- git-snapshot 2026-07-08T20:02:16Z -->
+- .claude/docs/blackbox/audit.md
+- .claude/docs/blackbox/session-log.md
+- ansible/playbooks/init.yml
+- ansible/playbooks/setup.yml
+- ansible/roles/infra/tasks/firewall.yml
+<!-- end-snapshot -->
+
+<!-- git-snapshot 2026-07-08T20:07:14Z -->
+- .claude/docs/blackbox/audit.md
+- .claude/docs/blackbox/session-log.md
+- ansible/playbooks/init.yml
+- ansible/playbooks/setup.yml
+- ansible/roles/infra/tasks/firewall.yml
+<!-- end-snapshot -->
+
+<!-- git-snapshot 2026-07-08T20:09:41Z -->
+- .claude/docs/blackbox/audit.md
+- .claude/docs/blackbox/session-log.md
+- ansible/playbooks/init.yml
+- ansible/playbooks/setup.yml
+- ansible/roles/infra/tasks/firewall.yml
+<!-- end-snapshot -->
+
+<!-- git-snapshot 2026-07-08T20:10:18Z -->
+- .claude/docs/blackbox/audit.md
+- .claude/docs/blackbox/session-log.md
+- ansible/playbooks/init.yml
+- ansible/playbooks/setup.yml
+- ansible/roles/infra/tasks/firewall.yml
+<!-- end-snapshot -->
+
+<!-- git-snapshot 2026-07-08T20:12:05Z -->
+- .claude/docs/blackbox/audit.md
+- .claude/docs/blackbox/session-log.md
+- ansible/playbooks/init.yml
+- ansible/playbooks/setup.yml
+- ansible/roles/infra/tasks/firewall.yml
+<!-- end-snapshot -->
+
+<!-- git-snapshot 2026-07-08T20:21:44Z -->
+- .claude/docs/blackbox/audit.md
+- .claude/docs/blackbox/session-log.md
+- ansible/playbooks/init.yml
+- ansible/playbooks/setup.yml
+- ansible/roles/base_shell/tasks/main.yml
+- ansible/roles/infra/tasks/firewall.yml
+<!-- end-snapshot -->
+
+<!-- git-snapshot 2026-07-08T20:22:25Z -->
+- .claude/docs/blackbox/audit.md
+- .claude/docs/blackbox/session-log.md
+- ansible/playbooks/init.yml
+- ansible/playbooks/setup.yml
+- ansible/roles/base_shell/tasks/main.yml
+- ansible/roles/infra/tasks/firewall.yml
+<!-- end-snapshot -->
+
+<!-- git-snapshot 2026-07-08T20:23:19Z -->
+- .claude/docs/blackbox/audit.md
+- .claude/docs/blackbox/session-log.md
+- ansible/playbooks/init.yml
+- ansible/playbooks/setup.yml
+- ansible/roles/base_shell/tasks/main.yml
+- ansible/roles/infra/tasks/firewall.yml
+<!-- end-snapshot -->
