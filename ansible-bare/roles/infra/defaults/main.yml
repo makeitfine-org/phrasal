@@ -1,10 +1,12 @@
 ---
 setup_swap: false
 swap_size: "1G"
+backend_port: 28080
+postgres_port: 25432
 firewall_ports:
   - 22
   - 80
   - 443
-  - 8080
-  - 5432
+  - "{{ backend_port }}"
+  - "{{ postgres_port }}"
 postgres_listen_addresses: "'*'"

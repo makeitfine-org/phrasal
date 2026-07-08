@@ -1,6 +1,9 @@
+server:
+  port: 28080
+
 spring:
   datasource:
-    url: jdbc:postgresql://localhost:5432/phrasaldb
+    url: jdbc:postgresql://localhost:25432/phrasaldb
     username: phrasaluser
     password: phrasalpass
     hikari:

@@ -4,6 +4,7 @@
   become_user: postgres
   community.postgresql.postgresql_db:
     name: "{{ db_name }}"
+    port: "{{ postgres_port }}"
     state: absent
   ignore_errors: true
 
@@ -12,6 +13,7 @@
   become_user: postgres
   community.postgresql.postgresql_user:
     name: "{{ db_user }}"
+    port: "{{ postgres_port }}"
     state: absent
   ignore_errors: true
 

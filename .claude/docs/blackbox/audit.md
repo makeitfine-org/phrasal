@@ -3714,3 +3714,186 @@ move @ansible/ to ansible-bare
 ## 2026-07-08T21:15:40Z
 git add all changes and commit them with suitable message
 ---
+
+## 2026-07-08T21:23:07Z
+Change @backend/src/main/resources/application-prod.yml to run postgres on 25432 backend to 28080. Also carafully consider that in @ansible-bare/
+---
+
+## 2026-07-08T21:41:14Z
+why in defaults:
+
+backend_port: 8080
+postgres_port: 5432
+---
+
+## 2026-07-08T21:42:26Z
+why you can't write:
+---
+setup_swap: false
+swap_size: "1G"
+firewall_ports:
+  - 22
+  - 80
+  - 443
+  - "{{ backend_port }}"
+  - "{{ postgres_port }}"
+postgres_listen_addresses: "'*'"
+---
+
+## 2026-07-08T21:43:36Z
+why you can't write (question):
+---
+setup_swap: false
+swap_size: "1G"
+firewall_ports:
+  - 22
+  - 80
+  - 443
+  - "{{ backend_port }}"
+  - "{{ postgres_port }}"
+---
+
+## 2026-07-08T21:45:39Z
+Will it work with current nginx, certificates, etc?
+---
+
+## 2026-07-08T21:52:12Z
+rename init-deploy to deploy
+---
+
+## 2026-07-08T21:54:03Z
+how to run ansible deploy postgres
+---
+
+## 2026-07-08T21:57:29Z
+ ansible-playbook playbooks/init-deploy.yml --tags  postgres
+
+PLAY [Deploy application] ***********************************************************************************************
+
+TASK [Gathering Facts] **************************************************************************************************
+[WARNING]: Host 'hetzner1' is using the discovered Python interpreter at '/usr/bin/python3.12', but future installation of another Python interpreter could cause a different interpreter to be discovered. See https://docs.ansible.com/ansible-core/2.21/reference_appendices/interpreter_discovery.html for more information.
+ok: [hetzner1]
+
+TASK [deploy : Ensure PostgreSQL is running] ****************************************************************************
+changed: [hetzner1]
+
+TASK [deploy : Create database user] ************************************************************************************[ERROR]: Task failed: Module failed: Failed to import the required Python library (psycopg2) on vps-h1's Python /usr/bin/python3.12. Please read the module documentation and install it in the appropriate location. If the required library is installed, but Ansible is using the wrong Python interpreter, please consult the documentation on ansible_python_interpreter
+Origin: /home/ubuntuu/dev/mine/phrasal/ansible-bare/roles/deploy/tasks/postgres.yml:8:3
+
+6     enabled: true
+7
+8 - name: Create database user
+    ^ column 3
+
+fatal: [hetzner1]: FAILED! => {"changed": false, "msg": "Failed to import the required Python library (psycopg2) on vps-h1's Python /usr/bin/python3.12. Please read the module documentation and install it in the appropriate location. If the required library is installed, but Ansible is using the wrong Python interpreter, please consult the documentation on ansible_python_interpreter"}
+
+PLAY RECAP **************************************************************************************************************
+hetzner1                   : ok=2    changed=1    unreachable=0    failed=1    skipped=0    rescued=0    ignored=0
+---
+
+## 2026-07-08T21:58:31Z
+But why previously postgres deployed normally
+---
+
+## 2026-07-08T21:59:15Z
+I set up it the same but on port `5432`
+---
+
+## 2026-07-08T22:05:04Z
+- name: Set PostgreSQL port
+  ansible.builtin.lineinfile:
+    path: "{{ item }}"
+    regexp: "^#?port\\s*="
+    line: "port = {{ postgres_port }}"
+  with_fileglob:
+    - /etc/postgresql/*/main/postgresql.conf
+  notify: restart postgresql
+
+What does that do?
+---
+
+## 2026-07-08T22:05:27Z
+- python3-psycopg2
+
+what does this do?
+---
+
+## 2026-07-08T22:06:31Z
+will it start postgres?:
+
+      - postgresql
+      - postgresql-client
+      - python3-psycopg2
+    state: present
+    update_cache: true
+
+- name: Set PostgreSQL port
+  ansible.builtin.lineinfile:
+    path: "{{ item }}"
+    regexp: "^#?port\\s*="
+    line: "port = {{ postgres_port }}"
+  with_fileglob:
+    - /etc/postgresql/*/main/postgresql.conf
+  notify: restart postgresql
+---
+
+## 2026-07-08T22:07:36Z
+why it doesn't start on port 25432 but 5432?
+---
+
+## 2026-07-08T22:08:21Z
+when?
+---
+
+## 2026-07-08T22:09:12Z
+give file name
+---
+
+## 2026-07-08T22:10:31Z
+what's the port postgres on after ` ansible-playbook playbooks/init.yml --tags infra`
+---
+
+## 2026-07-08T22:13:09Z
+after ` ansible-playbook playbooks/init.yml --tags infra` postgres didn't started why?
+---
+
+## 2026-07-08T22:13:29Z
+after ` ansible-playbook playbooks/init.yml --tags infra` postgres didn't started why? or it's expected?
+---
+
+## 2026-07-08T22:16:17Z
+after `ansible-playbook playbooks/init-deploy.yml --tags postgres` postgres started on 5432 no 25432, why? fix
+---
+
+## 2026-07-08T22:21:50Z
+ansible-playbook playbooks/init-deploy.yml --tags postgres
+
+PLAY [Deploy application] ***********************************************************************************************
+
+TASK [Gathering Facts] **************************************************************************************************
+[WARNING]: Host 'hetzner1' is using the discovered Python interpreter at '/usr/bin/python3.12', but future installation of another Python interpreter could cause a different interpreter to be discovered. See https://docs.ansible.com/ansible-core/2.21/reference_appendices/interpreter_discovery.html for more information.
+ok: [hetzner1]
+
+TASK [deploy : Ensure PostgreSQL is running] ****************************************************************************
+changed: [hetzner1]
+
+TASK [deploy : Create database user] ************************************************************************************
+[ERROR]: Task failed: Module failed: unable to connect to database: connection to server on socket "/var/run/postgresql/.s.PGSQL.5432" failed: No such file or directory
+        Is the server running locally and accepting connections on that socket?
+
+Origin: /home/ubuntuu/dev/mine/phrasal/ansible-bare/roles/deploy/tasks/postgres.yml:8:3
+
+6     enabled: true
+7
+8 - name: Create database user
+    ^ column 3
+
+fatal: [hetzner1]: FAILED! => {"changed": false, "msg": "unable to connect to database: connection to server on socket \"/var/run/postgresql/.s.PGSQL.5432\" failed: No such file or directory\n\tIs the server running locally and accepting connections on that socket?\n"}
+
+PLAY RECAP **************************************************************************************************************
+hetzner1                   : ok=2    changed=1    unreachable=0    failed=1    skipped=0    rescued=0    ignored=0
+---
+
+## 2026-07-08T22:25:34Z
+git add all changes and commit them with suitable message
+---

@@ -2806,3 +2806,224 @@
 - ansible-bare/roles/deploy/tasks/postgres.yml
 - ansible-bare/roles/deploy/templates/phrasal-nginx.conf.j2
 <!-- end-snapshot -->
+
+<!-- git-snapshot 2026-07-08T21:26:21Z -->
+- .claude/docs/blackbox/audit.md
+- ansible-bare/inventory/group_vars/all.yml
+- ansible-bare/roles/deploy/templates/phrasal-nginx.conf.j2
+- ansible-bare/roles/infra/defaults/main.yml
+- ansible-bare/roles/infra/tasks/postgres.yml
+- ansible-bare/roles/undeploy/templates/api-only-nginx.conf.j2
+- backend/src/main/resources/application-prod.yml
+<!-- end-snapshot -->
+
+<!-- git-snapshot 2026-07-08T21:41:21Z -->
+- .claude/docs/blackbox/audit.md
+- .claude/docs/blackbox/session-log.md
+- ansible-bare/inventory/group_vars/all.yml
+- ansible-bare/roles/deploy/templates/phrasal-nginx.conf.j2
+- ansible-bare/roles/infra/defaults/main.yml
+- ansible-bare/roles/infra/tasks/postgres.yml
+- ansible-bare/roles/undeploy/templates/api-only-nginx.conf.j2
+- backend/src/main/resources/application-prod.yml
+<!-- end-snapshot -->
+
+<!-- git-snapshot 2026-07-08T21:42:36Z -->
+- .claude/docs/blackbox/audit.md
+- .claude/docs/blackbox/session-log.md
+- ansible-bare/inventory/group_vars/all.yml
+- ansible-bare/roles/deploy/templates/phrasal-nginx.conf.j2
+- ansible-bare/roles/infra/defaults/main.yml
+- ansible-bare/roles/infra/tasks/postgres.yml
+- ansible-bare/roles/undeploy/templates/api-only-nginx.conf.j2
+- backend/src/main/resources/application-prod.yml
+<!-- end-snapshot -->
+
+<!-- git-snapshot 2026-07-08T21:43:42Z -->
+- .claude/docs/blackbox/audit.md
+- .claude/docs/blackbox/session-log.md
+- ansible-bare/inventory/group_vars/all.yml
+- ansible-bare/roles/deploy/templates/phrasal-nginx.conf.j2
+- ansible-bare/roles/infra/defaults/main.yml
+- ansible-bare/roles/infra/tasks/postgres.yml
+- ansible-bare/roles/undeploy/templates/api-only-nginx.conf.j2
+- backend/src/main/resources/application-prod.yml
+<!-- end-snapshot -->
+
+<!-- git-snapshot 2026-07-08T21:46:07Z -->
+- .claude/docs/blackbox/audit.md
+- .claude/docs/blackbox/session-log.md
+- ansible-bare/inventory/group_vars/all.yml
+- ansible-bare/roles/deploy/templates/phrasal-nginx.conf.j2
+- ansible-bare/roles/infra/defaults/main.yml
+- ansible-bare/roles/infra/tasks/postgres.yml
+- ansible-bare/roles/undeploy/templates/api-only-nginx.conf.j2
+- backend/src/main/resources/application-prod.yml
+<!-- end-snapshot -->
+
+<!-- git-snapshot 2026-07-08T21:53:25Z -->
+- .claude/docs/blackbox/audit.md
+- .claude/docs/blackbox/session-log.md
+- ansible-bare/README.md
+- ansible-bare/inventory/group_vars/all.yml
+- ansible-bare/playbooks/deploy.yml
+- ansible-bare/playbooks/init-deploy.yml
+- ansible-bare/roles/deploy/templates/phrasal-nginx.conf.j2
+- ansible-bare/roles/infra/defaults/main.yml
+- ansible-bare/roles/infra/tasks/postgres.yml
+- ansible-bare/roles/undeploy/templates/api-only-nginx.conf.j2
+- backend/src/main/resources/application-prod.yml
+<!-- end-snapshot -->
+
+<!-- git-snapshot 2026-07-08T21:54:11Z -->
+- .claude/docs/blackbox/audit.md
+- .claude/docs/blackbox/session-log.md
+- ansible-bare/README.md
+- ansible-bare/inventory/group_vars/all.yml
+- ansible-bare/playbooks/deploy.yml
+- ansible-bare/playbooks/init-deploy.yml
+- ansible-bare/roles/deploy/templates/phrasal-nginx.conf.j2
+- ansible-bare/roles/infra/defaults/main.yml
+- ansible-bare/roles/infra/tasks/postgres.yml
+- ansible-bare/roles/undeploy/templates/api-only-nginx.conf.j2
+- backend/src/main/resources/application-prod.yml
+<!-- end-snapshot -->
+
+<!-- git-snapshot 2026-07-08T21:57:48Z -->
+- .claude/docs/blackbox/audit.md
+- .claude/docs/blackbox/session-log.md
+- ansible-bare/inventory/group_vars/all.yml
+- ansible-bare/roles/deploy/templates/phrasal-nginx.conf.j2
+- ansible-bare/roles/infra/defaults/main.yml
+- ansible-bare/roles/infra/tasks/postgres.yml
+- ansible-bare/roles/undeploy/templates/api-only-nginx.conf.j2
+- backend/src/main/resources/application-prod.yml
+<!-- end-snapshot -->
+
+<!-- git-snapshot 2026-07-08T21:58:44Z -->
+- .claude/docs/blackbox/audit.md
+- .claude/docs/blackbox/session-log.md
+- ansible-bare/inventory/group_vars/all.yml
+- ansible-bare/roles/deploy/templates/phrasal-nginx.conf.j2
+- ansible-bare/roles/infra/defaults/main.yml
+- ansible-bare/roles/infra/tasks/postgres.yml
+- ansible-bare/roles/undeploy/templates/api-only-nginx.conf.j2
+- backend/src/main/resources/application-prod.yml
+<!-- end-snapshot -->
+
+<!-- git-snapshot 2026-07-08T21:59:28Z -->
+- .claude/docs/blackbox/audit.md
+- .claude/docs/blackbox/session-log.md
+- ansible-bare/inventory/group_vars/all.yml
+- ansible-bare/roles/deploy/templates/phrasal-nginx.conf.j2
+- ansible-bare/roles/infra/defaults/main.yml
+- ansible-bare/roles/infra/tasks/postgres.yml
+- ansible-bare/roles/undeploy/templates/api-only-nginx.conf.j2
+- backend/src/main/resources/application-prod.yml
+<!-- end-snapshot -->
+
+<!-- git-snapshot 2026-07-08T22:05:09Z -->
+- .claude/docs/blackbox/audit.md
+- .claude/docs/blackbox/session-log.md
+- ansible-bare/inventory/group_vars/all.yml
+- ansible-bare/roles/deploy/templates/phrasal-nginx.conf.j2
+- ansible-bare/roles/infra/defaults/main.yml
+- ansible-bare/roles/infra/tasks/postgres.yml
+- ansible-bare/roles/undeploy/templates/api-only-nginx.conf.j2
+- backend/src/main/resources/application-prod.yml
+<!-- end-snapshot -->
+
+<!-- git-snapshot 2026-07-08T22:05:31Z -->
+- .claude/docs/blackbox/audit.md
+- .claude/docs/blackbox/session-log.md
+- ansible-bare/inventory/group_vars/all.yml
+- ansible-bare/roles/deploy/templates/phrasal-nginx.conf.j2
+- ansible-bare/roles/infra/defaults/main.yml
+- ansible-bare/roles/infra/tasks/postgres.yml
+- ansible-bare/roles/undeploy/templates/api-only-nginx.conf.j2
+- backend/src/main/resources/application-prod.yml
+<!-- end-snapshot -->
+
+<!-- git-snapshot 2026-07-08T22:06:35Z -->
+- .claude/docs/blackbox/audit.md
+- .claude/docs/blackbox/session-log.md
+- ansible-bare/inventory/group_vars/all.yml
+- ansible-bare/roles/deploy/templates/phrasal-nginx.conf.j2
+- ansible-bare/roles/infra/defaults/main.yml
+- ansible-bare/roles/infra/tasks/postgres.yml
+- ansible-bare/roles/undeploy/templates/api-only-nginx.conf.j2
+- backend/src/main/resources/application-prod.yml
+<!-- end-snapshot -->
+
+<!-- git-snapshot 2026-07-08T22:07:42Z -->
+- .claude/docs/blackbox/audit.md
+- .claude/docs/blackbox/session-log.md
+- ansible-bare/inventory/group_vars/all.yml
+- ansible-bare/roles/deploy/templates/phrasal-nginx.conf.j2
+- ansible-bare/roles/infra/defaults/main.yml
+- ansible-bare/roles/infra/tasks/postgres.yml
+- ansible-bare/roles/undeploy/templates/api-only-nginx.conf.j2
+- backend/src/main/resources/application-prod.yml
+<!-- end-snapshot -->
+
+<!-- git-snapshot 2026-07-08T22:08:26Z -->
+- .claude/docs/blackbox/audit.md
+- .claude/docs/blackbox/session-log.md
+- ansible-bare/inventory/group_vars/all.yml
+- ansible-bare/roles/deploy/templates/phrasal-nginx.conf.j2
+- ansible-bare/roles/infra/defaults/main.yml
+- ansible-bare/roles/infra/tasks/postgres.yml
+- ansible-bare/roles/undeploy/templates/api-only-nginx.conf.j2
+- backend/src/main/resources/application-prod.yml
+<!-- end-snapshot -->
+
+<!-- git-snapshot 2026-07-08T22:09:20Z -->
+- .claude/docs/blackbox/audit.md
+- .claude/docs/blackbox/session-log.md
+- ansible-bare/inventory/group_vars/all.yml
+- ansible-bare/roles/deploy/templates/phrasal-nginx.conf.j2
+- ansible-bare/roles/infra/defaults/main.yml
+- ansible-bare/roles/infra/tasks/postgres.yml
+- ansible-bare/roles/undeploy/templates/api-only-nginx.conf.j2
+- backend/src/main/resources/application-prod.yml
+<!-- end-snapshot -->
+
+<!-- git-snapshot 2026-07-08T22:10:36Z -->
+- .claude/docs/blackbox/audit.md
+- .claude/docs/blackbox/session-log.md
+- ansible-bare/inventory/group_vars/all.yml
+- ansible-bare/roles/deploy/templates/phrasal-nginx.conf.j2
+- ansible-bare/roles/infra/defaults/main.yml
+- ansible-bare/roles/infra/tasks/postgres.yml
+- ansible-bare/roles/undeploy/templates/api-only-nginx.conf.j2
+- backend/src/main/resources/application-prod.yml
+<!-- end-snapshot -->
+
+<!-- git-snapshot 2026-07-08T22:16:50Z -->
+- .claude/docs/blackbox/audit.md
+- .claude/docs/blackbox/session-log.md
+- ansible-bare/inventory/group_vars/all.yml
+- ansible-bare/roles/deploy/templates/phrasal-nginx.conf.j2
+- ansible-bare/roles/infra/defaults/main.yml
+- ansible-bare/roles/infra/tasks/postgres.yml
+- ansible-bare/roles/undeploy/templates/api-only-nginx.conf.j2
+- backend/src/main/resources/application-prod.yml
+<!-- end-snapshot -->
+
+<!-- git-snapshot 2026-07-08T22:22:17Z -->
+- .claude/docs/blackbox/audit.md
+- .claude/docs/blackbox/session-log.md
+- ansible-bare/inventory/group_vars/all.yml
+- ansible-bare/roles/deploy/tasks/postgres.yml
+- ansible-bare/roles/deploy/templates/phrasal-nginx.conf.j2
+- ansible-bare/roles/infra/defaults/main.yml
+- ansible-bare/roles/infra/tasks/postgres.yml
+- ansible-bare/roles/undeploy/tasks/postgres.yml
+- ansible-bare/roles/undeploy/templates/api-only-nginx.conf.j2
+- backend/src/main/resources/application-prod.yml
+<!-- end-snapshot -->
+
+<!-- git-snapshot 2026-07-08T22:26:00Z -->
+- .claude/docs/blackbox/audit.md
+- .claude/docs/blackbox/session-log.md
+<!-- end-snapshot -->
