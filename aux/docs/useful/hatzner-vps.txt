@@ -115,3 +115,135 @@
 
     For tag values (like backend, frontend, postgres), argcomplete won't auto-discover those from your playbooks. You can
     add a custom completion for that — want me to add tag-value completion to your vps-completion.bash file?
+
+    ---
+
+    ❯ how does ansible work? show related roes, playbooks, inventory, etc.
+
+    ● Here's how your Ansible setup is wired together:
+
+      Structure
+
+      ansible/
+      ├── ansible.cfg                  ← config: points to inventory + roles
+      ├── inventory/
+      │   ├── hosts.yml                ← which servers to target
+      │   └── group_vars/all.yml       ← shared variables for all hosts
+      ├── playbooks/
+      │   ├── init.yml                 ← VPS bootstrap (user, shell, software)
+      │   ├── setup.yml                ← infra + first deploy (asks about swap)
+      │   ├── redeploy.yml             ← day-to-day code deploys
+      │   └── undeploy.yml             ← tear down components
+      └── roles/
+          ├── base_user/               ← create vpsuser, SSH key, sudo
+          ├── base_shell/              ← .bashrc, packages, Telegram secrets
+          ├── soft/                    ← speedtest, tmux
+          ├── infra/                   ← swap, postgres, java, nginx, firewall
+          ├── deploy/                  ← DB setup, systemd service, nginx site, SSL
+          ├── redeploy/                ← upload JAR/dist, restart services
+          └── undeploy/                ← stop services, remove files, drop DB
+
+      How the pieces connect
+
+      1. ansible.cfg — tells Ansible where to find everything:
+      inventory = inventory/hosts.yml
+      roles_path = roles
+
+      2. inventory/hosts.yml — defines your server:
+      all:
+        hosts:
+          hetzner1:
+            ansible_host: 116.203.78.118
+            ansible_user: vpsuser
+            ansible_ssh_private_key_file: ~/dev/scripts/vps/ssh-key-h1.key
+
+      3. inventory/group_vars/all.yml — variables shared across all hosts:
+      domain: phrasal.ddns.net
+      db_name: phrasaldb
+      db_user: phrasaluser
+      setup_swap: false
+      swap_size: "1G"
+      java_xms: 128m
+      java_xmx: 256m
+      # ... etc
+
+      4. Playbooks — each one picks a host group and assigns roles:
+      # setup.yml (simplified)
+      - hosts: hetzner1
+        become: true          # run as root (sudo)
+        vars_prompt:          # asks interactively
+          - name: setup_swap
+            prompt: "Create swap memory?"
+            default: "no"
+        roles:
+          - role: infra       # install postgres, java, nginx, firewall
+          - role: deploy      # create DB, systemd service, nginx config
+
+      5. Roles — reusable units, each with its own tasks/templates/defaults:
+      roles/infra/
+      ├── defaults/main.yml     ← default variable values (lowest priority)
+      ├── handlers/main.yml     ← triggered actions (e.g., restart nginx)
+      └── tasks/
+          ├── main.yml          ← entry point, imports sub-tasks
+          ├── swap.yml          ← conditional: only runs if setup_swap=true
+          ├── postgres.yml
+          ├── java.yml
+          ├── nginx.yml
+          └── firewall.yml
+
+      Flow: what happens when you run a command
+
+      ansible-playbook playbooks/undeploy.yml --tags frontend
+
+      1. Ansible reads ansible.cfg → finds inventory/hosts.yml
+      2. Loads inventory/group_vars/all.yml → sets web_dir, domain, etc.
+      3. Opens playbooks/undeploy.yml → targets hetzner1, uses role undeploy
+      4. --tags frontend filters to only tasks tagged frontend
+      5. Role undeploy/tasks/main.yml imports frontend.yml (tagged frontend)
+      6. frontend.yml uses {{ web_dir }} from group_vars → removes /var/www/phrasal, adjusts nginx
+            default: "no"
+        roles:
+          - role: infra       # install postgres, java, nginx, firewall
+          - role: deploy      # create DB, systemd service, nginx config
+
+      5. Roles — reusable units, each with its own tasks/templates/defaults:
+      roles/infra/
+      ├── defaults/main.yml     ← default variable values (lowest priority)
+      ├── handlers/main.yml     ← triggered actions (e.g., restart nginx)
+      └── tasks/
+          ├── main.yml          ← entry point, imports sub-tasks
+          ├── swap.yml          ← conditional: only runs if setup_swap=true
+          ├── postgres.yml
+          ├── java.yml
+          ├── nginx.yml
+          └── firewall.yml
+
+      Flow: what happens when you run a command
+
+      ansible-playbook playbooks/undeploy.yml --tags frontend
+
+      1. Ansible reads ansible.cfg → finds inventory/hosts.yml
+      2. Loads inventory/group_vars/all.yml → sets web_dir, domain, etc.
+      3. Opens playbooks/undeploy.yml → targets hetzner1, uses role undeploy
+      4. --tags frontend filters to only tasks tagged frontend
+      5. Role undeploy/tasks/main.yml imports frontend.yml (tagged frontend)
+      6. frontend.yml uses {{ web_dir }} from group_vars → removes /var/www/phrasal, adjusts nginx
+
+      Variable priority (low → high)
+
+      role defaults → group_vars/all.yml → playbook vars → vars_prompt → -e flag
+
+      So -e setup_swap=true on the command line overrides everything, including the interactive prompt.
+
+      Tags
+
+      Tags let you run a subset of a role. Each playbook's main.yml tags its imports:
+      # undeploy/tasks/main.yml
+      - import_tasks: backend.yml
+        tags: [backend]
+      - import_tasks: frontend.yml
+        tags: [frontend]
+      - import_tasks: postgres.yml
+        tags: [postgres]
+
+      Running without --tags runs everything; with --tags backend runs only backend tasks.

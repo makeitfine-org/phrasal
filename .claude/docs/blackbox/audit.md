@@ -3186,3 +3186,78 @@ where should i now run the ` ansible-playbook playbooks/undeploy.yml --tags fron
 ## 2026-07-08T16:17:37Z
 git add all changes and commit them with suitable message
 ---
+
+## 2026-07-08T16:21:07Z
+how does ansible work? show related roes, playbooks, inventory, etc.
+---
+
+## 2026-07-08T16:37:03Z
+ ansible-playbook playbooks/setup.yml --tags frontend
+Create swap memory? (yes/no) [no]:
+Swap size (e.g. 1G, 2G, 4G) [1G]:
+
+I press enter and it ask the size, but it was [no] by default?
+---
+
+## 2026-07-08T16:38:06Z
+2
+---
+
+## 2026-07-08T16:40:03Z
+buy buy default ansible-playbook playbooks/setup.yml it skips creations of swap?
+---
+
+## 2026-07-08T16:42:25Z
+ansible-playbook playbooks/setup.yml --tags frontend
+
+PLAY [Install infrastructure and deploy application] ********************************************************************
+
+TASK [Gathering Facts] **************************************************************************************************
+[WARNING]: Host 'hetzner1' is using the discovered Python interpreter at '/usr/bin/python3.12', but future installation of another Python interpreter could cause a different interpreter to be discovered. See https://docs.ansible.com/ansible-core/2.21/reference_appendices/interpreter_discovery.html for more information.
+ok: [hetzner1]
+
+TASK [deploy : Create web directory] ************************************************************************************
+changed: [hetzner1]
+
+TASK [deploy : Check local dist directory] ******************************************************************************
+ok: [hetzner1 -> localhost]
+
+TASK [deploy : Fail if no dist] *****************************************************************************************
+[ERROR]: Task failed: Action failed: No dist/ directory — build first: npm run build
+Origin: /home/ubuntuu/dev/mine/phrasal/ansible/roles/deploy/tasks/frontend.yml:17:3
+
+15   register: dist_dir
+16
+17 - name: Fail if no dist
+     ^ column 3
+
+fatal: [hetzner1]: FAILED! => {"changed": false, "msg": "No dist/ directory — build first: npm run build"}
+
+PLAY RECAP **************************************************************************************************************
+hetzner1                   : ok=3    changed=1    unreachable=0    failed=1    skipped=0    rescued=0    ignored=0
+---
+
+## 2026-07-08T16:47:16Z
+Where does ansible try to find "dist/"?
+---
+
+## 2026-07-08T16:49:21Z
+Check all @ansible/ for such relative path issues and fis
+---
+
+## 2026-07-08T16:49:24Z
+Check all @ansible/ for such relative path issues and fix
+---
+
+## 2026-07-08T16:53:25Z
+Is it good ansible practice to write so relative pathes?
+
+local_jar_dir: "{{ playbook_dir }}/../../backend/target"
+local_dist_dir: "{{ playbook_dir }}/../../frontend/dist"
+local_jar_dir: "{{ playbook_dir }}/../../backend/target"
+local_dist_dir: "{{ playbook_dir }}/../../frontend/dist"
+---
+
+## 2026-07-08T16:54:00Z
+yes
+---

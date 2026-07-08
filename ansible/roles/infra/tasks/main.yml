@@ -1,7 +1,6 @@
 ---
 - name: Swap setup
-  ansible.builtin.import_tasks: swap.yml
-  when: setup_swap | bool
+  ansible.builtin.include_tasks: swap.yml
   tags: [swap]
 
 - name: PostgreSQL setup

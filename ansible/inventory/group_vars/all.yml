@@ -1,3 +1,5 @@
+project_root: "{{ playbook_dir }}/../.."
+
 vps_user: vpsuser
 domain: phrasal.ddns.net
 certbot_email: x7warrio@gmail.com

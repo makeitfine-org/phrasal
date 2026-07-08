@@ -7,15 +7,6 @@
 - name: Install infrastructure and deploy application
   hosts: hetzner1
   become: true
-  vars_prompt:
-    - name: setup_swap
-      prompt: "Create swap memory? (yes/no)"
-      default: "no"
-      private: false
-    - name: swap_size
-      prompt: "Swap size (e.g. 1G, 2G, 4G)"
-      default: "1G"
-      private: false
   roles:
     - role: infra
       tags: [infra]

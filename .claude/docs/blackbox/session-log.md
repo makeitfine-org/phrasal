@@ -2310,3 +2310,83 @@
 - .claude/docs/blackbox/session-log.md
 - blackbox/session-log.md
 <!-- end-snapshot -->
+
+<!-- git-snapshot 2026-07-08T16:21:34Z -->
+- .claude/docs/blackbox/audit.md
+<!-- end-snapshot -->
+
+<!-- git-snapshot 2026-07-08T16:37:10Z -->
+- .claude/docs/blackbox/audit.md
+- .claude/docs/blackbox/session-log.md
+- aux/docs/useful/hatzner-vps.txt
+<!-- end-snapshot -->
+
+<!-- git-snapshot 2026-07-08T16:38:41Z -->
+- .claude/docs/blackbox/audit.md
+- .claude/docs/blackbox/session-log.md
+- ansible/playbooks/setup.yml
+- ansible/roles/infra/tasks/main.yml
+- ansible/roles/infra/tasks/swap.yml
+- aux/docs/useful/hatzner-vps.txt
+<!-- end-snapshot -->
+
+<!-- git-snapshot 2026-07-08T16:40:25Z -->
+- .claude/docs/blackbox/audit.md
+- .claude/docs/blackbox/session-log.md
+- ansible/playbooks/setup.yml
+- ansible/roles/infra/tasks/main.yml
+- ansible/roles/infra/tasks/swap.yml
+- aux/docs/useful/hatzner-vps.txt
+<!-- end-snapshot -->
+
+<!-- git-snapshot 2026-07-08T16:42:32Z -->
+- .claude/docs/blackbox/audit.md
+- .claude/docs/blackbox/session-log.md
+- ansible/playbooks/setup.yml
+- ansible/roles/infra/tasks/main.yml
+- ansible/roles/infra/tasks/swap.yml
+- aux/docs/useful/hatzner-vps.txt
+<!-- end-snapshot -->
+
+<!-- git-snapshot 2026-07-08T16:48:33Z -->
+- .claude/docs/blackbox/audit.md
+- .claude/docs/blackbox/session-log.md
+- ansible/playbooks/setup.yml
+- ansible/roles/deploy/defaults/main.yml
+- ansible/roles/infra/tasks/main.yml
+- ansible/roles/infra/tasks/swap.yml
+- aux/docs/useful/hatzner-vps.txt
+<!-- end-snapshot -->
+
+<!-- git-snapshot 2026-07-08T16:50:02Z -->
+- .claude/docs/blackbox/audit.md
+- .claude/docs/blackbox/session-log.md
+- ansible/playbooks/setup.yml
+- ansible/roles/deploy/defaults/main.yml
+- ansible/roles/infra/tasks/main.yml
+- ansible/roles/infra/tasks/swap.yml
+- aux/docs/useful/hatzner-vps.txt
+<!-- end-snapshot -->
+
+<!-- git-snapshot 2026-07-08T16:53:31Z -->
+- .claude/docs/blackbox/audit.md
+- .claude/docs/blackbox/session-log.md
+- ansible/playbooks/setup.yml
+- ansible/roles/deploy/defaults/main.yml
+- ansible/roles/infra/tasks/main.yml
+- ansible/roles/infra/tasks/swap.yml
+- ansible/roles/redeploy/defaults/main.yml
+- aux/docs/useful/hatzner-vps.txt
+<!-- end-snapshot -->
+
+<!-- git-snapshot 2026-07-08T16:54:23Z -->
+- .claude/docs/blackbox/audit.md
+- .claude/docs/blackbox/session-log.md
+- ansible/inventory/group_vars/all.yml
+- ansible/playbooks/setup.yml
+- ansible/roles/deploy/defaults/main.yml
+- ansible/roles/infra/tasks/main.yml
+- ansible/roles/infra/tasks/swap.yml
+- ansible/roles/redeploy/defaults/main.yml
+- aux/docs/useful/hatzner-vps.txt
+<!-- end-snapshot -->
