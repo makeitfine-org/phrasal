@@ -2977,3 +2977,26 @@ ssh_vps "sudo sh -c 'iptables-save > /etc/iptables/rules.v4'" this should be app
 ## 2026-07-08T10:53:03Z
 git add all changes and commit them with suitable message
 ---
+
+## 2026-07-08T10:55:12Z
+Add into @aux/scripts/vps/init/3.init_soft.sh install tmux if not installed
+
+And add ~/.tmux.conf:
+
+cat ~/.tmux.conf
+set -g mouse on
+
+
+###
+
+# Enable 256 colors
+set -g default-terminal "tmux-256color"
+
+# Enable RGB/True color support (crucial if using Neovim inside tmux)
+set -as terminal-features ',*:RGB'
+set -as terminal-overrides ',*:Tc
+---
+
+## 2026-07-08T10:57:22Z
+git add all changes and commit them with suitable message
+---

@@ -2109,3 +2109,8 @@
 - .claude/docs/blackbox/session-log.md
 - aux/scripts/vps/deployment/mini/special/1.install-infra.sh
 <!-- end-snapshot -->
+
+<!-- git-snapshot 2026-07-08T10:55:22Z -->
+- .claude/docs/blackbox/audit.md
+- aux/scripts/vps/init/3.init_soft.sh
+<!-- end-snapshot -->
