@@ -256,3 +256,6 @@
 
       sudo iptables -nL --line-numbers
 
+---
+
+  sudo journalctl -u phrasal.service -n 25 -f

@@ -14,7 +14,7 @@ clean:
 	$(call execute_commands,\
 		docker compose down ; \
 		docker rmi -f phrasal-backend:latest phrasal-frontend:latest 2>/dev/null || true && \
-		cd backend && \
+		cd backend && mvn clean && \
 		cd ../frontend && rm -rf dist && \
 		cd ../e2e && rm -rf reports test-results playwright-report,\
 		"✅ CLEAN SUCCESSFUL (phrasal) ✅",\
@@ -37,7 +37,7 @@ updateAcceptance:
 buildBackend:
 	@echo "### Building backend (phrasal) ..."
 	$(call execute_commands,\
-		cd backend,\
+		cd backend && mvn verify,\
 		"✅ BUILD BACKEND SUCCESSFUL (phrasal) ✅",\
 		"❌ BUILD BACKEND FAILED (phrasal) ❌")
 
@@ -70,7 +70,7 @@ build:
 ciCheck:
 	@echo "### CI simulation (phrasal) ..."
 	$(call execute_commands,\
-		cd backend && \
+		cd backend && mvn clean verify && \
 		cd .. && cd frontend && npm ci && npm run build && \
 		cd .. && docker compose build --no-cache && \
 		docker compose up -d --wait && \

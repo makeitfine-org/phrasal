@@ -3897,3 +3897,54 @@ hetzner1                   : ok=2    changed=1    unreachable=0    failed=1    s
 ## 2026-07-08T22:25:34Z
 git add all changes and commit them with suitable message
 ---
+
+## 2026-07-08T22:27:10Z
+how to write test for ansible? best ractices common used?
+---
+
+## 2026-07-08T22:27:19Z
+how to write tests for ansible? best ractices common used?
+---
+
+## 2026-07-08T22:32:27Z
+after `ansible-playbook playbooks/init-deploy.yml --tags backend`
+I got:
+
+Jul 09 00:31:37 vps-h1 java[117160]:         at com.zaxxer.hikari.pool.HikariPool.<init>(HikariPool.java:97) ~[HikariCP-6.3.3.jar!/:na]
+Jul 09 00:31:37 vps-h1 java[117160]:         at com.zaxxer.hikari.HikariDataSource.getConnection(HikariDataSource.java:111) ~[HikariCP-6.3.3.jar!/:na]
+Jul 09 00:31:37 vps-h1 java[117160]:         at org.flywaydb.core.internal.jdbc.JdbcUtils.openConnection(JdbcUtils.java:59) ~[flyway-core-11.7.2.jar!/:na]
+Jul 09 00:31:37 vps-h1 java[117160]:         ... 28 common frames omitted
+Jul 09 00:31:37 vps-h1 java[117160]: Caused by: java.net.ConnectException: Connection refused
+Jul 09 00:31:37 vps-h1 java[117160]:         at java.base/sun.nio.ch.Net.pollConnect(Native Method) ~[na:na]
+Jul 09 00:31:37 vps-h1 java[117160]:         at java.base/sun.nio.ch.Net.pollConnectNow(Net.java:639) ~[na:na]
+Jul 09 00:31:37 vps-h1 java[117160]:         at java.base/sun.nio.ch.NioSocketImpl.timedFinishConnect(NioSocketImpl.java:543) ~[na:na]
+Jul 09 00:31:37 vps-h1 java[117160]:         at java.base/sun.nio.ch.NioSocketImpl.connect(NioSocketImpl.java:594) ~[na:na]
+Jul 09 00:31:37 vps-h1 java[117160]:         at java.base/java.net.SocksSocketImpl.connect(SocksSocketImpl.java:284) ~[na:na]
+Jul 09 00:31:37 vps-h1 java[117160]:         at java.base/java.net.Socket.connect(Socket.java:659) ~[na:na]
+Jul 09 00:31:37 vps-h1 java[117160]:         at org.postgresql.core.PGStream.createSocket(PGStream.java:261) ~[postgresql-42.7.8.jar!/:42.7.8]
+Jul 09 00:31:37 vps-h1 java[117160]:         at org.postgresql.core.PGStream.<init>(PGStream.java:122) ~[postgresql-42.7.8.jar!/:42.7.8]
+Jul 09 00:31:37 vps-h1 java[117160]:         at org.postgresql.core.v3.ConnectionFactoryImpl.tryConnect(ConnectionFactoryImpl.java:146) ~[postgresql-42.7.8.jar!/:42.7.8]
+Jul 09 00:31:37 vps-h1 java[117160]:         at org.postgresql.core.v3.ConnectionFactoryImpl.openConnectionImpl(ConnectionFactoryImpl.java:289) ~[postgresql-42.7.8.jar!/:42.7.8]
+Jul 09 00:31:37 vps-h1 java[117160]:         ... 40 common frames omitted
+Jul 09 00:31:37 vps-h1 systemd[1]: phrasal.service: Main process exited, code=exited, status=1/FAILURE
+Jul 09 00:31:37 vps-h1 systemd[1]: phrasal.service: Failed with result 'exit-code'.
+Jul 09 00:31:37 vps-h1 systemd[1]: phrasal.service: Consumed 17.892s CPU time.
+Jul 09 00:31:37 vps-h1 systemd[1]: phrasal.service: Scheduled restart job, restart counter is at 13.
+Jul 09 00:31:38 vps-h1 systemd[1]: Started phrasal.service - Phrasal Backend.
+Jul 09 00:31:39 vps-h1 java[117195]:   .   ____          _            __ _ _
+---
+
+## 2026-07-08T22:38:05Z
+After `make clean build` I check that *.jar didn't change:
+
+phrasal$ ll backend/target/backend-0.1.0.jar
+-rw-r--r-- 1 ubuntuu ubuntuu 59923918 Jul  1 12:06 backend/target/backend-0.1.0.jar
+---
+
+## 2026-07-08T22:41:41Z
+Analyze @Makefile and fix it
+---
+
+## 2026-07-08T22:42:53Z
+do other targets work properly?
+---
