@@ -2783,3 +2783,26 @@
 <!-- git-snapshot 2026-07-08T20:49:51Z -->
 - aux/docs/useful/arch/oci/save_while_work.txt
 <!-- end-snapshot -->
+
+<!-- git-snapshot 2026-07-08T21:14:34Z -->
+- .claude/docs/blackbox/audit.md
+- ansible-bare/README.md
+- ansible-bare/ansible.cfg
+- ansible-bare/inventory/group_vars/all.yml
+- ansible-bare/inventory/hosts.yml
+- ansible-bare/playbooks/init-deploy.yml
+- ansible-bare/playbooks/init.yml
+- ansible-bare/playbooks/redeploy.yml
+- ansible-bare/playbooks/undeploy.yml
+- ansible-bare/roles/base_shell/files/bashrc.txt
+- ansible-bare/roles/base_shell/tasks/main.yml
+- ansible-bare/roles/base_shell/templates/secrets.sh.j2
+- ansible-bare/roles/base_user/tasks/main.yml
+- ansible-bare/roles/deploy/defaults/main.yml
+- ansible-bare/roles/deploy/handlers/main.yml
+- ansible-bare/roles/deploy/tasks/backend.yml
+- ansible-bare/roles/deploy/tasks/frontend.yml
+- ansible-bare/roles/deploy/tasks/main.yml
+- ansible-bare/roles/deploy/tasks/postgres.yml
+- ansible-bare/roles/deploy/templates/phrasal-nginx.conf.j2
+<!-- end-snapshot -->
