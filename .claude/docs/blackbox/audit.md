@@ -3085,3 +3085,39 @@ inside @aux/scripts/vps/ansible/ create README.md for this folder like it was do
 ## 2026-07-08T15:39:00Z
 git add all changes and commit them with suitable message
 ---
+
+## 2026-07-08T15:39:55Z
+ sudo apt-get  upgrade
+Reading package lists... Done
+Building dependency tree... Done
+Reading state information... Done
+Calculating upgrade... Done
+The following upgrades have been deferred due to phasing:
+  libinput-bin libinput10 ubuntu-minimal ubuntu-wsl
+0 upgraded, 0 newly installed, 0 to remove and 4 not upgraded.
+---
+
+## 2026-07-08T15:42:02Z
+to use: ansible-playbook playbooks/undeploy.yml --tags backend
+Where should I be inside?
+---
+
+## 2026-07-08T15:45:15Z
+How to make ansible autocompletion `ansible-playbook playbooks/undeploy.yml --tags backend.` for example `--tags`, `backend` etc.?
+---
+
+## 2026-07-08T15:45:27Z
+How to make ansible autocompletion in terminal `ansible-playbook playbooks/undeploy.yml --tags backend.` for example `--tags`, `backend` etc.?
+---
+
+## 2026-07-08T15:46:34Z
+sudo apt-get install -y python3-argcomplete
+    sudo activate-global-python-argcomplete
+    exec bash
+---
+
+## 2026-07-08T15:54:30Z
+I set  source ../arch/bash/deployment/mini/vps-completion.bash
+
+but ./../arch/bash/deployment/mini/special/3.undeploy-vps.sh doesn't work autocompletion
+---

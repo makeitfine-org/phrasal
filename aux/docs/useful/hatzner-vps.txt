@@ -84,7 +84,7 @@
 
    create: old.phrasal.ddns.net
 
----
+  ---
 
  sudo apt update
  sudo apt install software-properties-common
@@ -99,3 +99,19 @@
   ansible-playbook playbooks/init.yml                    # shell + soft
   ansible-playbook playbooks/setup.yml -e setup_swap=true -e swap_size=2G
   ansible-playbook playbooks/redeploy.yml --tags backend # day-to-day
+
+  ---
+
+   How to make ansible autocompletion in terminal `ansible-playbook playbooks/undeploy.yml --tags backend.` for example
+    `--tags`, `backend` etc.?
+
+  ● Install argcomplete — Ansible supports it natively:
+
+    sudo apt-get install -y python3-argcomplete
+    sudo activate-global-python-argcomplete
+    exec bash
+
+    That gives you completion for ansible-playbook, --tags, and other flags.
+
+    For tag values (like backend, frontend, postgres), argcomplete won't auto-discover those from your playbooks. You can
+    add a custom completion for that — want me to add tag-value completion to your vps-completion.bash file?

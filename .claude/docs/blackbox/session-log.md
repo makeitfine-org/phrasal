@@ -2206,3 +2206,33 @@
 - aux/scripts/vps/arch/bash/init/2.init_bash.sh
 - aux/scripts/vps/arch/bash/init/3.init_soft.sh
 <!-- end-snapshot -->
+
+<!-- git-snapshot 2026-07-08T15:40:02Z -->
+- .claude/docs/blackbox/audit.md
+<!-- end-snapshot -->
+
+<!-- git-snapshot 2026-07-08T15:42:05Z -->
+- .claude/docs/blackbox/audit.md
+- .claude/docs/blackbox/session-log.md
+<!-- end-snapshot -->
+
+<!-- git-snapshot 2026-07-08T15:45:35Z -->
+- .claude/docs/blackbox/audit.md
+- .claude/docs/blackbox/session-log.md
+- aux/scripts/vps/ansible/inventory/hosts.yml
+<!-- end-snapshot -->
+
+<!-- git-snapshot 2026-07-08T15:46:42Z -->
+- .claude/docs/blackbox/audit.md
+- .claude/docs/blackbox/session-log.md
+- aux/docs/useful/hatzner-vps.txt
+- aux/scripts/vps/ansible/inventory/hosts.yml
+<!-- end-snapshot -->
+
+<!-- git-snapshot 2026-07-08T15:54:56Z -->
+- .claude/docs/blackbox/audit.md
+- .claude/docs/blackbox/session-log.md
+- aux/docs/useful/hatzner-vps.txt
+- aux/scripts/vps/ansible/inventory/hosts.yml
+- aux/scripts/vps/arch/bash/deployment/mini/vps-completion.bash
+<!-- end-snapshot -->
