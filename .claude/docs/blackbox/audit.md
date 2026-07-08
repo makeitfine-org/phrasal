@@ -3358,3 +3358,73 @@ LC_ALL=
 ## 2026-07-08T17:13:29Z
 now good!
 ---
+
+## 2026-07-08T17:18:03Z
+before running:
+ansible-playbook playbooks/setup.yml --tags frontend
+I had:
+ll /var/www/phrasal/
+total 28
+drwxr-xr-x 4 vpsuser vpsuser 4096 Jul  8 19:00 ./
+drwxr-xr-x 4 root    root    4096 Jul  8 19:15 ../
+-rw-r--r-- 1 vpsuser vpsuser  556 Jul  8 19:00 404.html
+drwxr-xr-x 2 vpsuser vpsuser 4096 Jul  8 19:00 assets/
+-rw-r--r-- 1 vpsuser vpsuser  428 Jul  8 19:00 favicon.svg
+drwxr-xr-x 3 vpsuser vpsuser 4096 Jul  8 19:00 images/
+-rw-r--r-- 1 vpsuser vpsuser 1201 Jul  8 19:00 index.html
+not the same, files doen't changed. I seems weren't re-uploaded.
+
+on https://phrasal.ddns.net there is "This site can't be reached"
+
+But when deploy with @aux/scripts/vps/arch/bash/deployment/mini/special/2.deploy-first-or-after-undeploy-vps.sh frontend it site works.
+---
+
+## 2026-07-08T17:21:08Z
+after running:
+ansible-playbook playbooks/setup.yml --tags frontend
+I get on https://phrasal.ddns.net there is "This site can't be reached"
+
+But when deploy with @aux/scripts/vps/arch/bash/deployment/mini/special/2.deploy-first-or-after-undeploy-vps.sh frontend it site works.
+---
+
+## 2026-07-08T17:24:58Z
+I want `ansible-playbook playbooks/setup.yml --tags frontend` work so good as `@aux/scripts/vps/arch/bash/deployment/mini/special/2.deploy-first-or-after-undeploy-vps.sh frontend` (I wouldn't use this)
+---
+
+## 2026-07-08T17:29:05Z
+No works!
+---
+
+## 2026-07-08T17:30:27Z
+not "no", but Now works! (I made a mistake not "now, but no"
+---
+
+## 2026-07-08T17:31:08Z
+Now on `ansible-playbook playbooks/redeploy.yml --tags frontend` what did it do with certificate?
+---
+
+## 2026-07-08T17:32:09Z
+what `ansible-playbook playbooks/undeploy.yml --tags frontend`?
+and then:
+`ansible-playbook playbooks/setup.yml --tags frontend`
+---
+
+## 2026-07-08T17:34:35Z
+so you fixed?
+---
+
+## 2026-07-08T17:35:32Z
+so ` undeploy --tags frontend:` remove certs?
+---
+
+## 2026-07-08T17:35:47Z
+when it removes?
+---
+
+## 2026-07-08T17:35:56Z
+when it's removed?
+---
+
+## 2026-07-08T17:36:30Z
+with @aux/scripts/vps/arch/bash/deployment/mini/special/3.undeploy-vps.sh is it removed?
+---

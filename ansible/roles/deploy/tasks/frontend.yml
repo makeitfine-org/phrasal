@@ -24,13 +24,19 @@
     src: "{{ local_dist_dir }}/"
     dest: "{{ web_dir }}/"
     delete: true
-  notify: reload nginx
+
+- name: Check if full nginx site config exists
+  ansible.builtin.command: grep -q 'root {{ web_dir }}' /etc/nginx/sites-available/phrasal
+  register: nginx_has_root
+  changed_when: false
+  failed_when: false
 
 - name: Deploy nginx site config
   ansible.builtin.template:
     src: phrasal-nginx.conf.j2
     dest: /etc/nginx/sites-available/phrasal
     mode: "0644"
+  when: nginx_has_root.rc != 0
   notify: reload nginx
 
 - name: Enable nginx site
@@ -40,9 +46,14 @@
     state: link
   notify: reload nginx
 
+- name: Check if SSL is configured in nginx
+  ansible.builtin.command: grep -q 'listen.*443.*ssl' /etc/nginx/sites-available/phrasal
+  register: ssl_configured
+  changed_when: false
+  failed_when: false
+
 - name: Set up SSL with certbot
   ansible.builtin.command: >
     certbot --nginx -d {{ domain }}
     --non-interactive --agree-tos --email {{ certbot_email }}
-  args:
-    creates: /etc/letsencrypt/live/{{ domain }}/fullchain.pem
+  when: ssl_configured.rc != 0

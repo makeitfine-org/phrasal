@@ -2447,3 +2447,54 @@
 - .claude/docs/blackbox/audit.md
 - .claude/docs/blackbox/session-log.md
 <!-- end-snapshot -->
+
+<!-- git-snapshot 2026-07-08T17:21:46Z -->
+- .claude/docs/blackbox/audit.md
+- ansible/roles/deploy/tasks/frontend.yml
+<!-- end-snapshot -->
+
+<!-- git-snapshot 2026-07-08T17:26:12Z -->
+- .claude/docs/blackbox/audit.md
+- .claude/docs/blackbox/session-log.md
+- ansible/roles/deploy/tasks/frontend.yml
+<!-- end-snapshot -->
+
+<!-- git-snapshot 2026-07-08T17:30:31Z -->
+- .claude/docs/blackbox/audit.md
+- .claude/docs/blackbox/session-log.md
+- ansible/roles/deploy/tasks/frontend.yml
+<!-- end-snapshot -->
+
+<!-- git-snapshot 2026-07-08T17:31:16Z -->
+- .claude/docs/blackbox/audit.md
+- .claude/docs/blackbox/session-log.md
+- ansible/roles/deploy/tasks/frontend.yml
+<!-- end-snapshot -->
+
+<!-- git-snapshot 2026-07-08T17:32:32Z -->
+- ansible/roles/deploy/tasks/frontend.yml
+<!-- end-snapshot -->
+
+<!-- git-snapshot 2026-07-08T17:34:41Z -->
+- .claude/docs/blackbox/audit.md
+- .claude/docs/blackbox/session-log.md
+- ansible/roles/deploy/tasks/frontend.yml
+<!-- end-snapshot -->
+
+<!-- git-snapshot 2026-07-08T17:35:37Z -->
+- .claude/docs/blackbox/audit.md
+- .claude/docs/blackbox/session-log.md
+- ansible/roles/deploy/tasks/frontend.yml
+<!-- end-snapshot -->
+
+<!-- git-snapshot 2026-07-08T17:36:01Z -->
+- .claude/docs/blackbox/audit.md
+- .claude/docs/blackbox/session-log.md
+- ansible/roles/deploy/tasks/frontend.yml
+<!-- end-snapshot -->
+
+<!-- git-snapshot 2026-07-08T17:36:37Z -->
+- .claude/docs/blackbox/audit.md
+- .claude/docs/blackbox/session-log.md
+- ansible/roles/deploy/tasks/frontend.yml
+<!-- end-snapshot -->
