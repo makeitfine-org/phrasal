@@ -3678,3 +3678,31 @@ Where is that cleanup?
 ## 2026-07-08T20:28:49Z
 git add all changes and commit them with suitable message
 ---
+
+## 2026-07-08T20:30:36Z
+in @ansible/playbooks/setup.yml only one deploy with that extract that into deploy
+---
+
+## 2026-07-08T20:33:17Z
+now I have playbook and role 'deploy" isn't it a problem?
+---
+
+## 2026-07-08T20:36:33Z
+rename playbook "deploy" to first deploy
+---
+
+## 2026-07-08T20:38:07Z
+/review
+---
+
+## 2026-07-08T20:40:11Z
+rename playbook "deploy" to "init-deploy"
+---
+
+## 2026-07-08T20:47:28Z
+based on change in @ansible/ correct @ansible/README.md
+---
+
+## 2026-07-08T20:49:28Z
+git add all changes and commit them with suitable message
+---

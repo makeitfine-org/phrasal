@@ -23,25 +23,14 @@ Connection variables are centralized in two files:
 # First run as root — create vpsuser:
 ansible-playbook playbooks/init.yml -e ansible_user=root --tags user
 
-# Then as vpsuser — shell config + software:
+# Then as vpsuser — shell config, software, infrastructure:
 ansible-playbook playbooks/init.yml
 
 # With Telegram secrets:
 ansible-playbook playbooks/init.yml -e telegram_bot_token=XXX -e telegram_chat_id=YYY
-```
 
-```
-roles/
-├── base_user/   # Create vpsuser with SSH key and passwordless sudo
-├── base_shell/  # Install basic tools, configure .bashrc, set Telegram secrets
-└── soft/        # Install additional software (speedtest, tmux)
-```
-
-## Infrastructure + First Deploy (run once)
-
-```bash
-ansible-playbook playbooks/setup.yml
-ansible-playbook playbooks/setup.yml --tags postgres,java   # partial
+# With swap:
+ansible-playbook playbooks/init.yml -e setup_swap=true -e swap_size=2G
 ```
 
 The playbook asks whether to create swap memory (default: no) and what size.
@@ -49,7 +38,22 @@ To skip the prompts: `-e setup_swap=true -e swap_size=2G`.
 
 ```
 roles/
-├── infra/       # Swap, PostgreSQL, Java 25, Nginx, iptables firewall
+├── base_user/   # Create vpsuser with SSH key and passwordless sudo
+├── base_shell/  # Install basic tools, configure .bashrc, set Telegram secrets
+├── soft/        # Install additional software (speedtest, tmux)
+└── infra/       # Swap, PostgreSQL, Java 25, Nginx, iptables firewall
+```
+
+## First Deploy (after init)
+
+```bash
+ansible-playbook playbooks/init-deploy.yml
+ansible-playbook playbooks/init-deploy.yml --tags frontend
+ansible-playbook playbooks/init-deploy.yml --tags backend
+```
+
+```
+roles/
 └── deploy/      # Create DB/user, systemd service, Nginx site config, SSL
 ```
 
@@ -79,8 +83,8 @@ ansible/
 │   ├── hosts.yml
 │   └── group_vars/all.yml
 ├── playbooks/
-│   ├── init.yml        # VPS initialization
-│   ├── setup.yml       # Infrastructure + first deploy
+│   ├── init.yml        # VPS initialization (user, shell, software, infra)
+│   ├── init-deploy.yml # First deploy (after init)
 │   ├── redeploy.yml    # Day-to-day redeploy
 │   └── undeploy.yml    # Tear down components
 └── roles/

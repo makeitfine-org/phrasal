@@ -1,0 +1,12 @@
+---
+# First deploy (after init)
+#   ansible-playbook playbooks/init-deploy.yml
+#   ansible-playbook playbooks/init-deploy.yml --tags frontend
+#   ansible-playbook playbooks/init-deploy.yml --tags backend
+
+- name: Deploy application
+  hosts: hetzner1
+  become: true
+  roles:
+    - role: deploy
+      tags: [deploy]

@@ -2743,3 +2743,43 @@
 - ansible/roles/base_shell/tasks/main.yml
 - ansible/roles/infra/tasks/firewall.yml
 <!-- end-snapshot -->
+
+<!-- git-snapshot 2026-07-08T20:31:22Z -->
+- .claude/docs/blackbox/audit.md
+- ansible/playbooks/deploy.yml
+- ansible/playbooks/setup.yml
+<!-- end-snapshot -->
+
+<!-- git-snapshot 2026-07-08T20:33:25Z -->
+- .claude/docs/blackbox/audit.md
+- .claude/docs/blackbox/session-log.md
+- ansible/playbooks/deploy.yml
+- ansible/playbooks/setup.yml
+<!-- end-snapshot -->
+
+<!-- git-snapshot 2026-07-08T20:36:48Z -->
+- .claude/docs/blackbox/audit.md
+- .claude/docs/blackbox/session-log.md
+- ansible/playbooks/first-deploy.yml
+- ansible/playbooks/setup.yml
+<!-- end-snapshot -->
+
+<!-- git-snapshot 2026-07-08T20:40:25Z -->
+- .claude/docs/blackbox/audit.md
+- .claude/docs/blackbox/session-log.md
+- ansible/playbooks/init-deploy.yml
+- ansible/playbooks/setup.yml
+<!-- end-snapshot -->
+
+<!-- git-snapshot 2026-07-08T20:47:48Z -->
+- .claude/docs/blackbox/audit.md
+- .claude/docs/blackbox/session-log.md
+- ansible/README.md
+- ansible/playbooks/init-deploy.yml
+- ansible/playbooks/setup.yml
+- aux/docs/useful/arch/oci/save_while_work.txt
+<!-- end-snapshot -->
+
+<!-- git-snapshot 2026-07-08T20:49:51Z -->
+- aux/docs/useful/arch/oci/save_while_work.txt
+<!-- end-snapshot -->

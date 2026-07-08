@@ -140,5 +140,5 @@
   sudo systemctl restart phrasal
 
   sudo service phrasal status
-  sudo journalctl -u phrasal.service -f
+  sudo journalctl -u phrasal.service -n 25 -f
 
