@@ -2172,3 +2172,37 @@
 - vps/arch/bash/init/2.init_bash.sh
 - vps/arch/bash/init/3.init_soft.sh
 <!-- end-snapshot -->
+
+<!-- git-snapshot 2026-07-08T15:28:11Z -->
+- .claude/docs/blackbox/audit.md
+<!-- end-snapshot -->
+
+<!-- git-snapshot 2026-07-08T15:31:27Z -->
+- .claude/docs/blackbox/audit.md
+- .claude/docs/blackbox/session-log.md
+- aux/scripts/vps/arch/bash/README.md
+- aux/scripts/vps/arch/bash/deployment/mini/redeploy-vps.sh
+- aux/scripts/vps/arch/bash/deployment/mini/special/1.install-infra.sh
+- aux/scripts/vps/arch/bash/deployment/mini/special/2.deploy-first-or-after-undeploy-vps.sh
+- aux/scripts/vps/arch/bash/deployment/mini/special/3.undeploy-vps.sh
+- aux/scripts/vps/arch/bash/deployment/mini/vps-completion.bash
+- aux/scripts/vps/arch/bash/init/.bashrc.txt
+- aux/scripts/vps/arch/bash/init/1.init-user.sh
+- aux/scripts/vps/arch/bash/init/2.init_bash.sh
+- aux/scripts/vps/arch/bash/init/3.init_soft.sh
+<!-- end-snapshot -->
+
+<!-- git-snapshot 2026-07-08T15:35:45Z -->
+- .claude/docs/blackbox/audit.md
+- .claude/docs/blackbox/session-log.md
+- aux/scripts/vps/arch/bash/README.md
+- aux/scripts/vps/arch/bash/deployment/mini/redeploy-vps.sh
+- aux/scripts/vps/arch/bash/deployment/mini/special/1.install-infra.sh
+- aux/scripts/vps/arch/bash/deployment/mini/special/2.deploy-first-or-after-undeploy-vps.sh
+- aux/scripts/vps/arch/bash/deployment/mini/special/3.undeploy-vps.sh
+- aux/scripts/vps/arch/bash/deployment/mini/vps-completion.bash
+- aux/scripts/vps/arch/bash/init/.bashrc.txt
+- aux/scripts/vps/arch/bash/init/1.init-user.sh
+- aux/scripts/vps/arch/bash/init/2.init_bash.sh
+- aux/scripts/vps/arch/bash/init/3.init_soft.sh
+<!-- end-snapshot -->

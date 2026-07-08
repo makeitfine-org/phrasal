@@ -3068,3 +3068,20 @@ Move @aux/scripts/vps/deployment/ and @aux/scripts/vps/init/ @aux/scripts/vps/RE
 ## 2026-07-08T15:23:48Z
 git add all changes and commit them with suitable message
 ---
+
+## 2026-07-08T15:27:51Z
+ Move @aux/scripts/vps/deployment/ and @aux/scripts/vps/init/ @aux/scripts/vps/README.md into ..vps/arch/bash consider
+  change content of the files based on that moving
+---
+
+## 2026-07-08T15:29:25Z
+ Move vps/arch/bash into aux/scripts/vps/arch/bash consider changing content of the files based on that moving.
+---
+
+## 2026-07-08T15:35:10Z
+inside @aux/scripts/vps/ansible/ create README.md for this folder like it was don't previously @aux/scripts/vps/arch/bash/README.md for @aux/scripts/vps/arch/bash/deployment/ and @aux/scripts/vps/arch/bash/init/
+---
+
+## 2026-07-08T15:39:00Z
+git add all changes and commit them with suitable message
+---
