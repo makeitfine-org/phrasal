@@ -1,8 +1,8 @@
 #!/usr/bin/env bash
 #
 #  Tab completion — source it once (or add to .bashrc.txt):
-#  source aux/scripts/vps/mini/vps-completion.bash
-#  Then ./aux/scripts/vps/mini/redeploy-vps.sh <tab> shows backend  frontend  all.
+#  source vps/arch/bash/deployment/mini/vps-completion.bash
+#  Then ./vps/arch/bash/deployment/mini/redeploy-vps.sh <tab> shows backend  frontend  all.
 #
 set -euo pipefail
 

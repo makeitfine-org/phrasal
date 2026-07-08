@@ -3060,3 +3060,11 @@ Not upgrading yet due to phasing:
 ## 2026-07-08T15:14:06Z
 how to install int and not have apt list --upgradable
 ---
+
+## 2026-07-08T15:20:15Z
+Move @aux/scripts/vps/deployment/ and @aux/scripts/vps/init/ @aux/scripts/vps/README.md into @vps/arch/bash consider change content of the files based on that moving
+---
+
+## 2026-07-08T15:23:48Z
+git add all changes and commit them with suitable message
+---

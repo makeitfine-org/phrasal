@@ -2156,3 +2156,19 @@
 - .claude/docs/blackbox/session-log.md
 - aux/docs/useful/hatzner-vps.txt
 <!-- end-snapshot -->
+
+<!-- git-snapshot 2026-07-08T15:22:31Z -->
+- .claude/docs/blackbox/audit.md
+- aux/scripts/arch/backlog_md_task.sh
+- aux/scripts/arch/backlog_md_task2.sh
+- vps/arch/bash/README.md
+- vps/arch/bash/deployment/mini/redeploy-vps.sh
+- vps/arch/bash/deployment/mini/special/1.install-infra.sh
+- vps/arch/bash/deployment/mini/special/2.deploy-first-or-after-undeploy-vps.sh
+- vps/arch/bash/deployment/mini/special/3.undeploy-vps.sh
+- vps/arch/bash/deployment/mini/vps-completion.bash
+- vps/arch/bash/init/.bashrc.txt
+- vps/arch/bash/init/1.init-user.sh
+- vps/arch/bash/init/2.init_bash.sh
+- vps/arch/bash/init/3.init_soft.sh
+<!-- end-snapshot -->
