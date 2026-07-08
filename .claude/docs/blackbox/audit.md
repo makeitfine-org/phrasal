@@ -2694,3 +2694,52 @@ Failed to restart sshd.service: Unit sshd.service not found.
 ## 2026-07-08T07:16:45Z
 disabling
 ---
+
+## 2026-07-08T07:23:25Z
+Add in the top if root user doesn't have password than set ti interactivly
+---
+
+## 2026-07-08T07:28:42Z
+Split @aux/scripts/vps/init/init-user.sh  to 2 script init-user and init-root files and separate operations for both
+---
+
+## 2026-07-08T07:32:55Z
+rollback
+---
+
+## 2026-07-08T07:33:08Z
+yes
+---
+
+## 2026-07-08T07:47:46Z
+Check if user is configured don't do that
+---
+
+## 2026-07-08T07:48:57Z
+No I told: Check if user is configured don't do that again
+---
+
+## 2026-07-08T07:50:14Z
+but check root also for password
+---
+
+## 2026-07-08T07:50:53Z
+no you can just rrun if ssh_roo "pa .. first
+---
+
+## 2026-07-08T07:54:13Z
+1 package can be upgraded. Run 'apt list --upgradable' to see it.
+vpsuser@vps-h1:~$ sudo apt-get upgrade
+Reading package lists... Done
+Building dependency tree... Done
+Reading state information... Done
+Calculating upgrade... Done
+The following packages have been kept back:
+  linux-image-virtual
+0 upgraded, 0 newly installed, 0 to remove and 1 not upgraded.
+---
+
+## 2026-07-08T07:55:01Z
+sudo apt-get dist-upgrade
+Will it upgrade to ubuntu 26?
+---
