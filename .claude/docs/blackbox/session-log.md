@@ -2077,3 +2077,7 @@
 - .claude/docs/blackbox/session-log.md
 - aux/scripts/vps/deployment/mini/vps-completion.bash
 <!-- end-snapshot -->
+
+<!-- git-snapshot 2026-07-08T10:27:01Z -->
+- .claude/docs/blackbox/audit.md
+<!-- end-snapshot -->

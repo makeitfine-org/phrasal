@@ -2915,3 +2915,21 @@ ubuntuu@LP-BSF-EMALYSH:~/.../phrasal$ ./aux/scripts/vps/deployment/mini/special/
 
 Doesn't work
 ---
+
+## 2026-07-08T10:26:38Z
+In @aux/scripts/vps/ write README.md add how to init VPS: 
+First `VPS_IP="116.203.78.118"
+SSH_KEY="$HOME/dev/scripts/vps/ssh-key-h1.key"
+SSH_OPTS="-i $SSH_KEY -o StrictHostKeyChecking=accept-new"
+
+NEW_USER="vpsuser"` change
+sent set one by one @aux/scripts/vps/init/ then in @aux/scripts/vps/deployment/mini/special/ 1. and 2.
+
+And use 3. for undeploy and @aux/scripts/vps/deployment/mini/; set @aux/scripts/vps/deployment/mini/vps-completion.bash for simple
+
+Improve that I describe and write with small explanation
+---
+
+## 2026-07-08T10:28:28Z
+git add all changes and commit them with suitable message
+---
