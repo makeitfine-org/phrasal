@@ -1,0 +1,11 @@
+---
+# Day-to-day redeploy after code changes
+#   ansible-playbook playbooks/redeploy.yml --tags backend
+#   ansible-playbook playbooks/redeploy.yml --tags frontend
+#   ansible-playbook playbooks/redeploy.yml                   (both)
+
+- name: Redeploy application
+  hosts: hetzner1
+  become: true
+  roles:
+    - role: redeploy

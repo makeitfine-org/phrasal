@@ -2135,3 +2135,24 @@
 - .claude/docs/blackbox/session-log.md
 - aux/docs/useful/hatzner-vps.txt
 <!-- end-snapshot -->
+
+<!-- git-snapshot 2026-07-08T15:01:55Z -->
+- .claude/docs/blackbox/audit.md
+<!-- end-snapshot -->
+
+<!-- git-snapshot 2026-07-08T15:07:58Z -->
+- .claude/docs/blackbox/audit.md
+- .claude/docs/blackbox/session-log.md
+<!-- end-snapshot -->
+
+<!-- git-snapshot 2026-07-08T15:13:01Z -->
+- .claude/docs/blackbox/audit.md
+- .claude/docs/blackbox/session-log.md
+- aux/docs/useful/hatzner-vps.txt
+<!-- end-snapshot -->
+
+<!-- git-snapshot 2026-07-08T15:14:14Z -->
+- .claude/docs/blackbox/audit.md
+- .claude/docs/blackbox/session-log.md
+- aux/docs/useful/hatzner-vps.txt
+<!-- end-snapshot -->

@@ -1,0 +1,14 @@
+---
+# Infrastructure + first deploy (run once)
+#   ansible-playbook playbooks/setup.yml
+#   ansible-playbook playbooks/setup.yml -e setup_swap=true -e swap_size=2G
+#   ansible-playbook playbooks/setup.yml --tags postgres,java  (partial)
+
+- name: Install infrastructure and deploy application
+  hosts: hetzner1
+  become: true
+  roles:
+    - role: infra
+      tags: [infra]
+    - role: deploy
+      tags: [deploy]

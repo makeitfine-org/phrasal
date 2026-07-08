@@ -1,0 +1,11 @@
+---
+- name: restart phrasal
+  ansible.builtin.systemd:
+    name: phrasal
+    state: restarted
+    daemon_reload: true
+
+- name: reload nginx
+  ansible.builtin.systemd:
+    name: nginx
+    state: reloaded

@@ -83,3 +83,19 @@
    ---
 
    create: old.phrasal.ddns.net
+
+---
+
+ sudo apt update
+ sudo apt install software-properties-common
+ sudo add-apt-repository --yes --update ppa:ansible/ansible
+ sudo apt install ansible
+
+
+ To use:
+  cd aux/scripts/vps/ansible
+  pip install ansible                                    # if not installed
+  ansible-playbook playbooks/init.yml -e ansible_user=root --tags user   # first time
+  ansible-playbook playbooks/init.yml                    # shell + soft
+  ansible-playbook playbooks/setup.yml -e setup_swap=true -e swap_size=2G
+  ansible-playbook playbooks/redeploy.yml --tags backend # day-to-day

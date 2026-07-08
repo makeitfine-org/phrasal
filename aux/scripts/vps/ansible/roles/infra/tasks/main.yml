@@ -1,0 +1,21 @@
+---
+- name: Swap setup
+  ansible.builtin.import_tasks: swap.yml
+  when: setup_swap | bool
+  tags: [swap]
+
+- name: PostgreSQL setup
+  ansible.builtin.import_tasks: postgres.yml
+  tags: [postgres]
+
+- name: Java setup
+  ansible.builtin.import_tasks: java.yml
+  tags: [java]
+
+- name: Nginx setup
+  ansible.builtin.import_tasks: nginx.yml
+  tags: [nginx]
+
+- name: Firewall setup
+  ansible.builtin.import_tasks: firewall.yml
+  tags: [firewall]

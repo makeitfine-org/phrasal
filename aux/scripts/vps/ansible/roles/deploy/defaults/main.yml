@@ -1,0 +1,14 @@
+---
+db_name: phrasaldb
+db_user: phrasaluser
+db_pass: phrasalpass
+app_user: phrasal
+app_dir: /opt/phrasal
+web_dir: /var/www/phrasal
+java_xms: 128m
+java_xmx: 256m
+spring_profile: prod
+domain: phrasal.ddns.net
+certbot_email: x7warrio@gmail.com
+local_jar_dir: "{{ playbook_dir }}/../../../../../../backend/target"
+local_dist_dir: "{{ playbook_dir }}/../../../../../../frontend/dist"

@@ -1,0 +1,39 @@
+---
+- name: Check systemd service exists
+  ansible.builtin.stat:
+    path: /etc/systemd/system/phrasal.service
+  register: service_file
+
+- name: Fail if backend not set up
+  ansible.builtin.fail:
+    msg: "Backend not deployed — run setup.yml first"
+  when: not service_file.stat.exists
+
+- name: Find local JAR
+  ansible.builtin.find:
+    paths: "{{ local_jar_dir }}"
+    patterns: "backend-*.jar"
+  delegate_to: localhost
+  become: false
+  register: jar_files
+
+- name: Fail if no JAR found
+  ansible.builtin.fail:
+    msg: "No JAR in {{ local_jar_dir }} — build first: mvn clean package -DskipTests"
+  when: jar_files.files | length == 0
+
+- name: Upload JAR
+  ansible.builtin.copy:
+    src: "{{ jar_files.files[0].path }}"
+    dest: "{{ app_dir }}/app.jar"
+    owner: "{{ app_user }}"
+    group: "{{ app_user }}"
+    mode: "0644"
+  notify: restart phrasal
+
+- name: Ensure prod profile in systemd service
+  ansible.builtin.template:
+    src: "{{ role_path }}/../deploy/templates/phrasal.service.j2"
+    dest: /etc/systemd/system/phrasal.service
+    mode: "0644"
+  notify: restart phrasal

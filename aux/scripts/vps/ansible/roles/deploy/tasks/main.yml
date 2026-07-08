@@ -1,0 +1,12 @@
+---
+- name: Deploy PostgreSQL database
+  ansible.builtin.import_tasks: postgres.yml
+  tags: [postgres]
+
+- name: Deploy backend
+  ansible.builtin.import_tasks: backend.yml
+  tags: [backend]
+
+- name: Deploy frontend
+  ansible.builtin.import_tasks: frontend.yml
+  tags: [frontend]

@@ -1,0 +1,26 @@
+---
+- name: Install PostgreSQL
+  ansible.builtin.apt:
+    name:
+      - postgresql
+      - postgresql-client
+    state: present
+    update_cache: true
+
+- name: Listen on all interfaces
+  ansible.builtin.lineinfile:
+    path: "{{ item }}"
+    regexp: "^#?listen_addresses"
+    line: "listen_addresses = {{ postgres_listen_addresses }}"
+  with_fileglob:
+    - /etc/postgresql/*/main/postgresql.conf
+  notify: restart postgresql
+
+- name: Allow remote connections with password auth
+  ansible.builtin.lineinfile:
+    path: "{{ item }}"
+    line: "host all all 0.0.0.0/0 md5"
+    state: present
+  with_fileglob:
+    - /etc/postgresql/*/main/pg_hba.conf
+  notify: restart postgresql

@@ -1,0 +1,25 @@
+vps_user: vpsuser
+domain: phrasal.ddns.net
+certbot_email: x7warrio@gmail.com
+
+# infra
+setup_swap: false
+swap_size: "1G"
+firewall_ports:
+  - 22
+  - 80
+  - 443
+  - 8080
+  - 5432
+postgres_listen_addresses: "'*'"
+
+# app
+db_name: phrasaldb
+db_user: phrasaluser
+db_pass: phrasalpass
+app_user: phrasal
+app_dir: /opt/phrasal
+web_dir: /var/www/phrasal
+java_xms: 128m
+java_xmx: 256m
+spring_profile: prod

@@ -1,0 +1,12 @@
+---
+- name: Undeploy backend
+  ansible.builtin.import_tasks: backend.yml
+  tags: [backend]
+
+- name: Undeploy frontend
+  ansible.builtin.import_tasks: frontend.yml
+  tags: [frontend]
+
+- name: Undeploy PostgreSQL
+  ansible.builtin.import_tasks: postgres.yml
+  tags: [postgres]

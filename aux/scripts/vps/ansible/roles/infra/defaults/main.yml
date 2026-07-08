@@ -1,0 +1,10 @@
+---
+setup_swap: false
+swap_size: "1G"
+firewall_ports:
+  - 22
+  - 80
+  - 443
+  - 8080
+  - 5432
+postgres_listen_addresses: "'*'"

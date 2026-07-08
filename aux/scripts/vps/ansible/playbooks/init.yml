@@ -1,0 +1,23 @@
+---
+# VPS initialization (run once, in order)
+# First run as root:  ansible-playbook playbooks/init.yml -e ansible_user=root --tags user
+# Then as vpsuser:    ansible-playbook playbooks/init.yml
+#
+# Secrets (interactive):
+#   ansible-playbook playbooks/init.yml -e telegram_bot_token=XXX -e telegram_chat_id=YYY
+
+- name: Create VPS user
+  hosts: hetzner1
+  become: true
+  roles:
+    - role: base_user
+      tags: [user]
+
+- name: Configure shell and install software
+  hosts: hetzner1
+  become: true
+  roles:
+    - role: base_shell
+      tags: [shell]
+    - role: soft
+      tags: [soft]

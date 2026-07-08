@@ -1,0 +1,8 @@
+---
+- name: Redeploy backend
+  ansible.builtin.import_tasks: backend.yml
+  tags: [backend]
+
+- name: Redeploy frontend
+  ansible.builtin.import_tasks: frontend.yml
+  tags: [frontend]

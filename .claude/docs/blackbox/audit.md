@@ -3038,3 +3038,25 @@ server {
 ## 2026-07-08T11:06:41Z
 git add all changes and commit them with suitable message
 ---
+
+## 2026-07-08T15:01:29Z
+The best practical way to organize VPS software installin in Ansible? Folder structure, etc.? (based on @aux/scripts/vps/ )
+---
+
+## 2026-07-08T15:04:22Z
+Want me to scaffold this out as actual files - Yes
+---
+
+## 2026-07-08T15:12:56Z
+sudo apt upgrade
+Get more security updates through Ubuntu Pro with 'esm-apps' enabled:
+  python3-pip-whl libopenexr-3-1-30 libavcodec62 libavutil60 libswscale9
+  python3-pip libswresample6 libavformat62
+Learn more about Ubuntu Pro at https://ubuntu.com/pro
+Not upgrading yet due to phasing:
+  libinput-bin  libinput10  ubuntu-minimal  ubuntu-wsl
+---
+
+## 2026-07-08T15:14:06Z
+how to install int and not have apt list --upgradable
+---

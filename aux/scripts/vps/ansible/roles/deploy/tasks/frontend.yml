@@ -1,0 +1,48 @@
+---
+- name: Create web directory
+  ansible.builtin.file:
+    path: "{{ web_dir }}"
+    state: directory
+    owner: "{{ vps_user }}"
+    group: "{{ vps_user }}"
+    mode: "0755"
+
+- name: Check local dist directory
+  ansible.builtin.stat:
+    path: "{{ local_dist_dir }}"
+  delegate_to: localhost
+  become: false
+  register: dist_dir
+
+- name: Fail if no dist
+  ansible.builtin.fail:
+    msg: "No dist/ directory — build first: npm run build"
+  when: not dist_dir.stat.exists
+
+- name: Upload frontend files
+  ansible.builtin.synchronize:
+    src: "{{ local_dist_dir }}/"
+    dest: "{{ web_dir }}/"
+    delete: true
+  notify: reload nginx
+
+- name: Deploy nginx site config
+  ansible.builtin.template:
+    src: phrasal-nginx.conf.j2
+    dest: /etc/nginx/sites-available/phrasal
+    mode: "0644"
+  notify: reload nginx
+
+- name: Enable nginx site
+  ansible.builtin.file:
+    src: /etc/nginx/sites-available/phrasal
+    dest: /etc/nginx/sites-enabled/phrasal
+    state: link
+  notify: reload nginx
+
+- name: Set up SSL with certbot
+  ansible.builtin.command: >
+    certbot --nginx -d {{ domain }}
+    --non-interactive --agree-tos --email {{ certbot_email }}
+  args:
+    creates: /etc/letsencrypt/live/{{ domain }}/fullchain.pem

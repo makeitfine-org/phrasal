@@ -1,0 +1,17 @@
+[Unit]
+Description=Phrasal Backend
+After=postgresql.service
+Requires=postgresql.service
+
+[Service]
+User={{ app_user }}
+ExecStart=/usr/bin/java \
+  -Xms{{ java_xms }} -Xmx{{ java_xmx }} \
+  -XX:+UseSerialGC \
+  -XX:MaxMetaspaceSize=128m \
+  -jar {{ app_dir }}/app.jar \
+  --spring.profiles.active={{ spring_profile }}
+Restart=always
+
+[Install]
+WantedBy=multi-user.target
