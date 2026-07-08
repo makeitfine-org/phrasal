@@ -2236,3 +2236,77 @@
 - aux/scripts/vps/ansible/inventory/hosts.yml
 - aux/scripts/vps/arch/bash/deployment/mini/vps-completion.bash
 <!-- end-snapshot -->
+
+<!-- git-snapshot 2026-07-08T16:06:30Z -->
+- .claude/docs/blackbox/audit.md
+- aux/scripts/vps/ansible/README.md
+- aux/scripts/vps/ansible/playbooks/setup.yml
+<!-- end-snapshot -->
+
+<!-- git-snapshot 2026-07-08T16:08:28Z -->
+- .claude/docs/blackbox/audit.md
+- .claude/docs/blackbox/session-log.md
+- aux/scripts/vps/ansible/README.md
+- aux/scripts/vps/ansible/inventory/group_vars/all.yml
+- aux/scripts/vps/ansible/playbooks/setup.yml
+<!-- end-snapshot -->
+
+<!-- git-snapshot 2026-07-08T16:09:59Z -->
+- .claude/docs/blackbox/audit.md
+- .claude/docs/blackbox/session-log.md
+- aux/scripts/vps/ansible/README.md
+- aux/scripts/vps/ansible/inventory/group_vars/all.yml
+- aux/scripts/vps/ansible/playbooks/setup.yml
+<!-- end-snapshot -->
+
+<!-- git-snapshot 2026-07-08T16:11:43Z -->
+- .claude/docs/blackbox/audit.md
+- .claude/docs/blackbox/session-log.md
+- CLAUDE.md
+- ansible/README.md
+- ansible/ansible.cfg
+- ansible/inventory/group_vars/all.yml
+- ansible/inventory/hosts.yml
+- ansible/playbooks/init.yml
+- ansible/playbooks/redeploy.yml
+- ansible/playbooks/setup.yml
+- ansible/playbooks/undeploy.yml
+- ansible/roles/base_shell/files/bashrc.txt
+- ansible/roles/base_shell/tasks/main.yml
+- ansible/roles/base_shell/templates/secrets.sh.j2
+- ansible/roles/base_user/tasks/main.yml
+- ansible/roles/deploy/defaults/main.yml
+- ansible/roles/deploy/handlers/main.yml
+- ansible/roles/deploy/tasks/backend.yml
+- ansible/roles/deploy/tasks/frontend.yml
+- ansible/roles/deploy/tasks/main.yml
+<!-- end-snapshot -->
+
+<!-- git-snapshot 2026-07-08T16:16:52Z -->
+- .claude/docs/blackbox/audit.md
+- .claude/docs/blackbox/session-log.md
+- CLAUDE.md
+- ansible/README.md
+- ansible/ansible.cfg
+- ansible/inventory/group_vars/all.yml
+- ansible/inventory/hosts.yml
+- ansible/playbooks/init.yml
+- ansible/playbooks/redeploy.yml
+- ansible/playbooks/setup.yml
+- ansible/playbooks/undeploy.yml
+- ansible/roles/base_shell/files/bashrc.txt
+- ansible/roles/base_shell/tasks/main.yml
+- ansible/roles/base_shell/templates/secrets.sh.j2
+- ansible/roles/base_user/tasks/main.yml
+- ansible/roles/deploy/defaults/main.yml
+- ansible/roles/deploy/handlers/main.yml
+- ansible/roles/deploy/tasks/backend.yml
+- ansible/roles/deploy/tasks/frontend.yml
+- ansible/roles/deploy/tasks/main.yml
+<!-- end-snapshot -->
+
+<!-- git-snapshot 2026-07-08T16:18:23Z -->
+- .claude/docs/blackbox/audit.md
+- .claude/docs/blackbox/session-log.md
+- blackbox/session-log.md
+<!-- end-snapshot -->

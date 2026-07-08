@@ -6,6 +6,7 @@
 backend/    → Spring Boot 3.4.1 REST API (see backend/CLAUDE.md)
 frontend/   → React 18 + Vite SPA        (see frontend/CLAUDE.md)
 e2e/        → Cucumber + Playwright acceptance tests (see e2e/CLAUDE.md)
+ansible/    → Ansible VPS provisioning & deployment
 docker-compose.yml → postgres:5432, backend:8080, frontend:3000
 ```
 

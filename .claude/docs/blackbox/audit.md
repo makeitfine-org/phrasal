@@ -3121,3 +3121,68 @@ I set  source ../arch/bash/deployment/mini/vps-completion.bash
 
 but ./../arch/bash/deployment/mini/special/3.undeploy-vps.sh doesn't work autocompletion
 ---
+
+## 2026-07-08T16:05:25Z
+Insider @aux/scripts/vps/ansible change all to ask about whether to create swap memory and what size, but by default don't create.
+---
+
+## 2026-07-08T16:07:44Z
+ubuntuu@LP-BSF-EMALYSH:~/.../ansible$ ansible-playbook playbooks/undeploy.yml --tags frontend
+
+PLAY [Undeploy application] *********************************************************************************************
+
+TASK [Gathering Facts] **************************************************************************************************
+[WARNING]: Host 'hetzner1' is using the discovered Python interpreter at '/usr/bin/python3.12', but future installation of another Python interpreter could cause a different interpreter to be discovered. See https://docs.ansible.com/ansible-core/2.21/reference_appendices/interpreter_discovery.html for more information.
+ok: [hetzner1]
+
+TASK [undeploy : Remove web directory] **********************************************************************************
+[ERROR]: Task failed: Finalization of task args for 'ansible.builtin.file' failed: Error while resolving value for 'path': 'web_dir' is undefined
+
+Task failed.
+Origin: /home/ubuntuu/dev/mine/phrasal/aux/scripts/vps/ansible/roles/undeploy/tasks/frontend.yml:2:3
+
+1 ---
+2 - name: Remove web directory
+    ^ column 3
+
+<<< caused by >>>
+
+Finalization of task args for 'ansible.builtin.file' failed.
+Origin: /home/ubuntuu/dev/mine/phrasal/aux/scripts/vps/ansible/roles/undeploy/tasks/frontend.yml:3:3
+
+1 ---
+2 - name: Remove web directory
+3   ansible.builtin.file:
+    ^ column 3
+
+<<< caused by >>>
+
+Error while resolving value for 'path': 'web_dir' is undefined
+Origin: /home/ubuntuu/dev/mine/phrasal/aux/scripts/vps/ansible/roles/undeploy/tasks/frontend.yml:4:11
+
+2 - name: Remove web directory
+3   ansible.builtin.file:
+4     path: "{{ web_dir }}"
+            ^ column 11
+
+fatal: [hetzner1]: FAILED! => {"changed": false, "msg": "Task failed: Finalization of task args for 'ansible.builtin.file' failed: Error while resolving value for 'path': 'web_dir' is undefined"}
+
+PLAY RECAP **************************************************************************************************************
+hetzner1                   : ok=1    changed=0    unreachable=0    failed=1    skipped=0    rescued=0    ignored=0
+---
+
+## 2026-07-08T16:09:49Z
+but good practise to name `ansible` folder? where to place that in project?
+---
+
+## 2026-07-08T16:11:00Z
+ Would you like to move it to the project root - YES!
+---
+
+## 2026-07-08T16:16:47Z
+where should i now run the ` ansible-playbook playbooks/undeploy.yml --tags frontend` command?
+---
+
+## 2026-07-08T16:17:37Z
+git add all changes and commit them with suitable message
+---

@@ -15,7 +15,7 @@ Connection variables are centralized in two files:
 | File | Purpose |
 |---|---|
 | `inventory/hosts.yml` | VPS host, user, SSH key path |
-| `group_vars/all.yml` | Domain, DB creds, swap, firewall ports, JVM settings |
+| `inventory/group_vars/all.yml` | Domain, DB creds, swap, firewall ports, JVM settings |
 
 ## VPS Init (run once, in order)
 
@@ -41,9 +41,11 @@ roles/
 
 ```bash
 ansible-playbook playbooks/setup.yml
-ansible-playbook playbooks/setup.yml -e setup_swap=true -e swap_size=2G
 ansible-playbook playbooks/setup.yml --tags postgres,java   # partial
 ```
+
+The playbook asks whether to create swap memory (default: no) and what size.
+To skip the prompts: `-e setup_swap=true -e swap_size=2G`.
 
 ```
 roles/
@@ -71,10 +73,11 @@ ansible-playbook playbooks/undeploy.yml                     # everything
 ## Roles Overview
 
 ```
-aux/scripts/vps/ansible/
+ansible/
 ├── ansible.cfg
-├── inventory/hosts.yml
-├── group_vars/all.yml
+├── inventory/
+│   ├── hosts.yml
+│   └── group_vars/all.yml
 ├── playbooks/
 │   ├── init.yml        # VPS initialization
 │   ├── setup.yml       # Infrastructure + first deploy
