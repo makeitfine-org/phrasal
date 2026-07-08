@@ -2114,3 +2114,24 @@
 - .claude/docs/blackbox/audit.md
 - aux/scripts/vps/init/3.init_soft.sh
 <!-- end-snapshot -->
+
+<!-- git-snapshot 2026-07-08T11:01:03Z -->
+- .claude/docs/blackbox/audit.md
+<!-- end-snapshot -->
+
+<!-- git-snapshot 2026-07-08T11:02:40Z -->
+- .claude/docs/blackbox/audit.md
+- .claude/docs/blackbox/session-log.md
+<!-- end-snapshot -->
+
+<!-- git-snapshot 2026-07-08T11:04:09Z -->
+- .claude/docs/blackbox/audit.md
+- .claude/docs/blackbox/session-log.md
+- aux/docs/useful/hatzner-vps.txt
+<!-- end-snapshot -->
+
+<!-- git-snapshot 2026-07-08T11:05:20Z -->
+- .claude/docs/blackbox/audit.md
+- .claude/docs/blackbox/session-log.md
+- aux/docs/useful/hatzner-vps.txt
+<!-- end-snapshot -->

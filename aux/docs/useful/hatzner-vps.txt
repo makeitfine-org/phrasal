@@ -37,3 +37,49 @@
   yourself out.
 
   ---
+
+   If i want that pharasl.ddns.net got to 80 port but phrasal2.ddns.net to 8085?
+
+  ● Set up two Nginx server blocks — each listens on port 80 but matches a different domain:
+
+    server {
+        listen 80;
+        server_name phrasal.ddns.net;
+
+        location / {
+            proxy_pass http://127.0.0.1:8080;
+        }
+    }
+
+    server {
+        listen 80;
+        server_name phrasal2.ddns.net;
+
+        location / {
+            proxy_pass http://127.0.0.1:8085;
+        }
+    }
+
+    ---
+
+     Create separate config files in /etc/nginx/sites-available/ and enable them:
+
+      # Create configs
+      sudo nano /etc/nginx/sites-available/phrasal
+      sudo nano /etc/nginx/sites-available/phrasal2
+
+      # Enable them
+      sudo ln -s /etc/nginx/sites-available/phrasal /etc/nginx/sites-enabled/
+      sudo ln -s /etc/nginx/sites-available/phrasal2 /etc/nginx/sites-enabled/
+
+      # Remove default if exists
+      sudo rm -f /etc/nginx/sites-enabled/default
+
+      # Test and reload
+      sudo nginx -t && sudo systemctl reload nginx
+
+      One file per domain, symlinked to sites-enabled/.
+
+   ---
+
+   create: old.phrasal.ddns.net

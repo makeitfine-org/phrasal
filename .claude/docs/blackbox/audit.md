@@ -3000,3 +3000,41 @@ set -as terminal-overrides ',*:Tc
 ## 2026-07-08T10:57:22Z
 git add all changes and commit them with suitable message
 ---
+
+## 2026-07-08T11:00:55Z
+I set on noip.com my phrasal.ddns.net for my ip and port :80 how to call by that domain on port 8080?
+---
+
+## 2026-07-08T11:02:34Z
+If i want that pharasl.ddns.net got to 80 port but phrasal2.ddns.net to 8085?
+---
+
+## 2026-07-08T11:04:04Z
+where to set it on vps?
+---
+
+## 2026-07-08T11:05:14Z
+where to add this:
+
+server {
+      listen 80;
+      server_name phrasal.ddns.net;
+
+      location / {
+          proxy_pass http://127.0.0.1:8080;
+      }
+  }
+
+  server {
+      listen 80;
+      server_name phrasal2.ddns.net;
+
+      location / {
+          proxy_pass http://127.0.0.1:8085;
+      }
+  }
+---
+
+## 2026-07-08T11:06:41Z
+git add all changes and commit them with suitable message
+---
