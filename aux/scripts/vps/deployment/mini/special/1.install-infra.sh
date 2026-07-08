@@ -25,6 +25,15 @@ fi
 # PostgreSQL
 echo "=== Installing PostgreSQL ==="
 ssh_vps "command -v psql >/dev/null || { sudo apt-get update && sudo apt-get install -y postgresql postgresql-client; }"
+# Listen on all interfaces (default: localhost only)
+
+ssh_vps "sudo sed -i \"s/^#\\?listen_addresses.*/listen_addresses = '*'/\" /etc/postgresql/*/main/postgresql.conf"
+# Allow remote connections with password auth
+ssh_vps "grep -q '0.0.0.0/0' /etc/postgresql/*/main/pg_hba.conf || echo 'host all all 0.0.0.0/0 md5' | sudo tee -a /etc/postgresql/*/main/pg_hba.conf"
+# Restart PostgreSQL
+ssh_vps "sudo systemctl restart postgresql"
+
+exit 0
 
 # Java 25
 echo "=== Installing Java 25 ==="
@@ -51,3 +60,8 @@ ssh_vps "sudo iptables -P INPUT DROP"
 ssh_vps "sudo sh -c 'iptables-save > /etc/iptables/rules.v4'"
 
 echo "=== Infrastructure installed ==="
+
+# disable:
+# ssh_vps "sudo iptables -D INPUT -p tcp --dport <port> -j ACCEPT"
+# ssh_vps "sudo sh -c 'iptables-save > /etc/iptables/rules.v4'"
+#

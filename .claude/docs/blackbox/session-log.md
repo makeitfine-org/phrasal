@@ -2081,3 +2081,31 @@
 <!-- git-snapshot 2026-07-08T10:27:01Z -->
 - .claude/docs/blackbox/audit.md
 <!-- end-snapshot -->
+
+<!-- git-snapshot 2026-07-08T10:38:04Z -->
+- .claude/docs/blackbox/audit.md
+<!-- end-snapshot -->
+
+<!-- git-snapshot 2026-07-08T10:39:52Z -->
+- .claude/docs/blackbox/audit.md
+- .claude/docs/blackbox/session-log.md
+- aux/scripts/vps/deployment/mini/special/1.install-infra.sh
+<!-- end-snapshot -->
+
+<!-- git-snapshot 2026-07-08T10:40:40Z -->
+- .claude/docs/blackbox/audit.md
+- .claude/docs/blackbox/session-log.md
+- aux/scripts/vps/deployment/mini/special/1.install-infra.sh
+<!-- end-snapshot -->
+
+<!-- git-snapshot 2026-07-08T10:45:01Z -->
+- .claude/docs/blackbox/audit.md
+- .claude/docs/blackbox/session-log.md
+- aux/scripts/vps/deployment/mini/special/1.install-infra.sh
+<!-- end-snapshot -->
+
+<!-- git-snapshot 2026-07-08T10:45:35Z -->
+- .claude/docs/blackbox/audit.md
+- .claude/docs/blackbox/session-log.md
+- aux/scripts/vps/deployment/mini/special/1.install-infra.sh
+<!-- end-snapshot -->

@@ -2933,3 +2933,47 @@ Improve that I describe and write with small explanation
 ## 2026-07-08T10:28:28Z
 git add all changes and commit them with suitable message
 ---
+
+## 2026-07-08T10:37:55Z
+I have:
+
+sudo iptables -nL --line-numbers
+Chain INPUT (policy DROP)
+num  target     prot opt source               destination
+1    ACCEPT     0    --  0.0.0.0/0            0.0.0.0/0
+2    ACCEPT     0    --  0.0.0.0/0            0.0.0.0/0            state RELATED,ESTABLISHED
+3    ACCEPT     6    --  0.0.0.0/0            0.0.0.0/0            tcp dpt:22
+4    ACCEPT     6    --  0.0.0.0/0            0.0.0.0/0            tcp dpt:80
+5    ACCEPT     6    --  0.0.0.0/0            0.0.0.0/0            tcp dpt:443
+6    ACCEPT     6    --  0.0.0.0/0            0.0.0.0/0            tcp dpt:8080
+7    ACCEPT     6    --  0.0.0.0/0            0.0.0.0/0            tcp dpt:5432
+
+Chain FORWARD (policy ACCEPT)
+num  target     prot opt source               destination
+
+Chain OUTPUT (policy ACCEPT)
+num  target     prot opt source               destination
+
+but on connetion to databse I get 0x00000274D/10061 failed
+---
+
+## 2026-07-08T10:39:40Z
+Add that into @aux/scripts/vps/deployment/mini/special/1.install-infra.sh for postgres
+---
+
+## 2026-07-08T10:40:30Z
+Wit explanation as you provided
+---
+
+## 2026-07-08T10:44:56Z
+ssh_vps "sudo iptables -A INPUT -p tcp --dport <port> -j ACCEPT"
+What's command to disable?
+---
+
+## 2026-07-08T10:45:30Z
+ssh_vps "sudo sh -c 'iptables-save > /etc/iptables/rules.v4'" this should be applied?
+---
+
+## 2026-07-08T10:53:03Z
+git add all changes and commit them with suitable message
+---
