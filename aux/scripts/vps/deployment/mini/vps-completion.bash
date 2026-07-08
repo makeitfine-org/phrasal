@@ -1,3 +1,5 @@
+# Run:
+# $> source aux/scripts/vps/deployment/mini/vps-completion.bash
 _redeploy_vps() {
     local cur="${COMP_WORDS[COMP_CWORD]}"
     if [ "$COMP_CWORD" -eq 1 ]; then
@@ -16,7 +18,7 @@ complete -F _redeploy_vps redeploy-vps.sh
 complete -F _redeploy_vps ./aux/scripts/vps/deployment/mini/redeploy-vps.sh
 
 complete -F _undeploy_vps undeploy-vps.sh
-complete -F _undeploy_vps ./aux/scripts/vps/deployment/mini/special/undeploy-vps.sh
+complete -F _undeploy_vps ./aux/scripts/vps/deployment/mini/special/3.undeploy-vps.sh
 
 complete -F _undeploy_vps deploy-first-or-after-undeploy-vps.sh
-complete -F _undeploy_vps ./aux/scripts/vps/deployment/mini/special/deploy-first-or-after-undeploy-vps.sh
+complete -F _undeploy_vps ./aux/scripts/vps/deployment/mini/special/2.deploy-first-or-after-undeploy-vps.sh

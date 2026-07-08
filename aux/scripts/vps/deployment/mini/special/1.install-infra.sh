@@ -24,27 +24,30 @@ fi
 
 # PostgreSQL
 echo "=== Installing PostgreSQL ==="
-ssh_vps "sudo apt update"
-ssh_vps "sudo apt-get install -y postgresql postgresql-client"
-
-# dpkg -s postgresql-client >/dev/null 2>&1 && echo "installed" || echo "not installed"
-# dpkg -s postgresql >/dev/null 2>&1 && echo "installed" || echo "not installed"
+ssh_vps "command -v psql >/dev/null || { sudo apt-get update && sudo apt-get install -y postgresql postgresql-client; }"
 
 # Java 25
 echo "=== Installing Java 25 ==="
-ssh_vps "sudo apt-get install -y openjdk-25-jre-headless"
+ssh_vps "command -v java >/dev/null || sudo apt-get install -y openjdk-25-jre-headless"
 
 # Nginx (serves React static files, reverse-proxies /api to Spring Boot)
 echo "=== Installing Nginx ==="
-ssh_vps "sudo apt-get install -y nginx"
+ssh_vps "command -v nginx >/dev/null || sudo apt-get install -y nginx"
 
 # iptables persistence
 echo "=== Setting up iptables ==="
-ssh_vps "sudo DEBIAN_FRONTEND=noninteractive apt install -y iptables-persistent"
+ssh_vps "command -v iptables >/dev/null || sudo DEBIAN_FRONTEND=noninteractive apt-get install -y iptables-persistent"
 
-# Open HTTP/HTTPS ports in iptables
-ssh_vps "sudo iptables -I INPUT -p tcp --dport 80 -j ACCEPT"
-ssh_vps "sudo iptables -I INPUT -p tcp --dport 443 -j ACCEPT"
+# Firewall: allow only SSH, HTTP, HTTPS — drop everything else
+ssh_vps "sudo iptables -F INPUT"
+ssh_vps "sudo iptables -A INPUT -i lo -j ACCEPT"
+ssh_vps "sudo iptables -A INPUT -m state --state ESTABLISHED,RELATED -j ACCEPT"
+ssh_vps "sudo iptables -A INPUT -p tcp --dport 22 -j ACCEPT"
+ssh_vps "sudo iptables -A INPUT -p tcp --dport 80 -j ACCEPT"
+ssh_vps "sudo iptables -A INPUT -p tcp --dport 443 -j ACCEPT"
+ssh_vps "sudo iptables -A INPUT -p tcp --dport 8080 -j ACCEPT"
+ssh_vps "sudo iptables -A INPUT -p tcp --dport 5432 -j ACCEPT"
+ssh_vps "sudo iptables -P INPUT DROP"
 ssh_vps "sudo sh -c 'iptables-save > /etc/iptables/rules.v4'"
 
 echo "=== Infrastructure installed ==="

@@ -1967,3 +1967,113 @@
 - aux/scripts/vps/deployment/mini/special/install-infra.sh
 - aux/scripts/vps/deployment/mini/special/undeploy-vps.sh
 <!-- end-snapshot -->
+
+<!-- git-snapshot 2026-07-08T09:41:28Z -->
+- .claude/docs/blackbox/audit.md
+<!-- end-snapshot -->
+
+<!-- git-snapshot 2026-07-08T09:42:09Z -->
+- .claude/docs/blackbox/audit.md
+- .claude/docs/blackbox/session-log.md
+- aux/scripts/vps/init/3_init_soft.sh
+<!-- end-snapshot -->
+
+<!-- git-snapshot 2026-07-08T09:42:44Z -->
+- .claude/docs/blackbox/audit.md
+- .claude/docs/blackbox/session-log.md
+- aux/scripts/vps/init/3_init_soft.sh
+<!-- end-snapshot -->
+
+<!-- git-snapshot 2026-07-08T09:44:09Z -->
+- .claude/docs/blackbox/audit.md
+- .claude/docs/blackbox/session-log.md
+- aux/scripts/vps/init/3_init_soft.sh
+<!-- end-snapshot -->
+
+<!-- git-snapshot 2026-07-08T09:47:12Z -->
+- .claude/docs/blackbox/audit.md
+- .claude/docs/blackbox/session-log.md
+- aux/scripts/vps/deployment/mini/special/install-infra.sh
+- aux/scripts/vps/init/3_init_soft.sh
+<!-- end-snapshot -->
+
+<!-- git-snapshot 2026-07-08T09:52:40Z -->
+- .claude/docs/blackbox/audit.md
+- .claude/docs/blackbox/session-log.md
+- aux/scripts/vps/deployment/mini/special/install-infra.sh
+- aux/scripts/vps/init/3_init_soft.sh
+<!-- end-snapshot -->
+
+<!-- git-snapshot 2026-07-08T09:56:01Z -->
+- .claude/docs/blackbox/audit.md
+- .claude/docs/blackbox/session-log.md
+- aux/scripts/vps/deployment/mini/special/install-infra.sh
+- aux/scripts/vps/init/3_init_soft.sh
+<!-- end-snapshot -->
+
+<!-- git-snapshot 2026-07-08T09:56:42Z -->
+- .claude/docs/blackbox/audit.md
+- .claude/docs/blackbox/session-log.md
+- aux/scripts/vps/deployment/mini/special/install-infra.sh
+- aux/scripts/vps/init/3_init_soft.sh
+<!-- end-snapshot -->
+
+<!-- git-snapshot 2026-07-08T09:58:23Z -->
+- .claude/docs/blackbox/audit.md
+- .claude/docs/blackbox/session-log.md
+- aux/scripts/vps/deployment/mini/special/install-infra.sh
+- aux/scripts/vps/init/3_init_soft.sh
+<!-- end-snapshot -->
+
+<!-- git-snapshot 2026-07-08T10:00:47Z -->
+- .claude/docs/blackbox/audit.md
+- .claude/docs/blackbox/session-log.md
+- aux/scripts/vps/deployment/mini/special/install-infra.sh
+- aux/scripts/vps/init/3_init_soft.sh
+<!-- end-snapshot -->
+
+<!-- git-snapshot 2026-07-08T10:01:59Z -->
+- .claude/docs/blackbox/audit.md
+- .claude/docs/blackbox/session-log.md
+- aux/scripts/vps/deployment/mini/special/install-infra.sh
+- aux/scripts/vps/init/3_init_soft.sh
+<!-- end-snapshot -->
+
+<!-- git-snapshot 2026-07-08T10:02:46Z -->
+- .claude/docs/blackbox/audit.md
+- .claude/docs/blackbox/session-log.md
+- aux/scripts/vps/deployment/mini/special/install-infra.sh
+- aux/scripts/vps/init/3_init_soft.sh
+<!-- end-snapshot -->
+
+<!-- git-snapshot 2026-07-08T10:03:30Z -->
+- .claude/docs/blackbox/audit.md
+- .claude/docs/blackbox/session-log.md
+- aux/scripts/vps/deployment/mini/special/install-infra.sh
+- aux/scripts/vps/init/3_init_soft.sh
+<!-- end-snapshot -->
+
+<!-- git-snapshot 2026-07-08T10:04:35Z -->
+- .claude/docs/blackbox/audit.md
+- .claude/docs/blackbox/session-log.md
+- aux/scripts/vps/deployment/mini/special/install-infra.sh
+- aux/scripts/vps/init/3_init_soft.sh
+<!-- end-snapshot -->
+
+<!-- git-snapshot 2026-07-08T10:05:36Z -->
+- .claude/docs/blackbox/audit.md
+- .claude/docs/blackbox/session-log.md
+- aux/scripts/vps/deployment/mini/special/install-infra.sh
+- aux/scripts/vps/init/3_init_soft.sh
+<!-- end-snapshot -->
+
+<!-- git-snapshot 2026-07-08T10:10:32Z -->
+- .claude/docs/blackbox/audit.md
+- aux/scripts/vps/deployment/mini/vps-completion.bash
+<!-- end-snapshot -->
+
+<!-- git-snapshot 2026-07-08T10:11:36Z -->
+- .claude/docs/blackbox/audit.md
+- .claude/docs/blackbox/session-log.md
+- aux/scripts/vps/deployment/mini/vps-completion.bash
+<!-- end-snapshot -->

@@ -2765,3 +2765,153 @@ in @aux/scripts/vps/deployment/mini/special/install-infra.sh ask interactivly if
 ## 2026-07-08T08:25:45Z
 how to remove just setting swap. Just write don't do it?
 ---
+
+## 2026-07-08T09:41:07Z
+Based on @aux/scripts/vps/deployment/mini/special/install-infra.sh create in @aux/scripts/vps/init/ folder the script with 3_init_soft and add speedtest app if it not installed yet
+---
+
+## 2026-07-08T09:42:01Z
+but you can check it simple like this: `command -v vim >/dev/null || sudo apt-get install -y vim`
+---
+
+## 2026-07-08T09:42:31Z
+make the script executable
+---
+
+## 2026-07-08T09:44:05Z
+Is it good to add after adding speedtest `sudo apt-get update`
+---
+
+## 2026-07-08T09:46:39Z
+Add to @aux/scripts/vps/deployment/mini/special/install-infra.sh checking wheather it was already installed for app before installing
+---
+
+## 2026-07-08T09:52:34Z
+
+# Open HTTP/HTTPS ports in iptables
+ssh_vps "sudo iptables -I INPUT -p tcp --dport 80 -j ACCEPT"
+ssh_vps "sudo iptables -I INPUT -p tcp --dport 443 -j ACCEPT"
+ssh_vps "sudo sh -c 'iptables-save > /etc/iptables/rules.v4'"
+
+If it's set dont do it twice, or it's not a problem to run it  multiple times?
+---
+
+## 2026-07-08T09:55:56Z
+So it overide all the file?
+---
+
+## 2026-07-08T09:56:35Z
+If somehting inportant in rules.v4 it wouold be rewrited?
+---
+
+## 2026-07-08T09:57:52Z
+ If it bothers you, you could guard with -C (check if rule exists):
+
+  ssh_vps "sudo iptables -C INPUT -p tcp --dport 80 -j ACCEPT 2>/dev/null || sudo iptables -I INPUT -p tcp --dport 80 -j
+  ACCEPT"
+---
+
+## 2026-07-08T09:58:09Z
+If it bothers you, you could guard with -C (check if rule exists):
+
+  ssh_vps "sudo iptables -C INPUT -p tcp --dport 80 -j ACCEPT 2>/dev/null || sudo iptables -I INPUT -p tcp --dport 80 -j
+  ACCEPT"
+
+Make that check for 80 and 443 ports
+---
+
+## 2026-07-08T10:00:42Z
+I have:
+
+sudo iptables -nL --line-numbers
+Chain INPUT (policy ACCEPT)
+num  target     prot opt source               destination
+1    ACCEPT     6    --  0.0.0.0/0            0.0.0.0/0            tcp dpt:443
+2    ACCEPT     6    --  0.0.0.0/0            0.0.0.0/0            tcp dpt:80
+
+Chain FORWARD (policy ACCEPT)
+num  target     prot opt source               destination
+
+Chain OUTPUT (policy ACCEPT)
+num  target     prot opt source  
+
+Will 22 port also open?
+---
+
+## 2026-07-08T10:01:39Z
+But I want to prevent all accept ssh 22 port and that in files
+---
+
+## 2026-07-08T10:02:38Z
+Add 8080, 5432
+---
+
+## 2026-07-08T10:03:26Z
+where in file is written the all other if prevented?
+---
+
+## 2026-07-08T10:04:25Z
+sudo iptables -nL --line-numbers
+Chain INPUT (policy DROP)
+num  target     prot opt source               destination
+1    ACCEPT     0    --  0.0.0.0/0            0.0.0.0/0
+2    ACCEPT     0    --  0.0.0.0/0            0.0.0.0/0            state RELATED,ESTABLISHED
+3    ACCEPT     6    --  0.0.0.0/0            0.0.0.0/0            tcp dpt:22
+4    ACCEPT     6    --  0.0.0.0/0            0.0.0.0/0            tcp dpt:80
+5    ACCEPT     6    --  0.0.0.0/0            0.0.0.0/0            tcp dpt:443
+6    ACCEPT     6    --  0.0.0.0/0            0.0.0.0/0            tcp dpt:8080
+7    ACCEPT     6    --  0.0.0.0/0            0.0.0.0/0            tcp dpt:5432
+
+Chain FORWARD (policy ACCEPT)
+num  target     prot opt source               destination
+
+Chain OUTPUT (policy ACCEPT)
+num  target     prot opt source               destination
+---
+
+## 2026-07-08T10:04:29Z
+sudo iptables -nL --line-numbers
+Chain INPUT (policy DROP)
+num  target     prot opt source               destination
+1    ACCEPT     0    --  0.0.0.0/0            0.0.0.0/0
+2    ACCEPT     0    --  0.0.0.0/0            0.0.0.0/0            state RELATED,ESTABLISHED
+3    ACCEPT     6    --  0.0.0.0/0            0.0.0.0/0            tcp dpt:22
+4    ACCEPT     6    --  0.0.0.0/0            0.0.0.0/0            tcp dpt:80
+5    ACCEPT     6    --  0.0.0.0/0            0.0.0.0/0            tcp dpt:443
+6    ACCEPT     6    --  0.0.0.0/0            0.0.0.0/0            tcp dpt:8080
+7    ACCEPT     6    --  0.0.0.0/0            0.0.0.0/0            tcp dpt:5432
+
+Chain FORWARD (policy ACCEPT)
+num  target     prot opt source               destination
+
+Chain OUTPUT (policy ACCEPT)
+num  target     prot opt source               destination
+
+all right?
+---
+
+## 2026-07-08T10:05:32Z
+Question: if I run again @aux/scripts/vps/deployment/mini/special/install-infra.sh will it install twise the rules?
+---
+
+## 2026-07-08T10:07:40Z
+git add all changes and commit them with suitable message
+---
+
+## 2026-07-08T10:10:12Z
+fix @aux/scripts/vps/deployment/mini/vps-completion.bash
+---
+
+## 2026-07-08T10:10:18Z
+fix @aux/scripts/vps/deployment/mini/vps-completion.bash pathes
+---
+
+## 2026-07-08T10:11:17Z
+ source aux/scripts/vps/deployment/mini/vps-completion.bash
+ubuntuu@LP-BSF-EMALYSH:~/.../phrasal$ ./aux/scripts/vps/deployment/mini/special/2.deploy-first-or-after-undeploy-vps.sh  .claude/            .github/            CLAUDE.md           aux/                docker-compose.yml  phrasal.iml
+.env                .gitignore          GEMINI.md           backend/            e2e/
+.envrc              .idea/              Makefile            backlog/            frontend/
+.git/               .mcp.json           README.md           blackbox/           node_modules/
+
+Doesn't work
+---
