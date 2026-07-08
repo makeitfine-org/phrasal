@@ -3261,3 +3261,100 @@ local_dist_dir: "{{ playbook_dir }}/../../frontend/dist"
 ## 2026-07-08T16:54:00Z
 yes
 ---
+
+## 2026-07-08T16:57:50Z
+ansible$ ansible-playbook playbooks/setup.yml --tags frontend
+
+PLAY [Install infrastructure and deploy application] ********************************************************************
+
+TASK [Gathering Facts] **************************************************************************************************
+[WARNING]: Host 'hetzner1' is using the discovered Python interpreter at '/usr/bin/python3.12', but future installation of another Python interpreter could cause a different interpreter to be discovered. See https://docs.ansible.com/ansible-core/2.21/reference_appendices/interpreter_discovery.html for more information.
+ok: [hetzner1]
+
+TASK [deploy : Create web directory] ************************************************************************************
+ok: [hetzner1]
+
+TASK [deploy : Check local dist directory] ******************************************************************************
+ok: [hetzner1 -> localhost]
+
+TASK [deploy : Fail if no dist] *****************************************************************************************
+skipping: [hetzner1]
+
+TASK [deploy : Upload frontend files] ***********************************************************************************
+changed: [hetzner1]
+
+TASK [deploy : Deploy nginx site config] ********************************************************************************
+^[OSchanged: [hetzner1]
+
+TASK [deploy : Enable nginx site] ***************************************************************************************
+ok: [hetzner1]
+
+TASK [deploy : Set up SSL with certbot] *********************************************************************************
+ok: [hetzner1]
+
+RUNNING HANDLER [deploy : reload nginx] *********************************************************************************
+changed: [hetzner1]
+
+PLAY RECAP **************************************************************************************************************
+hetzner1                   : ok=8    changed=3    unreachable=0    failed=0    skipped=1    rescued=0    ignored=0
+
+frontend didn't deploy
+---
+
+## 2026-07-08T17:02:43Z
+Add `sudo timedatectl set-timezone Europe/Warsaw` while setup vps first
+---
+
+## 2026-07-08T17:02:55Z
+Add to ansible `timedatectl set-timezone Europe/Warsaw` while setup vps first
+---
+
+## 2026-07-08T17:04:13Z
+can I apply "Timezone setup" task just single alone?
+---
+
+## 2026-07-08T17:05:32Z
+set to show like this: `Wed Jul  8 19:04:40 CEST 2026` not `Wed Jul  8 07:04:40 PM CEST 2026`
+---
+
+## 2026-07-08T17:07:04Z
+after:
+ansible-playbook playbooks/setup.yml --tags timezone
+
+still show:
+vpsuser@vps-h1:~$ date
+Wed Jul  8 07:06:26 PM CEST 2026
+---
+
+## 2026-07-08T17:07:47Z
+desn't help relogin
+---
+
+## 2026-07-08T17:09:56Z
+vpsuser@vps-h1:~$ source /etc/default/locale
+vpsuser@vps-h1:~$ date
+Wed Jul  8 07:09:49 PM CEST 2026
+---
+
+## 2026-07-08T17:11:21Z
+ locale
+LANG=en_US.UTF-8
+LANGUAGE=
+LC_CTYPE="en_US.UTF-8"
+LC_NUMERIC="en_US.UTF-8"
+LC_TIME="en_US.UTF-8"
+LC_COLLATE="en_US.UTF-8"
+LC_MONETARY="en_US.UTF-8"
+LC_MESSAGES="en_US.UTF-8"
+LC_PAPER="en_US.UTF-8"
+LC_NAME="en_US.UTF-8"
+LC_ADDRESS="en_US.UTF-8"
+LC_TELEPHONE="en_US.UTF-8"
+LC_MEASUREMENT="en_US.UTF-8"
+LC_IDENTIFICATION="en_US.UTF-8"
+LC_ALL=
+---
+
+## 2026-07-08T17:13:29Z
+now good!
+---

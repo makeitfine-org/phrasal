@@ -1,0 +1,16 @@
+---
+- name: Set timezone to Europe/Warsaw
+  community.general.timezone:
+    name: Europe/Warsaw
+
+- name: Ensure en_GB.UTF-8 locale exists
+  community.general.locale_gen:
+    name: en_GB.UTF-8
+    state: present
+
+- name: Set LC_TIME to 24h format
+  ansible.builtin.lineinfile:
+    path: /etc/default/locale
+    regexp: '^LC_TIME='
+    line: 'LC_TIME="en_GB.UTF-8"'
+    state: present

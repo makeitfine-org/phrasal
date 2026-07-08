@@ -1,4 +1,8 @@
 ---
+- name: Timezone setup
+  ansible.builtin.import_tasks: timezone.yml
+  tags: [timezone]
+
 - name: Swap setup
   ansible.builtin.include_tasks: swap.yml
   tags: [swap]

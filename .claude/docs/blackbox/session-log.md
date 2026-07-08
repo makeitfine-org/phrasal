@@ -2390,3 +2390,60 @@
 - ansible/roles/redeploy/defaults/main.yml
 - aux/docs/useful/hatzner-vps.txt
 <!-- end-snapshot -->
+
+<!-- git-snapshot 2026-07-08T16:58:07Z -->
+- .claude/docs/blackbox/audit.md
+<!-- end-snapshot -->
+
+<!-- git-snapshot 2026-07-08T17:03:12Z -->
+- .claude/docs/blackbox/audit.md
+- .claude/docs/blackbox/session-log.md
+- ansible/roles/infra/tasks/main.yml
+<!-- end-snapshot -->
+
+<!-- git-snapshot 2026-07-08T17:04:17Z -->
+- .claude/docs/blackbox/audit.md
+- .claude/docs/blackbox/session-log.md
+- ansible/roles/infra/tasks/main.yml
+- ansible/roles/infra/tasks/timezone.yml
+<!-- end-snapshot -->
+
+<!-- git-snapshot 2026-07-08T17:05:52Z -->
+- .claude/docs/blackbox/audit.md
+- .claude/docs/blackbox/session-log.md
+- ansible/roles/infra/tasks/main.yml
+- ansible/roles/infra/tasks/timezone.yml
+<!-- end-snapshot -->
+
+<!-- git-snapshot 2026-07-08T17:07:09Z -->
+- .claude/docs/blackbox/audit.md
+- .claude/docs/blackbox/session-log.md
+- ansible/roles/infra/tasks/main.yml
+- ansible/roles/infra/tasks/timezone.yml
+<!-- end-snapshot -->
+
+<!-- git-snapshot 2026-07-08T17:08:40Z -->
+- .claude/docs/blackbox/audit.md
+- .claude/docs/blackbox/session-log.md
+- ansible/roles/infra/tasks/main.yml
+- ansible/roles/infra/tasks/timezone.yml
+<!-- end-snapshot -->
+
+<!-- git-snapshot 2026-07-08T17:10:05Z -->
+- .claude/docs/blackbox/audit.md
+- .claude/docs/blackbox/session-log.md
+- ansible/roles/infra/tasks/main.yml
+- ansible/roles/infra/tasks/timezone.yml
+<!-- end-snapshot -->
+
+<!-- git-snapshot 2026-07-08T17:11:30Z -->
+- .claude/docs/blackbox/audit.md
+- .claude/docs/blackbox/session-log.md
+- ansible/roles/infra/tasks/main.yml
+- ansible/roles/infra/tasks/timezone.yml
+<!-- end-snapshot -->
+
+<!-- git-snapshot 2026-07-08T17:13:52Z -->
+- .claude/docs/blackbox/audit.md
+- .claude/docs/blackbox/session-log.md
+<!-- end-snapshot -->
