@@ -3547,3 +3547,60 @@
 - ansible/roles/k3s/tasks/main.yml
 - ansible/roles/k3s/templates/config.yaml.j2
 <!-- end-snapshot -->
+
+<!-- git-snapshot 2026-07-09T16:53:56Z -->
+- .claude/docs/blackbox/audit.md
+<!-- end-snapshot -->
+
+<!-- git-snapshot 2026-07-09T16:54:34Z -->
+- .claude/docs/blackbox/audit.md
+- .claude/docs/blackbox/session-log.md
+<!-- end-snapshot -->
+
+<!-- git-snapshot 2026-07-09T17:02:05Z -->
+- .claude/docs/blackbox/audit.md
+- .claude/docs/blackbox/session-log.md
+- ansible/roles/k3s/tasks/main.yml
+- ansible/roles/k3s/templates/k8s-completion.j2
+<!-- end-snapshot -->
+
+<!-- git-snapshot 2026-07-09T17:02:47Z -->
+- .claude/docs/blackbox/audit.md
+- .claude/docs/blackbox/session-log.md
+- ansible/roles/k3s/tasks/main.yml
+- ansible/roles/k3s/templates/k8s-completion.j2
+<!-- end-snapshot -->
+
+<!-- git-snapshot 2026-07-09T17:05:03Z -->
+- .claude/docs/blackbox/audit.md
+- .claude/docs/blackbox/session-log.md
+- ansible/roles/k3s/tasks/main.yml
+<!-- end-snapshot -->
+
+<!-- git-snapshot 2026-07-09T17:07:00Z -->
+- .claude/docs/blackbox/audit.md
+- .claude/docs/blackbox/session-log.md
+- ansible/roles/k3s/files/k8s-completion
+- ansible/roles/k3s/tasks/main.yml
+<!-- end-snapshot -->
+
+<!-- git-snapshot 2026-07-09T17:08:26Z -->
+- .claude/docs/blackbox/audit.md
+- .claude/docs/blackbox/session-log.md
+- ansible/roles/k3s/files/k8s-completion
+- ansible/roles/k3s/tasks/main.yml
+<!-- end-snapshot -->
+
+<!-- git-snapshot 2026-07-09T17:10:09Z -->
+- .claude/docs/blackbox/audit.md
+- .claude/docs/blackbox/session-log.md
+- ansible/roles/k3s/files/k8s-completion
+- ansible/roles/k3s/tasks/main.yml
+<!-- end-snapshot -->
+
+<!-- git-snapshot 2026-07-09T17:11:16Z -->
+- .claude/docs/blackbox/audit.md
+- .claude/docs/blackbox/session-log.md
+- ansible/roles/k3s/files/k8s-completion
+- ansible/roles/k3s/tasks/main.yml
+<!-- end-snapshot -->

@@ -4488,3 +4488,94 @@ no comment just disable. can you use when:false
 ## 2026-07-09T16:43:16Z
 But I don't have docker on VPS, is it not a problem?
 ---
+
+## 2026-07-09T16:53:46Z
+if I run `ansible-playbook playbooks/k3s.yml` again is it a problem, some vars will be added twise to ~/.bashrc?
+---
+
+## 2026-07-09T16:54:26Z
+other impacts?
+---
+
+## 2026-07-09T17:00:55Z
+Add task in the end of @ansible/roles/k3s/tasks/main.yml add task to create based on @ansible/roles/k3s/templates/k8s-completion.j2 the k8s-completion file and put in into /etc/bash_completion.d/ if there's no already so.
+---
+
+## 2026-07-09T17:02:38Z
+Is it possible to run only: `name: Deploy kubectl bash completion`
+---
+
+## 2026-07-09T17:04:39Z
+ansible-playbook playbooks/k3s.yml --tags k8s-completion
+
+PLAY [Install K3s on VPS] *************************************************************************************************
+
+TASK [Gathering Facts] ****************************************************************************************************
+[WARNING]: Host 'hetzner1' is using the discovered Python interpreter at '/usr/bin/python3.12', but future installation of another Python interpreter could cause a different interpreter to be discovered. See https://docs.ansible.com/ansible-core/2.21/reference_appendices/interpreter_discovery.html for more information.
+ok: [hetzner1]
+
+TASK [k3s : Deploy kubectl bash completion] *******************************************************************************
+[ERROR]: Task failed: Syntax error in template: Missing end of comment tag
+
+Task failed.
+Origin: /home/ubuntuu/dev/mine/phrasal/ansible/roles/k3s/tasks/main.yml:62:3
+
+60   when: false
+61
+62 - name: Deploy kubectl bash completion
+     ^ column 3
+
+<<< caused by >>>
+
+Syntax error in template: Missing end of comment tag
+Origin: /home/ubuntuu/dev/mine/phrasal/ansible/roles/k3s/templates/k8s-completion.j2:42
+
+40     requestComp="${words[0]} __complete ${args[*]}"
+41
+42     lastParam=${words[$((${#words[@]}-1))]}
+   ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+fatal: [hetzner1]: FAILED! => {"changed": false, "msg": "Task failed: Syntax error in template: Missing end of comment tag"}
+
+PLAY RECAP ****************************************************************************************************************
+hetzner1                   : ok=1    changed=0    unreachable=0    failed=1    skipped=0    rescued=0    ignored=0
+---
+
+## 2026-07-09T17:06:51Z
+ ansible-playbook playbooks/k3s.yml --tags k8s-completion
+
+PLAY [Install K3s on VPS] *************************************************************************************************
+
+TASK [Gathering Facts] ****************************************************************************************************
+[WARNING]: Host 'hetzner1' is using the discovered Python interpreter at '/usr/bin/python3.12', but future installation of another Python interpreter could cause a different interpreter to be discovered. See https://docs.ansible.com/ansible-core/2.21/reference_appendices/interpreter_discovery.html for more information.
+ok: [hetzner1]
+
+TASK [k3s : Deploy kubectl bash completion] *******************************************************************************[ERROR]: Task failed: Module failed: Unsupported parameters for (ansible.legacy.copy) module: creates. Supported parameters include: _original_basename, attributes, backup, checksum, content, dest, directory_mode, follow, force, group, local_follow, mode, owner, remote_src, selevel, serole, setype, seuser, src, unsafe_writes, validate (attr).
+Origin: /home/ubuntuu/dev/mine/phrasal/ansible/roles/k3s/tasks/main.yml:62:3
+
+60   when: false
+61
+62 - name: Deploy kubectl bash completion
+     ^ column 3
+
+fatal: [hetzner1]: FAILED! => {"changed": false, "checksum": "6eae574b5f1d550f5a5d19ee1183cb26cc515106", "msg": "Unsupported parameters for (ansible.legacy.copy) module: creates. Supported parameters include: _original_basename, attributes, backup, checksum, content, dest, directory_mode, follow, force, group, local_follow, mode, owner, remote_src, selevel, serole, setype, seuser, src, unsafe_writes, validate (attr)."}
+
+PLAY RECAP ****************************************************************************************************************
+hetzner1                   : ok=1    changed=0    unreachable=0    failed=1    skipped=0    rescued=0    ignored=0
+---
+
+## 2026-07-09T17:08:21Z
+target name tags: [k8s-completion] good?
+---
+
+## 2026-07-09T17:09:56Z
+after `exec bash`:
+: command not found
+: command not found
+bash: /etc/bash_completion.d/k8s-completion: line 17: syntax error near unexpected token `$'\r''
+'ash: /etc/bash_completion.d/k8s-completion: line 17: `__kubectl_debug()
+---
+
+## 2026-07-09T17:11:08Z
+so did you fix  @ansible/roles/k3s/files/k8s-completion  now?
+---

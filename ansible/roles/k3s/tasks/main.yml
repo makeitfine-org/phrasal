@@ -59,6 +59,14 @@
     state: present
   when: false
 
+- name: Deploy kubectl bash completion
+  ansible.builtin.copy:
+    src: k8s-completion
+    dest: /etc/bash_completion.d/k8s-completion
+    mode: "0644"
+    force: false
+  tags: [k8s-completion]
+
 - name: Verify k3s installation
   ansible.builtin.command: k3s kubectl get nodes -o wide
   register: k3s_verify
