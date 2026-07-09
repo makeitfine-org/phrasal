@@ -17,7 +17,7 @@
 - name: Fail if no dist
   ansible.builtin.fail:
     msg: "No dist/ directory — build first: npm run build"
-  when: not dist_dir.stat.exists
+  when: "not dist_dir.stat.exists"
 
 - name: Upload frontend files
   ansible.builtin.synchronize:
@@ -36,7 +36,7 @@
     src: phrasal-nginx.conf.j2
     dest: /etc/nginx/sites-available/phrasal
     mode: "0644"
-  when: nginx_has_root.rc != 0
+  when: "nginx_has_root.rc != 0"
   notify: reload nginx
 
 - name: Enable nginx site
@@ -56,4 +56,36 @@
   ansible.builtin.command: >
     certbot --nginx -d {{ domain }}
     --non-interactive --agree-tos --email {{ certbot_email }}
-  when: ssl_configured.rc != 0
+  when: "ssl_configured.rc != 0"
+
+- name: Deploy redirect config for old domains
+  ansible.builtin.template:
+    src: phrasal-redirect.conf.j2
+    dest: /etc/nginx/sites-available/phrasal-redirect
+    mode: "0644"
+#  when: redirect_domains is defined and redirect_domains | length > 0
+  when: "false"
+  notify: reload nginx
+
+- name: Enable redirect config
+  ansible.builtin.file:
+    src: /etc/nginx/sites-available/phrasal-redirect
+    dest: /etc/nginx/sites-enabled/phrasal-redirect
+    state: link
+#  when: redirect_domains is defined and redirect_domains | length > 0
+  when: "false"
+  notify: reload nginx
+
+- name: Deploy reject config for old domain
+  ansible.builtin.template:
+    src: phrasal-reject.conf.j2
+    dest: /etc/nginx/sites-available/phrasal-reject
+    mode: "0644"
+  notify: reload nginx
+
+- name: Enable reject config
+  ansible.builtin.file:
+    src: /etc/nginx/sites-available/phrasal-reject
+    dest: /etc/nginx/sites-enabled/phrasal-reject
+    state: link
+  notify: reload nginx

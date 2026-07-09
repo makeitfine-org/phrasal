@@ -4007,3 +4007,38 @@ changed: [hetzner1]
 PLAY RECAP ****************************************************************************************************************
 hetzner1                   : ok=10   changed=5    unreachable=0    failed=0    skipped=1    rescued=0    ignored=0
 ---
+
+## 2026-07-09T09:05:19Z
+Yes, I get site byt "outphrasal.ddns.net" but I'm still getting it by "phrasal.ddns.net" but as "not secure" connection, I don't want to get it at all by that old domain. How to achieve that?
+---
+
+## 2026-07-09T09:10:10Z
+how to make nginx to redirect from outphrasal.ddns.net to phrasal.ddns.net?
+---
+
+## 2026-07-09T09:12:05Z
+yes
+---
+
+## 2026-07-09T09:16:51Z
+ add a catch-all server block that rejects requests for phrasal.ddns.net domain
+---
+
+## 2026-07-09T09:19:24Z
+how to disable "- name: Deploy reject config for old domain" without removeing from code?
+---
+
+## 2026-07-09T09:27:44Z
+Even after intro rejection and `ansible-playbook playbooks/init-deploy.yml --tags frontend`
+I get site byt "outphrasal.ddns.net" but I'm still getting it by "phrasal.ddns.net" but as "not secure" connection, I don't want to get it at all by that old domain. How to achieve that?
+---
+
+## 2026-07-09T09:32:13Z
+why did yo add these:
+ssl_certificate /etc/letsencrypt/live/outphrasal.ddns.net/fullchain.pem;
+    ssl_certificate_key /etc/letsencrypt/live/outphrasal.ddns.net/privkey.pem;
+
+why it's not {{ domain }} but outphrasal.ddns.net: /etc/letsencrypt/live/outphrasal.ddns.net/fullchain.pem;
+
+?
+---

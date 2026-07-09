@@ -14,7 +14,7 @@
     src: api-only-nginx.conf.j2
     dest: /etc/nginx/sites-available/phrasal
     mode: "0644"
-  when: backend_still_deployed.stat.exists
+  when: "backend_still_deployed.stat.exists"
   notify: reload nginx
 
 - name: Remove nginx config entirely if backend is also gone
@@ -24,5 +24,24 @@
   loop:
     - /etc/nginx/sites-enabled/phrasal
     - /etc/nginx/sites-available/phrasal
-  when: not backend_still_deployed.stat.exists
+  when: "not backend_still_deployed.stat.exists"
+  notify: reload nginx
+
+- name: Remove redirect config
+  ansible.builtin.file:
+    path: "{{ item }}"
+    state: absent
+  loop:
+    - /etc/nginx/sites-enabled/phrasal-redirect
+    - /etc/nginx/sites-available/phrasal-redirect
+  when: "false"
+  notify: reload nginx
+
+- name: Remove reject config
+  ansible.builtin.file:
+    path: "{{ item }}"
+    state: absent
+  loop:
+    - /etc/nginx/sites-enabled/phrasal-reject
+    - /etc/nginx/sites-available/phrasal-reject
   notify: reload nginx

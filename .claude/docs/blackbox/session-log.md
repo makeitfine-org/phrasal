@@ -3084,3 +3084,48 @@
 - ansible-bare/roles/deploy/defaults/main.yml
 - aux/docs/useful/hatzner-vps.txt
 <!-- end-snapshot -->
+
+<!-- git-snapshot 2026-07-09T09:05:36Z -->
+- .claude/docs/blackbox/audit.md
+<!-- end-snapshot -->
+
+<!-- git-snapshot 2026-07-09T09:10:21Z -->
+- .claude/docs/blackbox/audit.md
+- .claude/docs/blackbox/session-log.md
+<!-- end-snapshot -->
+
+<!-- git-snapshot 2026-07-09T09:13:05Z -->
+- .claude/docs/blackbox/audit.md
+- .claude/docs/blackbox/session-log.md
+- ansible-bare/inventory/group_vars/all.yml
+- ansible-bare/roles/deploy/tasks/frontend.yml
+- ansible-bare/roles/undeploy/tasks/frontend.yml
+- aux/docs/useful/hatzner-vps.txt
+<!-- end-snapshot -->
+
+<!-- git-snapshot 2026-07-09T09:18:04Z -->
+- .claude/docs/blackbox/audit.md
+- .claude/docs/blackbox/session-log.md
+- ansible-bare/roles/deploy/tasks/frontend.yml
+- ansible-bare/roles/undeploy/tasks/frontend.yml
+- aux/docs/useful/hatzner-vps.txt
+<!-- end-snapshot -->
+
+<!-- git-snapshot 2026-07-09T09:19:30Z -->
+- .claude/docs/blackbox/audit.md
+- .claude/docs/blackbox/session-log.md
+- ansible-bare/roles/deploy/tasks/frontend.yml
+- ansible-bare/roles/deploy/templates/phrasal-reject.conf.j2
+- ansible-bare/roles/undeploy/tasks/frontend.yml
+- aux/docs/useful/hatzner-vps.txt
+<!-- end-snapshot -->
+
+<!-- git-snapshot 2026-07-09T09:29:42Z -->
+- ansible-bare/roles/deploy/templates/phrasal-reject.conf.j2
+<!-- end-snapshot -->
+
+<!-- git-snapshot 2026-07-09T09:32:23Z -->
+- .claude/docs/blackbox/audit.md
+- .claude/docs/blackbox/session-log.md
+- ansible-bare/roles/deploy/templates/phrasal-reject.conf.j2
+<!-- end-snapshot -->

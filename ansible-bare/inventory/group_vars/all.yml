@@ -2,6 +2,8 @@ project_root: "{{ playbook_dir }}/../.."
 
 vps_user: vpsuser
 domain: outphrasal.ddns.net
+#redirect_domains:
+#  - phrasal.ddns.net
 certbot_email: x7warrio@gmail.com
 
 # infra

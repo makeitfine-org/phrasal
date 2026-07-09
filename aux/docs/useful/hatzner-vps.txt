@@ -287,3 +287,18 @@
 
     The undeploy is necessary because the deploy task skips re-rendering nginx if the config already exists. Undeploy removes
     it, so deploy creates a fresh one with the new domain and runs certbot for the new certificate.
+
+    ---
+
+    redirect from phrasal.ddns.net to outphrasal.ddns.net (old → new), right? Add this server block in
+      Nginx:
+
+      server {
+          listen 80;
+          server_name phrasal.ddns.net;
+          return 301 https://outphrasal.ddns.net$request_uri;
+      }
+
+      This sends a permanent redirect (301) so anyone visiting the old domain gets sent to the new one.
+
+      ---

@@ -1,0 +1,7 @@
+{% for old_domain in redirect_domains %}
+server {
+    listen 80;
+    server_name {{ old_domain }};
+    return 301 https://{{ domain }}$request_uri;
+}
+{% endfor %}
