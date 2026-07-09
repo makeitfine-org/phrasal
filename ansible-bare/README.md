@@ -15,7 +15,7 @@ Connection variables are centralized in two files:
 | File | Purpose |
 |---|---|
 | `inventory/hosts.yml` | VPS host, user, SSH key path |
-| `inventory/group_vars/all.yml` | Domain, DB creds, swap, firewall ports, JVM settings |
+| `inventory/group_vars/all.yml` | Domain (`outphrasal.ddns.net`), DB creds, swap, firewall ports, JVM settings |
 
 ## VPS Init (run once, in order)
 
@@ -64,6 +64,19 @@ roles/
 | `ansible-playbook playbooks/redeploy.yml --tags backend` | Rebuild and redeploy Spring Boot JAR |
 | `ansible-playbook playbooks/redeploy.yml --tags frontend` | Rebuild and redeploy React static files |
 | `ansible-playbook playbooks/redeploy.yml` | Redeploy both |
+
+## Domain Change
+
+When changing the domain (e.g. `outphrasal.ddns.net` → something else):
+
+1. Update `domain:` in `inventory/group_vars/all.yml` and `roles/deploy/defaults/main.yml`
+2. Point the new domain's A record to the VPS IP
+3. Undeploy + redeploy frontend to re-render nginx config and obtain a new SSL certificate:
+
+```bash
+ansible-playbook playbooks/undeploy.yml --tags frontend
+ansible-playbook playbooks/init-deploy.yml --tags frontend
+```
 
 ## Teardown
 

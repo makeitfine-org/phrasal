@@ -255,7 +255,35 @@
       ---
 
       sudo iptables -nL --line-numbers
+      sudo iptables -D INPUT -p tcp --dport <port> -j ACCEPT
+      sudo iptables -A INPUT -p tcp --dport <port> -j DROP
+
+      sudo sh -c 'iptables-save > /etc/iptables/rules.v4'
 
 ---
 
   sudo journalctl -u phrasal.service -n 25 -f
+
+---
+
+    Changed files:
+    - inventory/group_vars/all.yml — domain: outphrasal.ddns.net
+    - roles/deploy/defaults/main.yml — domain: outphrasal.ddns.net
+    - README.md — added domain change procedure
+
+    All templates (phrasal-nginx.conf.j2, api-only-nginx.conf.j2) and certbot tasks already use {{ domain }}, so no other
+    changes needed.
+
+    To deploy on the VPS, run in order:
+
+    # 1. Undeploy frontend (removes old nginx config with phrasal.ddns.net)
+    ansible-playbook playbooks/undeploy.yml --tags frontend
+
+    # 2. Deploy frontend (new nginx config with outphrasal.ddns.net + new SSL cert)
+    ansible-playbook playbooks/init-deploy.yml --tags frontend
+
+    Prerequisite: make sure outphrasal.ddns.net points to 116.203.78.118 on No-IP first — certbot will fail if the domain
+    doesn't resolve to the VPS.
+
+    The undeploy is necessary because the deploy task skips re-rendering nginx if the config already exists. Undeploy removes
+    it, so deploy creates a fresh one with the new domain and runs certbot for the new certificate.

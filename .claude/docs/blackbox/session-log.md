@@ -3057,3 +3057,30 @@
 - Makefile
 - aux/docs/useful/hatzner-vps.txt
 <!-- end-snapshot -->
+
+<!-- git-snapshot 2026-07-09T08:18:13Z -->
+- .claude/docs/blackbox/audit.md
+<!-- end-snapshot -->
+
+<!-- git-snapshot 2026-07-09T08:21:50Z -->
+- .claude/docs/blackbox/audit.md
+- .claude/docs/blackbox/session-log.md
+<!-- end-snapshot -->
+
+<!-- git-snapshot 2026-07-09T08:52:57Z -->
+- .claude/docs/blackbox/audit.md
+- .claude/docs/blackbox/session-log.md
+- ansible-bare/README.md
+- ansible-bare/inventory/group_vars/all.yml
+- ansible-bare/roles/deploy/defaults/main.yml
+- aux/docs/useful/hatzner-vps.txt
+<!-- end-snapshot -->
+
+<!-- git-snapshot 2026-07-09T09:00:07Z -->
+- .claude/docs/blackbox/audit.md
+- .claude/docs/blackbox/session-log.md
+- ansible-bare/README.md
+- ansible-bare/inventory/group_vars/all.yml
+- ansible-bare/roles/deploy/defaults/main.yml
+- aux/docs/useful/hatzner-vps.txt
+<!-- end-snapshot -->

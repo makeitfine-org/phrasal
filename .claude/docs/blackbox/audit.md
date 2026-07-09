@@ -3948,3 +3948,62 @@ Analyze @Makefile and fix it
 ## 2026-07-08T22:42:53Z
 do other targets work properly?
 ---
+
+## 2026-07-09T08:18:03Z
+I have on noip.com free phrasal.ddns.net domain and I have on this domain checked Enable Dynamic DNS checkbox. What's that?
+---
+
+## 2026-07-09T08:21:42Z
+How can I set "old.phrasla.ddns.net" domain also for other service on this VPS?
+---
+
+## 2026-07-09T08:49:30Z
+Carafully analyze @ansible-bare/ and make to the application to be accessed not by "phrasal.ddns.net" but "outphrasal.ddns.net". Consider certificate and all necesarry changes, etc.
+Update @ansible-bare/README.md 
+Also show what ansible to run to update that.
+---
+
+## 2026-07-09T08:59:57Z
+Is all right?:
+
+ansible-playbook playbooks/init-deploy.yml --tags frontend
+
+PLAY [Deploy application] *************************************************************************************************
+
+TASK [Gathering Facts] ****************************************************************************************************
+[WARNING]: Host 'hetzner1' is using the discovered Python interpreter at '/usr/bin/python3.12', but future installation of another Python interpreter could cause a different interpreter to be discovered. See https://docs.ansible.com/ansible-core/2.21/reference_appendices/interpreter_discovery.html for more information.
+ok: [hetzner1]
+
+TASK [deploy : Create web directory] **************************************************************************************
+changed: [hetzner1]
+
+TASK [deploy : Check local dist directory] ********************************************************************************
+ok: [hetzner1 -> localhost]
+
+TASK [deploy : Fail if no dist] *******************************************************************************************
+skipping: [hetzner1]
+
+TASK [deploy : Upload frontend files] *************************************************************************************
+changed: [hetzner1]
+
+TASK [deploy : Check if full nginx site config exists] ********************************************************************
+ok: [hetzner1]
+
+TASK [deploy : Deploy nginx site config] **********************************************************************************
+changed: [hetzner1]
+
+TASK [deploy : Enable nginx site] *****************************************************************************************
+ok: [hetzner1]
+
+TASK [deploy : Check if SSL is configured in nginx] ***********************************************************************
+ok: [hetzner1]
+
+TASK [deploy : Set up SSL with certbot] ***********************************************************************************
+changed: [hetzner1]
+
+RUNNING HANDLER [deploy : reload nginx] ***********************************************************************************
+changed: [hetzner1]
+
+PLAY RECAP ****************************************************************************************************************
+hetzner1                   : ok=10   changed=5    unreachable=0    failed=0    skipped=1    rescued=0    ignored=0
+---
