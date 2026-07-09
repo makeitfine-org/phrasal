@@ -48,6 +48,37 @@ ansible/
         └── templates/config.yaml.j2 # k3s server config
 ```
 
+## Connect from Local Machine
+
+```bash
+# 1. Grab the kubeconfig
+scp -i ~/dev/scripts/vps/ssh-key-h1.key vpsuser@116.203.78.118:~/.kube/config ~/.kube/config-hetzner
+
+# 2. Replace localhost with the VPS IP
+sed -i 's|https://127.0.0.1:6443|https://116.203.78.118:6443|' ~/.kube/config-hetzner
+
+# 3. Use it
+export KUBECONFIG=~/.kube/config-hetzner
+kubectl get nodes
+```
+
+This works because the K3s config has `tls-san: 116.203.78.118` — the API server cert covers that IP.
+
+To make it permanent, set `KUBECONFIG` in `~/.bashrc` or merge into `~/.kube/config`:
+
+```bash
+# Merge approach (if you have other clusters too)
+KUBECONFIG=~/.kube/config:~/.kube/config-hetzner kubectl config view --flatten > ~/.kube/config-merged
+mv ~/.kube/config-merged ~/.kube/config
+```
+
+After this, `~/.kube/config` contains both your existing clusters and the Hetzner K3s cluster. Switch between them with:
+
+```bash
+kubectl config get-contexts        # list all
+kubectl config use-context default  # switch to K3s (K3s names its context "default")
+```
+
 ## Useful Commands
 
 ```shell

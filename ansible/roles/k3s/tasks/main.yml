@@ -59,6 +59,11 @@
     state: present
   when: false
 
+- name: Verify k3s installation
+  ansible.builtin.command: k3s kubectl get nodes -o wide
+  register: k3s_verify
+  changed_when: false
+
 - name: Deploy kubectl bash completion
   ansible.builtin.copy:
     src: k8s-completion
@@ -67,10 +72,15 @@
     force: false
   tags: [k8s-completion]
 
-- name: Verify k3s installation
-  ansible.builtin.command: k3s kubectl get nodes -o wide
-  register: k3s_verify
-  changed_when: false
+- name: Allow external access to K8s API (port 6443)
+  ansible.builtin.iptables:
+    chain: INPUT
+    protocol: tcp
+    destination_port: "6443"
+    jump: ACCEPT
+    rule_num: "12"
+    action: insert
+  tags: [allow_6443]
 
 - name: Show cluster status
   ansible.builtin.debug:

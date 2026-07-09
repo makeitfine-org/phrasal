@@ -3604,3 +3604,73 @@
 - ansible/roles/k3s/files/k8s-completion
 - ansible/roles/k3s/tasks/main.yml
 <!-- end-snapshot -->
+
+<!-- git-snapshot 2026-07-09T17:14:36Z -->
+- .claude/docs/blackbox/audit.md
+<!-- end-snapshot -->
+
+<!-- git-snapshot 2026-07-09T17:18:43Z -->
+- .claude/docs/blackbox/audit.md
+- .claude/docs/blackbox/session-log.md
+<!-- end-snapshot -->
+
+<!-- git-snapshot 2026-07-09T17:21:42Z -->
+- .claude/docs/blackbox/audit.md
+- .claude/docs/blackbox/session-log.md
+- ansible/README.md
+- aux/docs/useful/hatzner-vps.txt
+<!-- end-snapshot -->
+
+<!-- git-snapshot 2026-07-09T17:27:49Z -->
+- .claude/docs/blackbox/audit.md
+- .claude/docs/blackbox/session-log.md
+- ansible/README.md
+- aux/docs/useful/hatzner-vps.txt
+<!-- end-snapshot -->
+
+<!-- git-snapshot 2026-07-09T17:31:58Z -->
+- .claude/docs/blackbox/audit.md
+- .claude/docs/blackbox/session-log.md
+- ansible/README.md
+- aux/docs/useful/hatzner-vps.txt
+<!-- end-snapshot -->
+
+<!-- git-snapshot 2026-07-09T17:36:20Z -->
+- .claude/docs/blackbox/audit.md
+- .claude/docs/blackbox/session-log.md
+- ansible/README.md
+<!-- end-snapshot -->
+
+<!-- git-snapshot 2026-07-09T17:40:00Z -->
+- .claude/docs/blackbox/audit.md
+- .claude/docs/blackbox/session-log.md
+- ansible/README.md
+<!-- end-snapshot -->
+
+<!-- git-snapshot 2026-07-09T17:42:53Z -->
+- .claude/docs/blackbox/audit.md
+- .claude/docs/blackbox/session-log.md
+- ansible/README.md
+- ansible/roles/k3s/tasks/main.yml
+<!-- end-snapshot -->
+
+<!-- git-snapshot 2026-07-09T17:44:46Z -->
+- .claude/docs/blackbox/audit.md
+- .claude/docs/blackbox/session-log.md
+- ansible/README.md
+- ansible/roles/k3s/tasks/main.yml
+<!-- end-snapshot -->
+
+<!-- git-snapshot 2026-07-09T17:47:05Z -->
+- .claude/docs/blackbox/audit.md
+- .claude/docs/blackbox/session-log.md
+- ansible/README.md
+- ansible/roles/k3s/tasks/main.yml
+<!-- end-snapshot -->
+
+<!-- git-snapshot 2026-07-09T17:49:24Z -->
+- .claude/docs/blackbox/audit.md
+- .claude/docs/blackbox/session-log.md
+- ansible/README.md
+- ansible/roles/k3s/tasks/main.yml
+<!-- end-snapshot -->
