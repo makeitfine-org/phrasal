@@ -95,6 +95,7 @@
     src: phrasal-reject.conf.j2
     dest: /etc/nginx/sites-available/phrasal-reject
     mode: "0644"
+  when: "false"
   notify: reload nginx
 
 - name: Enable reject config
@@ -102,4 +103,5 @@
     src: /etc/nginx/sites-available/phrasal-reject
     dest: /etc/nginx/sites-enabled/phrasal-reject
     state: link
+  when: "false"
   notify: reload nginx

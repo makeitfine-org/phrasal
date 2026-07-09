@@ -78,6 +78,26 @@ ansible-playbook playbooks/undeploy.yml --tags frontend
 ansible-playbook playbooks/init-deploy.yml --tags frontend
 ```
 
+## Old Domain Handling
+
+Tasks for handling the old domain (`phrasal.ddns.net`) are disabled by default  
+(`when: "false"`) in `roles/deploy/tasks/frontend.yml`.
+
+To activate, change `when: "false"` to `when: "true"` on the relevant tasks:
+
+| Tasks | What they do |
+|---|---|
+| `Deploy reject config for old domain` + `Enable reject config` | Serves an "under construction" page on `phrasal.ddns.net` (template: `phrasal-reject.conf.j2`) |
+| `Deploy redirect config for old domains` + `Enable redirect config` | Redirects `phrasal.ddns.net` → `outphrasal.ddns.net` (template: `phrasal-redirect.conf.j2`) |
+
+Enable one or the other, not both. After enabling, redeploy:
+
+```bash
+ansible-playbook playbooks/init-deploy.yml --tags frontend
+```
+
+Undeploy counterparts are in `roles/undeploy/tasks/frontend.yml` (also gated by `when: "false"` — enable the matching pair).
+
 ## Teardown
 
 ```bash

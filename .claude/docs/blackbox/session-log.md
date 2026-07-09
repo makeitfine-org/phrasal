@@ -3176,3 +3176,26 @@
 - ansible-bare/roles/deploy/templates/under-construction.html.j2
 - ansible-bare/roles/undeploy/tasks/frontend.yml
 <!-- end-snapshot -->
+
+<!-- git-snapshot 2026-07-09T10:16:10Z -->
+- .claude/docs/blackbox/audit.md
+- ansible-bare/roles/deploy/tasks/frontend.yml
+- ansible-bare/roles/deploy/templates/phrasal-reject.conf.j2
+<!-- end-snapshot -->
+
+<!-- git-snapshot 2026-07-09T10:20:11Z -->
+- .claude/docs/blackbox/audit.md
+- .claude/docs/blackbox/session-log.md
+- ansible-bare/roles/deploy/tasks/frontend.yml
+<!-- end-snapshot -->
+
+<!-- git-snapshot 2026-07-09T10:21:48Z -->
+- .claude/docs/blackbox/audit.md
+- .claude/docs/blackbox/session-log.md
+- ansible-bare/roles/deploy/tasks/frontend.yml
+<!-- end-snapshot -->
+
+<!-- git-snapshot 2026-07-09T10:28:10Z -->
+- .claude/docs/blackbox/audit.md
+- ansible-bare/README.md
+<!-- end-snapshot -->

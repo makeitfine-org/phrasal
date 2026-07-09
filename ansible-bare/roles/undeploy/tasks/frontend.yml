@@ -44,9 +44,11 @@
   loop:
     - /etc/nginx/sites-enabled/phrasal-reject
     - /etc/nginx/sites-available/phrasal-reject
+  when: "false"
   notify: reload nginx
 
 - name: Remove construction page
   ansible.builtin.file:
     path: /var/www/phrasal-construction
     state: absent
+  when: "false"

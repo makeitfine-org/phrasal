@@ -4079,3 +4079,19 @@ In <p class="footer-text">Visit us at <span class="domain">{{ domain }}</span></
 
 {{ domain }}  should be the link not text
 ---
+
+## 2026-07-09T10:15:00Z
+Now make addressing to `https://phrasal.ddns.net` secured with certificate and show that underconstruction page.
+---
+
+## 2026-07-09T10:19:44Z
+Can you just disable reject in frontend and don't change @ansible-bare/roles/deploy/templates/phrasal-reject.conf.j2 ?
+---
+
+## 2026-07-09T10:21:23Z
+And at the same time make addressing to `https://phrasal.ddns.net` secured with certificate and show that underconstruction page.
+---
+
+## 2026-07-09T10:27:39Z
+Add to @ansible-bare/README.md what task points to enables for ativate "reject" site or enable redirect we discussed before.
+---
