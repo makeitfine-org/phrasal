@@ -1,0 +1,6 @@
+---
+- name: Install K3s on VPS
+  hosts: hetzner1
+  become: true
+  roles:
+    - k3s

@@ -4462,3 +4462,29 @@ num  target     prot opt source               destination
 Chain OUTPUT (policy ACCEPT)
 num  target     prot opt source               destination
 ---
+
+## 2026-07-09T16:11:55Z
+I going to install k8s on my VPS (4 cpu, 8 ram, 80 gb disk) what's distributive is the best sufficient?
+---
+
+## 2026-07-09T16:17:00Z
+I will use ansible for installations on server in folder ansible/.
+So create the base ansible structure in that folder vps hosts.yaml as @ansible-bare/inventory/hosts.yml 
+and write installation of k3s
+---
+
+## 2026-07-09T16:22:59Z
+also add README.md into @ansible as like @ansible-bare/README.md
+---
+
+## 2026-07-09T16:38:08Z
+disable this task: name: Add kubectl alias to bashrc
+---
+
+## 2026-07-09T16:42:40Z
+no comment just disable. can you use when:false
+---
+
+## 2026-07-09T16:43:16Z
+But I don't have docker on VPS, is it not a problem?
+---

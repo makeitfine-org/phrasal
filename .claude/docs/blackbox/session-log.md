@@ -3474,3 +3474,76 @@
 - .claude/docs/blackbox/audit.md
 - .claude/docs/blackbox/session-log.md
 <!-- end-snapshot -->
+
+<!-- git-snapshot 2026-07-09T16:12:14Z -->
+- .claude/docs/blackbox/audit.md
+<!-- end-snapshot -->
+
+<!-- git-snapshot 2026-07-09T16:17:47Z -->
+- .claude/docs/blackbox/audit.md
+- .claude/docs/blackbox/session-log.md
+- ansible/ansible.cfg
+- ansible/inventory/group_vars/all.yml
+- ansible/inventory/hosts.yml
+- ansible/roles/k3s/defaults/main.yml
+- ansible/roles/k3s/handlers/main.yml
+- ansible/roles/k3s/templates/config.yaml.j2
+<!-- end-snapshot -->
+
+<!-- git-snapshot 2026-07-09T16:23:18Z -->
+- .claude/docs/blackbox/audit.md
+- .claude/docs/blackbox/session-log.md
+- ansible/ansible.cfg
+- ansible/inventory/group_vars/all.yml
+- ansible/inventory/hosts.yml
+- ansible/playbooks/k3s.yml
+- ansible/roles/k3s/defaults/main.yml
+- ansible/roles/k3s/handlers/main.yml
+- ansible/roles/k3s/tasks/main.yml
+- ansible/roles/k3s/templates/config.yaml.j2
+<!-- end-snapshot -->
+
+<!-- git-snapshot 2026-07-09T16:38:21Z -->
+- .claude/docs/blackbox/audit.md
+- .claude/docs/blackbox/session-log.md
+- ansible-bare/roles/base_shell/files/bashrc.txt
+- ansible/README.md
+- ansible/ansible.cfg
+- ansible/inventory/group_vars/all.yml
+- ansible/inventory/hosts.yml
+- ansible/playbooks/k3s.yml
+- ansible/roles/k3s/defaults/main.yml
+- ansible/roles/k3s/handlers/main.yml
+- ansible/roles/k3s/tasks/main.yml
+- ansible/roles/k3s/templates/config.yaml.j2
+<!-- end-snapshot -->
+
+<!-- git-snapshot 2026-07-09T16:42:53Z -->
+- .claude/docs/blackbox/audit.md
+- .claude/docs/blackbox/session-log.md
+- ansible-bare/roles/base_shell/files/bashrc.txt
+- ansible/README.md
+- ansible/ansible.cfg
+- ansible/inventory/group_vars/all.yml
+- ansible/inventory/hosts.yml
+- ansible/playbooks/k3s.yml
+- ansible/roles/k3s/defaults/main.yml
+- ansible/roles/k3s/handlers/main.yml
+- ansible/roles/k3s/tasks/main.yml
+- ansible/roles/k3s/templates/config.yaml.j2
+<!-- end-snapshot -->
+
+<!-- git-snapshot 2026-07-09T16:43:22Z -->
+- .claude/docs/blackbox/audit.md
+- .claude/docs/blackbox/session-log.md
+- ansible-bare/roles/base_shell/files/bashrc.txt
+- ansible/README.md
+- ansible/ansible.cfg
+- ansible/inventory/group_vars/all.yml
+- ansible/inventory/hosts.yml
+- ansible/playbooks/k3s.yml
+- ansible/roles/k3s/defaults/main.yml
+- ansible/roles/k3s/handlers/main.yml
+- ansible/roles/k3s/tasks/main.yml
+- ansible/roles/k3s/templates/config.yaml.j2
+<!-- end-snapshot -->
