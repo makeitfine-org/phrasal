@@ -4042,3 +4042,40 @@ why it's not {{ domain }} but outphrasal.ddns.net: /etc/letsencrypt/live/outphra
 
 ?
 ---
+
+## 2026-07-09T09:37:34Z
+Make on addreing to `phrasal.ddns.net` show beautiful page that site is under construction alined with desing style of @frontend app.
+---
+
+## 2026-07-09T09:51:48Z
+This page @ansible-bare/roles/deploy/templates/under-construction.html.j2 should be take from 
+the project frontend/public/ near 404.html
+---
+
+## 2026-07-09T09:55:10Z
+why @frontend/public/404.html doesn't have style but @frontend/public/under-construction.html has all style desc?
+---
+
+## 2026-07-09T09:58:07Z
+what are modes?
+
+- name: Create construction page directory
+  ansible.builtin.file:
+    path: /var/www/phrasal-construction
+    state: directory
+    owner: "{{ vps_user }}"
+    group: "{{ vps_user }}"
+    mode: "0755"
+
+- name: Deploy construction page
+  ansible.builtin.template:
+    src: under-construction.html.j2
+    dest: /var/www/phrasal-construction/index.html
+    mode: "0644"
+---
+
+## 2026-07-09T10:09:12Z
+In <p class="footer-text">Visit us at <span class="domain">{{ domain }}</span></p>
+
+{{ domain }}  should be the link not text
+---

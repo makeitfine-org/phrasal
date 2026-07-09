@@ -109,3 +109,17 @@ ansible/
     ├── redeploy/       # Upload JAR/dist, restart services
     └── undeploy/       # Stop services, remove files, drop DB
 ```
+
+## Useful commands
+
+```shell
+
+sudo iptables -nL --line-numbers
+
+sudo iptables -D INPUT -p tcp --dport <port> -j ACCEPT
+sudo iptables -A INPUT -p tcp --dport <port> -j DROP
+iptables-save > /etc/iptables/rules.v4
+
+sudo journalctl -u phrasal.service -n 25 -f
+
+```

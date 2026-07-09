@@ -3129,3 +3129,50 @@
 - .claude/docs/blackbox/session-log.md
 - ansible-bare/roles/deploy/templates/phrasal-reject.conf.j2
 <!-- end-snapshot -->
+
+<!-- git-snapshot 2026-07-09T09:41:37Z -->
+- .claude/docs/blackbox/audit.md
+- ansible-bare/README.md
+- ansible-bare/roles/deploy/tasks/frontend.yml
+- ansible-bare/roles/deploy/templates/phrasal-reject.conf.j2
+- ansible-bare/roles/undeploy/tasks/frontend.yml
+<!-- end-snapshot -->
+
+<!-- git-snapshot 2026-07-09T09:52:59Z -->
+- .claude/docs/blackbox/audit.md
+- .claude/docs/blackbox/session-log.md
+- ansible-bare/README.md
+- ansible-bare/roles/deploy/tasks/frontend.yml
+- ansible-bare/roles/deploy/templates/phrasal-reject.conf.j2
+- ansible-bare/roles/undeploy/tasks/frontend.yml
+<!-- end-snapshot -->
+
+<!-- git-snapshot 2026-07-09T09:55:36Z -->
+- .claude/docs/blackbox/audit.md
+- .claude/docs/blackbox/session-log.md
+- ansible-bare/README.md
+- ansible-bare/roles/deploy/tasks/frontend.yml
+- ansible-bare/roles/deploy/templates/phrasal-reject.conf.j2
+- ansible-bare/roles/undeploy/tasks/frontend.yml
+- frontend/public/under-construction.html
+<!-- end-snapshot -->
+
+<!-- git-snapshot 2026-07-09T09:58:21Z -->
+- .claude/docs/blackbox/audit.md
+- .claude/docs/blackbox/session-log.md
+- ansible-bare/README.md
+- ansible-bare/roles/deploy/tasks/frontend.yml
+- ansible-bare/roles/deploy/templates/phrasal-reject.conf.j2
+- ansible-bare/roles/deploy/templates/under-construction.html.j2
+- ansible-bare/roles/undeploy/tasks/frontend.yml
+<!-- end-snapshot -->
+
+<!-- git-snapshot 2026-07-09T10:09:24Z -->
+- .claude/docs/blackbox/audit.md
+- .claude/docs/blackbox/session-log.md
+- ansible-bare/README.md
+- ansible-bare/roles/deploy/tasks/frontend.yml
+- ansible-bare/roles/deploy/templates/phrasal-reject.conf.j2
+- ansible-bare/roles/deploy/templates/under-construction.html.j2
+- ansible-bare/roles/undeploy/tasks/frontend.yml
+<!-- end-snapshot -->

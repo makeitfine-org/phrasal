@@ -76,6 +76,20 @@
   when: "false"
   notify: reload nginx
 
+- name: Create construction page directory
+  ansible.builtin.file:
+    path: /var/www/phrasal-construction
+    state: directory
+    owner: "{{ vps_user }}"
+    group: "{{ vps_user }}"
+    mode: "0755"
+
+- name: Deploy construction page
+  ansible.builtin.template:
+    src: under-construction.html.j2
+    dest: /var/www/phrasal-construction/index.html
+    mode: "0644"
+
 - name: Deploy reject config for old domain
   ansible.builtin.template:
     src: phrasal-reject.conf.j2
