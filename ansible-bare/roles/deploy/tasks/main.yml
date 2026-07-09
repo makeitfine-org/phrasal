@@ -10,3 +10,7 @@
 - name: Deploy frontend
   ansible.builtin.import_tasks: frontend.yml
   tags: [frontend]
+
+- name: Deploy redirect for old domains
+  ansible.builtin.import_tasks: redirect.yml
+  tags: [redirect]

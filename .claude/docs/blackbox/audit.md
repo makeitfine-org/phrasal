@@ -4204,3 +4204,7 @@ can you simplify @ansible-bare/roles/deploy/templates/phrasal-redirect.conf.j2 ?
 ## 2026-07-09T12:04:52Z
 i didn't you use : old_domain
 ---
+
+## 2026-07-09T12:07:42Z
+now extract that redirect into separate task
+---

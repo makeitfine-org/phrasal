@@ -1,0 +1,14 @@
+---
+- name: Deploy redirect config for old domains
+  ansible.builtin.template:
+    src: phrasal-redirect.conf.j2
+    dest: /etc/nginx/sites-available/phrasal-redirect
+    mode: "0644"
+  notify: reload nginx
+
+- name: Enable redirect config
+  ansible.builtin.file:
+    src: /etc/nginx/sites-available/phrasal-redirect
+    dest: /etc/nginx/sites-enabled/phrasal-redirect
+    state: link
+  notify: reload nginx

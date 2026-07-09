@@ -1,0 +1,9 @@
+---
+- name: Remove redirect config
+  ansible.builtin.file:
+    path: "{{ item }}"
+    state: absent
+  loop:
+    - /etc/nginx/sites-enabled/phrasal-redirect
+    - /etc/nginx/sites-available/phrasal-redirect
+  notify: reload nginx

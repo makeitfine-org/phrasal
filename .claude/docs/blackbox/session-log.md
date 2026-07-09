@@ -3281,3 +3281,11 @@
 - ansible-bare/roles/deploy/templates/phrasal-redirect.conf.j2
 - ansible-bare/roles/undeploy/tasks/frontend.yml
 <!-- end-snapshot -->
+
+<!-- git-snapshot 2026-07-09T12:09:43Z -->
+- .claude/docs/blackbox/audit.md
+- ansible-bare/roles/deploy/tasks/frontend.yml
+- ansible-bare/roles/deploy/tasks/main.yml
+- ansible-bare/roles/undeploy/tasks/frontend.yml
+- ansible-bare/roles/undeploy/tasks/main.yml
+<!-- end-snapshot -->
