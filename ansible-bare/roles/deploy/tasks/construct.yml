@@ -1,0 +1,28 @@
+---
+- name: Create construction page directory
+  ansible.builtin.file:
+    path: /var/www/phrasal-construction
+    state: directory
+    owner: "{{ vps_user }}"
+    group: "{{ vps_user }}"
+    mode: "0755"
+
+- name: Deploy construction page
+  ansible.builtin.template:
+    src: under-construction.html.j2
+    dest: /var/www/phrasal-construction/index.html
+    mode: "0644"
+
+- name: Deploy construct nginx config for old domains
+  ansible.builtin.template:
+    src: phrasal-construct.conf.j2
+    dest: /etc/nginx/sites-available/phrasal-construct
+    mode: "0644"
+  notify: reload nginx
+
+- name: Enable construct nginx config
+  ansible.builtin.file:
+    src: /etc/nginx/sites-available/phrasal-construct
+    dest: /etc/nginx/sites-enabled/phrasal-construct
+    state: link
+  notify: reload nginx

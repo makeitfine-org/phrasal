@@ -13,4 +13,12 @@
 
 - name: Deploy redirect for old domains
   ansible.builtin.import_tasks: redirect.yml
-  tags: [redirect]
+  tags: [redirect, never]
+
+- name: Deploy reject for old domains
+  ansible.builtin.import_tasks: reject.yml
+  tags: [reject, never]
+
+- name: Deploy construction page for old domains
+  ansible.builtin.import_tasks: construct.yml
+  tags: [construct, never]

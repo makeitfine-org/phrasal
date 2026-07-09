@@ -7,6 +7,11 @@ server {
     ssl_certificate /etc/letsencrypt/live/{{ domain }}/fullchain.pem;
     ssl_certificate_key /etc/letsencrypt/live/{{ domain }}/privkey.pem;
 
-    return 444;
+    root /var/www/phrasal-construction;
+    index index.html;
+
+    location / {
+        try_files $uri /index.html;
+    }
 }
 {% endfor %}

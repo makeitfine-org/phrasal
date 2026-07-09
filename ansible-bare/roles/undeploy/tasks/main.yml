@@ -9,7 +9,15 @@
 
 - name: Undeploy redirect for old domains
   ansible.builtin.import_tasks: redirect.yml
-  tags: [redirect]
+  tags: [redirect, never]
+
+- name: Undeploy reject for old domains
+  ansible.builtin.import_tasks: reject.yml
+  tags: [reject, never]
+
+- name: Undeploy construction page for old domains
+  ansible.builtin.import_tasks: construct.yml
+  tags: [construct, never]
 
 - name: Undeploy PostgreSQL
   ansible.builtin.import_tasks: postgres.yml

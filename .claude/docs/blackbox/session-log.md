@@ -3289,3 +3289,80 @@
 - ansible-bare/roles/undeploy/tasks/frontend.yml
 - ansible-bare/roles/undeploy/tasks/main.yml
 <!-- end-snapshot -->
+
+<!-- git-snapshot 2026-07-09T12:17:42Z -->
+- .claude/docs/blackbox/audit.md
+<!-- end-snapshot -->
+
+<!-- git-snapshot 2026-07-09T12:19:08Z -->
+- .claude/docs/blackbox/audit.md
+- .claude/docs/blackbox/session-log.md
+- ansible-bare/roles/deploy/tasks/main.yml
+<!-- end-snapshot -->
+
+<!-- git-snapshot 2026-07-09T12:19:57Z -->
+- .claude/docs/blackbox/audit.md
+- .claude/docs/blackbox/session-log.md
+- ansible-bare/roles/deploy/tasks/main.yml
+- ansible-bare/roles/undeploy/tasks/main.yml
+<!-- end-snapshot -->
+
+<!-- git-snapshot 2026-07-09T12:20:59Z -->
+- .claude/docs/blackbox/audit.md
+- .claude/docs/blackbox/session-log.md
+- ansible-bare/roles/deploy/tasks/main.yml
+- ansible-bare/roles/undeploy/tasks/main.yml
+<!-- end-snapshot -->
+
+<!-- git-snapshot 2026-07-09T12:22:12Z -->
+- .claude/docs/blackbox/audit.md
+- .claude/docs/blackbox/session-log.md
+- ansible-bare/README.md
+- ansible-bare/roles/deploy/tasks/main.yml
+- ansible-bare/roles/undeploy/tasks/main.yml
+<!-- end-snapshot -->
+
+<!-- git-snapshot 2026-07-09T12:23:35Z -->
+- .claude/docs/blackbox/audit.md
+- .claude/docs/blackbox/session-log.md
+- ansible-bare/README.md
+- ansible-bare/roles/deploy/tasks/main.yml
+- ansible-bare/roles/undeploy/tasks/main.yml
+<!-- end-snapshot -->
+
+<!-- git-snapshot 2026-07-09T12:32:11Z -->
+- .claude/docs/blackbox/audit.md
+- .claude/docs/blackbox/session-log.md
+- ansible-bare/README.md
+- ansible-bare/roles/deploy/tasks/frontend.yml
+- ansible-bare/roles/deploy/tasks/main.yml
+- ansible-bare/roles/undeploy/tasks/frontend.yml
+- ansible-bare/roles/undeploy/tasks/main.yml
+<!-- end-snapshot -->
+
+<!-- git-snapshot 2026-07-09T12:37:17Z -->
+- .claude/docs/blackbox/audit.md
+- .claude/docs/blackbox/session-log.md
+- ansible-bare/README.md
+- ansible-bare/roles/deploy/tasks/frontend.yml
+- ansible-bare/roles/deploy/tasks/main.yml
+- ansible-bare/roles/deploy/tasks/reject.yml
+- ansible-bare/roles/undeploy/tasks/frontend.yml
+- ansible-bare/roles/undeploy/tasks/main.yml
+- ansible-bare/roles/undeploy/tasks/reject.yml
+<!-- end-snapshot -->
+
+<!-- git-snapshot 2026-07-09T12:40:21Z -->
+- .claude/docs/blackbox/audit.md
+- .claude/docs/blackbox/session-log.md
+- ansible-bare/README.md
+- ansible-bare/roles/deploy/tasks/construct.yml
+- ansible-bare/roles/deploy/tasks/frontend.yml
+- ansible-bare/roles/deploy/tasks/main.yml
+- ansible-bare/roles/deploy/tasks/reject.yml
+- ansible-bare/roles/deploy/templates/phrasal-reject.conf.j2
+- ansible-bare/roles/undeploy/tasks/construct.yml
+- ansible-bare/roles/undeploy/tasks/frontend.yml
+- ansible-bare/roles/undeploy/tasks/main.yml
+- ansible-bare/roles/undeploy/tasks/reject.yml
+<!-- end-snapshot -->

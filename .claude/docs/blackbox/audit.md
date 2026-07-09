@@ -4208,3 +4208,59 @@ i didn't you use : old_domain
 ## 2026-07-09T12:07:42Z
 now extract that redirect into separate task
 ---
+
+## 2026-07-09T12:17:01Z
+how to disable task in @ansible-bare/roles/deploy/tasks/main.yml ?
+---
+
+## 2026-07-09T12:17:36Z
+how to disable task in @ansible-bare/roles/deploy/tasks/main.yml ? and run it only if explicitly mantioned?
+---
+
+## 2026-07-09T12:18:58Z
+add for redirect
+---
+
+## 2026-07-09T12:19:44Z
+what about undeploy
+---
+
+## 2026-07-09T12:20:49Z
+so what's now:
+---
+
+## 2026-07-09T12:20:52Z
+so what's now:
+- name: Deploy redirect for old domains
+  ansible.builtin.import_tasks: redirect.yml
+  tags: [redirect, never]
+---
+
+## 2026-07-09T12:21:46Z
+Update @README.md
+---
+
+## 2026-07-09T12:21:56Z
+Update @ansible-bare/README.md
+---
+
+## 2026-07-09T12:23:22Z
+ - ansible-playbook playbooks/init-deploy.yml — skipped (never blocks it)
+  - ansible-playbook playbooks/init-deploy.yml --tags frontend — skipped
+  - ansible-playbook playbooks/init-deploy.yml --tags redirect — runs
+  - ansible-playbook playbooks/init-deploy.yml --tags undeploy,redirect — runs undeploy redirect
+
+Add also
+---
+
+## 2026-07-09T12:31:06Z
+The same way as for `redirect` extract `reject` from frontend and make `never` by default
+---
+
+## 2026-07-09T12:36:37Z
+Now separate in reject: reject from construct
+---
+
+## 2026-07-09T12:39:49Z
+No fix @ansible-bare/roles/deploy/templates/phrasal it should reject, and reacte separet file here for construct page
+---

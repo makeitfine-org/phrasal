@@ -80,23 +80,41 @@ ansible-playbook playbooks/init-deploy.yml --tags frontend
 
 ## Old Domain Handling
 
-Tasks for handling the old domain (`phrasal.ddns.net`) are disabled by default  
-(`when: "false"`) in `roles/deploy/tasks/frontend.yml`.
+### Redirect (recommended)
 
-To activate, change `when: "false"` to `when: "true"` on the relevant tasks:
+Redirects `phrasal.ddns.net` → `outphrasal.ddns.net` on both HTTP and HTTPS.
+Separated into its own task file with `never` tag — only runs when explicitly requested:
 
-| Tasks | What they do |
+| Command | Effect |
 |---|---|
-| `Deploy reject config for old domain` + `Enable reject config` | Serves an "under construction" page on `phrasal.ddns.net` (template: `phrasal-reject.conf.j2`) |
-| `Deploy redirect config for old domains` + `Enable redirect config` | Redirects `phrasal.ddns.net` → `outphrasal.ddns.net` (template: `phrasal-redirect.conf.j2`) |
+| `ansible-playbook playbooks/init-deploy.yml` | **skipped** (`never` blocks it) |
+| `ansible-playbook playbooks/init-deploy.yml --tags frontend` | **skipped** |
+| `ansible-playbook playbooks/init-deploy.yml --tags redirect` | **deploys** redirect |
+| `ansible-playbook playbooks/undeploy.yml --tags redirect` | **removes** redirect |
 
-Enable one or the other, not both. After enabling, redeploy:
+### Reject
 
-```bash
-ansible-playbook playbooks/init-deploy.yml --tags frontend
-```
+Drops connections to `phrasal.ddns.net` with nginx `return 444` (template: `phrasal-reject.conf.j2`).
+Separated into its own task file with `never` tag — only runs when explicitly requested:
 
-Undeploy counterparts are in `roles/undeploy/tasks/frontend.yml` (also gated by `when: "false"` — enable the matching pair).
+| Command | Effect |
+|---|---|
+| `ansible-playbook playbooks/init-deploy.yml` | **skipped** (`never` blocks it) |
+| `ansible-playbook playbooks/init-deploy.yml --tags reject` | **deploys** reject |
+| `ansible-playbook playbooks/undeploy.yml --tags reject` | **removes** reject |
+
+### Construct (construction page)
+
+Serves an "under construction" page on `phrasal.ddns.net`.
+Separated into its own task file with `never` tag — only runs when explicitly requested:
+
+| Command | Effect |
+|---|---|
+| `ansible-playbook playbooks/init-deploy.yml` | **skipped** (`never` blocks it) |
+| `ansible-playbook playbooks/init-deploy.yml --tags construct` | **deploys** construction page |
+| `ansible-playbook playbooks/undeploy.yml --tags construct` | **removes** construction page |
+
+Enable redirect or reject, not both.
 
 ## Teardown
 
