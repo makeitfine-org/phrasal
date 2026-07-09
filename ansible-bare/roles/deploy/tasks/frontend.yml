@@ -63,8 +63,8 @@
     src: phrasal-redirect.conf.j2
     dest: /etc/nginx/sites-available/phrasal-redirect
     mode: "0644"
-#  when: redirect_domains is defined and redirect_domains | length > 0
-  when: "false"
+  when: redirect_domains is defined and redirect_domains | length > 0
+#  when: "false"
   notify: reload nginx
 
 - name: Enable redirect config
@@ -72,8 +72,8 @@
     src: /etc/nginx/sites-available/phrasal-redirect
     dest: /etc/nginx/sites-enabled/phrasal-redirect
     state: link
-#  when: redirect_domains is defined and redirect_domains | length > 0
-  when: "false"
+  when: redirect_domains is defined and redirect_domains | length > 0
+#  when: "false"
   notify: reload nginx
 
 - name: Create construction page directory
@@ -83,12 +83,14 @@
     owner: "{{ vps_user }}"
     group: "{{ vps_user }}"
     mode: "0755"
+  when: "false"
 
 - name: Deploy construction page
   ansible.builtin.template:
     src: under-construction.html.j2
     dest: /var/www/phrasal-construction/index.html
     mode: "0644"
+  when: "false"
 
 - name: Deploy reject config for old domain
   ansible.builtin.template:

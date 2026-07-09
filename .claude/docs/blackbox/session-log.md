@@ -3199,3 +3199,85 @@
 - .claude/docs/blackbox/audit.md
 - ansible-bare/README.md
 <!-- end-snapshot -->
+
+<!-- git-snapshot 2026-07-09T11:37:55Z -->
+- .claude/docs/blackbox/audit.md
+<!-- end-snapshot -->
+
+<!-- git-snapshot 2026-07-09T11:44:49Z -->
+- .claude/docs/blackbox/audit.md
+- .claude/docs/blackbox/session-log.md
+- ansible-bare/roles/deploy/tasks/frontend.yml
+<!-- end-snapshot -->
+
+<!-- git-snapshot 2026-07-09T11:45:59Z -->
+- .claude/docs/blackbox/audit.md
+- .claude/docs/blackbox/session-log.md
+- ansible-bare/roles/deploy/tasks/frontend.yml
+<!-- end-snapshot -->
+
+<!-- git-snapshot 2026-07-09T11:56:16Z -->
+- .claude/docs/blackbox/audit.md
+- .claude/docs/blackbox/session-log.md
+- ansible-bare/inventory/group_vars/all.yml
+- ansible-bare/roles/deploy/tasks/frontend.yml
+- ansible-bare/roles/undeploy/tasks/frontend.yml
+<!-- end-snapshot -->
+
+<!-- git-snapshot 2026-07-09T11:57:09Z -->
+- .claude/docs/blackbox/audit.md
+- .claude/docs/blackbox/session-log.md
+- ansible-bare/inventory/group_vars/all.yml
+- ansible-bare/roles/deploy/tasks/frontend.yml
+- ansible-bare/roles/undeploy/tasks/frontend.yml
+<!-- end-snapshot -->
+
+<!-- git-snapshot 2026-07-09T11:58:12Z -->
+- .claude/docs/blackbox/audit.md
+- .claude/docs/blackbox/session-log.md
+- ansible-bare/inventory/group_vars/all.yml
+- ansible-bare/roles/deploy/tasks/frontend.yml
+- ansible-bare/roles/undeploy/tasks/frontend.yml
+<!-- end-snapshot -->
+
+<!-- git-snapshot 2026-07-09T11:58:40Z -->
+- .claude/docs/blackbox/audit.md
+- .claude/docs/blackbox/session-log.md
+- ansible-bare/inventory/group_vars/all.yml
+- ansible-bare/roles/deploy/tasks/frontend.yml
+- ansible-bare/roles/undeploy/tasks/frontend.yml
+<!-- end-snapshot -->
+
+<!-- git-snapshot 2026-07-09T12:00:40Z -->
+- .claude/docs/blackbox/audit.md
+- .claude/docs/blackbox/session-log.md
+- ansible-bare/inventory/group_vars/all.yml
+- ansible-bare/roles/deploy/tasks/frontend.yml
+- ansible-bare/roles/undeploy/tasks/frontend.yml
+<!-- end-snapshot -->
+
+<!-- git-snapshot 2026-07-09T12:02:20Z -->
+- .claude/docs/blackbox/audit.md
+- .claude/docs/blackbox/session-log.md
+- ansible-bare/inventory/group_vars/all.yml
+- ansible-bare/roles/deploy/tasks/frontend.yml
+- ansible-bare/roles/undeploy/tasks/frontend.yml
+<!-- end-snapshot -->
+
+<!-- git-snapshot 2026-07-09T12:03:01Z -->
+- .claude/docs/blackbox/audit.md
+- .claude/docs/blackbox/session-log.md
+- ansible-bare/inventory/group_vars/all.yml
+- ansible-bare/roles/deploy/tasks/frontend.yml
+- ansible-bare/roles/deploy/templates/phrasal-redirect.conf.j2
+- ansible-bare/roles/undeploy/tasks/frontend.yml
+<!-- end-snapshot -->
+
+<!-- git-snapshot 2026-07-09T12:03:47Z -->
+- .claude/docs/blackbox/audit.md
+- .claude/docs/blackbox/session-log.md
+- ansible-bare/inventory/group_vars/all.yml
+- ansible-bare/roles/deploy/tasks/frontend.yml
+- ansible-bare/roles/deploy/templates/phrasal-redirect.conf.j2
+- ansible-bare/roles/undeploy/tasks/frontend.yml
+<!-- end-snapshot -->

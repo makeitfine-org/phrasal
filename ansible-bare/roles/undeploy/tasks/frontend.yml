@@ -34,7 +34,7 @@
   loop:
     - /etc/nginx/sites-enabled/phrasal-redirect
     - /etc/nginx/sites-available/phrasal-redirect
-  when: "false"
+#  when: "false"
   notify: reload nginx
 
 - name: Remove reject config

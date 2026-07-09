@@ -4095,3 +4095,112 @@ And at the same time make addressing to `https://phrasal.ddns.net` secured with 
 ## 2026-07-09T10:27:39Z
 Add to @ansible-bare/README.md what task points to enables for ativate "reject" site or enable redirect we discussed before.
 ---
+
+## 2026-07-09T11:37:49Z
+- name: Create construction page directory
+  ansible.builtin.file:
+    path: /var/www/phrasal-construction
+    state: directory
+    owner: "{{ vps_user }}"
+    group: "{{ vps_user }}"
+    mode: "0755"
+
+- name: Deploy construction page
+  ansible.builtin.template:
+    src: under-construction.html.j2
+    dest: /var/www/phrasal-construction/index.html
+    mode: "0644"
+
+Does it work?
+---
+
+## 2026-07-09T11:44:25Z
+@ansible-bare/roles/deploy/templates/phrasal-reject.conf.j2 seams work like redirect?
+---
+
+## 2026-07-09T11:45:52Z
+In such case how does @ansible-bare/roles/deploy/templates/phrasal-redirect.conf.j2 work?
+---
+
+## 2026-07-09T11:55:56Z
+ansible-playbook playbooks/init-deploy.yml --tags frontend
+
+but redirect don't work see why?
+---
+
+## 2026-07-09T11:56:59Z
+but reject set when: false - disabled
+---
+
+## 2026-07-09T11:57:56Z
+read also phrasal redirect.conf.j2
+---
+
+## 2026-07-09T11:58:35Z
+var "old_domain" exists?
+---
+
+## 2026-07-09T11:59:54Z
+why `phrasal.ddns.net` doesn't redirect to `outphrasal.ddns.net`?
+---
+
+## 2026-07-09T12:02:11Z
+I have: 
+cat /etc/nginx/sites-available/
+default           phrasal           phrasal-redirect
+vpsuser@vps-h1:~$ cat /etc/nginx/sites-available/phrasal
+server {
+    server_name outphrasal.ddns.net;
+
+    root /var/www/phrasal;
+    index index.html;
+
+    location / {
+        try_files $uri $uri/ /index.html;
+    }
+
+    location /api/ {
+        proxy_pass http://127.0.0.1:28080;
+        proxy_set_header Host $host;
+        proxy_set_header X-Real-IP $remote_addr;
+    }
+
+    listen 443 ssl; # managed by Certbot
+    ssl_certificate /etc/letsencrypt/live/outphrasal.ddns.net/fullchain.pem; # managed by Certbot
+    ssl_certificate_key /etc/letsencrypt/live/outphrasal.ddns.net/privkey.pem; # managed by Certbot
+    include /etc/letsencrypt/options-ssl-nginx.conf; # managed by Certbot
+    ssl_dhparam /etc/letsencrypt/ssl-dhparams.pem; # managed by Certbot
+
+}
+server {
+    if ($host = outphrasal.ddns.net) {
+        return 301 https://$host$request_uri;
+    } # managed by Certbot
+
+
+    listen 80;
+    server_name outphrasal.ddns.net;
+    return 404; # managed by Certbot
+
+
+}vpsuser@vps-h1:~$ cat /etc/nginx/sites-available/phrasal
+phrasal           phrasal-redirect
+vpsuser@vps-h1:~$ cat /etc/nginx/sites-available/phrasal-redirect
+server {
+    listen 80;
+    server_name phrasal.ddns.net;
+    return 301 https://outphrasal.ddns.net$request_uri;
+}
+---
+
+## 2026-07-09T12:02:32Z
+yes
+---
+
+## 2026-07-09T12:03:34Z
+can you simplify @ansible-bare/roles/deploy/templates/phrasal-redirect.conf.j2 ?
+---
+
+## 2026-07-09T12:04:52Z
+i didn't you use : old_domain
+---
