@@ -3674,3 +3674,30 @@
 - ansible/README.md
 - ansible/roles/k3s/tasks/main.yml
 <!-- end-snapshot -->
+
+<!-- git-snapshot 2026-07-09T18:05:03Z -->
+- .claude/docs/blackbox/audit.md
+- ansible/README.md
+- backend/k8s/configmap.yaml
+<!-- end-snapshot -->
+
+<!-- git-snapshot 2026-07-09T18:14:51Z -->
+- .claude/docs/blackbox/audit.md
+- .claude/docs/blackbox/session-log.md
+- ansible/README.md
+- backend/k8s/configmap.yaml
+<!-- end-snapshot -->
+
+<!-- git-snapshot 2026-07-09T18:15:49Z -->
+- .claude/docs/blackbox/audit.md
+- .claude/docs/blackbox/session-log.md
+- ansible/README.md
+- backend/k8s/configmap.yaml
+<!-- end-snapshot -->
+
+<!-- git-snapshot 2026-07-09T18:16:36Z -->
+- .claude/docs/blackbox/audit.md
+- .claude/docs/blackbox/session-log.md
+- ansible/README.md
+- backend/k8s/configmap.yaml
+<!-- end-snapshot -->

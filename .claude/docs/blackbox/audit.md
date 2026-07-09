@@ -4945,3 +4945,40 @@ num  target     prot opt source               destination
 
 Now?
 ---
+
+## 2026-07-09T17:53:41Z
+Install  kontena-lens for k8s on linux instruction and connect default and minikube servers
+---
+
+## 2026-07-09T18:04:40Z
+Show how to Install  kontena-lens for k8s on linux instruction and connect default and minikube servers
+and add it to ansible/README.md
+---
+
+## 2026-07-09T18:14:44Z
+how to install:
+apt list --upgradable
+at-spi2-common/resolute-updates 2.60.4-0ubuntu0.1 all [upgradable from: 2.60.0-1]
+at-spi2-core/resolute-updates 2.60.4-0ubuntu0.1 amd64 [upgradable from: 2.60.0-1]
+gir1.2-atk-1.0/resolute-updates 2.60.4-0ubuntu0.1 amd64 [upgradable from: 2.60.0-1]
+libatk-bridge2.0-0t64/resolute-updates 2.60.4-0ubuntu0.1 amd64 [upgradable from: 2.60.0-1]
+libatk1.0-0t64/resolute-updates 2.60.4-0ubuntu0.1 amd64 [upgradable from: 2.60.0-1]
+libatspi2.0-0t64/resolute-updates 2.60.4-0ubuntu0.1 amd64 [upgradable from: 2.60.0-1]
+---
+
+## 2026-07-09T18:15:43Z
+Get more security updates through Ubuntu Pro with 'esm-apps' enabled:
+  python3-pip-whl libopenexr-3-1-30 libavcodec62 libavutil60 libswscale9
+  python3-pip libswresample6 libavformat62
+Learn more about Ubuntu Pro at https://ubuntu.com/pro
+Not upgrading yet due to phasing:
+  at-spi2-common  at-spi2-core  gir1.2-atk-1.0  libatk-bridge2.0-0t64  libatk1.0-0t64  libatspi2.0-0t64
+
+Summary:
+  Upgrading: 0, Installing: 0, Removing: 0, Not Upgrading: 6
+---
+
+## 2026-07-09T18:16:32Z
+ sudo apt upgrade -y --allow-phased-updates
+E: Command line option --allow-phased-updates is not understood in combination with the other options
+---
