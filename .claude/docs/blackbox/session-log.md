@@ -3701,3 +3701,88 @@
 - ansible/README.md
 - backend/k8s/configmap.yaml
 <!-- end-snapshot -->
+
+<!-- git-snapshot 2026-07-09T18:37:10Z -->
+- .claude/docs/blackbox/audit.md
+<!-- end-snapshot -->
+
+<!-- git-snapshot 2026-07-09T18:48:48Z -->
+- .claude/docs/blackbox/audit.md
+- .claude/docs/blackbox/session-log.md
+<!-- end-snapshot -->
+
+<!-- git-snapshot 2026-07-09T19:03:58Z -->
+- .claude/docs/blackbox/audit.md
+- .claude/docs/blackbox/session-log.md
+<!-- end-snapshot -->
+
+<!-- git-snapshot 2026-07-09T19:05:49Z -->
+- .claude/docs/blackbox/audit.md
+- .claude/docs/blackbox/session-log.md
+- ansible/README.md
+<!-- end-snapshot -->
+
+<!-- git-snapshot 2026-07-09T19:06:19Z -->
+- .claude/docs/blackbox/audit.md
+- .claude/docs/blackbox/session-log.md
+- ansible/README.md
+<!-- end-snapshot -->
+
+<!-- git-snapshot 2026-07-09T19:12:26Z -->
+- .claude/docs/blackbox/audit.md
+- .claude/docs/blackbox/session-log.md
+- ansible/README.md
+<!-- end-snapshot -->
+
+<!-- git-snapshot 2026-07-09T19:14:07Z -->
+- .claude/docs/blackbox/audit.md
+- .claude/docs/blackbox/session-log.md
+- ansible/README.md
+<!-- end-snapshot -->
+
+<!-- git-snapshot 2026-07-09T19:15:19Z -->
+- .claude/docs/blackbox/audit.md
+- .claude/docs/blackbox/session-log.md
+- ansible/README.md
+<!-- end-snapshot -->
+
+<!-- git-snapshot 2026-07-09T19:21:57Z -->
+- .claude/docs/blackbox/audit.md
+- .claude/docs/blackbox/session-log.md
+- ansible/README.md
+<!-- end-snapshot -->
+
+<!-- git-snapshot 2026-07-09T19:49:44Z -->
+- .claude/docs/blackbox/audit.md
+- .claude/docs/blackbox/session-log.md
+- ansible/README.md
+<!-- end-snapshot -->
+
+<!-- git-snapshot 2026-07-09T19:52:01Z -->
+- .claude/docs/blackbox/audit.md
+- .claude/docs/blackbox/session-log.md
+- ansible/README.md
+<!-- end-snapshot -->
+
+<!-- git-snapshot 2026-07-09T20:00:47Z -->
+- .claude/docs/blackbox/audit.md
+- .claude/docs/blackbox/session-log.md
+- ansible/README.md
+<!-- end-snapshot -->
+
+<!-- git-snapshot 2026-07-09T20:10:02Z -->
+- .claude/docs/blackbox/audit.md
+- .claude/docs/blackbox/session-log.md
+- ansible/README.md
+<!-- end-snapshot -->
+
+<!-- git-snapshot 2026-07-09T20:18:46Z -->
+- .claude/docs/blackbox/audit.md
+- .claude/docs/blackbox/session-log.md
+- ansible/README.md
+<!-- end-snapshot -->
+
+<!-- git-snapshot 2026-07-09T20:23:13Z -->
+- .claude/docs/blackbox/audit.md
+- ansible/README.md
+<!-- end-snapshot -->

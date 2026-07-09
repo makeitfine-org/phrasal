@@ -4982,3 +4982,176 @@ Summary:
  sudo apt upgrade -y --allow-phased-updates
 E: Command line option --allow-phased-updates is not understood in combination with the other options
 ---
+
+## 2026-07-09T18:36:56Z
+I create `minikube start --cpus=4 --memory=6g --driver=docker`
+
+How to see hardware minikube params (6g ram, cpu=4)?
+---
+
+## 2026-07-09T18:48:44Z
+$ ps aux | grep -iE '\blens\b'
+ubuntuu   171208  2.9  1.9 1518583840 327052 ?   Sl   20:41   0:11 /opt/Lens/lens-desktop
+ubuntuu   171217  0.0  0.3 50617096 56800 ?      S    20:41   0:00 /opt/Lens/lens-desktop --type=zygote --no-zygote-sandbox
+ubuntuu   171218  0.0  0.3 50617084 56640 ?      S    20:41   0:00 /opt/Lens/lens-desktop --type=zygote
+ubuntuu   171220  0.0  0.0 50617112 13980 ?      S    20:41   0:00 /opt/Lens/lens-desktop --type=zygote
+ubuntuu   171255  0.4  0.8 51232904 137180 ?     Sl   20:41   0:01 /opt/Lens/lens-desktop --type=gpu-process --ozone-platform=x11 --enable-crash-reporter=37466ccb-d86d-48dc-9ad3-dda1feef58b9,no_channel --user-data-dir=/home/ubuntuu/.config/Lens --gpu-preferences=UAAAAAAAAAAgAQAEAAAAAAAAAAAAAGAAAQAAAAAAAAAAAAAAAAAAAAIAAAAAAAAAAAAAAAAAAAAYAAAAAAAAABgAAAAAAAAAAQAAAAAAAAAIAAAAAAAAAAgAAAAAAAAA --shared-files --field-trial-handle=3,i,1967037040706343394,1052951310424280804,262144 --enable-features=PdfUseShowSaveFilePicker --disable-features=DropInputEventsWhilePaintHolding,LocalNetworkAccessChecks,ScreenAIOCREnabled,SpareRendererForSitePerProcess,TraceSiteInstanceGetProcessCreation --variations-seed-version --pseudonymization-salt-handle=7,i,16939095219525914769,14872989597903971894,4 --trace-process-track-uuid=3190708988185955192
+ubuntuu   171258  0.1  0.5 50691336 84448 ?      Sl   20:41   0:00 /opt/Lens/lens-desktop --type=utility --utility-sub-type=network.mojom.NetworkService --lang=en-US --service-sandbox-type=none --host-resolver-rules=MAP localhost 127.0.0.1,MAP lens.app 127.0.0.1,MAP *.lens.app 127.0.0.1 --enable-crash-reporter=37466ccb-d86d-48dc-9ad3-dda1feef58b9,no_channel --user-data-dir=/home/ubuntuu/.config/Lens --shared-files=v8_context_snapshot_data:100 --field-trial-handle=3,i,1967037040706343394,1052951310424280804,262144 --enable-features=PdfUseShowSaveFilePicker --disable-features=DropInputEventsWhilePaintHolding,LocalNetworkAccessChecks,ScreenAIOCREnabled,SpareRendererForSitePerProcess,TraceSiteInstanceGetProcessCreation --variations-seed-version --pseudonymization-salt-handle=7,i,16939095219525914769,14872989597903971894,4 --trace-process-track-uuid=319$708989122997041
+ubuntuu   171895  0.1  0.2 2385504 39112 ?       Sl   20:42   0:00 /opt/Lens/resources/x64/lens-k8s-proxy
+ubuntuu   179555  0.0  0.2 2015308 39040 ?       Sl   20:45   0:00 /opt/Lens/resources/x64/lens-k8s-proxy
+
+how to kill all lens processes?
+---
+
+## 2026-07-09T19:03:40Z
+what docker container to run and use for to run web web handling of k8s and connect to k3s. Like lens but in browser localhost?
+---
+
+## 2026-07-09T19:05:35Z
+Add: 
+Portainer — most popular, full-featured, free CE edition:
+  docker run -d -p 9443:9443 --name portainer \
+    -v /home/ubuntuu/.kube/config:/root/.kube/config:ro \
+    -v portainer_data:/data \
+    portainer/portainer-ce:latest
+  Open https://localhost:9443, create admin user, add your K3s/minikube as "Kubernetes via kubeconfig".
+
+  Headlamp — lightweight, clean UI, open-source:
+  docker run -d -p 4466:4466 --name headlamp \
+    -v /home/ubuntuu/.kube/config:/root/.kube/config:ro \
+    ghcr.io/headlamp-k8s/headlamp:latest \
+    -kubeconfig /root/.kube/config
+  Open http://localhost:4466.
+
+  Kubernetes Dashboard — official, minimal:
+  docker run -d -p 8443:8443 --name k8s-dashboard \
+    -v /home/ubuntuu/.kube/config:/root/.kube/config:ro \
+    kubernetesui/dashboard:latest
+
+  I'd recommend Headlamp — lightest, no signup, shows both clusters from your kubeconfig out of the box. Portainer if you
+  want more features (Docker management too, not just K8s).
+into @ansible/README.md
+---
+
+## 2026-07-09T19:06:14Z
+Portainer — most popular, full-featured, free CE edition:
+  docker run -d -p 9443:9443 --name portainer \
+    -v /home/ubuntuu/.kube/config:/root/.kube/config:ro \
+    -v portainer_data:/data \
+    portainer/portainer-ce:latest
+  Open https://localhost:9443, create admin user, add your K3s/minikube as "Kubernetes via kubeconfig".
+
+  Headlamp — lightweight, clean UI, open-source:
+  docker run -d -p 4466:4466 --name headlamp \
+    -v /home/ubuntuu/.kube/config:/root/.kube/config:ro \
+    ghcr.io/headlamp-k8s/headlamp:latest \
+    -kubeconfig /root/.kube/config
+  Open http://localhost:4466.
+
+  Kubernetes Dashboard — official, minimal:
+  docker run -d -p 8443:8443 --name k8s-dashboard \
+    -v /home/ubuntuu/.kube/config:/root/.kube/config:ro \
+    kubernetesui/dashboard:latest
+
+  I'd recommend Headlamp — lightest, no signup, shows both clusters from your kubeconfig out of the box. Portainer if you
+  want more features (Docker management too, not just K8s).
+
+Are all free?
+---
+
+## 2026-07-09T19:12:09Z
+  docker run -d -p 8443:8443 --name k8s-dashboard \
+    -v /home/ubuntuu/.kube/config:/root/.kube/config:ro \
+    kubernetesui/dashboard:latest
+44dd892b5646e2cd29b2d69efa5097c30a22924c59dc394a52fc99aa79d026f4
+ubuntuu@LP-BSF-EMALYSH:~/Downloads$ dp
+CONTAINER ID   IMAGE                           COMMAND                  CREATED          STATUS                    PORTS
+
+    NAMES
+44dd892b5646   kubernetesui/dashboard:latest   "/dashboard --insecu…"   3 seconds ago    Exited (2) 1 second ago
+
+    k8s-dashboard
+3c8bf6e9486d   kicbase/stable:v0.0.50          "/usr/local/bin/entr…"   36 minutes ago   Up 36 minutes             127.0.0.
+1:32773->22/tcp, 127.0.0.1:32774->2376/tcp, 127.0.0.1:32775->5000/tcp, 127.0.0.1:32776->8443/tcp, 127.0.0.1:32777->32443/tc
+p   minikube
+---
+
+## 2026-07-09T19:13:59Z
+so how to write it and open in browser on host
+---
+
+## 2026-07-09T19:15:04Z
+how to undeploy?
+---
+
+## 2026-07-09T19:21:40Z
+run headlamp it show that clusters wasn't found
+---
+
+## 2026-07-09T19:49:25Z
+  Portainer — most popular, full-featured, free CE edition:
+  docker run -d -p 9443:9443 --name portainer \
+    -v /home/ubuntuu/.kube/config:/root/.kube/config:ro \
+    -v portainer_data:/data \
+    portainer/portainer-ce:latest
+  Open https://localhost:9443, create admin user, add your K3s/minikube as "Kubernetes via kubeconfig".
+
+  Headlamp — lightweight, clean UI, open-source:
+  docker run -d -p 4466:4466 --name headlamp \
+    -v /home/ubuntuu/.kube/config:/root/.kube/config:ro \
+    ghcr.io/headlamp-k8s/headlamp:latest \
+    -kubeconfig /root/.kube/config
+  Open http://localhost:4466.
+
+  Kubernetes Dashboard — official, minimal:
+  docker run -d -p 8443:8443 --name k8s-dashboard \
+    -v /home/ubuntuu/.kube/config:/root/.kube/config:ro \
+    kubernetesui/dashboard:latest
+
+  I'd recommend Headlamp — lightest, no signup, shows both clusters from your kubeconfig out of the box. Portainer if you
+  want more features (Docker management too, not just K8s).
+
+more alternatives
+---
+
+## 2026-07-09T19:51:33Z
+ Rancher — full cluster management platform (heavier):
+  docker run -d -p 9080:80 -p 9443:443 --name rancher \
+    --privileged \
+    rancher/rancher:latest
+  Open https://localhost:9443. Can import both minikube and K3s clusters.
+
+how to use that in browser and connect to remote k8s cluster
+---
+
+## 2026-07-09T20:00:33Z
+docker run -d \
+  --name headlamp \
+  -p 4466:4466 \
+  -v "$HOME/.kube:/root/.kube:ro" \
+  ghcr.io/kinvolk/headlamp:latest \
+  -kubeconfig /root/.kube/config \
+  -insecure-ssl
+
+I run that but it sees only k3s no minikube
+---
+
+## 2026-07-09T20:09:55Z
+docker run -d \
+  --name headlamp-multi \
+  -p 4466:4466 \
+  -v "$HOME/.kube:/root/.kube:ro" \
+  -e KUBECONFIG=/root/.kube/config \
+  ghcr.io/kinvolk/headlamp:latest \
+  -insecure-ssl
+
+it doen't see minikube only remote cluster
+---
+
+## 2026-07-09T20:13:32Z
+I run but still see only remote cluster
+---
+
+## 2026-07-09T20:23:02Z
+works!
+---

@@ -117,6 +117,31 @@ mv ~/.kube/config-merged ~/.kube/config
 
 Lens shows workloads, pods, services, logs, and shell access — no `kubectl` needed for day-to-day operations.
 
+## Web-Based K8s Dashboards
+
+Run a browser-based Kubernetes UI as a Docker container, connected to your kubeconfig.
+
+
+### Headlamp — lightweight, clean UI, open-source
+
+```bash
+docker run -d --name headlamp \
+  --network=host \
+  -v "$HOME/.kube:$HOME/.kube:ro" \
+  -v "$HOME/.minikube:$HOME/.minikube:ro" \
+  ghcr.io/kinvolk/headlamp:latest \
+  -kubeconfig $HOME/.kube/config \
+  -insecure-ssl
+```
+
+Open `http://localhost:4466`.
+
+`--network=host` is required so the container can reach minikube's API at `127.0.0.1`. The `.minikube` mount is needed because minikube's kubeconfig entries reference cert files there (unlike K3s which embeds certs as base64 data).
+
+Recommendation: **Headlamp** — lightest, no signup, shows both clusters from your kubeconfig out of the box. Portainer if you want more features (Docker management too, not just K8s).
+
+> **Note:** Kubernetes Dashboard (`kubernetesui/dashboard`) only runs inside a cluster, not as a standalone Docker container.
+
 ## Useful Commands
 
 ```shell
