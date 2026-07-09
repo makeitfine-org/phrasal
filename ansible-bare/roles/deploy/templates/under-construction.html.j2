@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" class="dark">
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -23,13 +23,7 @@
       transition: background-color 0.3s, color 0.3s;
     }
 
-    @media (prefers-color-scheme: dark) {
-      body { background-color: #030712; color: #f3f4f6; }
-      .card { background-color: #111827; border-color: #1f2937; }
-      .subtitle { color: #9ca3af; }
-      .divider { border-color: #1f2937; }
-      .footer-text { color: #6b7280; }
-    }
+    .dark body { background-color: #030712; color: #f3f4f6; }
 
     .card {
       max-width: 28rem;
@@ -40,6 +34,13 @@
       box-shadow: 0 10px 15px -3px rgba(0,0,0,0.1), 0 4px 6px -4px rgba(0,0,0,0.1);
       padding: 2.5rem 2rem;
       text-align: center;
+      transition: background-color 0.3s, border-color 0.3s, box-shadow 0.3s;
+    }
+
+    .dark .card {
+      background-color: #111827;
+      border-color: #1f2937;
+      box-shadow: 0 10px 15px -3px rgba(0,0,0,0.3), 0 4px 6px -4px rgba(0,0,0,0.2);
     }
 
     .logo {
@@ -62,17 +63,21 @@
       color: #6b7280;
       line-height: 1.6;
       margin-bottom: 1.5rem;
+      transition: color 0.3s;
     }
+
+    .dark .subtitle { color: #9ca3af; }
 
     .status-bar {
       height: 0.5rem;
       border-radius: 9999px;
       background: linear-gradient(90deg, #3b82f6 60%, #e5e7eb 60%);
       margin-bottom: 1.5rem;
+      transition: background 0.3s;
     }
 
-    @media (prefers-color-scheme: dark) {
-      .status-bar { background: linear-gradient(90deg, #3b82f6 60%, #374151 60%); }
+    .dark .status-bar {
+      background: linear-gradient(90deg, #3b82f6 60%, #374151 60%);
     }
 
     .status-label {
@@ -92,15 +97,55 @@
       border: none;
       border-top: 1px solid #e5e7eb;
       margin-bottom: 1rem;
+      transition: border-color 0.3s;
     }
+
+    .dark .divider { border-color: #1f2937; }
 
     .footer-text {
       font-size: 0.875rem;
       color: #9ca3af;
+      transition: color 0.3s;
     }
+
+    .dark .footer-text { color: #6b7280; }
 
     .domain { font-weight: 600; color: #3b82f6; text-decoration: none; }
     .domain:hover { text-decoration: underline; }
+
+    .theme-toggle {
+      position: fixed;
+      top: 0.75rem;
+      right: 0.75rem;
+      padding: 0.5rem;
+      border-radius: 9999px;
+      border: 1px solid #d1d5db;
+      background-color: #e5e7eb;
+      color: #374151;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      transition: background-color 0.3s, border-color 0.3s, color 0.3s;
+      z-index: 50;
+      box-shadow: 0 1px 2px rgba(0,0,0,0.05);
+    }
+
+    .theme-toggle:hover { background-color: #d1d5db; }
+
+    .dark .theme-toggle {
+      background-color: #1f2937;
+      border-color: #374151;
+      color: #d1d5db;
+    }
+
+    .dark .theme-toggle:hover { background-color: #374151; }
+
+    .theme-toggle .icon-sun,
+    .dark .theme-toggle .icon-moon { display: none; }
+
+    .theme-toggle .icon-moon,
+    .dark .theme-toggle .icon-sun { display: block; }
 
     @keyframes fadeIn {
       from { opacity: 0; transform: translateY(5px); }
@@ -111,6 +156,19 @@
   </style>
 </head>
 <body>
+  <button class="theme-toggle" onclick="document.documentElement.classList.toggle('dark')" title="Toggle Dark/Light Mode">
+    <svg class="icon-sun" xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+      <circle cx="12" cy="12" r="4" />
+      <path d="M12 2v2" /><path d="M12 20v2" />
+      <path d="m4.93 4.93 1.41 1.41" /><path d="m17.66 17.66 1.41 1.41" />
+      <path d="M2 12h2" /><path d="M20 12h2" />
+      <path d="m6.34 17.66-1.41 1.41" /><path d="m19.07 4.93-1.41 1.41" />
+    </svg>
+    <svg class="icon-moon" xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+      <path d="M12 3a6 6 0 0 0 9 9 9 9 0 1 1-9-9Z" />
+    </svg>
+  </button>
+
   <div class="card">
     <svg class="logo" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64" fill="none">
       <rect x="4" y="4" width="56" height="44" rx="10" fill="#3b82f6"/>

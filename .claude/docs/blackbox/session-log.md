@@ -3435,3 +3435,42 @@
 - ansible-bare/roles/deploy/tasks/construct.yml
 - ansible-bare/roles/deploy/templates/phrasal-construct.conf.j2
 <!-- end-snapshot -->
+
+<!-- git-snapshot 2026-07-09T13:25:19Z -->
+- .claude/docs/blackbox/audit.md
+- ansible-bare/roles/deploy/templates/under-construction.html.j2
+<!-- end-snapshot -->
+
+<!-- git-snapshot 2026-07-09T13:26:49Z -->
+- .claude/docs/blackbox/audit.md
+- .claude/docs/blackbox/session-log.md
+- ansible-bare/roles/deploy/templates/under-construction.html.j2
+<!-- end-snapshot -->
+
+<!-- git-snapshot 2026-07-09T13:28:19Z -->
+- .claude/docs/blackbox/audit.md
+- .claude/docs/blackbox/session-log.md
+- ansible-bare/README.md
+- ansible-bare/roles/deploy/templates/under-construction.html.j2
+<!-- end-snapshot -->
+
+<!-- git-snapshot 2026-07-09T13:31:56Z -->
+- .claude/docs/blackbox/audit.md
+- .claude/docs/blackbox/session-log.md
+- ansible-bare/README.md
+- ansible-bare/roles/deploy/templates/under-construction.html.j2
+<!-- end-snapshot -->
+
+<!-- git-snapshot 2026-07-09T13:36:36Z -->
+- .claude/docs/blackbox/audit.md
+<!-- end-snapshot -->
+
+<!-- git-snapshot 2026-07-09T13:40:29Z -->
+- .claude/docs/blackbox/audit.md
+- .claude/docs/blackbox/session-log.md
+<!-- end-snapshot -->
+
+<!-- git-snapshot 2026-07-09T13:43:01Z -->
+- .claude/docs/blackbox/audit.md
+- .claude/docs/blackbox/session-log.md
+<!-- end-snapshot -->

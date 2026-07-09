@@ -4372,3 +4372,93 @@ only for single site?
 ## 2026-07-09T13:20:01Z
 CLEAR CACHE only for single site?
 ---
+
+## 2026-07-09T13:24:15Z
+Change @ansible-bare/roles/deploy/templates/under-construction.html.j2 to show in dark mode like on @frontend design style.
+---
+
+## 2026-07-09T13:26:46Z
+how to apply that?
+---
+
+## 2026-07-09T13:27:40Z
+analyze @ansible-bare/ and add updates to @ansible-bare/README.md
+---
+
+## 2026-07-09T13:30:59Z
+Change @ansible-bare/roles/deploy/templates/under-construction.html.j2 to show in like/dark mode like on @frontend design style. By default dark
+---
+
+## 2026-07-09T13:36:10Z
+sudo iptables-save > /etc/iptables/rules.v4
+-bash: /etc/iptables/rules.v4: Permission denied
+---
+
+## 2026-07-09T13:40:03Z
+vpsuser@vps-h1:~$ sudo iptables -A INPUT -p tcp --dport 25432 -j DROP
+vpsuser@vps-h1:~$ sudo iptables -A INPUT -p tcp --dport 5432 -j DROP
+vpsuser@vps-h1:~$ sudo iptables -A INPUT -p tcp --dport 8080 -j DROP
+vpsuser@vps-h1:~$ sudo iptables-save > /etc/iptables/rules.v4
+-bash: /etc/iptables/rules.v4: Permission denied
+vpsuser@vps-h1:~$ iptables -nL --line-numbers
+iptables v1.8.10 (nf_tables): Could not fetch rule set generation id: Permission denied (you must be root)
+vpsuser@vps-h1:~$ sudo iptables -nL --line-numbers
+Chain INPUT (policy DROP)
+num  target     prot opt source               destination
+1    ACCEPT     0    --  0.0.0.0/0            0.0.0.0/0
+2    ACCEPT     0    --  0.0.0.0/0            0.0.0.0/0            ctstate RELATED,ESTABLISHED
+3    ACCEPT     6    --  0.0.0.0/0            0.0.0.0/0            tcp dpt:22
+4    ACCEPT     6    --  0.0.0.0/0            0.0.0.0/0            tcp dpt:80
+5    ACCEPT     6    --  0.0.0.0/0            0.0.0.0/0            tcp dpt:443
+6    ACCEPT     6    --  0.0.0.0/0            0.0.0.0/0            tcp dpt:8080
+7    ACCEPT     6    --  0.0.0.0/0            0.0.0.0/0            tcp dpt:5432
+8    ACCEPT     6    --  0.0.0.0/0            0.0.0.0/0            tcp dpt:28080
+9    ACCEPT     6    --  0.0.0.0/0            0.0.0.0/0            tcp dpt:25432
+10   DROP       6    --  0.0.0.0/0            0.0.0.0/0            tcp dpt:8080
+11   DROP       6    --  0.0.0.0/0            0.0.0.0/0            tcp dpt:5432
+12   DROP       6    --  0.0.0.0/0            0.0.0.0/0            tcp dpt:25432
+13   DROP       6    --  0.0.0.0/0            0.0.0.0/0            tcp dpt:28080
+14   DROP       6    --  0.0.0.0/0            0.0.0.0/0            tcp dpt:28080
+15   DROP       6    --  0.0.0.0/0            0.0.0.0/0            tcp dpt:25432
+16   DROP       6    --  0.0.0.0/0            0.0.0.0/0            tcp dpt:5432
+17   DROP       6    --  0.0.0.0/0            0.0.0.0/0            tcp dpt:8080
+
+Chain FORWARD (policy ACCEPT)
+num  target     prot opt source               destination
+
+Chain OUTPUT (policy ACCEPT)
+num  target     prot opt source               destination
+---
+
+## 2026-07-09T13:42:53Z
+vpsuser@vps-h1:~$   # Delete ACCEPT rules (work backwards so line numbers don't shift)
+  sudo iptables -D INPUT -p tcp --dport 25432 -j ACCEPT
+  sudo iptables -D INPUT -p tcp --dport 28080 -j ACCEPT
+  sudo iptables -D INPUT -p tcp --dport 5432 -j ACCEPT
+  sudo iptables -D INPUT -p tcp --dport 8080 -j ACCEPT
+
+  # Delete duplicate DROPs (keep one of each)
+  sudo iptables -D INPUT -p tcp --dport 28080 -j DROP
+  sudo iptables -D INPUT -p tcp --dport 25432 -j DROP
+  sudo iptables -D INPUT -p tcp --dport 5432 -j DROP
+  sudo iptables -D INPUT -p tcp --dport 8080 -j DROP
+vpsuser@vps-h1:~$ sudo sh -c 'iptables-save > /etc/iptables/rules.v4'
+vpsuser@vps-h1:~$ sudo iptables -nL --line-numbers
+Chain INPUT (policy DROP)
+num  target     prot opt source               destination
+1    ACCEPT     0    --  0.0.0.0/0            0.0.0.0/0
+2    ACCEPT     0    --  0.0.0.0/0            0.0.0.0/0            ctstate RELATED,ESTABLISHED
+3    ACCEPT     6    --  0.0.0.0/0            0.0.0.0/0            tcp dpt:22
+4    ACCEPT     6    --  0.0.0.0/0            0.0.0.0/0            tcp dpt:80
+5    ACCEPT     6    --  0.0.0.0/0            0.0.0.0/0            tcp dpt:443
+6    DROP       6    --  0.0.0.0/0            0.0.0.0/0            tcp dpt:28080
+7    DROP       6    --  0.0.0.0/0            0.0.0.0/0            tcp dpt:25432
+8    DROP       6    --  0.0.0.0/0            0.0.0.0/0            tcp dpt:5432
+9    DROP       6    --  0.0.0.0/0            0.0.0.0/0            tcp dpt:8080
+
+Chain FORWARD (policy ACCEPT)
+num  target     prot opt source               destination
+
+Chain OUTPUT (policy ACCEPT)
+num  target     prot opt source               destination
+---

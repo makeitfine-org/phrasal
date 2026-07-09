@@ -114,7 +114,7 @@ Separated into its own task file with `never` tag — only runs when explicitly 
 | `ansible-playbook playbooks/init-deploy.yml --tags construct` | **deploys** construction page |
 | `ansible-playbook playbooks/undeploy.yml --tags construct` | **removes** construction page |
 
-Enable redirect or reject, not both.
+Enable only one of redirect, reject, or construct at a time — undeploy the active one before deploying another.
 
 ## Teardown
 
@@ -128,7 +128,7 @@ ansible-playbook playbooks/undeploy.yml                     # everything
 ## Roles Overview
 
 ```
-ansible/
+ansible-bare/
 ├── ansible.cfg
 ├── inventory/
 │   ├── hosts.yml
@@ -142,10 +142,15 @@ ansible/
     ├── base_user/      # User creation, sudo, SSH key
     ├── base_shell/     # Packages, .bashrc, Telegram secrets
     ├── soft/           # speedtest-cli, tmux
-    ├── infra/          # Swap, PostgreSQL, Java, Nginx, firewall
+    ├── infra/          # Timezone, swap, PostgreSQL, Java, Nginx, firewall
     ├── deploy/         # DB setup, systemd service, Nginx site, SSL
+    │   └── tasks: postgres, backend, frontend, redirect*, reject*, construct*
     ├── redeploy/       # Upload JAR/dist, restart services
+    │   └── tasks: backend, frontend
     └── undeploy/       # Stop services, remove files, drop DB
+        └── tasks: backend, frontend, postgres, redirect*, reject*, construct*
+
+* = tagged [never], only runs with explicit --tags
 ```
 
 ## Useful commands

@@ -302,3 +302,30 @@
       This sends a permanent redirect (301) so anyone visiting the old domain gets sent to the new one.
 
       ---
+
+       1. The DROP rules are ineffective — ACCEPT rules (6–9) match first, so traffic on 8080, 5432, 28080, 25432 is already
+        accepted before it hits the DROP rules (10–17). You also have duplicate DROPs.
+
+        Fix — delete the ACCEPT rules for those ports, then clean up duplicates:
+
+        # Delete ACCEPT rules (work backwards so line numbers don't shift)
+        sudo iptables -D INPUT -p tcp --dport 25432 -j ACCEPT
+        sudo iptables -D INPUT -p tcp --dport 28080 -j ACCEPT
+        sudo iptables -D INPUT -p tcp --dport 5432 -j ACCEPT
+        sudo iptables -D INPUT -p tcp --dport 8080 -j ACCEPT
+
+        # Delete duplicate DROPs (keep one of each)
+        sudo iptables -D INPUT -p tcp --dport 28080 -j DROP
+        sudo iptables -D INPUT -p tcp --dport 25432 -j DROP
+        sudo iptables -D INPUT -p tcp --dport 5432 -j DROP
+        sudo iptables -D INPUT -p tcp --dport 8080 -j DROP
+
+        2. Permission denied on save — the > redirect runs as your user, not root. Use:
+
+        sudo sh -c 'iptables-save > /etc/iptables/rules.v4'
+
+        After cleanup, verify with sudo iptables -nL --line-numbers — you should see only rules 1–5 (loopback, established, SSH,
+        HTTP, HTTPS) plus one DROP each for 8080, 5432, 28080, 25432.
+
+        Also worth checking: does your Ansible infra role re-add these ACCEPT rules on every run? If so, you'd want to update
+        inventory/group_vars/all.yml to remove those ports from the firewall allow list so they don't come back.
