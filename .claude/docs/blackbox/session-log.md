@@ -3366,3 +3366,72 @@
 - ansible-bare/roles/undeploy/tasks/main.yml
 - ansible-bare/roles/undeploy/tasks/reject.yml
 <!-- end-snapshot -->
+
+<!-- git-snapshot 2026-07-09T12:52:07Z -->
+- .claude/docs/blackbox/audit.md
+- ansible-bare/roles/deploy/tasks/construct.yml
+- ansible-bare/roles/deploy/templates/phrasal-construct.conf.j2
+<!-- end-snapshot -->
+
+<!-- git-snapshot 2026-07-09T12:55:07Z -->
+- .claude/docs/blackbox/audit.md
+- .claude/docs/blackbox/session-log.md
+- ansible-bare/roles/deploy/tasks/construct.yml
+- ansible-bare/roles/deploy/templates/phrasal-construct.conf.j2
+<!-- end-snapshot -->
+
+<!-- git-snapshot 2026-07-09T12:59:18Z -->
+- .claude/docs/blackbox/audit.md
+- .claude/docs/blackbox/session-log.md
+- ansible-bare/roles/deploy/tasks/construct.yml
+- ansible-bare/roles/deploy/templates/phrasal-construct.conf.j2
+<!-- end-snapshot -->
+
+<!-- git-snapshot 2026-07-09T13:03:47Z -->
+- .claude/docs/blackbox/audit.md
+- .claude/docs/blackbox/session-log.md
+- ansible-bare/roles/deploy/tasks/construct.yml
+- ansible-bare/roles/deploy/templates/phrasal-construct.conf.j2
+<!-- end-snapshot -->
+
+<!-- git-snapshot 2026-07-09T13:13:14Z -->
+- .claude/docs/blackbox/audit.md
+- .claude/docs/blackbox/session-log.md
+- ansible-bare/roles/deploy/tasks/construct.yml
+- ansible-bare/roles/deploy/templates/phrasal-construct.conf.j2
+<!-- end-snapshot -->
+
+<!-- git-snapshot 2026-07-09T13:14:22Z -->
+- .claude/docs/blackbox/audit.md
+- .claude/docs/blackbox/session-log.md
+- ansible-bare/roles/deploy/tasks/construct.yml
+- ansible-bare/roles/deploy/templates/phrasal-construct.conf.j2
+<!-- end-snapshot -->
+
+<!-- git-snapshot 2026-07-09T13:15:21Z -->
+- .claude/docs/blackbox/audit.md
+- .claude/docs/blackbox/session-log.md
+- ansible-bare/roles/deploy/tasks/construct.yml
+- ansible-bare/roles/deploy/templates/phrasal-construct.conf.j2
+<!-- end-snapshot -->
+
+<!-- git-snapshot 2026-07-09T13:17:44Z -->
+- .claude/docs/blackbox/audit.md
+- .claude/docs/blackbox/session-log.md
+- ansible-bare/roles/deploy/tasks/construct.yml
+- ansible-bare/roles/deploy/templates/phrasal-construct.conf.j2
+<!-- end-snapshot -->
+
+<!-- git-snapshot 2026-07-09T13:18:59Z -->
+- .claude/docs/blackbox/audit.md
+- .claude/docs/blackbox/session-log.md
+- ansible-bare/roles/deploy/tasks/construct.yml
+- ansible-bare/roles/deploy/templates/phrasal-construct.conf.j2
+<!-- end-snapshot -->
+
+<!-- git-snapshot 2026-07-09T13:20:06Z -->
+- .claude/docs/blackbox/audit.md
+- .claude/docs/blackbox/session-log.md
+- ansible-bare/roles/deploy/tasks/construct.yml
+- ansible-bare/roles/deploy/templates/phrasal-construct.conf.j2
+<!-- end-snapshot -->

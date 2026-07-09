@@ -4264,3 +4264,111 @@ Now separate in reject: reject from construct
 ## 2026-07-09T12:39:49Z
 No fix @ansible-bare/roles/deploy/templates/phrasal it should reject, and reacte separet file here for construct page
 ---
+
+## 2026-07-09T12:51:06Z
+on `construct` task in works but connection is not secure browser shows, fix this issue it should be secure, solve issue with sertificates
+---
+
+## 2026-07-09T12:53:17Z
+why did you remove that lines in @phrasal-construct.conf.j2?
+---
+
+## 2026-07-09T12:55:03Z
+what ansible command to run to apply?
+---
+
+## 2026-07-09T12:58:14Z
+I run ` ansible-playbook playbooks/undeploy.yml --tags construct` then `ansible-playbook playbooks/init-deploy.yml --tags construct` but still getting that insecure issue in browser.
+---
+
+## 2026-07-09T12:59:13Z
+apply
+---
+
+## 2026-07-09T13:03:20Z
+vpsuser@vps-h1:~$ cat /etc/nginx/sites-available/phrasal
+phrasal           phrasal-redirect
+vpsuser@vps-h1:~$ cat /etc/nginx/sites-available/phrasal-redirect
+server {
+    listen 80;
+    server_name phrasal.ddns.net;
+    return 301 https://outphrasal.ddns.net$request_uri;
+}
+vpsuser@vps-h1:~$ sudo ls /etc/letsencrypt/live/phrasal.ddns.net/
+cert.pem  chain.pem  fullchain.pem  privkey.pem  README
+vpsuser@vps-h1:~$ cat /etc/nginx/sites-available/phrasal-construct
+server {
+    server_name phrasal.ddns.net;
+
+    root /var/www/phrasal-construction;
+    index index.html;
+
+    location / {
+        try_files $uri /index.html;
+    }
+
+    listen 443 ssl; # managed by Certbot
+    ssl_certificate /etc/letsencrypt/live/phrasal.ddns.net/fullchain.pem; # managed by Certbot
+    ssl_certificate_key /etc/letsencrypt/live/phrasal.ddns.net/privkey.pem; # managed by Certbot
+    include /etc/letsencrypt/options-ssl-nginx.conf; # managed by Certbot
+    ssl_dhparam /etc/letsencrypt/ssl-dhparams.pem; # managed by Certbot
+
+}
+server {
+    if ($host = phrasal.ddns.net) {
+        return 301 https://$host$request_uri;
+    } # managed by Certbot
+
+
+    listen 80;
+    server_name phrasal.ddns.net;
+    return 404; # managed by Certbot
+---
+
+## 2026-07-09T13:08:47Z
+ I didn't it all and redploy frontend and construct but still shows that.
+
+Analyze your configs compare with `outpharasal.ddns.net` certforming and deploying.
+---
+
+## 2026-07-09T13:14:16Z
+  sudo certbot certificates
+Saving debug log to /var/log/letsencrypt/letsencrypt.log
+
+- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+Found the following certs:
+  Certificate Name: outphrasal.ddns.net
+    Serial Number: 5fed5a3919db2628ac802f8692ec336378f
+    Key Type: ECDSA
+    Domains: outphrasal.ddns.net
+    Expiry Date: 2026-10-07 07:59:44+00:00 (VALID: 89 days)
+    Certificate Path: /etc/letsencrypt/live/outphrasal.ddns.net/fullchain.pem
+    Private Key Path: /etc/letsencrypt/live/outphrasal.ddns.net/privkey.pem
+  Certificate Name: phrasal.ddns.net
+    Serial Number: 51a8c000ebd81e7a607baa5ee5bcdcf3f90
+    Key Type: ECDSA
+    Domains: phrasal.ddns.net
+    Expiry Date: 2026-10-06 09:23:48+00:00 (VALID: 88 days)
+    Certificate Path: /etc/letsencrypt/live/phrasal.ddns.net/fullchain.pem
+    Private Key Path: /etc/letsencrypt/live/phrasal.ddns.net/privkey.pem
+- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+---
+
+## 2026-07-09T13:15:16Z
+curl -vI https://phrasal.ddns.net 2>&1 | grep -E 'subject:|issuer:|expire'
+*   subject: CN=phrasal.ddns.net
+*   expire date: Oct  6 09:23:48 2026 GMT
+*   issuer: C=US; O=Let's Encrypt; CN=YE2
+---
+
+## 2026-07-09T13:17:35Z
+how to clear cache on android chrome browser?
+---
+
+## 2026-07-09T13:18:54Z
+only for single site?
+---
+
+## 2026-07-09T13:20:01Z
+CLEAR CACHE only for single site?
+---

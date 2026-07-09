@@ -26,3 +26,19 @@
     dest: /etc/nginx/sites-enabled/phrasal-construct
     state: link
   notify: reload nginx
+
+- name: Reload nginx before certbot
+  ansible.builtin.meta: flush_handlers
+
+- name: Check if SSL is configured for construct
+  ansible.builtin.command: grep -q 'listen.*443.*ssl' /etc/nginx/sites-available/phrasal-construct
+  register: construct_ssl_configured
+  changed_when: false
+  failed_when: false
+
+- name: Set up SSL for old domains
+  ansible.builtin.command: >
+    certbot --nginx -d {{ item }}
+    --non-interactive --agree-tos --email {{ certbot_email }}
+  loop: "{{ redirect_domains }}"
+  when: "construct_ssl_configured.rc != 0"
