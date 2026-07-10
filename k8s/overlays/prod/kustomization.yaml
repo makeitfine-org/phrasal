@@ -13,10 +13,10 @@ replicas:
 
 images:
   - name: backend
-    newName: DOCKER_USERNAME/phrasal-backend
+    newName: stingion/phrasal-backend
     newTag: latest
   - name: phrasal-frontend
-    newName: DOCKER_USERNAME/phrasal-frontend
+    newName: stingion/phrasal-frontend
     newTag: latest
 
 patches:

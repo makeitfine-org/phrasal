@@ -120,7 +120,15 @@
       "Bash(docker buildx *)",
       "Bash(git reset *)",
       "Bash(kubectl kustomize *)",
-      "Bash(skaffold diagnose *)"
+      "Bash(skaffold diagnose *)",
+      "Bash(kubectl --context default get nodes)",
+      "Bash(kubectl --context default get pods -A)",
+      "Bash(kubectl --context default config view --minify --flatten --raw)",
+      "Bash(docker info *)",
+      "Bash(docker context *)",
+      "Bash(kubectl --context default get pods)",
+      "Bash(docker build *)",
+      "Bash(kubectl --context default logs deployment/backend --tail=30)"
     ]
   },
   "model": "Opus",

@@ -3821,3 +3821,260 @@
 - frontend/k8s/service.yaml
 - frontend/skaffold.yaml
 <!-- end-snapshot -->
+
+<!-- git-snapshot 2026-07-10T18:29:33Z -->
+- .claude/docs/blackbox/audit.md
+<!-- end-snapshot -->
+
+<!-- git-snapshot 2026-07-10T18:31:25Z -->
+- .claude/docs/blackbox/audit.md
+- .claude/docs/blackbox/session-log.md
+- .github/workflows/ci.yml
+- k8s/overlays/prod/kustomization.yaml
+<!-- end-snapshot -->
+
+<!-- git-snapshot 2026-07-10T18:37:23Z -->
+- .claude/docs/blackbox/audit.md
+- .claude/docs/blackbox/session-log.md
+- .github/workflows/ci.yml
+- aux/docs/useful/hatzner-k8s.txt
+- k8s/overlays/prod/kustomization.yaml
+<!-- end-snapshot -->
+
+<!-- git-snapshot 2026-07-10T19:12:45Z -->
+- .claude/docs/blackbox/audit.md
+- .claude/docs/blackbox/session-log.md
+- .claude/settings.local.json
+- .github/workflows/ci.yml
+- ansible/roles/k3s/tasks/main.yml
+- ansible/roles/k3s/templates/config.yaml.j2
+- aux/docs/useful/hatzner-k8s.txt
+- k8s/overlays/prod/ingress.yaml
+- k8s/overlays/prod/kustomization.yaml
+<!-- end-snapshot -->
+
+<!-- git-snapshot 2026-07-10T19:29:22Z -->
+- .claude/docs/blackbox/audit.md
+- .claude/docs/blackbox/session-log.md
+- .claude/settings.local.json
+- .github/workflows/ci.yml
+- ansible/playbooks/ingress-tls.yml
+- ansible/roles/ingress-tls/defaults/main.yml
+- ansible/roles/ingress-tls/tasks/main.yml
+- ansible/roles/ingress-tls/templates/cluster-issuer.yaml.j2
+- ansible/roles/k3s/tasks/main.yml
+- ansible/roles/k3s/templates/config.yaml.j2
+- aux/docs/useful/hatzner-k8s.txt
+- k8s/overlays/prod/ingress.yaml
+- k8s/overlays/prod/kustomization.yaml
+<!-- end-snapshot -->
+
+<!-- git-snapshot 2026-07-10T19:33:31Z -->
+- .claude/docs/blackbox/audit.md
+- .claude/docs/blackbox/session-log.md
+- .claude/settings.local.json
+- .github/workflows/ci.yml
+- ansible/playbooks/ingress-tls.yml
+- ansible/roles/ingress-tls/defaults/main.yml
+- ansible/roles/ingress-tls/tasks/main.yml
+- ansible/roles/ingress-tls/templates/cluster-issuer.yaml.j2
+- ansible/roles/k3s/tasks/main.yml
+- ansible/roles/k3s/templates/config.yaml.j2
+- aux/docs/useful/hatzner-k8s.txt
+- k8s/overlays/prod/ingress.yaml
+- k8s/overlays/prod/kustomization.yaml
+<!-- end-snapshot -->
+
+<!-- git-snapshot 2026-07-10T19:34:39Z -->
+- .claude/docs/blackbox/audit.md
+- .claude/docs/blackbox/session-log.md
+- .claude/settings.local.json
+- .github/workflows/ci.yml
+- ansible/playbooks/ingress-tls.yml
+- ansible/roles/ingress-tls/defaults/main.yml
+- ansible/roles/ingress-tls/tasks/main.yml
+- ansible/roles/ingress-tls/templates/cluster-issuer.yaml.j2
+- ansible/roles/k3s/tasks/main.yml
+- ansible/roles/k3s/templates/config.yaml.j2
+- aux/docs/useful/hatzner-k8s.txt
+- k8s/overlays/prod/ingress.yaml
+- k8s/overlays/prod/kustomization.yaml
+<!-- end-snapshot -->
+
+<!-- git-snapshot 2026-07-10T19:36:17Z -->
+- .claude/docs/blackbox/audit.md
+- .claude/docs/blackbox/session-log.md
+- .claude/settings.local.json
+- .github/workflows/ci.yml
+- ansible/playbooks/ingress-tls.yml
+- ansible/roles/ingress-tls/defaults/main.yml
+- ansible/roles/ingress-tls/tasks/main.yml
+- ansible/roles/ingress-tls/templates/cluster-issuer.yaml.j2
+- ansible/roles/k3s/tasks/main.yml
+- ansible/roles/k3s/templates/config.yaml.j2
+- aux/docs/useful/hatzner-k8s.txt
+- k8s/overlays/prod/ingress.yaml
+- k8s/overlays/prod/kustomization.yaml
+<!-- end-snapshot -->
+
+<!-- git-snapshot 2026-07-10T19:51:17Z -->
+- .claude/docs/blackbox/audit.md
+- .claude/docs/blackbox/session-log.md
+- .claude/settings.local.json
+- .github/workflows/ci.yml
+- ansible/playbooks/ingress-tls.yml
+- ansible/roles/ingress-tls/defaults/main.yml
+- ansible/roles/ingress-tls/tasks/main.yml
+- ansible/roles/ingress-tls/templates/cluster-issuer.yaml.j2
+- ansible/roles/k3s/tasks/main.yml
+- ansible/roles/k3s/templates/config.yaml.j2
+- aux/docs/useful/hatzner-k8s.txt
+- k8s/overlays/prod/ingress.yaml
+- k8s/overlays/prod/kustomization.yaml
+<!-- end-snapshot -->
+
+<!-- git-snapshot 2026-07-10T19:53:45Z -->
+- .claude/docs/blackbox/audit.md
+- .claude/docs/blackbox/session-log.md
+- .claude/settings.local.json
+- .github/workflows/ci.yml
+- ansible/playbooks/ingress-tls.yml
+- ansible/roles/ingress-tls/defaults/main.yml
+- ansible/roles/ingress-tls/tasks/main.yml
+- ansible/roles/ingress-tls/templates/cluster-issuer.yaml.j2
+- ansible/roles/k3s/tasks/main.yml
+- ansible/roles/k3s/templates/config.yaml.j2
+- aux/docs/useful/hatzner-k8s.txt
+- k8s/overlays/prod/ingress.yaml
+- k8s/overlays/prod/kustomization.yaml
+<!-- end-snapshot -->
+
+<!-- git-snapshot 2026-07-10T19:55:30Z -->
+- .claude/docs/blackbox/audit.md
+- .claude/docs/blackbox/session-log.md
+- .claude/settings.local.json
+- .github/workflows/ci.yml
+- ansible/playbooks/ingress-tls.yml
+- ansible/roles/ingress-tls/defaults/main.yml
+- ansible/roles/ingress-tls/tasks/main.yml
+- ansible/roles/ingress-tls/templates/cluster-issuer.yaml.j2
+- ansible/roles/k3s/tasks/main.yml
+- ansible/roles/k3s/templates/config.yaml.j2
+- aux/docs/useful/hatzner-k8s.txt
+- k8s/overlays/prod/ingress.yaml
+- k8s/overlays/prod/kustomization.yaml
+<!-- end-snapshot -->
+
+<!-- git-snapshot 2026-07-10T20:24:43Z -->
+- .claude/docs/blackbox/audit.md
+- .claude/docs/blackbox/session-log.md
+- .claude/settings.local.json
+- .github/workflows/ci.yml
+- ansible/playbooks/ingress-tls.yml
+- ansible/roles/ingress-tls/defaults/main.yml
+- ansible/roles/ingress-tls/tasks/main.yml
+- ansible/roles/ingress-tls/templates/cluster-issuer.yaml.j2
+- ansible/roles/k3s/tasks/main.yml
+- ansible/roles/k3s/templates/config.yaml.j2
+- aux/docs/useful/hatzner-k8s.txt
+- backend/src/main/resources/application-prod.yml
+- k8s/base/backend-configmap.yaml
+- k8s/base/backend-deployment.yaml
+- k8s/overlays/prod/ingress.yaml
+- k8s/overlays/prod/kustomization.yaml
+<!-- end-snapshot -->
+
+<!-- git-snapshot 2026-07-10T20:26:40Z -->
+- .claude/docs/blackbox/audit.md
+- .claude/docs/blackbox/session-log.md
+- .claude/settings.local.json
+- .github/workflows/ci.yml
+- ansible/playbooks/ingress-tls.yml
+- ansible/roles/ingress-tls/defaults/main.yml
+- ansible/roles/ingress-tls/tasks/main.yml
+- ansible/roles/ingress-tls/templates/cluster-issuer.yaml.j2
+- ansible/roles/k3s/tasks/main.yml
+- ansible/roles/k3s/templates/config.yaml.j2
+- aux/docs/useful/hatzner-k8s.txt
+- backend/src/main/resources/application-prod.yml
+- k8s/base/backend-configmap.yaml
+- k8s/base/backend-deployment.yaml
+- k8s/overlays/prod/ingress.yaml
+- k8s/overlays/prod/kustomization.yaml
+<!-- end-snapshot -->
+
+<!-- git-snapshot 2026-07-10T20:29:30Z -->
+- .claude/docs/blackbox/audit.md
+- .claude/docs/blackbox/session-log.md
+- .claude/settings.local.json
+- .github/workflows/ci.yml
+- ansible/playbooks/ingress-tls.yml
+- ansible/roles/ingress-tls/defaults/main.yml
+- ansible/roles/ingress-tls/tasks/main.yml
+- ansible/roles/ingress-tls/templates/cluster-issuer.yaml.j2
+- ansible/roles/k3s/tasks/main.yml
+- ansible/roles/k3s/templates/config.yaml.j2
+- aux/docs/useful/hatzner-k8s.txt
+- backend/src/main/resources/application-prod.yml
+- k8s/base/backend-configmap.yaml
+- k8s/base/backend-deployment.yaml
+- k8s/overlays/prod/ingress.yaml
+- k8s/overlays/prod/kustomization.yaml
+<!-- end-snapshot -->
+
+<!-- git-snapshot 2026-07-10T20:31:06Z -->
+- .claude/docs/blackbox/audit.md
+- .claude/docs/blackbox/session-log.md
+- .claude/settings.local.json
+- .github/workflows/ci.yml
+- ansible/playbooks/ingress-tls.yml
+- ansible/roles/ingress-tls/defaults/main.yml
+- ansible/roles/ingress-tls/tasks/main.yml
+- ansible/roles/ingress-tls/templates/cluster-issuer.yaml.j2
+- ansible/roles/k3s/tasks/main.yml
+- ansible/roles/k3s/templates/config.yaml.j2
+- aux/docs/useful/hatzner-k8s.txt
+- backend/src/main/resources/application-prod.yml
+- k8s/base/backend-configmap.yaml
+- k8s/base/backend-deployment.yaml
+- k8s/overlays/prod/ingress.yaml
+- k8s/overlays/prod/kustomization.yaml
+<!-- end-snapshot -->
+
+<!-- git-snapshot 2026-07-10T20:31:38Z -->
+- .claude/docs/blackbox/audit.md
+- .claude/docs/blackbox/session-log.md
+- .claude/settings.local.json
+- .github/workflows/ci.yml
+- ansible/playbooks/ingress-tls.yml
+- ansible/roles/ingress-tls/defaults/main.yml
+- ansible/roles/ingress-tls/tasks/main.yml
+- ansible/roles/ingress-tls/templates/cluster-issuer.yaml.j2
+- ansible/roles/k3s/tasks/main.yml
+- ansible/roles/k3s/templates/config.yaml.j2
+- aux/docs/useful/hatzner-k8s.txt
+- backend/src/main/resources/application-prod.yml
+- k8s/base/backend-configmap.yaml
+- k8s/base/backend-deployment.yaml
+- k8s/overlays/prod/ingress.yaml
+- k8s/overlays/prod/kustomization.yaml
+<!-- end-snapshot -->
+
+<!-- git-snapshot 2026-07-10T20:31:58Z -->
+- .claude/docs/blackbox/audit.md
+- .claude/docs/blackbox/session-log.md
+- .claude/settings.local.json
+- .github/workflows/ci.yml
+- ansible/playbooks/ingress-tls.yml
+- ansible/roles/ingress-tls/defaults/main.yml
+- ansible/roles/ingress-tls/tasks/main.yml
+- ansible/roles/ingress-tls/templates/cluster-issuer.yaml.j2
+- ansible/roles/k3s/tasks/main.yml
+- ansible/roles/k3s/templates/config.yaml.j2
+- aux/docs/useful/hatzner-k8s.txt
+- backend/src/main/resources/application-prod.yml
+- k8s/base/backend-configmap.yaml
+- k8s/base/backend-deployment.yaml
+- k8s/overlays/prod/ingress.yaml
+- k8s/overlays/prod/kustomization.yaml
+<!-- end-snapshot -->

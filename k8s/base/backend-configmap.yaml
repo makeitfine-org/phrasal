@@ -7,3 +7,4 @@ metadata:
 data:
   database.url: jdbc:postgresql://postgres-service:5432/phrasaldb
   spring.profiles.active: dev
+  server.port: "8080"

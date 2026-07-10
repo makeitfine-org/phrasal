@@ -1,0 +1,52 @@
+---
+- name: Wait for Traefik deployment to exist
+  ansible.builtin.command:
+    cmd: kubectl get deployment traefik -n kube-system
+  register: traefik_check
+  retries: 12
+  delay: 10
+  until: traefik_check.rc == 0
+  changed_when: false
+
+- name: Wait for Traefik to be ready
+  ansible.builtin.command:
+    cmd: kubectl wait --for=condition=Available deployment/traefik -n kube-system --timeout=120s
+  changed_when: false
+
+- name: Install cert-manager CRDs and components
+  ansible.builtin.command:
+    cmd: kubectl apply -f https://github.com/cert-manager/cert-manager/releases/download/{{ cert_manager_version }}/cert-manager.yaml
+  register: cert_manager_install
+  changed_when: "'created' in cert_manager_install.stdout or 'configured' in cert_manager_install.stdout"
+
+- name: Wait for cert-manager webhook to be ready
+  ansible.builtin.command:
+    cmd: kubectl wait --for=condition=Available deployment/cert-manager-webhook -n cert-manager --timeout=120s
+  changed_when: false
+
+- name: Template ClusterIssuer manifest
+  ansible.builtin.template:
+    src: cluster-issuer.yaml.j2
+    dest: /tmp/cluster-issuer.yaml
+    mode: "0644"
+
+- name: Apply ClusterIssuer
+  ansible.builtin.command:
+    cmd: kubectl apply -f /tmp/cluster-issuer.yaml
+  register: issuer_apply
+  changed_when: "'created' in issuer_apply.stdout or 'configured' in issuer_apply.stdout"
+
+- name: Clean up temp manifest
+  ansible.builtin.file:
+    path: /tmp/cluster-issuer.yaml
+    state: absent
+
+- name: Verify cert-manager pods
+  ansible.builtin.command:
+    cmd: kubectl get pods -n cert-manager -o wide
+  register: cert_manager_pods
+  changed_when: false
+
+- name: Show cert-manager status
+  ansible.builtin.debug:
+    msg: "{{ cert_manager_pods.stdout_lines }}"

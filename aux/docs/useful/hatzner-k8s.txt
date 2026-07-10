@@ -450,3 +450,82 @@ While Helm is brilliant inside the Kubernetes cluster, it cannot interact with t
       ---
       Want me to start implementing this? I'd begin with step 2 (reorganize manifests into Kustomize base/overlays) since
       that's the foundation everything else builds on.
+
+      ===
+
+        Modified: Both backend/skaffold.yaml and frontend/skaffold.yaml to reference k8s/base/, .gitignore to exclude prod
+        Remaining steps
+
+        ┌─────┬─────────────────────────────────┬────────────────────────────────────────────────────────────────────────────┐
+        │  #  │              Step               │                                   Status                                   │
+        ├─────┼─────────────────────────────────┼────────────────────────────────────────────────────────────────────────────┤
+        │ 1   │ Container registry (Docker Hub) │ Need your Docker Hub username                                              │
+        ├─────┼─────────────────────────────────┼────────────────────────────────────────────────────────────────────────────┤
+        │ 2   │ Kustomize base/overlays         │ Done                                                                       │
+        ├─────┼─────────────────────────────────┼────────────────────────────────────────────────────────────────────────────┤
+        │ 3   │ Ingress + TLS (Traefik +        │ Ingress manifest created, need Ansible role to re-enable Traefik and       │
+        │     │ cert-manager)                   │ install cert-manager on K3s                                                │
+        ├─────┼─────────────────────────────────┼────────────────────────────────────────────────────────────────────────────┤
+        │ 4   │ GitHub Actions CD pipeline      │ Not started — build+push images, deploy via kubectl                        │
+        ├─────┼─────────────────────────────────┼────────────────────────────────────────────────────────────────────────────┤
+        │ 5   │ Secrets management              │ Template ready, need to create real secret on cluster                      │
+        ├─────┼─────────────────────────────────┼────────────────────────────────────────────────────────────────────────────┤
+        │ 6   │ Skaffold local dev              │ Done — root config + module configs updated                                │
+        └─────┴─────────────────────────────────┴────────────────────────────────────────────────────────────────────────────┘
+
+        Which step do you want to tackle next?
+
+      ===
+
+        Step 1 — Container Registry: Complete
+
+        Prod kustomization now uses stingion/phrasal-backend and stingion/phrasal-frontend as image names.
+
+        CI pipeline updated (.github/workflows/ci.yml):
+        - Renamed docker-build → docker-push, removed if: false
+        - Runs only on main branch push, after e2e tests pass
+        - Builds and pushes both backend and frontend images to Docker Hub
+        - Tags: stingion/phrasal-backend:<sha> + :latest (same for frontend)
+
+        You need to set two GitHub secrets at github.com/makeitfine-org/phrasal/settings/secrets/actions:
+
+        ┌─────────────────┬──────────────────────────────────────────┐
+        │     Secret      │                  Value                   │
+        ├─────────────────┼──────────────────────────────────────────┤
+        │ DOCKER_USERNAME │ stingion                                 │
+        ├─────────────────┼──────────────────────────────────────────┤
+        │ DOCKER_PASSWORD │ Your Docker Hub password or access token │
+        └─────────────────┴──────────────────────────────────────────┘
+
+        (A Docker Hub access token is recommended over your password — create one at hub.docker.com → Account Settings → Security
+        → Access Tokens.)
+
+        Updated pipeline flow
+
+        push to main → build-and-test → frontend-test → e2e → docker-push
+                                                                 ├── stingion/phrasal-backend:sha + latest
+                                                                 └── stingion/phrasal-frontend:sha + latest
+
+    ===
+
+     No need to create the repositories manually — Docker Hub auto-creates them on the first docker push. The CI pipeline will
+      create stingion/phrasal-backend and stingion/phrasal-frontend automatically when it pushes for the first time.
+
+      For the access token:
+
+      1. Go to hub.docker.com → log in
+      2. Click your avatar (top-right) → Account Settings
+      3. Security → Personal access tokens → Generate new token
+      4. Name: github-actions-phrasal
+      5. Access permissions: Read & Write
+      6. Click Generate → copy the token immediately (you won't see it again)
+
+      Then in GitHub at github.com/makeitfine-org/phrasal/settings/secrets/actions → New repository secret:
+      - DOCKER_USERNAME = stingion
+      - DOCKER_PASSWORD = the token you just copied
+
+      That's it. Next push to main that passes e2e will push both images.
+
+   ===
+
+                                                                    

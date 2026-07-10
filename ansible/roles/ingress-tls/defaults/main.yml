@@ -1,0 +1,3 @@
+cert_manager_version: v1.17.2
+letsencrypt_email: "x7warrior@gmail.com"
+domain: phrasal.ddns.net

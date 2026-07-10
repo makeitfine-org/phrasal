@@ -45,6 +45,11 @@ spec:
             secretKeyRef:
               name: app-secrets
               key: database.password
+        - name: SERVER_PORT
+          valueFrom:
+            configMapKeyRef:
+              name: app-config
+              key: server.port
         livenessProbe:
           httpGet:
             path: /actuator/health/liveness

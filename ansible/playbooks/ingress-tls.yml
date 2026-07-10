@@ -1,0 +1,12 @@
+---
+- name: Re-enable Traefik in K3s config
+  hosts: hetzner1
+  become: true
+  roles:
+    - k3s
+
+- name: Install cert-manager and configure TLS
+  hosts: hetzner1
+  become: true
+  roles:
+    - ingress-tls

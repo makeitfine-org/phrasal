@@ -1,11 +1,8 @@
-server:
-  port: 28080
-
 spring:
   datasource:
-    url: jdbc:postgresql://localhost:25432/phrasaldb
-    username: phrasaluser
-    password: phrasalpass
+    url: ${DATABASE_URL:jdbc:postgresql://localhost:25432/phrasaldb}
+    username: ${DATABASE_USER:phrasaluser}
+    password: ${DATABASE_PASSWORD:phrasalpass}
     hikari:
       maximum-pool-size: 5
       minimum-idle: 2
@@ -15,6 +12,9 @@ spring:
 
   flyway:
     enabled: true
+
+server:
+  port: ${SERVER_PORT:28080}
 
 logging:
   level:
