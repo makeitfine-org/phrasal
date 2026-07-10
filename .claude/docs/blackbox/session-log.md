@@ -4208,3 +4208,9 @@
 - .claude/docs/blackbox/session-log.md
 - aux/docs/k3sconf.md
 <!-- end-snapshot -->
+
+<!-- git-snapshot 2026-07-10T23:22:20Z -->
+- .claude/docs/blackbox/audit.md
+- .github/workflows/ci.yml
+- README.md
+<!-- end-snapshot -->

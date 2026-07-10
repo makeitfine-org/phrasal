@@ -166,8 +166,6 @@ jobs:
           mkdir -p ~/.kube
           printf '%s' "${{ secrets.KUBE_CONFIG }}" | base64 -d > ~/.kube/config
           chmod 600 ~/.kube/config
-          echo "kubeconfig byte count: $(wc -c < ~/.kube/config)"
-          head -5 ~/.kube/config
 
       - name: Generate prod secret patch
         env:

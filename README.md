@@ -58,6 +58,7 @@ Then open **http://localhost:3000** in your browser.
 - Java 25 (`JAVA_HOME=/usr/lib/jvm/java-25-openjdk-amd64`)
 - Docker & Docker Compose
 - PostgreSQL 16 (provided via Docker)
+- [Base64 encoder/decoder](https://www.base64decode.org/) — used to base64-encode the K3s kubeconfig for the `KUBE_CONFIG` GitHub Actions secret
 - [GitHub CLI (`gh`)](https://cli.github.com/) — install on Ubuntu:
 
 ```bash

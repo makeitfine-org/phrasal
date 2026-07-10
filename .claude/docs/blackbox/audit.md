@@ -5381,3 +5381,15 @@ Error: Process completed with exit code 1.
 ## 2026-07-10T22:46:41Z
 commit in what branch, I'm on fullstack now
 ---
+
+## 2026-07-10T23:20:11Z
+I take vps kube config file and use https://www.base64decode.org/ for encode. and it work now
+---
+
+## 2026-07-10T23:22:09Z
+Add into @README.md infor about hi encoder I used
+---
+
+## 2026-07-10T23:22:50Z
+git add all changes and commit them with suitable message
+---
