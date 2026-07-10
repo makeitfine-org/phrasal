@@ -149,6 +149,7 @@ jobs:
             ${{ secrets.DOCKER_USERNAME }}/phrasal-frontend:${{ github.sha }}
             ${{ secrets.DOCKER_USERNAME }}/phrasal-frontend:latest
 
+
   deploy:
     if: github.ref == 'refs/heads/main' && github.event_name == 'push'
     runs-on: ubuntu-latest

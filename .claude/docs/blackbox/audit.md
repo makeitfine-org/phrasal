@@ -5256,3 +5256,92 @@ Just answer no actions: What's the purpose of that "production" environment crea
 ## 2026-07-10T20:33:05Z
 Restored. Are the 5 secrets created? - Yes
 ---
+
+## 2026-07-10T21:12:22Z
+Create @docs/k3sconf.md file and right there what did you do on VPS since step 1 of k8s config up to now.
+Write in not short not long, but enough.
+---
+
+## 2026-07-10T21:24:02Z
+I see in @.github/workflows/ci.yml:
+          DB_USERNAME: ${{ secrets.DB_USERNAME }}
+          DB_PASSWORD: ${{ secrets.DB_PASSWORD }}
+
+but I didn't set the in github actions secrets.
+should I do that and how?
+---
+
+## 2026-07-10T21:24:13Z
+I see in @.github/workflows/ci.yml:
+          DB_USERNAME: ${{ secrets.DB_USERNAME }}
+          DB_PASSWORD: ${{ secrets.DB_PASSWORD }}
+
+but I didn't set the in github actions secrets.
+should I do that? if yes then how?
+---
+
+## 2026-07-10T21:27:38Z
+but what's the roll of @k8s/overlays/prod/patches/secret.yaml.example file then?
+---
+
+## 2026-07-10T21:40:37Z
+what was the purpose of creating that empty `production` env.
+---
+
+## 2026-07-10T21:41:13Z
+what was the purpose of creating that empty `production` env.
+---
+
+## 2026-07-10T21:41:20Z
+what was the purpose of creating that empty `production` env.
+---
+
+## 2026-07-10T21:41:42Z
+what was the purpose of creating that empty `production` env.
+---
+
+## 2026-07-10T21:42:16Z
+what was the purpose of creating that empty `production` environment in github .
+---
+
+## 2026-07-10T21:45:44Z
+on github actions: `Add CI/CD pipeline, ingress-tls, prod config fixes` build failed on `deploy` job.
+---
+
+## 2026-07-10T21:48:13Z
+Install last verion of `gh` on linux/ubuntu
+---
+
+## 2026-07-10T21:48:54Z
+give me the command and I run it
+---
+
+## 2026-07-10T21:49:18Z
+Install last verion of `gh` on linux/ubuntu. show commands
+---
+
+## 2026-07-10T21:51:52Z
+ sudo mkdir -p -m 755 /etc/apt/keyrings \
+&& wget -qO- https://github.com | sudo tee /etc/apt/keyrings/githubcli-archive-keyring.gpg > /dev/null \
+&& sudo chmod go+r /etc/apt/keyrings/githubcli-archive-keyring.gpg \
+&& echo "deb [arch=$(dpkg --print-architecture) signed-by=/etc/apt/keyrings/githubcli-archive-keyring.gpg] https://cli.github.com/packages stable main" | sudo tee /etc/apt/sources.list.p/github-cli.list > /dev/null
+/etc/apt/sources.list.p/github-cli.list: No such file or directory (os error 2)
+---
+
+## 2026-07-10T21:52:38Z
+��C��-��{�/bash: /etc/apt/keyrings/githubcli-archive-keyring.gpg: Permission denied
+---
+
+## 2026-07-10T21:54:31Z
+add to @README.md install last version of 'gh':
+
+(type -p wget >/dev/null || (sudo apt update && sudo apt install wget -y)) \
+&& sudo mkdir -p -m 755 /etc/apt/keyrings \
+&& out=$(mktemp) && wget -nv -O$out https://cli.github.com/packages/githubcli-archive-keyring.gpg \
+&& cat $out | sudo tee /etc/apt/keyrings/githubcli-archive-keyring.gpg > /dev/null \
+&& sudo chmod go+r /etc/apt/keyrings/githubcli-archive-keyring.gpg \
+&& sudo mkdir -p -m 755 /etc/apt/sources.list.d \
+&& echo "deb [arch=$(dpkg --print-architecture) signed-by=/etc/apt/keyrings/githubcli-archive-keyring.gpg] https://cli.github.com/packages stable main" | sudo tee /etc/apt/sources.list.d/github-cli.list > /dev/null \
+&& sudo apt update \
+&& sudo apt install gh -y
+---

@@ -4078,3 +4078,71 @@
 - k8s/overlays/prod/ingress.yaml
 - k8s/overlays/prod/kustomization.yaml
 <!-- end-snapshot -->
+
+<!-- git-snapshot 2026-07-10T21:13:56Z -->
+- .claude/docs/blackbox/audit.md
+<!-- end-snapshot -->
+
+<!-- git-snapshot 2026-07-10T21:24:33Z -->
+- .claude/docs/blackbox/audit.md
+- .claude/docs/blackbox/session-log.md
+- .github/workflows/ci.yml
+- aux/docs/k3sconf.md
+<!-- end-snapshot -->
+
+<!-- git-snapshot 2026-07-10T21:27:46Z -->
+- .claude/docs/blackbox/audit.md
+- .claude/docs/blackbox/session-log.md
+- .github/workflows/ci.yml
+- aux/docs/k3sconf.md
+<!-- end-snapshot -->
+
+<!-- git-snapshot 2026-07-10T21:42:22Z -->
+- .claude/docs/blackbox/audit.md
+- .claude/docs/blackbox/session-log.md
+- .github/workflows/ci.yml
+- aux/docs/k3sconf.md
+<!-- end-snapshot -->
+
+<!-- git-snapshot 2026-07-10T21:48:40Z -->
+- .claude/docs/blackbox/audit.md
+- .claude/docs/blackbox/session-log.md
+- .github/workflows/ci.yml
+- aux/docs/k3sconf.md
+<!-- end-snapshot -->
+
+<!-- git-snapshot 2026-07-10T21:48:57Z -->
+- .claude/docs/blackbox/audit.md
+- .claude/docs/blackbox/session-log.md
+- .github/workflows/ci.yml
+- aux/docs/k3sconf.md
+<!-- end-snapshot -->
+
+<!-- git-snapshot 2026-07-10T21:49:22Z -->
+- .claude/docs/blackbox/audit.md
+- .claude/docs/blackbox/session-log.md
+- .github/workflows/ci.yml
+- aux/docs/k3sconf.md
+<!-- end-snapshot -->
+
+<!-- git-snapshot 2026-07-10T21:51:58Z -->
+- .claude/docs/blackbox/audit.md
+- .claude/docs/blackbox/session-log.md
+- .github/workflows/ci.yml
+- aux/docs/k3sconf.md
+<!-- end-snapshot -->
+
+<!-- git-snapshot 2026-07-10T21:52:42Z -->
+- .claude/docs/blackbox/audit.md
+- .claude/docs/blackbox/session-log.md
+- .github/workflows/ci.yml
+- aux/docs/k3sconf.md
+<!-- end-snapshot -->
+
+<!-- git-snapshot 2026-07-10T21:54:44Z -->
+- .claude/docs/blackbox/audit.md
+- .claude/docs/blackbox/session-log.md
+- .github/workflows/ci.yml
+- README.md
+- aux/docs/k3sconf.md
+<!-- end-snapshot -->
