@@ -64,6 +64,6 @@ Before marking any backend task done:
 2. Flyway migration numbered correctly (no gaps, no edits to existing files)
 3. `docker-compose.yml` reflects any new env vars or services
 4. GitHub Actions `.github/workflows/ci.yml` updated if pipeline steps changed
-5. Kubernetes manifests in `backend/k8s/` updated for deployment changes
+5. Kubernetes manifests in `k8s/base/` updated for deployment changes
 6. Follow `.claude/rules/version-bump-procedure.md` for the full Dockerfile + rebuild sequence
 7. For new or updated functionality add or update tests

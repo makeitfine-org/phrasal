@@ -14,12 +14,12 @@ build:
 
 manifests:
   rawYaml:
-    - k8s/configmap.yaml
-    - k8s/secret.yaml
-    - k8s/postgres-deployment.yaml
-    - k8s/postgres-service.yaml
-    - k8s/deployment.yaml
-    - k8s/service.yaml
+    - ../k8s/base/backend-configmap.yaml
+    - ../k8s/base/backend-secret.yaml
+    - ../k8s/base/postgres-statefulset.yaml
+    - ../k8s/base/postgres-service.yaml
+    - ../k8s/base/backend-deployment.yaml
+    - ../k8s/base/backend-service.yaml
 
 deploy:
   kubectl: {}

@@ -118,7 +118,9 @@
       "Bash(direnv status *)",
       "Read(//etc/docker/**)",
       "Bash(docker buildx *)",
-      "Bash(git reset *)"
+      "Bash(git reset *)",
+      "Bash(kubectl kustomize *)",
+      "Bash(skaffold diagnose *)"
     ]
   },
   "model": "Opus",

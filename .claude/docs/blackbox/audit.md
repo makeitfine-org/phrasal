@@ -5155,3 +5155,24 @@ I run but still see only remote cluster
 ## 2026-07-09T20:23:02Z
 works!
 ---
+
+## 2026-07-09T20:28:09Z
+I started minikube with this command: `minikube start --cpus=4 --memory=6g --driver=docker` but minikube was created with all resources available in linux for windows (20 cpu, 16 gb ram)
+---
+
+## 2026-07-09T20:31:07Z
+ docker update --cpus=4 --memory=6g minikub
+
+nothing changed
+---
+
+## 2026-07-10T15:31:00Z
+I have skaffold and use it as `skaffold dev` for development.
+Can I use it for deployment to VPS k3s, or it's better to make it with Helm? Use ansible, etc?
+What the best approach, write step by step.
+Analyze the project.
+---
+
+## 2026-07-10T18:16:34Z
+yes
+---

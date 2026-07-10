@@ -3786,3 +3786,38 @@
 - .claude/docs/blackbox/audit.md
 - ansible/README.md
 <!-- end-snapshot -->
+
+<!-- git-snapshot 2026-07-09T20:28:23Z -->
+- .claude/docs/blackbox/audit.md
+<!-- end-snapshot -->
+
+<!-- git-snapshot 2026-07-09T20:31:17Z -->
+- .claude/docs/blackbox/audit.md
+- .claude/docs/blackbox/session-log.md
+<!-- end-snapshot -->
+
+<!-- git-snapshot 2026-07-10T15:32:27Z -->
+- .claude/docs/blackbox/audit.md
+- .claude/docs/blackbox/session-log.md
+<!-- end-snapshot -->
+
+<!-- git-snapshot 2026-07-10T18:23:08Z -->
+- .claude/docs/blackbox/audit.md
+- .claude/docs/blackbox/session-log.md
+- .claude/settings.local.json
+- .gitignore
+- CLAUDE.md
+- aux/docs/useful/hatzner-k8s.txt
+- backend/CLAUDE.md
+- backend/k8s/configmap.yaml
+- backend/k8s/deployment.yaml
+- backend/k8s/postgres-deployment.yaml
+- backend/k8s/postgres-service.yaml
+- backend/k8s/secret.yaml
+- backend/k8s/service.yaml
+- backend/skaffold.yaml
+- frontend/k8s/configmap.yaml
+- frontend/k8s/deployment.yaml
+- frontend/k8s/service.yaml
+- frontend/skaffold.yaml
+<!-- end-snapshot -->

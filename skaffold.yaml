@@ -1,0 +1,8 @@
+apiVersion: skaffold/v4beta11
+kind: Config
+metadata:
+  name: phrasal
+
+requires:
+  - path: backend/skaffold.yaml
+  - path: frontend/skaffold.yaml

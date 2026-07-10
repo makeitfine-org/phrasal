@@ -240,3 +240,6 @@ e2e/playwright-report/
 e2e/.env
 .playwright-mcp
 #.envrc
+
+# K8s prod secrets (real credentials — never commit)
+k8s/overlays/prod/patches/secret.yaml
