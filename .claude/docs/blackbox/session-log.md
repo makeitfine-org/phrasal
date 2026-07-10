@@ -4146,3 +4146,65 @@
 - README.md
 - aux/docs/k3sconf.md
 <!-- end-snapshot -->
+
+<!-- git-snapshot 2026-07-10T22:02:25Z -->
+- .claude/docs/blackbox/audit.md
+<!-- end-snapshot -->
+
+<!-- git-snapshot 2026-07-10T22:05:07Z -->
+- .claude/docs/blackbox/audit.md
+- .claude/docs/blackbox/session-log.md
+<!-- end-snapshot -->
+
+<!-- git-snapshot 2026-07-10T22:07:52Z -->
+- .claude/docs/blackbox/audit.md
+- .claude/docs/blackbox/session-log.md
+<!-- end-snapshot -->
+
+<!-- git-snapshot 2026-07-10T22:12:50Z -->
+- .claude/docs/blackbox/audit.md
+- .claude/docs/blackbox/session-log.md
+<!-- end-snapshot -->
+
+<!-- git-snapshot 2026-07-10T22:17:25Z -->
+- .claude/docs/blackbox/audit.md
+- .claude/docs/blackbox/session-log.md
+- aux/docs/k3sconf.md
+<!-- end-snapshot -->
+
+<!-- git-snapshot 2026-07-10T22:20:55Z -->
+- .claude/docs/blackbox/audit.md
+- .claude/docs/blackbox/session-log.md
+- aux/docs/k3sconf.md
+<!-- end-snapshot -->
+
+<!-- git-snapshot 2026-07-10T22:23:17Z -->
+- .claude/docs/blackbox/audit.md
+- .claude/docs/blackbox/session-log.md
+- aux/docs/k3sconf.md
+<!-- end-snapshot -->
+
+<!-- git-snapshot 2026-07-10T22:31:15Z -->
+- .claude/docs/blackbox/audit.md
+- .claude/docs/blackbox/session-log.md
+- aux/docs/k3sconf.md
+<!-- end-snapshot -->
+
+<!-- git-snapshot 2026-07-10T22:33:53Z -->
+- .claude/docs/blackbox/audit.md
+- .claude/docs/blackbox/session-log.md
+- aux/docs/k3sconf.md
+<!-- end-snapshot -->
+
+<!-- git-snapshot 2026-07-10T22:44:58Z -->
+- .claude/docs/blackbox/audit.md
+- .claude/docs/blackbox/session-log.md
+- .github/workflows/ci.yml
+- aux/docs/k3sconf.md
+<!-- end-snapshot -->
+
+<!-- git-snapshot 2026-07-10T22:48:07Z -->
+- .claude/docs/blackbox/audit.md
+- .claude/docs/blackbox/session-log.md
+- aux/docs/k3sconf.md
+<!-- end-snapshot -->

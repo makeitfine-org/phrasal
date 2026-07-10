@@ -140,13 +140,13 @@ frontend-test ───┘
 
 ### GitHub Secrets required
 
-| Secret | Purpose |
-|---|---|
-| `DOCKER_USERNAME` | Docker Hub username (`stingion`) |
-| `DOCKER_PASSWORD` | Docker Hub access token |
-| `KUBE_CONFIG` | Base64-encoded kubeconfig for the K3s cluster |
-| `DB_USERNAME` | PostgreSQL username for prod |
-| `DB_PASSWORD` | PostgreSQL password for prod |
+| Secret | Purpose                                                                                          |
+|---|--------------------------------------------------------------------------------------------------|
+| `DOCKER_USERNAME` | Docker Hub username (`stingion`)                                                                 |
+| `DOCKER_PASSWORD` | Docker Hub access token                                                                          |
+| `KUBE_CONFIG` | Base64-encoded kubeconfig for the K3s cluster with changed 127.0.0.1:6443 to <vpsip>:6443 inside |
+| `DB_USERNAME` | PostgreSQL username for prod                                                                     |
+| `DB_PASSWORD` | PostgreSQL password for prod                                                                     |
 
 ## Step 5 — Spring Boot Prod Profile Fix
 
@@ -178,3 +178,13 @@ The app is live and verified:
 
 - Database credentials are currently `postgres/postgres` — real prod credentials should be configured and the `DB_USERNAME` / `DB_PASSWORD` GitHub Secrets updated accordingly
 - Docker Hub PAT should be rotated periodically; ensure `DOCKER_PASSWORD` secret stays current
+
+#todo (do it in future soon):
+Regenerate kube_config sertificates:
+You should:
+1. Rotate the K3s credentials on your VPS — the simplest way is to delete the old certs and restart K3s:
+   sudo systemctl stop k3s
+   sudo rm /var/lib/rancher/k3s/server/tls/client-admin.*
+   sudo systemctl start k3s
+# K3s regenerates the certs and updates k3s.yaml
+2. Then re-export and re-encode the new kubeconfig for the GitHub secret.

@@ -5345,3 +5345,39 @@ add to @README.md install last version of 'gh':
 && sudo apt update \
 && sudo apt install gh -y
 ---
+
+## 2026-07-10T21:55:55Z
+on github actions: `Add CI/CD pipeline, ingress-tls, prod config fixes` build failed on `deploy` job.
+---
+
+## 2026-07-10T22:05:00Z
+ modified-k3s.yaml where did you take that?
+---
+
+## 2026-07-10T22:07:47Z
+so i shouldn't change /etc/rancher/k3s/k3s.yaml but only copy: /tmp/kubeconfig.yaml
+---
+
+## 2026-07-10T22:12:45Z
+I did
+---
+
+## 2026-07-10T22:16:56Z
+failed
+---
+
+## 2026-07-10T22:23:11Z
+but can you share it somewhere?
+---
+
+## 2026-07-10T22:27:25Z
+Run kubectl apply -k k8s/overlays/prod
+  kubectl apply -k k8s/overlays/prod
+  shell: /usr/bin/bash -e {0}
+error: error loading config file "/home/runner/.kube/config": illegal base64 data at input byte 288
+Error: Process completed with exit code 1.
+---
+
+## 2026-07-10T22:46:41Z
+commit in what branch, I'm on fullstack now
+---
