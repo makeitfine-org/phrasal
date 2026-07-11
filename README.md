@@ -44,11 +44,32 @@ Then open **http://localhost:3000** in your browser.
 
 ## Services
 
-| Service | Port | Description |
-|---|---|---|
-| `postgres` | 5432 | PostgreSQL 16 database (`phrasaldb`) |
-| `app` | 8080 | Spring Boot REST API |
-| `frontend` | 3000 | React SPA served by Nginx |
+| Service | Port | Override env var | Description |
+|---|---|---|---|
+| `postgres` | 5432 | `POSTGRES_PORT` | PostgreSQL 16 database (`phrasaldb`) |
+| `app` | 8080 | `BACKEND_PORT` | Spring Boot REST API |
+| `frontend` | 3000 | `FRONTEND_PORT` | React SPA served by Nginx |
+
+Override a port if it's already in use on your machine:
+
+```bash
+FRONTEND_PORT=3001 docker compose up
+```
+
+Auto-detect busy ports (falls back to a random free port, keeps default if available):
+
+```bash
+export POSTGRES_PORT=$(ss -tlnp | grep -q ':5432 ' && echo "0" || echo "5432")
+export BACKEND_PORT=$(ss -tlnp | grep -q ':8080 ' && echo "0" || echo "8080")
+export FRONTEND_PORT=$(ss -tlnp | grep -q ':3000 ' && echo "0" || echo "3000")
+docker compose up
+```
+
+Find the assigned port if it was auto-picked:
+
+```bash
+docker compose port frontend 80
+```
 
 ---
 

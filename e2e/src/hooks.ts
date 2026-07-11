@@ -21,7 +21,7 @@ AfterAll(async function () {
 });
 
 Before(function () {
-    this.apiClient = new ApiClient(process.env.API_BASE_URL || 'http://localhost:8080');
+    this.apiClient = new ApiClient(`http://localhost:${process.env.BACKEND_PORT || '8080'}`);
     this.lastResponse = null;
     this.browser = browser;
     this.page = null;

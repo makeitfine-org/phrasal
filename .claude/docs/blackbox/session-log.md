@@ -4380,3 +4380,55 @@
 - .claude/docs/blackbox/audit.md
 - README.md
 <!-- end-snapshot -->
+
+<!-- git-snapshot 2026-07-11T16:10:33Z -->
+- .claude/docs/blackbox/audit.md
+- README.md
+- docker-compose.yml
+<!-- end-snapshot -->
+
+<!-- git-snapshot 2026-07-11T16:11:49Z -->
+- .claude/docs/blackbox/audit.md
+- .claude/docs/blackbox/plans/2026-07-11 18:09 Make docker-compose ports configurable via env vars.md
+- .claude/docs/blackbox/session-log.md
+- README.md
+- docker-compose.yml
+<!-- end-snapshot -->
+
+<!-- git-snapshot 2026-07-11T16:12:45Z -->
+- .claude/docs/blackbox/audit.md
+- .claude/docs/blackbox/plans/2026-07-11 18:09 Make docker-compose ports configurable via env vars.md
+- .claude/docs/blackbox/session-log.md
+- README.md
+- docker-compose.yml
+<!-- end-snapshot -->
+
+<!-- git-snapshot 2026-07-11T16:14:10Z -->
+- .claude/docs/blackbox/audit.md
+- .claude/docs/blackbox/plans/2026-07-11 18:09 Make docker-compose ports configurable via env vars.md
+- .claude/docs/blackbox/session-log.md
+- README.md
+- docker-compose.yml
+<!-- end-snapshot -->
+
+<!-- git-snapshot 2026-07-11T16:19:24Z -->
+- .claude/docs/blackbox/audit.md
+- .claude/docs/blackbox/plans/2026-07-11 18:09 Make docker-compose ports configurable via env vars.md
+- .claude/docs/blackbox/session-log.md
+- README.md
+- docker-compose.yml
+<!-- end-snapshot -->
+
+<!-- git-snapshot 2026-07-11T16:21:51Z -->
+- .claude/docs/blackbox/audit.md
+- .claude/docs/blackbox/plans/2026-07-11 18:09 Make docker-compose ports configurable via env vars.md
+- .claude/docs/blackbox/session-log.md
+- .github/workflows/ci.yml
+- README.md
+- docker-compose.yml
+- e2e/.env.example
+- e2e/README.md
+- e2e/src/hooks.ts
+- e2e/src/steps/frontend.steps.ts
+- e2e/src/support/db-client.ts
+<!-- end-snapshot -->

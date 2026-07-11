@@ -5709,3 +5709,49 @@ release tag should be: v[0-9]+.[0-9]+.[0-9]+
 ## 2026-07-11T16:04:22Z
 Add to release the description
 ---
+
+## 2026-07-11T16:07:40Z
+If it run docker compose with
+
+  frontend:
+    build:
+      context: ./frontend
+      dockerfile: Dockerfile
+    image: phrasal-frontend
+    container_name: frontend
+    depends_on:
+      app:
+        condition: service_healthy
+    ports:
+      - "3000:80"
+    networks:
+      - app-network
+    restart: unless-stopped
+
+but port 3000 is busy by other application, with docker compose fail?
+---
+
+## 2026-07-11T16:11:40Z
+Can the forward port be chooses dynamicly?
+---
+
+## 2026-07-11T16:12:37Z
+by can it be set default 80 but if busy the dynamicly
+---
+
+## 2026-07-11T16:13:59Z
+Add it to readme
+---
+
+## 2026-07-11T16:18:19Z
+how consider this "POSTGRES_PORT
+BACKEND_PORT
+FRONTEND_PORT" env. vars if it's set in `e2e`?
+---
+
+## 2026-07-11T16:21:17Z
+in `e2e` rename them to:
+POSTGRES_PORT
+BACKEND_PORT
+FRONTEND_PORT
+---

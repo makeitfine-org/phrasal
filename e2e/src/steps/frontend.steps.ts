@@ -2,7 +2,7 @@ import { Given, When, Then } from '@cucumber/cucumber';
 import { strict as assert } from 'assert';
 import { PhrasalWorld } from '../world';
 
-const FRONTEND_URL = process.env.FRONTEND_URL || 'http://localhost:3000';
+const FRONTEND_URL = `http://localhost:${process.env.FRONTEND_PORT || '3000'}`;
 
 Given('the browser is open', async function (this: PhrasalWorld) {
     this.page = await this.browser!.newPage();

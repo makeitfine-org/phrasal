@@ -114,10 +114,10 @@ All values are read from environment variables (loaded via `dotenv` from `.env`)
 
 | Variable | Default | Description |
 |---|---|---|
-| `FRONTEND_URL` | `http://localhost:3000` | SPA base URL for Playwright |
-| `API_BASE_URL` | `http://localhost:8080` | Backend base URL for Axios |
+| `FRONTEND_PORT` | `3000` | Frontend port (Playwright navigates to `http://localhost:<port>`) |
+| `BACKEND_PORT` | `8080` | Backend port (API client uses `http://localhost:<port>`) |
+| `POSTGRES_PORT` | `5432` | Postgres port |
 | `DB_HOST` | `localhost` | Postgres host |
-| `DB_PORT` | `5432` | Postgres port |
 | `DB_NAME` | `phrasaldb` | Database name |
 | `DB_USER` | `postgres` | Database user |
 | `DB_PASSWORD` | `postgres` | Database password |
