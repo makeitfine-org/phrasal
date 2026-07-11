@@ -4236,3 +4236,19 @@
 - .claude/docs/blackbox/audit.md
 - .claude/docs/blackbox/session-log.md
 <!-- end-snapshot -->
+
+<!-- git-snapshot 2026-07-11T12:19:37Z -->
+- .claude/docs/blackbox/audit.md
+- ansible-bare/inventory/group_vars/all.yml
+- ansible-bare/roles/deploy/defaults/main.yml
+- backend/src/main/resources/application-prod.yml
+<!-- end-snapshot -->
+
+<!-- git-snapshot 2026-07-11T12:31:00Z -->
+- .claude/docs/blackbox/audit.md
+- .claude/docs/blackbox/session-log.md
+- ansible-bare/inventory/group_vars/all.yml
+- ansible-bare/roles/deploy/defaults/main.yml
+- backend/src/main/resources/application-prod.yml
+- backend/src/main/resources/application-vpsprod.yml
+<!-- end-snapshot -->

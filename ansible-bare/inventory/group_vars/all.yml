@@ -30,4 +30,4 @@ app_dir: /opt/phrasal
 web_dir: /var/www/phrasal
 java_xms: 128m
 java_xmx: 256m
-spring_profile: prod
+spring_profile: vpsprod

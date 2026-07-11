@@ -5428,3 +5428,31 @@ stringData:
 
 it's seems exposed? or it's not a problem, and readl secrets is changed on prod vps while deploying?
 ---
+
+## 2026-07-11T12:17:36Z
+After intro k8s configs for VPS and dev and updateing ansible
+my previosly configured `prod` with @ansible-bare/ doesn't response on `https://outphrasal.ddns.net`,
+it shows 404 error.
+So how to fix that issue? what should be redeployed?
+So separate that in @backend/src/main/resources/ the `application-vpsprod.yaml` and use that it @ansible-bare/.
+---
+
+## 2026-07-11T12:30:17Z
+    url: ${DATABASE_URL:jdbc:postgresql://localhost:25432/phrasaldb}
+    username: ${DATABASE_USER:phrasaluser}
+    password: ${DATABASE_PASSWORD:phrasalpass}
+
+port: ${SERVER_PORT:8080}
+
+Is there sense, these all are rewritten.
+---
+
+## 2026-07-11T12:30:54Z
+    url: ${DATABASE_URL:jdbc:postgresql://localhost:25432/phrasaldb}
+    username: ${DATABASE_USER:phrasaluser}
+    password: ${DATABASE_PASSWORD:phrasalpass}
+
+port: ${SERVER_PORT:8080}
+
+Is there sense, these all are rewritten. (just question, do nothing)
+---

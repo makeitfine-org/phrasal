@@ -7,7 +7,7 @@ app_dir: /opt/phrasal
 web_dir: /var/www/phrasal
 java_xms: 128m
 java_xmx: 256m
-spring_profile: prod
+spring_profile: vpsprod
 domain: outphrasal.ddns.net
 certbot_email: x7warrio@gmail.com
 local_jar_dir: "{{ project_root }}/backend/target"
