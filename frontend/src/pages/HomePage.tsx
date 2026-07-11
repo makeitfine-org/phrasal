@@ -8,7 +8,7 @@ export default function HomePage() {
         English Tutorial
       </h1>
       <p className="text-gray-500 dark:text-gray-400 mb-10 text-lg">
-        Choose an exercise to practice
+        Select an exercise to practice
       </p>
 
       <div className="flex flex-col gap-4 w-full max-w-sm">

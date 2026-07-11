@@ -53,7 +53,7 @@ describe('HomePage', () => {
 
   it('renders the subtitle text', () => {
     renderHomePage();
-    expect(screen.getByText('Choose an exercise to practice')).toBeInTheDocument();
+    expect(screen.getByText('Select an exercise to practice')).toBeInTheDocument();
   });
 
   it('renders the Grammar link card', () => {
