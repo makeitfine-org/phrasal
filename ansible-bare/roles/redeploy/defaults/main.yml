@@ -1,3 +1,0 @@
----
-local_jar_dir: "{{ project_root }}/backend/target"
-local_dist_dir: "{{ project_root }}/frontend/dist"

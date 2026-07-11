@@ -1,6 +1,0 @@
----
-- name: Install Java 25 JRE
-  ansible.builtin.apt:
-    name: openjdk-25-jre-headless
-    state: present
-    update_cache: true

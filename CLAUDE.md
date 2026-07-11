@@ -8,7 +8,6 @@ frontend/   → React 18 + Vite SPA        (see frontend/CLAUDE.md)
 e2e/        → Cucumber + Playwright acceptance tests (see e2e/CLAUDE.md)
 k8s/        → Kustomize manifests (base + dev/prod overlays)
 ansible/    → Ansible K3s provisioning
-ansible-bare/ → Ansible bare-metal VPS deployment
 docker-compose.yml → postgres:5432, backend:8080, frontend:3000
 skaffold.yaml → Root Skaffold config (composes backend + frontend)
 ```

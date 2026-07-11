@@ -4298,3 +4298,54 @@
 - .claude/docs/blackbox/session-log.md
 - aux/docs/useful/hatzner-vps.txt
 <!-- end-snapshot -->
+
+## 2026-07-11T14:16:00Z
+### Decisions
+- Consolidated to K8s-only deployment on Hetzner VPS (116.203.78.118)
+- Ran ansible-bare undeploy playbook to remove systemd service, nginx config, app/web dirs, PostgreSQL
+- Stopped and disabled nginx so Traefik owns ports 80/443 exclusively
+- Restarted Traefik deployment to reclaim ports after nginx removal
+- Deleted `application-vpsprod.yml` — dead config with no remaining consumers
+- ansible-bare/ kept in repo as reference but no longer deployed
+### Constraints Stated by User
+- K8s-only pattern chosen over dual deployment (ansible-bare + K3s) on single VPS
+### Files Modified
+- backend/src/main/resources/application-vpsprod.yml — deleted (dead vpsprod Spring profile)
+### Deferred
+- outphrasal.ddns.net domain not added to K8s Ingress (user did not request it)
+---
+
+<!-- git-snapshot 2026-07-11T14:42:06Z -->
+- .claude/docs/blackbox/audit.md
+- .claude/docs/blackbox/session-log.md
+- backend/src/main/resources/application-vpsprod.yml
+<!-- end-snapshot -->
+
+<!-- git-snapshot 2026-07-11T15:05:36Z -->
+- .claude/docs/blackbox/audit.md
+- .claude/docs/blackbox/session-log.md
+- backend/src/main/resources/application-vpsprod.yml
+<!-- end-snapshot -->
+
+<!-- git-snapshot 2026-07-11T15:06:53Z -->
+- .claude/docs/blackbox/audit.md
+- .claude/docs/blackbox/session-log.md
+- CLAUDE.md
+- ansible-bare/README.md
+- ansible-bare/ansible.cfg
+- ansible-bare/inventory/group_vars/all.yml
+- ansible-bare/inventory/hosts.yml
+- ansible-bare/playbooks/init-deploy.yml
+- ansible-bare/playbooks/init.yml
+- ansible-bare/playbooks/redeploy.yml
+- ansible-bare/playbooks/undeploy.yml
+- ansible-bare/roles/base_shell/files/bashrc.txt
+- ansible-bare/roles/base_shell/tasks/main.yml
+- ansible-bare/roles/base_shell/templates/secrets.sh.j2
+- ansible-bare/roles/base_user/tasks/main.yml
+- ansible-bare/roles/deploy/defaults/main.yml
+- ansible-bare/roles/deploy/handlers/main.yml
+- ansible-bare/roles/deploy/tasks/backend.yml
+- ansible-bare/roles/deploy/tasks/construct.yml
+- ansible-bare/roles/deploy/tasks/frontend.yml
+<!-- end-snapshot -->

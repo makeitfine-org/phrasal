@@ -5672,3 +5672,15 @@ But is it a good pattern to do so? or it's better to left only k3s and that's it
 ## 2026-07-11T14:03:22Z
 cleanup — undeploy ansible-bare from the VPS and consolidate to K8s-only
 ---
+
+## 2026-07-11T14:10:10Z
+cleanup — undeploy ansible-bare from the VPS and consolidate to K8s-only
+---
+
+## 2026-07-11T15:05:28Z
+What do you think about @ansible-bare/? what's to do with that?
+---
+
+## 2026-07-11T15:06:10Z
+2
+---

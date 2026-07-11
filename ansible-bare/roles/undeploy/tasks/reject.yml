@@ -1,9 +1,0 @@
----
-- name: Remove reject config
-  ansible.builtin.file:
-    path: "{{ item }}"
-    state: absent
-  loop:
-    - /etc/nginx/sites-enabled/phrasal-reject
-    - /etc/nginx/sites-available/phrasal-reject
-  notify: reload nginx
