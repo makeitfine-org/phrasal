@@ -5393,3 +5393,38 @@ Add into @README.md infor about hi encoder I used
 ## 2026-07-10T23:22:50Z
 git add all changes and commit them with suitable message
 ---
+
+## 2026-07-11T11:31:26Z
+What's the purpose of "── overlays/" in k8s?
+---
+
+## 2026-07-11T11:39:58Z
+I see on VPS (prod):
+pod/backend-65b6698978-dqhnb           1/1     Running   0          11h
+pod/phrasal-frontend-765fd9bcd-4px9h   1/1     Running   0          11h
+pod/postgres-0                         1/1     Running   0          15h
+
+not 2 pod for backend and frontend as in base. Why? Reason?
+---
+
+## 2026-07-11T11:54:06Z
+when k3s works on VPS it uses postgres and java, also some fronetend. What ports did it use for them? Did it expose them for VPS froward them outside the server?
+---
+
+## 2026-07-11T12:02:05Z
+@k8s/base/backend-secret.yaml:
+
+apiVersion: v1
+kind: Secret
+metadata:
+  name: app-secrets
+  labels:
+    app: backend
+type: Opaque
+stringData:
+  database.username: postgres
+  database.password: postgres
+
+
+it's seems exposed? or it's not a problem, and readl secrets is changed on prod vps while deploying?
+---

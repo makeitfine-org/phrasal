@@ -4214,3 +4214,25 @@
 - .github/workflows/ci.yml
 - README.md
 <!-- end-snapshot -->
+
+<!-- git-snapshot 2026-07-11T11:31:40Z -->
+- .claude/docs/blackbox/audit.md
+- k8s/base/backend-secret.yaml
+<!-- end-snapshot -->
+
+<!-- git-snapshot 2026-07-11T11:40:18Z -->
+- .claude/docs/blackbox/audit.md
+- .claude/docs/blackbox/session-log.md
+- k8s/base/backend-secret.yaml
+<!-- end-snapshot -->
+
+<!-- git-snapshot 2026-07-11T11:54:24Z -->
+- .claude/docs/blackbox/audit.md
+- .claude/docs/blackbox/session-log.md
+- k8s/base/backend-secret.yaml
+<!-- end-snapshot -->
+
+<!-- git-snapshot 2026-07-11T12:02:22Z -->
+- .claude/docs/blackbox/audit.md
+- .claude/docs/blackbox/session-log.md
+<!-- end-snapshot -->
