@@ -5922,3 +5922,15 @@ No I got this error in one of the terminal:
 make[2]: Entering directory '/home/ubuntuu/dev/mine/phrasal'
 ==============================================
 ---
+
+## 2026-07-11T18:16:38Z
+If I make a release how to undo it and rollback on prod. Write steps.
+---
+
+## 2026-07-11T18:21:11Z
+Write that to @README.md
+---
+
+## 2026-07-11T18:24:04Z
+"Do step 1 first to restore prod immediately, then clean up GitHub and Docker Hub." Add some more details
+---

@@ -305,6 +305,64 @@ Use [semantic versioning](https://semver.org/): `vMAJOR.MINOR.PATCH`
 | `MINOR` | New features, backward-compatible |
 | `MAJOR` | Breaking API changes |
 
+### Rollback a release
+
+**Step 1 — Rollback the K3s deployment** (restores previous version on prod immediately):
+
+```bash
+kubectl set image deployment/backend \
+  backend=stingion/phrasal-backend:<previous-version>
+
+kubectl set image deployment/phrasal-frontend \
+  phrasal-frontend=stingion/phrasal-frontend:<previous-version>
+
+kubectl rollout status deployment/backend --timeout=120s
+kubectl rollout status deployment/phrasal-frontend --timeout=120s
+```
+
+Or use Kubernetes' built-in rollback (reverts to the previous ReplicaSet):
+
+```bash
+kubectl rollout undo deployment/backend
+kubectl rollout undo deployment/phrasal-frontend
+```
+
+**Step 2 — Delete the GitHub release and tag:**
+
+```bash
+gh release delete v1.2.3 --yes
+git push --delete origin v1.2.3
+git tag -d v1.2.3
+```
+
+**Step 3 — (Optional) Restore the `latest` Docker Hub tag.** The bad release overwrote `latest`. To point it back:
+
+```bash
+docker pull stingion/phrasal-backend:<previous-version>
+docker tag stingion/phrasal-backend:<previous-version> stingion/phrasal-backend:latest
+docker push stingion/phrasal-backend:latest
+
+docker pull stingion/phrasal-frontend:<previous-version>
+docker tag stingion/phrasal-frontend:<previous-version> stingion/phrasal-frontend:latest
+docker push stingion/phrasal-frontend:latest
+```
+
+**Step 4 — (Optional) Revert the code** if the release included a bad commit:
+
+```bash
+git revert <bad-commit-hash>
+git push origin main
+```
+
+**Order matters**:  
+Step 1 first to restore prod immediately, then clean up GitHub and Docker Hub.   
+
+Step 3 is only needed if something else pulls `:latest`  
+— the CI pipeline always sets an explicit version tag during deploy.
+
+Step 4 is only needed if the bad release introduced code changes you want to undo on `main`;  
+if the release was just mistagged or misconfigured, deleting the tag (step 2) is enough.
+
 ### List existing releases
 
 ```bash

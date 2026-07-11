@@ -4414,3 +4414,19 @@
 - README.md
 - docker-compose.yml
 <!-- end-snapshot -->
+
+<!-- git-snapshot 2026-07-11T18:17:05Z -->
+- .claude/docs/blackbox/audit.md
+<!-- end-snapshot -->
+
+<!-- git-snapshot 2026-07-11T18:21:43Z -->
+- .claude/docs/blackbox/audit.md
+- .claude/docs/blackbox/session-log.md
+- README.md
+<!-- end-snapshot -->
+
+<!-- git-snapshot 2026-07-11T18:24:14Z -->
+- .claude/docs/blackbox/audit.md
+- .claude/docs/blackbox/session-log.md
+- README.md
+<!-- end-snapshot -->
