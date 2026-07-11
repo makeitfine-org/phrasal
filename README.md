@@ -202,19 +202,31 @@ minikube delete   # full reset
 
 ---
 
+## Production Deployment (K3s)
+
+The app runs on a Hetzner VPS with K3s, Traefik ingress, and Let's Encrypt TLS at **https://phrasal.ddns.net**.
+
+CI/CD pipeline (`.github/workflows/ci.yml`) automatically builds, tests, pushes Docker images, and deploys to the K3s cluster on every push to `main`.
+
+```
+push to main → build + test → e2e → docker push → kubectl apply -k k8s/overlays/prod
+```
+
+Infrastructure provisioning is managed by Ansible playbooks in `ansible/`. See [`ansible/README.md`](ansible/README.md) for cluster setup and [`aux/docs/k3sconf.md`](aux/docs/k3sconf.md) for the full K3s configuration reference.
+
+---
+
 ## Repository Layout
 
 ```
 backend/              → Spring Boot application (Java 25, Maven)
   src/                → source code and tests
-  k8s/                → Kubernetes manifests
   Dockerfile
   pom.xml
   skaffold.yaml
 
 frontend/             → React 18 + Vite SPA
   src/                → source code and tests
-  k8s/                → Kubernetes manifests
   Dockerfile
   nginx.conf
   skaffold.yaml
@@ -223,8 +235,20 @@ e2e/                  → Cucumber + Playwright acceptance tests
   features/           → Gherkin scenarios (API, frontend)
   src/                → step definitions and support utilities
 
+k8s/                  → Kustomize manifests (base + dev/prod overlays)
+  base/               → shared K8s resources (deployments, services, configmaps)
+  overlays/dev/       → local dev overlay (references base only)
+  overlays/prod/      → production overlay (Traefik ingress, TLS, ClusterIP patches)
+
+ansible/              → Ansible K3s provisioning and ingress-tls setup
+  roles/k3s/          → K3s install, kubeconfig, kubectl completion
+  roles/ingress-tls/  → cert-manager + Let's Encrypt ClusterIssuer
+
+aux/                  → auxiliary docs, checkstyle config, legacy scripts
+
 docker-compose.yml    → local full-stack orchestration
 Makefile              → build, test, and Docker targets
+skaffold.yaml         → root Skaffold config (composes backend + frontend)
 .github/workflows/    → GitHub Actions CI/CD
 ```
 

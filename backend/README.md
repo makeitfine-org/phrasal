@@ -26,7 +26,7 @@ Part of the full-stack **Phrasal** project. Running `docker compose up` from the
 - Java 25+
 - Maven 3.8+
 - Docker and Docker Compose
-- PostgreSQL 16 (optional — only for bare-metal local dev)
+- PostgreSQL 16 (optional — only for local dev without Docker)
 - Kubernetes cluster + Skaffold (only for k8s deployment)
 
 ---

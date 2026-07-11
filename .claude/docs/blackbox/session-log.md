@@ -4349,3 +4349,11 @@
 - ansible-bare/roles/deploy/tasks/construct.yml
 - ansible-bare/roles/deploy/tasks/frontend.yml
 <!-- end-snapshot -->
+
+<!-- git-snapshot 2026-07-11T15:13:50Z -->
+- .claude/docs/blackbox/audit.md
+- CLAUDE.md
+- README.md
+- ansible/README.md
+- backend/README.md
+<!-- end-snapshot -->
