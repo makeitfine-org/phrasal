@@ -5456,3 +5456,219 @@ port: ${SERVER_PORT:8080}
 
 Is there sense, these all are rewritten. (just question, do nothing)
 ---
+
+## 2026-07-11T12:56:03Z
+still 404 int for `https://outphrasal.ddns.net`
+I also did:
+ansible-playbook playbooks/undeploy.yml
+and then:
+`ansible-playbook playbooks/init-deploy.yml`
+---
+
+## 2026-07-11T13:21:34Z
+vpsuser@vps-h1:~$  systemctl status phrasal
+● phrasal.service - Phrasal Backend
+     Loaded: loaded (/etc/systemd/system/phrasal.service; enabled; preset: enabled)
+     Active: active (running) since Sat 2026-07-11 14:53:01 CEST; 25min ago
+   Main PID: 1083931 (java)
+      Tasks: 21 (limit: 9255)
+     Memory: 301.0M (peak: 301.5M)
+        CPU: 36.548s
+     CGroup: /system.slice/phrasal.service
+             └─1083931 /usr/bin/java -Xms128m -Xmx256m -XX:+UseSerialGC -XX:MaxMetaspaceSize=128m -jar /opt/phrasal/app.j>
+
+vpsuser@vps-h1:~$ ls -l /var/www/phrasal/
+total 20
+-rw-r--r-- 1 vpsuser vpsuser  556 Jul 11 14:40 404.html
+drwxr-xr-x 2 vpsuser vpsuser 4096 Jul 11 14:40 assets
+-rw-r--r-- 1 vpsuser vpsuser  428 Jul 11 14:40 favicon.svg
+drwxr-xr-x 3 vpsuser vpsuser 4096 Jul 11 14:40 images
+-rw-r--r-- 1 vpsuser vpsuser 1201 Jul 11 14:40 index.html
+vpsuser@vps-h1:~$ cat /etc/nginx/sites-available/phrasal
+server {
+    server_name outphrasal.ddns.net;
+
+    root /var/www/phrasal;
+    index index.html;
+
+    location / {
+        try_files $uri $uri/ /index.html;
+    }
+
+    location /api/ {
+        proxy_pass http://127.0.0.1:28080;
+        proxy_set_header Host $host;
+        proxy_set_header X-Real-IP $remote_addr;
+    }
+
+    listen 443 ssl; # managed by Certbot
+    ssl_certificate /etc/letsencrypt/live/outphrasal.ddns.net/fullchain.pem; # managed by Certbot
+    ssl_certificate_key /etc/letsencrypt/live/outphrasal.ddns.net/privkey.pem; # managed by Certbot
+    include /etc/letsencrypt/options-ssl-nginx.conf; # managed by Certbot
+    ssl_dhparam /etc/letsencrypt/ssl-dhparams.pem; # managed by Certbot
+
+}
+server {
+    if ($host = outphrasal.ddns.net) {
+        return 301 https://$host$request_uri;
+    } # managed by Certbot
+
+
+    listen 80;
+    server_name outphrasal.ddns.net;
+    return 404; # managed by Certbot
+
+
+}vpsuser@vps-h1:~$sudo journalctl -u phrasal.service -n 15 -f
+Jul 11 14:53:08 vps-h1 java[1083931]: 2026-07-11T14:53:08.934+02:00  INFO 1083931 --- [backend] [           main] o.s.o.j.p.SpringPersistenceUnitInfo      : No LoadTimeWeaver setup: ignoring JPA class transformer
+Jul 11 14:53:09 vps-h1 java[1083931]: 2026-07-11T14:53:09.053+02:00  INFO 1083931 --- [backend] [           main] org.hibernate.orm.connections.pooling    : HHH10001005: Database info:
+Jul 11 14:53:09 vps-h1 java[1083931]:         Database JDBC URL [Connecting through datasource 'HikariDataSource (HikariPool-1)']
+Jul 11 14:53:09 vps-h1 java[1083931]:         Database driver: undefined/unknown
+Jul 11 14:53:09 vps-h1 java[1083931]:         Database version: 16.14
+Jul 11 14:53:09 vps-h1 java[1083931]:         Autocommit mode: undefined/unknown
+Jul 11 14:53:09 vps-h1 java[1083931]:         Isolation level: undefined/unknown
+Jul 11 14:53:09 vps-h1 java[1083931]:         Minimum pool size: undefined/unknown
+Jul 11 14:53:09 vps-h1 java[1083931]:         Maximum pool size: undefined/unknown
+Jul 11 14:53:10 vps-h1 java[1083931]: 2026-07-11T14:53:10.402+02:00  INFO 1083931 --- [backend] [           main] o.h.e.t.j.p.i.JtaPlatformInitiator       : HHH000489: No JTA platform available (set 'hibernate.transaction.jta.platform' to enable JTA platform integration)
+Jul 11 14:53:10 vps-h1 java[1083931]: 2026-07-11T14:53:10.469+02:00  INFO 1083931 --- [backend] [           main] j.LocalContainerEntityManagerFactoryBean : Initialized JPA EntityManagerFactory for persistence unit 'default'
+Jul 11 14:53:10 vps-h1 java[1083931]: 2026-07-11T14:53:10.780+02:00  INFO 1083931 --- [backend] [           main] o.s.d.j.r.query.QueryEnhancerFactory     : Hibernate is in classpath; If applicable, HQL parser will be used.
+Jul 11 14:53:13 vps-h1 java[1083931]: 2026-07-11T14:53:13.059+02:00  INFO 1083931 --- [backend] [           main] o.s.b.a.e.web.EndpointLinksResolver      : Exposing 3 endpoints beneath base path '/actuator'
+Jul 11 14:53:13 vps-h1 java[1083931]: 2026-07-11T14:53:13.203+02:00  INFO 1083931 --- [backend] [           main] o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat started on port 28080 (http) with context path '/'
+Jul 11 14:53:13 vps-h1 java[1083931]: 2026-07-11T14:53:13.235+02:00  INFO 1083931 --- [backend] [           main] net.phrasal.PhrasalApplication           : Started PhrasalApplication in 10.63 seconds (process running for 11.465)
+^C
+vpsuser@vps-h1:~$ cat /etc/systemd/system/phrasal.service
+[Unit]
+Description=Phrasal Backend
+After=postgresql.service
+Requires=postgresql.service
+
+[Service]
+User=phrasal
+ExecStart=/usr/bin/java \
+  -Xms128m -Xmx256m \
+  -XX:+UseSerialGC \
+  -XX:MaxMetaspaceSize=128m \
+  -jar /opt/phrasal/app.jar \
+  --spring.profiles.active=vpsprod
+Restart=always
+
+[Install]
+WantedBy=multi-user.target
+---
+
+## 2026-07-11T13:26:59Z
+ NO still 404.
+
+  But you rememeber I have on that VPS with k3s that works fine for `https://phrasal.ddns.net`
+  using @k8s/overlays/prod/ingress.yaml 
+
+but that server use ngnix isntalled directly on VPS.
+
+Maybe that the problem they work together on VPS?
+---
+
+## 2026-07-11T13:31:19Z
+vpsuser@vps-h1:~$ sudo ss -tlnp | grep -E ':80 |:443 '
+LISTEN 0      511          0.0.0.0:80         0.0.0.0:*    users:(("nginx",pid=1083998,fd=5),("nginx",pid=1083997,fd=5),("nginx",pid=1083996,fd=5),("nginx",pid=1083995,fd=5),("nginx",pid=24072,fd=5))
+LISTEN 0      511          0.0.0.0:443        0.0.0.0:*    users:(("nginx",pid=1083998,fd=11),("nginx",pid=1083997,fd=11),("nginx",pid=1083996,fd=11),("nginx",pid=1083995,fd=11),("nginx",pid=24072,fd=11))
+LISTEN 0      511             [::]:80            [::]:*    users:(("nginx",pid=1083998,fd=6),("nginx",pid=1083997,fd=6),("nginx",pid=1083996,fd=6),("nginx",pid=1083995,fd=6),("nginx",pid=24072,fd=6))
+---
+
+## 2026-07-11T13:32:59Z
+But of k3s  `https://phrasal.ddns.net` work not `https://outphrasal.ddns.net`, remember?
+---
+
+## 2026-07-11T13:35:22Z
+sudo systemctl status nginx.service
+● nginx.service - A high performance web server and a reverse proxy server
+     Loaded: loaded (/usr/lib/systemd/system/nginx.service; enabled; preset: enabled)
+     Active: active (running) since Wed 2026-07-08 09:59:28 CEST; 3 days ago
+       Docs: man:nginx(8)
+    Process: 1083993 ExecReload=/usr/sbin/nginx -g daemon on; master_process on; -s reload (code=exited, status=0/SUCCESS)
+   Main PID: 24072 (nginx)
+      Tasks: 5 (limit: 9255)
+     Memory: 6.8M (peak: 14.9M)
+        CPU: 15.800s
+     CGroup: /system.slice/nginx.service
+             ├─  24072 "nginx: master process /usr/sbin/nginx -g daemon on; master_process on;"
+             ├─1083995 "nginx: worker process"
+             ├─1083996 "nginx: worker process"
+             ├─1083997 "nginx: worker process"
+             └─1083998 "nginx: worker process"
+
+Jul 11 14:44:24 vps-h1 systemd[1]: Reloaded nginx.service - A high performance web server and a reverse proxy server.
+Jul 11 14:48:21 vps-h1 systemd[1]: Reloading nginx.service - A high performance web server and a reverse proxy server...
+Jul 11 14:48:21 vps-h1 nginx[1080330]: 2026/07/11 14:48:21 [notice] 1080330#1080330: signal process started
+Jul 11 14:48:21 vps-h1 systemd[1]: Reloaded nginx.service - A high performance web server and a reverse proxy server.
+Jul 11 14:50:02 vps-h1 systemd[1]: Reloading nginx.service - A high performance web server and a reverse proxy server...
+Jul 11 14:50:02 vps-h1 nginx[1081453]: 2026/07/11 14:50:02 [notice] 1081453#1081453: signal process started
+Jul 11 14:50:02 vps-h1 systemd[1]: Reloaded nginx.service - A high performance web server and a reverse proxy server.
+Jul 11 14:53:03 vps-h1 systemd[1]: Reloading nginx.service - A high performance web server and a reverse proxy server...
+Jul 11 14:53:03 vps-h1 nginx[1083993]: 2026/07/11 14:53:03 [notice] 1083993#1083993: signal process started
+Jul 11 14:53:03 vps-h1 systemd[1]: Reloaded nginx.service - A high performance web server and a reverse proxy server.
+vpsuser@vps-h1:~$  ls -la /etc/nginx/sites-enabled/
+total 8
+drwxr-xr-x 2 root root 4096 Jul 11 14:52 .
+drwxr-xr-x 8 root root 4096 Jul 11 14:52 ..
+lrwxrwxrwx 1 root root   34 Jul  8 09:59 default -> /etc/nginx/sites-available/default
+lrwxrwxrwx 1 root root   34 Jul 11 14:52 phrasal -> /etc/nginx/sites-available/phrasal
+vpsuser@vps-h1:~$ curl -I https://outphrasal.ddns.net
+curl: (60) SSL certificate problem: self-signed certificate
+More details here: https://curl.se/docs/sslcerts.html
+
+curl failed to verify the legitimacy of the server and therefore could not
+establish a secure connection to it. To learn more about this situation and
+how to fix it, please visit the web page mentioned above.
+vpsuser@vps-h1:~$ curl -I http://127.0.0.1:28080/actuator/health
+HTTP/1.1 200
+Content-Type: application/vnd.spring-boot.actuator.v3+json
+Date: Sat, 11 Jul 2026 13:34:17 GMT
+
+vpsuser@vps-h1:~$  ls -la /etc/nginx/sites-enabled/
+total 8
+drwxr-xr-x 2 root root 4096 Jul 11 14:52 .
+drwxr-xr-x 8 root root 4096 Jul 11 14:52 ..
+vpsuser@vps-h1:~$ curl -I https://outphrasal.ddns.net
+curl: (60) SSL certificate problem: self-signed certificate
+More details here: https://curl.se/docs/sslcerts.html
+
+curl failed to verify the legitimacy of the server and therefore could not
+establish a secure connection to it. To learn more about this situation and
+how to fix it, please visit the web page mentioned above.
+---
+
+## 2026-07-11T13:40:38Z
+Before config k3s `https://outphrasal.ddns.net` works and was deployed with `ansible-playbook playbooks/init-deploy.yml` but after only k3s works.
+
+Analyze @k8s/ @ansible @ansible-bare/
+
+and define what to fix for the same VPS simultaniously works  `https://outphrasal.ddns.net` deployed with @ansible-bare and `https://phrasal.ddns.net` deployed with @k8s/ and @ansible playbook
+---
+
+## 2026-07-11T13:44:57Z
+Before config k3s `https://outphrasal.ddns.net` works and was deployed with `ansible-playbook playbooks/init-deploy.yml` but after only k3s works.
+
+Analyze @k8s/ @ansible @ansible-bare/
+
+and define what to fix for the same VPS simultaniously works  `https://outphrasal.ddns.net` deployed from @ansible-bare and `https://phrasal.ddns.net` deployed with @k8s/ and @ansible
+---
+
+## 2026-07-11T13:53:25Z
+But is it a good pattern to do so?
+---
+
+## 2026-07-11T13:54:57Z
+But is it a good pattern to do so? or it's better to left only k3s and that's and don't use @ansible-bare/ and second vpsprod? Analyze
+---
+
+## 2026-07-11T13:56:56Z
+But is it a good pattern to do so? or it's better to left only k3s and that's and don't use @ansible-bare/ and second vpsprod? Analyze
+---
+
+## 2026-07-11T13:57:24Z
+But is it a good pattern to do so? or it's better to left only k3s and that's it and don't use @ansible-bare/ and second vpsprod? Analyze
+---
+
+## 2026-07-11T14:03:22Z
+cleanup — undeploy ansible-bare from the VPS and consolidate to K8s-only
+---

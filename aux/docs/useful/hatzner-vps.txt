@@ -329,3 +329,78 @@
 
         Also worth checking: does your Ansible infra role re-add these ACCEPT rules on every run? If so, you'd want to update
         inventory/group_vars/all.yml to remove those ports from the firewall allow list so they don't come back.
+
+        ---
+
+         Here's the analysis of all three systems and the fix plan.
+
+          Root Cause: Port 80/443 Conflict
+
+          Both systems fight for the same ports on 116.203.78.118:
+
+          ┌───────────────────────────┬──────────────┬─────────────────────┬──────────────┐
+          │          System           │ Binds 80/443 │       Domain        │     SSL      │
+          ├───────────────────────────┼──────────────┼─────────────────────┼──────────────┤
+          │ nginx (ansible-bare)      │ Yes          │ outphrasal.ddns.net │ certbot      │
+          ├───────────────────────────┼──────────────┼─────────────────────┼──────────────┤
+          │ Traefik (K3s via ansible) │ Yes          │ phrasal.ddns.net    │ cert-manager │
+          └───────────────────────────┴──────────────┴─────────────────────┴──────────────┘
+
+          K3s config at ansible/roles/k3s/templates/config.yaml.j2 has no disable: traefik — Traefik starts by default and steals
+          ports 80/443 from nginx. Traefik has no Ingress rule for outphrasal.ddns.net → serves self-signed cert → 404.
+
+          Fix: Nginx as sole front door, disable Traefik
+
+          Make nginx handle both domains. K8s services become NodePort so nginx can reach them.
+
+          Files to change (7 changes):
+
+          1. Disable Traefik in K3s — ansible/roles/k3s/templates/config.yaml.j2
+
+          2-3. K8s services → NodePort — k8s/overlays/prod/patches/backend-service.yaml and frontend-service.yaml
+
+          4. Remove Ingress from kustomization — k8s/overlays/prod/kustomization.yaml (Traefik gone, ingress is dead code)
+
+                                                                                                                    15:45 [0/1469]
+          Root Cause: Port 80/443 Conflict
+
+          Both systems fight for the same ports on 116.203.78.118:
+
+          ┌───────────────────────────┬──────────────┬─────────────────────┬──────────────┐
+          │          System           │ Binds 80/443 │       Domain        │     SSL      │
+          ├───────────────────────────┼──────────────┼─────────────────────┼──────────────┤
+          │ nginx (ansible-bare)      │ Yes          │ outphrasal.ddns.net │ certbot      │
+          ├───────────────────────────┼──────────────┼─────────────────────┼──────────────┤
+          │ Traefik (K3s via ansible) │ Yes          │ phrasal.ddns.net    │ cert-manager │
+          └───────────────────────────┴──────────────┴─────────────────────┴──────────────┘
+
+          K3s config at ansible/roles/k3s/templates/config.yaml.j2 has no disable: traefik — Traefik starts by default and steals
+          ports 80/443 from nginx. Traefik has no Ingress rule for outphrasal.ddns.net → serves self-signed cert → 404.
+
+          Fix: Nginx as sole front door, disable Traefik
+
+          Make nginx handle both domains. K8s services become NodePort so nginx can reach them.
+
+          Files to change (7 changes):
+
+          1. Disable Traefik in K3s — ansible/roles/k3s/templates/config.yaml.j2
+
+          2-3. K8s services → NodePort — k8s/overlays/prod/patches/backend-service.yaml and frontend-service.yaml
+
+          4. Remove Ingress from kustomization — k8s/overlays/prod/kustomization.yaml (Traefik gone, ingress is dead code)
+
+          5. New nginx template for phrasal.ddns.net — proxies to K8s NodePorts
+
+          6. New deploy task to install the K8s nginx config + certbot
+
+          7. Remove phrasal.ddns.net from redirect_domains — ansible-bare/inventory/group_vars/all.yml
+
+          Result:
+
+          Internet → VPS:80/443 (nginx only)
+            ├─ outphrasal.ddns.net → static files + proxy /api/ → localhost:28080 (systemd)
+            └─ phrasal.ddns.net    → proxy / → localhost:30080 (K8s frontend NodePort)
+                                    → proxy /api → localhost:30088 (K8s backend NodePort)
+
+          Shall I implement these changes?
+
