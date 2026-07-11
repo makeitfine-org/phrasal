@@ -4430,3 +4430,18 @@
 - .claude/docs/blackbox/session-log.md
 - README.md
 <!-- end-snapshot -->
+
+<!-- git-snapshot 2026-07-11T18:58:16Z -->
+- .claude/docs/blackbox/audit.md
+- README.md
+- k8s/base/backend-deployment.yaml
+- k8s/base/frontend-deployment.yaml
+<!-- end-snapshot -->
+
+<!-- git-snapshot 2026-07-11T18:59:14Z -->
+- .claude/docs/blackbox/audit.md
+- .claude/docs/blackbox/session-log.md
+- README.md
+- k8s/base/backend-deployment.yaml
+- k8s/base/frontend-deployment.yaml
+<!-- end-snapshot -->

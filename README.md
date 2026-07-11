@@ -82,7 +82,7 @@ Terminal 1 (default ports):
 COMPOSE_PROJECT_NAME=phrasal-a POSTGRES_PORT=5432 FRONTEND_PORT=3000 BACKEND_PORT=8080 make clean build
 ```
 
-Terminal 2 (shifted ports):
+Terminal 2 (shifted ports / also using while skaffold running):
 
 ```bash
 COMPOSE_PROJECT_NAME=phrasal-b POSTGRES_PORT=5532 FRONTEND_PORT=3100 BACKEND_PORT=8180 make clean build
@@ -311,10 +311,10 @@ Use [semantic versioning](https://semver.org/): `vMAJOR.MINOR.PATCH`
 
 ```bash
 kubectl set image deployment/backend \
-  backend=stingion/phrasal-backend:<previous-version>
+  app=stingion/phrasal-backend:<previous-version>
 
 kubectl set image deployment/phrasal-frontend \
-  phrasal-frontend=stingion/phrasal-frontend:<previous-version>
+  frontend=stingion/phrasal-frontend:<previous-version>
 
 kubectl rollout status deployment/backend --timeout=120s
 kubectl rollout status deployment/phrasal-frontend --timeout=120s
@@ -331,6 +331,7 @@ kubectl rollout undo deployment/phrasal-frontend
 
 ```bash
 gh release delete v1.2.3 --yes
+--- or ---
 git push --delete origin v1.2.3
 git tag -d v1.2.3
 ```

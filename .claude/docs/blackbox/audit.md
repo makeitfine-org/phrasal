@@ -5934,3 +5934,41 @@ Write that to @README.md
 ## 2026-07-11T18:24:04Z
 "Do step 1 first to restore prod immediately, then clean up GitHub and Docker Hub." Add some more details
 ---
+
+## 2026-07-11T18:49:42Z
+why can I see on VPS prod:
+
+NAME                                   READY   STATUS    RESTARTS   AGE
+pod/backend-bd676c4c4-8bdxz            1/1     Running   0          4m15s
+pod/backend-bd676c4c4-m2ldw            1/1     Running   0          4m15s
+pod/phrasal-frontend-c4bb998df-b7l5k   1/1     Running   0          2m30s
+pod/phrasal-frontend-c4bb998df-ntptq   1/1     Running   0          2m30s
+pod/postgres-0                         1/1     Running   0          4m15s
+
+NAME                       TYPE           CLUSTER-IP       EXTERNAL-IP   PORT(S)          AGE
+service/backend            LoadBalancer   10.101.160.16    <pending>     8080:32135/TCP   4m15s
+service/kubernetes         ClusterIP      10.96.0.1        <none>        443/TCP          2d
+service/phrasal-frontend   LoadBalancer   10.100.151.147   <pending>     3000:30223/TCP   2m30s
+service/postgres-service   ClusterIP      10.105.14.49     <none>        5432/TCP         4m15s
+
+but @k8s/base/kustomization.yaml is:
+replicas:
+  - name: backend
+    count: 1
+  - name: phrasal-frontend
+    count: 1
+replicatas: 1 for each
+---
+
+## 2026-07-11T18:57:47Z
+kubectl set image deployment/backend \
+  backend=stingion/phrasal-backend:0.9.0
+error: unable to find container named "backend"
+---
+
+## 2026-07-11T18:59:03Z
+kubectl apply -k k8s/overlays/prod
+error: trouble configuring builtin PatchTransformer with config: `
+path: patches/secret.yaml
+`: failed to get the patch file from path(patches/secret.yaml): evalsymlink failure on '/home/ubuntuu/dev/mine/phrasal/k8s/overlays/prod/patches/secret.yaml' : lstat /home/ubuntuu/dev/mine/phrasal/k8s/overlays/prod/patches/secret.yaml: no such file or directory
+---
