@@ -4357,3 +4357,26 @@
 - ansible/README.md
 - backend/README.md
 <!-- end-snapshot -->
+
+<!-- git-snapshot 2026-07-11T15:57:08Z -->
+- .claude/docs/blackbox/audit.md
+<!-- end-snapshot -->
+
+<!-- git-snapshot 2026-07-11T16:00:46Z -->
+- .claude/docs/blackbox/audit.md
+- .claude/docs/blackbox/session-log.md
+- .github/workflows/ci.yml
+- README.md
+<!-- end-snapshot -->
+
+<!-- git-snapshot 2026-07-11T16:01:37Z -->
+- .claude/docs/blackbox/audit.md
+- .claude/docs/blackbox/session-log.md
+- .github/workflows/ci.yml
+- README.md
+<!-- end-snapshot -->
+
+<!-- git-snapshot 2026-07-11T16:04:35Z -->
+- .claude/docs/blackbox/audit.md
+- README.md
+<!-- end-snapshot -->

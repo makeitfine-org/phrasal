@@ -3,6 +3,7 @@ name: CI
 on:
   push:
     branches: [ "**" ]
+    tags: [ 'v[0-9]+.[0-9]+.[0-9]+' ]
   pull_request:
     branches: [ main ]
 
@@ -116,11 +117,15 @@ jobs:
           path: e2e/reports/
 
   docker-push:
-    if: github.ref == 'refs/heads/main' && github.event_name == 'push'
+    if: startsWith(github.ref, 'refs/tags/v')
     runs-on: ubuntu-latest
     needs: [e2e]
     steps:
       - uses: actions/checkout@v4
+
+      - name: Extract version from tag
+        id: version
+        run: echo "VERSION=${GITHUB_REF#refs/tags/v}" >> "$GITHUB_OUTPUT"
 
       - name: Set up Docker Buildx
         uses: docker/setup-buildx-action@v3
@@ -137,7 +142,7 @@ jobs:
           context: ./backend
           push: true
           tags: |
-            ${{ secrets.DOCKER_USERNAME }}/phrasal-backend:${{ github.sha }}
+            ${{ secrets.DOCKER_USERNAME }}/phrasal-backend:${{ steps.version.outputs.VERSION }}
             ${{ secrets.DOCKER_USERNAME }}/phrasal-backend:latest
 
       - name: Build and push frontend image
@@ -146,17 +151,21 @@ jobs:
           context: ./frontend
           push: true
           tags: |
-            ${{ secrets.DOCKER_USERNAME }}/phrasal-frontend:${{ github.sha }}
+            ${{ secrets.DOCKER_USERNAME }}/phrasal-frontend:${{ steps.version.outputs.VERSION }}
             ${{ secrets.DOCKER_USERNAME }}/phrasal-frontend:latest
 
 
   deploy:
-    if: github.ref == 'refs/heads/main' && github.event_name == 'push'
+    if: startsWith(github.ref, 'refs/tags/v')
     runs-on: ubuntu-latest
     needs: [docker-push]
     environment: production
     steps:
       - uses: actions/checkout@v4
+
+      - name: Extract version from tag
+        id: version
+        run: echo "VERSION=${GITHUB_REF#refs/tags/v}" >> "$GITHUB_OUTPUT"
 
       - name: Set up kubectl
         uses: azure/setup-kubectl@v4
@@ -187,8 +196,8 @@ jobs:
         working-directory: k8s/overlays/prod
         run: |
           kustomize edit set image \
-            ${{ secrets.DOCKER_USERNAME }}/phrasal-backend=${{ secrets.DOCKER_USERNAME }}/phrasal-backend:${{ github.sha }} \
-            ${{ secrets.DOCKER_USERNAME }}/phrasal-frontend=${{ secrets.DOCKER_USERNAME }}/phrasal-frontend:${{ github.sha }}
+            ${{ secrets.DOCKER_USERNAME }}/phrasal-backend=${{ secrets.DOCKER_USERNAME }}/phrasal-backend:${{ steps.version.outputs.VERSION }} \
+            ${{ secrets.DOCKER_USERNAME }}/phrasal-frontend=${{ secrets.DOCKER_USERNAME }}/phrasal-frontend:${{ steps.version.outputs.VERSION }}
 
       - name: Deploy to K3s
         run: kubectl apply -k k8s/overlays/prod

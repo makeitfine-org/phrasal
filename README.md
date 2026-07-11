@@ -206,13 +206,65 @@ minikube delete   # full reset
 
 The app runs on a Hetzner VPS with K3s, Traefik ingress, and Let's Encrypt TLS at **https://phrasal.ddns.net**.
 
-CI/CD pipeline (`.github/workflows/ci.yml`) automatically builds, tests, pushes Docker images, and deploys to the K3s cluster on every push to `main`.
+CI/CD pipeline (`.github/workflows/ci.yml`) runs tests on every push. Docker push and deployment only trigger on version tags (see [Releasing](#releasing)).
 
 ```
-push to main → build + test → e2e → docker push → kubectl apply -k k8s/overlays/prod
+push to any branch → build + test + e2e
+push tag v1.2.3 → build + test + e2e → docker push → kubectl apply -k k8s/overlays/prod
 ```
 
 Infrastructure provisioning is managed by Ansible playbooks in `ansible/`. See [`ansible/README.md`](ansible/README.md) for cluster setup and [`aux/docs/k3sconf.md`](aux/docs/k3sconf.md) for the full K3s configuration reference.
+
+---
+
+## Releasing
+
+Deployment to production only happens when a version tag is pushed. Pushes to `main` (and all other branches) run build + test + e2e but do **not** deploy.
+
+### Create a release
+
+```bash
+# 1. Make sure main is up to date
+git checkout main
+git pull
+
+# 2. Create a GitHub release with a description
+gh release create v1.2.3 --title "v1.2.3" --notes "
+## What's Changed
+- Added new grammar category
+- Fixed pagination bug on verb details
+"
+```
+
+This creates the tag, pushes it, and publishes a GitHub Release with the description in one step.
+
+Alternatively, create the tag manually and add the description on GitHub:
+
+```bash
+git tag -a v1.2.3 -m "Short description of the release"
+git push origin v1.2.3
+```
+
+The CI pipeline will:
+1. Run all tests (backend, frontend, e2e)
+2. Build and push Docker images tagged `1.2.3` + `latest`
+3. Deploy to the K3s cluster via `kubectl apply -k k8s/overlays/prod`
+
+### Versioning
+
+Use [semantic versioning](https://semver.org/): `vMAJOR.MINOR.PATCH`
+
+| Bump | When |
+|---|---|
+| `PATCH` | Bug fixes, dependency updates |
+| `MINOR` | New features, backward-compatible |
+| `MAJOR` | Breaking API changes |
+
+### List existing releases
+
+```bash
+git tag --sort=-v:refname
+```
 
 ---
 

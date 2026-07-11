@@ -5688,3 +5688,24 @@ What do you think about @ansible-bare/? what's to do with that?
 ## 2026-07-11T15:10:20Z
 Analyze the project and update @ansible/README.md, @README.md @Claud.md in the best way.
 ---
+
+## 2026-07-11T15:56:45Z
+I'd like to daploy on VPS only if release tag.
+What the best way and stratage to do it?
+---
+
+## 2026-07-11T15:59:02Z
+Implement option A, and add to Readme steps how to make any new release
+---
+
+## 2026-07-11T15:59:12Z
+Implement option A, and add to @README.md  steps how to make any new release
+---
+
+## 2026-07-11T16:01:25Z
+release tag should be: v[0-9]+.[0-9]+.[0-9]+
+---
+
+## 2026-07-11T16:04:22Z
+Add to release the description
+---
