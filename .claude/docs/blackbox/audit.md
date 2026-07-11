@@ -5755,3 +5755,170 @@ POSTGRES_PORT
 BACKEND_PORT
 FRONTEND_PORT
 ---
+
+## 2026-07-11T16:34:38Z
+Is it possible to change in @docker-compose.yml networks:
+  app-network:
+    driver: bridge
+to
+networks:
+  app-network
+---
+
+## 2026-07-11T16:36:21Z
+I'd like it to be not in the bridge but some their netowrk. so on each docker compose it create its own network, 
+and I could to run multiple docker compose simultaniously
+---
+
+## 2026-07-11T16:36:45Z
+I'd like it to be not in the bridge but some their netowrk. so on each docker compose it create its own network, 
+and I could to run multiple docker compose simultaniously just definin different "*_PORT" env. vars.
+---
+
+## 2026-07-11T16:40:39Z
+but if I want in parallel run `make clean build` (e2e there, how will it handle docker compose running)
+---
+
+## 2026-07-11T16:42:53Z
+yes and consider also github actions CI/CD
+---
+
+## 2026-07-11T16:48:55Z
+build + e2e on isolated ports (5532, 8180, 3100)/
+
+What the reason?
+
+I just want to run `make clean build` in paralel with different "*_PORT" env. vars
+---
+
+## 2026-07-11T16:50:32Z
+build + e2e on isolated ports (5532, 8180, 3100)/
+
+What the reason?
+
+I just want to run `make clean build` in paralel with different "*_PORT" env. vars
+---
+
+## 2026-07-11T17:08:47Z
+ COMPOSE_PROJECT_NAME=phrasal-a POSTGRES_PORT=5432 FRONTEND_PORT=3000 BACKEND_PORT=8080 docker compose up -d
+how to make docker compose down?
+---
+
+## 2026-07-11T17:12:11Z
+working?
+---
+
+## 2026-07-11T17:22:56Z
+I run in terminal 1:
+COMPOSE_PROJECT_NAME=phrasal-b POSTGRES_PORT=5532 FRONTEND_PORT=3100 BACKEND_PORT=8180 make clean build
+
+in terminal 2:
+COMPOSE_PROJECT_NAME=phrasal-b POSTGRES_PORT=5532 FRONTEND_PORT=3100 BACKEND_PORT=8180 make clean build
+
+In one of the terminal build failed, but it should work in both
+---
+
+## 2026-07-11T17:27:15Z
+Add to @README.md:
+
+I run in terminal 1:
+COMPOSE_PROJECT_NAME=phrasal-a POSTGRES_PORT=5432 FRONTEND_PORT=3000 BACKEND_PORT=8080 make clean build
+
+in terminal 2:
+COMPOSE_PROJECT_NAME=phrasal-b POSTGRES_PORT=5532 FRONTEND_PORT=3100 BACKEND_PORT=8180 make clean build
+
+work simultaneously (can be used for workdir claude usage)
+---
+
+## 2026-07-11T17:30:04Z
+should it will be added to @.github/workflows/ci.yml env:
+          COMPOSE_PROJECT_NAME: phrasal-ci?
+---
+
+## 2026-07-11T17:56:33Z
+I run in terminal 1:
+COMPOSE_PROJECT_NAME=phrasal-a POSTGRES_PORT=5432 FRONTEND_PORT=3000 BACKEND_PORT=8080 make build
+
+in terminal 2:
+COMPOSE_PROJECT_NAME=phrasal-b POSTGRES_PORT=5532 FRONTEND_PORT=3100 BACKEND_PORT=8180 make build
+
+work simultaneously but sometimes one of the terminal drop:
+
+
+> e2e@1.0.0 test
+> cucumber-js
+
+Error: Cannot find module '/home/ubuntuu/dev/mine/phrasal/e2e/node_modules/playwright-core/package.json'
+Require stack:
+- /home/ubuntuu/dev/mine/phrasal/e2e/node_modules/playwright-core/lib/coreBundle.js
+- /home/ubuntuu/dev/mine/phrasal/e2e/node_modules/playwright-core/index.js
+- /home/ubuntuu/dev/mine/phrasal/e2e/node_modules/playwright/index.js
+- /home/ubuntuu/dev/mine/phrasal/e2e/src/hooks.ts
+- /home/ubuntuu/dev/mine/phrasal/e2e/node_modules/@cucumber/cucumber/lib/try_require.js
+- /home/ubuntuu/dev/mine/phrasal/e2e/node_modules/@cucumber/cucumber/lib/api/support.js
+- /home/ubuntuu/dev/mine/phrasal/e2e/node_modules/@cucumber/cucumber/lib/api/load_support.js
+- /home/ubuntuu/dev/mine/phrasal/e2e/node_modules/@cucumber/cucumber/lib/api/index.js
+- /home/ubuntuu/dev/mine/phrasal/e2e/node_modules/@cucumber/cucumber/lib/cli/index.js
+- /home/ubuntuu/dev/mine/phrasal/e2e/node_modules/@cucumber/cucumber/lib/cli/run.js
+- /home/ubuntuu/dev/mine/phrasal/e2e/node_modules/@cucumber/cucumber/bin/cucumber.js
+    at Module.<anonymous> (node:internal/modules/cjs/loader:1519:15)
+    at Module._resolveFilename.sharedData.moduleResolveFilenameHook.installedValue [as _resolveFilename] (/home/ubuntuu/dev/mine/phrasal/e2e/node_modules/@cspotcode/source-map-support/source-map-support.js:811:30)
+    at wrapResolveFilename (node:internal/modules/cjs/loader:1073:27)
+    at defaultResolveImplForCJSLoading (node:internal/modules/cjs/loader:1097:10)
+    at resolveForCJSWithHooks (node:internal/modules/cjs/loader:1124:12)
+    at Module._load (node:internal/modules/cjs/loader:1296:5)
+    at wrapModuleLoad (node:internal/modules/cjs/loader:255:19)
+    at Module.require (node:internal/modules/cjs/loader:1619:12)
+    at require (node:internal/modules/helpers:191:16)
+    at packages/playwright-core/src/package.ts (/home/ubuntuu/dev/mine/phrasal/e2e/node_modules/playwright-core/lib/coreBundle.js:10719:19) {
+  code: 'MODULE_NOT_FOUND',
+  requireStack: [
+    '/home/ubuntuu/dev/mine/phrasal/e2e/node_modules/playwright-core/lib/coreBundle.js',
+    '/home/ubuntuu/dev/mine/phrasal/e2e/node_modules/playwright-core/index.js',
+    '/home/ubuntuu/dev/mine/phrasal/e2e/node_modules/playwright/index.js',
+    '/home/ubuntuu/dev/mine/phrasal/e2e/src/hooks.ts',
+    '/home/ubuntuu/dev/mine/phrasal/e2e/node_modules/@cucumber/cucumber/lib/try_require.js',
+    '/home/ubuntuu/dev/mine/phrasal/e2e/node_modules/@cucumber/cucumber/lib/api/support.js',
+    '/home/ubuntuu/dev/mine/phrasal/e2e/node_modules/@cucumber/cucumber/lib/api/load_support.js',
+    '/home/ubuntuu/dev/mine/phrasal/e2e/node_modules/@cucumber/cucumber/lib/api/index.js',
+    '/home/ubuntuu/dev/mine/phrasal/e2e/node_modules/@cucumber/cucumber/lib/cli/index.js',
+    '/home/ubuntuu/dev/mine/phrasal/e2e/node_modules/@cucumber/cucumber/lib/cli/run.js',
+    '/home/ubuntuu/dev/mine/phrasal/e2e/node_modules/@cucumber/cucumber/bin/cucumber.js'
+  ]
+}
+make[2]: Entering directory '/home/ubuntuu/dev/mine/phrasal'
+==============================================
+============= MESSAGE (TELEGRAM) =============
+==============================================
+---
+
+## 2026-07-11T18:08:09Z
+No I got this error in one of the terminal:
+
+[INFO] Tests run: 5, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 0.018 s -- in GlobalExceptionHandler
+[INFO] 
+[INFO] Results:
+[INFO] 
+[INFO] Tests run: 89, Failures: 0, Errors: 0, Skipped: 0
+[INFO] 
+[INFO] 
+[INFO] --- jar:3.4.2:jar (default-jar) @ backend ---
+[INFO] Building jar: /home/ubuntuu/dev/mine/phrasal/backend/target/backend-0.1.0.jar
+[INFO] 
+[INFO] --- spring-boot:3.5.9:repackage (repackage) @ backend ---
+[INFO] ------------------------------------------------------------------------
+[INFO] BUILD FAILURE
+[INFO] ------------------------------------------------------------------------
+[INFO] Total time:  25.959 s
+[INFO] Finished at: 2026-07-11T20:05:44+02:00
+[INFO] ------------------------------------------------------------------------
+[ERROR] Failed to execute goal org.springframework.boot:spring-boot-maven-plugin:3.5.9:repackage (repackage) on project backend: Execution repackage of goal org.springframework.boot:spring-boot-maven-plugin:3.5.9:repackage failed: Error reading archive file: zip END header not found -> [Help 1]                                                                                                                                                                                                 
+[ERROR] 
+[ERROR] To see the full stack trace of the errors, re-run Maven with the -e switch.
+[ERROR] Re-run Maven using the -X switch to enable full debug logging.
+[ERROR] 
+[ERROR] For more information about the errors and possible solutions, please read the following articles:
+[ERROR] [Help 1] http://cwiki.apache.org/confluence/display/MAVEN/PluginExecutionException
+make[2]: Entering directory '/home/ubuntuu/dev/mine/phrasal'
+==============================================
+---

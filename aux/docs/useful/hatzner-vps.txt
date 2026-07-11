@@ -404,3 +404,24 @@
 
           Shall I implement these changes?
 
+    ---
+
+    Same root cause — both terminals share backend/target/. Terminal 1's jar:jar writes backend-0.1.0.jar, then terminal 2
+      overwrites it mid-write while terminal 1's spring-boot:repackage is reading it, resulting in a corrupted zip.
+
+      Parallel make build from the same directory can't work — backend/target/, frontend/node_modules/, and e2e/node_modules/
+      are all shared and not safe for concurrent writes.
+
+      Two options:
+
+      1. Worktrees (recommended for Claude Code) — each worktree has its own copy of everything, so make build runs are fully
+      isolated. No changes needed.
+      2. Build once, run two stacks — run make buildBackend buildFrontend && docker compose build once, then start two stacks
+      in parallel with just docker compose up:
+      # Terminal 1
+      COMPOSE_PROJECT_NAME=phrasal-a FRONTEND_PORT=3000 BACKEND_PORT=8080 POSTGRES_PORT=5432 docker compose up -d --wait
+      # Terminal 2
+      COMPOSE_PROJECT_NAME=phrasal-b FRONTEND_PORT=3100 BACKEND_PORT=8180 POSTGRES_PORT=5532 docker compose up -d --wait
+
+      Want me to update the README parallel stacks section to reflect this? The current text suggests make build works in
+      parallel from the same directory, which it doesn't.

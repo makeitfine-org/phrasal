@@ -71,6 +71,30 @@ Find the assigned port if it was auto-picked:
 docker compose port frontend 80
 ```
 
+### Parallel Stacks
+
+Run multiple full stacks simultaneously by assigning each a unique `COMPOSE_PROJECT_NAME` and non-overlapping ports. Useful for parallel CI runs or multiple Claude Code worktrees.
+It works in `worktrees` (Claude Code parallel tasks)
+
+Terminal 1 (default ports):
+
+```bash
+COMPOSE_PROJECT_NAME=phrasal-a POSTGRES_PORT=5432 FRONTEND_PORT=3000 BACKEND_PORT=8080 make clean build
+```
+
+Terminal 2 (shifted ports):
+
+```bash
+COMPOSE_PROJECT_NAME=phrasal-b POSTGRES_PORT=5532 FRONTEND_PORT=3100 BACKEND_PORT=8180 make clean build
+```
+
+Tear down a specific stack by passing the same project name:
+
+```bash
+COMPOSE_PROJECT_NAME=phrasal-a docker compose down
+COMPOSE_PROJECT_NAME=phrasal-b docker compose down
+```
+
 ---
 
 ## Prerequisites

@@ -1,7 +1,6 @@
 services:
   postgres:
     image: postgres:16-alpine
-    container_name: phrasaldb
     environment:
       POSTGRES_DB: phrasaldb
       POSTGRES_USER: postgres
@@ -21,7 +20,6 @@ services:
       context: ./backend
       dockerfile: Dockerfile
     image: phrasal-backend
-    container_name: backend
     depends_on:
       postgres:
         condition: service_healthy
@@ -47,7 +45,6 @@ services:
       context: ./frontend
       dockerfile: Dockerfile
     image: phrasal-frontend
-    container_name: frontend
     depends_on:
       app:
         condition: service_healthy

@@ -51,7 +51,7 @@ buildFrontend:
 acceptanceTest:
 	@echo "### Running acceptance tests (phrasal) ..."
 	$(call execute_commands,\
-		cd e2e && npm ci && npm test,\
+		cd e2e && npm install && npm test,\
 		"✅ ACCEPTANCE TESTS SUCCESSFUL (phrasal) ✅",\
 		"❌ ACCEPTANCE TESTS FAILED (phrasal) ❌")
 

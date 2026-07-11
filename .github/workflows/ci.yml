@@ -96,6 +96,8 @@ jobs:
       - name: Start stack
         run: docker compose up -d --wait
         timeout-minutes: 5
+        env:
+          COMPOSE_PROJECT_NAME: phrasal-ci # not necessary in CI
 
       - name: Run e2e tests
         run: npm --prefix e2e test
