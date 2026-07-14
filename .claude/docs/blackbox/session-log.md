@@ -4556,3 +4556,12 @@
 - backend/skaffold.yaml
 - frontend/skaffold.yaml
 <!-- end-snapshot -->
+
+<!-- git-snapshot 2026-07-14T16:08:53Z -->
+- .claude/docs/blackbox/audit.md
+- e2e/cucumber.js
+- e2e/package-lock.json
+- e2e/package.json
+- frontend/package-lock.json
+- frontend/package.json
+<!-- end-snapshot -->

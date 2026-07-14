@@ -1,7 +1,7 @@
 module.exports = {
   default: {
     require: ['src/**/*.ts'],
-    requireModule: ['ts-node/register'],
+    requireModule: ['tsx/cjs'],
     format: [
       'progress-bar',
       'html:reports/cucumber.html',

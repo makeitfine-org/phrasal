@@ -6078,3 +6078,11 @@ Cleaning up...
 getting imageID for backend:v0.9.0-6-ge9d427d: Cannot connect to the Docker daemon at tcp://127.0.0.1:32769. Is the docker daemon running?
 ubuntuu@LP-BSF-EMALYSH:~/.../backend$
 ---
+
+## 2026-07-14T16:04:04Z
+Run `make clean build` and fix if necessary until it passed successfully
+---
+
+## 2026-07-14T16:12:15Z
+git add all changes and commit them with suitable message
+---
