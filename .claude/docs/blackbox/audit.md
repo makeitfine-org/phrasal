@@ -6099,3 +6099,75 @@ Invalid workflow file
 
 You have an error in your yaml syntax on line 163
 ---
+
+## 2026-07-14T16:32:10Z
+Now I've got:
+
+
+⎯⎯⎯⎯⎯⎯⎯ Failed Tests 3 ⎯⎯⎯⎯⎯⎯⎯
+
+ FAIL  src/__tests__/loading-states.test.tsx > IWishPage — loading state > shows QuizSkeleton with animate-pulse blocks while loading
+AssertionError: expected 0 to be greater than 0
+ ❯ src/__tests__/loading-states.test.tsx:49:32
+     47|     const { container } = render(<IWishPage />);
+
+     48|     const pulseBlocks = container.querySelectorAll('.animate-pulse');
+ Test Files  1 failed | 47 passed (48)
+     49|     expect(pulseBlocks.length).toBeGreaterThan(0);
+       |                                ^
+     50|   });
+     51|
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[1/3]⎯
+
+ FAIL  src/__tests__/loading-states.test.tsx > IWishPage — loading state > passes category to useGrammarEntries
+AssertionError: expected "vi.fn()" to be called with arguments: [ 'i-wish-if-only' ]
+
+Number of calls: 0
+
+ ❯ src/__tests__/loading-states.test.tsx:65:35
+     63|     });
+     64|     render(<IWishPage />);
+     65|     expect(mockUseGrammarEntries).toHaveBeenCalledWith('i-wish-if-only…
+       |                                   ^
+     66|   });
+     67|
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[2/3]⎯
+
+ FAIL  src/__tests__/loading-states.test.tsx > PhrasalVerbsListPage — loading state > shows VerbListSkeleton with animate-pulse blocks while loading
+AssertionError: expected 0 to be greater than 0
+ ❯ src/__tests__/loading-states.test.tsx:92:32
+     90|     );
+     91|     const pulseBlocks = container.querySelectorAll('.animate-pulse');
+     92|     expect(pulseBlocks.length).toBeGreaterThan(0);
+       |                                ^
+     93|   });
+     94|
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[3/3]⎯
+
+      Tests  3 failed | 1218 passed (1221)
+   Start at  16:16:32
+   Duration  49.97s (transform 756ms, setup 205ms, import 1.02s, tests 48.10s, environment 301ms)
+
+
+Error: AssertionError: expected 0 to be greater than 0
+ ❯ src/__tests__/loading-states.test.tsx:49:32
+
+
+
+Error: AssertionError: expected "vi.fn()" to be called with arguments: [ 'i-wish-if-only' ]
+
+Number of calls: 0
+
+ ❯ src/__tests__/loading-states.test.tsx:65:35
+
+
+
+Error: AssertionError: expected 0 to be greater than 0
+ ❯ src/__tests__/loading-states.test.tsx:92:32
+
+
+Error: Process completed with exit code 1.
+---
