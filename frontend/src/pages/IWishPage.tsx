@@ -1,15 +1,12 @@
 import { useGrammarEntries } from '../hooks/useGrammarEntries';
 import GrammarQuiz from '../components/GrammarQuiz';
+import QuizSkeleton from '../components/skeletons/QuizSkeleton';
 
 export default function IWishPage() {
   const { entries, loading, error } = useGrammarEntries('i-wish-if-only');
 
   if (loading) {
-    return (
-      <div className="max-w-2xl mx-auto pt-10 px-4 pb-20 text-center">
-        <p className="text-lg text-gray-600 dark:text-gray-400">Loading grammar exercises...</p>
-      </div>
-    );
+    return <QuizSkeleton />;
   }
 
   if (error || entries.length === 0) {

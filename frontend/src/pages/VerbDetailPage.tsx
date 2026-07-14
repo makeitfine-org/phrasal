@@ -1,17 +1,14 @@
 import { useParams } from 'react-router-dom';
 import VerbPageLayout from '../components/VerbPage';
 import { useVerbDetail } from '../hooks/useVerbDetail';
+import VerbDetailSkeleton from '../components/skeletons/VerbDetailSkeleton';
 
 export default function VerbDetailPage() {
   const { verb } = useParams<{ verb: string }>();
   const { title, sections, loading, error } = useVerbDetail(verb!);
 
   if (loading) {
-    return (
-      <div className="min-h-screen bg-gray-50 dark:bg-gray-950 flex items-center justify-center">
-        <p className="text-gray-500 dark:text-gray-400 text-lg">Loading...</p>
-      </div>
-    );
+    return <VerbDetailSkeleton />;
   }
 
   if (error || sections.length === 0) {

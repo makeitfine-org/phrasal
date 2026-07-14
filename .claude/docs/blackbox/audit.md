@@ -5990,3 +5990,60 @@ Meaning?
 ## 2026-07-14T13:41:43Z
 I use the repo for prod, and I think it's better to make it private, what do you think?
 ---
+
+## 2026-07-14T14:08:40Z
+Analyze the project from the frontend point of view.
+
+I don't want to see while page loading these:
+@frontend/src/pages/VerbDetailPage.tsx 
+@frontend/src/App.tsx 
+...
+etc.
+
+>Loading ...
+
+What's other alternative, or is it better not to show anything?
+---
+
+## 2026-07-14T14:12:06Z
+Yes
+---
+
+## 2026-07-14T14:26:30Z
+Cover this new added functionality with tests
+---
+
+## 2026-07-14T14:39:45Z
+Consider new changes in @e2e test.
+Eventually `make clean build` must be passed successfully
+---
+
+## 2026-07-14T14:55:01Z
+Take new changes in the code into account in the `e2e`.
+Eventually `make clean build` must be passed successfully.
+---
+
+## 2026-07-14T14:58:26Z
+<task-notification>
+<task-id>bwht1tdtw</task-id>
+<tool-use-id>toolu_016o71EKk1TFNeJsufCwDhHk</tool-use-id>
+<output-file>/tmp/claude-1000/-home-ubuntuu-dev-mine-phrasal/e52bd768-2634-4b80-a9b7-60bb214ca674/tasks/bwht1tdtw.output</output-file>
+<status>failed</status>
+<summary>Background command "Run full clean build pipeline" failed with exit code 2</summary>
+</task-notification>
+---
+
+## 2026-07-14T15:13:20Z
+<task-notification>
+<task-id>bzjg2obp6</task-id>
+<tool-use-id>toolu_019deVf1UZzAXpv7rvXNYnMp</tool-use-id>
+<output-file>/tmp/claude-1000/-home-ubuntuu-dev-mine-phrasal/e52bd768-2634-4b80-a9b7-60bb214ca674/tasks/bzjg2obp6.output</output-file>
+<status>completed</status>
+<summary>Background command "Run full clean build pipeline" completed (exit code 0)</summary>
+</task-notification>
+---
+
+## 2026-07-14T15:17:58Z
+Cover this new added functionality with e2e tests.
+Eventually `make clean build` must be passed successfully
+---

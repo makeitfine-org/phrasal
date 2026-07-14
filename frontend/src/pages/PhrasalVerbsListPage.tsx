@@ -5,6 +5,7 @@ import { SearchIcon, ExpandAllIcon, CollapseAllIcon } from '../components/Icons'
 import ListSearchModal from '../components/ListSearchModal';
 import type { ListSearchEntry } from '../data/listVerbIndex';
 import { useVerbList } from '../hooks/useVerbList';
+import VerbListSkeleton from '../components/skeletons/VerbListSkeleton';
 
 const PARTICLE_NAMES = [
   'off', 'on', 'up', 'down', 'in', 'into', 'out', 'away', 'cross / across',
@@ -32,11 +33,7 @@ export default function PhrasalVerbsListPage() {
   const [copiedVerb, setCopiedVerb] = useState<string | null>(null);
 
   if (loading) {
-    return (
-      <div className="min-h-screen bg-gray-50 dark:bg-gray-950 flex items-center justify-center">
-        <p className="text-gray-500 dark:text-gray-400 text-lg">Loading verb list...</p>
-      </div>
-    );
+    return <VerbListSkeleton />;
   }
 
   if (error) {

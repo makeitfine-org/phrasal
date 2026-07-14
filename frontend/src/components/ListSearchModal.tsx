@@ -3,6 +3,7 @@ import { XIcon } from './Icons';
 import { useFocusTrap } from '../hooks/useFocusTrap';
 import { useFuzzySearch } from '../hooks/useFuzzySearch';
 import { fetchListVerbIndex, type ListSearchEntry } from '../data/listVerbIndex';
+import ListSearchSkeleton from './skeletons/ListSearchSkeleton';
 
 interface ListSearchModalProps {
   onSelect: (entry: ListSearchEntry) => void;
@@ -115,9 +116,7 @@ export default function ListSearchModal({ onSelect, onClose, entries: entriesPro
 
         <div className="overflow-y-auto flex-1">
           {loadingEntries ? (
-            <p className="text-center text-gray-400 dark:text-gray-500 py-10 text-sm">
-              Loading...
-            </p>
+            <ListSearchSkeleton />
           ) : results.length === 0 ? (
             <p className="text-center text-gray-400 dark:text-gray-500 py-10 text-sm">
               No matches found

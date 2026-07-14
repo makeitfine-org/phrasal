@@ -128,7 +128,11 @@
       "Bash(docker context *)",
       "Bash(kubectl --context default get pods)",
       "Bash(docker build *)",
-      "Bash(kubectl --context default logs deployment/backend --tail=30)"
+      "Bash(kubectl --context default logs deployment/backend --tail=30)",
+      "Bash(sudo lsof -i :8080 -t 2>/dev/null)",
+      "Bash(docker compose ps *)",
+      "Bash(docker compose up *)",
+      "Bash(npm test *)"
     ]
   },
   "model": "Opus",

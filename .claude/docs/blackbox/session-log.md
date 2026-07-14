@@ -4461,3 +4461,91 @@
 - .claude/docs/blackbox/session-log.md
 - aux/docs/resume.yaml
 <!-- end-snapshot -->
+
+<!-- git-snapshot 2026-07-14T14:08:52Z -->
+- .claude/docs/blackbox/audit.md
+<!-- end-snapshot -->
+
+<!-- git-snapshot 2026-07-14T14:16:14Z -->
+- .claude/docs/blackbox/audit.md
+- .claude/docs/blackbox/session-log.md
+- frontend/src/App.tsx
+- frontend/src/__tests__/VerbDetailPage.test.tsx
+- frontend/src/components/ListSearchModal.tsx
+- frontend/src/pages/IWishPage.tsx
+- frontend/src/pages/PhrasalVerbsListPage.tsx
+- frontend/src/pages/VerbDetailPage.tsx
+<!-- end-snapshot -->
+
+<!-- git-snapshot 2026-07-14T14:28:56Z -->
+- .claude/docs/blackbox/audit.md
+- .claude/docs/blackbox/session-log.md
+- frontend/src/App.tsx
+- frontend/src/__tests__/VerbDetailPage.test.tsx
+- frontend/src/components/ListSearchModal.tsx
+- frontend/src/components/skeletons/ListSearchSkeleton.tsx
+- frontend/src/components/skeletons/QuizSkeleton.tsx
+- frontend/src/components/skeletons/SkeletonBlock.tsx
+- frontend/src/components/skeletons/VerbDetailSkeleton.tsx
+- frontend/src/components/skeletons/VerbListSkeleton.tsx
+- frontend/src/pages/IWishPage.tsx
+- frontend/src/pages/PhrasalVerbsListPage.tsx
+- frontend/src/pages/VerbDetailPage.tsx
+<!-- end-snapshot -->
+
+<!-- git-snapshot 2026-07-14T14:57:39Z -->
+- .claude/docs/blackbox/audit.md
+- .claude/docs/blackbox/session-log.md
+- .claude/settings.local.json
+- frontend/src/App.tsx
+- frontend/src/__tests__/VerbDetailPage.test.tsx
+- frontend/src/__tests__/loading-states.test.tsx
+- frontend/src/__tests__/skeletons.test.tsx
+- frontend/src/components/ListSearchModal.tsx
+- frontend/src/components/skeletons/ListSearchSkeleton.tsx
+- frontend/src/components/skeletons/QuizSkeleton.tsx
+- frontend/src/components/skeletons/SkeletonBlock.tsx
+- frontend/src/components/skeletons/VerbDetailSkeleton.tsx
+- frontend/src/components/skeletons/VerbListSkeleton.tsx
+- frontend/src/pages/IWishPage.tsx
+- frontend/src/pages/PhrasalVerbsListPage.tsx
+- frontend/src/pages/VerbDetailPage.tsx
+<!-- end-snapshot -->
+
+<!-- git-snapshot 2026-07-14T15:11:44Z -->
+- .claude/docs/blackbox/audit.md
+- .claude/docs/blackbox/session-log.md
+- .claude/settings.local.json
+- frontend/src/App.tsx
+- frontend/src/__tests__/VerbDetailPage.test.tsx
+- frontend/src/__tests__/loading-states.test.tsx
+- frontend/src/__tests__/skeletons.test.tsx
+- frontend/src/components/ListSearchModal.tsx
+- frontend/src/components/skeletons/ListSearchSkeleton.tsx
+- frontend/src/components/skeletons/QuizSkeleton.tsx
+- frontend/src/components/skeletons/SkeletonBlock.tsx
+- frontend/src/components/skeletons/VerbDetailSkeleton.tsx
+- frontend/src/components/skeletons/VerbListSkeleton.tsx
+- frontend/src/pages/IWishPage.tsx
+- frontend/src/pages/PhrasalVerbsListPage.tsx
+- frontend/src/pages/VerbDetailPage.tsx
+<!-- end-snapshot -->
+
+<!-- git-snapshot 2026-07-14T15:17:23Z -->
+- .claude/docs/blackbox/audit.md
+- .claude/docs/blackbox/session-log.md
+- .claude/settings.local.json
+- frontend/src/App.tsx
+- frontend/src/__tests__/VerbDetailPage.test.tsx
+- frontend/src/__tests__/loading-states.test.tsx
+- frontend/src/__tests__/skeletons.test.tsx
+- frontend/src/components/ListSearchModal.tsx
+- frontend/src/components/skeletons/ListSearchSkeleton.tsx
+- frontend/src/components/skeletons/QuizSkeleton.tsx
+- frontend/src/components/skeletons/SkeletonBlock.tsx
+- frontend/src/components/skeletons/VerbDetailSkeleton.tsx
+- frontend/src/components/skeletons/VerbListSkeleton.tsx
+- frontend/src/pages/IWishPage.tsx
+- frontend/src/pages/PhrasalVerbsListPage.tsx
+- frontend/src/pages/VerbDetailPage.tsx
+<!-- end-snapshot -->

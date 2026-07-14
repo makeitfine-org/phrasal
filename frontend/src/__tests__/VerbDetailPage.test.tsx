@@ -46,7 +46,8 @@ describe('VerbDetailPage', () => {
     });
 
     renderWithRoute('get');
-    expect(screen.getByText('Loading...')).toBeInTheDocument();
+    const skeletonBlocks = document.querySelectorAll('.animate-pulse');
+    expect(skeletonBlocks.length).toBeGreaterThan(0);
   });
 
   it('shows error state', () => {
