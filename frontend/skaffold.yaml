@@ -19,6 +19,7 @@ manifests:
     - ../k8s/base/frontend-service.yaml
 
 deploy:
+  kubeContext: minikube
   kubectl: {}
 
 portForward:

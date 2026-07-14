@@ -132,7 +132,12 @@
       "Bash(sudo lsof -i :8080 -t 2>/dev/null)",
       "Bash(docker compose ps *)",
       "Bash(docker compose up *)",
-      "Bash(npm test *)"
+      "Bash(npm test *)",
+      "Bash(kubectl cluster-info *)",
+      "Bash(kubectl config *)",
+      "Bash(skaffold build *)",
+      "Bash(unset DOCKER_HOST DOCKER_TLS_VERIFY DOCKER_CERT_PATH MINIKUBE_ACTIVE_DOCKERD)",
+      "Bash(timeout 30 skaffold dev)"
     ]
   },
   "model": "Opus",

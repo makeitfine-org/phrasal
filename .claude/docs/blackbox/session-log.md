@@ -4549,3 +4549,10 @@
 - frontend/src/pages/PhrasalVerbsListPage.tsx
 - frontend/src/pages/VerbDetailPage.tsx
 <!-- end-snapshot -->
+
+<!-- git-snapshot 2026-07-14T15:47:01Z -->
+- .claude/docs/blackbox/audit.md
+- .claude/settings.local.json
+- backend/skaffold.yaml
+- frontend/skaffold.yaml
+<!-- end-snapshot -->

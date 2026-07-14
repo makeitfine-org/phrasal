@@ -6047,3 +6047,34 @@ Eventually `make clean build` must be passed successfully.
 Cover this new added functionality with e2e tests.
 Eventually `make clean build` must be passed successfully
 ---
+
+## 2026-07-14T15:36:10Z
+Fix issues with Scaffold:
+
+ubuntuu@LP-BSF-EMALYSH:~/.../frontend$ skaffold dev
+Generating tags...
+ - phrasal-frontend -> phrasal-frontend:v0.9.0-6-ge9d427d-dirty
+Checking cache...
+ - phrasal-frontend: Error checking cache.
+Cleaning up...
+ - No resources found
+getting imageID for phrasal-frontend:v0.9.0-6-ge9d427d-dirty: Cannot connect to the Docker daemon at tcp://127.0.0.1:32769. Is the docker daemon running?
+ubuntuu@LP-BSF-EMALYSH:~/.../frontend$
+──────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────
+Generating tags...
+ - backend -> backend:v0.9.0-6-ge9d427d
+Checking cache...
+ - backend: Error checking cache.
+Cleaning up...
+ - No resources found
+getting imageID for backend:v0.9.0-6-ge9d427d: Cannot connect to the Docker daemon at tcp://127.0.0.1:32769. Is the docker daemon running?
+ubuntuu@LP-BSF-EMALYSH:~/.../backend$ skaffold dev
+Generating tags...
+ - backend -> backend:v0.9.0-6-ge9d427d
+Checking cache...
+ - backend: Error checking cache.
+Cleaning up...
+ - No resources found
+getting imageID for backend:v0.9.0-6-ge9d427d: Cannot connect to the Docker daemon at tcp://127.0.0.1:32769. Is the docker daemon running?
+ubuntuu@LP-BSF-EMALYSH:~/.../backend$
+---
