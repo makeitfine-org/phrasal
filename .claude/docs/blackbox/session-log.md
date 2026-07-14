@@ -4445,3 +4445,19 @@
 - k8s/base/backend-deployment.yaml
 - k8s/base/frontend-deployment.yaml
 <!-- end-snapshot -->
+
+<!-- git-snapshot 2026-07-13T14:06:43Z -->
+- .claude/docs/blackbox/audit.md
+<!-- end-snapshot -->
+
+<!-- git-snapshot 2026-07-14T13:24:09Z -->
+- .claude/docs/blackbox/audit.md
+- .claude/docs/blackbox/session-log.md
+- aux/docs/resume.yaml
+<!-- end-snapshot -->
+
+<!-- git-snapshot 2026-07-14T13:41:57Z -->
+- .claude/docs/blackbox/audit.md
+- .claude/docs/blackbox/session-log.md
+- aux/docs/resume.yaml
+<!-- end-snapshot -->

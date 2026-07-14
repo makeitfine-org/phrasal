@@ -5972,3 +5972,21 @@ error: trouble configuring builtin PatchTransformer with config: `
 path: patches/secret.yaml
 `: failed to get the patch file from path(patches/secret.yaml): evalsymlink failure on '/home/ubuntuu/dev/mine/phrasal/k8s/overlays/prod/patches/secret.yaml' : lstat /home/ubuntuu/dev/mine/phrasal/k8s/overlays/prod/patches/secret.yaml: no such file or directory
 ---
+
+## 2026-07-13T14:03:48Z
+Analyze the project and give (summerise) me the main technologies used in the project (backend, frontend, devops, etc) to reflect it in the CV.
+Write down it to @aux/docs/resume.yaml
+---
+
+## 2026-07-14T13:23:58Z
+Any custom Dependabot alert rules will be disabled unless GitHub Advanced Security is enabled for this repository.
+Current forks will remain public and will be detached from this repository.
+Advanced Security will be disabled.
+
+on github on change visibility of repository.
+Meaning?
+---
+
+## 2026-07-14T13:41:43Z
+I use the repo for prod, and I think it's better to make it private, what do you think?
+---

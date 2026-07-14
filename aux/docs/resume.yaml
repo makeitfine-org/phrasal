@@ -1,0 +1,67 @@
+project:
+  name: Phrasal
+  description: >
+    Full-stack vocabulary learning platform with quiz functionality,
+    deployed on Kubernetes (K3s) with automated CI/CD pipeline.
+
+backend:
+  language: Java 25
+  framework: Spring Boot 3.5.9
+  orm: Spring Data JPA / Hibernate
+  migrations: Flyway
+  mapping: MapStruct
+  validation: Jakarta Bean Validation
+  monitoring: Spring Boot Actuator
+  connection-pool: HikariCP
+  concurrency: Virtual Threads
+  testing:
+    - JUnit 5
+    - Mockito
+    - Testcontainers (PostgreSQL)
+  code-quality:
+    - JaCoCo (85% line coverage enforced)
+    - Checkstyle (custom Sun-based ruleset)
+  build: Maven
+
+frontend:
+  language: TypeScript
+  framework: React 19
+  routing: React Router 7
+  styling: Tailwind CSS 4
+  build-tool: Vite 8
+  search: Fuse.js (client-side fuzzy search)
+  testing:
+    - Vitest
+    - React Testing Library
+    - happy-dom
+
+database:
+  engine: PostgreSQL 16
+  features:
+    - JSONB columns
+    - Optimistic locking
+    - Indexed queries
+
+e2e-testing:
+  bdd: Cucumber.js (Gherkin feature files)
+  browser-automation: Playwright
+  api-testing: Axios
+  db-assertions: node-postgres (pg)
+
+devops:
+  containerization:
+    - Docker (multi-stage builds, BuildKit)
+    - Docker Compose
+  orchestration:
+    - Kubernetes (K3s) — single-node production
+    - Kustomize (base + dev/prod overlays)
+    - Skaffold (local dev loop)
+  ingress-tls:
+    - Traefik (ingress controller)
+    - cert-manager + Let's Encrypt (automated TLS)
+  provisioning: Ansible (K3s install + ingress-tls roles)
+  ci-cd:
+    - GitHub Actions (build, test, Docker push, deploy)
+    - Docker Hub (container registry)
+  hosting: Hetzner Cloud VPS
+  build-automation: GNU Make
