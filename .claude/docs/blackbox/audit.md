@@ -6086,3 +6086,16 @@ Run `make clean build` and fix if necessary until it passed successfully
 ## 2026-07-14T16:12:15Z
 git add all changes and commit them with suitable message
 ---
+
+## 2026-07-14T16:15:08Z
+I've got issue on github actions:
+
+ Check failure on line 163 in .github/workflows/ci.yml
+
+
+GitHub Actions
+/ .github/workflows/ci.yml
+Invalid workflow file
+
+You have an error in your yaml syntax on line 163
+---

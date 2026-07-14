@@ -4565,3 +4565,7 @@
 - frontend/package-lock.json
 - frontend/package.json
 <!-- end-snapshot -->
+
+<!-- git-snapshot 2026-07-14T16:15:56Z -->
+- .claude/docs/blackbox/audit.md
+<!-- end-snapshot -->
