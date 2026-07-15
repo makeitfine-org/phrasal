@@ -243,3 +243,4 @@ e2e/.env
 
 # K8s prod secrets (real credentials — never commit)
 k8s/overlays/prod/patches/secret.yaml
+.claude/worktrees
