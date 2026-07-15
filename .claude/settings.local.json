@@ -137,7 +137,11 @@
       "Bash(kubectl config *)",
       "Bash(skaffold build *)",
       "Bash(unset DOCKER_HOST DOCKER_TLS_VERIFY DOCKER_CERT_PATH MINIKUBE_ACTIVE_DOCKERD)",
-      "Bash(timeout 30 skaffold dev)"
+      "Bash(timeout 30 skaffold dev)",
+      "Bash(docker rm *)",
+      "Bash(docker network *)",
+      "Bash(docker compose *)",
+      "Bash(docker container *)"
     ]
   },
   "model": "Opus",
