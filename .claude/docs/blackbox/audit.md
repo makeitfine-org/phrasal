@@ -6198,12 +6198,15 @@ examples:
 "figure owt"
 etc.
 
+## 2026-07-15T14:58:18Z
+Analyze the best UI menu that can be added to `frontend` and add it
+
 - Cover this new functionality with UI tests
 - Cover that with e2e tests
 
 Eventually `mvn clean install` must be passed successfully
 ---
 
-## 2026-07-15T15:16:44Z
+## 2026-07-15T15:16:42Z
 Fix until `make clean build` is green
 ---

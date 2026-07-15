@@ -85,19 +85,19 @@ describe('Page reload — router renders correct page, no console errors', () =>
     expect(warnSpy).not.toHaveBeenCalled();
   });
 
-  it('reload / shows no back-to-Home button', () => {
+  it('reload / shows no navigation menu', () => {
     renderApp('/');
-    expect(screen.queryByTitle('Move to Home page')).not.toBeInTheDocument();
+    expect(screen.queryByTestId('nav-menu')).not.toBeInTheDocument();
   });
 
-  it('reload /phrasal-verbs shows the back-to-Home button', () => {
+  it('reload /phrasal-verbs shows the navigation menu', () => {
     localStorage.setItem('phrasalQuizState', JSON.stringify({
       mastered: [], excluded: [],
       history: [{ index: 0, inputValue: '', status: 'idle' }],
       currentIndex: 0, darkMode: false,
     }));
     renderApp('/phrasal-verbs');
-    expect(screen.getByTitle('Move to Home page')).toBeInTheDocument();
+    expect(screen.getByTestId('nav-menu')).toBeInTheDocument();
   });
 
   it('unknown route renders 404 page', () => {

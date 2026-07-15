@@ -83,38 +83,27 @@ describe('PageShell — dark/light toggle', () => {
   });
 });
 
-describe('PageShell — Home button', () => {
-  it('does not render the Home button on the / route', () => {
+describe('PageShell — navigation menu', () => {
+  it('does not render the nav menu on the / route', () => {
     renderWithShell('/');
-    expect(screen.queryByRole('link', { name: 'Home' })).not.toBeInTheDocument();
+    expect(screen.queryByTestId('nav-menu')).not.toBeInTheDocument();
   });
 
-  it('renders the Home button on /phrasal-verbs', () => {
+  it('renders the nav menu on /phrasal-verbs', () => {
     renderWithShell('/phrasal-verbs');
-    expect(screen.getByRole('link', { name: 'Home' })).toBeInTheDocument();
+    expect(screen.getByTestId('nav-menu')).toBeInTheDocument();
   });
 
-  it('Home button href points to /', () => {
+  it('nav menu contains a home link pointing to /', () => {
     renderWithShell('/phrasal-verbs');
-    expect(screen.getByRole('link', { name: 'Home' })).toHaveAttribute('href', '/');
+    const homeLink = screen.getByTitle('Home');
+    expect(homeLink).toHaveAttribute('href', '/');
   });
 
-  it('Home link has subtle border class', () => {
+  it('nav menu home link shows favicon image', () => {
     renderWithShell('/phrasal-verbs');
-    expect(screen.getByRole('link', { name: 'Home' })).toHaveClass('border-gray-300');
-  });
-
-  it('Home link shows favicon image instead of text', () => {
-    renderWithShell('/phrasal-verbs');
-    const img = screen.getByRole('img', { name: 'Home' });
-    expect(img).toBeInTheDocument();
-    expect(img).toHaveAttribute('src', '/favicon.svg'); // BASE_URL is '/' in test env
-  });
-
-  it('Home link contains no visible text', () => {
-    renderWithShell('/phrasal-verbs');
-    const link = screen.getByRole('link', { name: 'Home' });
-    expect(link.textContent).toBe('');
+    const img = screen.getByAltText('');
+    expect(img).toHaveAttribute('src', '/favicon.svg');
   });
 });
 

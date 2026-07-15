@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
-import { useLocation, Link } from 'react-router-dom';
+import { useLocation } from 'react-router-dom';
 import { SunIcon, MoonIcon } from './Icons';
+import NavigationMenu from './NavigationMenu';
 
 const STORAGE_KEY = 'phrasalQuizState';
 
@@ -27,17 +28,9 @@ export default function PageShell({ children }: { children: React.ReactNode }) {
       >
         Skip to content
       </a>
+      <NavigationMenu />
       <div className="fixed top-3 right-3 flex items-center gap-2 z-50">
-        <div id="verb-page-actions" />
-        {!isHome && (
-          <Link
-            to="/"
-            className="p-1.5 rounded-full bg-gray-200 dark:bg-gray-800 hover:bg-gray-300 dark:hover:bg-gray-700 transition-colors shadow-sm border border-gray-300 dark:border-gray-700 flex items-center justify-center"
-            title="Move to Home page"
-          >
-            <img src={`${import.meta.env.BASE_URL}favicon.svg`} alt="Home" className="w-5 h-5" />
-          </Link>
-        )}
+        {isHome && <div id="verb-page-actions" />}
         <button
           onClick={() => setDarkMode(d => !d)}
           className="p-2 bg-gray-200 dark:bg-gray-800 rounded-full text-gray-700 dark:text-gray-300 hover:bg-gray-300 dark:hover:bg-gray-700 transition-colors shadow-sm border border-gray-300 dark:border-gray-700"

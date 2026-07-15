@@ -4579,6 +4579,15 @@
 - .claude/docs/blackbox/session-log.md
 <!-- end-snapshot -->
 
+<!-- git-snapshot 2026-07-15T15:10:11Z -->
+- .claude/docs/blackbox/audit.md
+- .env
+- frontend/src/__tests__/PageShell.test.tsx
+- frontend/src/__tests__/routeReload.test.tsx
+- frontend/src/components/Icons.tsx
+- frontend/src/components/PageShell.tsx
+<!-- end-snapshot -->
+
 <!-- git-snapshot 2026-07-15T15:11:02Z -->
 - .claude/docs/blackbox/audit.md
 - .env
@@ -4596,4 +4605,16 @@
 - frontend/src/__tests__/SearchModal.test.tsx
 - frontend/src/__tests__/hooks/useFuzzySearch.test.ts
 - frontend/src/hooks/useFuzzySearch.ts
+<!-- end-snapshot -->
+
+<!-- git-snapshot 2026-07-15T15:33:10Z -->
+- .claude/docs/blackbox/audit.md
+- .claude/docs/blackbox/session-log.md
+- .claude/settings.local.json
+- .env
+- frontend/src/__tests__/PageShell.test.tsx
+- frontend/src/__tests__/routeReload.test.tsx
+- frontend/src/components/Icons.tsx
+- frontend/src/components/PageShell.tsx
+- frontend/vite.config.ts
 <!-- end-snapshot -->
