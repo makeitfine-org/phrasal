@@ -6179,3 +6179,16 @@ Propose a new release with description and tag step-by-step based on @README.md
 ## 2026-07-14T16:52:05Z
 run step 2 with `git tag` command
 ---
+
+## 2026-07-15T14:58:18Z
+Analyze the best UI menu that can be added to `frontend` and add it
+
+- Cover this new functionality with UI tests
+- Cover that with e2e tests
+
+Eventually `mvn clean install` must be passed successfully
+---
+
+## 2026-07-15T15:16:42Z
+Fix until `make clean build` is green
+---
