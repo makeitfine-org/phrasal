@@ -6215,3 +6215,11 @@ Fix until `make clean build` is green
 merge `workt` branch into the current and fix all merge conflicts.
 Eventually `make clean build` must be passed successfully
 ---
+
+## 2026-07-15T17:49:16Z
+Propose a new release with description and tag step-by-step based on @README.md
+---
+
+## 2026-07-15T17:54:01Z
+Run Option B
+---
