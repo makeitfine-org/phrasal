@@ -141,7 +141,8 @@
       "Bash(docker rm *)",
       "Bash(docker network *)",
       "Bash(docker compose *)",
-      "Bash(docker container *)"
+      "Bash(docker container *)",
+      "Bash(git stash *)"
     ]
   },
   "model": "Opus",

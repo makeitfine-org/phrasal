@@ -6210,3 +6210,8 @@ Eventually `mvn clean install` must be passed successfully
 ## 2026-07-15T15:16:42Z
 Fix until `make clean build` is green
 ---
+
+## 2026-07-15T17:11:44Z
+merge `workt` branch into the current and fix all merge conflicts.
+Eventually `make clean build` must be passed successfully
+---
