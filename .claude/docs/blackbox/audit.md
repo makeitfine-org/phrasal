@@ -6179,3 +6179,31 @@ Propose a new release with description and tag step-by-step based on @README.md
 ## 2026-07-14T16:52:05Z
 run step 2 with `git tag` command
 ---
+
+## 2026-07-15T14:58:16Z
+Improve search functionality for `frontend`:
+
+I want to have an ability to search not even fully contained words by parts.
+
+For example for:
+Figure out
+To understand a problem and find a solution.
+"It took the team three hours to figure out why the Java application was crashing."
+
+examples:
+"understand a problem"
+"the team three"
+"tethree"
+"te thrh"
+"figure owt"
+etc.
+
+- Cover this new functionality with UI tests
+- Cover that with e2e tests
+
+Eventually `mvn clean install` must be passed successfully
+---
+
+## 2026-07-15T15:16:44Z
+Fix until `make clean build` is green
+---

@@ -282,6 +282,35 @@ describe('SearchModal', () => {
     expect(items[0]).toBe('look up');
   });
 
+  describe('partial and tokenized search', () => {
+    const verbs: VerbEntry[] = [
+      { verb: 'figure out', definition: 'To understand a problem and find a solution', sentences: ['It took the team three hours to figure out why the Java application was crashing.'], wordsToHide: [] },
+      { verb: 'look up', definition: 'To search for information', sentences: [], wordsToHide: [] },
+      { verb: 'break down', definition: 'To stop functioning or to divide into parts', sentences: [], wordsToHide: [] },
+    ];
+
+    it('finds verbs by subsequence across word boundaries', async () => {
+      const user = userEvent.setup();
+      render(<SearchModal {...makeProps({ allVerbs: verbs })} />);
+      await user.type(screen.getByPlaceholderText('Search phrasal verbs...'), 'figout');
+      expect(screen.getByText('figure out')).toBeInTheDocument();
+    });
+
+    it('finds verbs by tokenized partial words', async () => {
+      const user = userEvent.setup();
+      render(<SearchModal {...makeProps({ allVerbs: verbs })} />);
+      await user.type(screen.getByPlaceholderText('Search phrasal verbs...'), 'fig owt');
+      expect(screen.getByText('figure out')).toBeInTheDocument();
+    });
+
+    it('finds verbs by partial definition words', async () => {
+      const user = userEvent.setup();
+      render(<SearchModal {...makeProps({ allVerbs: verbs })} />);
+      await user.type(screen.getByPlaceholderText('Search phrasal verbs...'), 'understand probl');
+      expect(screen.getByText('figure out')).toBeInTheDocument();
+    });
+  });
+
   it('has role="dialog" on the panel', () => {
     render(<SearchModal {...makeProps()} />);
     expect(screen.getByRole('dialog')).toBeInTheDocument();

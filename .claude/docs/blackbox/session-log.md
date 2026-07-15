@@ -4578,3 +4578,22 @@
 - .claude/docs/blackbox/audit.md
 - .claude/docs/blackbox/session-log.md
 <!-- end-snapshot -->
+
+<!-- git-snapshot 2026-07-15T15:11:02Z -->
+- .claude/docs/blackbox/audit.md
+- .env
+- frontend/src/__tests__/ListSearchModal.test.tsx
+- frontend/src/__tests__/SearchModal.test.tsx
+- frontend/src/__tests__/hooks/useFuzzySearch.test.ts
+- frontend/src/hooks/useFuzzySearch.ts
+<!-- end-snapshot -->
+
+<!-- git-snapshot 2026-07-15T15:25:20Z -->
+- .claude/docs/blackbox/audit.md
+- .claude/docs/blackbox/session-log.md
+- .env
+- frontend/src/__tests__/ListSearchModal.test.tsx
+- frontend/src/__tests__/SearchModal.test.tsx
+- frontend/src/__tests__/hooks/useFuzzySearch.test.ts
+- frontend/src/hooks/useFuzzySearch.ts
+<!-- end-snapshot -->

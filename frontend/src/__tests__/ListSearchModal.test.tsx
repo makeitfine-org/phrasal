@@ -186,6 +186,31 @@ describe('ListSearchModal', () => {
     expect(screen.getByText('Put off')).toBeInTheDocument();
   });
 
+  describe('partial and tokenized search', () => {
+    it('finds entries by subsequence across word boundaries', async () => {
+      const user = userEvent.setup();
+      renderModal();
+      await user.type(screen.getByPlaceholderText('Search phrasal verbs...'), 'pospon');
+      expect(screen.getByText('Put off')).toBeInTheDocument();
+    });
+
+    it('finds entries by tokenized partial words', async () => {
+      const user = userEvent.setup();
+      renderModal();
+      await user.type(screen.getByPlaceholderText('Search phrasal verbs...'), 'mak excse');
+      expect(screen.getByText('Make up')).toBeInTheDocument();
+    });
+
+    it('finds entries by partial example text', async () => {
+      const user = userEvent.setup();
+      renderModal();
+      await user.type(screen.getByPlaceholderText('Search phrasal verbs...'), 'got off');
+      const items = screen.getAllByRole('listitem');
+      expect(items.length).toBeGreaterThan(0);
+      expect(screen.getAllByText('Get off').length).toBeGreaterThan(0);
+    });
+  });
+
   it('has role="dialog" on the panel', () => {
     renderModal();
     expect(screen.getByRole('dialog')).toBeInTheDocument();

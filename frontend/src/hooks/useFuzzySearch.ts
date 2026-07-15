@@ -1,5 +1,6 @@
 import { useMemo } from 'react';
 import Fuse, { type IFuseOptions } from 'fuse.js';
+import { tokenizedSearch } from '../utils/fuzzySearch';
 
 interface UseFuzzySearchOptions<T> {
   items: T[];
@@ -20,6 +21,11 @@ export function useFuzzySearch<T>({ items, keys, query, sortByField }: UseFuzzyS
     [items, keys]
   );
 
+  const typedKeys = useMemo(
+    () => (keys as Array<{ name: keyof T & string; weight: number }>),
+    [keys]
+  );
+
   return useMemo(() => {
     const trimmed = query.trim();
     if (!trimmed) {
@@ -28,6 +34,20 @@ export function useFuzzySearch<T>({ items, keys, query, sortByField }: UseFuzzyS
         String(a[sortByField]).localeCompare(String(b[sortByField]))
       );
     }
-    return fuse.search(trimmed, { limit: 50 }).map(r => r.item);
-  }, [fuse, query, items, sortByField]);
+
+    const fuseResults = fuse.search(trimmed, { limit: 50 });
+    const fuseItems = fuseResults.map(r => r.item);
+
+    const customResults = tokenizedSearch(items, typedKeys, trimmed);
+
+    const seen = new Set<T>(fuseItems);
+    for (const { item } of customResults) {
+      if (!seen.has(item)) {
+        seen.add(item);
+        fuseItems.push(item);
+      }
+    }
+
+    return fuseItems.slice(0, 50);
+  }, [fuse, query, items, sortByField, typedKeys]);
 }

@@ -100,4 +100,36 @@ describe('useFuzzySearch', () => {
     expect(result.current).toHaveLength(items.length);
     expect(result.current).toEqual(items);
   });
+
+  it('matches subsequence across word boundaries without spaces', () => {
+    const { result } = renderHook(() =>
+      useFuzzySearch({ items, keys, query: 'tethree', sortByField: 'name' })
+    );
+    expect(result.current.length).toBeGreaterThan(0);
+    expect(result.current[0].name).toBe('figure out');
+  });
+
+  it('matches tokenized partial words with fuzzy per-token', () => {
+    const { result } = renderHook(() =>
+      useFuzzySearch({ items, keys, query: 'te thrh', sortByField: 'name' })
+    );
+    expect(result.current.length).toBeGreaterThan(0);
+    expect(result.current[0].name).toBe('figure out');
+  });
+
+  it('matches partial words from definition and example', () => {
+    const { result } = renderHook(() =>
+      useFuzzySearch({ items, keys, query: 'probl solut', sortByField: 'name' })
+    );
+    expect(result.current.length).toBeGreaterThan(0);
+    expect(result.current[0].name).toBe('figure out');
+  });
+
+  it('matches single partial token via subsequence', () => {
+    const { result } = renderHook(() =>
+      useFuzzySearch({ items, keys, query: 'fgout', sortByField: 'name' })
+    );
+    expect(result.current.length).toBeGreaterThan(0);
+    expect(result.current[0].name).toBe('figure out');
+  });
 });
