@@ -40,3 +40,7 @@ Feature: Navigation menu
     When I navigate to the phrasal verbs hub
     And I click the home link in the navigation menu
     Then I should see the heading "English Tutorial"
+
+  Scenario: Theme toggle and expand-collapse buttons do not overlap on verb list
+    When I navigate to the verb list page
+    Then the theme toggle and expand-collapse buttons should not overlap

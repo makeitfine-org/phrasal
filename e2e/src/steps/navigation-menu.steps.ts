@@ -70,3 +70,25 @@ When('I click the home link in the navigation menu', async function (this: Phras
     await this.page!.locator('[data-testid="nav-menu"] a[title="Home"]').click();
     await this.page!.waitForLoadState('networkidle');
 });
+
+Then('the theme toggle and expand-collapse buttons should not overlap', async function (this: PhrasalWorld) {
+    const themeBtn = this.page!.locator('button[title="Toggle Dark/Light Mode"]');
+    await themeBtn.waitFor({ timeout: 5000 });
+    const expandBtn = this.page!.locator('button[title="Expand all"], button[title="Collapse all"]');
+    await expandBtn.waitFor({ timeout: 5000 });
+    const themeBox = await themeBtn.boundingBox();
+    const expandBox = await expandBtn.boundingBox();
+    assert.ok(themeBox, 'Theme toggle button not found');
+    assert.ok(expandBox, 'Expand/collapse button not found');
+    const horizontalOverlap =
+        themeBox!.x < expandBox!.x + expandBox!.width &&
+        themeBox!.x + themeBox!.width > expandBox!.x;
+    const verticalOverlap =
+        themeBox!.y < expandBox!.y + expandBox!.height &&
+        themeBox!.y + themeBox!.height > expandBox!.y;
+    assert.ok(
+        !(horizontalOverlap && verticalOverlap),
+        `Buttons overlap! Theme: (${themeBox!.x}, ${themeBox!.y}, ${themeBox!.width}x${themeBox!.height}), ` +
+        `Expand: (${expandBox!.x}, ${expandBox!.y}, ${expandBox!.width}x${expandBox!.height})`
+    );
+});

@@ -4664,3 +4664,42 @@
 - CLAUDE.md
 - backlog/tasks/task-70 - Fix-overlap-between-expand-collapse-all-and-toggle-theme-buttons.md
 <!-- end-snapshot -->
+
+<!-- git-snapshot 2026-07-16T13:52:43Z -->
+- .claude/docs/blackbox/audit.md
+- backlog/tasks/task-70 - Fix-overlap-between-expand-collapse-all-and-toggle-theme-buttons.md
+- e2e/features/frontend/navigation-menu.feature
+- e2e/src/steps/navigation-menu.steps.ts
+- frontend/src/__tests__/NavigationMenu.test.tsx
+- frontend/src/components/NavigationMenu.tsx
+- frontend/src/components/PageShell.tsx
+<!-- end-snapshot -->
+
+## 2026-07-16T13:55:00Z
+### Decisions
+- Moved theme toggle into NavigationMenu on non-home pages to fix overlap with expand/collapse button
+- Theme toggle stays fixed-positioned on home page (NavigationMenu returns null there)
+- Used `flex items-center gap-2` wrapper around portal target and theme toggle for 8px spacing
+### Constraints Stated by User
+- Buttons must not be stuck together — must have a visible gap
+- `make clean build` must pass
+### Files Modified
+- frontend/src/components/NavigationMenu.tsx — added darkMode/onToggleDarkMode props, render theme toggle inline
+- frontend/src/components/PageShell.tsx — pass dark mode props to NavigationMenu, fixed toggle only on home
+- frontend/src/__tests__/NavigationMenu.test.tsx — 6 new theme toggle tests
+- e2e/features/frontend/navigation-menu.feature — overlap verification scenario
+- e2e/src/steps/navigation-menu.steps.ts — bounding-box overlap step definition
+### Deferred
+- None
+---
+
+<!-- git-snapshot 2026-07-16T14:01:35Z -->
+- .claude/docs/blackbox/audit.md
+- .claude/docs/blackbox/session-log.md
+- backlog/tasks/task-70 - Fix-overlap-between-expand-collapse-all-and-toggle-theme-buttons.md
+- e2e/features/frontend/navigation-menu.feature
+- e2e/src/steps/navigation-menu.steps.ts
+- frontend/src/__tests__/NavigationMenu.test.tsx
+- frontend/src/components/NavigationMenu.tsx
+- frontend/src/components/PageShell.tsx
+<!-- end-snapshot -->
