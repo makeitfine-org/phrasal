@@ -143,7 +143,8 @@
       "Bash(docker compose *)",
       "Bash(docker container *)",
       "Bash(git stash *)",
-      "Bash(git ls-remote *)"
+      "Bash(git ls-remote *)",
+      "mcp__backlog_md__*"
     ]
   },
   "model": "Opus",
