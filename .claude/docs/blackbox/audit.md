@@ -6292,3 +6292,20 @@ Complete the backlog.md task-71
 ## 2026-07-16T19:16:45Z
 git add all changes and commit them with suitable message
 ---
+
+## 2026-07-16T19:26:54Z
+show all open github issues and it's content with `gh` and write that all to issues.txt file
+---
+
+## 2026-07-16T19:27:26Z
+write all open github issues and it's content with `gh` and to issues.txt file
+---
+
+## 2026-07-16T19:27:52Z
+write all open github issues and it's content with `gh` and to issues.txt file.
+Just show command
+---
+
+## 2026-07-16T19:32:13Z
+read @backlog/drafts/issues.txt and for each issue create separate backlog.md task.
+---

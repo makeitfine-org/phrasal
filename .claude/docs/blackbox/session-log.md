@@ -4707,3 +4707,36 @@
 <!-- git-snapshot 2026-07-16T17:54:08Z -->
 - .claude/docs/blackbox/audit.md
 <!-- end-snapshot -->
+
+<!-- git-snapshot 2026-07-16T19:17:46Z -->
+- backlog/tasks/task-71 - Menu-should-always-be-present-on-all-pages.md
+<!-- end-snapshot -->
+
+<!-- git-snapshot 2026-07-16T19:27:57Z -->
+- .claude/docs/blackbox/audit.md
+- .claude/docs/blackbox/session-log.md
+- backlog/tasks/task-71 - Menu-should-always-be-present-on-all-pages.md
+<!-- end-snapshot -->
+
+<!-- git-snapshot 2026-07-16T19:34:29Z -->
+- .back
+- .claude/docs/blackbox/audit.md
+- .claude/docs/blackbox/session-log.md
+- backlog/drafts/issues.txt
+- backlog/tasks/task-71 - Menu-should-always-be-present-on-all-pages.md
+- backlog/tasks/task-72 - Improve-showing-while-loading.md
+- backlog/tasks/task-73 - Use-worktrees-with-Claude.md
+- backlog/tasks/task-74 - Check-repo-for-vulnerabilities.md
+- backlog/tasks/task-75 - Add-be-cut-out-for-to-quiz.md
+- backlog/tasks/task-76 - Move-to-private-GitHub-repo-docker-registry.md
+- backlog/tasks/task-77 - Introduce-English-contests-between-users.md
+- backlog/tasks/task-78 - Organize-releases-for-k8s.md
+- backlog/tasks/task-79 - Add-Ansible-tests.md
+- backlog/tasks/task-80 - Show-default-page-during-redeploy.md
+- backlog/tasks/task-81 - Write-load-tests.md
+- backlog/tasks/task-82 - Make-.jar-smaller.md
+- backlog/tasks/task-83 - Ideas-of-new-functionality.md
+- backlog/tasks/task-84 - Limit-search-results-amount.md
+- backlog/tasks/task-85 - Add-checkstyle-for-frontend-e2e.md
+- backlog/tasks/task-86 - Show-error-if-loading-exceeds-3-5-seconds.md
+<!-- end-snapshot -->
