@@ -149,7 +149,10 @@
   "model": "Opus",
   "enabledMcpjsonServers": [
     "postgres-phrasaldb",
-    "playwright"
+    "playwright",
+    "backlog.md",
+    "context7",
+    "voicemode"
   ],
   "hooks": {
     "Stop": [

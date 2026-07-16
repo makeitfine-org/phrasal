@@ -104,6 +104,12 @@ COMPOSE_PROJECT_NAME=phrasal-b docker compose down
 - Docker & Docker Compose
 - PostgreSQL 16 (provided via Docker)
 - [Base64 encoder/decoder](https://www.base64decode.org/) — used to base64-encode the K3s kubeconfig for the `KUBE_CONFIG` GitHub Actions secret
+- [Backlog.md](https://www.npmjs.com/package/backlog.md) — markdown-native task management, used as an MCP server for Claude Code:
+
+```bash
+npm i -g backlog.md
+```
+
 - [GitHub CLI (`gh`)](https://cli.github.com/) — install on Ubuntu:
 
 ```bash

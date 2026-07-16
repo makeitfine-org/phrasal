@@ -10,12 +10,42 @@
         "postgresql://postgres:postgres@localhost:5432/phrasaldb"
       ]
     },
+    "backlog.md": {
+      "type": "stdio",
+      "disabled": false,
+      "command": "backlog",
+      "args": [
+        "mcp",
+        "start"
+      ],
+      "env": {}
+    },
     "playwright": {
       "type": "stdio",
       "disabled": false,
       "command": "npx",
       "args": [
         "@playwright/mcp@latest"
+      ],
+      "env": {}
+    },
+    "context7": {
+      "type": "stdio",
+      "disabled": false,
+      "command": "npx",
+      "args": [
+        "-y",
+        "@upstash/context7-mcp"
+      ],
+      "env": {}
+    },
+    "voicemode": {
+      "type": "stdio",
+      "disabled": true,
+      "command": "uvx",
+      "args": [
+        "--refresh",
+        "voice-mode"
       ],
       "env": {}
     }

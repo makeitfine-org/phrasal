@@ -4640,3 +4640,14 @@
 - .claude/docs/blackbox/session-log.md
 - CLAUDE.md
 <!-- end-snapshot -->
+
+<!-- git-snapshot 2026-07-16T11:01:01Z -->
+- .claude/docs/blackbox/audit.md
+- README.md
+<!-- end-snapshot -->
+
+<!-- git-snapshot 2026-07-16T11:16:11Z -->
+- .claude/docs/blackbox/audit.md
+- .claude/docs/blackbox/session-log.md
+- README.md
+<!-- end-snapshot -->
