@@ -4629,3 +4629,14 @@
 - .claude/docs/blackbox/session-log.md
 - .claude/settings.local.json
 <!-- end-snapshot -->
+
+<!-- git-snapshot 2026-07-16T09:26:25Z -->
+- .claude/docs/blackbox/audit.md
+- CLAUDE.md
+<!-- end-snapshot -->
+
+<!-- git-snapshot 2026-07-16T09:27:15Z -->
+- .claude/docs/blackbox/audit.md
+- .claude/docs/blackbox/session-log.md
+- CLAUDE.md
+<!-- end-snapshot -->

@@ -41,6 +41,8 @@ Use these project skills proactively when the task matches — don't wait to be 
 - When compacting, always preserve the full list of modified files and any test commands
 - Don't change docs/blackbox/archive-*.md files
 - Don't delete anything from docs/blackbox/plans folder
+- Don't write any sensitive data (secrets, API keys, passwords, etc.) to `audit.md` or `session-log.md`; 
+  They must be replaced with ***** instead.
 
 ## Agent Selection Guide
 
@@ -85,13 +87,12 @@ Prefer `make <target>` over raw commands — targets chain steps correctly and e
 ## Delivery Checklist (cross-cutting)
 
 Before marking any task done:
-1. `docker-compose.yml` reflects any new services or env vars
-2. Root `README.md` updated if ports, services, or quick-start steps changed
-3. GitHub Actions `.github/workflows/ci.yml` updated if pipeline steps changed
-4. If Dockerfile, docker-compose, or env vars changed: `cd e2e && npm test` to confirm all scenarios still pass
-5. If any files in `backend`, `frontend`, `e2e` modules, except `CLAUDE.md` and `README.md`, were added/modified/deleted: run `make build` and confirm it passes before closing the task
-6. Every backlog task Acceptance Criteria **must** include relevant test suites passing
-7. Every backlog task which extend/modify existing codebase/functionality **must** always extend/modify tests for it
+1. `docker-compose.yml`, Skaffold, k8s configs must reflect any new relevant changes
+2. `README.md` files, `CLAUDE.md` files must reflect any new relevant changes
+3. GitHub Actions `.github/workflows/ci.yml` must reflect any new relevant changes
+4. Every backlog task which extend/modify existing codebase/functionality **must** 
+   always extend/modify unit, integration, e2e tests for it
+5Every backlog task Acceptance Criteria **must** include `- [ ] \`make clean build\` passes`
 
 
 <!-- BACKLOG.MD MCP GUIDELINES START -->

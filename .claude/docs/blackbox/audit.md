@@ -6223,3 +6223,12 @@ Propose a new release with description and tag step-by-step based on @README.md
 ## 2026-07-15T17:54:01Z
 Run Option B
 ---
+
+## 2026-07-16T09:26:15Z
+Every backlog task Acceptance Criteria **must** include `- [ ] \`make clean build\` passes`.
+Add it to @CLAUDE.md
+---
+
+## 2026-07-16T09:27:00Z
+You did a mistake, don't you see?
+---
