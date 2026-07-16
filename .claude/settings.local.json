@@ -144,7 +144,10 @@
       "Bash(docker container *)",
       "Bash(git stash *)",
       "Bash(git ls-remote *)",
-      "mcp__backlog_md__*"
+      "mcp__backlog_md__*",
+      "Bash(npx vite *)",
+      "mcp__playwright__browser_*",
+      "Bash(pkill -f \"vite --port *\")"
     ]
   },
   "model": "Opus",

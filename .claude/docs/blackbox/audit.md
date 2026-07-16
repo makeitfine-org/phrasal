@@ -6275,3 +6275,20 @@ Complete the backlog.md task-70
 <summary>Background command "Run make clean build" completed (exit code 0)</summary>
 </task-notification>
 ---
+
+## 2026-07-16T17:52:25Z
+gb
+---
+
+## 2026-07-16T17:53:44Z
+Create a backlog.md task (but don't execute it):
+Menu should always be present on all pages
+---
+
+## 2026-07-16T17:55:46Z
+Complete the backlog.md task-71
+---
+
+## 2026-07-16T19:16:45Z
+git add all changes and commit them with suitable message
+---

@@ -4703,3 +4703,7 @@
 - frontend/src/components/NavigationMenu.tsx
 - frontend/src/components/PageShell.tsx
 <!-- end-snapshot -->
+
+<!-- git-snapshot 2026-07-16T17:54:08Z -->
+- .claude/docs/blackbox/audit.md
+<!-- end-snapshot -->

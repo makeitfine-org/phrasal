@@ -84,9 +84,9 @@ describe('PageShell — dark/light toggle', () => {
 });
 
 describe('PageShell — navigation menu', () => {
-  it('does not render the nav menu on the / route', () => {
+  it('renders the nav menu on the / route', () => {
     renderWithShell('/');
-    expect(screen.queryByTestId('nav-menu')).not.toBeInTheDocument();
+    expect(screen.getByTestId('nav-menu')).toBeInTheDocument();
   });
 
   it('renders the nav menu on /phrasal-verbs', () => {

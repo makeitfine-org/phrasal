@@ -25,9 +25,9 @@ function renderNav(initialPath: string = '/phrasal-verbs', darkMode = false, onT
 }
 
 describe('NavigationMenu — visibility', () => {
-  it('does not render on the home page', () => {
+  it('renders on the home page', () => {
     renderNav('/');
-    expect(screen.queryByTestId('nav-menu')).not.toBeInTheDocument();
+    expect(screen.getByTestId('nav-menu')).toBeInTheDocument();
   });
 
   it('renders on /phrasal-verbs', () => {
@@ -219,6 +219,11 @@ describe('NavigationMenu — portal target', () => {
     renderNav('/phrasal-verbs');
     expect(document.getElementById('verb-page-actions')).not.toBeNull();
   });
+
+  it('contains the verb-page-actions portal target on the home route', () => {
+    renderNav('/');
+    expect(document.getElementById('verb-page-actions')).not.toBeNull();
+  });
 });
 
 describe('NavigationMenu — theme toggle', () => {
@@ -227,9 +232,9 @@ describe('NavigationMenu — theme toggle', () => {
     expect(screen.getByTitle('Toggle Dark/Light Mode')).toBeInTheDocument();
   });
 
-  it('does not render the theme toggle on the home page', () => {
+  it('renders the theme toggle on the home page', () => {
     renderNav('/');
-    expect(screen.queryByTitle('Toggle Dark/Light Mode')).not.toBeInTheDocument();
+    expect(screen.getByTitle('Toggle Dark/Light Mode')).toBeInTheDocument();
   });
 
   it('calls onToggleDarkMode when clicked', async () => {

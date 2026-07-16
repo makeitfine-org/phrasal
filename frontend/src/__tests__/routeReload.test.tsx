@@ -85,9 +85,9 @@ describe('Page reload — router renders correct page, no console errors', () =>
     expect(warnSpy).not.toHaveBeenCalled();
   });
 
-  it('reload / shows no navigation menu', () => {
+  it('reload / shows the navigation menu', () => {
     renderApp('/');
-    expect(screen.queryByTestId('nav-menu')).not.toBeInTheDocument();
+    expect(screen.getByTestId('nav-menu')).toBeInTheDocument();
   });
 
   it('reload /phrasal-verbs shows the navigation menu', () => {

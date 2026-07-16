@@ -19,12 +19,6 @@ Then('I should see the navigation menu', async function (this: PhrasalWorld) {
     assert.ok(await nav.isVisible(), 'Expected navigation menu to be visible');
 });
 
-Then('I should not see the navigation menu', async function (this: PhrasalWorld) {
-    const nav = this.page!.locator('[data-testid="nav-menu"]');
-    const count = await nav.count();
-    assert.strictEqual(count, 0, 'Expected navigation menu to not be present');
-});
-
 Then('the navigation menu should contain a home link', async function (this: PhrasalWorld) {
     const homeLink = this.page!.locator('[data-testid="nav-menu"] a[title="Home"]');
     assert.ok(await homeLink.isVisible(), 'Expected home link in navigation menu');

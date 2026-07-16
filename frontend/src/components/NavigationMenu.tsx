@@ -156,15 +156,12 @@ function MobileSection({ section, onNavigate }: { section: NavSection; onNavigat
 
 export default function NavigationMenu({ darkMode, onToggleDarkMode }: NavigationMenuProps = {}) {
   const location = useLocation();
-  const isHome = location.pathname === '/';
   const [mobileOpen, setMobileOpen] = useState(false);
   const mobileRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
     setMobileOpen(false);
   }, [location.pathname]);
-
-  if (isHome) return null;
 
   return (
     <nav data-testid="nav-menu" aria-label="Main navigation" className="sticky top-0 z-40 bg-white/80 dark:bg-gray-950/80 backdrop-blur-md border-b border-gray-200 dark:border-gray-800">
