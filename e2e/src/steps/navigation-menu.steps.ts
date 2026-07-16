@@ -19,12 +19,6 @@ Then('I should see the navigation menu', async function (this: PhrasalWorld) {
     assert.ok(await nav.isVisible(), 'Expected navigation menu to be visible');
 });
 
-Then('I should not see the navigation menu', async function (this: PhrasalWorld) {
-    const nav = this.page!.locator('[data-testid="nav-menu"]');
-    const count = await nav.count();
-    assert.strictEqual(count, 0, 'Expected navigation menu to not be present');
-});
-
 Then('the navigation menu should contain a home link', async function (this: PhrasalWorld) {
     const homeLink = this.page!.locator('[data-testid="nav-menu"] a[title="Home"]');
     assert.ok(await homeLink.isVisible(), 'Expected home link in navigation menu');
@@ -69,4 +63,26 @@ When('I click the dropdown link {string} and wait for the quiz', async function 
 When('I click the home link in the navigation menu', async function (this: PhrasalWorld) {
     await this.page!.locator('[data-testid="nav-menu"] a[title="Home"]').click();
     await this.page!.waitForLoadState('networkidle');
+});
+
+Then('the theme toggle and expand-collapse buttons should not overlap', async function (this: PhrasalWorld) {
+    const themeBtn = this.page!.locator('button[title="Toggle Dark/Light Mode"]');
+    await themeBtn.waitFor({ timeout: 5000 });
+    const expandBtn = this.page!.locator('button[title="Expand all"], button[title="Collapse all"]');
+    await expandBtn.waitFor({ timeout: 5000 });
+    const themeBox = await themeBtn.boundingBox();
+    const expandBox = await expandBtn.boundingBox();
+    assert.ok(themeBox, 'Theme toggle button not found');
+    assert.ok(expandBox, 'Expand/collapse button not found');
+    const horizontalOverlap =
+        themeBox!.x < expandBox!.x + expandBox!.width &&
+        themeBox!.x + themeBox!.width > expandBox!.x;
+    const verticalOverlap =
+        themeBox!.y < expandBox!.y + expandBox!.height &&
+        themeBox!.y + themeBox!.height > expandBox!.y;
+    assert.ok(
+        !(horizontalOverlap && verticalOverlap),
+        `Buttons overlap! Theme: (${themeBox!.x}, ${themeBox!.y}, ${themeBox!.width}x${themeBox!.height}), ` +
+        `Expand: (${expandBox!.x}, ${expandBox!.y}, ${expandBox!.width}x${expandBox!.height})`
+    );
 });

@@ -4,11 +4,13 @@ import userEvent from '@testing-library/user-event';
 import { MemoryRouter, Routes, Route, Outlet } from 'react-router-dom';
 import NavigationMenu from '../components/NavigationMenu';
 
-function renderNav(initialPath: string = '/phrasal-verbs') {
+const defaultToggle = vi.fn();
+
+function renderNav(initialPath: string = '/phrasal-verbs', darkMode = false, onToggle = defaultToggle) {
   return render(
     <MemoryRouter initialEntries={[initialPath]}>
       <Routes>
-        <Route element={<><NavigationMenu /><Outlet /></>}>
+        <Route element={<><NavigationMenu darkMode={darkMode} onToggleDarkMode={onToggle} /><Outlet /></>}>
           <Route path="/" element={<div>Home</div>} />
           <Route path="/phrasal-verbs" element={<div>PV Hub</div>} />
           <Route path="/phrasal-verbs/test-most-popular" element={<div>PV Quiz</div>} />
@@ -23,9 +25,9 @@ function renderNav(initialPath: string = '/phrasal-verbs') {
 }
 
 describe('NavigationMenu — visibility', () => {
-  it('does not render on the home page', () => {
+  it('renders on the home page', () => {
     renderNav('/');
-    expect(screen.queryByTestId('nav-menu')).not.toBeInTheDocument();
+    expect(screen.getByTestId('nav-menu')).toBeInTheDocument();
   });
 
   it('renders on /phrasal-verbs', () => {
@@ -216,5 +218,48 @@ describe('NavigationMenu — portal target', () => {
   it('contains the verb-page-actions portal target on non-home routes', () => {
     renderNav('/phrasal-verbs');
     expect(document.getElementById('verb-page-actions')).not.toBeNull();
+  });
+
+  it('contains the verb-page-actions portal target on the home route', () => {
+    renderNav('/');
+    expect(document.getElementById('verb-page-actions')).not.toBeNull();
+  });
+});
+
+describe('NavigationMenu — theme toggle', () => {
+  it('renders the theme toggle on non-home pages', () => {
+    renderNav('/phrasal-verbs');
+    expect(screen.getByTitle('Toggle Dark/Light Mode')).toBeInTheDocument();
+  });
+
+  it('renders the theme toggle on the home page', () => {
+    renderNav('/');
+    expect(screen.getByTitle('Toggle Dark/Light Mode')).toBeInTheDocument();
+  });
+
+  it('calls onToggleDarkMode when clicked', async () => {
+    const user = userEvent.setup();
+    const toggle = vi.fn();
+    renderNav('/phrasal-verbs', false, toggle);
+    await user.click(screen.getByTitle('Toggle Dark/Light Mode'));
+    expect(toggle).toHaveBeenCalledOnce();
+  });
+
+  it('has correct aria-label when darkMode is false', () => {
+    renderNav('/phrasal-verbs', false);
+    expect(screen.getByTitle('Toggle Dark/Light Mode')).toHaveAttribute('aria-label', 'Switch to dark mode');
+  });
+
+  it('has correct aria-label when darkMode is true', () => {
+    renderNav('/phrasal-verbs', true);
+    expect(screen.getByTitle('Toggle Dark/Light Mode')).toHaveAttribute('aria-label', 'Switch to light mode');
+  });
+
+  it('theme toggle and portal target are siblings in the same flex container', () => {
+    renderNav('/phrasal-verbs');
+    const portalTarget = document.getElementById('verb-page-actions');
+    const themeButton = screen.getByTitle('Toggle Dark/Light Mode');
+    expect(portalTarget!.parentElement).toBe(themeButton.parentElement);
+    expect(themeButton.parentElement).toHaveClass('flex', 'items-center', 'gap-2');
   });
 });

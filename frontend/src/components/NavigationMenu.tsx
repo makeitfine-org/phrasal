@@ -1,6 +1,11 @@
 import React, { useState, useRef, useEffect } from 'react';
 import { Link, useLocation } from 'react-router-dom';
-import { MenuIcon, XIcon, ChevronDown } from './Icons';
+import { MenuIcon, XIcon, ChevronDown, SunIcon, MoonIcon } from './Icons';
+
+interface NavigationMenuProps {
+  darkMode?: boolean;
+  onToggleDarkMode?: () => void;
+}
 
 interface SubItem {
   label: string;
@@ -149,17 +154,14 @@ function MobileSection({ section, onNavigate }: { section: NavSection; onNavigat
   );
 }
 
-export default function NavigationMenu() {
+export default function NavigationMenu({ darkMode, onToggleDarkMode }: NavigationMenuProps = {}) {
   const location = useLocation();
-  const isHome = location.pathname === '/';
   const [mobileOpen, setMobileOpen] = useState(false);
   const mobileRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
     setMobileOpen(false);
   }, [location.pathname]);
-
-  if (isHome) return null;
 
   return (
     <nav data-testid="nav-menu" aria-label="Main navigation" className="sticky top-0 z-40 bg-white/80 dark:bg-gray-950/80 backdrop-blur-md border-b border-gray-200 dark:border-gray-800">
@@ -181,7 +183,19 @@ export default function NavigationMenu() {
 
         <div className="flex-1" />
 
-        <div id="verb-page-actions" />
+        <div className="flex items-center gap-2">
+          <div id="verb-page-actions" />
+          {onToggleDarkMode && (
+            <button
+              onClick={onToggleDarkMode}
+              className="p-2 bg-gray-200 dark:bg-gray-800 rounded-full text-gray-700 dark:text-gray-300 hover:bg-gray-300 dark:hover:bg-gray-700 transition-colors shadow-sm border border-gray-300 dark:border-gray-700"
+              title="Toggle Dark/Light Mode"
+              aria-label={darkMode ? 'Switch to light mode' : 'Switch to dark mode'}
+            >
+              {darkMode ? <MoonIcon /> : <SunIcon />}
+            </button>
+          )}
+        </div>
 
         <button
           data-testid="nav-hamburger"

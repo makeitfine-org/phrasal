@@ -1,13 +1,14 @@
 @frontend
 Feature: Navigation menu
-  The navigation menu provides persistent navigation across all non-home pages
+  The navigation menu provides persistent navigation across all pages
 
   Background:
     Given the browser is open
 
-  Scenario: Navigation menu is not visible on home page
+  Scenario: Navigation menu is visible on home page
     When I navigate to the homepage
-    Then I should not see the navigation menu
+    Then I should see the navigation menu
+    And the navigation menu should contain a home link
 
   Scenario: Navigation menu is visible on phrasal verbs page
     When I navigate to the phrasal verbs hub
@@ -40,3 +41,7 @@ Feature: Navigation menu
     When I navigate to the phrasal verbs hub
     And I click the home link in the navigation menu
     Then I should see the heading "English Tutorial"
+
+  Scenario: Theme toggle and expand-collapse buttons do not overlap on verb list
+    When I navigate to the verb list page
+    Then the theme toggle and expand-collapse buttons should not overlap
