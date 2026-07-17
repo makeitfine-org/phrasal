@@ -6366,3 +6366,439 @@ Consider that is README.md and CLAUDE.md files.
 ## 2026-07-17T08:09:34Z
 did you consider that in all occurances
 ---
+
+## 2026-07-17T16:05:42Z
+Analyze the project and check all tasks in @backlog/tasks.
+That tasks which are not actual (its functionality is implemented/present) for the project have to be marked as `Done`.
+All `Done` task have to be moved to @backlog/completed/ folder.
+---
+
+## 2026-07-17T16:07:58Z
+<task-notification>
+<task-id>a908cf58756fda640</task-id>
+<tool-use-id>toolu_01NikPyVoHu6vAeL6hgsUbBw</tool-use-id>
+<output-file>/tmp/claude-1000/-home-ubuntuu-dev-mine-phrasal/69c54919-5aac-44f6-aab3-45e356f17ef1/tasks/a908cf58756fda640.output</output-file>
+<status>completed</status>
+<summary>Agent "Check task-88 focus on search" finished</summary>
+<note>A task-notification fires each time this agent stops with no live background children of its own. The user can send it another message and resume it, so the same task-id may notify more than once.</note>
+<result>Both search modals **do implement auto-focus** on the search input when opened. Here are the details:
+
+**`/home/ubuntuu/dev/mine/phrasal/frontend/src/components/SearchModal.tsx`** (line 104):
+The `&lt;input&gt;` element has the `autoFocus` prop set. When the modal opens, the browser automatically places the cursor in the search field.
+
+**`/home/ubuntuu/dev/mine/phrasal/frontend/src/components/ListSearchModal.tsx`** (line 106):
+Same approach -- the `&lt;input&gt;` element has the `autoFocus` prop set.
+
+Neither component uses `useRef` + manual `.focus()` calls for the search input. They both rely on React's built-in `autoFocus` prop, which translates to the HTML `autofocus` attribute. This is sufficient for modals rendered into the DOM on open.
+
+Both modals also use a `useFocusTrap` hook (via `panelRef`) to trap keyboard focus within the dialog panel, which complements the auto-focus behavior for accessibility.
+
+**Summary**: Auto-focus on the search input is fully implemented in both modals using the `autoFocus` prop.</result>
+<usage><subagent_tokens>21119</subagent_tokens><tool_uses>2</tool_uses><duration_ms>26924</duration_ms></usage>
+</task-notification>
+---
+
+## 2026-07-17T16:08:03Z
+<task-notification>
+<task-id>ae65e9953dc97c441</task-id>
+<tool-use-id>toolu_0191MLe9bA4uk2jrQXvxpRHi</tool-use-id>
+<output-file>/tmp/claude-1000/-home-ubuntuu-dev-mine-phrasal/69c54919-5aac-44f6-aab3-45e356f17ef1/tasks/ae65e9953dc97c441.output</output-file>
+<status>completed</status>
+<summary>Agent "Check task-78 releases for k8s" finished</summary>
+<note>A task-notification fires each time this agent stops with no live background children of its own. The user can send it another message and resume it, so the same task-id may notify more than once.</note>
+<result>The release process for Kubernetes deployments is **fully organized and well-documented**. Here is the breakdown:
+
+---
+
+### CI/CD Pipeline (`.github/workflows/ci_cd.yml`)
+
+**Trigger configuration** (lines 4-7): The workflow triggers on pushes to all branches AND on version tags matching `v[0-9]+.[0-9]+.[0-9]+`.
+
+**`docker-push` job** (lines 128-166):
+- Gated by `if: startsWith(github.ref, 'refs/tags/v')` -- only runs on version tags
+- Depends on the `e2e` job (all tests must pass first)
+- Extracts the version from the tag
+- Logs into Docker Hub using secrets
+- Builds and pushes both `phrasal-backend` and `phrasal-frontend` images with both a version-specific tag and `latest`
+
+**`deploy` job** (lines 170-225):
+- Also gated by `if: startsWith(github.ref, 'refs/tags/v')`
+- Depends on `docker-push`
+- Uses a `production` environment (GitHub environment protection rules)
+- Configures kubectl with a base64-encoded kubeconfig from secrets
+- Generates a prod secret patch with DB credentials from secrets
+- Sets image tags via `kustomize edit set image`
+- Applies the prod overlay with `kubectl apply -k k8s/overlays/prod`
+- Waits for rollout completion on both deployments
+- Verifies pods are running
+
+### README.md Documentation
+
+The README has a dedicated **"Releasing"** section (lines 271-377) that covers:
+- How to create a release using `gh release create` or manual `git tag`
+- What the CI pipeline does on tag push (test, docker push, deploy)
+- Semantic versioning guidance (MAJOR/MINOR/PATCH)
+- A detailed **rollback procedure** with four ordered steps: rollback the K3s deployment, delete the GitHub release/tag, optionally restore the `latest` Docker Hub tag, and optionally revert the bad commit
+- How to list existing releases
+
+There is also a **"Production Deployment (K3s)"** section (lines 256-267) summarizing the flow:
+```
+push to any branch -&gt; build + test + e2e
+push tag v1.2.3   -&gt; build + test + e2e -&gt; docker push -&gt; kubectl apply -k k8s/overlays/prod
+```
+
+---
+
+### Verdict
+
+A proper release process for Kubernetes deployments is **already fully in place**. The pipeline correctly gates docker-push and deploy behind version tags, the Kustomize prod overlay is applied with versioned image tags, rollout status is verified, and the README documents the entire release and rollback workflow comprehensively. No gaps found.</result>
+<usage><subagent_tokens>22971</subagent_tokens><tool_uses>2</tool_uses><duration_ms>25432</duration_ms></usage>
+</task-notification>
+---
+
+## 2026-07-17T16:08:05Z
+<task-notification>
+<task-id>a4fd03791f353c382</task-id>
+<tool-use-id>toolu_01MvtFcK9YUcwgu36uzaZxB5</tool-use-id>
+<output-file>/tmp/claude-1000/-home-ubuntuu-dev-mine-phrasal/69c54919-5aac-44f6-aab3-45e356f17ef1/tasks/a4fd03791f353c382.output</output-file>
+<status>completed</status>
+<summary>Agent "Check task-85 checkstyle frontend" finished</summary>
+<note>A task-notification fires each time this agent stops with no live background children of its own. The user can send it another message and resume it, so the same task-id may notify more than once.</note>
+<result>Here are the findings:
+
+**Frontend (`/home/ubuntuu/dev/mine/phrasal/frontend/package.json`):**
+- No ESLint in `devDependencies` or `dependencies`
+- No Prettier in `devDependencies` or `dependencies`
+- No lint-related scripts (only `dev`, `build`, `preview`, `test`, `test:run`)
+- No `.eslintrc*`, `eslint.config*`, `.prettierrc*`, or `prettier.config*` files found
+
+**E2E (`/home/ubuntuu/dev/mine/phrasal/e2e/package.json`):**
+- No ESLint in `devDependencies` or `dependencies`
+- No Prettier in `devDependencies` or `dependencies`
+- No lint-related scripts (only `test`, `test:api`)
+- No `.eslintrc*`, `eslint.config*`, `.prettierrc*`, or `prettier.config*` files found
+
+**Conclusion:** Neither the frontend nor the e2e project has any linting or checkstyle configuration. There are no ESLint, Prettier, or any other lint tool dependencies, configuration files, or npm scripts in either project. The backend has Checkstyle configured (per `aux/code/checkstyle/`), but the TypeScript/React frontend and the Cucumber/Playwright e2e project have no equivalent code-quality tooling.</result>
+<usage><subagent_tokens>18294</subagent_tokens><tool_uses>3</tool_uses><duration_ms>23211</duration_ms></usage>
+</task-notification>
+---
+
+## 2026-07-17T16:08:08Z
+<task-notification>
+<task-id>aa988a4618792f8c1</task-id>
+<tool-use-id>toolu_019uDGV2W5fhfAELaNZ6T2ya</tool-use-id>
+<output-file>/tmp/claude-1000/-home-ubuntuu-dev-mine-phrasal/69c54919-5aac-44f6-aab3-45e356f17ef1/tasks/aa988a4618792f8c1.output</output-file>
+<status>completed</status>
+<summary>Agent "Check task-75 be-cut-out-for" finished</summary>
+<note>A task-notification fires each time this agent stops with no live background children of its own. The user can send it another message and resume it, so the same task-id may notify more than once.</note>
+<result>The phrasal verb **"be cut out for"** is already present in the quiz content. It appears in four locations:
+
+1. **`backend/src/main/resources/db/migration/V4__seed_phrasal_verbs.sql`** (line 7) -- Seeded as `'Be cut out for'` with the definition "To be suited for a particular role or occupation" and the example "She is definitely cut out for a career in medicine."
+
+2. **`backend/src/main/resources/db/migration/V8__seed_verb_details.sql`** (line 19) -- The "cut out" particle entry under the base verb "cut" includes a meaning for "be naturally suited for something" with the example "After three weeks, he realized he wasn't cut out for sales."
+
+3. **`frontend/src/data/phrasalVerbs.ts`** (line 10) -- Listed as `"Be cut out for"` with the same definition and example as the V4 migration.
+
+4. **`frontend/src/__tests__/__fixtures__/phrasalVerbs.json`** (line 53) -- Test fixture data containing the same entry.
+
+In summary: **"be cut out for" is already in the quiz content** across both backend seed data and frontend data files.</result>
+<usage><subagent_tokens>20222</subagent_tokens><tool_uses>7</tool_uses><duration_ms>26621</duration_ms></usage>
+</task-notification>
+---
+
+## 2026-07-17T16:08:16Z
+<task-notification>
+<task-id>aeacf1cd164eb82b3</task-id>
+<tool-use-id>toolu_01M3pzLjEd9ugJrAMJC1tjq5</tool-use-id>
+<output-file>/tmp/claude-1000/-home-ubuntuu-dev-mine-phrasal/69c54919-5aac-44f6-aab3-45e356f17ef1/tasks/aeacf1cd164eb82b3.output</output-file>
+<status>completed</status>
+<summary>Agent "Check task-92 separate cookies" finished</summary>
+<note>A task-notification fires each time this agent stops with no live background children of its own. The user can send it another message and resume it, so the same task-id may notify more than once.</note>
+<result>Here is my report:
+
+**The frontend does NOT use cookies at all.** All client-side state persistence is done via `localStorage`. There is zero cookie usage anywhere in the frontend source.
+
+**Separate localStorage keys per page/feature are already implemented.** The architecture uses distinct keys for different pages:
+
+| localStorage Key | Owner Component | Data Stored |
+|---|---|---|
+| `phrasalQuizState` | `PhrasalVerbQuiz` + `PageShell` | Quiz state (mastered, excluded, history, currentIndex) + dark mode |
+| `grammarIWishState` | `GrammarQuiz` | Grammar quiz state (same shape as above, completely separate) |
+| `verbListExpanded` | `PhrasalVerbsListPage` | Which verb list cards are expanded (array of keys) |
+| `{prefix}_section_expanded` | `VerbPage` (Section) | Per-section expand/collapse state on verb detail pages |
+| `{prefix}_meaning_{n}_collapsed` | `VerbPage` (Meaning) | Per-meaning collapse state on verb detail pages |
+
+**Key details:**
+
+- The `useQuiz` hook (`/home/ubuntuu/dev/mine/phrasal/frontend/src/hooks/useQuiz.ts`) accepts a `storageKey` config parameter, making it reusable across quiz pages with isolated state. `PhrasalVerbQuiz` passes `'phrasalQuizState'` while `GrammarQuiz` passes `'grammarIWishState'`.
+- There is one intentional sharing: `PageShell` reads/writes `darkMode` into the `phrasalQuizState` key, and `PhrasalVerbQuiz` preserves that `darkMode` field via a merge-before-write pattern (line 79-89 of `useQuiz.ts`).
+- Verb detail pages use dynamically constructed keys (e.g., `getOff_section_expanded`, `getOff_meaning_1_collapsed`) so each verb's expand/collapse state is independent.
+- The test at `/home/ubuntuu/dev/mine/phrasal/frontend/src/__tests__/IWishPage.test.tsx:175` explicitly verifies that the grammar quiz does NOT touch `phrasalQuizState`, confirming the per-page isolation is tested.</result>
+<usage><subagent_tokens>32698</subagent_tokens><tool_uses>7</tool_uses><duration_ms>31669</duration_ms></usage>
+</task-notification>
+---
+
+## 2026-07-17T16:08:19Z
+<task-notification>
+<task-id>a4a66a9c57fecd508</task-id>
+<tool-use-id>toolu_01PZHnVd3B3hxWnZEiPd7FvF</tool-use-id>
+<output-file>/tmp/claude-1000/-home-ubuntuu-dev-mine-phrasal/69c54919-5aac-44f6-aab3-45e356f17ef1/tasks/a4a66a9c57fecd508.output</output-file>
+<status>completed</status>
+<summary>Agent "Check task-84 limit search results" finished</summary>
+<note>A task-notification fires each time this agent stops with no live background children of its own. The user can send it another message and resume it, so the same task-id may notify more than once.</note>
+<result>Here is the complete analysis:
+
+## Search Result Limiting -- Already Implemented
+
+Both `SearchModal.tsx` and `ListSearchModal.tsx` delegate their search to the `useFuzzySearch` hook (`/home/ubuntuu/dev/mine/phrasal/frontend/src/hooks/useFuzzySearch.ts`), and that hook **caps results at 50 items** via two mechanisms:
+
+1. **Fuse.js limit** (line 38): `fuse.search(trimmed, { limit: 50 })` -- the Fuse.js search itself is told to return at most 50 results.
+2. **Final slice** (line 51): `return fuseItems.slice(0, 50)` -- after merging Fuse.js results with custom `tokenizedSearch` results (which has no internal cap but is deduplicated against the Fuse set), the combined array is sliced to a maximum of 50.
+
+### What is NOT implemented
+
+- **No "load more" / pagination**: Both modals render all returned results (up to 50) in a single scrollable `&lt;ul&gt;`. There is no button or infinite-scroll mechanism to load additional results beyond the 50 cap.
+- **No "recent searches" feature**: Neither modal stores or displays recent search queries. There is no localStorage key or state for search history.
+- **When query is empty**: The `useFuzzySearch` hook returns **all items** sorted alphabetically (no cap applied), so with an empty search box, every verb/entry is listed. The 50-item limit only applies when there is an active search query.
+
+### Summary
+
+| Feature | Status |
+|---|---|
+| Results capped during search | Yes -- hard limit of 50 via `useFuzzySearch` |
+| Results capped when query is empty | No -- all items shown |
+| "Load more" / pagination | Not implemented |
+| Recent searches | Not implemented |</result>
+<usage><subagent_tokens>23464</subagent_tokens><tool_uses>4</tool_uses><duration_ms>25985</duration_ms></usage>
+</task-notification>
+---
+
+## 2026-07-17T16:08:24Z
+<task-notification>
+<task-id>a628adb974918518a</task-id>
+<tool-use-id>toolu_01M5Jjt7YjuF827r7mE173gy</tool-use-id>
+<output-file>/tmp/claude-1000/-home-ubuntuu-dev-mine-phrasal/69c54919-5aac-44f6-aab3-45e356f17ef1/tasks/a628adb974918518a.output</output-file>
+<status>completed</status>
+<summary>Agent "Check task-95 flexible input" finished</summary>
+<note>A task-notification fires each time this agent stops with no live background children of its own. The user can send it another message and resume it, so the same task-id may notify more than once.</note>
+<result>Here is the complete analysis of the quiz answer checking logic.
+
+**Flexible input checking is already fully implemented** across both quiz types in the project. Here is the breakdown:
+
+---
+
+**1. Grammar Quiz (I Wish / If Only) -- `/home/ubuntuu/dev/mine/phrasal/frontend/src/utils/normalizeAnswer.ts`**
+
+The `normalizeAnswer()` utility function applies comprehensive normalization:
+- `.toLowerCase()` -- case-insensitive comparison
+- `.trim()` -- strips leading/trailing whitespace
+- `.replace(/[^\w\s]/g, '')` -- removes all punctuation (apostrophes, periods, exclamation marks, etc.)
+- `.replace(/\s+/g, ' ')` -- collapses multiple spaces into a single space
+- A second `.trim()` for safety after regex replacements
+
+The `isAnswerCorrect()` function normalizes both the user's input and every correct answer before comparing, so it is tolerant of casing, whitespace, and punctuation differences. The `GrammarQuiz` component (`/home/ubuntuu/dev/mine/phrasal/frontend/src/components/GrammarQuiz.tsx`, line 38-39) uses `isAnswerCorrect()` directly.
+
+**2. Phrasal Verb Quiz -- `/home/ubuntuu/dev/mine/phrasal/frontend/src/components/PhrasalVerbQuiz.tsx`**
+
+The `checkAnswer` function (lines 21-26) applies its own normalization:
+- `.toLowerCase()` -- case-insensitive
+- `.trim()` -- whitespace trimming
+- `.replace(/[()]/g, '')` -- strips parentheses (specific to phrasal verb formatting like "look (sth) up")
+
+This is applied to both the user input and the correct answer before comparison.
+
+**3. useQuiz hook -- `/home/ubuntuu/dev/mine/phrasal/frontend/src/hooks/useQuiz.ts`**
+
+The hook itself also guards against empty/whitespace-only submissions at line 171: `if (!currentItem.inputValue.trim() || currentItem.status !== 'idle') return;`
+
+**4. Tests -- `/home/ubuntuu/dev/mine/phrasal/frontend/src/__tests__/normalizeAnswer.test.ts`**
+
+There are thorough tests covering: lowercasing, whitespace trimming, punctuation stripping, multiple-space collapsing, apostrophe handling in contractions, mixed casing acceptance, and whitespace-only rejection.
+
+---
+
+**Summary**: Both quiz types already handle flexible input. The grammar quiz has the more robust normalization (via `normalizeAnswer.ts`), while the phrasal verb quiz has a slightly simpler but still effective approach (case-insensitive + trim + parentheses stripping). Both are well-tested. No changes are needed.</result>
+<usage><subagent_tokens>32170</subagent_tokens><tool_uses>8</tool_uses><duration_ms>49992</duration_ms></usage>
+</task-notification>
+---
+
+## 2026-07-17T16:08:26Z
+<task-notification>
+<task-id>a12e0484fc468b8e7</task-id>
+<tool-use-id>toolu_01Vi1RK1F2dLLwSdAygpynsg</tool-use-id>
+<output-file>/tmp/claude-1000/-home-ubuntuu-dev-mine-phrasal/69c54919-5aac-44f6-aab3-45e356f17ef1/tasks/a12e0484fc468b8e7.output</output-file>
+<status>completed</status>
+<summary>Agent "Check task-90 reset non-excluded" finished</summary>
+<note>A task-notification fires each time this agent stops with no live background children of its own. The user can send it another message and resume it, so the same task-id may notify more than once.</note>
+<result>Here is my analysis of the reset functionality in the Quiz:
+
+**Two distinct reset actions exist, but neither is a "reset non-excluded verbs only" feature:**
+
+1. **`handleGlobalReset` (Header trash-can button)** -- `/home/ubuntuu/dev/mine/phrasal/frontend/src/hooks/useQuiz.ts` lines 119-129. This is a **total reset**: it clears mastered, excluded, history, and currentIndex, and removes the entire localStorage entry. It resets *everything*, including the excluded set.
+
+2. **`resetState` (NavigationControls "Reset" button)** -- `/home/ubuntuu/dev/mine/phrasal/frontend/src/hooks/useQuiz.ts` lines 143-158. This is a **single-card reset**: it resets the *current* quiz card back to `idle` status and removes that verb from the mastered set, allowing the user to re-answer it. It does not affect other verbs or the excluded set.
+
+**There is no "reset non-excluded phrasal verbs" action.** The two resets are:
+- Global reset = wipes everything (mastered + excluded + history)
+- Card reset = resets only the currently displayed card
+
+A hypothetical "reset non-excluded verbs" would preserve the excluded set while clearing mastered/history for all other verbs. This does not exist in the codebase. The `handleGlobalReset` function explicitly clears excluded (`setExcluded(new Set())`), so it always resets excluded verbs too.
+
+**Relevant files:**
+- `/home/ubuntuu/dev/mine/phrasal/frontend/src/hooks/useQuiz.ts` -- contains both `handleGlobalReset` (line 119) and `resetState` (line 143)
+- `/home/ubuntuu/dev/mine/phrasal/frontend/src/components/Header.tsx` -- renders the global reset button (trash icon, line 63)
+- `/home/ubuntuu/dev/mine/phrasal/frontend/src/components/NavigationControls.tsx` -- renders the single-card reset button (line 59)
+- `/home/ubuntuu/dev/mine/phrasal/frontend/src/components/PhrasalVerbQuiz.tsx` -- wires both reset handlers into the UI</result>
+<usage><subagent_tokens>31668</subagent_tokens><tool_uses>9</tool_uses><duration_ms>36113</duration_ms></usage>
+</task-notification>
+---
+
+## 2026-07-17T16:08:29Z
+<task-notification>
+<task-id>a0d83ac24769a150b</task-id>
+<tool-use-id>toolu_01H8zvCAg4AV5N8vFk3ihPJ3</tool-use-id>
+<output-file>/tmp/claude-1000/-home-ubuntuu-dev-mine-phrasal/69c54919-5aac-44f6-aab3-45e356f17ef1/tasks/a0d83ac24769a150b.output</output-file>
+<status>completed</status>
+<summary>Agent "Check task-96 I wish improvements" finished</summary>
+<note>A task-notification fires each time this agent stops with no live background children of its own. The user can send it another message and resume it, so the same task-id may notify more than once.</note>
+<result>Here is my analysis of the five improvements listed in task-96, checked against the current code in `QuizCard.tsx` (`/home/ubuntuu/dev/mine/phrasal/frontend/src/components/QuizCard.tsx`) and `GrammarQuiz.tsx` (`/home/ubuntuu/dev/mine/phrasal/frontend/src/components/GrammarQuiz.tsx`):
+
+---
+
+**1. Is "Sentence:" label removed?**
+**NOT implemented.** The "Sentence:" label is still present at line 82 of `QuizCard.tsx`:
+```
+Sentence:
+```
+
+**2. Are "IDK" and "Check" buttons positioned down in front of "Reset"?**
+**NOT implemented.** The "IDK" and "Check" buttons are currently positioned inside the input field (lines 118-133 of `QuizCard.tsx`), rendered as absolutely-positioned elements within the form (`absolute right-2 top-2 bottom-2`). They are not moved down or placed in front of "Reset". The "Reset" button lives in the `NavigationControls` component, and these buttons remain separate.
+
+**3. Is placeholder "Type sentence" (not something else)?**
+**NOT implemented.** The placeholder is still `"Type phrasal verb"` at line 107 of `QuizCard.tsx`. Note that this is a shared component used by both the phrasal verb quiz and the grammar quiz, so the placeholder has not been changed to "Type sentence" for the grammar quiz context.
+
+**4. Is input multi-line (textarea)?**
+**NOT implemented.** The input is a single-line `&lt;input type="text"&gt;` element (line 100 of `QuizCard.tsx`). It has not been converted to a `&lt;textarea&gt;`. The `inputRef` type in the props interface (`React.RefObject&lt;HTMLInputElement | null&gt;` at line 10) also confirms it is still an `&lt;input&gt;`.
+
+**5. Is "explanation:" label changed to "sentence"?**
+**NOT implemented.** The label still reads `"Explanation:"` at line 60 of `QuizCard.tsx`:
+```
+Explanation:
+```
+
+---
+
+**Summary:** None of the five improvements from task-96 are implemented. All five remain in their original state. The task status in the backlog confirms this -- it is marked "To Do".</result>
+<usage><subagent_tokens>22413</subagent_tokens><tool_uses>7</tool_uses><duration_ms>39539</duration_ms></usage>
+</task-notification>
+---
+
+## 2026-07-17T16:09:02Z
+<task-notification>
+<task-id>aae9470e3e33bbc41</task-id>
+<tool-use-id>toolu_01CugtHsEvMDMqbVDDpMj4hd</tool-use-id>
+<output-file>/tmp/claude-1000/-home-ubuntuu-dev-mine-phrasal/69c54919-5aac-44f6-aab3-45e356f17ef1/tasks/aae9470e3e33bbc41.output</output-file>
+<status>completed</status>
+<summary>Agent "Check task-91 page blinking" finished</summary>
+<note>A task-notification fires each time this agent stops with no live background children of its own. The user can send it another message and resume it, so the same task-id may notify more than once.</note>
+<result>Now I have a comprehensive picture. Here is my analysis:
+
+---
+
+## Anti-Blink/Flash Audit for `/phrasal-verbs/list`
+
+### Measures that ARE in place
+
+1. **Skeleton screen during data loading** (`VerbListSkeleton`):
+   - The `PhrasalVerbsListPage` component renders a `VerbListSkeleton` while `loading` is true (line 35-37 of `/home/ubuntuu/dev/mine/phrasal/frontend/src/pages/PhrasalVerbsListPage.tsx`).
+   - `VerbListSkeleton` at `/home/ubuntuu/dev/mine/phrasal/frontend/src/components/skeletons/VerbListSkeleton.tsx` closely mirrors the final page layout: title placeholder, subtitle placeholder, search button placeholder, particles card, divider, and 6 verb card placeholders.
+   - Each placeholder uses `SkeletonBlock` at `/home/ubuntuu/dev/mine/phrasal/frontend/src/components/skeletons/SkeletonBlock.tsx`, which applies `animate-pulse` with theme-aware backgrounds (`bg-gray-200 dark:bg-gray-800`).
+
+2. **CSS body transition** (`index.css`):
+   - The body has `transition: background-color 0.3s, color 0.3s;` which smooths dark/light mode toggling.
+
+3. **Fade-in CSS animation available** (`index.css`):
+   - A `.fade-in` class (0.4s opacity + translateY) exists but is **not used** on the verb list page.
+
+4. **Dark mode persisted to localStorage**:
+   - `PageShell` reads `darkMode` from `localStorage` synchronously in `useState` initializer (line 8-10 of `PageShell.tsx`), then applies the `dark` class via `useEffect`.
+
+5. **Tests validating skeleton behavior**:
+   - Dedicated tests in `loading-states.test.tsx` and `skeletons.test.tsx` confirm that animate-pulse blocks render while loading and no loading text flickers.
+
+### Vulnerability: Theme flash (FOUC) on page refresh
+
+There is one **unresolved gap** -- a potential flash of wrong theme on refresh:
+
+- **No blocking inline script in `index.html`** to apply the `dark` class before first paint. The HTML file at `/home/ubuntuu/dev/mine/phrasal/frontend/index.html` has no inline `&lt;script&gt;` that reads `localStorage` and adds the `dark` class to `&lt;html&gt;`. The only inline script handles GitHub Pages SPA redirect routing.
+
+- **Theme application happens in React's `useEffect`** inside `PageShell` (line 13-16). This means:
+  1. Browser parses HTML -- `&lt;html&gt;` has no `dark` class, `&lt;body&gt;` has both light and dark Tailwind classes but `dark:` variants are inactive.
+  2. React boots, `PageShell` mounts, `useState` reads `darkMode: true` from localStorage.
+  3. `useEffect` fires **after the first render** and toggles `document.documentElement.classList.toggle('dark', darkMode)`.
+
+  Between steps 1 and 3, if the user has dark mode saved, the page renders with light-mode colors first (white/gray-50 backgrounds), then snaps to dark (gray-950 backgrounds). This is the classic **Flash of Incorrect Theme (FOIT)**.
+
+- The `VerbListSkeleton` skeleton itself uses `dark:` variants (`dark:bg-gray-950`, `dark:bg-gray-900`, `dark:bg-gray-800`), so it would also render in light mode first before the `dark` class is applied.
+
+### Summary
+
+| Anti-flash measure | Status |
+|---|---|
+| Skeleton screen during API loading | Present and tested |
+| Skeleton matches final page layout | Present (title, subtitle, search btn, cards) |
+| Smooth dark/light toggle transition | Present (CSS body transition) |
+| Theme applied before first paint | **Missing** -- needs a blocking `&lt;script&gt;` in `index.html` |
+| Fade-in animation on content | Available but not applied to this page |
+
+**Bottom line**: The data-loading flash is well handled via the `VerbListSkeleton` skeleton screen. However, dark-mode users will see a brief flash of light-mode colors on every page refresh (including `/phrasal-verbs/list`) because the `dark` class is applied reactively in a `useEffect` rather than synchronously before first paint via an inline script in `index.html`. This is the one remaining anti-flash gap.</result>
+<usage><subagent_tokens>41190</subagent_tokens><tool_uses>19</tool_uses><duration_ms>67304</duration_ms></usage>
+</task-notification>
+---
+
+## 2026-07-17T16:11:46Z
+<task-notification>
+<task-id>a3a718954a054c64e</task-id>
+<tool-use-id>toolu_01W3pHKAyRQ1B9WafydKe5fV</tool-use-id>
+<output-file>/tmp/claude-1000/-home-ubuntuu-dev-mine-phrasal/69c54919-5aac-44f6-aab3-45e356f17ef1/tasks/a3a718954a054c64e.output</output-file>
+<status>completed</status>
+<summary>Agent "Check task-94 card spacing" finished</summary>
+<note>A task-notification fires each time this agent stops with no live background children of its own. The user can send it another message and resume it, so the same task-id may notify more than once.</note>
+<result>I have all the information needed. Here is the analysis:
+
+---
+
+**The phrasal verb card spacing issue has been fully addressed.** Here is the summary of what was done:
+
+### The Problem
+When clicking/expanding a phrasal verb meaning card in `VerbPage.tsx`, there was a visible layout shift. The root cause was that the `Meaning` component used **two entirely different JSX trees** for collapsed vs. expanded states, each with different padding and margin values:
+- Collapsed: `p-4` padding, `mt-0.5` gap between definition and example
+- Expanded: `p-4 pt-3` padding (smaller top), `mb-2` gap (larger), `pl-8` on the example (different alignment)
+
+This caused the card to grow/shift when clicked even when no image was present.
+
+### The Fix (commit `1dd2790`)
+The fix in `/home/ubuntuu/dev/mine/phrasal/frontend/src/components/VerbPage.tsx` **unified the collapsed and expanded layouts into a single DOM structure**. Key changes:
+
+1. **Single layout for both states**: Instead of a ternary producing two different JSX trees, there is now one consistent `&lt;div className="p-4"&gt;` wrapper used in both states. The only differences are:
+   - `truncate` class toggled on definition/example text (present when collapsed, absent when expanded)
+   - Image conditionally rendered only when `!collapsed &amp;&amp; !isDefault`
+
+2. **Consistent definition-to-example spacing**: `mt-0.5` (2px) is used in **both** collapsed and expanded states (line 73 of current VerbPage.tsx). No shift occurs.
+
+3. **No unnecessary spacing for items without pictures**: The `isDefault` check (`imageSrc.endsWith('default.png')`) at line 27 ensures that the image `&lt;div&gt;` (which carries `mb-3` margin) is never rendered for cards without a real image, eliminating phantom spacing.
+
+### Related Earlier Fixes
+- **`642df0c`** -- Reduced section spacing from `mb-10` to `mb-5` between particle sections (e.g., between "off" and "on")
+- **`ff9b100`** -- Made `default.png` cards expandable without rendering the `&lt;img&gt;` element
+- **`0704da4`** -- Moved number+definition below the image when expanded
+
+### Test Coverage
+The fix includes layout tests in `/home/ubuntuu/dev/mine/phrasal/frontend/src/__tests__/VerbPageLayout.test.tsx` verifying the expand/collapse behavior and aria attributes. The plan document at `/home/ubuntuu/dev/mine/phrasal/.claude/docs/blackbox/plans/2026-06-06 15:34 Context - new.md` confirms both the root cause analysis and the applied solution.</result>
+<usage><subagent_tokens>43994</subagent_tokens><tool_uses>21</tool_uses><duration_ms>128971</duration_ms></usage>
+</task-notification>
+---
+
+## 2026-07-17T16:14:57Z
+git add all changes and commit them with suitable message
+---

@@ -4787,3 +4787,77 @@
 - backend/CLAUDE.md
 - e2e/README.md
 <!-- end-snapshot -->
+
+<!-- git-snapshot 2026-07-17T16:07:58Z -->
+- .claude/docs/blackbox/audit.md
+<!-- end-snapshot -->
+
+<!-- git-snapshot 2026-07-17T16:08:02Z -->
+- .claude/docs/blackbox/audit.md
+- .claude/docs/blackbox/session-log.md
+<!-- end-snapshot -->
+
+<!-- git-snapshot 2026-07-17T16:08:05Z -->
+- .claude/docs/blackbox/audit.md
+- .claude/docs/blackbox/session-log.md
+<!-- end-snapshot -->
+
+<!-- git-snapshot 2026-07-17T16:08:08Z -->
+- .claude/docs/blackbox/audit.md
+- .claude/docs/blackbox/session-log.md
+<!-- end-snapshot -->
+
+<!-- git-snapshot 2026-07-17T16:08:10Z -->
+- .claude/docs/blackbox/audit.md
+- .claude/docs/blackbox/session-log.md
+<!-- end-snapshot -->
+
+<!-- git-snapshot 2026-07-17T16:08:19Z -->
+- .claude/docs/blackbox/audit.md
+- .claude/docs/blackbox/session-log.md
+<!-- end-snapshot -->
+
+<!-- git-snapshot 2026-07-17T16:08:22Z -->
+- .claude/docs/blackbox/audit.md
+- .claude/docs/blackbox/session-log.md
+<!-- end-snapshot -->
+
+<!-- git-snapshot 2026-07-17T16:08:26Z -->
+- .claude/docs/blackbox/audit.md
+- .claude/docs/blackbox/session-log.md
+<!-- end-snapshot -->
+
+<!-- git-snapshot 2026-07-17T16:08:28Z -->
+- .claude/docs/blackbox/audit.md
+- .claude/docs/blackbox/session-log.md
+<!-- end-snapshot -->
+
+<!-- git-snapshot 2026-07-17T16:08:32Z -->
+- .claude/docs/blackbox/audit.md
+- .claude/docs/blackbox/session-log.md
+<!-- end-snapshot -->
+
+<!-- git-snapshot 2026-07-17T16:10:18Z -->
+- .claude/docs/blackbox/audit.md
+- .claude/docs/blackbox/session-log.md
+- backlog/tasks/task-70 - Fix-overlap-between-expand-collapse-all-and-toggle-theme-buttons.md
+- backlog/tasks/task-71 - Menu-should-always-be-present-on-all-pages.md
+- backlog/tasks/task-75 - Add-be-cut-out-for-to-quiz.md
+- backlog/tasks/task-78 - Organize-releases-for-k8s.md
+- backlog/tasks/task-88 - Focus-cursor-on-search-when-opened.md
+- backlog/tasks/task-92 - Separate-cookies-for-different-pages.md
+- backlog/tasks/task-95 - Allow-flexible-input-checking-rules-in-quiz.md
+<!-- end-snapshot -->
+
+<!-- git-snapshot 2026-07-17T16:12:13Z -->
+- .claude/docs/blackbox/audit.md
+- .claude/docs/blackbox/session-log.md
+- backlog/tasks/task-70 - Fix-overlap-between-expand-collapse-all-and-toggle-theme-buttons.md
+- backlog/tasks/task-71 - Menu-should-always-be-present-on-all-pages.md
+- backlog/tasks/task-75 - Add-be-cut-out-for-to-quiz.md
+- backlog/tasks/task-78 - Organize-releases-for-k8s.md
+- backlog/tasks/task-88 - Focus-cursor-on-search-when-opened.md
+- backlog/tasks/task-92 - Separate-cookies-for-different-pages.md
+- backlog/tasks/task-94 - Fix-phrasal-verb-card-spacing-on-click.md
+- backlog/tasks/task-95 - Allow-flexible-input-checking-rules-in-quiz.md
+<!-- end-snapshot -->

@@ -1,9 +1,10 @@
 ---
 id: TASK-95
 title: Allow flexible input checking rules in quiz
-status: To Do
+status: Done
 assignee: []
 created_date: '2026-07-16 19:33'
+updated_date: '2026-07-17 16:10'
 labels:
   - frontend
 dependencies: []
@@ -21,3 +22,9 @@ Allow flexible checking rules for quiz answers. For example, for "get by", accep
 
 GitHub issue: #7
 <!-- SECTION:DESCRIPTION:END -->
+
+## Final Summary
+
+<!-- SECTION:FINAL_SUMMARY:BEGIN -->
+Already implemented. Grammar quiz uses `normalizeAnswer()` (toLowerCase, trim, strip punctuation, collapse spaces). Phrasal verb quiz uses its own normalization (toLowerCase, trim, strip parentheses). Both tested in normalizeAnswer.test.ts and quiz test suites.
+<!-- SECTION:FINAL_SUMMARY:END -->
