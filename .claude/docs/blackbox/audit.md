@@ -6887,3 +6887,15 @@ how to disable step?
 ## 2026-07-17T19:08:37Z
 git add all changes and commit them with suitable message
 ---
+
+## 2026-07-17T19:10:02Z
+github actions remove workflow?
+---
+
+## 2026-07-17T19:10:49Z
+I see only disable button, no delete?
+---
+
+## 2026-07-17T19:12:19Z
+Delete with `gh` "CI` workflow
+---
