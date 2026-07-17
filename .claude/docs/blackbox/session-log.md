@@ -4740,3 +4740,30 @@
 - backlog/tasks/task-85 - Add-checkstyle-for-frontend-e2e.md
 - backlog/tasks/task-86 - Show-error-if-loading-exceeds-3-5-seconds.md
 <!-- end-snapshot -->
+
+<!-- git-snapshot 2026-07-17T07:37:55Z -->
+- .claude/docs/blackbox/audit.md
+<!-- end-snapshot -->
+
+<!-- git-snapshot 2026-07-17T07:48:06Z -->
+- .claude/docs/blackbox/audit.md
+- .claude/docs/blackbox/session-log.md
+<!-- end-snapshot -->
+
+<!-- git-snapshot 2026-07-17T07:49:22Z -->
+- .claude/docs/blackbox/audit.md
+- .claude/docs/blackbox/session-log.md
+- .github/workflows/ci.yml
+<!-- end-snapshot -->
+
+<!-- git-snapshot 2026-07-17T07:53:58Z -->
+- .claude/docs/blackbox/audit.md
+- .claude/docs/blackbox/session-log.md
+- .github/workflows/ci.yml
+<!-- end-snapshot -->
+
+<!-- git-snapshot 2026-07-17T07:55:06Z -->
+- .claude/docs/blackbox/audit.md
+- .claude/docs/blackbox/session-log.md
+- .github/workflows/ci.yml
+<!-- end-snapshot -->

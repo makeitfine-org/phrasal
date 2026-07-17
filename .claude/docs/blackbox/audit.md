@@ -6309,3 +6309,51 @@ Just show command
 ## 2026-07-16T19:32:13Z
 read @backlog/drafts/issues.txt and for each issue create separate backlog.md task.
 ---
+
+## 2026-07-17T07:37:16Z
+GitHub Actions Usage
+ 
+ 
+Your plan includes 0.5 GB of Actions storage per month at no extra cost. You have used 90% so far this billing cycle.
+
+0.46 GB used / 0.5 GB included
+
+ 
+You'll be billed for usage beyond the included amount - unless a $0 budget is set for Actions, which blocks further usage until it resets. Your usage will reset in 15 days on August 01, 2026.
+
+how to increase the amount of available space for private repo and free github actions usage.
+---
+
+## 2026-07-17T07:37:45Z
+GitHub Actions Usage
+ 
+ 
+Your plan includes 0.5 GB of Actions storage per month at no extra cost. You have used 90% so far this billing cycle.
+
+0.46 GB used / 0.5 GB included
+
+ 
+You'll be billed for usage beyond the included amount - unless a $0 budget is set for Actions, which blocks further usage until it resets. Your usage will reset in 15 days on August 01, 2026.
+
+- How to increase the amount of available space for private repo and free github actions usage.
+- Where to watch that params?
+---
+
+## 2026-07-17T07:47:46Z
+ Reduce what CI stores — review your workflow for unnecessary actions/cache or actions/upload-artifact steps. Set
+  shorter retention-days on artifacts.
+
+Where are that?
+---
+
+## 2026-07-17T07:49:10Z
+yes
+---
+
+## 2026-07-17T07:53:44Z
+set total timeout for ci.yml
+---
+
+## 2026-07-17T07:54:52Z
+it's to logn decrease it, you can be more suitable
+---

@@ -10,6 +10,7 @@ on:
 jobs:
   build-and-test:
     runs-on: ubuntu-latest
+    timeout-minutes: 5
     steps:
       - uses: actions/checkout@v4
 
@@ -33,6 +34,7 @@ jobs:
         with:
           name: jacoco-report
           path: backend/target/site/jacoco/
+          retention-days: 3
 
       - name: Upload test results
         if: always()
@@ -40,15 +42,18 @@ jobs:
         with:
           name: test-results
           path: backend/target/surefire-reports/
+          retention-days: 3
 
       - name: Upload application JAR
         uses: actions/upload-artifact@v4
         with:
           name: app-jar
           path: backend/target/backend-*.jar
+          retention-days: 1
 
   frontend-test:
     runs-on: ubuntu-latest
+    timeout-minutes: 5
     steps:
       - uses: actions/checkout@v4
 
@@ -70,6 +75,7 @@ jobs:
 
   e2e:
     runs-on: ubuntu-latest
+    timeout-minutes: 5
     needs: [build-and-test, frontend-test]
     steps:
       - uses: actions/checkout@v4
@@ -117,10 +123,12 @@ jobs:
         with:
           name: cucumber-report
           path: e2e/reports/
+          retention-days: 3
 
   docker-push:
     if: startsWith(github.ref, 'refs/tags/v')
     runs-on: ubuntu-latest
+    timeout-minutes: 5
     needs: [e2e]
     steps:
       - uses: actions/checkout@v4
@@ -155,11 +163,14 @@ jobs:
           tags: |
             ${{ secrets.DOCKER_USERNAME }}/phrasal-frontend:${{ steps.version.outputs.VERSION }}
             ${{ secrets.DOCKER_USERNAME }}/phrasal-frontend:latest
+            
+
 
 
   deploy:
     if: startsWith(github.ref, 'refs/tags/v')
     runs-on: ubuntu-latest
+    timeout-minutes: 5
     needs: [docker-push]
     environment: production
     steps:
