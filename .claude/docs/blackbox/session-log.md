@@ -4767,3 +4767,23 @@
 - .claude/docs/blackbox/session-log.md
 - .github/workflows/ci.yml
 <!-- end-snapshot -->
+
+<!-- git-snapshot 2026-07-17T08:07:20Z -->
+- .claude/docs/blackbox/audit.md
+- .github/workflows/ci.yml
+- CLAUDE.md
+- README.md
+- e2e/README.md
+<!-- end-snapshot -->
+
+<!-- git-snapshot 2026-07-17T08:10:05Z -->
+- .claude/docs/blackbox/audit.md
+- .claude/docs/blackbox/session-log.md
+- .github/workflows/ci_cd.yml
+- CLAUDE.md
+- README.md
+- aux/docs/decomposition_plan.md
+- aux/docs/k3sconf.md
+- backend/CLAUDE.md
+- e2e/README.md
+<!-- end-snapshot -->

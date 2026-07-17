@@ -128,7 +128,7 @@ All values are read from environment variables (loaded via `dotenv` from `.env`)
 
 The suite runs as part of `make build` after the Docker stack comes up.
 
-The CI pipeline (`.github/workflows/ci.yml`) executes:
+The CI pipeline (`.github/workflows/ci_cd.yml`) executes:
 1. Build backend + frontend
 2. Docker compose up
 3. Run `npm test` (all scenarios)

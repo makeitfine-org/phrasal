@@ -89,7 +89,7 @@ Prefer `make <target>` over raw commands — targets chain steps correctly and e
 Before marking any task done:
 1. `docker-compose.yml`, Skaffold, k8s configs must reflect any new relevant changes
 2. `README.md` files, `CLAUDE.md` files must reflect any new relevant changes
-3. GitHub Actions `.github/workflows/ci.yml` must reflect any new relevant changes
+3. GitHub Actions `.github/workflows/ci_cd.yml` must reflect any new relevant changes
 4. Every backlog task which modify or extend an existing codebase **must** 
    always modify or extend unit, integration, e2e tests related with this task
 5. Every backlog task Acceptance Criteria **must** include `- [ ] \`make clean build\` passes`

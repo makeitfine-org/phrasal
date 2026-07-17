@@ -257,7 +257,7 @@ minikube delete   # full reset
 
 The app runs on a Hetzner VPS with K3s, Traefik ingress, and Let's Encrypt TLS at **https://phrasal.ddns.net**.
 
-CI/CD pipeline (`.github/workflows/ci.yml`) runs tests on every push. Docker push and deployment only trigger on version tags (see [Releasing](#releasing)).
+CI/CD pipeline (`.github/workflows/ci_cd.yml`) runs tests on every push. Docker push and deployment only trigger on version tags (see [Releasing](#releasing)).
 
 ```
 push to any branch → build + test + e2e

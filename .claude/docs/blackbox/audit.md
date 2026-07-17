@@ -6357,3 +6357,12 @@ set total timeout for ci.yml
 ## 2026-07-17T07:54:52Z
 it's to logn decrease it, you can be more suitable
 ---
+
+## 2026-07-17T08:06:44Z
+Rename @.github/workflows/ci.yml to ci_cd.yml.
+Consider that is README.md and CLAUDE.md files.
+---
+
+## 2026-07-17T08:09:34Z
+did you consider that in all occurances
+---

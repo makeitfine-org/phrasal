@@ -373,7 +373,7 @@ phrasal/
 ├── docker-compose.prod.yml            # Production (backend + postgres only)
 ├── skaffold.yaml                      # K8s dev workflow
 ├── .github/workflows/
-│   ├── ci.yml                         # Test on PR
+│   ├── ci_cd.yml                      # Test on PR
 │   └── deploy-aws.yml                 # Deploy on tag
 └── aux/docs/
     └── decomposition_plan.md          # This document

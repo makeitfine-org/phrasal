@@ -112,7 +112,7 @@ Ports 80 and 443 were already opened by a separate Ansible playbook. Port 6443 i
 
 ## Step 4 — GitHub Actions CI/CD Pipeline
 
-The pipeline (`.github/workflows/ci.yml`) runs on every push to any branch. The deploy stages only trigger on pushes to `main`:
+The pipeline (`.github/workflows/ci_cd.yml`) runs on every push to any branch. The deploy stages only trigger on pushes to `main`:
 
 ```
 build-and-test ──┐
