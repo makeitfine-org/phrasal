@@ -15,7 +15,7 @@ jobs:
       - uses: actions/checkout@v4
 
       - name: Clean old artifacts
-        continue-on-error: true
+        if: false # disable
         env:
           GH_TOKEN: ${{ github.token }}
         run: |
@@ -40,28 +40,26 @@ jobs:
         run: mvn -f backend/pom.xml jacoco:report
 
       - name: Upload JaCoCo report
-        continue-on-error: true
         uses: actions/upload-artifact@v7
         with:
           name: jacoco-report
           path: backend/target/site/jacoco/
-          retention-days: 1
+          retention-days: 3
 
       - name: Upload test results
         if: always()
-        continue-on-error: true
         uses: actions/upload-artifact@v7
         with:
           name: test-results
           path: backend/target/surefire-reports/
-          retention-days: 1
+          retention-days: 3
 
       - name: Upload application JAR
         uses: actions/upload-artifact@v7
         with:
           name: app-jar
           path: backend/target/backend-*.jar
-          retention-days: 1
+          retention-days: 3
 
   frontend-test:
     runs-on: ubuntu-latest
@@ -131,12 +129,11 @@ jobs:
 
       - name: Upload Cucumber report
         if: always()
-        continue-on-error: true
         uses: actions/upload-artifact@v7
         with:
           name: cucumber-report
           path: e2e/reports/
-          retention-days: 1
+          retention-days: 3
 
   docker-push:
     if: startsWith(github.ref, 'refs/tags/v')

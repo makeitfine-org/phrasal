@@ -6865,3 +6865,25 @@ how to fix that error with node 20, because I use 26
 ## 2026-07-17T19:01:40Z
 git add all changes and commit them with suitable message
 ---
+
+## 2026-07-17T19:03:47Z
+      - name: Clean old artifacts
+        continue-on-error: true
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          gh api repos/${{ github.repository }}/actions/artifacts \
+            --paginate --jq '.artifacts[].id' | \
+          xargs -I{} gh api -X DELETE \
+            repos/${{ github.repository }}/actions/artifacts/{} 2>/dev/null || true
+
+Whath does it do?
+---
+
+## 2026-07-17T19:07:10Z
+how to disable step?
+---
+
+## 2026-07-17T19:08:37Z
+git add all changes and commit them with suitable message
+---
