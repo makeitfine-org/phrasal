@@ -4861,3 +4861,32 @@
 - backlog/tasks/task-94 - Fix-phrasal-verb-card-spacing-on-click.md
 - backlog/tasks/task-95 - Allow-flexible-input-checking-rules-in-quiz.md
 <!-- end-snapshot -->
+
+<!-- git-snapshot 2026-07-17T18:12:48Z -->
+- .claude/docs/blackbox/audit.md
+- .github/workflows/ci_cd.yml
+<!-- end-snapshot -->
+
+<!-- git-snapshot 2026-07-17T18:43:34Z -->
+- .claude/docs/blackbox/audit.md
+- .claude/docs/blackbox/session-log.md
+- .github/workflows/ci_cd.yml
+<!-- end-snapshot -->
+
+<!-- git-snapshot 2026-07-17T18:49:10Z -->
+- .claude/docs/blackbox/audit.md
+- .claude/docs/blackbox/session-log.md
+- .github/workflows/ci_cd.yml
+<!-- end-snapshot -->
+
+<!-- git-snapshot 2026-07-17T18:50:56Z -->
+- .claude/docs/blackbox/audit.md
+- .claude/docs/blackbox/session-log.md
+- .github/workflows/ci_cd.yml
+<!-- end-snapshot -->
+
+<!-- git-snapshot 2026-07-17T18:52:55Z -->
+- .claude/docs/blackbox/audit.md
+- .claude/docs/blackbox/session-log.md
+- .github/workflows/ci_cd.yml
+<!-- end-snapshot -->

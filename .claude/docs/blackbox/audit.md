@@ -6802,3 +6802,44 @@ The fix includes layout tests in `/home/ubuntuu/dev/mine/phrasal/frontend/src/__
 ## 2026-07-17T16:14:57Z
 git add all changes and commit them with suitable message
 ---
+
+## 2026-07-17T18:10:18Z
+ci/cd github actions workflow fallen on `build-and-test` `Upload test results`:
+
+1s
+Node 20 is being deprecated. This workflow is running with Node 24 by default. If you need to temporarily use Node 20, you can set the ACTIONS_ALLOW_USE_UNSECURE_NODE_VERSION=true environment variable. For more information see: https://github.blog/changelog/2025-09-19-deprecation-of-node-20-on-github-actions-runners/
+Run actions/upload-artifact@v4
+(node:3054) [DEP0040] DeprecationWarning: The `punycode` module is deprecated. Please use a userland alternative instead.
+(Use `node --trace-deprecation ...` to show where the warning was created)
+With the provided path, there will be 28 files uploaded
+Artifact name is valid!
+Root directory input is valid!
+Error: Failed to CreateArtifact: Artifact storage quota has been hit. Unable to upload any new artifacts. Usage is recalculated every 6-12 hours.
+More info on storage limits: https://docs.github.com/en/billing/managing-billing-for-github-actions/about-billing-for-github-actions#calculating-minute-and-storage-spending
+---
+
+## 2026-07-17T18:43:26Z
+Question: why did it work before this build?
+---
+
+## 2026-07-17T18:49:03Z
+Node 20 is being deprecated. This workflow is running with Node 24 by default. If you need to temporarily use Node 20, you can set the ACTIONS_ALLOW_USE_UNSECURE_NODE_VERSION=true environment variable. For more information see: https://github.blog/changelog/2025-09-19-deprecation-of-node-20-on-github-actions-runners/
+Run actions/upload-artifact@v4
+(node:3046) [DEP0040] DeprecationWarning: The `punycode` module is deprecated. Please use a userland alternative instead.
+(Use `node --trace-deprecation ...` to show where the warning was created)
+With the provided path, there will be 28 files uploaded
+Artifact name is valid!
+Root directory input is valid!
+Error: Failed to CreateArtifact: Artifact storage quota has been hit. Unable to upload any new artifacts. Usage is recalculated every 6-12 hours.
+More info on storage limits: https://docs.github.com/en/billing/managing-billing-for-github-actions/about-billing-for-github-actions#calculating-minute-and-storage-spending
+
+What's that mean?
+---
+
+## 2026-07-17T18:50:45Z
+But I clean all cache in github action with browser
+---
+
+## 2026-07-17T18:52:47Z
+Why should I remove that artifact in previous runs? each new workflow creates new ones.
+---
