@@ -6984,3 +6984,405 @@ What does it do?
 
 Check out command one more time. Is it correct?
 ---
+
+## 2026-07-18T16:56:39Z
+So I switch to private repository and get an error in github actions log:
+
+0s
+Run actions/upload-artifact@v7
+With the provided path, there will be 102 files uploaded
+Artifact name is valid!
+Root directory input is valid!
+Error: Failed to CreateArtifact: Artifact storage quota has been hit. Unable to upload any new artifacts. Usage is recalculated every 6-12 hours.
+More info on storage limits: https://docs.github.com/en/billing/managing-billing-for-github-actions/about-billing-for-github-actions#calculating-minute-and-storage-spending
+1s
+Run actions/upload-artifact@v7
+With the provided path, there will be 28 files uploaded
+Artifact name is valid!
+Root directory input is valid!
+Error: Failed to CreateArtifact: Artifact storage quota has been hit. Unable to upload any new artifacts. Usage is recalculated every 6-12 hours.
+More info on storage limits: https://docs.github.com/en/billing/managing-billing-for-github-actions/about-billing-for-github-actions#calculating-minute-and-storage-spending
+---
+
+## 2026-07-18T17:06:43Z
+
+Metered usage grouped by repositories
+Jul 1 - Jul 31, 2026
+Line chart with 4 lines.
+View as data table, Chart
+The chart has 1 X axis displaying Time. Data ranges from 2026-07-01 00:00:00 to 2026-07-18 00:00:00.
+The chart has 1 Y axis displaying values. Data ranges from 0 to 5.37.
+End of interactive chart.
+Usage breakdown
+Usage for Jul 1 - Jul 31, 2026. For license-based products, the price/unit is a prorated portion of the monthly price.
+Repositories
+Gross amount
+Billed amount
+phrasal
+$5.37
+$0
+SKU
+Units
+Price/unit
+Gross amount
+Billed amount
+Actions Linux
+828 min
+$0.006
+$4.97
+$0
+Actions storage
+1,191.51 GB-hr
+$0.000336
+$0.40
+$0
+---
+
+## 2026-07-18T17:08:54Z
+1,191.51 GB-hours of Actions storage. meaning?
+---
+
+## 2026-07-18T17:12:25Z
+I removed them 18 hours ago, and nothing
+---
+
+## 2026-07-18T17:15:43Z
+ gh api /orgs/makeitfine-org/packages --jq '.[].name' 2>&1 || echo "no access"
+{"message":"The package_type parameter is required.","documentation_url":"https://docs.github.com/rest/packages/packages#list-packages-for-an-organization","status":"422"}gh: The package_type parameter is required. (HTTP 422)
+no access
+---
+
+## 2026-07-18T17:17:38Z
+...
+=== docker ===
+{"message":"You need at least read:packages scope to list packages.","documentation_url":"https://docs.github.com/rest/packages/packages#list-packages-for-an-organization","status":"403"}gh: You need at least read:packages scope to list packages. (HTTP 403)
+none/no access
+=== nuget ===
+{"message":"You need at least read:packages scope to list packages.","documentation_url":"https://docs.github.com/rest/packages/packages#list-packages-for-an-organization","status":"403"}gh: You need at least read:packages scope to list packages. (HTTP 403)
+none/no access
+=== rubygems ===
+{"message":"You need at least read:packages scope to list packages.","documentation_url":"https://docs.github.com/rest/packages/packages#list-packages-for-an-organization","status":"403"}gh: You need at least read:packages scope to list packages. (HTTP 403)
+none/no access
+---
+
+## 2026-07-18T17:31:27Z
+Skip to main content
+GitHub Docs
+
+HomeBilling and paymentsConceptsProduct billingGitHub Actions
+GitHub Actions billing
+Learn how usage of GitHub Actions is measured against your free allowance and how to pay for additional use.
+
+In this article
+How use of GitHub Actions is measured
+GitHub Actions usage is free for self-hosted runners and for public repositories that use standard GitHub-hosted runners. See Choosing the runner for a job.
+
+For private repositories, each GitHub account receives a quota of free minutes, artifact storage, and cache storage for use with GitHub-hosted runners, depending on the account's plan. Any usage beyond the included amounts is billed to your account.
+
+Minutes: Your free minutes reset to the full amount at the start of each billing cycle. Minutes usage is charged to the repository owner, not the person who triggered the workflow runs.
+Storage: Storage charges accumulate throughout the month based on hourly usage. Your accrued storage charges reset to zero at the start of each billing cycle.
+Tip
+
+Anyone with write access to a repository can run actions. Any costs of running the actions are billed to the repository owner.
+
+Copilot code review and GitHub Actions minutes
+Each Copilot code review consumes GitHub Actions minutes in addition to AI credits.
+
+Private repositories: Minutes are consumed from your account or organization's existing plan entitlement. Any usage beyond your included minutes is billed at standard GitHub Actions rates.
+Public repositories: Minutes remain free.
+Copilot code review runs on standard GitHub-hosted Ubuntu Linux runners by default. You can also configure GitHub-hosted larger runners or self-hosted runners via Actions Runner Controller (ARC), which are billed at different rates.
+
+How storage billing works
+GitHub Actions storage billing operates on an hourly accrual model:
+
+Continuous billing: Storage charges accrue every hour based on your actual usage throughout the month
+Monthly total: Your bill reflects the total storage used throughout the month, measured in GB-Hours
+Included amount: The free storage allowance for your plan (for example, 50 GB on the Enterprise plan) is converted to an hourly rate for billing calculations
+Shared storage: Actions artifacts and GitHub Packages storage share the same pooled allowance. See GitHub Packages billing.
+Cache storage: Actions cache storage is a separate allowance of 10 GB per repository. Cache storage is not shared with artifacts or GitHub Packages.
+Custom image storage: Storage for custom images used with GitHub-hosted larger runners has its own included allowance based on your plan.
+Understanding current vs. accrued storage
+It's important to understand the difference between what you see on GitHub and what appears on your bill:
+
+Current storage: The amount of storage you have right now
+Accrued storage: The cumulative total of storage used throughout the billing cycle (determines your bill)
+When you delete artifacts:
+
+Current storage decreases immediately
+Future hourly charges stop accumulating
+Storage already accrued during the current billing cycle remains in your total and will appear on your bill
+Example (30-day billing cycle): If you store 10 GB of artifacts for 10 days, then delete everything on day 11:
+
+Days 1-10: Accruing 240 GB-Hours per day (10 GB × 24 hours)
+Day 11: Delete artifacts → current storage drops to 0 GB
+Days 11-30: Accruing 0 GB-Hours (no storage)
+Your bill: Shows 2,400 GB-Hours total (10 days × 240 GB-Hours/day)
+Deleting artifacts reduces your current storage and prevents future charges, but does not remove charges already recorded for the time the storage existed.
+
+Storage measurement units
+GitHub Actions measures storage in binary gigabytes (GB), where:
+
+1 GB = 2^30 bytes = 1,073,741,824 bytes
+This is also known as a gibibyte (GiB)
+1 GB = 1,024 megabytes (MB)
+Billing calculations use GB-Hours:
+
+1 GB-Hour = 1 GB of storage for 1 hour
+Example: Storing 3 GB for 10 days = 720 GB-Hours (3 GB × 10 days × 24 hours)
+Your monthly bill converts GB-Hours to GB-Months by dividing by the hours in the month (usually 720 hours for a 30-day month).
+
+Custom image storage
+For GitHub-hosted larger runners, storage for custom images is billed through GitHub Actions storage.
+
+Custom image storage uses the same hourly accrual model as other GitHub Actions storage. Your bill is based on the amount of image data that is stored over time, measured in GB-Hours.
+
+Storage usage for custom images depends on:
+
+The size of each image version
+The number of image versions that you retain
+How long each version is stored
+Each successful workflow job that includes the snapshot keyword creates a new custom image version. Each retained version contributes to your storage usage until the version is deleted or removed by a retention policy. For more information, see Using custom images and Enforcing policies for GitHub Actions in your enterprise.
+
+Custom image storage is based on retained image data over time, not on the number of times that a runner uses or pulls an existing image.
+
+For example:
+
+Storing one 150 GB custom image version for 24 hours uses 3,600 GB-Hours.
+Storing four 150 GB versions of the same image for 24 hours uses 14,400 GB-Hours.
+Examples of how usage is measured
+If you run a workflow on a Linux runner and it takes 10 minutes to complete, you'll use 10 minutes of the repository owner's allowance. If the workflow generates a 10 MB artifact, then you'll also use 10 MB of the repository owner's artifact storage allowance.
+If you run a workflow that normally takes 10 minutes and it fails after 5 minutes because a dependency isn't available, you'll use 5 minutes of the repository owner's allowance. If you fix the problem and re-run the workflow successfully, in total you'll use 15 minutes of the repository owner's allowance.
+If you run a workflow that generates many log files and a long job summary, these files do not count towards the repository owner's artifact storage allowance.
+Cache storage usage is measured by the peak usage for each hour. The included allowance is 10 GB per repository. For a given hour, if a repository has a peak cache usage of 15 GB, then the repository owner will be charged for the 5 GB of usage above the 10 GB included for that repository. The repository owner will only be charged if the repository cache storage limit has been configured higher than the included usage.
+Free use of GitHub Actions
+The following amounts of time for standard runners, artifact storage, and cache storage are included in your GitHub plan. At the start of each month, the minutes used by the account are reset to zero.
+
+Plan    Artifact storage    Minutes (per month)    Cache storage (per repository)    Custom image storage
+GitHub Free    500 MB    2,000    10 GB    Not applicable
+GitHub Pro    1 GB    3,000    10 GB    Not applicable
+GitHub Free for organizations    500 MB    2,000    10 GB    Not applicable
+GitHub Team    2 GB    3,000    10 GB    75 GB
+GitHub Enterprise Cloud    50 GB    50,000    10 GB    150 GB
+The use of standard GitHub-hosted runners is free:
+
+In public repositories
+For GitHub Pages
+For Dependabot
+Note
+
+Larger runners are always charged for, even when used by public repositories or when you have quota available from your plan.
+The artifact storage amounts shown are shared with GitHub Packages. This means your total storage across Actions artifacts and GitHub Packages storage cannot exceed the included amount for your plan. Cache storage and custom image storage are separate allowances.
+Copilot code review consumes GitHub Actions minutes on private repositories. For public repositories, GitHub Actions minutes remain free.
+Using more than your included quota
+If your account does not have a valid payment method on file, usage is blocked once you use up your quota. Usage of larger runners is always blocked until you set up a payment method.
+
+Paying for additional GitHub Actions use
+You pay for any additional use above your quota using the payment method set up for your GitHub account. See Managing your payment and billing information.
+
+For GitHub-hosted runners, storage is billed based on hourly usage of artifacts and caches throughout the month. Minutes are calculated based on the total processing time used by each runner type during the month.
+
+To estimate costs for paid usage, use the GitHub pricing calculator.
+To view your current costs, see Viewing your usage of metered products and licenses.
+Note
+
+The billing dashboard may show your Actions usage as a dollar amount ("spend") rather than raw minutes. This amount already reflects any applicable minute costs.
+
+Baseline minute costs
+Each type of runner hosted by GitHub has a cost per-minute that is determined by the operating system and processing power.
+
+For example, jobs that run on Windows and macOS runners hosted by GitHub cost more to run than jobs on Linux runners.
+
+Operating system    Billing SKU    Per-minute rate (USD)
+Linux 1-core (x64)    actions_linux_slim    $0.002
+Linux 2-core (x64)    actions_linux    $0.006
+Linux 2-core (arm64)    actions_linux_arm    $0.005
+Windows 2-core (x64)    actions_windows    $0.010
+Windows 2-core (arm64)    actions_windows_arm    $0.010
+macOS 3-core or 4-core (M1 or Intel)    actions_macos    $0.062
+For full details of minute costs for different types of runners, see Actions runner pricing.
+
+Storage pricing
+Usage beyond your included allowances is billed at the following rates:
+
+Storage type    Price per GB/month
+Shared storage (artifacts and GitHub Packages)    $0.25 USD
+Actions cache    $0.07 USD
+Custom image storage    $0.07 USD
+Example minutes cost calculation for GitHub-hosted runners
+For example, if your organization uses GitHub Team, using 5,000 minutes beyond the included quota on GitHub-hosted runners would have a total actions minutes cost of $38 USD currently, if you used baseline Linux and Windows runners.
+
+5,000 (3,000 Linux and 2,000 Windows) minutes = $38 USD ($18 USD + $20 USD).
+3,000 Linux minutes at $0.006 USD per minute = $18 USD.
+2,000 Windows minutes at $0.010 USD per minute = $20 USD.
+Example artifact storage cost calculation
+If you use 3 GB of artifact storage for 10 days of March and 12 GB for 21 days of March, your artifact storage usage would be:
+
+3 GB x 10 days x (24 hours per day) = 720 GB-Hours
+12 GB x 21 days x (24 hours per day) = 6,048 GB-Hours
+720 GB-Hours + 6,048 GB-Hours = 6,768 GB-Hours
+6,768 GB-Hours / (744 hours per month) = 9.0967 GB-Months
+At the end of the month, GitHub rounds your artifact storage to the nearest MB. Therefore, your artifact storage usage for March would be 9.097 GB.
+
+Note
+
+GitHub updates your artifact storage usage within 6 to 12 hours. Deleting artifacts frees up space for current storage, but does not reduce your accrued storage usage, which is used to calculate your storage billing for the current billing cycle.
+
+Example cache storage cost calculation
+If you use 3 GB of cache storage for 10 days of March and 12 GB for 21 days of March, your cache storage usage would be:
+
+Usage (GBs)    Billable (GB-Hours)    Non billable (GB-Hours)
+3 GB for the first 10 days    0 GB-Hours    720 GB-Hours
+12 GB for the next 21 days    2*21 days*24 hours = 1008 GB-Hours    10*21 days*24 hours=5040 GB-Hours
+For cached storage, billing charts and reports show only the cost of usage beyond the included 10 GB. At the end of the month, the Actions Cache Storage SKU would show a use of 1008 GB-Hours.
+
+Managing your budget for GitHub Actions
+If your account does not have a valid payment method on file, usage is blocked once you use up your quota.
+
+If you have a valid payment method on file, spending may be limited by one or more budgets. Check the budgets set for your account to ensure they are appropriate for your usage needs. See Setting up budgets to control spending on metered products.
+
+You can also receive email notifications when your included GitHub Actions usage reaches 90% and 100% during a billing period. For more information, see Budgets and alerts.
+
+Further reading
+Understanding GitHub Actions
+Quickstart for GitHub Actions
+Help and support
+Did you find what you needed?
+
+Privacy policy
+Help us make these docs great!
+All GitHub docs are open source. See something that's wrong or unclear? Submit a pull request.
+
+Learn how to contribute
+
+Still need help?
+Ask the GitHub community
+Contact support
+Legal
+© 2026 GitHub, Inc.
+Terms
+Privacy
+Status
+Pricing
+Expert services
+Blog
+
+
+
+Skip to main content
+GitHub Docs
+
+HomeBilling and paymentsConceptsProduct billingGitHub Packages
+GitHub Packages billing
+Learn how usage of GitHub Packages is measured against your free allowance and how to pay for additional use.
+
+In this article
+How use of GitHub Packages is measured
+GitHub Packages usage is free for public packages. In addition, data transferred in from any source is free.
+
+For private repositories, each GitHub account receives a quota of storage and data transfer for use with GitHub Packages, depending on the account's plan. Any usage beyond the included amounts is billed to your account.
+
+Data transfer Your free quota resets at the start of each billing cycle.
+Storage: Charges accrue continuously throughout the month based on your hourly usage. At the start of each billing cycle, your accrued storage total resets to zero and begins accumulating again.
+Working in a private repository with packages:
+
+When you publish a private package, the total file size is included in the repository owner's storage use.
+When you download a private package, the transfer of data is included in the repository owner's data transfer usage.
+Tip
+
+Anyone with write access to a repository can publish packages without increasing usage for their personal account.
+
+Examples of how usage is measured
+If you publish a 500 MB package in a private repository, you'll use 500 MB of the repository owner's storage and none of their data transfer allowance. If you find a bug and publish an updated 500 MB package without deleting the original package, you are now using 1 GB of the owner's storage.
+If you download a 500 MB package from a private repository, you'll use 500 MB of the repository owner's data transfer. If a security fix is released and you download the new package, you'll add another 500 MB of data transfer, bringing the total transfer for these two downloads to 1 GB of data.
+If GitHub Actions downloads a 500 MB package from a private repository using a GITHUB_TOKEN, this does not count against the repository owner's data transfer allowance, see Package downloads by GitHub Actions.
+Free use of GitHub Packages
+The following amounts of storage and data transfer are included in your GitHub plan. At the start of each month, the data transfer for the account is reset to zero.
+
+Plan    Storage    Data transfer (per month)
+GitHub Free    500MB    1GB
+GitHub Pro    2GB    10GB
+GitHub Free for organizations    500MB    1GB
+GitHub Team    2GB    10GB
+GitHub Enterprise Cloud    50GB    100GB
+The storage amounts shown are shared with GitHub Actions artifacts. This means your total storage across Packages and Actions artifacts cannot exceed the included amount for your plan.
+
+Note
+
+Billing for container image storage: Container image storage and bandwidth for the Container registry is currently free. If you use Container registry, you'll be informed at least one month in advance of any change to this policy. For more information about the Container registry, see Working with the Container registry.
+Package downloads by GitHub Actions
+When a workflow uses GitHub Actions to download a package, the data transfer does not count against the usage for the hosting repository. We determine you are downloading packages using GitHub Actions when you log in to GitHub Packages using a GITHUB_TOKEN.
+
+Hosted    Self-Hosted
+Access using a GITHUB_TOKEN    Free    Free
+Access using a personal access token    Free    Paid
+Using more than your included quota
+If your account does not have a valid payment method on file, usage is blocked once you use up your quota.
+
+Paying for additional GitHub Packages use
+You pay for any additional use above your quota using the payment method set up for your GitHub account. See Managing your payment and billing information.
+
+Data transfer is billed for each GB of data transferred. Storage is billed by calculating an hourly usage rate.
+
+To estimate the costs for metered services, you can use the GitHub pricing calculator.
+To view your current storage and bandwidth, see Viewing your usage of metered products and licenses.
+Example of how usage is calculated over a month
+At the end of the month, GitHub rounds your data transfer to the nearest GB.
+
+GitHub calculates your storage usage for each month based on hourly usage per GB during that month. For example, if you use 3 GB of storage for 10 days of March and 12 GB for 21 days of March, your storage usage would be:
+
+3 GB x 10 days x (24 hours per day) = 720 GB-Hours
+12 GB x 21 days x (24 hours per day) = 6,048 GB-Hours
+720 GB-Hours + 6,048 GB-Hours = 6,768 total GB-Hours
+6,768 GB-Hours / (744 hours per month) = 9.0967 GB-Months
+At the end of the month, GitHub rounds your storage to the nearest MB. Therefore, your storage usage for March would be 9.097 GB.
+
+Example of estimating usage
+You can also use this calculation in the middle of a billing cycle, to estimate what your total usage might be for the month. For example, if you have an organization that uses GitHub Team, which provides 2 GB of free storage, and you use 0 GB for the first 5 days of April, 1.5 GB for the following 10 days, and you plan to use 3 GB for the last 15 days of the billing cycle, your projected storage usage for the month would be:
+
+0 GB x 5 days x (24 hours per day) = 0 GB-Hours
+0.5 GB x 10 days x (24 hours per day) = 120 GB-Hours
+3 GB x 15 days x (24 hours per day) = 1080 GB-Hours
+0 GB-Hours + 120 GB-Hours + 1080 GB-Hours = 1200 total GB-Hours
+1200 GB-Hours / (744 hours per month) = 1.6 GB-Months
+The projected 1.6 GB of storage usage for the month would not exceed your 2 GB limit, even though your actual storage amount exceeded 2 GB for half the month.
+
+Managing your budget for GitHub Packages
+If your account does not have a valid payment method on file, usage is blocked once you use up your quota.
+
+If you have a valid payment method on file, spending may be limited by one or more budgets. Check the budgets set for your account to ensure they are appropriate for your usage needs. See Setting up budgets to control spending on metered products.
+
+You can also receive email notifications when your included GitHub Packages usage reaches 90% and 100% during a billing period. For more information, see Budgets and alerts.
+
+Further reading
+Introduction to GitHub Packages
+Quickstart for GitHub Packages
+Publishing a package
+Help and support
+Did you find what you needed?
+
+Privacy policy
+Help us make these docs great!
+All GitHub docs are open source. See something that's wrong or unclear? Submit a pull request.
+
+Learn how to contribute
+
+Still need help?
+Ask the GitHub community
+Contact support
+Legal
+© 2026 GitHub, Inc.
+Terms
+Privacy
+Status
+Pricing
+Expert services
+Blog
+---
+
+## 2026-07-18T17:49:41Z
+Propose a new release with description and tag step-by-step based on @README.md
+---
+
+## 2026-07-18T17:50:33Z
+Run Option B
+---
