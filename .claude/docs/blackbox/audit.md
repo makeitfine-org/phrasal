@@ -6909,3 +6909,78 @@ How to delete with `gh` that which older then 3 days?
 I have in `All workflows` even all ones, which didn't exist now.
 How to delete with `gh` that which older then 7 days?
 ---
+
+## 2026-07-18T16:29:31Z
+github action summery:
+
+Annotations
+3 warnings
+frontend-test
+Node.js 20 is deprecated. The following actions target Node.js 20 but are being forced to run on Node.js 24: actions/checkout@v4, actions/setup-node@v4. For more information see: https://github.blog/changelog/2025-09-19-deprecation-of-node-20-on-github-actions-runners/
+build-and-test
+Node.js 20 is deprecated. The following actions target Node.js 20 but are being forced to run on Node.js 24: actions/checkout@v4, actions/setup-java@v4. For more information see: https://github.blog/changelog/2025-09-19-deprecation-of-node-20-on-github-actions-runners/
+e2e
+Node.js 20 is deprecated. The following actions target Node.js 20 but are being forced to run on Node.js 24: actions/checkout@v4, actions/setup-node@v4. For more information see: https://github.blog/changelog/2025-09-19-deprecation-of-node-20-on-github-actions-runners/
+
+
+fix these 3 warnings
+---
+
+## 2026-07-18T16:37:02Z
+      - name: Clean old artifacts
+        if: false # disable
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          gh api repos/${{ github.repository }}/actions/artifacts \
+            --paginate --jq '.artifacts[].id' | \
+          xargs -I{} gh api -X DELETE \
+            repos/${{ github.repository }}/actions/artifacts/{} 2>/dev/null || true
+
+
+What does it do?
+---
+
+## 2026-07-18T16:37:28Z
+      - name: Clean old artifacts
+        if: false # disable
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          gh api repos/${{ github.repository }}/actions/artifacts \
+            --paginate --jq '.artifacts[].id' | \
+          xargs -I{} gh api -X DELETE \
+            repos/${{ github.repository }}/actions/artifacts/{} 2>/dev/null || true
+
+
+What does it do?
+---
+
+## 2026-07-18T16:37:48Z
+      - name: Clean old artifacts
+        if: false # disable
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          gh api repos/${{ github.repository }}/actions/artifacts \
+            --paginate --jq '.artifacts[].id' | \
+          xargs -I{} gh api -X DELETE \
+            repos/${{ github.repository }}/actions/artifacts/{} 2>/dev/null || true
+
+
+What does it do?
+---
+
+## 2026-07-18T16:46:51Z
+      - name: Clean old artifacts
+        # if: false # disable
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          gh api repos/${{ github.repository }}/actions/artifacts \
+            --paginate --jq '.artifacts[].id' | \
+          xargs -I{} gh api -X DELETE \
+            repos/${{ github.repository }}/actions/artifacts/{} 2>/dev/null || true
+
+Check out command one more time. Is it correct?
+---
