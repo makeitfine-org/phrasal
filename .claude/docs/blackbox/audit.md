@@ -6899,3 +6899,13 @@ I see only disable button, no delete?
 ## 2026-07-17T19:12:19Z
 Delete with `gh` "CI` workflow
 ---
+
+## 2026-07-17T19:19:18Z
+I have in `All workflows` even all ones, which didn't exist now.
+How to delete with `gh` that which older then 3 days?
+---
+
+## 2026-07-17T19:21:40Z
+I have in `All workflows` even all ones, which didn't exist now.
+How to delete with `gh` that which older then 7 days?
+---
