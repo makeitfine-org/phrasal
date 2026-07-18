@@ -147,7 +147,8 @@
       "mcp__backlog_md__*",
       "Bash(npx vite *)",
       "mcp__playwright__browser_*",
-      "Bash(pkill -f \"vite --port *\")"
+      "Bash(pkill -f \"vite --port *\")",
+      "Bash(gh api *)"
     ]
   },
   "model": "Opus",
