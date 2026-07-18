@@ -4987,3 +4987,67 @@
 - .claude/docs/blackbox/session-log.md
 - .github/workflows/ci_cd.yml
 <!-- end-snapshot -->
+
+<!-- git-snapshot 2026-07-18T18:14:59Z -->
+- .claude/docs/blackbox/audit.md
+- backlog/tasks/task-76 - Move-to-private-GitHub-repo-docker-registry.md
+- backlog/tasks/task-77 - Introduce-English-contests-between-users.md
+- backlog/tasks/task-79 - Add-Ansible-tests.md
+- backlog/tasks/task-81 - Write-load-tests.md
+- backlog/tasks/task-82 - Make-.jar-smaller.md
+- backlog/tasks/task-83 - Ideas-of-new-functionality.md
+- backlog/tasks/task-87 - Clean-or-migrate-cookies-after-new-release.md
+- backlog/tasks/task-91 - Fix-page-blinking-on-refresh.md
+- backlog/tasks/task-93 - Technical-improvements-elasticsearch-mongo-caching.md
+<!-- end-snapshot -->
+
+<!-- git-snapshot 2026-07-18T18:16:48Z -->
+- .claude/docs/blackbox/audit.md
+- .claude/docs/blackbox/session-log.md
+- backlog/tasks/task-76 - Move-to-private-GitHub-repo-docker-registry.md
+- backlog/tasks/task-77 - Introduce-English-contests-between-users.md
+- backlog/tasks/task-79 - Add-Ansible-tests.md
+- backlog/tasks/task-81 - Write-load-tests.md
+- backlog/tasks/task-82 - Make-.jar-smaller.md
+- backlog/tasks/task-83 - Ideas-of-new-functionality.md
+- backlog/tasks/task-87 - Clean-or-migrate-cookies-after-new-release.md
+- backlog/tasks/task-91 - Fix-page-blinking-on-refresh.md
+- backlog/tasks/task-93 - Technical-improvements-elasticsearch-mongo-caching.md
+<!-- end-snapshot -->
+
+<!-- git-snapshot 2026-07-18T18:16:52Z -->
+- .claude/docs/blackbox/audit.md
+- .claude/docs/blackbox/session-log.md
+- backlog/tasks/task-76 - Move-to-private-GitHub-repo-docker-registry.md
+- backlog/tasks/task-77 - Introduce-English-contests-between-users.md
+- backlog/tasks/task-79 - Add-Ansible-tests.md
+- backlog/tasks/task-81 - Write-load-tests.md
+- backlog/tasks/task-82 - Make-.jar-smaller.md
+- backlog/tasks/task-83 - Ideas-of-new-functionality.md
+- backlog/tasks/task-87 - Clean-or-migrate-cookies-after-new-release.md
+- backlog/tasks/task-91 - Fix-page-blinking-on-refresh.md
+- backlog/tasks/task-93 - Technical-improvements-elasticsearch-mongo-caching.md
+<!-- end-snapshot -->
+
+<!-- git-snapshot 2026-07-18T18:20:22Z -->
+- .claude/docs/blackbox/audit.md
+- .claude/docs/blackbox/session-log.md
+- backlog/tasks/task-72 - Improve-showing-while-loading.md
+- backlog/tasks/task-73 - Use-worktrees-with-Claude.md
+- backlog/tasks/task-74 - Check-repo-for-vulnerabilities.md
+- backlog/tasks/task-76 - Move-to-private-GitHub-repo-docker-registry.md
+- backlog/tasks/task-77 - Introduce-English-contests-between-users.md
+- backlog/tasks/task-79 - Add-Ansible-tests.md
+- backlog/tasks/task-80 - Show-default-page-during-redeploy.md
+- backlog/tasks/task-81 - Write-load-tests.md
+- backlog/tasks/task-82 - Make-.jar-smaller.md
+- backlog/tasks/task-83 - Ideas-of-new-functionality.md
+- backlog/tasks/task-84 - Limit-search-results-amount.md
+- backlog/tasks/task-85 - Add-checkstyle-for-frontend-e2e.md
+- backlog/tasks/task-86 - Show-error-if-loading-exceeds-3-5-seconds.md
+- backlog/tasks/task-87 - Clean-or-migrate-cookies-after-new-release.md
+- backlog/tasks/task-89 - Change-font-from-bold-to-light.md
+- backlog/tasks/task-90 - Add-reset-for-non-excluded-phrasal-verbs-in-Quiz.md
+- backlog/tasks/task-91 - Fix-page-blinking-on-refresh.md
+- backlog/tasks/task-93 - Technical-improvements-elasticsearch-mongo-caching.md
+<!-- end-snapshot -->

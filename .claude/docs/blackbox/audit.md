@@ -7386,3 +7386,694 @@ Propose a new release with description and tag step-by-step based on @README.md
 ## 2026-07-18T17:50:33Z
 Run Option B
 ---
+
+## 2026-07-18T18:04:06Z
+Go into @backlog/tasks/ folder and complete all `To Do` backlog.md tasks one by one.
+After each task `/compact` the context.
+---
+
+## 2026-07-18T18:16:44Z
+<task-notification>
+<task-id>a550163dc033a142d</task-id>
+<tool-use-id>toolu_01QT6ZejuCoiT1HAudVUc5d6</tool-use-id>
+<output-file>/tmp/claude-1000/-home-ubuntuu-dev-mine-phrasal/69c54919-5aac-44f6-aab3-45e356f17ef1/tasks/a550163dc033a142d.output</output-file>
+<status>completed</status>
+<summary>Agent "Explore verb list &amp; blinking" finished</summary>
+<note>A task-notification fires each time this agent stops with no live background children of its own. The user can send it another message and resume it, so the same task-id may notify more than once.</note>
+<result>Here is my complete analysis:
+
+---
+
+## 1. PhrasalVerbsListPage.tsx
+
+**File:** `/home/ubuntuu/dev/mine/phrasal/frontend/src/pages/PhrasalVerbsListPage.tsx`
+
+### Rendering flow
+
+The component uses the `useVerbList()` hook (line 30) which starts with `loading: true`. The render has three branches:
+
+- **Lines 35-37:** If `loading` is true, render `&lt;VerbListSkeleton /&gt;` -- the entire component tree is replaced by the skeleton.
+- **Lines 39-45:** If there is an error, render a centered red error message.
+- **Lines 96-241:** Otherwise, render the full page: title, subtitle, search button, a "Particles" card, an `&lt;hr&gt;`, then a list of verb cards built from the API data.
+
+### What causes "blinking" on refresh
+
+The blinking is caused by a **hard conditional swap between the skeleton and content with no transition**. Here is the mechanism:
+
+1. On mount/refresh, `loading` starts `true` (line 12 of `useVerbList.ts`), so the component returns `&lt;VerbListSkeleton /&gt;` (line 36-37).
+2. The `useEffect` in `useVerbList` fires the API call (line 18 of `useVerbList.ts`). When the promise resolves, it calls `setVerbs(result)` and `setLoading(false)` (lines 20-21 of `useVerbList.ts`).
+3. React re-renders: the `if (loading)` check on line 35 now falls through, and the **entire skeleton DOM tree is unmounted** and replaced by the **entire content DOM tree** in a single render.
+
+There is **no CSS transition or animation** on this swap. The `fade-in` class defined in `index.css` (lines 14-27) is only used by the `Feedback.tsx` component (line 14 of `Feedback.tsx`) -- it is **never applied** to the list page or any skeleton-to-content transition.
+
+The skeleton (at `/home/ubuntuu/dev/mine/phrasal/frontend/src/components/skeletons/VerbListSkeleton.tsx`) uses `animate-pulse` on `SkeletonBlock` elements (line 6 of `SkeletonBlock.tsx`), which is Tailwind's built-in pulsing animation. But this animation ends abruptly when the skeleton is unmounted.
+
+### Why it looks like a "blink"
+
+The visual blink happens because:
+
+- **Different DOM structures:** The skeleton renders 6 fixed placeholder cards (line 33 of `VerbListSkeleton.tsx`: `[...Array(6)]`), while the actual content renders the real number of verb cards (could be more or fewer). This causes layout shift.
+- **Skeleton card dimensions differ slightly:** Skeleton cards use fixed-width `SkeletonBlock` elements (e.g., `h-6 w-20` at line 39 of VerbListSkeleton.tsx) while real cards contain text of varying lengths.
+- **No crossfade:** The swap is instantaneous -- skeleton DOM is removed and content DOM is inserted in the same React commit. There is no opacity transition, no fade, no animation wrapper.
+- **The skeleton lacks elements the real page has:** The skeleton does not include the portal button (lines 98-107 of PhrasalVerbsListPage.tsx) or the `ListSearchModal`.
+
+### Dark mode flash possibility
+
+`PageShell` (line 8-11 of `PageShell.tsx`) reads `darkMode` from `localStorage` synchronously in `useState`'s initializer. However, it then applies the `dark` class to `document.documentElement` in a `useEffect` (line 14 of `PageShell.tsx`). On a fresh page load, there is one render where `darkMode` might be `true` (from localStorage) but the `dark` class has not yet been added to the HTML element. This creates a brief flash of light-mode styles for dark-mode users -- a classic FOUC.
+
+---
+
+## 2. Router Setup
+
+**File:** `/home/ubuntuu/dev/mine/phrasal/frontend/src/main.tsx`
+
+### Structure
+
+- **No lazy loading.** All page components are statically imported at the top (lines 4-12). There is no `React.lazy()` or `Suspense` anywhere in the codebase (confirmed by grep).
+- Uses `BrowserRouter` with `basename` from `import.meta.env.BASE_URL` (line 20).
+- Wrapped in `React.StrictMode` (line 18) and an `ErrorBoundary` (line 19).
+
+### Route tree (lines 21-33)
+
+All routes are children of a layout route that wraps them in `&lt;PageShell&gt;&lt;Outlet /&gt;&lt;/PageShell&gt;` (line 22):
+
+| Path | Component | Line |
+|---|---|---|
+| `/` | `HomePage` | 23 |
+| `/phrasal-verbs` | `PhrasalVerbsPage` | 24 |
+| `/phrasal-verbs/test-most-popular` | `App` (quiz) | 25 |
+| `/phrasal-verbs/particles` | `ParticlesPage` | 26 |
+| `/phrasal-verbs/list` | `PhrasalVerbsListPage` | 27 |
+| `/phrasal-verbs/list/:verb` | `VerbDetailPage` | 28 |
+| `/grammar` | `GrammarPage` | 29 |
+| `/grammar/i-wish-if-only` | `IWishPage` | 30 |
+| `*` | `NotFoundPage` | 31 |
+
+`PageShell` provides the `NavigationMenu` (nav bar with dark mode toggle and home button) and wraps children in a `&lt;main&gt;` element.
+
+---
+
+## 3. VerbDetailPage.tsx
+
+**File:** `/home/ubuntuu/dev/mine/phrasal/frontend/src/pages/VerbDetailPage.tsx`
+
+Same loading pattern as the list page:
+- Line 8: `useVerbDetail(verb!)` hook starts with `loading: true`.
+- Lines 10-11: Returns `&lt;VerbDetailSkeleton /&gt;` while loading.
+- Lines 14-19: Returns error div if error or no sections.
+- Line 22: Returns `&lt;VerbPageLayout title={title} sections={sections} /&gt;` with the real content.
+
+The same instantaneous swap issue applies here. The `VerbDetailSkeleton` (lines 14-46 of `VerbDetailSkeleton.tsx`) renders 3 placeholder sections with 2 meaning cards only in the first section, which will differ from the real content layout.
+
+---
+
+## 4. PhrasalVerbsPage.tsx
+
+**File:** `/home/ubuntuu/dev/mine/phrasal/frontend/src/pages/PhrasalVerbsPage.tsx`
+
+This is a **purely static** page with no data fetching, no loading state, and no skeleton. It renders two `&lt;Link&gt;` cards:
+- "Quiz most popular" linking to `/phrasal-verbs/test-most-popular` (line 16)
+- "List" linking to `/phrasal-verbs/list` (line 27)
+
+This page will **not blink** because it has no async data dependency -- it renders immediately and fully on mount.
+
+---
+
+## 5. The Page Blinking Issue -- Full Analysis
+
+### Root cause
+
+The blinking is the result of **binary skeleton-to-content swapping** with no transition. Every data-fetching page follows the identical pattern:
+
+```
+if (loading) return &lt;Skeleton /&gt;;
+// ... 
+return &lt;RealContent /&gt;;
+```
+
+This is found in:
+- `PhrasalVerbsListPage.tsx` lines 35-37
+- `VerbDetailPage.tsx` lines 10-11
+- `App.tsx` lines 8-9
+- `IWishPage.tsx` (uses `QuizSkeleton`, same pattern)
+
+### Does the skeleton prevent layout shift?
+
+**Partially but not fully.** The skeletons attempt to match the page layout:
+- `VerbListSkeleton` uses the same `min-h-screen`, `max-w-sm`, card borders, and `flex-col` structure as the real page. But it hardcodes 6 verb cards, while the real page renders however many verbs the API returns.
+- `VerbDetailSkeleton` uses 3 sections and 2 meaning cards, which will rarely match the real data.
+- `QuizSkeleton` matches the quiz layout closely since the quiz is a single card.
+
+### Is there a flash between skeleton and content?
+
+**Yes, an instantaneous one.** There is no CSS transition, no opacity fade, no animation wrapping the swap. The skeleton DOM is fully removed and content DOM is fully inserted in a single React render cycle.
+
+### Contributing factors
+
+1. **`body` has `transition: background-color 0.3s, color 0.3s`** (line 11 of `index.css`). This means if the background color effectively "recalculates" during the swap (e.g., from skeleton's inherited gray to content's explicit gray), there could be a 300ms transition on the body that makes the swap feel sluggish or flashy.
+
+2. **React StrictMode** (line 18 of `main.tsx`): In development mode, StrictMode double-invokes effects, which means the data-fetching `useEffect` in hooks like `useVerbList` runs twice. The cleanup function sets `cancelled = true`, so the first fetch result is discarded, and only the second fetch actually updates state. This doubles the loading time in development and makes the skeleton visible for longer, exaggerating the blink.
+
+3. **No data caching:** The hooks (`useVerbList`, `useVerbDetail`, `usePhrasalVerbs`) use raw `useState`/`useEffect` with no caching layer. Every navigation to these pages triggers a fresh API call, meaning the skeleton appears on every visit, not just the first one. SPA client-side navigation will show the skeleton every time.
+
+4. **Two state updates on resolution:** In `useVerbList.ts` lines 20-21, `setVerbs(result)` and `setLoading(false)` are called sequentially. In React 18, these are automatically batched inside promises, so this is a single re-render. This is not the cause of the blink.
+
+---
+
+## 6. GrammarPage.tsx
+
+**File:** `/home/ubuntuu/dev/mine/phrasal/frontend/src/pages/GrammarPage.tsx`
+
+Like `PhrasalVerbsPage`, this is a **purely static** page. It renders a title ("Grammar"), a subtitle, and a single `&lt;Link&gt;` card to `/grammar/i-wish-if-only` ("I wish / If only"). No data fetching, no loading state, no skeleton -- it renders instantly and does not blink.
+
+---
+
+## Summary of all relevant file paths
+
+| File | Purpose |
+|---|---|
+| `/home/ubuntuu/dev/mine/phrasal/frontend/src/main.tsx` | Router setup, all routes, no lazy loading |
+| `/home/ubuntuu/dev/mine/phrasal/frontend/src/pages/PhrasalVerbsListPage.tsx` | List page, binary skeleton swap at lines 35-37 |
+| `/home/ubuntuu/dev/mine/phrasal/frontend/src/pages/VerbDetailPage.tsx` | Detail page, binary skeleton swap at lines 10-11 |
+| `/home/ubuntuu/dev/mine/phrasal/frontend/src/pages/PhrasalVerbsPage.tsx` | Static nav page, no loading state |
+| `/home/ubuntuu/dev/mine/phrasal/frontend/src/pages/GrammarPage.tsx` | Static nav page, no loading state |
+| `/home/ubuntuu/dev/mine/phrasal/frontend/src/App.tsx` | Quiz page, binary skeleton swap at lines 8-9 |
+| `/home/ubuntuu/dev/mine/phrasal/frontend/src/components/PageShell.tsx` | Layout shell, dark mode applied in useEffect (potential FOUC) |
+| `/home/ubuntuu/dev/mine/phrasal/frontend/src/hooks/useVerbList.ts` | Verb list hook, no caching, loading starts true |
+| `/home/ubuntuu/dev/mine/phrasal/frontend/src/hooks/useVerbDetail.ts` | Verb detail hook, no caching, loading starts true |
+| `/home/ubuntuu/dev/mine/phrasal/frontend/src/hooks/usePhrasalVerbs.ts` | Phrasal verbs hook, no caching, loading starts true |
+| `/home/ubuntuu/dev/mine/phrasal/frontend/src/components/skeletons/SkeletonBlock.tsx` | Base skeleton block with `animate-pulse` |
+| `/home/ubuntuu/dev/mine/phrasal/frontend/src/components/skeletons/VerbListSkeleton.tsx` | List page skeleton, hardcoded 6 cards |
+| `/home/ubuntuu/dev/mine/phrasal/frontend/src/components/skeletons/VerbDetailSkeleton.tsx` | Detail page skeleton, 3 sections / 2 meanings |
+| `/home/ubuntuu/dev/mine/phrasal/frontend/src/components/skeletons/QuizSkeleton.tsx` | Quiz skeleton |
+| `/home/ubuntuu/dev/mine/phrasal/frontend/src/index.css` | Global CSS, `fade-in` animation (unused by pages), body transition |
+| `/home/ubuntuu/dev/mine/phrasal/frontend/src/api/verbDetailsApi.ts` | API client for verb list and detail endpoints |</result>
+<usage><subagent_tokens>26186</subagent_tokens><tool_uses>22</tool_uses><duration_ms>110420</duration_ms></usage>
+</task-notification>
+---
+
+## 2026-07-18T18:16:48Z
+<task-notification>
+<task-id>a9a45961e06224fd9</task-id>
+<tool-use-id>toolu_01AZAjSrVFDM6xoCHtXAwL5o</tool-use-id>
+<output-file>/tmp/claude-1000/-home-ubuntuu-dev-mine-phrasal/69c54919-5aac-44f6-aab3-45e356f17ef1/tasks/a9a45961e06224fd9.output</output-file>
+<status>completed</status>
+<summary>Agent "Explore quiz &amp; IWish pages" finished</summary>
+<note>A task-notification fires each time this agent stops with no live background children of its own. The user can send it another message and resume it, so the same task-id may notify more than once.</note>
+<result>Here is the full report.
+
+---
+
+## 1. Quiz Page (App.tsx + PhrasalVerbQuiz + useQuiz)
+
+### App.tsx (`/home/ubuntuu/dev/mine/phrasal/frontend/src/App.tsx`)
+A thin wrapper. It calls `usePhrasalVerbs()` (line 6) to fetch `allVerbs` and `verbsForBrowse`, shows a `QuizSkeleton` while loading (line 9), and renders `&lt;PhrasalVerbQuiz&gt;` with those props (line 22).
+
+### PhrasalVerbQuiz (`/home/ubuntuu/dev/mine/phrasal/frontend/src/components/PhrasalVerbQuiz.tsx`)
+Orchestrates the quiz UI. Key points:
+
+- **Answer checking** (lines 21-26): case-insensitive, strips parentheses from both user input and correct answer, then does strict equality.
+- **useQuiz hook** (line 28): called with `storageKey: 'phrasalQuizState'` and `poolSize: allVerbs.length`.
+- **Sub-components rendered**: `Header`, `QuizCard`, `Feedback`, `NavigationControls`, `ExcludedModal`, `SearchModal`, `AllVerbsModal`.
+- **Swipe support** (lines 43-44): `onTouchStart`/`onTouchMove`/`onTouchEnd` handlers for mobile navigation.
+
+### Buttons on the Quiz Card (`/home/ubuntuu/dev/mine/phrasal/frontend/src/components/QuizCard.tsx`)
+
+1. **"Exclude" / "Excluded" button** (lines 43-54): top-right pill button that toggles whether the current verb is excluded from the quiz. Shows "Excluded" (red) if already excluded, "Exclude" (gray) if not.
+2. **"IDK" button** (lines 119-125): amber button inside the input area, visible only when `status === 'idle'`. Calls `onIdk` which marks the current item as `'wrong'` without the user typing anything.
+3. **"Check" button** (lines 126-131): blue submit button inside the input area, visible only when `status === 'idle'`. Submits the form to check the answer.
+
+### Buttons in NavigationControls (`/home/ubuntuu/dev/mine/phrasal/frontend/src/components/NavigationControls.tsx`)
+
+4. **Previous (ChevronLeft)** (lines 30-42): navigates to previous history item. Disabled at index 0.
+5. **Next (ChevronRight)** (lines 43-55): navigates forward in history or picks a new random unmastered verb.
+6. **"Reset" button** (lines 59-70): resets the current card's state (input and status) back to `'idle'` and removes the verb from the mastered set. Disabled when already idle.
+
+### Buttons in Header (`/home/ubuntuu/dev/mine/phrasal/frontend/src/components/Header.tsx`)
+
+7. **Search** (lines 37-43): opens `SearchModal`.
+8. **Excluded** (lines 44-55): opens `ExcludedModal`, with a badge showing the count of excluded items.
+9. **Browse all** (lines 56-62): opens `AllVerbsModal`.
+10. **Global Reset (Trash2)** (lines 63-69): calls `handleGlobalReset` which prompts a confirmation and clears ALL progress.
+
+### State stored in localStorage (NOT cookies)
+
+The app uses **localStorage**, not cookies. The cookie search returned zero results. State is stored under key `phrasalQuizState`.
+
+**useQuiz hook** (`/home/ubuntuu/dev/mine/phrasal/frontend/src/hooks/useQuiz.ts`):
+
+- **Read on init** (line 54): `JSON.parse(localStorage.getItem(storageKey) || '{}')` to restore `mastered`, `excluded`, `history`, `currentIndex`.
+- **Write on every state change** (lines 78-90): merges into existing localStorage object, preserving unrelated fields like `darkMode`.
+- **Persisted fields**: `mastered` (array of indices), `excluded` (array of indices), `history` (array of `{index, inputValue, status}`), `currentIndex` (number).
+
+### Excluded verbs feature
+
+- **Toggle exclude** (`useQuiz.ts` lines 193-222): When a verb is excluded, it is also added to the `mastered` set, the current history entry for that verb is removed, and a new random verb is picked. Excluding removes the item from the quiz pool.
+- **Include back** (`useQuiz.ts` lines 224-227): Removes from both `excluded` and `mastered` sets.
+- **ExcludedModal** (`/home/ubuntuu/dev/mine/phrasal/frontend/src/components/ExcludedModal.tsx`): Lists all excluded verbs sorted by index, with a search filter (lines 27-33) and an "Include" button per item (line 97-100).
+- **SearchModal "Excluded" checkbox** (`SearchModal.tsx` lines 114-122): Toggling the checkbox shows/hides excluded verbs in search results. Clicking an excluded verb in search un-excludes and jumps to it.
+- **Quiz pool filtering** (`useQuiz.ts` line 109): `goToNextUnmastered` filters out both already-used indices and excluded indices.
+
+### Reset functionality
+
+Two levels of reset:
+
+1. **Per-card reset** (`resetState`, `useQuiz.ts` lines 143-158): Resets the current history item's `inputValue` to `''` and `status` to `'idle'`, and removes the verb from the `mastered` set. Keyboard shortcut: backtick key (line 257).
+2. **Global reset** (`handleGlobalReset`, `useQuiz.ts` lines 119-129): After `window.confirm`, calls `localStorage.removeItem(storageKey)`, clears all sets, empties history, and resets `currentIndex` to `-1`.
+
+---
+
+## 2. IWishPage
+
+### IWishPage.tsx (`/home/ubuntuu/dev/mine/phrasal/frontend/src/pages/IWishPage.tsx`)
+
+A thin wrapper like App.tsx. Calls `useGrammarEntries('i-wish-if-only')` (line 6), renders `&lt;GrammarQuiz entries={entries} /&gt;` (line 22).
+
+### GrammarQuiz.tsx (`/home/ubuntuu/dev/mine/phrasal/frontend/src/components/GrammarQuiz.tsx`)
+
+Uses the same `useQuiz` hook with `storageKey: 'grammarIWishState'` (line 42). The grammar entries are adapted into `VerbEntry` format:
+
+- `entryToVerbEntry` (lines 21-28): For the current card, `verb` = first correct answer, `definition` = the sentence. This means the **QuizCard** shows:
+  - **"Explanation:" label** with the sentence text (since `definition` = the sentence).
+  - **"Hint:" label** showing `Starts with the letter "X".` based on the first correct answer's first character.
+  - **"Sentence:" section** is hidden because `sentences: []` is set (the `QuizCard` maps over `verb.sentences` which is empty).
+- `displayEntries` (lines 31-36): For SearchModal and ExcludedModal, `verb` = sentence, `definition` = first correct answer (reversed mapping).
+
+### Labels shown (from QuizCard.tsx)
+
+- **"Explanation:"** (line 58-64): uppercase, indigo colored, preceded by an InfoIcon.
+- **"Hint:"** (lines 69-75): uppercase, blue colored, preceded by a LightbulbIcon.
+- **"Sentence:"** (lines 80-96): uppercase, green colored, preceded by a PencilIcon. Hidden when `isExcluded` is true (line 79 `className={... ${isExcluded ? 'hidden' : ''}}`). For grammar quiz, this section renders nothing since `sentences` is an empty array.
+- **Placeholder**: `"Type phrasal verb"` (QuizCard.tsx line 107).
+
+### Buttons
+
+Same as the phrasal verb quiz: **IDK** (amber), **Check** (blue), **Reset** (in NavigationControls), **Exclude/Excluded** (top-right pill), plus the Header buttons. The GrammarQuiz customizes the Header labels:
+- `title="I wish / If only"` (line 68)
+- `searchTitle="Search by sentences"` (line 69)
+- `excludedTitle="View excluded sentences"` (line 70)
+- `allVerbsTitle="Tutorial"` (line 71) -- opens `TutorialModal` instead of `AllVerbsModal`.
+- `searchPlaceholder="Search by sentences..."` (line 125).
+- `itemLabel="Sentences"` on ExcludedModal (line 115).
+
+### Input field structure
+
+**Single-line input** (`QuizCard.tsx` lines 100-116): `&lt;input type="text"&gt;`, not a textarea. Full width, with the IDK and Check buttons positioned absolutely inside the input area (lines 118-133).
+
+---
+
+## 3. Search Modals
+
+### SearchModal (`/home/ubuntuu/dev/mine/phrasal/frontend/src/components/SearchModal.tsx`)
+
+- **Result limit**: Fuse.js search limited to 50 results (via `useFuzzySearch` hook at `/home/ubuntuu/dev/mine/phrasal/frontend/src/hooks/useFuzzySearch.ts` line 38: `fuse.search(trimmed, { limit: 50 })`), then merged with custom tokenized results capped at 50 total (line 51: `fuseItems.slice(0, 50)`).
+- **No pagination / "load more"**: All results (up to 50) are rendered at once in a scrollable container (`overflow-y-auto`, max height `max-h-[60vh]`, line 92).
+- **When query is empty**: Returns ALL items sorted alphabetically by the `sortByField` (`verb`), filtered by the "show excluded" checkbox (lines 46-49 of SearchModal, lines 31-36 of useFuzzySearch).
+- **"Excluded" checkbox** (lines 114-122): toggles visibility of excluded items.
+- **Keyboard navigation**: ArrowDown/ArrowUp to select, Enter to confirm (lines 69-80).
+- **Search keys**: `verb` (weight 2), `definition` (weight 1.5) -- lines 41-44.
+
+### ListSearchModal (`/home/ubuntuu/dev/mine/phrasal/frontend/src/components/ListSearchModal.tsx`)
+
+- **Same result limit**: Uses the same `useFuzzySearch` hook, so capped at 50 results.
+- **No pagination / "load more"**: All results rendered at once in a scrollable container (`overflow-y-auto`, `max-h-[60vh]`, line 95).
+- **Data source**: Fetches entries via `fetchListVerbIndex()` (line 26) or accepts them as a prop.
+- **Search keys**: `verb` (weight 2), `definition` (weight 1.5), `example` (weight 1) -- lines 54-58.
+- **Each result shows**: verb name (bold), definition, and example in italics (lines 136-138).
+- **No "Excluded" checkbox**: Unlike SearchModal, there is no excluded filter.
+- **Loading state**: Shows `ListSearchSkeleton` while data loads (line 119).
+
+---
+
+## 4. Cookie Usage
+
+**The app does NOT use cookies at all.** The grep for `document.cookie`, `useCookie`, `js-cookie`, and `Cookies.` returned zero results. All persistent state uses **localStorage**. Here are the localStorage keys:
+
+| Key | Owner | Contents |
+|---|---|---|
+| `phrasalQuizState` | `PageShell` + `PhrasalVerbQuiz` | `{ darkMode, mastered[], excluded[], history[], currentIndex }` |
+| `grammarIWishState` | `GrammarQuiz` (IWishPage) | `{ mastered[], excluded[], history[], currentIndex }` |
+| `verbListExpanded` | `PhrasalVerbsListPage` | Array of expanded verb keys |
+| `&lt;verb&gt;_section_expanded` | `VerbPage` / `VerbPageLayout` | `"true"` per-section expand state |
+
+Key locations:
+- `PageShell.tsx` lines 9, 15-16: reads/writes `darkMode` under `phrasalQuizState`.
+- `useQuiz.ts` line 54: reads on init; lines 79-80: writes on state change; line 121: removes on global reset.
+- `PhrasalVerbsListPage.tsx` lines 21, 60, 63, 72, 90: reads/writes `verbListExpanded` and per-section keys.
+- `VerbPage.tsx` lines 29, 37, 124, 133, 146: reads/writes per-section/meaning expand keys.
+
+---
+
+## 5. Font Usage
+
+### Font family
+
+- **Google Fonts import** (`/home/ubuntuu/dev/mine/phrasal/frontend/index.html` line 10):
+  ```
+  Inter:wght@400;500;600;700;800
+  ```
+  Weights loaded: 400 (regular), 500 (medium), 600 (semibold), 700 (bold), 800 (extrabold).
+
+- **CSS declaration** (`/home/ubuntuu/dev/mine/phrasal/frontend/src/index.css` line 10):
+  ```css
+  font-family: 'Inter', sans-serif;
+  ```
+
+- **No tailwind.config file**: The project uses Tailwind CSS 4 via PostCSS plugin (`/home/ubuntuu/dev/mine/phrasal/frontend/postcss.config.js`), with no separate tailwind config file. Custom theme values are defined in `index.css` under `@theme` (only `--color-gray-850`).
+
+### Where font weights are used
+
+**`font-extrabold` (weight 800):**
+- `Header.tsx` line 23: page title `&lt;h1&gt;`
+
+**`font-bold` (weight 700):**
+- `Header.tsx` lines 28, 30, 32, 51: mastered/viewed/total counts and excluded badge
+- `QuizCard.tsx` lines 58, 69, 80: section headings ("Explanation:", "Hint:", "Sentence:")
+- `Feedback.tsx` lines 22, 29, 32: "Excellent!" / "Not quite!" headings and the correct answer display
+- `ExcludedModal.tsx` line 49: modal title
+- `AllVerbsModal.tsx` line 48: modal title
+- `TutorialModal.tsx` lines 74, 89: modal title and section headings
+- `VerbPage.tsx` lines 62, 104, 174: particle badges and page heading
+- `GrammarPage.tsx` line 7, `PhrasalVerbsPage.tsx` line 7, `HomePage.tsx` line 7: page headings
+- `NotFoundPage.tsx` lines 7-8, `ErrorBoundary.tsx` lines 17-18: error page headings
+- `PhrasalVerbsListPage.tsx` line 109: list page heading
+
+**`font-semibold` (weight 600):**
+- `QuizCard.tsx` lines 122, 128: IDK and Check buttons
+- `SearchModal.tsx` line 143: verb name in results
+- `ListSearchModal.tsx` line 136: verb name in results
+- `ExcludedModal.tsx` lines 93, 98: verb name and "Include" button
+- `AllVerbsModal.tsx` line 88: verb name
+- `NavigationMenu.tsx` line 175: "English Tutorial" brand text
+- `PageShell.tsx` line 23: skip-to-content link (when focused)
+- `PhrasalVerbsListPage.tsx` lines 136, 181: verb headings
+- `GrammarPage.tsx` line 19, `PhrasalVerbsPage.tsx` lines 19, 31, `HomePage.tsx` lines 19, 31: section subheadings
+- `ParticlesPage.tsx` line 48: particle name
+- `QuizCard.tsx` line 46: Exclude/Excluded button text
+
+**`font-medium` (weight 500):**
+- `Header.tsx` line 27: stats line
+- `SearchModal.tsx` line 145: "excluded" tag
+- `AllVerbsModal.tsx` line 90: "excluded" tag
+- `NavigationMenu.tsx` lines 69, 95: menu item text
+- `NavigationControls.tsx` line 62: Reset button
+- `VerbPage.tsx` line 67: meaning text
+- `QuizCard.tsx` lines 62, 73: definition/hint text
+- `ErrorBoundary.tsx` line 27: reload button
+
+**`font-mono`:**
+- `NotFoundPage.tsx` line 7: "404" text
+- `ErrorBoundary.tsx` line 17: "500" text</result>
+<usage><subagent_tokens>45363</subagent_tokens><tool_uses>28</tool_uses><duration_ms>123512</duration_ms></usage>
+</task-notification>
+---
+
+## 2026-07-18T18:17:20Z
+<task-notification>
+<task-id>a71beac77388d8ccf</task-id>
+<tool-use-id>toolu_01RVzn7VGk85CQZ8DGjFxagd</tool-use-id>
+<output-file>/tmp/claude-1000/-home-ubuntuu-dev-mine-phrasal/69c54919-5aac-44f6-aab3-45e356f17ef1/tasks/a71beac77388d8ccf.output</output-file>
+<status>completed</status>
+<summary>Agent "Explore infra &amp; backend" finished</summary>
+<note>A task-notification fires each time this agent stops with no live background children of its own. The user can send it another message and resume it, so the same task-id may notify more than once.</note>
+<result>Here is the complete report.
+
+---
+
+## 1. Ansible Directory (`ansible/`)
+
+### Roles
+
+Two roles exist:
+
+**Role: `k3s`** (`/home/ubuntuu/dev/mine/phrasal/ansible/roles/k3s/`)
+- `defaults/main.yml` (line 1-3): Sets `k3s_version: v1.33.2+k3s1`, install URL, config dir `/etc/rancher/k3s`
+- `tasks/main.yml` (line 1-87): Creates config dir, deploys config template, installs k3s via shell script (idempotent with `creates:` guard), waits for readiness, copies kubeconfig, sets up KUBECONFIG in bashrc, deploys kubectl bash completion, opens port 6443 via iptables
+- `handlers/main.yml` (line 1-5): Restarts k3s via systemd
+- `templates/config.yaml.j2` (line 1-3): Sets `write-kubeconfig-mode: "0644"` and `tls-san` to the ansible host IP
+- `files/k8s-completion` (line 1-441): Standard kubectl bash completion script
+
+**Role: `ingress-tls`** (`/home/ubuntuu/dev/mine/phrasal/ansible/roles/ingress-tls/`)
+- `defaults/main.yml` (line 1-3): `cert_manager_version: v1.17.2`, Let's Encrypt email, domain `phrasal.ddns.net`
+- `tasks/main.yml` (line 1-53): Waits for Traefik deployment, installs cert-manager CRDs from official URL, waits for webhook readiness, templates and applies a ClusterIssuer for Let's Encrypt (HTTP-01 via Traefik), cleans up temp manifest, verifies pods
+- `templates/cluster-issuer.yaml.j2` (line 1-15): `letsencrypt-prod` ClusterIssuer with ACME HTTP-01 solver using Traefik ingress class
+
+### Playbooks
+
+- `/home/ubuntuu/dev/mine/phrasal/ansible/playbooks/k3s.yml` (line 1-6): Single play targeting `hetzner1`, applies the `k3s` role
+- `/home/ubuntuu/dev/mine/phrasal/ansible/playbooks/ingress-tls.yml` (line 1-12): Two plays -- first applies `k3s` role (to ensure config is current), then applies `ingress-tls` role
+
+### Inventory
+
+- `/home/ubuntuu/dev/mine/phrasal/ansible/inventory/hosts.yml` (line 1-7): Single host `hetzner1` at IP `116.203.78.118`, user `vpsuser`, SSH key at `~/dev/scripts/vps/ssh-key-h1.key`
+- `/home/ubuntuu/dev/mine/phrasal/ansible/inventory/group_vars/all.yml` (line 1-2): K3s version and install URL
+
+### Tests / Lint
+
+There are **no** testing or linting configurations in the ansible directory. No molecule, testinfra, `.yamllint`, `.ansible-lint`, or `requirements.yml` files exist.
+
+---
+
+## 2. Kubernetes Directory (`k8s/`)
+
+### Structure: Kustomize with base + overlays (dev, prod)
+
+**Base manifests** (`/home/ubuntuu/dev/mine/phrasal/k8s/base/`):
+
+- `kustomization.yaml` (line 1-14): Lists all 9 base resources
+- `backend-deployment.yaml` (line 1-77): 2 replicas, init container `wait-for-postgres` (using `postgres:16-alpine`), image placeholder `backend`, port 8080, env from ConfigMap/Secret
+- `frontend-deployment.yaml` (line 1-54): 2 replicas, image placeholder `phrasal-frontend`, port 80, mounts nginx config from ConfigMap
+- `postgres-statefulset.yaml` (line 1-73): StatefulSet, 1 replica, `postgres:16-alpine`, 1Gi PVC, PGDATA at `/var/lib/postgresql/data/pgdata`
+- `backend-service.yaml` (line 1-16): LoadBalancer type, port 8080
+- `frontend-service.yaml` (line 1-16): LoadBalancer type, port 3000 -&gt; targetPort 80
+- `postgres-service.yaml` (line 1-15): ClusterIP, port 5432
+- `backend-configmap.yaml` (line 1-10): JDBC URL, `spring.profiles.active: dev`, server port 8080
+- `backend-secret.yaml` (line 1-16): **Hardcoded dev credentials** `postgres/postgres` (with a TODO comment noting this)
+- `frontend-configmap.yaml` (line 1-52): Nginx config with SPA fallback (`try_files $uri $uri/ /index.html`), reverse proxy for `/api` and `/api/` to `backend:8080`, suppresses kube-probe access logs
+
+### Readiness/Liveness Probes
+
+**Backend** (`backend-deployment.yaml`, lines 53-68):
+- Liveness: `GET /actuator/health/liveness` on port 8080, initialDelay=30s, period=10s, timeout=5s, failureThreshold=3
+- Readiness: `GET /actuator/health/readiness` on port 8080, initialDelay=20s, period=5s, timeout=3s, failureThreshold=3
+
+**Frontend** (`frontend-deployment.yaml`, lines 28-42):
+- Liveness: `GET /` on port 80, initialDelay=10s, period=10s, timeout=3s, failureThreshold=3
+- Readiness: `GET /` on port 80, initialDelay=5s, period=5s, timeout=3s, failureThreshold=3
+
+**Postgres** (`postgres-statefulset.yaml`, lines 46-54):
+- Liveness: `exec pg_isready -U postgres`, initialDelay=30s, period=10s
+- Readiness: `exec pg_isready -U postgres`, initialDelay=10s, period=5s
+
+### Maintenance Page
+
+There is **no** maintenance page configuration anywhere in the k8s manifests. No custom error pages, 503 backends, or maintenance annotations.
+
+### Ingress
+
+**Prod ingress** (`/home/ubuntuu/dev/mine/phrasal/k8s/overlays/prod/ingress.yaml`, line 1-30):
+- Uses `ingressClassName: traefik`
+- TLS via cert-manager annotation `cert-manager.io/cluster-issuer: letsencrypt-prod`
+- Host: `phrasal.ddns.net`, secret: `phrasal-tls`
+- Routes: `/api` prefix -&gt; backend:8080, `/` prefix -&gt; phrasal-frontend:3000
+
+**Prod overlay** (`/home/ubuntuu/dev/mine/phrasal/k8s/overlays/prod/kustomization.yaml`, line 1-27):
+- Overrides replicas to 1 each (backend, frontend)
+- Sets images to `stingion/phrasal-backend:latest` and `stingion/phrasal-frontend:latest`
+- Patches services from LoadBalancer to **ClusterIP** (both backend and frontend)
+- Patches `spring.profiles.active` to `prod`
+- Includes a `patches/secret.yaml` (generated at deploy time from GitHub secrets; example at `secret.yaml.example`)
+
+**Dev overlay** (`/home/ubuntuu/dev/mine/phrasal/k8s/overlays/dev/kustomization.yaml`): Just references `../../base`, no overrides.
+
+---
+
+## 3. Backend JAR Size / Packaging
+
+**POM location**: `/home/ubuntuu/dev/mine/phrasal/backend/pom.xml`
+
+**Parent**: `spring-boot-starter-parent:3.5.9` (line 8-12) -- this provides the `spring-boot-maven-plugin` defaults including repackaging into a fat/uber JAR.
+
+**Dependencies** (lines 30-93):
+- `spring-boot-starter-web` -- embedded Tomcat
+- `spring-boot-starter-data-jpa` -- Hibernate + JPA
+- `spring-boot-starter-validation` -- Bean Validation
+- `spring-boot-starter-actuator` -- health endpoints, metrics
+- `postgresql` (runtime)
+- `flyway-core` + `flyway-database-postgresql` -- DB migrations
+- `mapstruct` -- DTO mapping
+- `lombok` (provided)
+- Test scope: `spring-boot-starter-test`, `testcontainers` (core + postgresql + junit-jupiter)
+
+**Plugins** (lines 108-199):
+- `spring-boot-maven-plugin` (line 110-112): **Default config only** -- no custom configuration, no exclusions, no layers config. This produces a fat JAR with all dependencies embedded. No shade plugin.
+- `maven-compiler-plugin` (line 113-138): Java 25 source/target, annotation processors for Lombok + MapStruct
+- `jacoco-maven-plugin` (line 139-179): Coverage enforcement at 85% line coverage per package, excludes `PhrasalApplication.class`
+- `maven-checkstyle-plugin` (line 181-198): Checkstyle with config at `../aux/code/checkstyle/checkstyle.xml`
+
+**Packaging**: Default (`jar`), no explicit `&lt;packaging&gt;` element. The `spring-boot-maven-plugin` repackages this into a fat/executable JAR containing all runtime dependencies and the embedded Tomcat server. No shade plugin, no thin-JAR config, no Spring Boot layers configuration.
+
+---
+
+## 4. Docker Setup
+
+### Backend Dockerfile (`/home/ubuntuu/dev/mine/phrasal/backend/Dockerfile`, 13 lines)
+
+**Multi-stage build: YES (2 stages)**
+
+Stage 1 -- Build:
+- Base image: `maven:3.9-eclipse-temurin-25` (line 2)
+- Uses BuildKit cache mount for Maven repo (`--mount=type=cache,target=/root/.m2`)
+- Runs `mvn dependency:go-offline` first, then `mvn package -DskipTests`
+
+Stage 2 -- Runtime:
+- Base image: `eclipse-temurin:25-jre-alpine` (line 9) -- JRE-only Alpine image
+- Copies the fat JAR as `app.jar`
+- Exposes port 8080
+- Entrypoint: `java -jar app.jar`
+
+### Frontend Dockerfile (`/home/ubuntuu/dev/mine/phrasal/frontend/Dockerfile`, 13 lines)
+
+**Multi-stage build: YES (2 stages)**
+
+Stage 1 -- Build:
+- Base image: `node:26.3.1-alpine` (line 2)
+- Uses BuildKit cache mount for npm cache (`--mount=type=cache,target=/root/.npm`)
+- Runs `npm install` then `npm run build`
+
+Stage 2 -- Runtime:
+- Base image: `nginx:1.27-alpine` (line 9)
+- Copies built `dist/` to nginx html dir
+- Copies custom `nginx.conf`
+- Exposes port 80
+
+---
+
+## 5. Frontend/E2E Linting
+
+### Frontend (`/home/ubuntuu/dev/mine/phrasal/frontend/package.json`)
+
+**No linting tools configured.**
+- No ESLint, Prettier, Biome, or Stylelint in dependencies or devDependencies
+- No `lint` or `format` scripts
+- No `.eslintrc*`, `.prettierrc*`, `eslint.config.*` files in the frontend directory (only matches were inside `node_modules/` from third-party packages)
+- Scripts defined: `dev`, `build`, `preview`, `test`, `test:run` -- no lint scripts
+
+### E2E (`/home/ubuntuu/dev/mine/phrasal/e2e/package.json`)
+
+**No linting tools configured.**
+- No ESLint, Prettier, or Biome in dependencies or devDependencies
+- No lint-related scripts
+- No lint config files in the e2e directory
+
+### Backend Linting
+
+The backend has **Checkstyle** configured in `pom.xml` (lines 181-198) with config files at `../aux/code/checkstyle/checkstyle.xml` and `../aux/code/checkstyle/suppressions.xml`. This runs during the `verify` phase.
+
+---
+
+## 6. CI/CD Pipeline
+
+**File**: `/home/ubuntuu/dev/mine/phrasal/.github/workflows/ci_cd.yml`
+
+**Triggers** (lines 3-8):
+- `push` on all branches and version tags (`v*.*.*`)
+- `pull_request` on `main`
+
+**Jobs**:
+
+1. **`build-and-test`** (lines 11-62, runs on every push/PR):
+   - Cleans old GitHub Actions artifacts via API
+   - Sets up Java 25 (Temurin)
+   - Runs `mvn -f backend/pom.xml clean verify` (includes tests + JaCoCo + Checkstyle)
+   - Generates and uploads JaCoCo report (3-day retention)
+   - Uploads surefire test results (3-day retention)
+   - Uploads application JAR artifact (3-day retention)
+
+2. **`frontend-test`** (lines 64-84, runs on every push/PR, parallel with build-and-test):
+   - Sets up Node.js 26.3.1
+   - `npm ci` + `npm run build` + `npm run test:run`
+
+3. **`e2e`** (lines 86-136, needs build-and-test + frontend-test):
+   - Sets up Node.js 26
+   - Installs e2e deps + Playwright Chromium
+   - Downloads the backend JAR artifact
+   - Starts stack via `docker compose up -d --wait`
+   - Runs Cucumber e2e tests with env vars
+   - Uploads Cucumber report (3-day retention)
+
+4. **`docker-push`** (lines 138-176, only on version tags `v*.*.*`, needs e2e):
+   - Extracts version from git tag
+   - Builds and pushes backend + frontend Docker images to Docker Hub
+   - Tags: `stingion/phrasal-backend:{version}` + `:latest`, same for frontend
+
+5. **`deploy`** (lines 180-235, only on version tags, needs docker-push):
+   - Environment: `production`
+   - Sets up kubectl, configures kubeconfig from `KUBE_CONFIG` secret (base64)
+   - Generates prod secret patch from `DB_USERNAME`/`DB_PASSWORD` secrets
+   - Sets kustomize image tags to the version
+   - Runs `kubectl apply -k k8s/overlays/prod`
+   - Waits for rollout of both backend and frontend deployments
+   - Verifies with `kubectl get pods`
+
+---
+
+## 7. Backend API Endpoints
+
+Three REST controllers, all under `/api/v1/`, plus a global exception handler.
+
+### PhrasalVerbController
+**File**: `/home/ubuntuu/dev/mine/phrasal/backend/src/main/java/net/phrasal/presentation/rest/PhrasalVerbController.java`
+**Base path**: `/api/v1/phrasal-verbs` (line 28)
+
+| Method | Path | Line | Description |
+|--------|------|------|-------------|
+| GET | `/api/v1/phrasal-verbs` | 35 | Paginated list, optional `?q=` search and `?learned=` filter. Default page size 20, sorted by verb ASC |
+| GET | `/api/v1/phrasal-verbs/{id}` | 45 | Get by ID |
+| POST | `/api/v1/phrasal-verbs` | 51 | Create (validated request body), returns 201 with Location header |
+| PUT | `/api/v1/phrasal-verbs/{id}` | 61 | Update by ID (validated request body) |
+| DELETE | `/api/v1/phrasal-verbs/{id}` | 70 | Delete by ID, returns 204 |
+
+### GrammarEntryController
+**File**: `/home/ubuntuu/dev/mine/phrasal/backend/src/main/java/net/phrasal/presentation/rest/GrammarEntryController.java`
+**Base path**: `/api/v1/grammar-entries` (line 28)
+
+| Method | Path | Line | Description |
+|--------|------|------|-------------|
+| GET | `/api/v1/grammar-entries` | 35 | Paginated list, optional `?category=` filter. Default page size 20, sorted by category ASC |
+| GET | `/api/v1/grammar-entries/{id}` | 44 | Get by ID |
+| POST | `/api/v1/grammar-entries` | 50 | Create (validated), returns 201 with Location |
+| PUT | `/api/v1/grammar-entries/{id}` | 60 | Update by ID (validated) |
+| DELETE | `/api/v1/grammar-entries/{id}` | 69 | Delete by ID, returns 204 |
+
+### VerbDetailController
+**File**: `/home/ubuntuu/dev/mine/phrasal/backend/src/main/java/net/phrasal/presentation/rest/VerbDetailController.java`
+**Base path**: `/api/v1/verb-details` (line 29)
+
+| Method | Path | Line | Description |
+|--------|------|------|-------------|
+| GET | `/api/v1/verb-details` | 36 | Paginated summary list. Default page size 100, sorted by verb ASC |
+| GET | `/api/v1/verb-details/all` | 44 | Full list of all verb details (no pagination) |
+| GET | `/api/v1/verb-details/by-verb/{verb}` | 50 | Get full detail by verb name |
+| GET | `/api/v1/verb-details/{id}` | 56 | Get full detail by ID |
+| POST | `/api/v1/verb-details` | 62 | Create (validated), returns 201 with Location |
+| PUT | `/api/v1/verb-details/{id}` | 72 | Update by ID (validated) |
+| DELETE | `/api/v1/verb-details/{id}` | 81 | Delete by ID, returns 204 |
+
+### GlobalExceptionHandler
+**File**: `/home/ubuntuu/dev/mine/phrasal/backend/src/main/java/net/phrasal/infrastructure/exception/GlobalExceptionHandler.java`
+**Annotation**: `@RestControllerAdvice` (line 18)
+
+Handles 5 exception types with RFC 7807 ProblemDetail responses:
+- `ResourceNotFoundException` -&gt; 404 (line 31)
+- `MethodArgumentNotValidException` -&gt; 400 with field-level error map (line 38)
+- `IllegalArgumentException` -&gt; 400 (line 53)
+- `NoResourceFoundException` -&gt; 404 (line 60)
+- `Exception` (catch-all) -&gt; 500 (line 66)</result>
+<usage><subagent_tokens>44757</subagent_tokens><tool_uses>54</tool_uses><duration_ms>151112</duration_ms></usage>
+</task-notification>
+---
+
+## 2026-07-18T18:25:43Z
+git add all changes and commit them with suitable message
+---
