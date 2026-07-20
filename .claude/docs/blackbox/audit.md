@@ -8100,3 +8100,11 @@ continue
 ## 2026-07-20T11:05:07Z
 git add all changes and commit them with suitable message
 ---
+
+## 2026-07-20T11:14:18Z
+ "Done" statuc tasks from this repo `backlog/tasks` folder have to be moved to `backlog/completed` one.
+---
+
+## 2026-07-20T11:16:44Z
+git add all changes and commit them with suitable message
+---

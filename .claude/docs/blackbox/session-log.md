@@ -5063,3 +5063,8 @@
 - frontend/src/pages/PhrasalVerbsListPage.tsx
 - frontend/src/pages/VerbDetailPage.tsx
 <!-- end-snapshot -->
+
+<!-- git-snapshot 2026-07-20T11:16:19Z -->
+- .claude/docs/blackbox/audit.md
+- backlog/tasks/task-72 - Improve-showing-while-loading.md
+<!-- end-snapshot -->
