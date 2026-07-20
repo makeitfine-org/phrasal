@@ -97,10 +97,12 @@ securityScan:
 			-DfailBuildOnCVSS=7 \
 			-DsuppressionFiles=owasp-suppressions.xml && \
 		cd .. && \
-		echo "--- Trivy: backend base image ---" && \
-		trivy image --severity CRITICAL$(comma)HIGH --exit-code 1 eclipse-temurin:25-jre-alpine && \
-		echo "--- Trivy: frontend base image ---" && \
-		trivy image --severity CRITICAL$(comma)HIGH --exit-code 1 nginx:1.27-alpine,\
+		echo "--- Docker build (for Trivy scan) ---" && \
+		docker compose build && \
+		echo "--- Trivy: backend image ---" && \
+		trivy image --severity CRITICAL$(comma)HIGH --exit-code 1 phrasal-backend && \
+		echo "--- Trivy: frontend image ---" && \
+		trivy image --severity CRITICAL$(comma)HIGH --exit-code 1 phrasal-frontend,\
 		"✅ SECURITY SCAN SUCCESSFUL (phrasal) ✅",\
 		"❌ SECURITY SCAN FAILED (phrasal) ❌")
 
@@ -172,7 +174,7 @@ help:
 	@echo "  ciCheck           - Strict CI simulation: no-cache docker build, npm ci, mvn verify"
 	@echo ""
 	@echo "🔒 Security Targets:"
-	@echo "  securityScan      - npm audit (frontend/e2e) + OWASP Dependency-Check (backend) + Trivy (base images). Needs NVD_API_KEY, trivy"
+	@echo "  securityScan      - npm audit (frontend/e2e) + OWASP Dependency-Check (backend) + Trivy (built images). Needs NVD_API_KEY, trivy"
 	@echo ""
 	@echo "🧪 Test Targets:"
 	@echo "  acceptanceTest    - Run Cucumber+Playwright e2e tests (stack must be running)"

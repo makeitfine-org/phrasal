@@ -7,6 +7,7 @@ COPY src ./src
 RUN --mount=type=cache,target=/root/.m2 mvn -B -ntp package -DskipTests -q
 
 FROM eclipse-temurin:25-jre-alpine
+RUN apk upgrade --no-cache
 WORKDIR /app
 COPY --from=build /app/target/backend-*.jar app.jar
 EXPOSE 8080

@@ -6,7 +6,7 @@ project:
 
 backend:
   language: Java 25
-  framework: Spring Boot 3.5.9
+  framework: Spring Boot 3.5.16
   orm: Spring Data JPA / Hibernate
   migrations: Flyway
   mapping: MapStruct

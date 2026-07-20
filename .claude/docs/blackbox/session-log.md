@@ -5245,3 +5245,20 @@
 - .claude/docs/blackbox/audit.md
 - Makefile
 <!-- end-snapshot -->
+
+<!-- git-snapshot 2026-07-20T20:42:36Z -->
+- .claude/docs/blackbox/audit.md
+- .claude/settings.local.json
+- .github/workflows/ci_cd.yml
+- CLAUDE.md
+- Makefile
+- aux/docs/resume.yaml
+- backend/CLAUDE.md
+- backend/Dockerfile
+- backend/README.md
+- backend/owasp-suppressions.xml
+- backend/pom.xml
+- frontend/Dockerfile
+- frontend/README.md
+- frontend/package-lock.json
+<!-- end-snapshot -->

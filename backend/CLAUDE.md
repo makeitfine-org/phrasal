@@ -2,7 +2,7 @@
 
 ## Stack
 
-- Java 25, Spring Boot 3.5.9, PostgreSQL 16
+- Java 25, Spring Boot 3.5.16, PostgreSQL 16
 - MapStruct 1.6.3, Lombok (getter/setter/constructor/slf4j)
 - Testcontainers, JaCoCo 0.8.15
 - Maven, Flyway, Docker, Kubernetes + Skaffold

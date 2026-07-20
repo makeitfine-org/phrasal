@@ -181,7 +181,7 @@ jobs:
       - name: Trivy — frontend image
         uses: aquasecurity/trivy-action@master
         with:
-          image-ref: nginx:1.27-alpine
+          image-ref: nginx:stable-alpine
           severity: CRITICAL,HIGH
           exit-code: '0'
 

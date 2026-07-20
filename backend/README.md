@@ -1,12 +1,12 @@
 # Phrasal — Backend
 
-Spring Boot 3.5.9 REST API for the Phrasal language learning app. Provides CRUD endpoints for phrasal verbs, grammar entries, and verb details, backed by PostgreSQL with Flyway migrations.
+Spring Boot 3.5.16 REST API for the Phrasal language learning app. Provides CRUD endpoints for phrasal verbs, grammar entries, and verb details, backed by PostgreSQL with Flyway migrations.
 
 Part of the full-stack **Phrasal** project. Running `docker compose up` from the repository root also starts the React frontend on **port 3000**. See [`../frontend/README.md`](../frontend/README.md) for frontend documentation.
 
 ## Features
 
-- **Spring Boot 3.5.9** with Java 25
+- **Spring Boot 3.5.16** with Java 25
 - **PostgreSQL 16** with Flyway migrations
 - **RESTful API** with full CRUD for phrasal verbs, grammar entries, and verb details
 - **Pagination and sorting** on list endpoints with sort-field whitelisting
@@ -240,7 +240,7 @@ src/
 
 | Layer | Technology |
 |---|---|
-| Framework | Spring Boot 3.5.9, Java 25 |
+| Framework | Spring Boot 3.5.16, Java 25 |
 | Database | PostgreSQL 16, Spring Data JPA, Flyway |
 | Mapping | MapStruct 1.6.3 + Lombok |
 | Testing | JUnit 5, Mockito, Testcontainers |

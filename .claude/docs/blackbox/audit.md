@@ -8628,3 +8628,7 @@ issue with target?
 ## 2026-07-20T19:55:37Z
 trivy define critical and high volnurabilities but didn't drop
 ---
+
+## 2026-07-20T20:21:09Z
+Until `make clean build scanSecurity` passed successfully update all dependencies and entities where it's possible.
+---

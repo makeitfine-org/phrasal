@@ -119,7 +119,7 @@ The frontend ships as an Nginx container:
 ```
 Dockerfile — multi-stage build
   stage 1: node:26-alpine  → npm run build → dist/
-  stage 2: nginx:1.27-alpine → serves dist/ on port 80
+  stage 2: nginx:stable-alpine → serves dist/ on port 80
 ```
 
 `nginx.conf` handles SPA routing (`try_files $uri /index.html`) and proxies all `/api/*` requests to `app:8080`, so the browser never needs to know the backend's address.
