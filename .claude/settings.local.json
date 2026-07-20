@@ -148,7 +148,8 @@
       "Bash(npx vite *)",
       "mcp__playwright__browser_*",
       "Bash(pkill -f \"vite --port *\")",
-      "Bash(gh api *)"
+      "Bash(gh api *)",
+      "Bash(pkill -f \"dependency-check\")"
     ]
   },
   "model": "Opus",

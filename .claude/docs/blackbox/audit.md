@@ -8108,3 +8108,307 @@ git add all changes and commit them with suitable message
 ## 2026-07-20T11:16:44Z
 git add all changes and commit them with suitable message
 ---
+
+## 2026-07-20T11:24:06Z
+Go into @backlog/tasks/ folder and complete all `To Do` status backlog.md tasks one by one.
+After each task completion:
+- move the task to `backlog/completed` folder
+- commit changes
+- run `/compact` the context.
+---
+
+## 2026-07-20T11:50:57Z
+also add this volnurability checking into `make` as a target
+---
+
+## 2026-07-20T12:06:01Z
+WARNING: sun.misc.Unsafe::objectFieldOffset will be removed in a future release
+[INFO] Scanning for projects...
+[INFO]
+[INFO] ------------------------< net.phrasal:backend >-------------------------
+[INFO] Building backend 0.1.0
+[INFO]   from pom.xml
+[INFO] --------------------------------[ jar ]---------------------------------
+[INFO]
+[INFO] --- dependency-check:12.2.2:check (default-cli) @ backend ---
+[INFO] Checking for updates
+[WARNING] An NVD API Key was not provided - it is highly recommended to use an NVD API key as the update can take a VERY long time without an API Key
+^[OS[INFO] NVD API has 367,637 records in this update
+[INFO] Downloaded 10,000/367,637 (3%)
+---
+
+## 2026-07-20T12:22:36Z
+fix unauthorization and fail the `secruityScan` if unauthorized:
+
+mvn org.sonatype.ossindex.maven:ossindex-maven-plugin:audit                                       WARNING: A terminally deprecated method in sun.misc.Unsafe has been called                                                              WARNING: sun.misc.Unsafe::objectFieldOffset has been called by com.google.common.util.concurrent.AbstractFuture$UnsafeAtomicHelper (file:/usr/share/maven/lib/guava.jar)
+WARNING: Please consider reporting this to the maintainers of class com.google.common.util.concurrent.AbstractFuture$UnsafeAtomicHelper
+WARNING: sun.misc.Unsafe::objectFieldOffset will be removed in a future release
+[INFO] Scanning for projects...
+[INFO]
+[INFO] ------------------------< net.phrasal:backend >-------------------------
+[INFO] Building backend 0.1.0
+[INFO]   from pom.xml
+[INFO] --------------------------------[ jar ]---------------------------------
+[INFO]
+[INFO] --- ossindex:3.2.0:audit (default-cli) @ backend ---
+[INFO] Checking for vulnerabilities; 118 artifacts
+[INFO] Exclude coordinates: []
+[INFO] Exclude vulnerability identifiers: []
+[INFO] CVSS-score threshold: 0.0
+[WARNING] Failed to fetch component-reports
+org.sonatype.ossindex.service.client.transport.Transport$TransportException: Unexpected response; status: HTTP/1.1 401 Unauthorized
+    at org.sonatype.ossindex.service.client.transport.HttpClientTransport.post (HttpClientTransport.java:102)
+    at org.sonatype.ossindex.service.client.internal.OssindexClientImpl.doRequestComponentReports (OssindexClientImpl.java:204)
+    at org.sonatype.ossindex.service.client.internal.OssindexClientImpl.requestComponentReports (OssindexClientImpl.java:170)
+    at org.sonatype.ossindex.maven.common.ComponentReportAssistant.request (ComponentReportAssistant.java:86)
+    at org.sonatype.ossindex.maven.plugin.AuditMojoSupport.execute (AuditMojoSupport.java:242)
+    at org.apache.maven.plugin.DefaultBuildPluginManager.executeMojo (DefaultBuildPluginManager.java:126)
+    at org.apache.maven.lifecycle.internal.MojoExecutor.doExecute2 (MojoExecutor.java:328)
+    at org.apache.maven.lifecycle.internal.MojoExecutor.doExecute (MojoExecutor.java:316)
+    at org.apache.maven.lifecycle.internal.MojoExecutor.execute (MojoExecutor.java:212)
+    at org.apache.maven.lifecycle.internal.MojoExecutor.execute (MojoExecutor.java:174)
+    at org.apache.maven.lifecycle.internal.MojoExecutor.access$000 (MojoExecutor.java:75)
+    at org.apache.maven.lifecycle.internal.MojoExecutor$1.run (MojoExecutor.java:162)
+    at org.apache.maven.plugin.DefaultMojosExecutionStrategy.execute (DefaultMojosExecutionStrategy.java:39)
+    at org.apache.maven.lifecycle.internal.MojoExecutor.execute (MojoExecutor.java:159)
+    at org.apache.maven.lifecycle.internal.LifecycleModuleBuilder.buildProject (LifecycleModuleBuilder.java:105)
+    at org.apache.maven.lifecycle.internal.LifecycleModuleBuilder.buildProject (LifecycleModuleBuilder.java:73)
+    at org.apache.maven.lifecycle.internal.builder.singlethreaded.SingleThreadedBuilder.build (SingleThreadedBuilder.java:53)
+    at org.apache.maven.lifecycle.internal.LifecycleStarter.execute (LifecycleStarter.java:118)
+    at org.apache.maven.DefaultMaven.doExecute (DefaultMaven.java:261)
+    at org.apache.maven.DefaultMaven.doExecute (DefaultMaven.java:173)
+    at org.apache.maven.DefaultMaven.execute (DefaultMaven.java:101)
+    at org.apache.maven.cli.MavenCli.execute (MavenCli.java:919)
+    at org.apache.maven.cli.MavenCli.doMain (MavenCli.java:285)
+    at org.apache.maven.cli.MavenCli.main (MavenCli.java:207)
+    at jdk.internal.reflect.DirectMethodHandleAccessor.invoke (DirectMethodHandleAccessor.java:104)
+    at java.lang.reflect.Method.invoke (Method.java:565)
+    at org.codehaus.plexus.classworlds.launcher.Launcher.launchEnhanced (Launcher.java:283)
+    at org.codehaus.plexus.classworlds.launcher.Launcher.launch (Launcher.java:226)
+    at org.codehaus.plexus.classworlds.launcher.Launcher.mainWithExitCode (Launcher.java:407)
+    at org.codehaus.plexus.classworlds.launcher.Launcher.main (Launcher.java:348)
+[INFO] ------------------------------------------------------------------------
+[INFO] BUILD SUCCESS
+---
+
+## 2026-07-20T12:35:35Z
+how to create token in https://my.sonatype.com/
+---
+
+## 2026-07-20T12:36:45Z
+java free scan for volurability in libs?
+---
+
+## 2026-07-20T12:41:03Z
+I've got OWASP Dependency-Check API Key
+---
+
+## 2026-07-20T12:58:30Z
+I'm getting:
+
+securityScan
+### Security scan (phrasal) ...
+--- npm audit: frontend ---
+found 0 vulnerabilities
+--- npm audit: e2e ---
+found 0 vulnerabilities
+--- OWASP Dependency-Check: backend ---
+[INFO] Scanning for projects...
+[INFO]
+[INFO] ------------------------< net.phrasal:backend >-------------------------
+[INFO] Building backend 0.1.0
+[INFO]   from pom.xml
+[INFO] --------------------------------[ jar ]---------------------------------
+[INFO]
+[INFO] --- dependency-check:12.2.2:check (default-cli) @ backend ---
+[INFO] Checking for updates
+[INFO] NVD API has 367,678 records in this update
+[INFO] Downloaded 10,000/367,678 (3%)
+and hanging? how long will it be?
+
+Is it okey
+---
+
+## 2026-07-20T13:02:29Z
+I'm waiting for 10 minute: but get only 5%:
+
+ubuntuu@LP-BSF-EMALYSH:~/.../phrasal$ ma securityScan
+### Security scan (phrasal) ...
+--- npm audit: frontend ---
+found 0 vulnerabilities
+--- npm audit: e2e ---
+found 0 vulnerabilities
+--- OWASP Dependency-Check: backend ---
+[INFO] Scanning for projects...
+[INFO]
+[INFO] ------------------------< net.phrasal:backend >-------------------------
+[INFO] Building backend 0.1.0
+[INFO]   from pom.xml
+[INFO] --------------------------------[ jar ]---------------------------------
+[INFO]
+[INFO] --- dependency-check:12.2.2:check (default-cli) @ backend ---
+[INFO] Checking for updates
+[INFO] NVD API has 367,678 records in this update
+[INFO] Downloaded 10,000/367,678 (3%)
+
+
+^[OS[INFO] Downloaded 20,000/367,678 (5%)
+
+how to understand if it's using my api key?
+---
+
+## 2026-07-20T13:14:24Z
+ mvn org.owasp:dependency-check-maven:check \
+                        -DnvdApiKey=$$NVD_API_KEY \
+                        -DfailBuildOnCVSS=7 \
+                        -DsuppressionFiles=owasp-suppressions.xml
+[INFO] Scanning for projects...
+[INFO]
+[INFO] ------------------------< net.phrasal:backend >-------------------------
+[INFO] Building backend 0.1.0
+[INFO]   from pom.xml
+[INFO] --------------------------------[ jar ]---------------------------------
+[INFO]
+[INFO] --- dependency-check:12.2.2:check (default-cli) @ backend ---
+[INFO] ------------------------------------------------------------------------
+[INFO] BUILD FAILURE
+[INFO] ------------------------------------------------------------------------
+[INFO] Total time:  3.229 s
+[INFO] Finished at: 2026-07-20T15:13:03+02:00
+[INFO] ------------------------------------------------------------------------
+[ERROR] Failed to execute goal org.owasp:dependency-check-maven:12.2.2:check (default-cli) on project backend: Fatal exception(s) analyzing backend: One or more exceptions occurred during analysis:
+[ERROR]         DatabaseException: Unable to connect to the database - if this error persists it may be due to a corrupt database. Consider running `purge` to delete the existing database
+[ERROR]                 caused by DatabaseException: Unable to connect to the database
+[ERROR]                 caused by JdbcSQLNonTransientConnectionException: Database may be already in use: "/home/ubuntuu/.m2/repository/org/owasp/dependency-check-data/11.0/odc.mv.db". Possible solutions: close all other connection(s); use the server mode [90020-240]
+[ERROR]                 caused by MVStoreException: The file is locked: /home/ubuntuu/.m2/repository/org/owasp/dependency-check-data/11.0/odc.mv.db [2.4.240/7]
+[ERROR] -> [Help 1]
+[ERROR]
+[ERROR] To see the full stack trace of the errors, re-run Maven with the -e switch.
+[ERROR] Re-run Maven using the -X switch to enable full debug logging.
+[ERROR]
+[ERROR] For more information about the errors and possible solutions, please read the following articles:
+[ERROR] [Help 1] http://cwiki.apache.org/confluence/display/MAVEN/MojoExecutionException
+---
+
+## 2026-07-20T13:17:08Z
+in backend/ mvn org.owasp:dependency-check-maven:check \
+                        -DnvdApiKey=$$NVD_API_KEY \
+                        -DfailBuildOnCVSS=7 \
+                        -DsuppressionFiles=owasp-suppressions.xml
+WARNING: A terminally deprecated method in sun.misc.Unsafe has been called
+WARNING: sun.misc.Unsafe::objectFieldOffset has been called by com.google.common.util.concurrent.AbstractFuture$UnsafeAtomicHelper (file:/usr/share/maven/lib/guava.jar)
+WARNING: Please consider reporting this to the maintainers of class com.google.common.util.concurrent.AbstractFuture$UnsafeAtomicHelper
+WARNING: sun.misc.Unsafe::objectFieldOffset will be removed in a future release
+[INFO] Scanning for projects...
+[INFO] 
+[INFO] ------------------------< net.phrasal:backend >-------------------------
+[INFO] Building backend 0.1.0
+[INFO]   from pom.xml
+[INFO] --------------------------------[ jar ]---------------------------------
+[INFO] 
+[INFO] --- dependency-check:12.2.2:check (default-cli) @ backend ---
+[INFO] Checking for updates
+[ERROR] Error updating the NVD Data
+org.owasp.dependencycheck.data.update.exception.UpdateException: Error updating the NVD Data
+    at org.owasp.dependencycheck.data.update.NvdApiDataSource.processApi (NvdApiDataSource.java:387)
+    at org.owasp.dependencycheck.data.update.NvdApiDataSource.update (NvdApiDataSource.java:128)
+    at org.owasp.dependencycheck.Engine.doUpdates (Engine.java:887)
+    at org.owasp.dependencycheck.Engine.initializeAndUpdateDatabase (Engine.java:692)
+    at org.owasp.dependencycheck.Engine.analyzeDependencies (Engine.java:619)
+    at org.owasp.dependencycheck.maven.BaseDependencyCheckMojo.runCheck (BaseDependencyCheckMojo.java:2093)
+    at org.owasp.dependencycheck.maven.BaseDependencyCheckMojo.execute (BaseDependencyCheckMojo.java:1291)
+    at org.apache.maven.plugin.DefaultBuildPluginManager.executeMojo (DefaultBuildPluginManager.java:126)
+    at org.apache.maven.lifecycle.internal.MojoExecutor.doExecute2 (MojoExecutor.java:328)
+    at org.apache.maven.lifecycle.internal.MojoExecutor.doExecute (MojoExecutor.java:316)
+    at org.apache.maven.lifecycle.internal.MojoExecutor.execute (MojoExecutor.java:212)
+    at org.apache.maven.lifecycle.internal.MojoExecutor.execute (MojoExecutor.java:174)
+    at org.apache.maven.lifecycle.internal.MojoExecutor.access$000 (MojoExecutor.java:75)
+    at org.apache.maven.lifecycle.internal.MojoExecutor$1.run (MojoExecutor.java:162)
+    at org.apache.maven.plugin.DefaultMojosExecutionStrategy.execute (DefaultMojosExecutionStrategy.java:39)
+    at org.apache.maven.lifecycle.internal.MojoExecutor.execute (MojoExecutor.java:159)
+    at org.apache.maven.lifecycle.internal.LifecycleModuleBuilder.buildProject (LifecycleModuleBuilder.java:105)
+    at org.apache.maven.lifecycle.internal.LifecycleModuleBuilder.buildProject (LifecycleModuleBuilder.java:73)
+    at org.apache.maven.lifecycle.internal.builder.singlethreaded.SingleThreadedBuilder.build (SingleThreadedBuilder.java:53)
+    at org.apache.maven.lifecycle.internal.LifecycleStarter.execute (LifecycleStarter.java:118)
+    at org.apache.maven.DefaultMaven.doExecute (DefaultMaven.java:261)
+    at org.apache.maven.DefaultMaven.doExecute (DefaultMaven.java:173)
+    at org.apache.maven.DefaultMaven.execute (DefaultMaven.java:101)
+    at org.apache.maven.cli.MavenCli.execute (MavenCli.java:919)
+    at org.apache.maven.cli.MavenCli.doMain (MavenCli.java:285)
+    at org.apache.maven.cli.MavenCli.main (MavenCli.java:207)
+    at jdk.internal.reflect.DirectMethodHandleAccessor.invoke (DirectMethodHandleAccessor.java:104)
+    at java.lang.reflect.Method.invoke (Method.java:565)
+    at org.codehaus.plexus.classworlds.launcher.Launcher.launchEnhanced (Launcher.java:283)
+    at org.codehaus.plexus.classworlds.launcher.Launcher.launch (Launcher.java:226)
+    at org.codehaus.plexus.classworlds.launcher.Launcher.mainWithExitCode (Launcher.java:407)
+    at org.codehaus.plexus.classworlds.launcher.Launcher.main (Launcher.java:348)
+Caused by: io.github.jeremylong.openvulnerability.client.nvd.NvdApiException: Invalid API Key: 39374-*****
+    at io.github.jeremylong.openvulnerability.client.nvd.NvdCveClient._next (NvdCveClient.java:436)
+    at io.github.jeremylong.openvulnerability.client.nvd.NvdCveClient.next (NvdCveClient.java:356)
+    at org.owasp.dependencycheck.data.update.NvdApiDataSource.processApi (NvdApiDataSource.java:343)
+    at org.owasp.dependencycheck.data.update.NvdApiDataSource.update (NvdApiDataSource.java:128)
+    at org.owasp.dependencycheck.Engine.doUpdates (Engine.java:887)
+    at org.owasp.dependencycheck.Engine.initializeAndUpdateDatabase (Engine.java:692)
+    at org.owasp.dependencycheck.Engine.analyzeDependencies (Engine.java:619)
+    at org.owasp.dependencycheck.maven.BaseDependencyCheckMojo.runCheck (BaseDependencyCheckMojo.java:2093)
+    at org.owasp.dependencycheck.maven.BaseDependencyCheckMojo.execute (BaseDependencyCheckMojo.java:1291)
+    at org.apache.maven.plugin.DefaultBuildPluginManager.executeMojo (DefaultBuildPluginManager.java:126)
+    at org.apache.maven.lifecycle.internal.MojoExecutor.doExecute2 (MojoExecutor.java:328)
+    at org.apache.maven.lifecycle.internal.MojoExecutor.doExecute (MojoExecutor.java:316)
+    at org.apache.maven.lifecycle.internal.MojoExecutor.execute (MojoExecutor.java:212)
+    at org.apache.maven.lifecycle.internal.MojoExecutor.execute (MojoExecutor.java:174)
+    at org.apache.maven.lifecycle.internal.MojoExecutor.access$000 (MojoExecutor.java:75)
+    at org.apache.maven.lifecycle.internal.MojoExecutor$1.run (MojoExecutor.java:162)
+    at org.apache.maven.plugin.DefaultMojosExecutionStrategy.execute (DefaultMojosExecutionStrategy.java:39)
+    at org.apache.maven.lifecycle.internal.MojoExecutor.execute (MojoExecutor.java:159)
+    at org.apache.maven.lifecycle.internal.LifecycleModuleBuilder.buildProject (LifecycleModuleBuilder.java:105)
+    at org.apache.maven.lifecycle.internal.LifecycleModuleBuilder.buildProject (LifecycleModuleBuilder.java:73)
+    at org.apache.maven.lifecycle.internal.builder.singlethreaded.SingleThreadedBuilder.build (SingleThreadedBuilder.java:53)
+    at org.apache.maven.lifecycle.internal.LifecycleStarter.execute (LifecycleStarter.java:118)
+    at org.apache.maven.DefaultMaven.doExecute (DefaultMaven.java:261)
+    at org.apache.maven.DefaultMaven.doExecute (DefaultMaven.java:173)
+    at org.apache.maven.DefaultMaven.execute (DefaultMaven.java:101)
+    at org.apache.maven.cli.MavenCli.execute (MavenCli.java:919)
+    at org.apache.maven.cli.MavenCli.doMain (MavenCli.java:285)
+    at org.apache.maven.cli.MavenCli.main (MavenCli.java:207)
+    at jdk.internal.reflect.DirectMethodHandleAccessor.invoke (DirectMethodHandleAccessor.java:104)
+    at java.lang.reflect.Method.invoke (Method.java:565)
+    at org.codehaus.plexus.classworlds.launcher.Launcher.launchEnhanced (Launcher.java:283)
+    at org.codehaus.plexus.classworlds.launcher.Launcher.launch (Launcher.java:226)
+    at org.codehaus.plexus.classworlds.launcher.Launcher.mainWithExitCode (Launcher.java:407)
+    at org.codehaus.plexus.classworlds.launcher.Launcher.main (Launcher.java:348)
+[INFO] Updating CISA Known Exploited Vulnerability list: https://www.cisa.gov/sites/default/files/feeds/known_exploited_vulnerabilities.json
+[INFO] Begin database defrag
+[INFO] End database defrag (143 ms)
+[WARNING] Unable to update 1 or more Cached Web DataSource, using local data instead. Results may not include recent vulnerabilities.
+[ERROR] Unable to continue dependency-check analysis.
+[INFO] ------------------------------------------------------------------------
+[INFO] BUILD FAILURE
+[INFO] ------------------------------------------------------------------------
+[INFO] Total time:  5.552 s
+[INFO] Finished at: 2026-07-20T15:16:47+02:00
+[INFO] ------------------------------------------------------------------------
+[ERROR] Failed to execute goal org.owasp:dependency-check-maven:12.2.2:check (default-cli) on project backend: Fatal exception(s) analyzing backend: One or more exceptions occurred during analysis:
+[ERROR]         UpdateException: Error updating the NVD Data
+[ERROR]                 caused by NvdApiException: Invalid API Key: 39374-*****
+[ERROR]         NoDataException: No documents exist
+[ERROR] -> [Help 1]
+[ERROR] 
+[ERROR] To see the full stack trace of the errors, re-run Maven with the -e switch.
+[ERROR] Re-run Maven using the -X switch to enable full debug logging.
+[ERROR] 
+[ERROR] For more information about the errors and possible solutions, please read the following articles:
+[ERROR] [Help 1] http://cwiki.apache.org/confluence/display/MAVEN/MojoExecutionException
+---
+
+## 2026-07-20T13:31:42Z
+change in ci_cd.yml check for security only on release before `docker-push` step
+---
+
+## 2026-07-20T13:34:18Z
+don't continue on error scanning and move in in file below e2e
+---
+
+## 2026-07-20T13:36:35Z
+git add all changes and commit them with suitable message
+---

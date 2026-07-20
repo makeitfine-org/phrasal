@@ -135,11 +135,60 @@ jobs:
           path: e2e/reports/
           retention-days: 3
 
+  security-scan:
+    if: startsWith(github.ref, 'refs/tags/v')
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - uses: actions/checkout@v5
+
+      - name: Set up Node.js 26
+        uses: actions/setup-node@v5
+        with:
+          node-version: '26.3.1'
+
+      - name: npm audit — frontend
+        run: npm --prefix frontend audit --audit-level=high
+
+      - name: npm audit — e2e
+        run: npm --prefix e2e audit --audit-level=high
+
+      - name: Set up Java 25
+        uses: actions/setup-java@v5
+        with:
+          java-version: '25'
+          distribution: 'temurin'
+          cache: 'maven'
+
+      - name: OWASP Dependency-Check — backend
+        run: >
+          mvn -f backend/pom.xml
+          org.owasp:dependency-check-maven:check
+          -DfailBuildOnCVSS=7
+          -DsuppressionFiles=backend/owasp-suppressions.xml
+          -DnvdApiKey=${{ secrets.NVD_API_KEY }}
+          -DnvdApiEnabled=${{ secrets.NVD_API_KEY != '' }}
+          -DossIndexEnabled=true
+
+      - name: Trivy — backend image
+        uses: aquasecurity/trivy-action@master
+        with:
+          image-ref: eclipse-temurin:25-jre-alpine
+          severity: CRITICAL,HIGH
+          exit-code: '0'
+
+      - name: Trivy — frontend image
+        uses: aquasecurity/trivy-action@master
+        with:
+          image-ref: nginx:1.27-alpine
+          severity: CRITICAL,HIGH
+          exit-code: '0'
+
   docker-push:
     if: startsWith(github.ref, 'refs/tags/v')
     runs-on: ubuntu-latest
     timeout-minutes: 5
-    needs: [e2e]
+    needs: [e2e, security-scan]
     steps:
       - uses: actions/checkout@v5
 

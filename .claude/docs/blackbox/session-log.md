@@ -5068,3 +5068,132 @@
 - .claude/docs/blackbox/audit.md
 - backlog/tasks/task-72 - Improve-showing-while-loading.md
 <!-- end-snapshot -->
+
+<!-- git-snapshot 2026-07-20T12:28:25Z -->
+- .claude/docs/blackbox/audit.md
+- .claude/settings.local.json
+- .github/workflows/ci_cd.yml
+- CLAUDE.md
+- Makefile
+- backend/owasp-suppressions.xml
+- backlog/completed/task-74 - Check-repo-for-vulnerabilities.md
+- backlog/tasks/task-74 - Check-repo-for-vulnerabilities.md
+- k8s/base/backend-secret.yaml
+<!-- end-snapshot -->
+
+<!-- git-snapshot 2026-07-20T12:35:42Z -->
+- .claude/docs/blackbox/audit.md
+- .claude/docs/blackbox/session-log.md
+- .claude/settings.local.json
+- .github/workflows/ci_cd.yml
+- CLAUDE.md
+- Makefile
+- backend/owasp-suppressions.xml
+- backlog/completed/task-74 - Check-repo-for-vulnerabilities.md
+- backlog/tasks/task-74 - Check-repo-for-vulnerabilities.md
+- k8s/base/backend-secret.yaml
+<!-- end-snapshot -->
+
+<!-- git-snapshot 2026-07-20T12:37:01Z -->
+- .claude/docs/blackbox/audit.md
+- .claude/docs/blackbox/session-log.md
+- .claude/settings.local.json
+- .github/workflows/ci_cd.yml
+- CLAUDE.md
+- Makefile
+- backend/owasp-suppressions.xml
+- backlog/completed/task-74 - Check-repo-for-vulnerabilities.md
+- backlog/tasks/task-74 - Check-repo-for-vulnerabilities.md
+- k8s/base/backend-secret.yaml
+<!-- end-snapshot -->
+
+<!-- git-snapshot 2026-07-20T12:41:30Z -->
+- .claude/docs/blackbox/audit.md
+- .claude/docs/blackbox/session-log.md
+- .claude/settings.local.json
+- .github/workflows/ci_cd.yml
+- CLAUDE.md
+- Makefile
+- backend/owasp-suppressions.xml
+- backlog/completed/task-74 - Check-repo-for-vulnerabilities.md
+- backlog/tasks/task-74 - Check-repo-for-vulnerabilities.md
+- k8s/base/backend-secret.yaml
+<!-- end-snapshot -->
+
+<!-- git-snapshot 2026-07-20T12:58:37Z -->
+- .claude/docs/blackbox/audit.md
+- .claude/docs/blackbox/session-log.md
+- .claude/settings.local.json
+- .github/workflows/ci_cd.yml
+- CLAUDE.md
+- Makefile
+- backend/owasp-suppressions.xml
+- backlog/completed/task-74 - Check-repo-for-vulnerabilities.md
+- backlog/tasks/task-74 - Check-repo-for-vulnerabilities.md
+- k8s/base/backend-secret.yaml
+<!-- end-snapshot -->
+
+<!-- git-snapshot 2026-07-20T13:02:38Z -->
+- .claude/docs/blackbox/audit.md
+- .claude/docs/blackbox/session-log.md
+- .claude/settings.local.json
+- .github/workflows/ci_cd.yml
+- CLAUDE.md
+- Makefile
+- backend/owasp-suppressions.xml
+- backlog/completed/task-74 - Check-repo-for-vulnerabilities.md
+- backlog/tasks/task-74 - Check-repo-for-vulnerabilities.md
+- k8s/base/backend-secret.yaml
+<!-- end-snapshot -->
+
+<!-- git-snapshot 2026-07-20T13:14:43Z -->
+- .claude/docs/blackbox/audit.md
+- .claude/docs/blackbox/session-log.md
+- .claude/settings.local.json
+- .github/workflows/ci_cd.yml
+- CLAUDE.md
+- Makefile
+- backend/owasp-suppressions.xml
+- backlog/completed/task-74 - Check-repo-for-vulnerabilities.md
+- backlog/tasks/task-74 - Check-repo-for-vulnerabilities.md
+- k8s/base/backend-secret.yaml
+<!-- end-snapshot -->
+
+<!-- git-snapshot 2026-07-20T13:17:16Z -->
+- .claude/docs/blackbox/audit.md
+- .claude/docs/blackbox/session-log.md
+- .claude/settings.local.json
+- .github/workflows/ci_cd.yml
+- CLAUDE.md
+- Makefile
+- backend/owasp-suppressions.xml
+- backlog/completed/task-74 - Check-repo-for-vulnerabilities.md
+- backlog/tasks/task-74 - Check-repo-for-vulnerabilities.md
+- k8s/base/backend-secret.yaml
+<!-- end-snapshot -->
+
+<!-- git-snapshot 2026-07-20T13:33:34Z -->
+- .claude/docs/blackbox/audit.md
+- .claude/docs/blackbox/session-log.md
+- .claude/settings.local.json
+- .github/workflows/ci_cd.yml
+- CLAUDE.md
+- Makefile
+- backend/owasp-suppressions.xml
+- backlog/completed/task-74 - Check-repo-for-vulnerabilities.md
+- backlog/tasks/task-74 - Check-repo-for-vulnerabilities.md
+- k8s/base/backend-secret.yaml
+<!-- end-snapshot -->
+
+<!-- git-snapshot 2026-07-20T13:34:41Z -->
+- .claude/docs/blackbox/audit.md
+- .claude/docs/blackbox/session-log.md
+- .claude/settings.local.json
+- .github/workflows/ci_cd.yml
+- CLAUDE.md
+- Makefile
+- backend/owasp-suppressions.xml
+- backlog/completed/task-74 - Check-repo-for-vulnerabilities.md
+- backlog/tasks/task-74 - Check-repo-for-vulnerabilities.md
+- k8s/base/backend-secret.yaml
+<!-- end-snapshot -->

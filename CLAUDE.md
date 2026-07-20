@@ -79,6 +79,7 @@ A root `Makefile` provides convenience targets for all common developer workflow
 | `make dockerDown` | `docker compose down` |
 | `make clean` | Docker down + remove images + `mvn clean` + remove frontend dist |
 | `make ciCheck` | Strict CI simulation: no-cache docker build, npm ci, mvn verify |
+| `make securityScan` | npm audit (frontend/e2e) + OSS Index audit (backend) |
 | `make updateFrontend` | Upgrade frontend deps with `npm-check-updates -u && npm install` |
 | `make updateAcceptance` | Upgrade e2e deps with `npm-check-updates -u && npm install` |
 

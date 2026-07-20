@@ -1,7 +1,7 @@
 # Makefile for phrasal
 
 .PHONY: clean updateFrontend updateAcceptance buildBackend buildFrontend acceptanceTest build dockerAll dockerDown \
-        ghList ghView defaultMessage message help ciCheck
+        ghList ghView defaultMessage message help ciCheck securityScan
 
 # Function to execute commands sequentially with success and failure messages
 # Usage: $(call execute_commands,command1 && command2 && .. && commandN, success_msg, fail_msg)
@@ -79,6 +79,24 @@ ciCheck:
 		"✅ CI CHECK SUCCESSFUL (phrasal) ✅",\
 		"❌ CI CHECK FAILED (phrasal) ❌")
 
+securityScan:
+	@echo "### Security scan (phrasal) ..."
+	$(call execute_commands,\
+		echo "--- npm audit: frontend ---" && \
+		cd frontend && npm audit --audit-level=high && \
+		cd .. && \
+		echo "--- npm audit: e2e ---" && \
+		cd e2e && npm audit --audit-level=high && \
+		cd .. && \
+		echo "--- OWASP Dependency-Check: backend ---" && \
+		test -n "$$NVD_API_KEY" || { echo "ERROR: NVD_API_KEY env var is not set"; exit 1; } && \
+		cd backend && mvn org.owasp:dependency-check-maven:check \
+			-DnvdApiKey=$$NVD_API_KEY \
+			-DfailBuildOnCVSS=7 \
+			-DsuppressionFiles=owasp-suppressions.xml,\
+		"✅ SECURITY SCAN SUCCESSFUL (phrasal) ✅",\
+		"❌ SECURITY SCAN FAILED (phrasal) ❌")
+
 dockerAll:
 	@echo "### Building and docker up locally (phrasal) ..."
 	$(call execute_commands,\
@@ -145,6 +163,9 @@ help:
 	@echo "  buildFrontend     - Build frontend (npm install && npm run build)"
 	@echo "  build             - Full build: backend + frontend + docker rebuild + e2e (--wait)"
 	@echo "  ciCheck           - Strict CI simulation: no-cache docker build, npm ci, mvn verify"
+	@echo ""
+	@echo "🔒 Security Targets:"
+	@echo "  securityScan      - npm audit (frontend/e2e) + OWASP Dependency-Check (backend, needs NVD_API_KEY)"
 	@echo ""
 	@echo "🧪 Test Targets:"
 	@echo "  acceptanceTest    - Run Cucumber+Playwright e2e tests (stack must be running)"
