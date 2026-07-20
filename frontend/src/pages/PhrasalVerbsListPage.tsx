@@ -105,7 +105,7 @@ export default function PhrasalVerbsListPage() {
         </button>,
         portalTarget
       )}
-    <div className="min-h-screen bg-gray-50 dark:bg-gray-950 flex flex-col items-center justify-center p-6">
+    <div className="fade-in min-h-screen bg-gray-50 dark:bg-gray-950 flex flex-col items-center justify-center p-6">
       <h1 className="text-4xl font-bold text-gray-900 dark:text-gray-100 mb-2">
         Phrasal Verbs List
       </h1>

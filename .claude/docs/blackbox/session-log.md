@@ -5051,3 +5051,15 @@
 - backlog/tasks/task-91 - Fix-page-blinking-on-refresh.md
 - backlog/tasks/task-93 - Technical-improvements-elasticsearch-mongo-caching.md
 <!-- end-snapshot -->
+
+<!-- git-snapshot 2026-07-18T18:36:55Z -->
+- .claude/docs/blackbox/audit.md
+- backlog/tasks/task-72 - Improve-showing-while-loading.md
+- frontend/src/App.tsx
+- frontend/src/__tests__/App.test.tsx
+- frontend/src/__tests__/VerbDetailPage.test.tsx
+- frontend/src/__tests__/loading-states.test.tsx
+- frontend/src/pages/IWishPage.tsx
+- frontend/src/pages/PhrasalVerbsListPage.tsx
+- frontend/src/pages/VerbDetailPage.tsx
+<!-- end-snapshot -->

@@ -78,6 +78,20 @@ describe('IWishPage — loading state', () => {
     expect(screen.getByText('I wish / If only')).toBeInTheDocument();
     vi.restoreAllMocks();
   });
+
+  it('applies fade-in class to content after loading completes', () => {
+    mockUseGrammarEntries.mockReturnValue({
+      entries: [
+        { sentence: 'Test sentence', correctAnswers: ['Test answer'] },
+      ],
+      loading: false,
+      error: null,
+    });
+    vi.spyOn(Math, 'random').mockReturnValue(0);
+    const { container } = render(<IWishPage />);
+    expect(container.querySelector('.fade-in')).toBeInTheDocument();
+    vi.restoreAllMocks();
+  });
 });
 
 describe('PhrasalVerbsListPage — loading state', () => {
@@ -120,6 +134,18 @@ describe('PhrasalVerbsListPage — loading state', () => {
     render(<MemoryRouter><PhrasalVerbsListPage /></MemoryRouter>);
     expect(screen.getByText('Phrasal Verbs List')).toBeInTheDocument();
     expect(screen.getByRole('heading', { name: 'Get' })).toBeInTheDocument();
+  });
+
+  it('applies fade-in class to content after loading completes', () => {
+    mockUseVerbList.mockReturnValue({
+      verbs: [{ verb: 'get', label: 'Get', particles: ['off', 'on'] }],
+      loading: false,
+      error: null,
+    });
+    const { container } = render(
+      <MemoryRouter><PhrasalVerbsListPage /></MemoryRouter>,
+    );
+    expect(container.querySelector('.fade-in')).toBeInTheDocument();
   });
 });
 

@@ -104,4 +104,25 @@ describe('VerbDetailPage', () => {
     renderWithRoute('act');
     expect(mockUseVerbDetail).toHaveBeenCalledWith('act');
   });
+
+  it('applies fade-in class to content after loading completes', () => {
+    mockUseVerbDetail.mockReturnValue({
+      title: 'Get',
+      sections: [
+        {
+          particle: 'off',
+          storageKey: 'getOff_section_expanded',
+          storageKeyPrefix: 'getOff',
+          meanings: [
+            { definition: 'To leave', example: 'Get off the bus.', imageSrc: '/images/default.png', imageAlt: 'alt' },
+          ],
+        },
+      ],
+      loading: false,
+      error: null,
+    });
+
+    const { container } = renderWithRoute('get');
+    expect(container.querySelector('.fade-in')).toBeInTheDocument();
+  });
 });

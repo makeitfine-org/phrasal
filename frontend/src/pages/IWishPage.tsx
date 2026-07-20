@@ -19,5 +19,9 @@ export default function IWishPage() {
     );
   }
 
-  return <GrammarQuiz entries={entries} />;
+  return (
+    <div className="fade-in">
+      <GrammarQuiz entries={entries} />
+    </div>
+  );
 }

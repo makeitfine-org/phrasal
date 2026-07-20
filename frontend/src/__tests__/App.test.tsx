@@ -59,6 +59,11 @@ describe('App — initial render', () => {
     expect(screen.getByTestId('question-number')).toHaveTextContent('1');
   });
 
+  it('applies fade-in class to content after loading completes', () => {
+    const { container } = renderApp();
+    expect(container.querySelector('.fade-in')).toBeInTheDocument();
+  });
+
   it('restores mastered count from localStorage on mount', () => {
     localStorage.setItem('phrasalQuizState', JSON.stringify({
       mastered: [0, 1],

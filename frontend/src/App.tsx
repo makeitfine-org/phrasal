@@ -19,5 +19,9 @@ export default function App() {
     );
   }
 
-  return <PhrasalVerbQuiz allVerbs={allVerbs} verbsForBrowse={verbsForBrowse} />;
+  return (
+    <div className="fade-in">
+      <PhrasalVerbQuiz allVerbs={allVerbs} verbsForBrowse={verbsForBrowse} />
+    </div>
+  );
 }

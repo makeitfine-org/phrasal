@@ -19,5 +19,9 @@ export default function VerbDetailPage() {
     );
   }
 
-  return <VerbPageLayout title={title} sections={sections} />;
+  return (
+    <div className="fade-in">
+      <VerbPageLayout title={title} sections={sections} />
+    </div>
+  );
 }
