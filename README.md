@@ -279,6 +279,9 @@ Deployment to production only happens when a version tag is pushed. Pushes to `m
 git checkout main
 git pull
 
+# 1.1. Check `make clean build securityScan` passes successfully
+make clean build securityScan
+
 # 2. Create a GitHub release with a description
 gh release create v1.2.3 --title "v1.2.3" --notes "
 ## What's Changed
