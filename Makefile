@@ -3,6 +3,8 @@
 .PHONY: clean updateFrontend updateAcceptance buildBackend buildFrontend acceptanceTest build dockerAll dockerDown \
         ghList ghView defaultMessage message help ciCheck securityScan
 
+comma := ,
+
 # Function to execute commands sequentially with success and failure messages
 # Usage: $(call execute_commands,command1 && command2 && .. && commandN, success_msg, fail_msg)
 define execute_commands
@@ -93,7 +95,12 @@ securityScan:
 		cd backend && mvn org.owasp:dependency-check-maven:check \
 			-DnvdApiKey=$$NVD_API_KEY \
 			-DfailBuildOnCVSS=7 \
-			-DsuppressionFiles=owasp-suppressions.xml,\
+			-DsuppressionFiles=owasp-suppressions.xml && \
+		cd .. && \
+		echo "--- Trivy: backend base image ---" && \
+		trivy image --severity CRITICAL$(comma)HIGH --exit-code 1 eclipse-temurin:25-jre-alpine && \
+		echo "--- Trivy: frontend base image ---" && \
+		trivy image --severity CRITICAL$(comma)HIGH --exit-code 1 nginx:1.27-alpine,\
 		"✅ SECURITY SCAN SUCCESSFUL (phrasal) ✅",\
 		"❌ SECURITY SCAN FAILED (phrasal) ❌")
 
@@ -165,7 +172,7 @@ help:
 	@echo "  ciCheck           - Strict CI simulation: no-cache docker build, npm ci, mvn verify"
 	@echo ""
 	@echo "🔒 Security Targets:"
-	@echo "  securityScan      - npm audit (frontend/e2e) + OWASP Dependency-Check (backend, needs NVD_API_KEY)"
+	@echo "  securityScan      - npm audit (frontend/e2e) + OWASP Dependency-Check (backend) + Trivy (base images). Needs NVD_API_KEY, trivy"
 	@echo ""
 	@echo "🧪 Test Targets:"
 	@echo "  acceptanceTest    - Run Cucumber+Playwright e2e tests (stack must be running)"

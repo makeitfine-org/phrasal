@@ -8412,3 +8412,219 @@ don't continue on error scanning and move in in file below e2e
 ## 2026-07-20T13:36:35Z
 git add all changes and commit them with suitable message
 ---
+
+## 2026-07-20T13:39:54Z
+Add to @Makefile the target `checkBeforeRelease` with check if all steps are successful:
+- `make clean build`
+- `main` branch has the new appropieate release tag
+- security checks the same as in @.github/workflows/ci_cd.yml `security-scan`
+---
+
+## 2026-07-20T16:03:20Z
+n org.owasp:dependency-check-maven:check                        -DnvdApiKey=$NVD_API_KEY                        -DfailBuildOnCVSS=7                     -DsuppressionFiles=owasp-suppressions.xmlga -DdatafeedUrl=https://github.io
+WARNING: A terminally deprecated method in sun.misc.Unsafe has been called
+WARNING: sun.misc.Unsafe::objectFieldOffset has been called by com.google.common.util.concurrent.AbstractFuture$UnsafeAtomicHelper (file:/usr/share/maven/lib/guava.jar)
+WARNING: Please consider reporting this to the maintainers of class com.google.common.util.concurrent.AbstractFuture$UnsafeAtomicHelper
+WARNING: sun.misc.Unsafe::objectFieldOffset will be removed in a future release
+[INFO] Scanning for projects...
+[INFO] 
+[INFO] ------------------------< net.phrasal:backend >-------------------------
+[INFO] Building backend 0.1.0
+[INFO]   from pom.xml
+[INFO] --------------------------------[ jar ]---------------------------------
+[INFO] 
+[INFO] --- dependency-check:12.2.2:check (default-cli) @ backend ---
+[INFO] Checking for updates
+[INFO] NVD API has 367,704 records in this update
+---
+
+## 2026-07-20T16:05:41Z
+n org.owasp:dependency-check-maven:check                        -DnvdApiKey=$NVD_API_KEY                        -DfailBuildOnCVSS=7                     -DsuppressionFiles=owasp-suppressions.xmlga -DdatafeedUrl=https://github.io
+WARNING: A terminally deprecated method in sun.misc.Unsafe has been called
+WARNING: sun.misc.Unsafe::objectFieldOffset has been called by com.google.common.util.concurrent.AbstractFuture$UnsafeAtomicHelper (file:/usr/share/maven/lib/guava.jar)
+WARNING: Please consider reporting this to the maintainers of class com.google.common.util.concurrent.AbstractFuture$UnsafeAtomicHelper
+WARNING: sun.misc.Unsafe::objectFieldOffset will be removed in a future release
+[INFO] Scanning for projects...
+[INFO] 
+[INFO] ------------------------< net.phrasal:backend >-------------------------
+[INFO] Building backend 0.1.0
+[INFO]   from pom.xml
+[INFO] --------------------------------[ jar ]---------------------------------
+[INFO] 
+[INFO] --- dependency-check:12.2.2:check (default-cli) @ backend ---
+[INFO] Checking for updates
+[INFO] NVD API has 367,704 records in this update
+---
+
+## 2026-07-20T16:06:11Z
+what's the warning?
+---
+
+## 2026-07-20T16:09:12Z
+how to fix to get rid of the warning?
+---
+
+## 2026-07-20T19:20:44Z
+remove checkbeforerelease target but move trivy check to `securityScan` target
+---
+
+## 2026-07-20T19:27:47Z
+What these commands do?
+
+trivy image --severity CRITICAL,HIGH --exit-code 0 eclipse-temurin:25-jre-alpine && \
+        echo "--- Trivy: frontend base image ---" && \
+        trivy image --severity CRITICAL,HIGH --exit-code 0 nginx:1.27-alpine,
+---
+
+## 2026-07-20T19:41:05Z
+git add all changes and commit them with suitable message
+---
+
+## 2026-07-20T19:50:15Z
+securityScan
+### Security scan (phrasal) ...
+--- npm audit: frontend ---
+found 0 vulnerabilities
+--- npm audit: e2e ---
+found 0 vulnerabilities
+--- OWASP Dependency-Check: backend ---
+[INFO] Scanning for projects...
+[INFO]
+[INFO] ------------------------< net.phrasal:backend >-------------------------
+[INFO] Building backend 0.1.0
+[INFO]   from pom.xml
+[INFO] --------------------------------[ jar ]---------------------------------
+[INFO]
+[INFO] --- dependency-check:12.2.2:check (default-cli) @ backend ---
+[INFO] Checking for updates
+[INFO] Skipping the NVD API Update as it was completed within the last 240 minutes
+[INFO] Skipping Known Exploited Vulnerabilities update check since last check was within 24 hours.
+[INFO] Check for updates complete (340 ms)
+[INFO]
+
+Dependency-Check is an open source tool performing a best effort analysis of 3rd party dependencies; false positives and false negatives may exist in the analysis performed by the tool. Use of the tool and the reporting provided constitutes acceptance for use in an AS IS condition, and there are NO warranties, implied or otherwise, with regard to the analysis or its use. Any use of the tool and the reporting provided is at the user's risk. In no event shall the copyright holder or OWASP be held liable for any damages whatsoever arising out of or in connection with the use of this tool, the analysis performed, or the resulting report.
+
+
+   About ODC: https://dependency-check.github.io/DependencyCheck/general/internals.html
+   False Positives: https://dependency-check.github.io/DependencyCheck/general/suppression.html
+
+
+[INFO] Analysis Started
+[INFO] Finished Archive Analyzer (0 seconds)
+[INFO] Finished File Name Analyzer (0 seconds)
+[INFO] Finished Jar Analyzer (0 seconds)
+[INFO] Finished Dependency Merging Analyzer (0 seconds)
+[INFO] Finished Hint Analyzer (0 seconds)
+[INFO] Finished Version Filter Analyzer (0 seconds)
+[INFO] Created CPE Index (1 seconds)
+[INFO] Finished CPE Analyzer (2 seconds)
+[INFO] Finished False Positive Analyzer (0 seconds)
+[INFO] Finished NVD CVE Analyzer (0 seconds)
+[WARNING] Sonatype OSS Index Analyzer disabled due to missing credentials. Authentication with token is now required, and OSS Index is migrating to Sonatype Guide. See https://dependency-check.github.io/DependencyCheck/analyzers/oss-index-analyzer.html for more information on authentication with Sonatype Guide OSS Index.
+[INFO] Finished Vulnerability Suppression Analyzer (0 seconds)
+[INFO] Finished Known Exploited Vulnerability Analyzer (0 seconds)
+[INFO] Finished Dependency Bundling Analyzer (0 seconds)
+[INFO] Finished Unused Suppression Rule Analyzer (0 seconds)
+[INFO] Analysis Complete (4 seconds)
+[INFO] Writing HTML report to: /home/ubuntuu/dev/mine/phrasal/backend/target/dependency-check-report.html
+[WARNING]
+
+One or more dependencies were identified with known vulnerabilities in backend:
+
+jackson-databind-2.19.4.jar (pkg:maven/com.fasterxml.jackson.core/jackson-databind@2.19.4, cpe:2.3:a:fasterxml:jackson-core:2.19.4:*:*:*:*:*:*:*, cpe:2.3:a:fasterxml:jackson-databind:2.19.4:*:*:*:*:*:*:*, cpe:2.3:a:fasterxml:jackson-modules-java8:2.19.4:*:*:*:*:*:*:*) : CVE-2026-54512, CVE-2026-54513, CVE-2026-54514, CVE-2026-54515
+log4j-api-2.24.3.jar (pkg:maven/org.apache.logging.log4j/log4j-api@2.24.3, cpe:2.3:a:apache:log4j:2.24.3:*:*:*:*:*:*:*) : CVE-2026-34479, CVE-2026-34477, CVE-2026-49844
+postgresql-42.7.8.jar (pkg:maven/org.postgresql/postgresql@42.7.8, cpe:2.3:a:postgresql:postgresql_jdbc_driver:42.7.8:*:*:*:*:*:*:*) : CVE-2026-54291, CVE-2026-42198
+spring-boot-3.5.9.jar (pkg:maven/org.springframework.boot/spring-boot@3.5.9, cpe:2.3:a:vmware:spring_boot:3.5.9:*:*:*:*:*:*:*) : CVE-2026-40974, CVE-2026-40971, CVE-2026-22731, CVE-2026-22733, CVE-2026-40972, CVE-2026-40975, CVE-2026-40973, CVE-2026-40977
+spring-core-6.2.15.jar (pkg:maven/org.springframework/spring-core@6.2.15, cpe:2.3:a:pivotal_software:spring_framework:6.2.15:*:*:*:*:*:*:*, cpe:2.3:a:springsource:spring_framework:6.2.15:*:*:*:*:*:*:*, cpe:2.3:a:vmware:spring_framework:6.2.15:*:*:*:*:*:*:*) : CVE-2026-41855, CVE-2026-41838, CVE-2026-41842, CVE-2026-41848, CVE-2026-41850, CVE-2026-41851, CVE-2026-22740, CVE-2026-41854, CVE-2026-41844, CVE-2026-41845, CVE-2026-41846, CVE-2026-22737, CVE-2026-41840, CVE-2026-41841, CVE-2026-41843, CVE-2026-22745, CVE-2026-41852, CVE-2026-41853, CVE-2026-41839, CVE-2026-22741, CVE-2026-22735
+tomcat-embed-core-10.1.50.jar (pkg:maven/org.apache.tomcat.embed/tomcat-embed-core@10.1.50, cpe:2.3:a:apache:tomcat:10.1.50:*:*:*:*:*:*:*, cpe:2.3:a:apache_tomcat:apache_tomcat:10.1.50:*:*:*:*:*:*:*) : CVE-2026-41293, CVE-2026-43512, CVE-2026-29145, CVE-2026-43515, CVE-2026-53434, CVE-2026-55276, CVE-2026-59083, CVE-2026-59084, CVE-2026-24734, CVE-2026-24880, CVE-2026-29146, CVE-2026-34483, CVE-2026-34487, CVE-2026-41284, CVE-2026-43513, CVE-2026-42498, CVE-2026-53404, CVE-2026-34500, CVE-2026-55955, CVE-2026-55956, CVE-2026-25854, CVE-2026-50229, CVE-2026-32990, CVE-2026-43514
+
+
+See the dependency-check report for more details.
+
+
+[INFO] ------------------------------------------------------------------------
+[INFO] BUILD FAILURE
+[INFO] ------------------------------------------------------------------------
+[INFO] Total time:  7.093 s
+[INFO] Finished at: 2026-07-20T21:49:27+02:00
+[INFO] ------------------------------------------------------------------------
+[ERROR] Failed to execute goal org.owasp:dependency-check-maven:12.2.2:check (default-cli) on project backend:
+[ERROR]
+[ERROR] One or more dependencies were identified with vulnerabilities that have a CVSS score greater than or equal to '7.0':
+[ERROR]
+[ERROR] jackson-databind-2.19.4.jar (pkg:maven/com.fasterxml.jackson.core/jackson-databind@2.19.4, cpe:2.3:a:fasterxml:jackson-core:2.19.4:*:*:*:*:*:*:*, cpe:2.3:a:fasterxml:jackson-databind:2.19.4:*:*:*:*:*:*:*, cpe:2.3:a:fasterxml:jackson-modules-java8:2.19.4:*:*:*:*:*:*:*): CVE-2026-54512(8.1), CVE-2026-54513(8.1)
+[ERROR] log4j-api-2.24.3.jar (pkg:maven/org.apache.logging.log4j/log4j-api@2.24.3, cpe:2.3:a:apache:log4j:2.24.3:*:*:*:*:*:*:*): CVE-2026-34479(6.9)
+[ERROR] postgresql-42.7.8.jar (pkg:maven/org.postgresql/postgresql@42.7.8, cpe:2.3:a:postgresql:postgresql_jdbc_driver:42.7.8:*:*:*:*:*:*:*): CVE-2026-42198(7.5), CVE-2026-54291(8.2)
+[ERROR] spring-boot-3.5.9.jar (pkg:maven/org.springframework.boot/spring-boot@3.5.9, cpe:2.3:a:vmware:spring_boot:3.5.9:*:*:*:*:*:*:*): CVE-2026-40971(9.1), CVE-2026-40972(7.5), CVE-2026-40975(7.5), CVE-2026-22733(8.1), CVE-2026-40973(7.0), CVE-2026-22731(8.1), CVE-2026-40974(9.8)
+[ERROR] spring-core-6.2.15.jar (pkg:maven/org.springframework/spring-core@6.2.15, cpe:2.3:a:pivotal_software:spring_framework:6.2.15:*:*:*:*:*:*:*, cpe:2.3:a:springsource:spring_framework:6.2.15:*:*:*:*:*:*:*, cpe:2.3:a:vmware:spring_framework:6.2.15:*:*:*:*:*:*:*): CVE-2026-41838(7.5), CVE-2026-41848(7.5), CVE-2026-41851(7.5), CVE-2026-41850(7.5), CVE-2026-41855(9.8), CVE-2026-41842(7.5)
+[ERROR] tomcat-embed-core-10.1.50.jar (pkg:maven/org.apache.tomcat.embed/tomcat-embed-core@10.1.50, cpe:2.3:a:apache:tomcat:10.1.50:*:*:*:*:*:*:*, cpe:2.3:a:apache_tomcat:apache_tomcat:10.1.50:*:*:*:*:*:*:*): CVE-2026-24734(7.5), CVE-2026-41293(9.8), CVE-2026-41284(7.5), CVE-2026-53434(9.1), CVE-2026-53404(7.3), CVE-2026-34487(7.5), CVE-2026-29145(9.1), CVE-2026-29146(7.5), CVE-2026-55276(9.1), CVE-2026-34483(7.5), CVE-2026-43513(7.5), CVE-2026-24880(7.5), CVE-2026-43512(9.8), CVE-2026-42498(7.3), CVE-2026-43515(9.1), CVE-2026-59083(9.1), CVE-2026-59084(9.1)
+[ERROR]
+[ERROR] See the dependency-check report for more details.
+[ERROR]
+[ERROR]
+[ERROR] -> [Help 1]
+[ERROR]
+[ERROR] To see the full stack trace of the errors, re-run Maven with the -e switch.
+[ERROR] Re-run Maven using the -X switch to enable full debug logging.
+[ERROR]
+[ERROR] For more information about the errors and possible solutions, please read the following articles:
+[ERROR] [Help 1] http://cwiki.apache.org/confluence/display/MAVEN/MojoFailureException
+make: unrecognized option '--exit-code'
+Usage: make [options] [target] ...
+Options:
+  -b, -m                      Ignored for compatibility.
+  -B, --always-make           Unconditionally make all targets.
+  -C DIRECTORY, --directory=DIRECTORY
+                              Change to DIRECTORY before doing anything.
+  -d                          Print lots of debugging information.
+  --debug[=FLAGS]             Print various types of debugging information.
+  -e, --environment-overrides
+                              Environment variables override makefiles.
+  -E STRING, --eval=STRING    Evaluate STRING as a makefile statement.
+  -f FILE, --file=FILE, --makefile=FILE
+                              Read FILE as a makefile.
+  -h, --help                  Print this message and exit.
+  -i, --ignore-errors         Ignore errors from recipes.
+  -I DIRECTORY, --include-dir=DIRECTORY
+                              Search DIRECTORY for included makefiles.
+  -j [N], --jobs[=N]          Allow N jobs at once; infinite jobs with no arg.
+  --jobserver-style=STYLE     Select the style of jobserver to use.
+  -k, --keep-going            Keep going when some targets can't be made.
+  -l [N], --load-average[=N], --max-load[=N]
+                              Don't start multiple jobs unless load is below N.
+  -L, --check-symlink-times   Use the latest mtime between symlinks and target.
+  -n, --just-print, --dry-run, --recon
+                              Don't actually run any recipe; just print them.
+  -o FILE, --old-file=FILE, --assume-old=FILE
+                              Consider FILE to be very old and don't remake it.
+  -O[TYPE], --output-sync[=TYPE]
+                              Synchronize output of parallel jobs by TYPE.
+  -p, --print-data-base       Print make's internal database.
+  -q, --question              Run no recipe; exit status says if up to date.
+  -r, --no-builtin-rules      Disable the built-in implicit rules.
+  -R, --no-builtin-variables  Disable the built-in variable settings.
+  --shuffle[={SEED|random|reverse|none}]
+                              Perform shuffle of prerequisites and goals.
+  -s, --silent, --quiet       Don't echo recipes.
+  --no-silent                 Echo recipes (disable --silent mode).
+  -S, --no-keep-going, --stop
+                              Turns off -k.
+  -t, --touch                 Touch targets instead of remaking them.
+  --trace                     Print tracing information.
+  -v, --version               Print the version number of make and exit.
+  -w, --print-directory       Print the current directory.
+  --no-print-directory        Turn off -w, even if it was turned on implicitly.
+  -W FILE, --what-if=FILE, --new-file=FILE, --assume-new=FILE
+                              Consider FILE to be infinitely new.
+  --warn-undefined-variables  Warn when an undefined variable is referenced.
+
+This program built for x86_64-pc-linux-gnu
+Report bugs to <bug-make@gnu.org>
+make: *** [Makefile:84: securityScan] Error 1
+
+issue with target?
+---
+
+## 2026-07-20T19:55:37Z
+trivy define critical and high volnurabilities but didn't drop
+---

@@ -5197,3 +5197,51 @@
 - backlog/tasks/task-74 - Check-repo-for-vulnerabilities.md
 - k8s/base/backend-secret.yaml
 <!-- end-snapshot -->
+
+<!-- git-snapshot 2026-07-20T13:41:20Z -->
+- .claude/docs/blackbox/audit.md
+- CLAUDE.md
+- Makefile
+<!-- end-snapshot -->
+
+<!-- git-snapshot 2026-07-20T16:05:45Z -->
+- .claude/docs/blackbox/audit.md
+- .claude/docs/blackbox/session-log.md
+- CLAUDE.md
+- Makefile
+<!-- end-snapshot -->
+
+<!-- git-snapshot 2026-07-20T16:06:18Z -->
+- .claude/docs/blackbox/audit.md
+- .claude/docs/blackbox/session-log.md
+- CLAUDE.md
+- Makefile
+<!-- end-snapshot -->
+
+<!-- git-snapshot 2026-07-20T16:09:30Z -->
+- .claude/docs/blackbox/audit.md
+- .claude/docs/blackbox/session-log.md
+- CLAUDE.md
+- Makefile
+<!-- end-snapshot -->
+
+<!-- git-snapshot 2026-07-20T19:22:01Z -->
+- .claude/docs/blackbox/audit.md
+- .claude/docs/blackbox/session-log.md
+- .envrc
+- CLAUDE.md
+- Makefile
+<!-- end-snapshot -->
+
+<!-- git-snapshot 2026-07-20T19:27:55Z -->
+- .claude/docs/blackbox/audit.md
+- .claude/docs/blackbox/session-log.md
+- .envrc
+- CLAUDE.md
+- Makefile
+<!-- end-snapshot -->
+
+<!-- git-snapshot 2026-07-20T19:55:44Z -->
+- .claude/docs/blackbox/audit.md
+- Makefile
+<!-- end-snapshot -->
