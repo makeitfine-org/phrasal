@@ -8632,3 +8632,122 @@ trivy define critical and high volnurabilities but didn't drop
 ## 2026-07-20T20:21:09Z
 Until `make clean build scanSecurity` passed successfully update all dependencies and entities where it's possible.
 ---
+
+## 2026-07-22T07:45:45Z
+Few queistion is now
+
+cd backend && mvn org.owasp:dependency-check-maven:check \
+            -DnvdApiKey=$$NVD_API_KEY \
+            -DfailBuildOnCVSS=7 \
+            -DsuppressionFiles=owasp-suppressions.xml
+
+failed on critical and high volnurabilities?
+---
+
+## 2026-07-22T07:47:22Z
+I mean if there were some critical or high volnurabilities  would it fail?
+---
+
+## 2026-07-22T07:47:53Z
+but what should I do this this:
+
+   One or more dependencies were identified with known vulnerabilities in backend:
+
+     jackson-databind-2.21.4.jar (pkg:maven/com.fasterxml.jackson.core/jackson-databind@2.21.4,
+     cpe:2.3:a:fasterxml:jackson-core:2.21.4:*:*:*:*:*:*:*, cpe:2.3:a:fasterxml:jackson-databind:2.21.4:*:*:*:*:*:*:*,
+     cpe:2.3:a:fasterxml:jackson-modules-java8:2.21.4:*:*:*:*:*:*:*) : CVE-2026-54515
+     log4j-api-2.26.0.jar (pkg:maven/org.apache.logging.log4j/log4j-api@2.26.0, cpe:2.3:a:apache:log4j:2.26.0:*:*:*:*:*:*:*) :
+     CVE-2026-49844
+---
+
+## 2026-07-22T07:51:07Z
+why did you suppressed that in @backend/owasp-suppressions.xml:
+
+<?xml version="1.0" encoding="UTF-8"?>
+<suppressions xmlns="https://jeremylong.github.io/DependencyCheck/dependency-suppression.1.3.xsd">
+    <!-- tomcat-embed 10.1.55 — latest 10.1.x, managed by Spring Boot 3.5.16, no patch available -->
+    <suppress>
+        <notes>tomcat-embed 10.1.55 — latest 10.1.x, no fix available</notes>
+        <packageUrl regex="true">^pkg:maven/org\.apache\.tomcat\.embed/.*@10\.1\.55$</packageUrl>
+        <vulnerabilityName regex="true">^CVE-2026-(53434|55276|59083|59084|53404|55955|55956|50229)$</vulnerabilityName>
+    </suppress>
+    <!-- postgresql 42.7.11 — latest 42.7.x, managed by Spring Boot 3.5.16, no patch available -->
+    <suppress>
+        <notes>postgresql 42.7.11 — latest 42.7.x, no fix available</notes>
+        <packageUrl regex="true">^pkg:maven/org\.postgresql/.*@42\.7\.11$</packageUrl>
+        <vulnerabilityName regex="true">^CVE-2026-54291$</vulnerabilityName>
+    </suppress>
+</suppressions>
+---
+
+## 2026-07-22T07:54:49Z
+but I see on mvnrepo:
+<!-- Source: https://mvnrepository.com/artifact/org.apache.tomcat.embed/tomcat-embed-core -->
+<dependency>
+    <groupId>org.apache.tomcat.embed</groupId>
+    <artifactId>tomcat-embed-core</artifactId>
+    <version>11.0.24</version>
+    <scope>compile</scope>
+</dependency>
+---
+
+## 2026-07-22T07:58:46Z
+what about this:
+<suppress>
+        <notes>postgresql 42.7.11 — latest 42.7.x, no fix available</notes>
+        <packageUrl regex="true">^pkg:maven/org\.postgresql/.*@42\.7\.11$</packageUrl>
+        <vulnerabilityName regex="true">^CVE-2026-54291$</vulnerabilityName>
+    </suppress>
+
+May be you can try to check and  update it also to new version if it's present?
+---
+
+## 2026-07-22T08:02:14Z
+proceed
+---
+
+## 2026-07-22T08:04:33Z
+what about this:
+jackson-databind-2.21.4.jar (pkg:maven/com.fasterxml.jackson.core/jackson-databind@2.21.4, cpe:2.3:a:fasterxml:jackson-core:2.21.4:*:*:*:*:*:*:*, cpe:2.3:a:fasterxml:jackson-databind:2.21.4:*:*:*:*:*:*:*, cpe:2.3:a:fasterxml:jackson-modules-java8:2.21.4:*:*:*:*:*:*:*) : CVE-2026-54515
+log4j-api-2.26.0.jar (pkg:maven/org.apache.logging.log4j/log4j-api@2.26.0, cpe:2.3:a:apache:log4j:2.26.0:*:*:*:*:*:*:*) : CVE-2026-49844
+
+May be you can try to check and  update it also to new version if it's present?
+---
+
+## 2026-07-22T08:07:20Z
+but we have also: 
+Jackson Databind 3.2.1
+---
+
+## 2026-07-22T08:10:16Z
+<!-- Source: https://mvnrepository.com/artifact/tools.jackson.core/jackson-databind -->
+<dependency>
+    <groupId>tools.jackson.core</groupId>
+    <artifactId>jackson-databind</artifactId>
+    <version>3.2.0</version>
+    <scope>compile</scope>
+</dependency>
+---
+
+## 2026-07-22T08:36:28Z
+while `make securityScan`:
+2026-07-22T10:35:17+02:00       WARN    This OS version is not on the EOL list  family="alpine" version="3.24"
+---
+
+## 2026-07-22T08:37:32Z
+So is it better to leave as is?
+---
+
+## 2026-07-22T08:38:11Z
+Propose a new release with description and tag step-by-step based on @README.md
+---
+
+## 2026-07-22T08:42:38Z
+you forgot to read in @README.md about step:
+# 1.1. Check `make clean build securityScan` passes successfully
+make clean build securityScan
+---
+
+## 2026-07-22T08:45:16Z
+Run Option B
+---
