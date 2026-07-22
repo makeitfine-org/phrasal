@@ -22,7 +22,10 @@
         <lombok.version>1.18.46</lombok.version>
         <mapstruct.version>1.6.3</mapstruct.version>
         <testcontainers.version>1.21.4</testcontainers.version>
-        <log4j2.version>2.26.0</log4j2.version>
+        <jackson-bom.version>2.22.1</jackson-bom.version>
+        <log4j2.version>2.26.1</log4j2.version>
+        <tomcat.version>11.0.24</tomcat.version>
+        <postgresql.version>42.7.13</postgresql.version>
         <checkstyle-maven-plugin.version>3.6.0</checkstyle-maven-plugin.version>
         <checkstyle.skip>false</checkstyle.skip>
     </properties>

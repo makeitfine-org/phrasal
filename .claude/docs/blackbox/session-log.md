@@ -5262,3 +5262,57 @@
 - frontend/README.md
 - frontend/package-lock.json
 <!-- end-snapshot -->
+
+<!-- git-snapshot 2026-07-22T07:46:12Z -->
+- .claude/docs/blackbox/audit.md
+<!-- end-snapshot -->
+
+<!-- git-snapshot 2026-07-22T07:47:28Z -->
+- .claude/docs/blackbox/audit.md
+- .claude/docs/blackbox/session-log.md
+<!-- end-snapshot -->
+
+<!-- git-snapshot 2026-07-22T07:48:01Z -->
+- .claude/docs/blackbox/audit.md
+- .claude/docs/blackbox/session-log.md
+<!-- end-snapshot -->
+
+<!-- git-snapshot 2026-07-22T07:51:29Z -->
+- .claude/docs/blackbox/audit.md
+- .claude/docs/blackbox/session-log.md
+<!-- end-snapshot -->
+
+<!-- git-snapshot 2026-07-22T07:57:11Z -->
+- .claude/docs/blackbox/audit.md
+- .claude/docs/blackbox/session-log.md
+- backend/owasp-suppressions.xml
+- backend/pom.xml
+<!-- end-snapshot -->
+
+<!-- git-snapshot 2026-07-22T08:02:59Z -->
+- .claude/docs/blackbox/audit.md
+- .claude/docs/blackbox/session-log.md
+- backend/owasp-suppressions.xml
+- backend/pom.xml
+<!-- end-snapshot -->
+
+<!-- git-snapshot 2026-07-22T08:06:11Z -->
+- .claude/docs/blackbox/audit.md
+- .claude/docs/blackbox/session-log.md
+- backend/owasp-suppressions.xml
+- backend/pom.xml
+<!-- end-snapshot -->
+
+<!-- git-snapshot 2026-07-22T08:07:30Z -->
+- .claude/docs/blackbox/audit.md
+- .claude/docs/blackbox/session-log.md
+- backend/owasp-suppressions.xml
+- backend/pom.xml
+<!-- end-snapshot -->
+
+<!-- git-snapshot 2026-07-22T08:10:24Z -->
+- .claude/docs/blackbox/audit.md
+- .claude/docs/blackbox/session-log.md
+- backend/owasp-suppressions.xml
+- backend/pom.xml
+<!-- end-snapshot -->
