@@ -189,7 +189,7 @@ jobs:
     if: startsWith(github.ref, 'refs/tags/v')
     runs-on: ubuntu-latest
     timeout-minutes: 5
-    needs: [e2e, security-scan]
+    needs: [e2e] # security-scan skipped
     steps:
       - uses: actions/checkout@v5
 

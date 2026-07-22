@@ -8728,3 +8728,26 @@ Jackson Databind 3.2.1
     <scope>compile</scope>
 </dependency>
 ---
+
+## 2026-07-22T08:36:28Z
+while `make securityScan`:
+2026-07-22T10:35:17+02:00       WARN    This OS version is not on the EOL list  family="alpine" version="3.24"
+---
+
+## 2026-07-22T08:37:32Z
+So is it better to leave as is?
+---
+
+## 2026-07-22T08:38:11Z
+Propose a new release with description and tag step-by-step based on @README.md
+---
+
+## 2026-07-22T08:42:38Z
+you forgot to read in @README.md about step:
+# 1.1. Check `make clean build securityScan` passes successfully
+make clean build securityScan
+---
+
+## 2026-07-22T08:45:16Z
+Run Option B
+---
