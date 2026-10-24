@@ -15,7 +15,7 @@ services:
     networks:
       - app-network
 
-  app:
+  backend:
     build:
       context: ./backend
       dockerfile: Dockerfile
@@ -46,7 +46,7 @@ services:
       dockerfile: Dockerfile
     image: phrasal-frontend
     depends_on:
-      app:
+      backend:
         condition: service_healthy
     ports:
       - "${FRONTEND_PORT:-3000}:80"

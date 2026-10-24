@@ -47,7 +47,7 @@ Then open **http://localhost:3000** in your browser.
 | Service | Port | Override env var | Description |
 |---|---|---|---|
 | `postgres` | 5432 | `POSTGRES_PORT` | PostgreSQL 16 database (`phrasaldb`) |
-| `app` | 8080 | `BACKEND_PORT` | Spring Boot REST API |
+| `backend` | 8080 | `BACKEND_PORT` | Spring Boot REST API |
 | `frontend` | 3000 | `FRONTEND_PORT` | React SPA served by Nginx |
 
 Override a port if it's already in use on your machine:

@@ -122,7 +122,7 @@ Dockerfile — multi-stage build
   stage 2: nginx:1.30-alpine   → serves dist/ on port 80
 ```
 
-`nginx.conf` handles SPA routing (`try_files $uri /index.html`) and proxies all `/api/*` requests to `app:8080`, so the browser never needs to know the backend's address.
+`nginx.conf` handles SPA routing (`try_files $uri /index.html`) and proxies all `/api/*` requests to `backend:8080`, so the browser never needs to know the backend's address.
 
 ```bash
 # Build and run via docker-compose (recommended, from repo root)

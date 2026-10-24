@@ -142,7 +142,7 @@ docker build -t phrasal-backend .
 docker compose up -d
 
 # Tail app logs
-docker compose logs -f app
+docker compose logs -f backend
 
 # Stop all services
 docker compose down
@@ -258,7 +258,7 @@ src/
 **App won't start**
 ```bash
 docker compose ps          # is postgres running?
-docker compose logs app    # check startup errors
+docker compose logs backend    # check startup errors
 ```
 
 **Database connection error** — verify `DATABASE_URL`, `DATABASE_USER`, `DATABASE_PASSWORD` match your running PostgreSQL instance.

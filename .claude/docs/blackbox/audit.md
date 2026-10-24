@@ -229,3 +229,51 @@ is it better intead of `nginx:stable-alpine` use some specific version?
 ## 2026-10-24T22:25:06Z
 git add all changes and commit them with suitable message
 ---
+
+## 2026-10-24T22:29:28Z
+Check what is the last release version now and output without applying or code changing anything for the new on:  tag, description and steps for git applying.
+---
+
+## 2026-10-24T22:31:32Z
+execute 3 and 4 steps only
+---
+
+## 2026-10-24T22:32:43Z
+git command to show tag description?
+---
+
+## 2026-10-24T22:35:07Z
+I see in CI/CD 4 Bump ... what the sense?
+---
+
+## 2026-10-24T22:37:13Z
+What is the purpose of that dependabot in simple words?
+---
+
+## 2026-10-24T22:43:23Z
+how to remove tag?
+---
+
+## 2026-10-24T22:47:00Z
+Check what is the last release version now and output without applying or code changing anything for the new on: tag, description and steps for git applying.
+---
+
+## 2026-10-24T22:48:43Z
+execute 2 and 3 steps only
+---
+
+## 2026-10-24T22:49:00Z
+execute step 4 only
+---
+
+## 2026-10-24T22:50:41Z
+why backend module everywhere in Docker, name it as app?
+---
+
+## 2026-10-24T22:53:08Z
+yes
+---
+
+## 2026-10-24T22:58:03Z
+git add all changes and commit them with suitable message
+---
