@@ -75,7 +75,7 @@ A root `Makefile` provides convenience targets for all common developer workflow
 | `make build` | Full build: backend (Maven) + frontend (npm) + docker rebuild + e2e tests |
 | `make buildBackend` | `cd backend && mvn clean verify` |
 | `make buildFrontend` | `cd frontend && npm install && npm run build` |
-| `make acceptanceTest` | `cd e2e && npm ci && npm test` (stack must be running) |
+| `make acceptanceTest` | `cd e2e && npm install && npm test` (stack must be running) |
 | `make dockerAll` | Full build then `docker compose up` (foreground) |
 | `make dockerDown` | `docker compose down` |
 | `make clean` | Docker down + remove images + `mvn clean` + remove frontend dist |

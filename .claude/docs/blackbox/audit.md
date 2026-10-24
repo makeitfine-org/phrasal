@@ -53,3 +53,69 @@ Is it a good idea to make so?
 ## 2026-10-24T21:10:41Z
 git add all changes and commit them with suitable message
 ---
+
+## 2026-10-24T21:17:55Z
+check what is the last release and prepare everything for the new release:  tag, description and steps for git.
+---
+
+## 2026-10-24T21:19:48Z
+check what is the last release and output without applying everything for the new release:  tag, description and steps for git.
+---
+
+## 2026-10-24T21:23:34Z
+run step 3 only
+---
+
+## 2026-10-24T21:24:05Z
+run step 4 only
+---
+
+## 2026-10-24T21:34:41Z
+Run `make clean build` and fix till it passes successfully.
+---
+
+## 2026-10-24T21:36:17Z
+<task-notification>
+<task-id>bz6gwww3g</task-id>
+<tool-use-id>toolu_01DqYZUQ7Q3r4DHc4BT7kSrJ</tool-use-id>
+<output-file>/tmp/claude-1000/-home-ilaptop-dev-projects-my-phrasal/ece57150-ef39-4c84-a22c-76f1ef8f8ab7/tasks/bz6gwww3g.output</output-file>
+<status>completed</status>
+<summary>Background command "Run full clean build with e2e tests" completed (exit code 0)</summary>
+</task-notification>
+---
+
+## 2026-10-24T21:39:35Z
+<task-notification>
+<task-id>bdosbpctz</task-id>
+<tool-use-id>toolu_01LvvCAAEbpk6SBKEF44VLei</tool-use-id>
+<output-file>/tmp/claude-1000/-home-ilaptop-dev-projects-my-phrasal/ece57150-ef39-4c84-a22c-76f1ef8f8ab7/tasks/bdosbpctz.output</output-file>
+<status>completed</status>
+<summary>Background command "Re-run full clean build with e2e tests" completed (exit code 0)</summary>
+</task-notification>
+---
+
+## 2026-10-24T21:41:31Z
+instead of "cd e2e && npm install && npx playwright install chromium && npm test," and just update inside package.json playwright?
+---
+
+## 2026-10-24T21:45:09Z
+so you prefere cd e2e && npm install && npx playwright install chromium && npm test, or pretest?
+---
+
+## 2026-10-24T21:45:33Z
+yes
+---
+
+## 2026-10-24T21:47:20Z
+<task-notification>
+<task-id>bljz1a2f1</task-id>
+<tool-use-id>toolu_01YJe5nBawniztBaj1p8GbJD</tool-use-id>
+<output-file>/tmp/claude-1000/-home-ilaptop-dev-projects-my-phrasal/ece57150-ef39-4c84-a22c-76f1ef8f8ab7/tasks/bljz1a2f1.output</output-file>
+<status>completed</status>
+<summary>Background command "Re-run full clean build with pretest approach" completed (exit code 0)</summary>
+</task-notification>
+---
+
+## 2026-10-24T21:47:51Z
+git add all changes and commit them with suitable message
+---

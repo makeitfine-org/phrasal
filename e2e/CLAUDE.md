@@ -14,7 +14,7 @@ Or step by step:
 
 1. Ensure the full stack is running: `docker compose up -d --wait` (from repo root)
 2. Install: `npm install`
-3. Run all: `npm test`
+3. Run all: `npm test` (`pretest` installs the Chromium build matching the Playwright version)
 4. Run by tag: `npm run test:api`
 
 ## Conventions
