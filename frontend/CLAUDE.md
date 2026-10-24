@@ -51,7 +51,7 @@ No context or global store. State is component-local + localStorage:
 
 | Owner | localStorage key | Manages |
 |---|---|---|
-| `PageShell` | `phrasalQuizState` → `darkMode` | Dark mode (shared) |
+| `PageShell` | `phrasalQuizState` → `darkMode` | Dark mode (shared); defaults to OS `prefers-color-scheme` until cached |
 | `PhrasalVerbQuiz` | `phrasalQuizState` | Quiz: mastered, excluded, history, currentIndex |
 | `GrammarQuiz` | `grammarIWishState` | Grammar quiz (same shape) |
 | `VerbPageLayout` | per-section/meaning keys | Section/meaning expand/collapse |

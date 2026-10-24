@@ -250,3 +250,46 @@
 - frontend/nginx.conf
 - k8s/base/backend-deployment.yaml
 <!-- end-snapshot -->
+
+<!-- git-snapshot 2026-10-24T23:04:07Z -->
+- .claude/docs/blackbox/audit.md
+- e2e/README.md
+- frontend/CLAUDE.md
+- frontend/README.md
+- frontend/src/__tests__/PageShell.test.tsx
+- frontend/src/components/PageShell.tsx
+<!-- end-snapshot -->
+
+<!-- git-snapshot 2026-10-24T23:06:04Z -->
+- .claude/docs/blackbox/audit.md
+- .claude/docs/blackbox/session-log.md
+- e2e/README.md
+- frontend/CLAUDE.md
+- frontend/README.md
+- frontend/src/__tests__/PageShell.test.tsx
+- frontend/src/components/PageShell.tsx
+<!-- end-snapshot -->
+
+<!-- git-snapshot 2026-10-24T23:08:54Z -->
+- .claude/docs/blackbox/audit.md
+- .claude/docs/blackbox/session-log.md
+- e2e/README.md
+- e2e/features/frontend/theme.feature
+- e2e/src/steps/theme.steps.ts
+- frontend/CLAUDE.md
+- frontend/README.md
+- frontend/src/__tests__/PageShell.test.tsx
+- frontend/src/components/PageShell.tsx
+<!-- end-snapshot -->
+
+<!-- git-snapshot 2026-10-24T23:13:39Z -->
+- .claude/docs/blackbox/audit.md
+- .claude/docs/blackbox/session-log.md
+- e2e/README.md
+- e2e/features/frontend/theme.feature
+- e2e/src/steps/theme.steps.ts
+- frontend/CLAUDE.md
+- frontend/README.md
+- frontend/src/__tests__/PageShell.test.tsx
+- frontend/src/components/PageShell.tsx
+<!-- end-snapshot -->

@@ -69,13 +69,15 @@ e2e/
 │   │   └── crud.feature            @api
 │   └── frontend/
 │       ├── quiz.feature
+│       ├── theme.feature
 │       └── verb-list.feature
 └── src/
     ├── world.ts              # CustomWorld — shared state per scenario
     ├── hooks.ts              # Before/After lifecycle
     ├── steps/                # Step definitions (one file per feature scope)
     │   ├── phrasal-verbs-api.steps.ts
-    │   └── frontend.steps.ts
+    │   ├── frontend.steps.ts
+    │   └── theme.steps.ts
     └── support/              # Utilities (not step definitions)
         ├── api-client.ts     # Axios wrapper
         └── db-client.ts      # pg client — query / cleanup helpers

@@ -2,12 +2,18 @@ import React, { useState, useEffect } from 'react';
 import NavigationMenu from './NavigationMenu';
 
 const STORAGE_KEY = 'phrasalQuizState';
+const DARK_SCHEME_QUERY = '(prefers-color-scheme: dark)';
+
+function systemPrefersDark(): boolean {
+  return window.matchMedia?.(DARK_SCHEME_QUERY).matches ?? false;
+}
 
 export default function PageShell({ children }: { children: React.ReactNode }) {
 
+  // A saved choice wins; on first start (nothing cached yet) follow the OS theme.
   const [darkMode, setDarkMode] = useState<boolean>(() => {
     const saved = JSON.parse(localStorage.getItem(STORAGE_KEY) || '{}');
-    return saved.darkMode ?? false;
+    return saved.darkMode ?? systemPrefersDark();
   });
 
   useEffect(() => {

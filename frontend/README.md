@@ -57,7 +57,7 @@ App opens at **http://localhost:5173**.
 - Particle reference page (27 core particle meanings)
 - Search and jump to any verb by name or definition
 - Exclude/re-include verbs from the quiz pool
-- Dark/light mode toggle
+- Dark/light mode toggle (first start follows the OS `prefers-color-scheme`; the choice is then cached)
 - Session history with back/forward navigation
 - Keyboard shortcuts and touch swipe support
 - All user progress persisted in localStorage

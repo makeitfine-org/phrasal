@@ -83,6 +83,100 @@ describe('PageShell — dark/light toggle', () => {
   });
 });
 
+describe('PageShell — system color scheme on first start', () => {
+  function mockSystemColorScheme(scheme: 'dark' | 'light') {
+    return vi.spyOn(window, 'matchMedia').mockImplementation((query: string) => ({
+      matches: scheme === 'dark' && query === '(prefers-color-scheme: dark)',
+      media: query,
+      onchange: null,
+      addListener: vi.fn(),
+      removeListener: vi.fn(),
+      addEventListener: vi.fn(),
+      removeEventListener: vi.fn(),
+      dispatchEvent: vi.fn(),
+    }) as MediaQueryList);
+  }
+
+  afterEach(() => {
+    vi.restoreAllMocks();
+    vi.unstubAllGlobals();
+  });
+
+  it('applies dark class when nothing is cached and the system prefers dark', () => {
+    mockSystemColorScheme('dark');
+    renderWithShell();
+    expect(document.documentElement.classList.contains('dark')).toBe(true);
+    expect(screen.getByTitle('Toggle Dark/Light Mode')).toHaveAttribute('aria-label', 'Switch to light mode');
+  });
+
+  it('stays light when nothing is cached and the system prefers light', () => {
+    mockSystemColorScheme('light');
+    renderWithShell();
+    expect(document.documentElement.classList.contains('dark')).toBe(false);
+    expect(screen.getByTitle('Toggle Dark/Light Mode')).toHaveAttribute('aria-label', 'Switch to dark mode');
+  });
+
+  it('queries the prefers-color-scheme: dark media feature', () => {
+    const matchMedia = mockSystemColorScheme('light');
+    renderWithShell();
+    expect(matchMedia).toHaveBeenCalledWith('(prefers-color-scheme: dark)');
+  });
+
+  it('caches the system-derived theme to localStorage on first start', () => {
+    mockSystemColorScheme('dark');
+    renderWithShell();
+    const saved = JSON.parse(localStorage.getItem('phrasalQuizState')!);
+    expect(saved.darkMode).toBe(true);
+  });
+
+  it('cached light preference overrides a dark system theme', () => {
+    mockSystemColorScheme('dark');
+    localStorage.setItem('phrasalQuizState', JSON.stringify({ darkMode: false }));
+    renderWithShell();
+    expect(document.documentElement.classList.contains('dark')).toBe(false);
+  });
+
+  it('cached dark preference overrides a light system theme', () => {
+    mockSystemColorScheme('light');
+    localStorage.setItem('phrasalQuizState', JSON.stringify({ darkMode: true }));
+    renderWithShell();
+    expect(document.documentElement.classList.contains('dark')).toBe(true);
+  });
+
+  it('does not consult the system theme when a preference is cached', () => {
+    const matchMedia = mockSystemColorScheme('dark');
+    localStorage.setItem('phrasalQuizState', JSON.stringify({ darkMode: false }));
+    renderWithShell();
+    expect(matchMedia).not.toHaveBeenCalled();
+  });
+
+  it('uses the system theme when the cache exists but has no darkMode field', () => {
+    mockSystemColorScheme('dark');
+    localStorage.setItem('phrasalQuizState', JSON.stringify({ currentIndex: 3 }));
+    renderWithShell();
+    expect(document.documentElement.classList.contains('dark')).toBe(true);
+    const saved = JSON.parse(localStorage.getItem('phrasalQuizState')!);
+    expect(saved).toEqual({ currentIndex: 3, darkMode: true });
+  });
+
+  it('toggling after a dark system start switches to light and caches it', async () => {
+    mockSystemColorScheme('dark');
+    const user = userEvent.setup();
+    renderWithShell();
+    await user.click(screen.getByTitle('Toggle Dark/Light Mode'));
+    expect(document.documentElement.classList.contains('dark')).toBe(false);
+    const saved = JSON.parse(localStorage.getItem('phrasalQuizState')!);
+    expect(saved.darkMode).toBe(false);
+  });
+
+  it('falls back to light when matchMedia is unavailable', () => {
+    vi.stubGlobal('matchMedia', undefined);
+    expect(window.matchMedia).toBeUndefined();
+    renderWithShell();
+    expect(document.documentElement.classList.contains('dark')).toBe(false);
+  });
+});
+
 describe('PageShell — navigation menu', () => {
   it('renders the nav menu on the / route', () => {
     renderWithShell('/');
