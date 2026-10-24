@@ -162,3 +162,31 @@
 - backend/src/test/java/net/phrasal/integration/PhrasalVerbIntegrationTest.java
 - backend/src/test/java/net/phrasal/integration/VerbDetailIntegrationTest.java
 <!-- end-snapshot -->
+
+<!-- git-snapshot 2026-10-24T22:06:13Z -->
+- .claude/docs/blackbox/audit.md
+<!-- end-snapshot -->
+
+<!-- git-snapshot 2026-10-24T22:14:26Z -->
+- .claude/docs/blackbox/audit.md
+- .claude/docs/blackbox/session-log.md
+- Makefile
+- frontend/Dockerfile
+<!-- end-snapshot -->
+
+<!-- git-snapshot 2026-10-24T22:16:01Z -->
+- .claude/docs/blackbox/audit.md
+- .claude/docs/blackbox/session-log.md
+- Makefile
+- frontend/Dockerfile
+<!-- end-snapshot -->
+
+<!-- git-snapshot 2026-10-24T22:20:21Z -->
+- .claude/docs/blackbox/audit.md
+- .claude/docs/blackbox/session-log.md
+- .github/workflows/ci_cd.yml
+- Makefile
+- README.md
+- frontend/Dockerfile
+- frontend/README.md
+<!-- end-snapshot -->

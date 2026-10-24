@@ -1,0 +1,22 @@
+version: 2
+updates:
+  # Docker base images in frontend/Dockerfile and backend/Dockerfile.
+  # When a Dependabot PR bumps nginx, also update the matching image-ref
+  # in .github/workflows/ci_cd.yml (Trivy base-image scan).
+  - package-ecosystem: "docker"
+    directories:
+      - "/frontend"
+      - "/backend"
+    schedule:
+      interval: "weekly"
+    ignore:
+      # Odd nginx minors are mainline; stay on even (stable) branches.
+      - dependency-name: "nginx"
+        versions: ["~> 1.31.0", "~> 1.33.0", "~> 1.35.0"]
+      # Java and Node major upgrades are deliberate (pom.xml, .envrc, CI).
+      - dependency-name: "eclipse-temurin"
+        update-types: ["version-update:semver-major"]
+      - dependency-name: "maven"
+        update-types: ["version-update:semver-major"]
+      - dependency-name: "node"
+        update-types: ["version-update:semver-major"]

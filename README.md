@@ -437,6 +437,7 @@ docker-compose.yml    → local full-stack orchestration
 Makefile              → build, test, and Docker targets
 skaffold.yaml         → root Skaffold config (composes backend + frontend)
 .github/workflows/    → GitHub Actions CI/CD
+.github/dependabot.yml → weekly Docker base-image update PRs
 ```
 
 ---

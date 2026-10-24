@@ -93,7 +93,7 @@ securityScan:
 		echo "--- OWASP Dependency-Check: backend ---" && \
 		test -n "$$NVD_API_KEY" || { echo "ERROR: NVD_API_KEY env var is not set"; exit 1; } && \
 		cd backend && mvn org.owasp:dependency-check-maven:check \
-			-DnvdApiKey=$$NVD_API_KEY \
+			-DnvdApiKey="$$NVD_API_KEY" \
 			-DfailBuildOnCVSS=7 \
 			-DsuppressionFiles=owasp-suppressions.xml && \
 		cd .. && \

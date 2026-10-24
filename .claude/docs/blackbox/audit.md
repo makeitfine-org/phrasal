@@ -128,3 +128,104 @@ Run `make clean build` and fix till it passes successfully.
 ## 2026-10-24T21:58:01Z
 git add all changes and commit them with suitable message
 ---
+
+## 2026-10-24T22:05:36Z
+on `make securityScan` 
+
+
+<pasted_content id="f9b3">
+     Built                                                                                                                                                            0.0s 
+ ✔ frontend  Built                                                                                                                                                            0.0s 
+--- Trivy: backend image ---
+/bin/sh: 1: trivy: not found
+make[1]: Entering directory '/home/ilaptop/dev/projects/my/phrasal'
+</pasted_content id="f9b3">
+
+how to fix?
+---
+
+## 2026-10-24T22:13:54Z
+On `make clean build`:
+
+
+<pasted_content id="f9b3">
+[+] Building 2/2                                                                                                                                                                   
+ ✔ app       Built                                                                                                                                                            0.0s 
+ ✔ frontend  Built                                                                                                                                                            0.0s 
+--- Trivy: backend image ---
+2026-10-25T00:12:47+02:00       INFO    [vuln] Vulnerability scanning is enabled
+2026-10-25T00:12:47+02:00       INFO    [secret] Secret scanning is enabled
+2026-10-25T00:12:47+02:00       INFO    [secret] If your scanning is slow, please try '--scanners vuln' to disable secret scanning
+2026-10-25T00:12:47+02:00       INFO    [secret] Please see https://trivy.dev/docs/v0.76/guide/scanner/secret#recommendation for faster secret detection
+2026-10-25T00:12:47+02:00       INFO    Detected OS     family="alpine" version="3.24.3"
+2026-10-25T00:12:47+02:00       INFO    [alpine] Detecting vulnerabilities...   os_version="3.24" repository="3.24" pkg_num=44
+2026-10-25T00:12:47+02:00       INFO    Number of language-specific files       num=1
+2026-10-25T00:12:47+02:00       INFO    [jar] Detecting vulnerabilities...
+
+Report Summary
+
+┌─────────────────────────────────┬────────┬─────────────────┬─────────┐
+│             Target              │  Type  │ Vulnerabilities │ Secrets │
+├─────────────────────────────────┼────────┼─────────────────┼─────────┤
+│ phrasal-backend (alpine 3.24.3) │ alpine │        0        │    -    │
+├─────────────────────────────────┼────────┼─────────────────┼─────────┤
+│ app/app.jar                     │  jar   │        0        │    -    │
+└─────────────────────────────────┴────────┴─────────────────┴─────────┘
+Legend:
+- '-': Not scanned
+- '0': Clean (no security findings detected)
+
+--- Trivy: frontend image ---
+2026-10-25T00:12:47+02:00       INFO    [vuln] Vulnerability scanning is enabled
+2026-10-25T00:12:47+02:00       INFO    [secret] Secret scanning is enabled
+2026-10-25T00:12:47+02:00       INFO    [secret] If your scanning is slow, please try '--scanners vuln' to disable secret scanning
+2026-10-25T00:12:47+02:00       INFO    [secret] Please see https://trivy.dev/docs/v0.76/guide/scanner/secret#recommendation for faster secret detection
+2026-10-25T00:12:47+02:00       INFO    Detected OS     family="alpine" version="3.24.3"
+2026-10-25T00:12:47+02:00       INFO    [alpine] Detecting vulnerabilities...   os_version="3.24" repository="3.24" pkg_num=71
+2026-10-25T00:12:47+02:00       INFO    Number of language-specific files       num=0
+2026-10-25T00:12:47+02:00       WARN    Using severities from other vendors for some vulnerabilities. Read https://trivy.dev/docs/v0.76/guide/scanner/vulnerability#severity-selection for details.
+
+Report Summary
+
+┌──────────────────────────────────┬────────┬─────────────────┬─────────┐
+│              Target              │  Type  │ Vulnerabilities │ Secrets │
+├──────────────────────────────────┼────────┼─────────────────┼─────────┤
+│ phrasal-frontend (alpine 3.24.3) │ alpine │        1        │    -    │
+└──────────────────────────────────┴────────┴─────────────────┴─────────┘
+Legend:
+- '-': Not scanned
+- '0': Clean (no security findings detected)
+
+
+phrasal-frontend (alpine 3.24.3)
+
+Total: 1 (HIGH: 1, CRITICAL: 0)
+
+┌─────────────┬─────────────────┬──────────┬────────┬───────────────────┬───────────────┬──────────────────────────────────────────────────────┐
+│   Library   │  Vulnerability  │ Severity │ Status │ Installed Version │ Fixed Version │                        Title                         │
+├─────────────┼─────────────────┼──────────┼────────┼───────────────────┼───────────────┼──────────────────────────────────────────────────────┤
+│ brotli-libs │ CVE-2026-111497 │ HIGH     │ fixed  │ 1.2.0-r1          │ 1.2.1-r0      │ brotli: Out-of-Bounds Write in Google Brotli Decoder │
+│             │                 │          │        │                   │               │ https://avd.aquasec.com/nvd/cve-2026-111497          │
+└─────────────┴─────────────────┴──────────┴────────┴───────────────────┴───────────────┴──────────────────────────────────────────────────────┘
+make[1]: Entering directory '/home/ilaptop/dev/projects/my/phrasal'
+==============================================
+============= MESSAGE (TELEGRAM) =============
+==============================================
+Sending message:
+❌ SECURITY SCAN FAILED (phrasal) ❌
+</pasted_content id="f9b3">
+
+fix
+---
+
+## 2026-10-24T22:15:24Z
+is it better intead of `nginx:stable-alpine` use some specific version?
+---
+
+## 2026-10-24T22:18:04Z
+1-3
+---
+
+## 2026-10-24T22:25:06Z
+git add all changes and commit them with suitable message
+---
