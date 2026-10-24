@@ -2,9 +2,10 @@
 
 ## Stack
 
-- Java 25, Spring Boot 3.5.16, PostgreSQL 16
+- Java 25, Spring Boot 4.1.2 (Spring Framework 7, Hibernate 7, Jackson 3), PostgreSQL 16
 - MapStruct 1.6.3, Lombok (getter/setter/constructor/slf4j)
-- Testcontainers, JaCoCo 0.8.15
+- JUnit 6, Testcontainers 2 (`testcontainers-postgresql`, `org.testcontainers.postgresql.PostgreSQLContainer`), JaCoCo 0.8.15
+- Boot 4 modular starters: `spring-boot-starter-webmvc`, `spring-boot-starter-flyway` (Flyway auto-config needs it, not just `flyway-core`), `spring-boot-starter-webmvc-test` (`@AutoConfigureMockMvc` is in `org.springframework.boot.webmvc.test.autoconfigure`)
 - Maven, Flyway, Docker, Kubernetes + Skaffold
 
 ## Architecture Layers

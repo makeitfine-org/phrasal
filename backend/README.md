@@ -1,18 +1,18 @@
 # Phrasal — Backend
 
-Spring Boot 3.5.16 REST API for the Phrasal language learning app. Provides CRUD endpoints for phrasal verbs, grammar entries, and verb details, backed by PostgreSQL with Flyway migrations.
+Spring Boot 4.1.2 REST API for the Phrasal language learning app. Provides CRUD endpoints for phrasal verbs, grammar entries, and verb details, backed by PostgreSQL with Flyway migrations.
 
 Part of the full-stack **Phrasal** project. Running `docker compose up` from the repository root also starts the React frontend on **port 3000**. See [`../frontend/README.md`](../frontend/README.md) for frontend documentation.
 
 ## Features
 
-- **Spring Boot 3.5.16** with Java 25
+- **Spring Boot 4.1.2** with Java 25
 - **PostgreSQL 16** with Flyway migrations
 - **RESTful API** with full CRUD for phrasal verbs, grammar entries, and verb details
 - **Pagination and sorting** on list endpoints with sort-field whitelisting
 - **MapStruct 1.6.3** for DTO mapping (with Lombok)
 - **JSONB columns** for flexible verb detail storage (particles, sections)
-- **Comprehensive testing** — JUnit 5, Mockito, Testcontainers
+- **Comprehensive testing** — JUnit 6, Mockito, Testcontainers 2
 - **85%+ line coverage** enforced by JaCoCo
 - **Docker / Docker Compose** support
 - **Kubernetes** deployment with Skaffold
@@ -240,10 +240,10 @@ src/
 
 | Layer | Technology |
 |---|---|
-| Framework | Spring Boot 3.5.16, Java 25 |
-| Database | PostgreSQL 16, Spring Data JPA, Flyway |
+| Framework | Spring Boot 4.1.2, Java 25 |
+| Database | PostgreSQL 16, Spring Data JPA (Hibernate 7), Flyway |
 | Mapping | MapStruct 1.6.3 + Lombok |
-| Testing | JUnit 5, Mockito, Testcontainers |
+| Testing | JUnit 6, Mockito, Testcontainers 2 |
 | Coverage | JaCoCo 0.8.15 |
 | Build | Maven |
 | Containers | Docker, Docker Compose |

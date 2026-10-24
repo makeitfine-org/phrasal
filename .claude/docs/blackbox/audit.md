@@ -119,3 +119,12 @@ yes
 ## 2026-10-24T21:47:51Z
 git add all changes and commit them with suitable message
 ---
+
+## 2026-10-24T21:50:01Z
+Analyza the project and update backend module spring boot to 4.1.2 latest version.
+Run `make clean build` and fix till it passes successfully.
+---
+
+## 2026-10-24T21:58:01Z
+git add all changes and commit them with suitable message
+---

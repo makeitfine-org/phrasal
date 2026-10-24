@@ -3,7 +3,7 @@
 ## Monorepo Layout
 
 ```
-backend/    → Spring Boot 3.4.1 REST API (see backend/CLAUDE.md)
+backend/    → Spring Boot 4.1.2 REST API (see backend/CLAUDE.md)
 frontend/   → React 18 + Vite SPA        (see frontend/CLAUDE.md)
 e2e/        → Cucumber + Playwright acceptance tests (see e2e/CLAUDE.md)
 k8s/        → Kustomize manifests (base + dev/prod overlays)

@@ -150,3 +150,15 @@
 - frontend/package-lock.json
 - frontend/package.json
 <!-- end-snapshot -->
+
+<!-- git-snapshot 2026-10-24T21:55:03Z -->
+- .claude/docs/blackbox/audit.md
+- CLAUDE.md
+- aux/docs/resume.yaml
+- backend/CLAUDE.md
+- backend/README.md
+- backend/pom.xml
+- backend/src/test/java/net/phrasal/integration/GrammarEntryIntegrationTest.java
+- backend/src/test/java/net/phrasal/integration/PhrasalVerbIntegrationTest.java
+- backend/src/test/java/net/phrasal/integration/VerbDetailIntegrationTest.java
+<!-- end-snapshot -->
