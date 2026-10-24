@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { InfoIcon, LightbulbIcon, PencilIcon } from './Icons';
 import type { Status, VerbEntry } from '../types';
 
@@ -36,7 +36,14 @@ export default function QuizCard({
   isExcluded,
   onToggleExclude,
 }: QuizCardProps) {
-  const hint = `Starts with the letter "${verb.verb.charAt(0)}".`;
+  const [hintRevealed, setHintRevealed] = useState(false);
+  const [hintVerb, setHintVerb] = useState(verb.verb);
+  if (hintVerb !== verb.verb) {
+    setHintVerb(verb.verb);
+    setHintRevealed(false);
+  }
+  const firstLetter = verb.verb.charAt(0);
+  const isHintRevealed = hintRevealed || status !== 'idle';
 
   return (
     <div className="p-6 md:p-8 relative">
@@ -71,7 +78,21 @@ export default function QuizCard({
           Hint:
         </h3>
         <p className="text-md text-blue-800 dark:text-blue-200 font-medium bg-blue-50 dark:bg-blue-900/30 px-4 py-3 rounded-lg border border-blue-100 dark:border-blue-800/50">
-          {hint}
+          Starts with the letter &quot;
+          <span
+            data-testid="hint-letter"
+            onClick={() => setHintRevealed(r => !r)}
+            title={isHintRevealed ? 'Click to hide' : 'Click to reveal'}
+            className={`cursor-pointer px-1 rounded transition-all duration-300 ${
+              isHintRevealed
+                ? 'bg-yellow-100 dark:bg-yellow-900/40 text-gray-900 dark:text-white border-b-2 border-yellow-400'
+                : 'bg-gray-200 dark:bg-gray-800 text-transparent select-none border-b-2 border-gray-400 dark:border-gray-600'
+            }`}
+            style={{ textShadow: isHintRevealed ? 'none' : '0 0 8px rgba(156, 163, 175, 0.5)' }}
+          >
+            {isHintRevealed ? firstLetter : 'X'}
+          </span>
+          &quot;.
         </p>
       </div>
 

@@ -58,9 +58,40 @@ describe('QuizCard', () => {
     expect(screen.getByText('To escape or start suddenly')).toBeInTheDocument();
   });
 
-  it('renders the hint showing the first letter of the verb', () => {
+  it('always shows the hint sentence but hides the first letter until clicked', () => {
     render(<QuizCard {...makeProps()} />);
-    expect(screen.getByText(/Starts with the letter "B"/)).toBeInTheDocument();
+    expect(screen.getByText(/Starts with the letter/)).toBeInTheDocument();
+    const letter = screen.getByTestId('hint-letter');
+    expect(letter).toHaveTextContent('X');
+    expect(letter).toHaveClass('text-transparent');
+  });
+
+  it('reveals the first letter of the verb on click', async () => {
+    const user = userEvent.setup();
+    render(<QuizCard {...makeProps()} />);
+    await user.click(screen.getByTestId('hint-letter'));
+    expect(screen.getByTestId('hint-letter')).toHaveTextContent('B');
+  });
+
+  it('hides the first letter again on second click', async () => {
+    const user = userEvent.setup();
+    render(<QuizCard {...makeProps()} />);
+    await user.click(screen.getByTestId('hint-letter'));
+    await user.click(screen.getByTestId('hint-letter'));
+    expect(screen.getByTestId('hint-letter')).toHaveTextContent('X');
+  });
+
+  it('shows the first letter when status is not "idle"', () => {
+    render(<QuizCard {...makeProps({ status: 'wrong' })} />);
+    expect(screen.getByTestId('hint-letter')).toHaveTextContent('B');
+  });
+
+  it('re-hides the first letter when the verb changes', async () => {
+    const user = userEvent.setup();
+    const { rerender } = render(<QuizCard {...makeProps()} />);
+    await user.click(screen.getByTestId('hint-letter'));
+    rerender(<QuizCard {...makeProps({ verb: { ...mockVerb, verb: 'Call off' } })} />);
+    expect(screen.getByTestId('hint-letter')).toHaveTextContent('X');
   });
 
   it('renders the input field with placeholder text', () => {

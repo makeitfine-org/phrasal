@@ -42,6 +42,10 @@ config/         → Spring @Configuration classes
 - Integration tests: Testcontainers (`postgres:16-alpine`) — never H2 for integration
 - Both positive and negative cases required for every test class
 
+## Local Hot Reload
+- `spring-boot-devtools` (runtime, optional) is on the classpath: `docker compose up -d postgres` then
+  `SPRING_PROFILES_ACTIVE=dev mvn spring-boot:run`; `mvn compile` triggers a restart. See root README.
+
 ## Skaffold Dev Builds
 
 The Dockerfile uses BuildKit cache mounts (`--mount=type=cache,target=/root/.m2`) so Maven dependencies are cached across rebuilds without invalidating Docker layer cache. `skaffold dev` incremental rebuilds only re-run the Maven package step, not the dependency download.

@@ -144,6 +144,28 @@ make help
 
 ---
 
+## Local Development (hot reload)
+
+Fastest loop, no Kubernetes: Postgres in Docker, backend and frontend run directly.
+
+```bash
+# 1. Database (once, leave running)
+docker compose up -d postgres
+
+# 2. Backend (terminal 1) — localhost:8080
+# Postgres host port is $POSTGRES_PORT (5432 by default; .envrc sets 5532)
+cd backend && SPRING_PROFILES_ACTIVE=dev \
+  DATABASE_URL=jdbc:postgresql://localhost:${POSTGRES_PORT:-5432}/phrasaldb mvn spring-boot:run
+
+# 3. Frontend (terminal 2) — http://localhost:5173, proxies /api to :8080
+cd frontend && npm install && npm run dev
+```
+
+- Frontend edits reload instantly (Vite HMR).
+- Backend uses `spring-boot-devtools`: run `mvn compile` (or build in the IDE) after a change and the app restarts automatically. Devtools is optional/runtime-only and is not packaged into the production jar.
+
+---
+
 ## Kubernetes Deployment (Minikube)
 
 Both modules ship with Kubernetes manifests and a `skaffold.yaml`. The steps below

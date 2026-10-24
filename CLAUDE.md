@@ -37,6 +37,7 @@ Use these project skills proactively when the task matches — don't wait to be 
 - Session logging: see `.claude/rules/blackbox-policy.md`
 - Use **Context7 MCP** proactively for library/API docs — don't wait to be asked
 - Use **Custom Skills** proactively for backend Java/Spring work — load the matching skill before starting
+- NEVER git commit or git push without the user's explicit approval for that commit, even when auto mode is on. Make the changes, then ask.
 - CRITICAL: Commits: semantic message ≤ 80 chars; DO NOT add `Co-Authored-By` trailer
 - When compacting, always preserve the full list of modified files and any test commands
 - Don't change docs/blackbox/archive-*.md files

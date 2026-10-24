@@ -105,3 +105,6 @@ Use these from the **repo root**:
 
 ## Testing Requirements
 - For new or updated functionality add or update tests
+
+## Local Dev
+- `npm run dev` (Vite HMR, http://localhost:5173) proxies `/api` and `/actuator` to the backend on :8080. See root README "Local Development".
