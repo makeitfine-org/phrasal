@@ -30,3 +30,26 @@ redirection port is 5532 of postgres
 ## 2026-10-24T19:38:15Z
 git add all changes and commit them with suitable message
 ---
+
+## 2026-10-24T20:59:06Z
+Add 
+
+<pasted_content id="efc4">
+<dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-devtools</artifactId>
+            <scope>runtime</scope>
+            <optional>true</optional>
+        </dependency>
+</pasted_content id="efc4">
+
+ as profile devtools not active by default
+---
+
+## 2026-10-24T21:01:25Z
+Is it a good idea to make so?
+---
+
+## 2026-10-24T21:10:41Z
+git add all changes and commit them with suitable message
+---

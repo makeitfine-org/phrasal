@@ -43,8 +43,8 @@ config/         → Spring @Configuration classes
 - Both positive and negative cases required for every test class
 
 ## Local Hot Reload
-- `spring-boot-devtools` (runtime, optional) is on the classpath: `docker compose up -d postgres` then
-  `SPRING_PROFILES_ACTIVE=dev mvn spring-boot:run`; `mvn compile` triggers a restart. See root README.
+- `spring-boot-devtools` lives in the opt-in Maven profile `devtools` (not active by default): `docker compose up -d postgres` then
+  `SPRING_PROFILES_ACTIVE=dev mvn spring-boot:run -Pdevtools`; `mvn compile` triggers a restart. See root README.
 
 ## Skaffold Dev Builds
 

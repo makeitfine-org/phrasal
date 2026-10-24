@@ -47,3 +47,18 @@
 - frontend/src/__tests__/QuizCard.test.tsx
 - frontend/src/components/QuizCard.tsx
 <!-- end-snapshot -->
+
+<!-- git-snapshot 2026-10-24T20:59:59Z -->
+- .claude/docs/blackbox/audit.md
+- README.md
+- backend/CLAUDE.md
+- backend/pom.xml
+<!-- end-snapshot -->
+
+<!-- git-snapshot 2026-10-24T21:01:38Z -->
+- .claude/docs/blackbox/audit.md
+- .claude/docs/blackbox/session-log.md
+- README.md
+- backend/CLAUDE.md
+- backend/pom.xml
+<!-- end-snapshot -->

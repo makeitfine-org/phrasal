@@ -155,14 +155,14 @@ docker compose up -d postgres
 # 2. Backend (terminal 1) — localhost:8080
 # Postgres host port is $POSTGRES_PORT (5432 by default; .envrc sets 5532)
 cd backend && SPRING_PROFILES_ACTIVE=dev \
-  DATABASE_URL=jdbc:postgresql://localhost:${POSTGRES_PORT:-5432}/phrasaldb mvn spring-boot:run
+  DATABASE_URL=jdbc:postgresql://localhost:${POSTGRES_PORT:-5432}/phrasaldb mvn spring-boot:run -Pdevtools
 
 # 3. Frontend (terminal 2) — http://localhost:5173, proxies /api to :8080
 cd frontend && npm install && npm run dev
 ```
 
 - Frontend edits reload instantly (Vite HMR).
-- Backend uses `spring-boot-devtools`: run `mvn compile` (or build in the IDE) after a change and the app restarts automatically. Devtools is optional/runtime-only and is not packaged into the production jar.
+- Backend auto-restart comes from `spring-boot-devtools`, enabled only by the opt-in Maven profile `devtools` (`-Pdevtools`, not active by default): run `mvn compile` (or build in the IDE) after a change and the app restarts. Regular builds and the production jar never include it.
 
 ---
 
