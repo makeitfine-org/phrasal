@@ -200,6 +200,6 @@
   },
   "statusLine": {
     "type": "command",
-    "command": "jq -r --arg e \"\u001b\" '\"\\($e)[1;35m\\(.model.display_name)\\($e)[0m | effort:\\($e)[0;36m \\(.effort.level)\\($e)[0m | context: \\($e)[33m\\(.context_window.used_percentage // 0)%\\($e)[0m\"'"
+    "command": "LC_TIME=C jq -r --arg e \"\u001b\" '\"\\($e)[1;35m\\(.model.display_name)\\($e)[0m | effort:\\($e)[0;36m \\(.effort.level)\\($e)[0m | context: \\($e)[33m\\(.context_window.used_percentage // 0)%\\($e)[0m\" + (.rate_limits.five_hour | if . then \" | session: \\($e)[32m\\(.used_percentage | round)%\\($e)[0m (resets \\(.resets_at | strflocaltime(\"%H:%M\")))\" else \"\" end) + (.rate_limits.seven_day | if . then \" | week: \\($e)[34m\\(.used_percentage | round)%\\($e)[0m (resets \\(.resets_at | strflocaltime(\"%a %H:%M\")))\" else \"\" end)'"
   }
 }

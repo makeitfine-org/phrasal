@@ -642,3 +642,19 @@ npm error A complete log of this run can be found in: /home/ilaptop/.npm/_logs/2
 ## 2026-10-25T02:01:06Z
 git add all changes and commit them with suitable message
 ---
+
+## 2026-10-25T18:46:45Z
+In @.claude/settings.local.json there's:
+"command": "jq -r --arg e \"\u001b\" '\"\\($e)[1;35m\\(.model.display_name)\\($e)[0m | effort:\\($e)[0;36m \\(.effort.level)\\($e)[0m | context: \\($e)[33m\\(.context_window.used_percentage // 0)%\\($e)[0m\"'"
+
+how to extend that also with usage of 
+Current session and Resets time of current session and usage of  this week and this week reset time
+---
+
+## 2026-10-25T18:49:19Z
+"week: 8% (resets ср 04:00)" why not Wed but ср?
+---
+
+## 2026-10-25T18:50:41Z
+git add all changes and commit them with suitable message
+---
