@@ -478,3 +478,17 @@
 - .claude/docs/blackbox/session-log.md
 - Makefile
 <!-- end-snapshot -->
+
+<!-- git-snapshot 2026-10-25T01:58:23Z -->
+- .claude/docs/blackbox/audit.md
+<!-- end-snapshot -->
+
+<!-- git-snapshot 2026-10-25T01:59:31Z -->
+- .claude/docs/blackbox/audit.md
+- .claude/docs/blackbox/session-log.md
+<!-- end-snapshot -->
+
+<!-- git-snapshot 2026-10-25T02:00:26Z -->
+- .claude/docs/blackbox/audit.md
+- .claude/docs/blackbox/session-log.md
+<!-- end-snapshot -->

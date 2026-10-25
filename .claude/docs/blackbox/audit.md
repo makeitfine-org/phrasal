@@ -609,3 +609,36 @@ show ✅ CLEAN SUCCESSFUL (phrasal) ✅ as red, but ✅ CLEAN SUCCESSFUL (phrasa
 ## 2026-10-25T01:54:54Z
 git add all changes and commit them with suitable message
 ---
+
+## 2026-10-25T01:58:19Z
+
+
+<pasted_content id="fb61">
+npm warn allow-scripts 1 package has install scripts not yet covered by allowScripts:                                                                                                         
+npm warn allow-scripts   esbuild@0.28.2 (install: (install scripts present))                                                                                                                  
+npm warn allow-scripts
+npm warn allow-scripts Run `npm approve-scripts --allow-scripts-pending` to review, or `npm approve-scripts <pkg>` to allow.
+</pasted_content id="fb61">
+
+
+What does it mean? in short words
+---
+
+## 2026-10-25T01:59:27Z
+should I run that command?
+---
+
+## 2026-10-25T02:00:20Z
+
+
+<pasted_content id="fb61">
+frontend$ npm approve-scripts esbuild
+npm error code ENOMATCH
+npm error No installed packages match: esbuild
+npm error A complete log of this run can be found in: /home/ilaptop/.npm/_logs/2026-10-25T02_00_11_392Z-debug-0.log
+</pasted_content id="fb61">
+---
+
+## 2026-10-25T02:01:06Z
+git add all changes and commit them with suitable message
+---
