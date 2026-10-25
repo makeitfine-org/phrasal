@@ -39,6 +39,10 @@ Use these project skills proactively when the task matches — don't wait to be 
 - Use **Custom Skills** proactively for backend Java/Spring work — load the matching skill before starting
 - NEVER git commit or git push without the user's explicit approval for that commit, even when auto mode is on. Make the changes, then ask.
 - CRITICAL: Commits: semantic message ≤ 80 chars; DO NOT add `Co-Authored-By` trailer
+  - Format: `type(scope): description` ([Conventional Commits](https://www.conventionalcommits.org/); full table in `README.md` → Commit Messages)
+  - Types: `feat` · `fix` · `docs` · `style` · `refactor` · `perf` · `test` · `build` · `ci` · `chore` · `revert`
+  - Scope (optional): `backend` · `frontend` · `e2e` · `k8s` · `ansible` · `infra` · `make` · `claude` · `backlog`; omit if cross-cutting
+  - Breaking change: `type(scope)!:` or `BREAKING CHANGE:` footer
 - When compacting, always preserve the full list of modified files and any test commands
 - Don't change docs/blackbox/archive-*.md files
 - Don't delete anything from docs/blackbox/plans folder

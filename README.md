@@ -479,3 +479,39 @@ IntelliJ IDEA code style settings live in `aux/code/checkstyle/Idea codestyle.xm
 To import in IntelliJ: **Settings → Editor → Code Style → ⚙ → Import Scheme → IntelliJ IDEA code style XML**, then select the file.
 
 Checkstyle rules enforced during `mvn verify` are in `aux/code/checkstyle/checkstyle.xml`.
+
+---
+
+## Commit Messages
+
+Commits follow [Conventional Commits](https://www.conventionalcommits.org/): `type(scope): description`, at most 80 characters.
+
+```
+feat(frontend): default theme to system color scheme on first start
+chore(e2e): allow esbuild install script via npm allowScripts
+fix: correct pagination on verb details
+```
+
+### Types
+
+| Type | Use for |
+|---|---|
+| `feat` | New user-visible feature |
+| `fix` | Bug fix |
+| `docs` | Documentation only (README, CLAUDE.md, comments) |
+| `style` | Formatting/whitespace, no behaviour change |
+| `refactor` | Code restructuring without behaviour change or bug fix |
+| `perf` | Performance improvement |
+| `test` | Adding or fixing tests |
+| `build` | Build system or dependencies (Maven, npm, Dockerfile) |
+| `ci` | CI pipelines (`.github/workflows/`) |
+| `chore` | Maintenance and tooling that fits nothing above |
+| `revert` | Reverting an earlier commit |
+
+### Scope
+
+Optional, free-form noun naming the area changed — usually a top-level folder: `backend`, `frontend`, `e2e`, `k8s`, `ansible`, `make`, `claude`, `backlog`, or `infra` for combined k8s/Ansible changes. Omit it when a change spans many areas.
+
+### Breaking changes
+
+Add `!` after the type/scope (`feat(backend)!: remove v1 endpoints`) or a `BREAKING CHANGE:` footer in the message body.

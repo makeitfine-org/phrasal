@@ -658,3 +658,23 @@ Current session and Resets time of current session and usage of  this week and t
 ## 2026-10-25T18:50:41Z
 git add all changes and commit them with suitable message
 ---
+
+## 2026-10-25T18:51:16Z
+how to show the full message of git log?
+---
+
+## 2026-10-25T18:51:50Z
+why do you add " chore(claude)" in message?
+---
+
+## 2026-10-25T18:53:17Z
+type(scope) what type and scope can be?
+---
+
+## 2026-10-25T18:54:54Z
+Add the last info in README.md and CLAUDE.md to keep that
+---
+
+## 2026-10-25T18:55:42Z
+git add all changes and commit them with suitable message
+---
