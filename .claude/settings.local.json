@@ -154,7 +154,7 @@
       "Bash(trivy image *)"
     ]
   },
-  "model": "Opus",
+  "model": "Sonnet",
   "enabledMcpjsonServers": [
     "postgres-phrasaldb",
     "playwright",

@@ -678,3 +678,11 @@ Add the last info in README.md and CLAUDE.md to keep that
 ## 2026-10-25T18:55:42Z
 git add all changes and commit them with suitable message
 ---
+
+## 2026-10-25T19:35:07Z
+how to remove Claude Code history sessions?
+---
+
+## 2026-10-25T19:36:36Z
+git add all changes and commit them with suitable message
+---

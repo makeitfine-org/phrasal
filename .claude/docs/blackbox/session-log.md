@@ -524,3 +524,8 @@
 - CLAUDE.md
 - README.md
 <!-- end-snapshot -->
+
+<!-- git-snapshot 2026-10-25T19:35:52Z -->
+- .claude/docs/blackbox/audit.md
+- .claude/settings.local.json
+<!-- end-snapshot -->
