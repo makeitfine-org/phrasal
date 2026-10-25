@@ -293,3 +293,139 @@
 - frontend/src/__tests__/PageShell.test.tsx
 - frontend/src/components/PageShell.tsx
 <!-- end-snapshot -->
+
+<!-- git-snapshot 2026-10-24T23:29:39Z -->
+- .claude/docs/blackbox/audit.md
+<!-- end-snapshot -->
+
+<!-- git-snapshot 2026-10-24T23:32:07Z -->
+- .claude/docs/blackbox/audit.md
+- .claude/docs/blackbox/session-log.md
+<!-- end-snapshot -->
+
+<!-- git-snapshot 2026-10-24T23:35:34Z -->
+- .claude/docs/blackbox/audit.md
+- .claude/docs/blackbox/session-log.md
+<!-- end-snapshot -->
+
+<!-- git-snapshot 2026-10-24T23:55:29Z -->
+- .claude/docs/blackbox/audit.md
+- .claude/docs/blackbox/session-log.md
+- .claude/settings.local.json
+<!-- end-snapshot -->
+
+<!-- git-snapshot 2026-10-25T00:02:27Z -->
+- .claude/docs/blackbox/audit.md
+- .claude/docs/blackbox/session-log.md
+- .claude/settings.local.json
+<!-- end-snapshot -->
+
+<!-- git-snapshot 2026-10-25T00:05:57Z -->
+- .claude/docs/blackbox/audit.md
+- .claude/docs/blackbox/session-log.md
+- .claude/settings.local.json
+<!-- end-snapshot -->
+
+<!-- git-snapshot 2026-10-25T00:07:08Z -->
+- .claude/docs/blackbox/audit.md
+- .claude/docs/blackbox/session-log.md
+- .claude/settings.local.json
+<!-- end-snapshot -->
+
+<!-- git-snapshot 2026-10-25T00:25:12Z -->
+- .claude/docs/blackbox/audit.md
+- .claude/docs/blackbox/session-log.md
+- .env
+- .gitignore
+<!-- end-snapshot -->
+
+<!-- git-snapshot 2026-10-25T00:30:41Z -->
+- .claude/docs/blackbox/audit.md
+- .claude/docs/blackbox/session-log.md
+- .env
+- .gitignore
+<!-- end-snapshot -->
+
+<!-- git-snapshot 2026-10-25T00:34:21Z -->
+- .claude/docs/blackbox/audit.md
+- .claude/docs/blackbox/session-log.md
+- .env
+- .gitignore
+<!-- end-snapshot -->
+
+<!-- git-snapshot 2026-10-25T00:37:17Z -->
+- .claude/docs/blackbox/audit.md
+- .claude/docs/blackbox/session-log.md
+- .env
+- .gitignore
+- README.md
+- k8s/base/backend-deployment.yaml
+- k8s/base/frontend-deployment.yaml
+<!-- end-snapshot -->
+
+<!-- git-snapshot 2026-10-25T00:41:55Z -->
+- .claude/docs/blackbox/audit.md
+- .claude/docs/blackbox/session-log.md
+- .env
+- .gitignore
+- README.md
+- k8s/base/backend-deployment.yaml
+- k8s/base/frontend-deployment.yaml
+<!-- end-snapshot -->
+
+<!-- git-snapshot 2026-10-25T00:50:48Z -->
+- .claude/docs/blackbox/audit.md
+- .claude/docs/blackbox/session-log.md
+- .env
+- .gitignore
+- README.md
+- ansible/README.md
+- ansible/roles/k3s/defaults/main.yml
+- ansible/roles/k3s/tasks/main.yml
+- k8s/base/backend-deployment.yaml
+- k8s/base/frontend-deployment.yaml
+<!-- end-snapshot -->
+
+<!-- git-snapshot 2026-10-25T00:55:36Z -->
+- .claude/docs/blackbox/audit.md
+- .claude/docs/blackbox/session-log.md
+- .env
+- .gitignore
+- README.md
+- ansible/README.md
+- ansible/roles/k3s/defaults/main.yml
+- ansible/roles/k3s/tasks/main.yml
+- ansible/roles/k3s/templates/kubelet-image-gc.conf.j2
+- k8s/base/backend-deployment.yaml
+- k8s/base/frontend-deployment.yaml
+<!-- end-snapshot -->
+
+<!-- git-snapshot 2026-10-25T01:02:28Z -->
+- .claude/docs/blackbox/audit.md
+- .claude/docs/blackbox/session-log.md
+- .env
+- .gitignore
+- README.md
+- ansible/README.md
+- ansible/inventory/hosts.yml
+- ansible/roles/k3s/defaults/main.yml
+- ansible/roles/k3s/tasks/main.yml
+- ansible/roles/k3s/templates/kubelet-image-gc.conf.j2
+- k8s/base/backend-deployment.yaml
+- k8s/base/frontend-deployment.yaml
+<!-- end-snapshot -->
+
+<!-- git-snapshot 2026-10-25T01:12:00Z -->
+- .claude/docs/blackbox/audit.md
+- .claude/docs/blackbox/session-log.md
+- .env
+- .gitignore
+- README.md
+- ansible/README.md
+- ansible/inventory/hosts.yml
+- ansible/roles/k3s/defaults/main.yml
+- ansible/roles/k3s/tasks/main.yml
+- ansible/roles/k3s/templates/kubelet-image-gc.conf.j2
+- k8s/base/backend-deployment.yaml
+- k8s/base/frontend-deployment.yaml
+<!-- end-snapshot -->

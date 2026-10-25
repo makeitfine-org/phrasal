@@ -351,7 +351,7 @@ kubectl rollout status deployment/backend --timeout=120s
 kubectl rollout status deployment/phrasal-frontend --timeout=120s
 ```
 
-Or use Kubernetes' built-in rollback (reverts to the previous ReplicaSet):
+Or use Kubernetes' built-in rollback (reverts to the previous ReplicaSet; the last 5 revisions are kept via `revisionHistoryLimit: 5`):
 
 ```bash
 kubectl rollout undo deployment/backend

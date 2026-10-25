@@ -5,7 +5,11 @@ Ansible playbooks for provisioning a K3s Kubernetes cluster on a Hetzner VPS and
 ## Prerequisites
 
 - Ansible installed locally
-- SSH key at `~/dev/scripts/vps/ssh-key-h1.key`
+- SSH key at `~/dev/scripts/hetzner/ssh-key-h1.key`
+
+Install Ansible (Ubuntu) with `pipx install --include-deps ansible` (or `sudo apt install ansible`).
+Run all `ansible` / `ansible-playbook` commands from this `ansible/` directory — otherwise
+`ansible.cfg` is not picked up and the inventory is empty ("Could not match supplied host pattern").
 
 ## Configuration
 
@@ -31,8 +35,28 @@ Installs K3s single-node cluster with:
 - `KUBECONFIG` env var added to bashrc
 - kubectl bash completion installed to `/etc/bash_completion.d/`
 - Port 6443 opened via iptables for external kubectl access
+- Kubelet image GC drop-in at `/var/lib/rancher/k3s/agent/etc/kubelet.conf.d/90-image-gc.conf` — deletes images unused for `k3s_image_max_gc_age` (default `1440h`)
 
 The install is idempotent — reruns skip if `/usr/local/bin/k3s` already exists.
+
+#### Image garbage collection
+
+K3s stores images in its embedded containerd under `/var/lib/rancher/k3s/agent/containerd/` (not Docker).
+By default the kubelet only deletes unused images when disk usage exceeds 85% (down to 80%), so every
+deployed release stays on disk. The role adds `imageMaximumGCAge` so images unused for 30 days are deleted.
+A rollback to a deleted version simply re-pulls the image from Docker Hub.
+
+```bash
+# Apply only the image GC config (restarts k3s; running pods are not affected)
+ansible-playbook playbooks/k3s.yml --tags image-gc
+
+# Inspect images on the VPS
+sudo k3s crictl images
+sudo k3s crictl imagefsinfo
+
+# Verify the active kubelet setting from your machine
+kubectl get --raw /api/v1/nodes/vps-h1/proxy/configz | jq '.kubeletconfig.imageMaximumGCAge'
+```
 
 ### Ingress + TLS
 
@@ -66,10 +90,11 @@ ansible/
 │   └── ingress-tls.yml
 └── roles/
     ├── k3s/
-    │   ├── defaults/main.yml         # k3s version, config path
+    │   ├── defaults/main.yml         # k3s version, config paths, image GC age
     │   ├── handlers/main.yml         # restart k3s
     │   ├── tasks/main.yml            # install, configure, verify
     │   ├── templates/config.yaml.j2  # k3s server config
+    │   ├── templates/kubelet-image-gc.conf.j2  # kubelet image GC drop-in
     │   └── files/k8s-completion      # kubectl bash completion
     └── ingress-tls/
         ├── defaults/main.yml         # cert-manager version, email, domain
@@ -81,12 +106,16 @@ ansible/
 
 ```bash
 # 1. Grab the kubeconfig
-scp -i ~/dev/scripts/vps/ssh-key-h1.key vpsuser@116.203.78.118:~/.kube/config ~/.kube/config-hetzner
+scp -i ~/dev/scripts/hetzner/ssh-key-h1.key -o IdentitiesOnly=yes \
+  vpsuser@116.203.78.118:~/.kube/config ~/.kube/config-hetzner
 
 # 2. Replace localhost with the VPS IP
 sed -i 's|https://127.0.0.1:6443|https://116.203.78.118:6443|' ~/.kube/config-hetzner
 
-# 3. Use it
+# 3. Rename cluster/user/context from K3s' generic "default" to "hetzner" (avoids merge clashes)
+sed -i 's/: default$/: hetzner/' ~/.kube/config-hetzner
+
+# 4. Use it
 export KUBECONFIG=~/.kube/config-hetzner
 kubectl get nodes
 ```
@@ -105,7 +134,7 @@ After this, `~/.kube/config` contains both your existing clusters and the Hetzne
 
 ```bash
 kubectl config get-contexts        # list all
-kubectl config use-context default  # switch to K3s (K3s names its context "default")
+kubectl config use-context hetzner  # switch to K3s (renamed from "default" in step 3)
 ```
 
 ## Lens (Kubernetes IDE)
@@ -129,7 +158,7 @@ Lens reads `~/.kube/config` automatically. If you followed the merge step above,
 1. Open Lens
 2. Go to **File → Add Cluster** (or it auto-detects from kubeconfig)
 3. You should see both contexts:
-   - **default** — K3s on Hetzner VPS (`116.203.78.118:6443`)
+   - **hetzner** — K3s on Hetzner VPS (`116.203.78.118:6443`)
    - **minikube** — local Minikube cluster
 4. Click a cluster to connect
 

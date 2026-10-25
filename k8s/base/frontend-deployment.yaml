@@ -6,6 +6,7 @@ metadata:
     app: phrasal-frontend
 spec:
   replicas: 2
+  revisionHistoryLimit: 5
   selector:
     matchLabels:
       app: phrasal-frontend

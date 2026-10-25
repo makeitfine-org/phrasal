@@ -330,3 +330,111 @@ no rollback the changes of the last prompt
 ## 2026-10-24T23:28:38Z
 git add all changes and commit them with suitable message
 ---
+
+## 2026-10-24T23:29:32Z
+what's prefers-color-scheme?
+---
+
+## 2026-10-24T23:31:59Z
+Most browsers also let you override it. In Chrome, for example, Settings → Appearance → Mode can be set to Device, Light or Dark.
+
+you mean from browser you can change OS thema?
+---
+
+## 2026-10-24T23:34:48Z
+I can't move to *.steps.ts by clicking in *.feature in intellij idea. How to fix that, what plugins?
+---
+
+## 2026-10-24T23:54:26Z
+I have /home/ilaptop/.cache/ with 44 GB occupied. What can I delete there to free up my disk space?
+---
+
+## 2026-10-25T00:01:47Z
+What else can I easily delete in that .cache folder?
+---
+
+## 2026-10-25T00:04:02Z
+compose folders in .cache and show for each their total sizes with content
+---
+
+## 2026-10-25T00:05:35Z
+in .cache show for each folder a total size it occupied with its content
+---
+
+## 2026-10-25T00:06:39Z
+for each older in ~/
+---
+
+## 2026-10-25T00:24:47Z
+how to configure my local kubectl to access to remote VPS kubernetes
+---
+
+## 2026-10-25T00:29:02Z
+run these steps for
+---
+
+## 2026-10-25T00:33:59Z
+I switched to hetzner VPS and I see a lot of replicas, is there a reason to keep so many:
+
+
+<pasted_content id="47f6">
+NAME                                          DESIRED   CURRENT   READY   AGE
+replicaset.apps/backend-544d99bb76            0         0         0       102d
+replicaset.apps/backend-548b778495            0         0         0       94d
+replicaset.apps/backend-54cd59fd7b            0         0         0       100d
+replicaset.apps/backend-6b987dbf97            0         0         0       101d
+replicaset.apps/backend-6c5cfb6b64            1         1         1       97m
+replicaset.apps/backend-7464f8df8f            0         0         0       101d
+replicaset.apps/backend-754c68d87f            0         0         0       3h
+replicaset.apps/backend-77d9d7d4dc            0         0         0       98d
+replicaset.apps/backend-845c7bcd97            0         0         0       105d
+replicaset.apps/backend-9f65569b9             0         0         0       105d
+replicaset.apps/backend-bcbf47f96             0         0         0       105d
+replicaset.apps/phrasal-frontend-564ff9cc95   0         0         0       101d
+replicaset.apps/phrasal-frontend-5cbc76b697   0         0         0       3h
+replicaset.apps/phrasal-frontend-69b469787c   0         0         0       98d
+replicaset.apps/phrasal-frontend-6f696bc4b8   0         0         0       100d
+replicaset.apps/phrasal-frontend-7bd4ddb575   0         0         0       105d
+replicaset.apps/phrasal-frontend-7df6966864   0         0         0       102d
+replicaset.apps/phrasal-frontend-866b7d9557   0         0         0       94d
+replicaset.apps/phrasal-frontend-894d8bbd5    0         0         0       105d
+replicaset.apps/phrasal-frontend-9f98b957d    0         0         0       105d
+replicaset.apps/phrasal-frontend-bdc77bb4d    1         1         1       97m
+replicaset.apps/phrasal-frontend-d4b8c546c    0         0         0       101d
+</pasted_content id="47f6">
+---
+
+## 2026-10-25T00:36:52Z
+yes, set to 5
+---
+
+## 2026-10-25T00:40:14Z
+So where Kubernetes on VPS save all images of Docker? how to watch that? how it clears the old ones for to save disk space?
+---
+
+## 2026-10-25T00:49:35Z
+Implement option 2
+---
+
+## 2026-10-25T00:55:21Z
+how to install ansible on my linux ubuntu?
+---
+
+## 2026-10-25T00:59:44Z
+
+
+<pasted_content id="47f6">
+ansible hetzner1 -m ping -e ansible_ssh_private_key_file=$KEY
+[WARNING]: No inventory was parsed, only implicit localhost is available
+[WARNING]: provided hosts list is empty, only localhost is available. Note that the implicit localhost does not match 'all'
+[WARNING]: Could not match supplied host pattern, ignoring: hetzner1
+</pasted_content id="47f6">
+---
+
+## 2026-10-25T01:11:06Z
+how to see logs of Kubernetes and k3s to be sure that everything's all right?
+---
+
+## 2026-10-25T01:13:44Z
+git add all changes and commit them with suitable message
+---
