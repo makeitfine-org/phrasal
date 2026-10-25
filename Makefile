@@ -5,6 +5,9 @@
 
 comma := ,
 
+# Hide "make[N]: Entering/Leaving directory" lines from recursive $(MAKE) calls
+MAKEFLAGS += --no-print-directory
+
 # Function to execute commands sequentially with success and failure messages
 # Usage: $(call execute_commands,command1 && command2 && .. && commandN, success_msg, fail_msg)
 define execute_commands
@@ -133,26 +136,32 @@ defaultMessage:
 
 message:
 	@echo "=============================================="
-	@echo "============= MESSAGE (TELEGRAM) ============="
+	@printf '============= \033[32m ➤ MESSAGE (TELEGRAM) ➤ \033[0m =============\n'
 	@echo "=============================================="
 	@if [ -z "$(filter-out $@,$(MAKECMDGOALS))" ]; then \
 		echo "Usage: make message \"Your message here\""; \
 		exit 1; \
 	fi
 	@echo "Sending message:"
-	@echo "$(filter-out $@,$(MAKECMDGOALS))"
+	@msg="$(filter-out $@,$(MAKECMDGOALS))"; \
+		case "$$msg" in \
+			*❌*) color='\033[31m' ;; \
+			*✅*) color='\033[32m' ;; \
+			*)   color='' ;; \
+		esac; \
+		printf "$$color%s\033[0m\n" "$$msg"
 	@echo
-	bash -c ' \
+	@bash -c ' \
 		tn() { \
 			local msg="$${*:-🔔 Job finished (phrasal) 🔔}"; \
 			local api="https://api.telegram.org/bot$${NOTIFICATION_TELEGRAM_BOT_TOKEN}/sendMessage"; \
-			curl -sS -X POST "$$api" \
+			curl -sS --fail -o /dev/null -X POST "$$api" \
 				--data "chat_id=$${NOTIFICATION_TELEGRAM_CHAT_ID}" \
-				--data-urlencode "text=$$msg"; \
+				--data-urlencode "text=$$msg" \
+				|| echo "⚠️  Telegram notification failed (check NOTIFICATION_TELEGRAM_* env vars)"; \
 		}; \
 		tn "$(filter-out $@,$(MAKECMDGOALS))" \
 	'
-	@echo
 %:
 	@:
 

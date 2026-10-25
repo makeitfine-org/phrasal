@@ -438,3 +438,174 @@ how to see logs of Kubernetes and k3s to be sure that everything's all right?
 ## 2026-10-25T01:13:44Z
 git add all changes and commit them with suitable message
 ---
+
+## 2026-10-25T01:14:22Z
+is it ok?
+
+
+
+<pasted_content id="47f6">
+vpsuser@vps-h1:~$ sudo journalctl -u k3s --since "1 hour ago" -p warning                                                                                                                      
+Oct 25 02:07:00 vps-h1 systemd[1]: k3s.service: Found left-over process 242179 (containerd-shim) in control group while starting unit. Ignoring.
+Oct 25 02:07:00 vps-h1 systemd[1]: k3s.service: This usually indicates unclean termination of a previous run, or service implementation deficiencies.
+Oct 25 02:07:00 vps-h1 systemd[1]: k3s.service: Found left-over process 242183 (containerd-shim) in control group while starting unit. Ignoring.
+Oct 25 02:07:00 vps-h1 systemd[1]: k3s.service: This usually indicates unclean termination of a previous run, or service implementation deficiencies.
+Oct 25 02:07:00 vps-h1 systemd[1]: k3s.service: Found left-over process 242184 (containerd-shim) in control group while starting unit. Ignoring.
+Oct 25 02:07:00 vps-h1 systemd[1]: k3s.service: This usually indicates unclean termination of a previous run, or service implementation deficiencies.
+Oct 25 02:07:00 vps-h1 systemd[1]: k3s.service: Found left-over process 440999 (containerd-shim) in control group while starting unit. Ignoring.
+Oct 25 02:07:00 vps-h1 systemd[1]: k3s.service: This usually indicates unclean termination of a previous run, or service implementation deficiencies.
+Oct 25 02:07:00 vps-h1 systemd[1]: k3s.service: Found left-over process 442188 (containerd-shim) in control group while starting unit. Ignoring.
+Oct 25 02:07:00 vps-h1 systemd[1]: k3s.service: This usually indicates unclean termination of a previous run, or service implementation deficiencies.
+</pasted_content id="47f6">
+---
+
+## 2026-10-25T01:19:16Z
+
+
+<pasted_content id="47f6">
+Why they appear: K3s's service is set to KillMode=process. When it restarts, systemd stops only the K3s program itself and leaves your containers running.
+  
+  Each running pod has a small helper process called containerd-shim. When the new K3s starts, systemd finds those 11 helpers still running and warns that they were "left over". Here that's
+  on purpose: it's why your app didn't go down during the restart.
+
+  What I confirmed on the VPS:
+  - All the messages have the same timestamp (02:07:00), which is the restart that applied the image cleanup setting. K3s was fully up at 02:07:09.
+  - None of them came after that, so they aren't repeating.
+  - All 11 helpers are still running, and none of your pods restarted.
+</pasted_content id="47f6">
+
+I didn't understand, tell in simple words.
+---
+
+## 2026-10-25T01:36:28Z
+
+
+<pasted_content id="fb61">
+clean:
+    @echo "### Cleaning (phrasal) ..."
+    $(call execute_commands,\
+        docker compose down ; \
+        docker rmi -f phrasal-backend:latest phrasal-frontend:latest 2>/dev/null || true && \
+        cd backend && mvn clean && \
+        cd ../frontend && rm -rf dist && \
+        cd ../e2e && rm -rf reports test-results playwright-report,\
+        "✅ CLEAN SUCCESSFUL (phrasal) ✅",\
+        "❌ CLEAN FAILED (phrasal) ❌")
+</pasted_content id="fb61">
+
+
+how it understand that "✅ CLEAN SUCCESSFUL (phrasal) ✅" is message to be sent?
+---
+
+## 2026-10-25T01:39:25Z
+
+
+<pasted_content id="fb61">
+ending message:
+✅ CLEAN SUCCESSFUL (phrasal) ✅
+
+bash -c ' \
+        tn() { \
+                local msg="${*:-🔔 Job finished (phrasal) 🔔}"; \
+                local api="https://api.telegram.org/bot${NOTIFICATION_TELEGRAM_BOT_TOKEN}/sendMessage"; \
+                curl -sS -X POST "$api" \
+                        --data "chat_id=${NOTIFICATION_TELEGRAM_CHAT_ID}" \
+                        --data-urlencode "text=$msg"; \
+        }; \
+        tn "✅ CLEAN SUCCESSFUL (phrasal) ✅" \
+'
+{"ok":true,"result":{"message_id":5847,"from":{"id":6106447531,"is_bot":true,"first_name":"MBot","username":"TestDev0001Bot"},"chat":{"id":-1001933314383,"title":"MChat","type":"supergroup"},"date":1792892007,"text":"\u2705 CLEAN SUCCESSFUL (phrasal) \u2705"}}
+make[1]: Leaving directory '/home/ilaptop/dev/projects/my/phrasal'
+</pasted_content id="fb61">
+
+
+{"ok":true,"result":{"message_id":5847,"from":{"id":6106447531,"is_bot":true,"first_name":"MBot","username":"TestDev0001Bot"},"chat":{"id":-1001933314383,"title":"MChat","type":"supergroup"},"date":1792892007,"text":"\u2705 CLEAN SUCCESSFUL (phrasal) \u2705"}}
+make[1]: Leaving directory '/home/ilaptop/dev/projects/my/phrasal'
+---
+
+## 2026-10-25T01:39:42Z
+In
+
+
+<pasted_content id="fb61">
+ending message:
+✅ CLEAN SUCCESSFUL (phrasal) ✅
+
+bash -c ' \
+        tn() { \
+                local msg="${*:-🔔 Job finished (phrasal) 🔔}"; \
+                local api="https://api.telegram.org/bot${NOTIFICATION_TELEGRAM_BOT_TOKEN}/sendMessage"; \
+                curl -sS -X POST "$api" \
+                        --data "chat_id=${NOTIFICATION_TELEGRAM_CHAT_ID}" \
+                        --data-urlencode "text=$msg"; \
+        }; \
+        tn "✅ CLEAN SUCCESSFUL (phrasal) ✅" \
+'
+{"ok":true,"result":{"message_id":5847,"from":{"id":6106447531,"is_bot":true,"first_name":"MBot","username":"TestDev0001Bot"},"chat":{"id":-1001933314383,"title":"MChat","type":"supergroup"},"date":1792892007,"text":"\u2705 CLEAN SUCCESSFUL (phrasal) \u2705"}}
+make[1]: Leaving directory '/home/ilaptop/dev/projects/my/phrasal'
+</pasted_content id="fb61">
+
+what that mean:
+{"ok":true,"result":{"message_id":5847,"from":{"id":6106447531,"is_bot":true,"first_name":"MBot","username":"TestDev0001Bot"},"chat":{"id":-1001933314383,"title":"MChat","type":"supergroup"},"date":1792892007,"text":"\u2705 CLEAN SUCCESSFUL (phrasal) \u2705"}}
+make[1]: Leaving directory '/home/ilaptop/dev/projects/my/phrasal'
+---
+
+## 2026-10-25T01:40:58Z
+
+
+<pasted_content id="fb61">
+ending message:
+✅ CLEAN SUCCESSFUL (phrasal) ✅
+
+bash -c ' \
+        tn() { \
+                local msg="${*:-🔔 Job finished (phrasal) 🔔}"; \
+                local api="https://api.telegram.org/bot${NOTIFICATION_TELEGRAM_BOT_TOKEN}/sendMessage"; \
+                curl -sS -X POST "$api" \
+                        --data "chat_id=${NOTIFICATION_TELEGRAM_CHAT_ID}" \
+                        --data-urlencode "text=$msg"; \
+        }; \
+        tn "✅ CLEAN SUCCESSFUL (phrasal) ✅" \
+'
+{"ok":true,"result":{"message_id":5847,"from":{"id":6106447531,"is_bot":true,"first_name":"MBot","username":"TestDev0001Bot"},"chat":{"id":-1001933314383,"title":"MChat","type":"supergroup"},"date":1792892007,"text":"\u2705 CLEAN SUCCESSFUL (phrasal) \u2705"}}
+make[1]: Leaving directory '/home/ilaptop/dev/projects/my/phrasal'
+</pasted_content id="fb61">
+
+
+how to hide that and not show wile command massage calling? Impl.
+---
+
+## 2026-10-25T01:43:37Z
+
+
+<pasted_content id="fb61">
+==============================================
+============= MESSAGE (TELEGRAM) =============
+==============================================
+Sending message:
+✅ CLEAN SUCCESSFUL (phrasal) ✅
+
+curl: (6) Could not resolve host: api.telegram.org
+⚠️   Telegram notification failed (check NOTIFICATION_TELEGRAM_* env vars)
+</pasted_content id="fb61">
+---
+
+## 2026-10-25T01:45:22Z
+MESSAGE (TELEGRAM) how to make this title to be green?
+---
+
+## 2026-10-25T01:46:05Z
+only MESSAGE (TELEGRAM)
+---
+
+## 2026-10-25T01:51:10Z
+show ✅ CLEAN SUCCESSFUL (phrasal) ✅ read but ✅ CLEAN SUCCESSFUL (phrasal) ✅ green in console message
+---
+
+## 2026-10-25T01:51:29Z
+show ✅ CLEAN SUCCESSFUL (phrasal) ✅ as red, but ✅ CLEAN SUCCESSFUL (phrasal) ✅ as green in console message
+---
+
+## 2026-10-25T01:54:54Z
+git add all changes and commit them with suitable message
+---

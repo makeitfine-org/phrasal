@@ -429,3 +429,52 @@
 - k8s/base/backend-deployment.yaml
 - k8s/base/frontend-deployment.yaml
 <!-- end-snapshot -->
+
+<!-- git-snapshot 2026-10-25T01:14:38Z -->
+- .claude/docs/blackbox/audit.md
+<!-- end-snapshot -->
+
+<!-- git-snapshot 2026-10-25T01:19:22Z -->
+- .claude/docs/blackbox/audit.md
+- .claude/docs/blackbox/session-log.md
+<!-- end-snapshot -->
+
+<!-- git-snapshot 2026-10-25T01:37:06Z -->
+- .claude/docs/blackbox/audit.md
+- .claude/docs/blackbox/session-log.md
+<!-- end-snapshot -->
+
+<!-- git-snapshot 2026-10-25T01:39:59Z -->
+- .claude/docs/blackbox/audit.md
+- .claude/docs/blackbox/session-log.md
+<!-- end-snapshot -->
+
+<!-- git-snapshot 2026-10-25T01:41:53Z -->
+- .claude/docs/blackbox/audit.md
+- .claude/docs/blackbox/session-log.md
+- Makefile
+<!-- end-snapshot -->
+
+<!-- git-snapshot 2026-10-25T01:43:41Z -->
+- .claude/docs/blackbox/audit.md
+- .claude/docs/blackbox/session-log.md
+- Makefile
+<!-- end-snapshot -->
+
+<!-- git-snapshot 2026-10-25T01:45:29Z -->
+- .claude/docs/blackbox/audit.md
+- .claude/docs/blackbox/session-log.md
+- Makefile
+<!-- end-snapshot -->
+
+<!-- git-snapshot 2026-10-25T01:46:13Z -->
+- .claude/docs/blackbox/audit.md
+- .claude/docs/blackbox/session-log.md
+- Makefile
+<!-- end-snapshot -->
+
+<!-- git-snapshot 2026-10-25T01:51:54Z -->
+- .claude/docs/blackbox/audit.md
+- .claude/docs/blackbox/session-log.md
+- Makefile
+<!-- end-snapshot -->
