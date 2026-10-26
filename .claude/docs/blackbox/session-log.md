@@ -529,3 +529,140 @@
 - .claude/docs/blackbox/audit.md
 - .claude/settings.local.json
 <!-- end-snapshot -->
+
+<!-- git-snapshot 2026-10-25T19:40:41Z -->
+- .claude/docs/blackbox/audit.md
+<!-- end-snapshot -->
+
+<!-- git-snapshot 2026-10-25T19:49:37Z -->
+- .claude/docs/blackbox/audit.md
+- .claude/docs/blackbox/session-log.md
+<!-- end-snapshot -->
+
+<!-- git-snapshot 2026-10-25T19:56:25Z -->
+- .claude/docs/blackbox/audit.md
+- .claude/docs/blackbox/session-log.md
+<!-- end-snapshot -->
+
+<!-- git-snapshot 2026-10-26T16:24:07Z -->
+- .claude/docs/blackbox/audit.md
+- .claude/docs/blackbox/session-log.md
+<!-- end-snapshot -->
+
+<!-- git-snapshot 2026-10-26T16:59:33Z -->
+- .claude/docs/blackbox/audit.md
+- .claude/docs/blackbox/session-log.md
+<!-- end-snapshot -->
+
+<!-- git-snapshot 2026-10-26T17:23:20Z -->
+- .claude/docs/blackbox/audit.md
+- .claude/docs/blackbox/plans/2026-10-26 17:24 Multi-user TOTP 2FA for phrasal DRAFT awaiting user clarification.md
+- .claude/docs/blackbox/plans/2026-10-26 18:10 Multi-user accounts TOTP 2FA and reliable storage for phrasal.md
+- .claude/docs/blackbox/session-log.md
+<!-- end-snapshot -->
+
+<!-- git-snapshot 2026-10-26T17:26:04Z -->
+- .claude/docs/blackbox/audit.md
+- .claude/docs/blackbox/plans/2026-10-26 17:24 Multi-user TOTP 2FA for phrasal DRAFT awaiting user clarification.md
+- .claude/docs/blackbox/plans/2026-10-26 18:10 Multi-user accounts TOTP 2FA and reliable storage for phrasal.md
+- .claude/docs/blackbox/session-log.md
+<!-- end-snapshot -->
+
+<!-- git-snapshot 2026-10-26T17:34:38Z -->
+- .claude/docs/blackbox/audit.md
+- .claude/docs/blackbox/plans/2026-10-26 17:24 Multi-user TOTP 2FA for phrasal DRAFT awaiting user clarification.md
+- .claude/docs/blackbox/plans/2026-10-26 18:10 Multi-user accounts TOTP 2FA and reliable storage for phrasal.md
+- .claude/docs/blackbox/session-log.md
+<!-- end-snapshot -->
+
+<!-- git-snapshot 2026-10-26T17:39:05Z -->
+- .claude/docs/blackbox/audit.md
+- .claude/docs/blackbox/plans/2026-10-26 17:24 Multi-user TOTP 2FA for phrasal DRAFT awaiting user clarification.md
+- .claude/docs/blackbox/plans/2026-10-26 18:10 Multi-user accounts TOTP 2FA and reliable storage for phrasal.md
+- .claude/docs/blackbox/session-log.md
+<!-- end-snapshot -->
+
+<!-- git-snapshot 2026-10-26T17:44:14Z -->
+- .claude/docs/blackbox/audit.md
+- .claude/docs/blackbox/plans/2026-10-26 17:24 Multi-user TOTP 2FA for phrasal DRAFT awaiting user clarification.md
+- .claude/docs/blackbox/plans/2026-10-26 18:10 Multi-user accounts TOTP 2FA and reliable storage for phrasal.md
+- .claude/docs/blackbox/session-log.md
+- backlog/milestones/m-0 - multi-user-accounts-&-2fa.md
+- backlog/tasks/task-100 - Let-users-reset-forgotten-passwords-delete-their-account-and-protect-auth-endpoints-from-abuse.md
+- backlog/tasks/task-101 - Add-authenticator-app-2FA-TOTP-with-recovery-codes-mandatory-for-admins.md
+- backlog/tasks/task-102 - Store-learning-progress-per-user-on-the-server.md
+- backlog/tasks/task-103 - Add-sign-up-login-2FA-and-account-screens-to-the-frontend-and-sync-quiz-progress-for-logged-in-users.md
+- backlog/tasks/task-104 - Let-users-sign-in-with-their-Google-account.md
+- backlog/tasks/task-105 - Move-production-to-the-new-domain-and-harden-the-deployment-for-public-multi-user-launch.md
+- backlog/tasks/task-97 - Prepare-external-accounts-for-multi-user-domain-email-Google-OAuth-backup-storage.md
+- backlog/tasks/task-98 - Back-up-production-Postgres-off-site-every-night-and-before-each-deploy.md
+- backlog/tasks/task-99 - Let-visitors-register-and-log-in-with-email-password-restrict-content-edits-to-admins.md
+<!-- end-snapshot -->
+
+<!-- git-snapshot 2026-10-26T17:47:14Z -->
+- .claude/docs/blackbox/audit.md
+- .claude/docs/blackbox/plans/2026-10-26 17:24 Multi-user TOTP 2FA for phrasal DRAFT awaiting user clarification.md
+- .claude/docs/blackbox/plans/2026-10-26 18:10 Multi-user accounts TOTP 2FA and reliable storage for phrasal.md
+- .claude/docs/blackbox/session-log.md
+- backlog/milestones/m-0 - multi-user-accounts-&-2fa.md
+- backlog/tasks/task-100 - Let-users-reset-forgotten-passwords-delete-their-account-and-protect-auth-endpoints-from-abuse.md
+- backlog/tasks/task-101 - Add-authenticator-app-2FA-TOTP-with-recovery-codes-mandatory-for-admins.md
+- backlog/tasks/task-102 - Store-learning-progress-per-user-on-the-server.md
+- backlog/tasks/task-103 - Add-sign-up-login-2FA-and-account-screens-to-the-frontend-and-sync-quiz-progress-for-logged-in-users.md
+- backlog/tasks/task-104 - Let-users-sign-in-with-their-Google-account.md
+- backlog/tasks/task-105 - Move-production-to-the-new-domain-and-harden-the-deployment-for-public-multi-user-launch.md
+- backlog/tasks/task-97 - Prepare-external-accounts-for-multi-user-domain-email-Google-OAuth-backup-storage.md
+- backlog/tasks/task-98 - Back-up-production-Postgres-off-site-every-night-and-before-each-deploy.md
+- backlog/tasks/task-99 - Let-visitors-register-and-log-in-with-email-password-restrict-content-edits-to-admins.md
+<!-- end-snapshot -->
+
+<!-- git-snapshot 2026-10-26T17:48:41Z -->
+- .claude/docs/blackbox/audit.md
+- .claude/docs/blackbox/plans/2026-10-26 17:24 Multi-user TOTP 2FA for phrasal DRAFT awaiting user clarification.md
+- .claude/docs/blackbox/plans/2026-10-26 18:10 Multi-user accounts TOTP 2FA and reliable storage for phrasal.md
+- .claude/docs/blackbox/session-log.md
+- backlog/milestones/m-0 - multi-user-accounts-&-2fa.md
+- backlog/tasks/task-100 - Let-users-reset-forgotten-passwords-delete-their-account-and-protect-auth-endpoints-from-abuse.md
+- backlog/tasks/task-101 - Add-authenticator-app-2FA-TOTP-with-recovery-codes-mandatory-for-admins.md
+- backlog/tasks/task-102 - Store-learning-progress-per-user-on-the-server.md
+- backlog/tasks/task-103 - Add-sign-up-login-2FA-and-account-screens-to-the-frontend-and-sync-quiz-progress-for-logged-in-users.md
+- backlog/tasks/task-104 - Let-users-sign-in-with-their-Google-account.md
+- backlog/tasks/task-105 - Move-production-to-the-new-domain-and-harden-the-deployment-for-public-multi-user-launch.md
+- backlog/tasks/task-97 - Prepare-external-accounts-for-multi-user-domain-email-Google-OAuth-backup-storage.md
+- backlog/tasks/task-98 - Back-up-production-Postgres-off-site-every-night-and-before-each-deploy.md
+- backlog/tasks/task-99 - Let-visitors-register-and-log-in-with-email-password-restrict-content-edits-to-admins.md
+<!-- end-snapshot -->
+
+<!-- git-snapshot 2026-10-26T17:54:47Z -->
+- .claude/docs/blackbox/audit.md
+- .claude/docs/blackbox/plans/2026-10-26 17:24 Multi-user TOTP 2FA for phrasal DRAFT awaiting user clarification.md
+- .claude/docs/blackbox/plans/2026-10-26 18:10 Multi-user accounts TOTP 2FA and reliable storage for phrasal.md
+- .claude/docs/blackbox/session-log.md
+- backlog/milestones/m-0 - multi-user-accounts-&-2fa.md
+- backlog/tasks/task-100 - Let-users-reset-forgotten-passwords-delete-their-account-and-protect-auth-endpoints-from-abuse.md
+- backlog/tasks/task-101 - Add-authenticator-app-2FA-TOTP-with-recovery-codes-mandatory-for-admins.md
+- backlog/tasks/task-102 - Store-learning-progress-per-user-on-the-server.md
+- backlog/tasks/task-103 - Add-sign-up-login-2FA-and-account-screens-to-the-frontend-and-sync-quiz-progress-for-logged-in-users.md
+- backlog/tasks/task-104 - Let-users-sign-in-with-their-Google-account.md
+- backlog/tasks/task-105 - Move-production-to-the-new-domain-and-harden-the-deployment-for-public-multi-user-launch.md
+- backlog/tasks/task-97 - Prepare-external-accounts-for-multi-user-domain-email-Google-OAuth-backup-storage.md
+- backlog/tasks/task-98 - Back-up-production-Postgres-off-site-every-night-and-before-each-deploy.md
+- backlog/tasks/task-99 - Let-visitors-register-and-log-in-with-email-password-restrict-content-edits-to-admins.md
+<!-- end-snapshot -->
+
+<!-- git-snapshot 2026-10-26T17:57:25Z -->
+- .claude/docs/blackbox/audit.md
+- .claude/docs/blackbox/plans/2026-10-26 17:24 Multi-user TOTP 2FA for phrasal DRAFT awaiting user clarification.md
+- .claude/docs/blackbox/plans/2026-10-26 18:10 Multi-user accounts TOTP 2FA and reliable storage for phrasal.md
+- .claude/docs/blackbox/session-log.md
+- backlog/milestones/m-0 - multi-user-accounts-&-2fa.md
+- backlog/tasks/task-100 - Let-users-reset-forgotten-passwords-delete-their-account-and-protect-auth-endpoints-from-abuse.md
+- backlog/tasks/task-101 - Add-authenticator-app-2FA-TOTP-with-recovery-codes-mandatory-for-admins.md
+- backlog/tasks/task-102 - Store-learning-progress-per-user-on-the-server.md
+- backlog/tasks/task-103 - Add-sign-up-login-2FA-and-account-screens-to-the-frontend-and-sync-quiz-progress-for-logged-in-users.md
+- backlog/tasks/task-104 - Let-users-sign-in-with-their-Google-account.md
+- backlog/tasks/task-105 - Move-production-to-the-new-domain-and-harden-the-deployment-for-public-multi-user-launch.md
+- backlog/tasks/task-97 - Prepare-external-accounts-for-multi-user-domain-email-Google-OAuth-backup-storage.md
+- backlog/tasks/task-98 - Back-up-production-Postgres-off-site-every-night-and-before-each-deploy.md
+- backlog/tasks/task-99 - Let-visitors-register-and-log-in-with-email-password-restrict-content-edits-to-admins.md
+<!-- end-snapshot -->

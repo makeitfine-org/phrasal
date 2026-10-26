@@ -686,3 +686,546 @@ how to remove Claude Code history sessions?
 ## 2026-10-25T19:36:36Z
 git add all changes and commit them with suitable message
 ---
+
+## 2026-10-25T19:40:29Z
+in this project is used ansible. Is there any sense to migrate to Terraform and procceed with Terrform?
+Because I'm heard that Terraform is mainly used now.
+---
+
+## 2026-10-25T19:49:31Z
+does Claude Code consider Claude MD the same as against MD?
+---
+
+## 2026-10-25T19:56:19Z
+Okay, how should I do if I have Claude.md and agents.md?
+---
+
+## 2026-10-26T16:19:53Z
+
+
+<pasted_content id="2775">
+analyze this project.
+  I'd like to organize a multi-user system on my phrasal project.
+  we have the possibility to sign up users and activate two-phase authentication through Google Authenticator or other authenticator applications.
+  What is the simplest and the best way to organize this?
+  where to save it?
+  is it better to use Postgres database which are on my VPS server, or to move it on some more reliable cloud? what is the best three options?
+  Let's explain about it if necessary. Ask interactive questions.
+</pasted_content id="2775">
+---
+
+## 2026-10-26T16:23:41Z
+<task-notification>
+<task-id>a1589ba3389c33841</task-id>
+<tool-use-id>toolu_01PWDj3NrSgv2YwP28FX8jCv</tool-use-id>
+<output-file>/tmp/claude-1000/-home-ilaptop-dev-projects-my-phrasal/8c99ec08-36cd-4daf-bf39-457a5b4ee7d1/tasks/a1589ba3389c33841.output</output-file>
+<status>completed</status>
+<summary>Agent "Explore backend auth and data model" finished</summary>
+<note>A task-notification fires each time this agent stops with no live background children of its own. The user can send it another message and resume it, so the same task-id may notify more than once.</note>
+<result>Nothing in the backend handles security or users yet: there is no Spring Security, no users table, no sessions, tokens or API keys, and no entity belongs to a user. All write endpoints are open to anyone.
+
+## 1. pom.xml (`/home/ilaptop/dev/projects/my/phrasal/backend/pom.xml`)
+- **Versions:** Spring Boot **4.1.2** (Spring Framework 7, Hibernate 7, Jackson 3) and Java **25**. The artifact is `net.phrasal:backend:0.1.0`.
+- **Starters:** `spring-boot-starter-webmvc`, `-data-jpa`, `-validation`, `-actuator`.
+- **Database:** `postgresql` (runtime), `spring-boot-starter-flyway`, `flyway-database-postgresql`.
+- **Other libraries:** MapStruct 1.6.3 and Lombok, with `lombok-mapstruct-binding` 0.2.0 in the annotation processor path.
+- **Test:** `spring-boot-starter-webmvc-test`, `testcontainers-postgresql`, `testcontainers-junit-jupiter`.
+- **Plugins:** JaCoCo 0.8.15, Checkstyle using `../aux/code/checkstyle/checkstyle.xml`, and devtools behind the `devtools` profile.
+- **Not present:** spring-security, oauth2, any JWT library, any TOTP/2FA library, password encoders.
+- **CI:** the workflow runs an OWASP dependency-check (`backend/owasp-suppressions.xml` is empty) and Trivy. Its e2e job's `needs` carries the note "security-scan skipped".
+
+## 2. Current security setup
+- There is no `SecurityFilterChain`, authentication, roles, sessions, JWT or API keys. A grep for security, jwt, totp, auth and login in backend, k8s and compose found nothing.
+- **CORS** is in `/home/ilaptop/dev/projects/my/phrasal/backend/src/main/java/net/phrasal/config/WebMvcConfig.java`. It covers `/api/**`, allows origins `http://localhost:5173` and `:3000`, and methods GET/POST/PUT/DELETE/OPTIONS. PATCH and `allowCredentials` are not set, so you will need to change this for cookies or auth headers.
+- Actuator exposes `health,info,metrics` with `show-details: always`, and anyone can reach it.
+- `server.forward-headers-strategy: native` is set, which matters if login is served behind a proxy.
+- The other config class is `JpaAuditingConfig` (`@EnableJpaAuditing`, with no `AuditorAware`). An `AuditorAware` could later fill `@CreatedBy`.
+- **The API is fully public:** anyone can create, update or delete phrasal verbs, grammar entries and verb details.
+
+## 3. Data model (`/home/ilaptop/dev/projects/my/phrasal/backend/src/main/java/net/phrasal/domain/entity/`)
+All three entities share the same pattern:
+- Lombok `@Getter @Setter @NoArgsConstructor @ToString(of=…) @EqualsAndHashCode(of=…)`
+- `@EntityListeners(AuditingEntityListener)`
+- A sequence-generated `Long id` (`allocationSize=1`)
+- `createdAt` / `updatedAt` as `LocalDateTime` (`TIMESTAMP` without time zone)
+- `@Version Long version`
+
+| Entity | Table | Key fields |
+|---|---|---|
+| `PhrasalVerb` | `phrasal_verbs` | `verb` (100), `definition` (TEXT), `sentences` (jsonb `List&lt;String&gt;`), `wordsToHide` (jsonb), **`isLearned` (Boolean)** |
+| `GrammarEntry` | `grammar_entries` | `category` (100), `sentence` (TEXT), `correctAnswers` (jsonb) |
+| `VerbDetail` | `verb_details` | `verb` (50, unique), `label`, `particles` (jsonb), `sections` (jsonb `List&lt;VerbDetailSection&gt;`) |
+
+`VerbDetailSection(particle, storageKeyPrefix, meanings)` and `VerbDetailMeaning(definition, example, imageSrc, imageAlt)` are records stored inside the JSONB. They are not separate entities.
+
+**Ownership and which tables need a user_id:**
+- No entity has any owner or user relationship, and there are no decks or progress tables.
+- The one piece of per-user state in the database is **`phrasal_verbs.is_learned`**, and it is currently global. It also has its own index, `idx_phrasal_verbs_is_learned`. It should probably move into a join table such as `user_phrasal_verb_progress(user_id, phrasal_verb_id, is_learned)`, rather than adding `user_id` to the content tables.
+- `grammar_entries` and `verb_details` hold shared reference content, mostly seeded (V4, V5, V8). They are better kept global, with writes restricted to an admin role.
+- **Most learning progress lives only in the browser's localStorage, not the database:**
+  - `frontend/src/hooks/useQuiz.ts` stores `{mastered[], excluded[], history[], currentIndex}` for each quiz key, used by `PhrasalVerbQuiz` and `GrammarQuiz`.
+  - `PhrasalVerbsListPage.tsx` and `VerbPage.tsx` store expanded/collapsed UI state and "seen" flags, keyed by `storageKeyPrefix`.
+  - Making this per-user means new server-side tables.
+
+## 4. Migrations
+- Flyway, at `/home/ilaptop/dev/projects/my/phrasal/backend/src/main/resources/db/migration/`. Settings are `baseline-on-migrate: true` and `ddl-auto: validate`, so entities must match the SQL exactly.
+- Files, V1 to V8:
+  - `V1__create_phrasal_verbs_table`
+  - `V2__create_grammar_entries_table`
+  - `V3__create_indexes`
+  - `V4__seed_phrasal_verbs`
+  - `V5__seed_grammar_entries`
+  - `V6__update_sequences`
+  - `V7__create_verb_details_table`
+  - `V8__seed_verb_details`
+- **The next migration is `V9__...`.** Existing tables use `BIGSERIAL` ids and `TIMESTAMP` defaults.
+
+## 5. Configuration (`src/main/resources/`)
+- **`application.yml`:**
+  - Datasource is `${DATABASE_URL:jdbc:postgresql://localhost:5432/phrasaldb}`, `${DATABASE_USER:postgres}`, `${DATABASE_PASSWORD:postgres}`, with Hikari pool 10/5.
+  - Virtual threads are on and `open-in-view: false`.
+  - `server.error.include-message: always` is set; review this so auth errors don't leak details.
+- **`application-dev.yml`:** SQL logging only.
+- **`application-prod.yml`:** the same env vars with no defaults, Hikari 5/2, and `SERVER_PORT`.
+- **`src/test/resources/application-test.yml`:** logging only.
+- **Secrets are all environment variables:**
+  - `docker-compose.yml` hardcodes postgres/postgres and uses `SPRING_PROFILES_ACTIVE: dev`.
+  - In k8s, `k8s/base/backend-configmap.yaml` provides `database.url` and the profile, and `k8s/base/backend-secret.yaml` (Secret `app-secrets`) holds dev defaults.
+  - Prod overrides come from `k8s/overlays/prod/patches/secret.yaml`, generated from GitHub Secrets during deploy.
+  - A new secret, such as a JWT signing key or a TOTP encryption key, needs to be added to the env vars, compose, the k8s Secret, the prod overlay and the CI workflow.
+
+## 6. REST endpoints (`presentation/rest/`)
+All are unauthenticated.
+- **`/api/v1/phrasal-verbs`** (`PhrasalVerbController`):
+  - `GET` with `?q=&amp;learned=` and pageable
+  - `GET /{id}`, `POST`, `PUT /{id}`, `DELETE /{id}`
+- **`/api/v1/grammar-entries`** (`GrammarEntryController`):
+  - `GET` with `?category=` and pageable
+  - `GET /{id}`, `POST`, `PUT /{id}`, `DELETE /{id}`
+- **`/api/v1/verb-details`** (`VerbDetailController`):
+  - `GET` (paged summaries)
+  - `GET /all`, `GET /by-verb/{verb}`, `GET /{id}`, `POST`, `PUT /{id}`, `DELETE /{id}`
+- **Actuator:** `/actuator/health`, `/info`, `/metrics`. The Docker healthcheck and k8s probes use `/actuator/health`, so it must stay public.
+- Errors go through `infrastructure/exception/GlobalExceptionHandler.java`, which returns RFC 7807 `ProblemDetail` with type `https://api.phrasal.net/errors/{type}`. It has no 401/403 handlers, and its catch-all `Exception` handler would turn security exceptions into 500s if they reach it.
+
+## 7. Tests (`/home/ilaptop/dev/projects/my/phrasal/backend/src/test/java/net/phrasal/`)
+- **Unit tests:**
+  - Mockito service tests in `application/service/*ServiceTest` (`@ExtendWith(MockitoExtension)`)
+  - Mapper, entity, `PageableUtilsTest` and `GlobalExceptionHandlerTest`
+- **Integration tests:** `integration/*IntegrationTest`, using `@SpringBootTest @AutoConfigureMockMvc @Testcontainers @ActiveProfiles("test")`.
+  - Each class declares its own `@Container static PostgreSQLContainer("postgres:16-alpine")` plus `@DynamicPropertySource`. There is no shared base class, no `@ServiceConnection` and no `@WebMvcTest` slices.
+  - Once security is added, these tests will need authenticated requests, for example via `spring-security-test`.
+- **JaCoCo:** **85% line coverage per PACKAGE**, excluding `PhrasalApplication`. The check runs in `mvn verify` (via `make buildBackend`).
+  - Each new package (security, auth, user) has to reach 85% on its own.
+- Checkstyle also runs at `verify`.
+
+## 8. Rules from `backend/CLAUDE.md` that matter here
+- **Lombok is required, not banned:**
+  - Entities use `@Getter/@Setter/@EqualsAndHashCode(of=…)`.
+  - Services use `@Slf4j @RequiredArgsConstructor @Service @Transactional`; existing services put `@Transactional(readOnly = true)` on the class and `@Transactional` on write methods.
+- **Package layout:**
+  - `domain/` holds only entities and repository interfaces.
+  - `application/` holds services, DTOs and mappers.
+  - `presentation/` holds controllers.
+  - `infrastructure/` holds exception handlers.
+  - `config/` holds `@Configuration` classes, which is where a `SecurityConfig` would go.
+  - Base package is `net.phrasal`, and a lower layer must never import from a higher one.
+- **DTOs** are Java 25 records in `application/dto/`: requests carry Bean Validation, responses are immutable.
+- **Mappers** must be MapStruct interfaces with `componentModel = "spring"`; manual mapping is not allowed.
+- Errors use RFC 7807 ProblemDetail through `@RestControllerAdvice`.
+- **Flyway:** never edit an applied migration, and number new ones sequentially with no gaps.
+- **Tests:** Testcontainers `postgres:16-alpine`, never H2. Every test class needs both positive and negative cases.
+- **Context7 is mandatory:** look up the docs with Context7 MCP before writing Spring Boot or library API code. This matters here because Spring Security 7 under Boot 4 changes several APIs.
+- **Before calling a task done:**
+  - `mvn verify` passes.
+  - New env vars are reflected in `docker-compose.yml`, `k8s/base/` and `.github/workflows/ci_cd.yml`.
+  - Follow `.claude/rules/version-bump-procedure.md`.
+  - Add tests.
+- `.claude/rules/blackbox-policy.md` asks for an entry appended to `blackbox/session-log.md` after sessions where code changed or decisions were made.</result>
+<usage><subagent_tokens>53346</subagent_tokens><tool_uses>12</tool_uses><duration_ms>73767</duration_ms></usage>
+</task-notification>
+---
+
+## 2026-10-26T16:23:41Z
+<task-notification>
+<task-id>af6b785607ae87b95</task-id>
+<tool-use-id>toolu_01BsGHSGsEFpD5dkFD9VLpBN</tool-use-id>
+<output-file>/tmp/claude-1000/-home-ilaptop-dev-projects-my-phrasal/8c99ec08-36cd-4daf-bf39-457a5b4ee7d1/tasks/af6b785607ae87b95.output</output-file>
+<status>completed</status>
+<summary>Agent "Explore infra, DB hosting, frontend auth" finished</summary>
+<note>A task-notification fires each time this agent stops with no live background children of its own. The user can send it another message and resume it, so the same task-id may notify more than once.</note>
+<result># Phrasal: infrastructure and frontend findings
+
+The most important finding for your decision: **prod Postgres has no backups of any kind**. It is a single pod with its data on the VPS's own disk. There is also no auth anywhere today, and the write endpoints are public on the internet.
+
+## 1. Postgres in prod (`k8s/`)
+- **Where it's defined:** `/home/ilaptop/dev/projects/my/phrasal/k8s/base/postgres-statefulset.yaml`.
+  - StatefulSet with 1 replica, image `postgres:16-alpine`, database `phrasaldb`, `PGDATA=/var/lib/postgresql/data/pgdata`.
+  - Resources: requests 256Mi / 250m, limits 512Mi / 500m.
+  - Liveness and readiness probes run `pg_isready -U postgres`.
+- **Storage:** a 1Gi ReadWriteOnce volume with no `storageClassName`, so it uses K3s's default `local-path` provisioner (a folder on the node's own disk). A July audit log confirms that provisioner is running. Its default reclaim policy is Delete, so deleting the volume claim deletes the data.
+- **Network:** `postgres-service.yaml` is ClusterIP on 5432, so it's internal only. The backend's init container waits on `pg_isready`.
+- **Prod overlay** (`k8s/overlays/prod/kustomization.yaml`): backend and frontend at 1 replica each, both services patched to ClusterIP, Spring profile set to `prod`, plus the secret patch and `ingress.yaml`.
+- **Secrets:** a plain Kubernetes `Secret` named `app-secrets`.
+  - The base file `k8s/base/backend-secret.yaml` holds `postgres/postgres`, with a TODO to rotate prod credentials.
+  - Prod's `patches/secret.yaml` is gitignored and written by CI from GitHub Secrets. There's no sealed-secrets, SOPS, external-secrets or Vault.
+  - `aux/docs/k3sconf.md` ("Known Issues") says prod credentials are still `postgres/postgres`.
+  - `POSTGRES_USER` and `POSTGRES_PASSWORD` only take effect the first time the data directory is created. Changing the GitHub secret later will not change the real DB password.
+- **Backups and replication:** none. I found no CronJob, `pg_dump`, wal-g, pgBackRest, CloudNativePG or Velero anywhere in the repo. The only mention of `pg_dump` is a cost table in `aux/docs/decomposition_plan.md`.
+
+## 2. Ansible (`/home/ilaptop/dev/projects/my/phrasal/ansible/`)
+- **Host:** `hetzner1` at 116.203.78.118, user `vpsuser`, key `~/dev/scripts/hetzner/ssh-key-h1.key` (`inventory/hosts.yml`). The node is named `vps-h1`.
+- **Specs:** 4 CPU / 8 GB RAM per `aux/docs/k3sconf.md` and `aux/docs/useful/hatzner-k8s.txt`. Backlog task-93 says "1 CPU, 1 GB RAM", which conflicts and is probably stale.
+- **K3s:** version `v1.33.2+k3s1`, Traefik enabled, `tls-san` set to the VPS IP, image cleanup after 1440h.
+- **Firewall:** the k3s role opens **port 6443 (the Kubernetes API) to the whole internet** with iptables, because CI deploys over it. Ports 80/443 were opened by "a separate playbook" that is no longer in the repo. `aux/docs/useful/hatzner-vps.txt` has manual iptables cleanup notes (DROP 5432, 8080, 25432, 28080) from an older bare-metal setup.
+- **Postgres, backups, disk, swap:** nothing. There are only two roles, `k3s` and `ingress-tls`.
+
+## 3. Local configs
+- **`docker-compose.yml`:** `postgres:16-alpine`, `phrasaldb`, `postgres/postgres`, host port `${POSTGRES_PORT:-5432}`, no volume (data is thrown away), with a healthcheck. CI's e2e job uses this.
+- **`skaffold.yaml`:** only includes `backend/skaffold.yaml` and `frontend/skaffold.yaml`. Those point at the `k8s/base/*` manifests (including the postgres StatefulSet) on the minikube context.
+- **Backend datasource:** `application.yml` uses a Hikari pool of 10; `application-prod.yml` uses a pool of 5 with min idle 2. Flyway runs with `baseline-on-migrate`, and Hibernate is set to `ddl-auto: validate`.
+
+## 4. CI/CD (`.github/workflows/ci_cd.yml`)
+- **On every push:** backend build/test (Java 25), frontend test (Node 26.3.1), then e2e against docker compose.
+- **On `v*.*.*` tags only:**
+  - `docker-push` builds and pushes `stingion/phrasal-{backend,frontend}:&lt;version&gt;` and `:latest` to Docker Hub.
+  - `deploy` (GitHub environment `production`):
+    1. Decodes `secrets.KUBE_CONFIG` (base64 admin kubeconfig) into a file.
+    2. Writes `patches/secret.yaml` from `secrets.DB_USERNAME` and `DB_PASSWORD`.
+    3. Runs `kustomize edit set image` with the version tag.
+    4. Runs `kubectl apply -k k8s/overlays/prod` from the GitHub runner over public port 6443.
+    5. Waits on the rollouts.
+- **Secrets used:** `DOCKER_USERNAME`, `DOCKER_PASSWORD`, `KUBE_CONFIG`, `DB_USERNAME`, `DB_PASSWORD` (plus `NVD_API_KEY`, but the security-scan job is disabled).
+- There's no migration gate and no backup step before deploy. Flyway runs when the backend starts.
+
+## 5. Ingress and TLS
+- `k8s/overlays/prod/ingress.yaml`: Traefik ingress class, host **`phrasal.ddns.net`** (No-IP dynamic DNS), cert-manager `letsencrypt-prod` ClusterIssuer (HTTP-01), TLS secret `phrasal-tls`. cert-manager is v1.17.2, installed by the ansible role.
+- `/api` goes straight to `backend:8080`; `/` goes to `phrasal-frontend:3000`, which is nginx.
+- **It's publicly reachable** at `https://phrasal.ddns.net` (`README.md`, `aux/docs/k3sconf.md`).
+- The API has **unauthenticated POST, PUT and DELETE** on `/api/v1/phrasal-verbs`, `/grammar-entries` and `/verb-details`.
+- There's no Spring Security dependency in `backend/pom.xml`. CORS (`backend/src/main/java/net/phrasal/config/WebMvcConfig.java`) only allows the two localhost origins.
+- Backend sets `server.forward-headers-strategy: native`. The frontend nginx sends `X-Forwarded-Port 3000`.
+
+## 6. Frontend (`/home/ilaptop/dev/projects/my/phrasal/frontend/`)
+- **Stack:** React **19.3** per `package.json` (both CLAUDE.md files still say 18), Vite 8, TypeScript 7, Tailwind 4, `react-router-dom` 7, fuse.js.
+- **Routing** (`src/main.tsx`): `ErrorBoundary`, then `BrowserRouter`, then a `PageShell` layout route. Routes are `/`, `/phrasal-verbs`, `/phrasal-verbs/test-most-popular`, `/phrasal-verbs/particles`, `/phrasal-verbs/list`, `/phrasal-verbs/list/:verb`, `/grammar`, `/grammar/i-wish-if-only`, and `*`.
+- **API client** (`src/api/client.ts`): a native `fetch` wrapper with a single GET-only function `get&lt;T&gt;()`, base URL `/api/v1`. There's no `credentials` option, no auth header and no 401 handling. `vite.config.ts` proxies `/api` and `/actuator` to :8080.
+- **Auth:** none. No login page, no auth context, no token storage, no i18n library (UI is English).
+- **State:** component-local plus localStorage, using keys `phrasalQuizState` (including `darkMode`), `grammarIWishState`, `verbListExpanded`, and per-section `*_section_expanded`. Quiz progress lives only in the browser.
+- **Rules from `frontend/CLAUDE.md`:**
+  - Use Context7 before writing React/Vite/library API code.
+  - No external state-management libraries.
+  - Add or update tests for new or changed functionality, one test file per component/page in `src/__tests__/`, using Vitest with happy-dom.
+  - Its architecture section says "no context or global store". It doesn't ban React Context, but adding an auth context changes that stated design.
+
+## 7. e2e (`/home/ilaptop/dev/projects/my/phrasal/e2e/`)
+- **Stack:** Cucumber 13, Playwright 1.64 (Chromium), TypeScript run via tsx. `cucumber.js` runs with `parallel: 1`, tags `not @wip`, and writes reports to `reports/`.
+- **Structure:**
+  - `src/world.ts` holds `apiClient`, `lastResponse`, `browser` and `page`.
+  - `src/hooks.ts` starts one browser per run and opens a new page per scenario.
+  - `src/support/api-client.ts` is an axios client that accepts any status code.
+  - `src/support/db-client.ts` is a direct `pg` client, which will be handy for seeding users or reading TOTP secrets.
+- **Features:**
+  - `features/frontend/`: navigation-menu, quiz, search, skeleton-loading, theme, verb-list.
+  - `features/phrasal-verbs-api/crud.feature` (`@api`).
+- **Rules from `e2e/CLAUDE.md`:** steps go in `src/steps/`, utilities in `src/support/`, reports stay gitignored, no real credentials in code (copy `.env.example` to `.env`).
+
+## 8. Docs and backlog on auth, users and backups
+- **No active auth or 2FA task, and no backup mention anywhere.**
+- `backlog/tasks/task-77 - Introduce-English-contests-between-users.md` (status Skip): needs a "user identification" design.
+- `backlog/drafts/todo.md`:
+  - Multi-user sign-up with email confirmation ("cognito or propose something else").
+  - A Keycloak sign-up idea: username matching `[a-zA-Z0-9_]`, 5–15 characters, avatar, strong password of at least 8.
+  - "Deploy to AWS (lambda, rds, terraform)".
+- `aux/docs/notes.md`: prompt templates for Keycloak sign-up and a JWT filter.
+- `aux/docs/decomposition_plan.md`:
+  - An earlier AWS plan using Cognito and RDS `db.t3.micro`.
+  - A post-free-tier comparison table: Supabase/Neon free, about $4–6 a month with a cheap VM.
+  - A design for server-side quiz state to replace localStorage.
+- `aux/docs/migrate.md`: an older MongoDB plan with a quiz-state collection and a `sessionId`.
+- Related tasks:
+  - task-87: version the localStorage state; matters if progress moves server-side.
+  - task-81: load tests at 20/30/100 users.
+  - task-76: move to a private repo and registry.
+- Root `CLAUDE.md`: auth work goes to the `security-engineer` agent; every task's acceptance criteria must include "`make clean build` passes"; compose, k8s, CI and docs must be updated together.
+
+## 9. Database contents (`backend/src/main/resources/db/migration/`)
+| Table | Source | Rows (approx.) |
+|---|---|---|
+| `phrasal_verbs` | V1 schema, V4 seed | ~270 |
+| `grammar_entries` | V2 schema, V5 seed | a handful |
+| `verb_details` | V7 schema, V8 seed (512 KB SQL) | ~71 |
+| `flyway_schema_history` | created by Flyway | — |
+
+- V3 adds indexes and V6 resets sequences.
+- `phrasal_verbs`, `grammar_entries` and `verb_details` hold JSONB columns plus `created_at`, `updated_at` and `version`.
+- Everything is static reference content, re-creatable from the migrations. There is **zero user data** today; the data is probably 1–2 MB in total.
+- `phrasal_verbs.is_learned` is a single global flag, so it would need to become per-user for multi-user.
+
+## What matters for the decision
+- Today, losing the volume costs nothing, because the migrations rebuild everything. Once there are users, password hashes and TOTP secrets, you'll need offsite backups or a managed DB.
+- Other gaps to fix either way: the Kubernetes API (6443) is open to the internet, prod DB credentials are probably still the defaults, and the write endpoints are unauthenticated.
+- The repo's docs are stale in places:
+  - `aux/docs/k3sconf.md` says base services are NodePort and that deploys happen on pushes to main; actually they're LoadBalancer and deploys only happen on tags.
+  - The README rollback command uses container name `app=`, but the container is `backend`.
+
+I couldn't read `.env` and `.envrc`; the permission check blocked them as credential files. I also didn't query the live database, only the migrations.</result>
+<usage><subagent_tokens>102202</subagent_tokens><tool_uses>23</tool_uses><duration_ms>145545</duration_ms></usage>
+</task-notification>
+---
+
+## 2026-10-26T16:28:36Z
+
+
+<pasted_content id="2775">
+ I'd like to organize a multi-user system on my phrasal project.                                                                                                                           
+    we have the possibility to sign up users and activate two-phase authentication through Google Authenticator or other authenticator applications.                                          
+    What is the simplest and the best way to organize this?                                                                                                                                   
+    where to save it?                                                                                                                                                                         
+    is it better to use Postgres database which are on my VPS server, or to move it on some more reliable cloud? what is the best three options?                                              
+    Let's explain about it if necessary. Ask interactive questions.   
+</pasted_content id="2775">
+
+I'd like to answer questions you asked about the best way of creating this registration, authentication, authorization and create a plan of the best implementation.
+---
+
+## 2026-10-26T17:08:51Z
+<task-notification>
+<task-id>a19c7fdade02d70ec</task-id>
+<tool-use-id>toolu_01PYuqn7jHkn8CGwzyHWFDfw</tool-use-id>
+<output-file>/tmp/claude-1000/-home-ilaptop-dev-projects-my-phrasal/8c99ec08-36cd-4daf-bf39-457a5b4ee7d1/tasks/a19c7fdade02d70ec.output</output-file>
+<status>completed</status>
+<summary>Agent "Design multi-user auth plan" finished</summary>
+<note>A task-notification fires each time this agent stops with no live background children of its own. The user can send it another message and resume it, so the same task-id may notify more than once.</note>
+<result># Plan: multi-user auth and reliable DB storage for phrasal
+
+## Verified answers
+
+| Question | Answer | Source |
+|---|---|---|
+| Boot 4 starters | `spring-boot-starter-security`, `spring-boot-starter-security-oauth2-client` (the old `spring-boot-starter-oauth2-client` is still in the BOM, but the new name is the canonical one; use it), `spring-boot-starter-security-test`, `spring-boot-starter-session-jdbc`, `spring-boot-starter-mail`. All versions are managed by the BOM: Security 7.1.2, Session 4.1.1. | Local `~/.m2/.../spring-boot-dependencies-4.1.2.pom` |
+| Security 7 MFA | It exists: `FactorGrantedAuthority`, `@EnableMultiFactorAuthentication`, `AuthorizationManagerFactories.multiFactor().when(...)`, `RequiredAuthoritiesAuthorizationManager`. Built-in factors are password, OTT (one-time token), WebAuthn and others. **There is no TOTP factor.** Missing-factor handling assumes redirects to login pages. **Don't use it.** A pending-TOTP session attribute is simpler for a JSON SPA. | Context7 `/spring-projects/spring-security/7.1.1`, mfa.adoc |
+| `csrf.spa()` | Real, **since 7.0**. It sets up a cookie repository (`XSRF-TOKEN` cookie / `X-XSRF-TOKEN` header) and a handler that resolves the plain token. The token is loaded lazily and cleared on login and logout, so the SPA must call something that touches the token. `GET /auth/me` will do this. | Context7, CsrfConfigurer javadoc 7.0 |
+| `CompromisedPasswordChecker` | Exists. The implementation is `HaveIBeenPwnedRestApiPasswordChecker` (`o.s.security.web.authentication.password`). **If you expose it as a bean, `DaoAuthenticationProvider` picks it up and checks HIBP on every login**, rejecting otherwise valid logins. | Context7 password-storage.adoc |
+| Spring Session JDBC | Starter verified. Copy the schema into Flyway and set `spring.session.jdbc.initialize-schema: never`. The schema file path (`org/springframework/session/jdbc/schema-postgresql.sql` inside the `spring-session-jdbc` jar) is **unverified**; unzip the jar to confirm. | BOM, Context7 Boot v4.1.0 |
+| TOTP library | **`com.eatthepath:java-otp:1.0.0`**, released 2026-08-18. `dev.samstevens.totp` was last released in Nov 2020 (1.7.1), so it is unmaintained. java-otp has no Base32 encoding and no otpauth URI builder. Use `commons-codec` `Base32` (BOM 1.21.0) and build the URI by hand. | Maven Central metadata, GitHub README |
+| CNPG vs pg_dump | **pg_dump CronJob.** The Barman Cloud plugin needs CNPG ≥1.26, the plugin and cert-manager (minikube has no cert-manager), and the in-tree backup support is deprecated. That means two extra operators eating RAM on a node that may only have 1 GB, and a harder restore. With a tiny DB and a few hundred users, a 24-hour RPO plus a pre-deploy dump is enough. | Context7 `/websites/cloudnative-pg_io_plugin-barman-cloud` |
+
+## Corrections to your direction (simpler)
+
+1. **Drop `user_identities`.** Add a nullable unique `users.google_subject` column instead, since there is only one provider.
+2. **No citext.** Lowercase emails in the app and add a unique index. Hibernate `validate` and the extension both add friction.
+3. **Drop the `failed_logins`/`locked_until` columns.** A per-account lockout lets anyone lock a victim out. Use in-memory per-IP and per-email limits in a Caffeine cache (managed by the BOM). **Bucket4j isn't needed**; a fixed-window counter is about 40 lines.
+4. **bcrypt, not argon2.** Argon2 needs BouncyCastle. Use `PasswordEncoderFactories.createDelegatingPasswordEncoder()`. bcrypt only reads the first 72 bytes and Security 7 rejects longer input, so cap passwords at 64 characters in the DTO.
+5. **Don't make the HIBP checker a bean.** Call it only on register and password reset, and let the request through if HIBP is unreachable.
+6. **No MFA annotations.** Password (or Google) login on a TOTP-enabled account stores `PENDING_TOTP_USER_ID` and a timestamp in the session, with no SecurityContext yet. **`ROLE_ADMIN` is only granted after TOTP is verified in that session.** An admin who hasn't enrolled gets `ROLE_USER` plus `mfaEnrollmentRequired: true` in `/me`. The admin-write rule then stays a plain `hasRole("ADMIN")` URL rule, with no method security.
+7. **Put OAuth2 under `/api/v1/auth/oauth2/authorization` and `/api/v1/auth/oauth2/code/*`.** Use `authorizationEndpoint.baseUri` and `redirectionEndpoint.baseUri` (verified) and set `redirect-uri: {baseUrl}/api/v1/auth/oauth2/code/{registrationId}`. Then the ingress, nginx and the Vite proxy all stay unchanged.
+8. **Per-user "learned" is the same thing as the quiz's existing `excluded` set.** Store it inside the quiz state and use one table. All 270 seeded rows have `is_learned=false`, and the frontend only uses the flag to filter the quiz pool. Drop the column, its index and `?learned=`. **First-login import needs no endpoint**: GET returns 404, then the client PUTs its local state.
+9. **No Mailpit in k8s.** With `phrasal.mail.enabled=false` (minikube), a `LoggingEmailSender` prints the links to the log. Mailpit runs only in docker-compose for e2e.
+10. **Skip Turnstile for now.** Honeypot, rate limits and email verification are enough at this scale.
+11. **New issue: the real client IP.** K3s ServiceLB with `externalTrafficPolicy: Cluster` makes Traefik see a pod IP as the client, so per-IP limits would lump all visitors into one bucket. Fix it with a HelmChartConfig that sets `externalTrafficPolicy: Local` (well-known K3s behaviour, unverified via Context7).
+12. **Store a small `Serializable` `AuthenticatedUser` record as the principal (id, email, role, flags), never an entity.** Changing the class would break JDBC-stored sessions. Give it a `serialVersionUID` and keep it stable.
+13. **Use Backblaze B2 rather than Hetzner Object Storage.** B2 has a free tier and is a different provider from the VPS, so it is truly off-site.
+14. **Actuator is already unreachable from outside**: the ingress only routes `/api` and `/`. Just permit `/actuator/health/**` for the kubelet probes.
+
+## Phases
+
+### P0: Prerequisites (your actions, no code)
+- **VPS check:** `nproc; free -h; df -h; kubectl top node; kubectl get pods -A`. If it is the 1 GB box, upgrade before P2, because K3s plus the JVM plus Postgres won't fit.
+- **Domain:** buy it and point the A record at the VPS.
+- **Email (Brevo):** create the account and add the SPF, DKIM and DMARC records.
+- **Google Cloud:** create an OAuth client with redirect URIs `https://&lt;domain&gt;/api/v1/auth/oauth2/code/google`, `http://localhost:3000/...` and `http://localhost:5173/...`.
+- **Backups:** create a B2 bucket with a 30-day lifecycle rule and an app key scoped to that bucket.
+- **Secrets:** add the GitHub Secrets.
+
+### P1: DB reliability (do this first, before any user data exists)
+- **Files:**
+  - `k8s/overlays/prod/backup-cronjob.yaml`: daily at 03:00. The initContainer `postgres:16-alpine` runs `pg_dump -Fc` into an emptyDir, then the container `rclone/rclone` runs `rclone copyto` to `b2:&lt;bucket&gt;/phrasal/&lt;ts&gt;.dump`. Use a separate secret, `backup-secrets`.
+  - Add it to `kustomization.yaml`.
+  - `.github/workflows/ci_cd.yml`: run `kubectl create job --from=cronjob/pg-backup pre-deploy-$TAG` and wait for it before `apply`, so you have a dump from right before Flyway migrates.
+  - Mark the PV as `Retain`.
+  - `aux/docs/runbooks/db-restore.md`: scale backend to 0, `rclone copy`, `pg_restore --clean --if-exists`, scale backend up.
+- **Password rotation:** `POSTGRES_PASSWORD` only takes effect on an empty PGDATA. Rotate with `kubectl exec ... psql -c "ALTER ROLE postgres PASSWORD ..."`, then update the GitHub Secret, then redeploy.
+- **Env:** `RCLONE_CONFIG_B2_*` (type s3, provider, endpoint, key, secret), `BACKUP_BUCKET`.
+- **Tests:** a restore drill. Pull the latest dump into a throwaway `postgres:16-alpine`, restore it, and run row counts. Repeat every quarter.
+- **Risk:** you get no alert if a dump fails. Optionally ping healthchecks.io (free).
+
+### P2: Security baseline and core accounts
+- **Deps:** `spring-boot-starter-security`, `-session-jdbc`, `-mail`; test: `spring-boot-starter-security-test`.
+- **Migrations:**
+  - `V9__create_users.sql`: email unique, password_hash nullable, email_verified_at, role, plus the audit and version columns.
+  - `V10__create_spring_session_tables.sql`
+  - `V11__create_user_tokens.sql`: user_id, type, token_hash (SHA-256 of 32 random bytes), expires_at, used_at.
+- **Files:**
+  - `config/SecurityConfig.java`
+    - `csrf.spa()`; GET `/api/**` public; POST, PUT and DELETE on content require `hasRole("ADMIN")`; `/api/v1/auth/**` public.
+    - Session cookie: HttpOnly, Secure in prod, SameSite=Lax, 14-day max-age (property mapping unverified).
+    - Remove the CORS config from `WebMvcConfig`, since everything is same-origin through the proxies.
+  - `config/SecurityProperties` (`phrasal.security.admin-emails`).
+  - `domain/entity/User`, `UserToken` and their repos.
+  - `application/service/AuthService` (register, verify, login, logout).
+  - `application/dto`: `RegisterRequest`, `LoginRequest`, `LoginResponse(status)`, `MeResponse`.
+  - `infrastructure/mail/EmailSender` with SMTP and logging implementations.
+  - `infrastructure/security/JpaUserDetailsService` (`isEnabled` = email verified) and `AuthenticatedUser`.
+  - `presentation/rest/AuthController`.
+  - `presentation/security/ProblemDetailAuthenticationEntryPoint` (401) and `ProblemDetailAccessDeniedHandler` (403).
+  - `GlobalExceptionHandler`: add handlers for `AccessDeniedException` and `AuthenticationException` ahead of the catch-all, plus `InvalidCredentialsException`.
+  - `docker-compose.yml`: add `axllent/mailpit` (ports 1025 and 8025).
+- **Login:** `DaoAuthenticationProvider` → `request.changeSessionId()` → `HttpSessionSecurityContextRepository.saveContext`. Register and resend always return 202, so the API never reveals whether an email exists.
+- **Env:** `MAIL_HOST/PORT/USERNAME/PASSWORD/FROM`, `PHRASAL_MAIL_ENABLED`, `APP_BASE_URL`, `PHRASAL_ADMIN_EMAILS`. Add each to compose, the configmap/secret, the prod patch and CI.
+- **Frontend (minimal):** `src/api/client.ts` gets `post`, `put` and `del`, `credentials:'same-origin'`, the `X-XSRF-TOKEN` header read from the cookie, and `ApiError` carrying the ProblemDetail.
+- **Tests:**
+  - Unit: AuthService and token hashing.
+  - Integration: register, verify, login, me, logout; 401/403 ProblemDetails; CSRF rejection; anonymous GET; admin write. Use `@MockitoBean JavaMailSender`.
+  - Update the existing CRUD integration tests to use `with(user().roles("ADMIN")).with(csrf())`.
+  - e2e: `e2e/src/support/mailpit-client.ts` and `auth-api.steps.ts` (register an admin email → verify via Mailpit → log in); `crud.feature` now runs with an admin session; add "anonymous POST → 401".
+- **Risks:**
+  - JaCoCo's 85% per package also applies to the new packages.
+  - Each test class starts its own container. Consider adding a singleton-container base class.
+
+### P3: Password reset and abuse protection
+- **Deps:** `com.github.ben-manes.caffeine:caffeine` (BOM-managed).
+- **Files:**
+  - `application/service/PasswordResetService`.
+  - `infrastructure/security/RateLimiter`: limits per IP and per email on register, login, forgot and totp; responds 429 with a ProblemDetail.
+  - `PasswordPolicy`: length plus the HIBP check.
+  - Honeypot field `website` in `RegisterRequest`.
+  - `DELETE /api/v1/account`, which requires the password.
+  - A password reset invalidates every session via `FindByIndexNameSessionRepository`.
+  - Ansible k3s role: the Traefik HelmChartConfig (`externalTrafficPolicy: Local`).
+- **Tests:** a token is single-use and expires; a reset kills other sessions; the 6th login returns 429; a pwned password is rejected (mock the checker). e2e: the forgot-password email arrives via Mailpit and reset works.
+- **Risk:** the in-memory limits reset on every deploy. Acceptable.
+
+### P4: TOTP 2FA and recovery codes
+- **Deps:** `com.eatthepath:java-otp:1.0.0`, `commons-codec:commons-codec` (BOM). Frontend: `qrcode` + `@types/qrcode`. e2e: `otpauth` (versions unverified).
+- **Migration:** `V12__add_user_totp.sql`. Users get `totp_secret_enc`, `totp_enabled_at` and `totp_last_step`. New table `user_recovery_codes(user_id, code_hash, used_at)`; SHA-256 is enough because the codes are high-entropy.
+- **Files:**
+  - `infrastructure/security/AesGcmEncryptor`: 12-byte IV, `v1:` prefix for key rotation.
+  - `infrastructure/security/TotpVerifier`: ±1 step, rejects any step ≤ `last_step`.
+  - `application/service/TotpService`.
+  - `presentation/rest/AccountController`: `POST /account/2fa/setup` returns the otpauth URI, `/confirm`, `DELETE /2fa` (requires a code), `POST /2fa/recovery-codes`.
+  - `AuthController`: `POST /auth/login/totp` accepts `{code | recoveryCode}`. Pending state expires after 5 minutes and is rate-limited.
+  - Admin promotion happens only after TOTP.
+- **Env:** `TOTP_ENCRYPTION_KEY` (32 bytes, base64). **Back it up in a password manager.** Without it, a restored DB is useless for TOTP; recovery codes still work.
+- **Tests:** RFC 6238 test vectors; replay rejected; a recovery code works once; an admin without 2FA gets 403 on writes; disabling requires a code. e2e: an admin enrolls (the secret comes from the setup response, `otpauth` generates the code) and then does CRUD.
+
+### P5: Google login (needs the domain from P0)
+- **Deps:** `spring-boot-starter-security-oauth2-client`.
+- **Migration:** `V13__add_user_google_subject.sql`.
+- **Files:**
+  - `presentation/security/OAuth2LoginSuccessHandler`: find the user by subject, then by email (only if `email_verified`), otherwise create one.
+  - **If the matched local account is unverified, null its password** to block pre-registration hijacking.
+  - If TOTP is enabled, clear the context, set the pending state and redirect to `/login/2fa`; otherwise redirect to `/`.
+  - A failure handler that redirects to `/login?error=google`.
+  - Config: `spring.security.oauth2.client.registration.google.*` with the custom `redirect-uri`.
+- **Env:** `GOOGLE_CLIENT_ID`, `GOOGLE_CLIENT_SECRET`.
+- **Tests:**
+  - Integration: `oidcLogin()` from security-test exercises the handler branches (new user, link, unverified-email refusal, TOTP-pending).
+  - e2e: none against real Google.
+- **Risk:** the `{baseUrl}` scheme behind Traefik relies on `forward-headers-strategy: native`. Verify the prod redirect is `https`.
+
+### P6: Server-side progress (backend)
+- **Migrations:**
+  - `V14__create_user_quiz_progress.sql`: PK `(user_id, quiz_key)`, `state jsonb`, `version`, `updated_at`; FK with `ON DELETE CASCADE`.
+  - `V15__drop_phrasal_verbs_is_learned.sql`: drop the index and the column.
+- **Files:**
+  - `UserQuizProgress` entity and repo.
+  - `QuizProgressService`.
+  - `presentation/rest/QuizProgressController`: `GET/PUT /api/v1/me/quiz-progress/{quizKey}`. The key is whitelisted, the body must be a JSON object of at most 64 KB, and the last write wins.
+  - Remove `isLearned` from the entity, DTOs, mapper, the `learned` param and the tests.
+- **Tests:** 401 when anonymous; you can't read another user's progress; size limit enforced; 404 before the first save.
+- **Risk:** the frontend state is keyed by **array index**, so admin edits silently corrupt progress. Have the client map indices to item ids before PUT and back after GET.
+
+### P7: Frontend auth UI and sync
+- **Files:**
+  - `src/auth/AuthContext.tsx` and `useAuth.ts`: `/me` on boot, re-fetched after login and logout to refresh the CSRF token.
+  - Pages: `LoginPage`, `LoginTotpPage`, `RegisterPage` (honeypot), `VerifyEmailPage`, `ForgotPasswordPage`, `ResetPasswordPage`, `AccountSecurityPage` (QR via `qrcode`, recovery codes download).
+  - Header user menu and Google button (`href="/api/v1/auth/oauth2/authorization/google"`).
+  - Add the routes in `main.tsx`.
+  - `src/api/quizProgressApi.ts`; `useQuiz` gains an optional sync adapter (load on login, debounced 2s PUT, first-login import when the GET is 404).
+  - `phrasalVerbsApi.ts`: drop the `isLearned` filter.
+  - Update `frontend/CLAUDE.md` to allow AuthContext.
+- **Tests:**
+  - Vitest per page and hook; client CSRF and 401 handling; sync debounce and import.
+  - e2e: `auth.feature` (register, verify, login, logout) and `progress-sync.feature` (progress survives a localStorage clear for a logged-in user).
+
+### P8: Prod cutover and hardening
+- **Ingress:** switch the host to the real domain and set the cert. Optionally keep phrasal.ddns.net as a 301.
+- **Prod config:** `server.error.include-message: never` and `include-binding-errors: never`.
+- **CI:** deploy over Tailscale (`tailscale/github-action`) or SSH, then firewall port 6443.
+- **Smoke checklist:** SPF/DKIM pass (mail-tester.com), Google consent screen published, a backup job ran.
+
+## Critical files for implementation
+- /home/ilaptop/dev/projects/my/phrasal/backend/pom.xml
+- /home/ilaptop/dev/projects/my/phrasal/backend/src/main/java/net/phrasal/infrastructure/exception/GlobalExceptionHandler.java
+- /home/ilaptop/dev/projects/my/phrasal/backend/src/main/resources/application.yml
+- /home/ilaptop/dev/projects/my/phrasal/frontend/src/hooks/useQuiz.ts
+- /home/ilaptop/dev/projects/my/phrasal/k8s/base/postgres-statefulset.yaml</result>
+<usage><subagent_tokens>115216</subagent_tokens><tool_uses>39</tool_uses><duration_ms>571186</duration_ms></usage>
+</task-notification>
+---
+
+## 2026-10-26T17:22:53Z
+install backlog.md on linux ubuntu
+---
+
+## 2026-10-26T17:23:12Z
+whot to install backlog.md on linux ubuntu; write steps
+---
+
+## 2026-10-26T17:25:56Z
+
+
+<pasted_content id="f1ec">
+Sensitive env loaded for this shell.
+Your user’s .npmrc file (${HOME}/.npmrc)
+has a `globalconfig` and/or a `prefix` setting, which are incompatible with nvm.
+Run `nvm use --delete-prefix v26.1.0 --silent` to unset it.
+</pasted_content id="f1ec">
+
+
+I'd like to use 26.1.0
+---
+
+## 2026-10-26T17:33:29Z
+I approve the plan, so create all the backlog task you propose, but don't start to implement backlog tasks until my approval.
+---
+
+## 2026-10-26T17:34:28Z
+Backlog MCP is already working, so consider that.
+---
+
+## 2026-10-26T17:35:44Z
+Backlog MCP is already working, so consider that.
+---
+
+## 2026-10-26T17:43:53Z
+So you mean that "P0: Prerequisites" (user actions, no code) from @".claude/docs/blackbox/plans/2026-10-26 17:24 Multi-user TOTP 2FA for phrasal DRAFT awaiting user clarification.md"
+corresponds fully to @task-97?
+---
+
+## 2026-10-26T17:47:02Z
+So you mean that "P0: Prerequisites" (user actions, no code) from @".claude/docs/blackbox/plans/2026-10-26 18:10 Multi-user accounts TOTP 2FA and reliable storage for phrasal.md" 
+corresponds fully to @task-97?
+---
+
+## 2026-10-26T17:48:07Z
+So you mean that "P1 ...", "P2 ...", "P3 ..." ... from @".claude/docs/blackbox/plans/2026-10-26 18:10 Multi-user accounts TOTP 2FA and reliable storage for phrasal.md" 
+corresponds fully to @task-98, @task-99, ...?
+---
+
+## 2026-10-26T17:54:25Z
+I can implement task one by one, right?
+---
+
+## 2026-10-26T17:54:30Z
+I can implement tasks one by one, right?
+---
+
+## 2026-10-26T17:55:49Z
+yes
+---
+
+## 2026-10-26T17:58:05Z
+git add all changes and commit them with suitable message
+---
