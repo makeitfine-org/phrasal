@@ -1229,3 +1229,438 @@ yes
 ## 2026-10-26T17:58:05Z
 git add all changes and commit them with suitable message
 ---
+
+## 2026-10-26T18:08:23Z
+how to register the domain on Cloudflare Registrar and connect it with my production on VSP?
+write steps.
+---
+
+## 2026-10-26T18:12:38Z
+and what is the best domain for this application. Please watch. Suffix?
+---
+
+## 2026-10-26T18:12:51Z
+and what is the best domain for this application. Suffix?
+---
+
+## 2026-10-26T18:30:24Z
+langswords.com is free. What do you think about that?
+---
+
+## 2026-10-26T18:31:51Z
+getphrasals.com?
+---
+
+## 2026-10-26T18:33:16Z
+phrasal.app or phrasal.com, if available.
+  2. getphrasal.com, if available.
+not available. propose something else.
+---
+
+## 2026-10-26T18:34:11Z
+usephrasal.com free
+---
+
+## 2026-10-26T18:34:37Z
+phrasalbox.com I like and It is free, what do you think?
+---
+
+## 2026-10-26T18:36:27Z
+I buy it for a year. Is there a probability that somebody will buy it in half a year? I can prolong it.
+---
+
+## 2026-10-26T20:18:13Z
+
+
+<pasted_content id="8750">
+Register the domain on Cloudflare Registrar
+
+Create or log in to your account at dash.cloudflare.com.
+
+Go to Domain Registration → Register Domains.
+
+Search for the name and pick the TLD. Cloudflare charges the wholesale price with no markup.
+
+Add a payment method and complete the purchase. Enable auto-renew and WHOIS privacy, which is on by default.
+
+Verify the contact email when ICANN sends the verification message. Otherwise the domain can be suspended after about 15 days.
+
+The domain is added to your account automatically with Cloudflare as its DNS provider, so you don't need to change nameservers.
+
+Point DNS at the VPS
+
+Open Websites → your domain → DNS → Records.
+
+Add an A record: name @, content set to your VPS public IPv4.
+
+Add a CNAME record: name www, target @. If your app uses a separate API host, add api the same way.
+
+Add AAAA records too if the VPS has IPv6.
+
+Set the proxy status to DNS only (grey cloud) for the first setup. This lets cert-manager complete the Let's Encrypt HTTP-01 challenge. You can enable the orange-cloud proxy later.
+
+Check propagation with dig +short yourdomain.com. It should return the VPS IP.
+
+Open the VPS firewall
+
+Allow inbound 80 and 443 (and 22 for SSH only from your IP). On the provider's firewall and on ufw:
+
+sudo ufw allow 80,443/tcp
+
+Update the cluster config
+
+In k8s/ (the prod overlay), set the ingress host to your domain.
+
+In ansible/, update the ingress-tls settings: the domain, the ClusterIssuer email, and the Let's Encrypt prod server URL.
+
+Update backend CORS and any base-URL settings (for example ALLOWED_ORIGINS or the frontend API URL) to https://yourdomain.com.
+
+Re-run the ansible ingress-tls playbook, then deploy with skaffold run -p prod or kubectl apply -k k8s/overlays/prod.
+
+I haven't opened these files, so the names above are guesses. I can look at the actual files and give exact edits.
+
+Verify TLS
+kubectl get certificate -A # READY should become True
+kubectl describe challenge -A # if it stays pending
+curl -I https://yourdomain.com
+
+If the certificate stays pending, check three things: the DNS record is grey-cloud, port 80 is reachable, and the ingress host matches the domain exactly.
+
+Harden in Cloudflare
+
+Go to SSL/TLS and set the mode to Full (strict). Do this before turning on the orange-cloud proxy, or you'll get redirect loops.
+
+Switch the A and CNAME records to Proxied (orange cloud).
+
+Enable Always Use HTTPS under SSL/TLS → Edge Certificates.
+
+Optionally enable DNSSEC under DNS → Settings. Cloudflare Registrar adds the DS record for you.
+
+Final checks
+
+Open https://yourdomain.com and test login and API calls for CORS or cookie-domain problems.
+Run the e2e suite against the new URL if it's configurable.
+Update README.md, the CI/CD workflow and any hardcoded URLs, as your delivery checklist requires.
+Do you want me to find the hostname and issuer settings in k8s/ and ansible/ and make the changes? I won't commit anything without your approval.
+</pasted_content id="8750">
+
+
+file:///home/ilaptop/Pictures/Screenshots/Screenshot%20from%202026-10-26%2021-15-48.png
+file:///home/ilaptop/Pictures/Screenshots/Screenshot%20from%202026-10-26%2021-15-57.png
+
+next steps.
+---
+
+## 2026-10-26T20:18:38Z
+
+
+<pasted_content id="8750">
+Register the domain on Cloudflare Registrar
+
+Create or log in to your account at dash.cloudflare.com.
+
+Go to Domain Registration → Register Domains.
+
+Search for the name and pick the TLD. Cloudflare charges the wholesale price with no markup.
+
+Add a payment method and complete the purchase. Enable auto-renew and WHOIS privacy, which is on by default.
+
+Verify the contact email when ICANN sends the verification message. Otherwise the domain can be suspended after about 15 days.
+
+The domain is added to your account automatically with Cloudflare as its DNS provider, so you don't need to change nameservers.
+
+Point DNS at the VPS
+
+Open Websites → your domain → DNS → Records.
+
+Add an A record: name @, content set to your VPS public IPv4.
+
+Add a CNAME record: name www, target @. If your app uses a separate API host, add api the same way.
+
+Add AAAA records too if the VPS has IPv6.
+
+Set the proxy status to DNS only (grey cloud) for the first setup. This lets cert-manager complete the Let's Encrypt HTTP-01 challenge. You can enable the orange-cloud proxy later.
+
+Check propagation with dig +short yourdomain.com. It should return the VPS IP.
+
+Open the VPS firewall
+
+Allow inbound 80 and 443 (and 22 for SSH only from your IP). On the provider's firewall and on ufw:
+
+sudo ufw allow 80,443/tcp
+
+Update the cluster config
+
+In k8s/ (the prod overlay), set the ingress host to your domain.
+
+In ansible/, update the ingress-tls settings: the domain, the ClusterIssuer email, and the Let's Encrypt prod server URL.
+
+Update backend CORS and any base-URL settings (for example ALLOWED_ORIGINS or the frontend API URL) to https://yourdomain.com.
+
+Re-run the ansible ingress-tls playbook, then deploy with skaffold run -p prod or kubectl apply -k k8s/overlays/prod.
+
+I haven't opened these files, so the names above are guesses. I can look at the actual files and give exact edits.
+
+Verify TLS
+kubectl get certificate -A # READY should become True
+kubectl describe challenge -A # if it stays pending
+curl -I https://yourdomain.com
+
+If the certificate stays pending, check three things: the DNS record is grey-cloud, port 80 is reachable, and the ingress host matches the domain exactly.
+
+Harden in Cloudflare
+
+Go to SSL/TLS and set the mode to Full (strict). Do this before turning on the orange-cloud proxy, or you'll get redirect loops.
+
+Switch the A and CNAME records to Proxied (orange cloud).
+
+Enable Always Use HTTPS under SSL/TLS → Edge Certificates.
+
+Optionally enable DNSSEC under DNS → Settings. Cloudflare Registrar adds the DS record for you.
+
+Final checks
+
+Open https://yourdomain.com and test login and API calls for CORS or cookie-domain problems.
+Run the e2e suite against the new URL if it's configurable.
+Update README.md, the CI/CD workflow and any hardcoded URLs, as your delivery checklist requires.
+Do you want me to find the hostname and issuer settings in k8s/ and ansible/ and make the changes? I won't commit anything without your approval.
+</pasted_content id="8750">
+
+
+file:///home/ilaptop/Pictures/Screenshots/Screenshot%20from%202026-10-26%2021-15-48.png
+file:///home/ilaptop/Pictures/Screenshots/Screenshot%20from%202026-10-26%2021-15-57.png
+
+Okay, I registered domain name.
+So write next steps with explanation.
+---
+
+## 2026-10-26T20:24:15Z
+file:///home/ilaptop/Pictures/Screenshots/Screenshot%20from%202026-10-26%2021-23-51.png
+
+
+<pasted_content id="8750">
+ilaptop@ilaptop-Latitude-5521:~$ dig +short phrasalbox.com
+116.203.78.118
+ilaptop@ilaptop-Latitude-5521:~$ dig +short www.phrasalbox.com
+;; communications error to 127.0.0.53#53: timed out
+188.114.96.5
+188.114.97.5
+ilaptop@ilaptop-Latitude-5521:~$ dig +short www.phrasalbox.com
+188.114.96.5
+188.114.97.5
+</pasted_content id="8750">
+---
+
+## 2026-10-26T20:30:22Z
+
+
+<pasted_content id="8750">
+ilaptop@ilaptop-Latitude-5521:~$ dig +short phrasalbox.com
+116.203.78.118
+ilaptop@ilaptop-Latitude-5521:~$ dig +short www.phrasalbox.com
+;; communications error to 127.0.0.53#53: timed out
+188.114.96.5
+188.114.97.5
+ilaptop@ilaptop-Latitude-5521:~$ dig +short www.phrasalbox.com
+188.114.96.5
+188.114.97.5
+</pasted_content id="8750">
+
+
+I waited 3 min but I'm getting:
+
+
+
+
+<pasted_content id="8750">
+dig +short phrasalbox.com
+116.203.78.118
+ilaptop@ilaptop-Latitude-5521:~$ dig +short www.phrasalbox.com
+phrasalbox.com.
+116.203.78.118
+</pasted_content id="8750">
+---
+
+## 2026-10-26T21:12:09Z
+
+
+<pasted_content id="8750">
+kubectl apply -k k8s/overlays/prod
+error: trouble configuring builtin PatchTransformer with config: `
+path: patches/secret.yaml
+`: failed to get the patch file from path(patches/secret.yaml): evalsymlink failure on '/home/ilaptop/dev/projects/my/phrasal/k8s/overlays/prod/patches/secret.yaml' : lstat /home/ilaptop/dev/projects/my/phrasal/k8s/overlays/prod/patches/secret.yaml: no such file or directory
+</pasted_content id="8750">
+---
+
+## 2026-10-26T21:19:37Z
+
+
+<pasted_content id="8750">
+kubectl get certificate -A
+NAMESPACE   NAME          READY   SECRET        AGE
+default     phrasal-tls   True    phrasal-tls   108d
+ilaptop@ilaptop-Latitude-5521:~/.../phrasal$ kubectl describe challenge -A
+No resources found
+ilaptop@ilaptop-Latitude-5521:~/.../phrasal$ curl -I https://phrasalbox.com
+HTTP/2 200 
+accept-ranges: bytes
+content-type: text/html
+date: Mon, 26 Oct 2026 21:18:15 GMT
+etag: "6add3718-4b1"
+last-modified: Sat, 24 Oct 2026 22:54:16 GMT
+server: nginx/1.30.6
+content-length: 1201
+
+ilaptop@ilaptop-Latitude-5521:~/.../phrasal$ kubectl get certificate -A
+NAMESPACE   NAME          READY   SECRET        AGE
+default     phrasal-tls   True    phrasal-tls   108d
+</pasted_content id="8750">
+---
+
+## 2026-10-26T21:21:17Z
+
+
+<pasted_content id="8750">
+curl -I https://www.phrasalbox.com                                                                                                               
+HTTP/2 200                                                                                                                                                                                    
+accept-ranges: bytes                                                                                                                                                                          
+content-type: text/html                                                                                                                                                                       
+date: Mon, 26 Oct 2026 21:20:09 GMT                                                                                                                                                           
+etag: "6add3718-4b1"                                                                                                                                                                          
+last-modified: Sat, 24 Oct 2026 22:54:16 GMT                                                                                                                                                  
+server: nginx/1.30.6                                                                                                                                                                          
+content-length: 1201           
+</pasted_content id="8750">
+
+
+
+
+<pasted_content id="8750">
+curl -I https://phrasalbox.com/api/actuator/health                                                                                               
+HTTP/2 404                                                                                                                                                                                    
+content-type: application/problem+json
+date: Mon, 26 Oct 2026 21:20:19 GMT
+vary: Origin
+vary: Access-Control-Request-Method
+vary: Access-Control-Request-Headers
+</pasted_content id="8750">
+---
+
+## 2026-10-26T21:24:35Z
+
+
+<pasted_content id="8750">
+Next, open https://phrasalbox.com in a browser, log in and use a feature that calls /api. If that works, go ahead with the Cloudflare steps:
+  
+  1. Set SSL/TLS to Full (strict).
+  2. Switch both DNS records to Proxied.
+  3. Turn on Always Use HTTPS.
+  4. Run curl -I https://phrasalbox.com again. You should see server: cloudflare.
+  
+</pasted_content id="8750">
+
+
+Write these steps and explain
+---
+
+## 2026-10-26T21:26:59Z
+5003214e17bbd94ace4ecee6ea994f80/domains/registrations/purchase?query=phrasal
+
+What should I do?
+---
+
+## 2026-10-26T21:27:13Z
+file:///home/ilaptop/Pictures/Screenshots/Screenshot%20from%202026-10-26%2022-26-48.png
+
+What should I do?
+---
+
+## 2026-10-26T21:33:07Z
+
+
+<pasted_content id="8750">
+curl -I https://phrasalbox.com                                                                                                                   
+HTTP/2 200                                                                                                                                                                                    
+accept-ranges: bytes                                                                                                                                                                          
+content-type: text/html                                                                                                                                                                       
+date: Mon, 26 Oct 2026 21:32:19 GMT                                                                                                                                                           
+etag: "6add3718-4b1"                                                                                                                                                                          
+last-modified: Sat, 24 Oct 2026 22:54:16 GMT                                                                                                                                                  
+server: nginx/1.30.6                                                                                                                                                                          
+content-length: 1201
+</pasted_content id="8750">
+
+
+
+
+<pasted_content id="8750">
+curl -I http://phrasalbox.com
+HTTP/1.1 301 Moved Permanently
+Date: Mon, 26 Oct 2026 21:32:33 GMT
+Content-Type: text/html; charset=UTF-8
+Connection: keep-alive
+Location: https://phrasalbox.com/
+Report-To: {"group":"cf-nel","max_age":604800,"endpoints":[{"url":"https://a.nel.cloudflare.com/report/v4?s=3kEb64OiOu3%2Fs%2BcpvdNgmGPYC%2FcMcW%2FaN2b66Z3DcUhTHL0S7gt2jBx%2F8657vCAU9WBqd%2B2ASBi98lO7qRcnIXp0Kr0FyGbbEumx9mxQxqvJr72dyGkcMXZimUl7n0XHAw%3D%3D"}]}
+Nel: {"report_to":"cf-nel","success_fraction":0.0,"max_age":604800}
+Server: cloudflare
+CF-RAY: a50c9304f9dea9b2-MAD
+alt-svc: h3=":443"; ma=86400
+</pasted_content id="8750">
+---
+
+## 2026-10-26T21:35:21Z
+I see Not secure
+
+
+
+<pasted_content id="8750">
+curl -I http://phrasalbox.com
+HTTP/1.1 301 Moved Permanently
+Date: Mon, 26 Oct 2026 21:32:33 GMT
+Content-Type: text/html; charset=UTF-8
+Connection: keep-alive
+Location: https://phrasalbox.com/
+Report-To: {"group":"cf-nel","max_age":604800,"endpoints":[{"url":"https://a.nel.cloudflare.com/report/v4?s=3kEb64OiOu3%2Fs%2BcpvdNgmGPYC%2FcMcW%2FaN2b66Z3DcUhTHL0S7gt2jBx%2F8657vCAU9WBqd%2B2ASBi98lO7qRcnIXp0Kr0FyGbbEumx9mxQxqvJr72dyGkcMXZimUl7n0XHAw%3D%3D"}]}
+Nel: {"report_to":"cf-nel","success_fraction":0.0,"max_age":604800}
+Server: cloudflare
+CF-RAY: a50c9304f9dea9b2-MAD
+alt-svc: h3=":443"; ma=86400
+</pasted_content id="8750">
+---
+
+## 2026-10-26T21:35:27Z
+I see Not secure
+
+file:///home/ilaptop/Pictures/Screenshots/Screenshot%20from%202026-10-26%2022-34-45.png
+---
+
+## 2026-10-26T21:39:05Z
+in chrome https://phrasal.ddns.net/ and https://phrasalbox.com works fine in incoginte tab and in firefox. but in chrome not incognito some issues.
+---
+
+## 2026-10-26T21:50:46Z
+file:///home/ilaptop/Pictures/Screenshots/Screenshot%20from%202026-10-26%2022-50-23.png
+---
+
+## 2026-10-26T21:53:36Z
+location.protocol
+'https:'
+---
+
+## 2026-10-26T21:58:49Z
+git add all changes and commit them with suitable message
+---
+
+## 2026-10-26T22:14:24Z
+In my system: 
+gsettings get org.gnome.desktop.interface color-scheme
+'prefer-dark'
+
+and in chrome I have appearence mode: device.
+
+but when I start chrome in incognitor mode I have light thema by default on https://phrasalbox.com/
+
+file:///home/ilaptop/Pictures/Screenshots/Screenshot%20from%202026-10-26%2023-12-21.png
+
+but it should be by default system, so dark. why is it light then?
+---

@@ -8,9 +8,45 @@ spec:
   ingressClassName: traefik
   tls:
     - hosts:
+        - phrasalbox.com
+        - www.phrasalbox.com
         - phrasal.ddns.net
       secretName: phrasal-tls
   rules:
+    - host: phrasalbox.com
+      http:
+        paths:
+          - path: /api
+            pathType: Prefix
+            backend:
+              service:
+                name: backend
+                port:
+                  number: 8080
+          - path: /
+            pathType: Prefix
+            backend:
+              service:
+                name: phrasal-frontend
+                port:
+                  number: 3000
+    - host: www.phrasalbox.com
+      http:
+        paths:
+          - path: /api
+            pathType: Prefix
+            backend:
+              service:
+                name: backend
+                port:
+                  number: 8080
+          - path: /
+            pathType: Prefix
+            backend:
+              service:
+                name: phrasal-frontend
+                port:
+                  number: 3000
     - host: phrasal.ddns.net
       http:
         paths:

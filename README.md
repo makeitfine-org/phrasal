@@ -277,7 +277,7 @@ minikube delete   # full reset
 
 ## Production Deployment (K3s)
 
-The app runs on a Hetzner VPS with K3s, Traefik ingress, and Let's Encrypt TLS at **https://phrasal.ddns.net**.
+The app runs on a Hetzner VPS with K3s, Traefik ingress, and Let's Encrypt TLS at **https://phrasalbox.com** (also reachable at phrasal.ddns.net during migration).
 
 CI/CD pipeline (`.github/workflows/ci_cd.yml`) runs tests on every push. Docker push and deployment only trigger on version tags (see [Releasing](#releasing)).
 
