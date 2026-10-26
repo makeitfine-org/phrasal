@@ -1713,3 +1713,172 @@ fix
 ## 2026-10-26T22:24:52Z
 git add all changes and commit them with suitable message
 ---
+
+## 2026-10-26T22:30:56Z
+Check what is the last release version now and output without applying or code changing anything for the new on: tag, description and steps for git applying.
+---
+
+## 2026-10-26T22:34:04Z
+run steps 2, 3
+---
+
+## 2026-10-26T22:34:26Z
+run steps 4
+---
+
+## 2026-10-26T22:46:23Z
+In github actions on frontend-test:
+
+
+
+<pasted_content id="d295">
+✓ src/__tests__/ExcludedModal.test.tsx (20 tests) 338ms
+ ✓ src/__tests__/skeletons.test.tsx (26 tests) 157ms
+ ✓ src/__tests__/loading-states.test.tsx (14 tests) 198ms
+DOMException [AbortError]: The operation was aborted.
+    at Fetch.onAsyncTaskManagerAbort (file:///home/runner/work/phrasal/phrasal/frontend/node_modules/happy-dom/lib/fetch/Fetch.js:546:23)
+    at Object.<anonymous> (file:///home/runner/work/phrasal/phrasal/frontend/node_modules/happy-dom/lib/fetch/Fetch.js:416:101)
+    at AsyncTaskManager.abortAll (file:///home/runner/work/phrasal/phrasal/frontend/node_modules/happy-dom/lib/async-task-manager/AsyncTaskManager.js:292:30)
+    at AsyncTaskManager.abort (file:///home/runner/work/phrasal/phrasal/frontend/node_modules/happy-dom/lib/async-task-manager/AsyncTaskManager.js:52:21)
+    at DetachedBrowserFrame.abort (file:///home/runner/work/phrasal/phrasal/frontend/node_modules/happy-dom/lib/browser/detached-browser/DetachedBrowserFrame.js:112:58)
+    at DetachedWindowAPI.abort (file:///home/runner/work/phrasal/phrasal/frontend/node_modules/happy-dom/lib/window/DetachedWindowAPI.js:51:35)
+    at teardownWindow (file:///home/runner/work/phrasal/phrasal/frontend/node_modules/vitest/dist/chunks/index.CK-t0WMg.js:1179:22)
+    at Object.teardown (file:///home/runner/work/phrasal/phrasal/frontend/node_modules/vitest/dist/chunks/index.CK-t0WMg.js:1241:10)
+    at file:///home/runner/work/phrasal/phrasal/frontend/node_modules/vitest/dist/chunks/base.CzXt2BO_.js:187:65
+    at Traces.$ (file:///home/runner/work/phrasal/phrasal/frontend/node_modules/vitest/dist/traces.js:143:27)
+DOMException [AbortError]: The operation was aborted.
+    at Fetch.onAsyncTaskManagerAbort (file:///home/runner/work/phrasal/phrasal/frontend/node_modules/happy-dom/lib/fetch/Fetch.js:546:23)
+    at Object.<anonymous> (file:///home/runner/work/phrasal/phrasal/frontend/node_modules/happy-dom/lib/fetch/Fetch.js:416:101)
+    at AsyncTaskManager.abortAll (file:///home/runner/work/phrasal/phrasal/frontend/node_modules/happy-dom/lib/async-task-manager/AsyncTaskManager.js:292:30)
+    at AsyncTaskManager.abort (file:///home/runner/work/phrasal/phrasal/frontend/node_modules/happy-dom/lib/async-task-manager/AsyncTaskManager.js:52:21)
+    at DetachedBrowserFrame.abort (file:///home/runner/work/phrasal/phrasal/frontend/node_modules/happy-dom/lib/browser/detached-browser/DetachedBrowserFrame.js:112:58)
+    at DetachedWindowAPI.abort (file:///home/runner/work/phrasal/phrasal/frontend/node_modules/happy-dom/lib/window/DetachedWindowAPI.js:51:35)
+    at teardownWindow (file:///home/runner/work/phrasal/phrasal/frontend/node_modules/vitest/dist/chunks/index.CK-t0WMg.js:1179:22)
+    at Object.teardown (file:///home/runner/work/phrasal/phrasal/frontend/node_modules/vitest/dist/chunks/index.CK-t0WMg.js:1241:10)
+    at file:///home/runner/work/phrasal/phrasal/frontend/node_modules/vitest/dist/chunks/base.CzXt2BO_.js:187:65
+    at Traces.$ (file:///home/runner/work/phrasal/phrasal/frontend/node_modules/vitest/dist/traces.js:143:27)
+DOMException [AbortError]: The operation was aborted.
+    at Fetch.onAsyncTaskManagerAbort (file:///home/runner/work/phrasal/phrasal/frontend/node_modules/happy-dom/lib/fetch/Fetch.js:546:23)
+    at Object.<anonymous> (file:///home/runner/work/phrasal/phrasal/frontend/node_modules/happy-dom/lib/fetch/Fetch.js:416:101)
+    at AsyncTaskManager.abortAll (file:///home/runner/work/phrasal/phrasal/frontend/node_modules/happy-dom/lib/async-task-manager/AsyncTaskManager.js:292:30)
+    at AsyncTaskManager.abort (file:///home/runner/work/phrasal/phrasal/frontend/node_modules/happy-dom/lib/async-task-manager/AsyncTaskManager.js:52:21)
+    at DetachedBrowserFrame.abort (file:///home/runner/work/phrasal/phrasal/frontend/node_modules/happy-dom/lib/browser/detached-browser/DetachedBrowserFrame.js:112:58)
+    at DetachedWindowAPI.abort (file:///home/runner/work/phrasal/phrasal/frontend/node_modules/happy-dom/lib/window/DetachedWindowAPI.js:51:35)
+    at teardownWindow (file:///home/runner/work/phrasal/phrasal/frontend/node_modules/vitest/dist/chunks/index.CK-t0WMg.js:1179:22)
+    at Object.teardown (file:///home/runner/work/phrasal/phrasal/frontend/node_modules/vitest/dist/chunks/index.CK-t0WMg.js:1241:10)
+    at file:///home/runner/work/phrasal/phrasal/frontend/node_modules/vitest/dist/chunks/base.CzXt2BO_.js:187:65
+    at Traces.$ (file:///home/runner/work/phrasal/phrasal/frontend/node_modules/vitest/dist/traces.js:143:27)
+DOMException [AbortError]: The operation was aborted.
+    at Fetch.onAsyncTaskManagerAbort (file:///home/runner/work/phrasal/phrasal/frontend/node_modules/happy-dom/lib/fetch/Fetch.js:546:23)
+    at Object.<anonymous> (file:///home/runner/work/phrasal/phrasal/frontend/node_modules/happy-dom/lib/fetch/Fetch.js:416:101)
+    at AsyncTaskManager.abortAll (file:///home/runner/work/phrasal/phrasal/frontend/node_modules/happy-dom/lib/async-task-manager/AsyncTaskManager.js:292:30)
+    at AsyncTaskManager.abort (file:///home/runner/work/phrasal/phrasal/frontend/node_modules/happy-dom/lib/async-task-manager/AsyncTaskManager.js:52:21)
+    at DetachedBrowserFrame.abort (file:///home/runner/work/phrasal/phrasal/frontend/node_modules/happy-dom/lib/browser/detached-browser/DetachedBrowserFrame.js:112:58)
+    at DetachedWindowAPI.abort (file:///home/runner/work/phrasal/phrasal/frontend/node_modules/happy-dom/lib/window/DetachedWindowAPI.js:51:35)
+    at teardownWindow (file:///home/runner/work/phrasal/phrasal/frontend/node_modules/vitest/dist/chunks/index.CK-t0WMg.js:1179:22)
+    at Object.teardown (file:///home/runner/work/phrasal/phrasal/frontend/node_modules/vitest/dist/chunks/index.CK-t0WMg.js:1241:10)
+    at file:///home/runner/work/phrasal/phrasal/frontend/node_modules/vitest/dist/chunks/base.CzXt2BO_.js:187:65
+    at Traces.$ (file:///home/runner/work/phrasal/phrasal/frontend/node_modules/vitest/dist/traces.js:143:27)
+ ✓ src/__tests__/Header.test.tsx (20 tests) 191ms
+ ✓ src/__tests__/NavigationControls.test.tsx (19 tests) 172ms
+ ✓ src/__tests__/renderSentence.test.tsx (16 tests) 106ms
+ ✓ src/__tests__/hooks/useFuzzySearch.test.ts (14 tests) 57ms
+ ✓ src/__tests__/IWishPage.test.tsx (16 tests) 1254ms
+ ✓ src/__tests__/listVerbIndex.test.ts (15 tests) 23ms
+ ✓ src/__tests__/fuzzySearch.test.ts (19 tests) 20ms
+ ✓ src/__tests__/TutorialModal.test.tsx (21 tests) 226ms
+ ✓ src/__tests__/routeReload.test.tsx (8 tests) 166ms
+ ✓ src/__tests__/VerbPageLayout.test.tsx (9 tests) 359ms
+ ✓ src/__tests__/githubPagesRedirect.test.ts (10 tests) 12ms
+ ✓ src/__tests__/HomePage.test.tsx (9 tests) 117ms
+ ✓ src/__tests__/VerbDetailPage.test.tsx (6 tests) 72ms
+ ✓ src/__tests__/api/verbDetailsApi.test.ts (6 tests) 9ms
+stderr | src/__tests__/hooks/useGrammarEntries.test.ts > useGrammarEntries > passes category to fetchGrammarEntries
+An update to TestComponent inside a test was not wrapped in act(...).
+
+When testing, code that causes React state updates should be wrapped into act(...):
+
+act(() => {
+  /* fire events that update state */
+});
+/* assert on the output */
+
+This ensures that you're testing the behavior the user would see in the browser. Learn more at https://react.dev/link/wrap-tests-with-act
+An update to TestComponent inside a test was not wrapped in act(...).
+
+When testing, code that causes React state updates should be wrapped into act(...):
+
+act(() => {
+  /* fire events that update state */
+});
+/* assert on the output */
+
+This ensures that you're testing the behavior the user would see in the browser. Learn more at https://react.dev/link/wrap-tests-with-act
+
+ ✓ src/__tests__/useFocusTrap.test.tsx (4 tests) 92ms
+ ✓ src/__tests__/hooks/useGrammarEntries.test.ts (5 tests) 191ms
+ ✓ src/__tests__/hooks/useVerbDetail.test.ts (6 tests) 185ms
+ ✓ src/__tests__/normalizeAnswer.test.ts (13 tests) 8ms
+ ✓ src/__tests__/api/client.test.ts (6 tests) 10ms
+ ✓ src/__tests__/hooks/usePhrasalVerbs.test.ts (4 tests) 191ms
+ ✓ src/__tests__/hooks/useVerbList.test.ts (4 tests) 196ms
+ ✓ src/__tests__/ParticlesPage.test.tsx (7 tests) 115ms
+ ✓ src/__tests__/PhrasalVerbsPage.test.tsx (6 tests) 101ms
+ ✓ src/__tests__/Feedback.test.tsx (6 tests) 39ms
+ ✓ src/__tests__/ErrorBoundary.test.tsx (4 tests) 70ms
+ ✓ src/__tests__/favicon.test.ts (5 tests) 9ms
+ ✓ src/__tests__/GrammarPage.test.tsx (4 tests) 77ms
+ ✓ src/__tests__/wishData.test.ts (5 tests) 6ms
+ ✓ src/__tests__/phrasalVerbs.test.ts (3 tests) 8ms
+⎯⎯⎯⎯⎯⎯ Unhandled Errors ⎯⎯⎯⎯⎯⎯
+
+Vitest caught 1 unhandled error during the test run.
+This might cause false positive tests. Resolve unhandled errors to make sure your tests are not affected.
+
+⎯⎯⎯⎯⎯ Uncaught Exception ⎯⎯⎯⎯⎯
+ReferenceError: window is not defined
+ ❯ resolveUpdatePriority node_modules/react-dom/cjs/react-dom-client.development.js:1498:7
+ ❯ requestUpdateLane node_modules/react-dom/cjs/react-dom-client.development.js:17840:15
+ ❯ dispatchSetState node_modules/react-dom/cjs/react-dom-client.development.js:9512:14
+ ❯ Timeout._onTimeout src/pages/PhrasalVerbsListPage.tsx:83:24
+     81|     navigator.clipboard.writeText(text).then(() => {
+     82|       setCopiedVerb(label);
+     83|       setTimeout(() => setCopiedVerb(null), 1500);
+       |                        ^
+     84|     });
+     85|   };
+ ❯ listOnTimeout node:internal/timers:605:17
+
+ ❯ process.processTimers node:internal/timers:541:7
+
+This error originated in "src/__tests__/listPage/build-count.test.tsx" test file. It doesn't mean the error was thrown inside the file itself, but while it was running.
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯
+
+ Test Files  50 passed (50)
+      Tests  1302 passed (1302)
+     Errors  1 error
+   Start at  22:35:08
+   Duration  44.92s (tests 78%, environment 14%, setup 5%, import 2%, transform 1%)
+
+    Isolate  50 workers spawned · ~478ms startup each (spawn + environment, per file)
+             at least ~7.49s faster with isolate: false — reuses workers across files instead of one per file
+
+
+Error: ReferenceError: window is not defined
+ ❯ resolveUpdatePriority node_modules/react-dom/cjs/react-dom-client.development.js:1498:7
+ ❯ requestUpdateLane node_modules/react-dom/cjs/react-dom-client.development.js:17840:15
+ ❯ dispatchSetState node_modules/react-dom/cjs/react-dom-client.development.js:9512:14
+ ❯ Timeout._onTimeout src/pages/PhrasalVerbsListPage.tsx:83:24
+
+This error originated in "src/__tests__/listPage/build-count.test.tsx" test file. It doesn't mean the error was thrown inside the file itself, but while it was running.
+
+Error: Process completed with exit code 1.
+</pasted_content id="d295">
+
+
+fix
+---
+
+## 2026-10-26T22:52:28Z
+git add all changes and commit them with suitable message
+---

@@ -821,3 +821,24 @@
 - .claude/docs/blackbox/audit.md
 - Makefile
 <!-- end-snapshot -->
+
+<!-- git-snapshot 2026-10-26T22:31:44Z -->
+- .claude/docs/blackbox/audit.md
+<!-- end-snapshot -->
+
+<!-- git-snapshot 2026-10-26T22:34:13Z -->
+- .claude/docs/blackbox/audit.md
+- .claude/docs/blackbox/session-log.md
+<!-- end-snapshot -->
+
+<!-- git-snapshot 2026-10-26T22:35:02Z -->
+- .claude/docs/blackbox/audit.md
+- .claude/docs/blackbox/session-log.md
+<!-- end-snapshot -->
+
+<!-- git-snapshot 2026-10-26T22:48:26Z -->
+- .claude/docs/blackbox/audit.md
+- .claude/docs/blackbox/session-log.md
+- frontend/src/__tests__/listPage/get-come.test.tsx
+- frontend/src/pages/PhrasalVerbsListPage.tsx
+<!-- end-snapshot -->

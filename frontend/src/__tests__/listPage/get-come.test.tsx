@@ -75,6 +75,16 @@ describe('PhrasalVerbsListPage — copy button', () => {
     });
   });
 
+  it('cancels the "Copied!" reset timer on unmount', async () => {
+    vi.useFakeTimers();
+    const { unmount } = renderPage();
+    expandCard('get');
+    fireEvent.click(screen.getByRole('button', { name: /copy all "get" phrasal verbs/i }));
+    await vi.waitFor(() => expect(screen.getByRole('button', { name: /copied!/i })).toBeInTheDocument());
+    unmount();
+    expect(vi.getTimerCount()).toBe(0);
+  });
+
   it('clicking copy button does not navigate to get page', () => {
     renderPageWithRoutes();
     expandCard('get');

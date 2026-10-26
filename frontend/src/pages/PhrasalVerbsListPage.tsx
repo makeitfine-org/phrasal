@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import ReactDOM from 'react-dom';
 import { Link, useNavigate } from 'react-router-dom';
 import { SearchIcon, ExpandAllIcon, CollapseAllIcon } from '../components/Icons';
@@ -31,6 +31,13 @@ export default function PhrasalVerbsListPage() {
   const [showSearch, setShowSearch] = useState(false);
   const [expanded, setExpanded] = useState<Set<string>>(loadExpanded);
   const [copiedVerb, setCopiedVerb] = useState<string | null>(null);
+
+  // Reset "Copied!" after 1.5s; the cleanup cancels the timer on unmount or a new copy.
+  useEffect(() => {
+    if (!copiedVerb) return;
+    const timer = setTimeout(() => setCopiedVerb(null), 1500);
+    return () => clearTimeout(timer);
+  }, [copiedVerb]);
 
   if (loading) {
     return <VerbListSkeleton />;
@@ -78,10 +85,7 @@ export default function PhrasalVerbsListPage() {
     e.preventDefault();
     e.stopPropagation();
     const text = particles.map(p => `${label.toLowerCase()} ${p}`).join(', ');
-    navigator.clipboard.writeText(text).then(() => {
-      setCopiedVerb(label);
-      setTimeout(() => setCopiedVerb(null), 1500);
-    });
+    navigator.clipboard.writeText(text).then(() => setCopiedVerb(label));
   };
 
   const particleNamesText = PARTICLE_NAMES.join(', ');
