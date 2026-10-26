@@ -101,7 +101,7 @@ securityScan:
 			-DsuppressionFiles=owasp-suppressions.xml && \
 		cd .. && \
 		echo "--- Docker build (for Trivy scan) ---" && \
-		docker compose build && \
+		docker compose build --pull --no-cache && \
 		echo "--- Trivy: backend image ---" && \
 		trivy image --severity CRITICAL$(comma)HIGH --exit-code 1 phrasal-backend && \
 		echo "--- Trivy: frontend image ---" && \

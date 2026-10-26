@@ -816,3 +816,8 @@
 <!-- git-snapshot 2026-10-26T22:14:38Z -->
 - .claude/docs/blackbox/audit.md
 <!-- end-snapshot -->
+
+<!-- git-snapshot 2026-10-26T22:21:15Z -->
+- .claude/docs/blackbox/audit.md
+- Makefile
+<!-- end-snapshot -->

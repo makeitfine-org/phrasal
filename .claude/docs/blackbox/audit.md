@@ -1664,3 +1664,52 @@ file:///home/ilaptop/Pictures/Screenshots/Screenshot%20from%202026-10-26%2023-12
 
 but it should be by default system, so dark. why is it light then?
 ---
+
+## 2026-10-26T22:20:54Z
+on make security scan:
+
+
+
+<pasted_content id="9837">
+2026-10-26T23:19:51+01:00       WARN    Using severities from other vendors for some vulnerabilities. Read https://trivy.dev/docs/v0.76/guide/scanner/vulnerability#severity-selection for details.
+
+Report Summary
+
+┌──────────────────────────────────┬────────┬─────────────────┬─────────┐
+│              Target              │  Type  │ Vulnerabilities │ Secrets │
+├──────────────────────────────────┼────────┼─────────────────┼─────────┤
+│ phrasal-frontend (alpine 3.24.3) │ alpine │        2        │    -    │
+└──────────────────────────────────┴────────┴─────────────────┴─────────┘
+Legend:
+- '-': Not scanned
+- '0': Clean (no security findings detected)
+
+
+phrasal-frontend (alpine 3.24.3)
+
+Total: 2 (HIGH: 2, CRITICAL: 0)
+
+┌─────────┬────────────────┬──────────┬────────┬───────────────────┬───────────────┬────────────────────────────────────────────┐
+│ Library │ Vulnerability  │ Severity │ Status │ Installed Version │ Fixed Version │                   Title                    │
+├─────────┼────────────────┼──────────┼────────┼───────────────────┼───────────────┼────────────────────────────────────────────┤
+│ curl    │ CVE-2026-92392 │ HIGH     │ fixed  │ 8.22.0-r0         │ 8.23.0-r0     │ curl: curl: HTTP/2 upload Use-After-Free   │
+│         │                │          │        │                   │               │ https://avd.aquasec.com/nvd/cve-2026-92392 │
+├─────────┤                │          │        │                   │               │                                            │
+│ libcurl │                │          │        │                   │               │                                            │
+│         │                │          │        │                   │               │                                            │
+└─────────┴────────────────┴──────────┴────────┴───────────────────┴───────────────┴────────────────────────────────────────────┘
+==============================================
+=============  ➤ MESSAGE (TELEGRAM) ➤  =============
+==============================================
+Sending message:
+❌ SECURITY SCAN FAILED (phrasal) ❌
+
+make: *** [Makefile:89: securityScan] Error 1
+</pasted_content id="9837">
+
+fix
+---
+
+## 2026-10-26T22:24:52Z
+git add all changes and commit them with suitable message
+---
