@@ -144,16 +144,16 @@ A shared singleton container plus one cached Spring context keeps build time fla
 ## Phase 2 — Dependencies, users table, session tables
 
 ### 2.1 Dependencies
-- [ ] **2.1.1** Add to `backend/pom.xml`. Versions come from the Boot BOM, so don't pin them:
-  - [ ] `spring-boot-starter-security`
-  - [ ] `spring-boot-starter-session-jdbc`
-  - [ ] `spring-boot-starter-security-test` (scope `test`). If Boot 4.1 has no such starter (check Context7 / the BOM),
+- [x] **2.1.1** Add to `backend/pom.xml`. Versions come from the Boot BOM, so don't pin them:
+  - [x] `spring-boot-starter-security`
+  - [x] `spring-boot-starter-session-jdbc`
+  - [x] `spring-boot-starter-security-test` (scope `test`). If Boot 4.1 has no such starter (check Context7 / the BOM),
         use `org.springframework.security:spring-security-test`.
-- [ ] **2.1.2** Expect existing tests to fail at this point: security now protects everything, and the session tables
+- [x] **2.1.2** Expect existing tests to fail at this point: security now protects everything, and the session tables *(Done differently: to keep `make clean build` green at the end of Phase 2, a transitional permit-all, CSRF-off `config/SecurityConfig` was added; Phase 3 rewrites it.)*
       don't exist yet. Phases 2.2–3 fix that. Don't commit in between.
 
 ### 2.2 Flyway migrations
-- [ ] **2.2.1** `backend/src/main/resources/db/migration/V9__create_users.sql`:
+- [x] **2.2.1** `backend/src/main/resources/db/migration/V9__create_users.sql`:
   ```sql
   CREATE TABLE users
   (
@@ -169,37 +169,37 @@ A shared singleton container plus one cached Spring context keeps build time fla
   );
   CREATE UNIQUE INDEX ux_users_email ON users (email);
   ```
-- [ ] **2.2.2** `V10__create_spring_session_tables.sql`: copy the content of `org/springframework/session/jdbc/schema-postgresql.sql`
+- [x] **2.2.2** `V10__create_spring_session_tables.sql`: copy the content of `org/springframework/session/jdbc/schema-postgresql.sql`
       from the `spring-session-jdbc` jar in `~/.m2` (`unzip -p <jar> org/springframework/session/jdbc/schema-postgresql.sql`).
       Don't write it by hand.
-- [ ] **2.2.3** In `application.yml`, add `spring.session.jdbc.initialize-schema: never` so Flyway owns the schema.
+- [x] **2.2.3** In `application.yml`, add `spring.session.jdbc.initialize-schema: never` so Flyway owns the schema.
 
 ### 2.3 Domain
-- [ ] **2.3.1** `domain/entity/Role.java`: `enum Role { USER, ADMIN }`.
-- [ ] **2.3.2** `domain/entity/User.java`:
-  - [ ] table `users`
-  - [ ] same style as `PhrasalVerb`: sequence `users_id_seq`, `@CreatedDate`/`@LastModifiedDate`/`@Version`, `@EntityListeners(AuditingEntityListener.class)`
-  - [ ] `@Enumerated(EnumType.STRING) Role role`
-  - [ ] `@ToString(of = {"id", "email", "role"})`. **Never include `passwordHash`.**
-  - [ ] `@EqualsAndHashCode(of = {"id", "email"})`
-  - [ ] constructor `User(String email, String passwordHash, Role role)`
-- [ ] **2.3.3** `domain/repository/UserRepository.java`:
+- [x] **2.3.1** `domain/entity/Role.java`: `enum Role { USER, ADMIN }`.
+- [x] **2.3.2** `domain/entity/User.java`:
+  - [x] table `users`
+  - [x] same style as `PhrasalVerb`: sequence `users_id_seq`, `@CreatedDate`/`@LastModifiedDate`/`@Version`, `@EntityListeners(AuditingEntityListener.class)`
+  - [x] `@Enumerated(EnumType.STRING) Role role`
+  - [x] `@ToString(of = {"id", "email", "role"})`. **Never include `passwordHash`.**
+  - [x] `@EqualsAndHashCode(of = {"id", "email"})`
+  - [x] constructor `User(String email, String passwordHash, Role role)`
+- [x] **2.3.3** `domain/repository/UserRepository.java`:
   - `Optional<User> findByEmail(String email)`
   - `boolean existsByEmail(String email)`
 
 ### 2.4 Tests
-- [ ] **2.4.1** `domain/entity/UserEntityTest.java` (unit):
-  - [ ] constructor sets the fields
-  - [ ] `toString` doesn't contain the hash
-  - [ ] equals/hashCode use id + email
-- [ ] **2.4.2** `integration/UserRepositoryIntegrationTest.java` (extends `AbstractIntegrationTest`):
-  - [ ] save + `findByEmail` round trip; `existsByEmail` true and false
-  - [ ] negative: a second user with the same email → `DataIntegrityViolationException`
-  - [ ] negative: an upper-case email violates `chk_users_email_lower` → `DataIntegrityViolationException`
-  - [ ] the `spring_session` and `spring_session_attributes` tables exist (query `information_schema.tables` via `JdbcTemplate`)
-- [ ] **2.4.3** Use a unique email per test (e.g. a `UUID` suffix), because the DB is shared now.
+- [x] **2.4.1** `domain/entity/UserEntityTest.java` (unit):
+  - [x] constructor sets the fields
+  - [x] `toString` doesn't contain the hash
+  - [x] equals/hashCode use id + email
+- [x] **2.4.2** `integration/UserRepositoryIntegrationTest.java` (extends `AbstractIntegrationTest`):
+  - [x] save + `findByEmail` round trip; `existsByEmail` true and false
+  - [x] negative: a second user with the same email → `DataIntegrityViolationException`
+  - [x] negative: an upper-case email violates `chk_users_email_lower` → `DataIntegrityViolationException`
+  - [x] the `spring_session` and `spring_session_attributes` tables exist (query `information_schema.tables` via `JdbcTemplate`)
+- [x] **2.4.3** Use a unique email per test (e.g. a `UUID` suffix), because the DB is shared now.
 
-> Don't commit yet: existing CRUD tests fail until Phase 3 configures security. Phases 2 and 3 go into one commit.
+> Don't commit yet: existing CRUD tests fail until Phase 3 configures security. Phases 2 and 3 go into one commit. *(Phase 2 alone is committable because of the transitional `SecurityConfig`; ask the user.)*
 
 ---
 

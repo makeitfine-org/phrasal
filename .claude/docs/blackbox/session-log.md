@@ -907,3 +907,35 @@
 - backend/src/test/java/net/phrasal/integration/VerbDetailIntegrationTest.java
 - multiuser-todos.md
 <!-- end-snapshot -->
+
+<!-- git-snapshot 2026-10-27T12:49:02Z -->
+- .claude/docs/blackbox/audit.md
+- backend/pom.xml
+- backend/src/main/java/net/phrasal/config/SecurityConfig.java
+- backend/src/main/java/net/phrasal/domain/entity/Role.java
+- backend/src/main/java/net/phrasal/domain/entity/User.java
+- backend/src/main/java/net/phrasal/domain/repository/UserRepository.java
+- backend/src/main/resources/application.yml
+- backend/src/main/resources/db/migration/V10__create_spring_session_tables.sql
+- backend/src/main/resources/db/migration/V9__create_users.sql
+- backend/src/test/java/net/phrasal/domain/entity/UserEntityTest.java
+- backend/src/test/java/net/phrasal/integration/UserRepositoryIntegrationTest.java
+- multiuser-todos.md
+<!-- end-snapshot -->
+
+<!-- git-snapshot 2026-10-27T13:00:46Z -->
+- .claude/docs/blackbox/audit.md
+- .claude/docs/blackbox/session-log.md
+- backend/pom.xml
+- backend/src/main/java/net/phrasal/config/SecurityConfig.java
+- backend/src/main/java/net/phrasal/domain/entity/Role.java
+- backend/src/main/java/net/phrasal/domain/entity/User.java
+- backend/src/main/java/net/phrasal/domain/repository/UserRepository.java
+- backend/src/main/resources/application.yml
+- backend/src/main/resources/db/migration/V10__create_spring_session_tables.sql
+- backend/src/main/resources/db/migration/V9__create_users.sql
+- backend/src/test/java/net/phrasal/domain/entity/UserEntityTest.java
+- backend/src/test/java/net/phrasal/integration/UserRepositoryIntegrationTest.java
+- frontend/src/__tests__/listPage/get-come.test.tsx
+- multiuser-todos.md
+<!-- end-snapshot -->

@@ -1,4 +1,4 @@
-import { screen, within, fireEvent } from '@testing-library/react';
+import { screen, within, fireEvent, act } from '@testing-library/react';
 import { setupPortal, renderPage, renderPageWithRoutes, expandCard, ALL_PARTICLES, ALL_MAKE_PARTICLES, ALL_PUT_PARTICLES, ALL_TAKE_PARTICLES, ALL_GIVE_PARTICLES, ALL_GO_PARTICLES, ALL_COME_PARTICLES } from './helpers';
 
 setupPortal();
@@ -68,11 +68,12 @@ describe('PhrasalVerbsListPage — copy button', () => {
     renderPage();
     expandCard('get');
     fireEvent.click(screen.getByRole('button', { name: /copy all "get" phrasal verbs/i }));
-    await vi.waitFor(() => expect(screen.getByRole('button', { name: /copied!/i })).toBeInTheDocument());
-    vi.advanceTimersByTime(1500);
+    await vi.waitFor(() => expect(screen.getByRole('button', { name: /copied!/i })).toBeInTheDocument(), { timeout: 5000 });
+    // The reset timer is armed by an effect that may not have run yet, so keep advancing until it fires.
     await vi.waitFor(() => {
+      act(() => { vi.advanceTimersByTime(1500); });
       expect(screen.getByRole('button', { name: /copy all "get" phrasal verbs/i })).toBeInTheDocument();
-    });
+    }, { timeout: 5000 });
   });
 
   it('cancels the "Copied!" reset timer on unmount', async () => {
@@ -80,7 +81,7 @@ describe('PhrasalVerbsListPage — copy button', () => {
     const { unmount } = renderPage();
     expandCard('get');
     fireEvent.click(screen.getByRole('button', { name: /copy all "get" phrasal verbs/i }));
-    await vi.waitFor(() => expect(screen.getByRole('button', { name: /copied!/i })).toBeInTheDocument());
+    await vi.waitFor(() => expect(screen.getByRole('button', { name: /copied!/i })).toBeInTheDocument(), { timeout: 5000 });
     unmount();
     expect(vi.getTimerCount()).toBe(0);
   });
@@ -176,11 +177,12 @@ describe('PhrasalVerbsListPage — make copy button', () => {
     renderPage();
     expandCard('make');
     fireEvent.click(screen.getByRole('button', { name: /copy all "make" phrasal verbs/i }));
-    await vi.waitFor(() => expect(screen.getByRole('button', { name: /copied!/i })).toBeInTheDocument());
-    vi.advanceTimersByTime(1500);
+    await vi.waitFor(() => expect(screen.getByRole('button', { name: /copied!/i })).toBeInTheDocument(), { timeout: 5000 });
+    // The reset timer is armed by an effect that may not have run yet, so keep advancing until it fires.
     await vi.waitFor(() => {
+      act(() => { vi.advanceTimersByTime(1500); });
       expect(screen.getByRole('button', { name: /copy all "make" phrasal verbs/i })).toBeInTheDocument();
-    });
+    }, { timeout: 5000 });
   });
 
   it('clicking make copy button does not navigate to make page', () => {
@@ -267,11 +269,12 @@ describe('PhrasalVerbsListPage — put copy button', () => {
     renderPage();
     expandCard('put');
     fireEvent.click(screen.getByRole('button', { name: /copy all "put" phrasal verbs/i }));
-    await vi.waitFor(() => expect(screen.getByRole('button', { name: /copied!/i })).toBeInTheDocument());
-    vi.advanceTimersByTime(1500);
+    await vi.waitFor(() => expect(screen.getByRole('button', { name: /copied!/i })).toBeInTheDocument(), { timeout: 5000 });
+    // The reset timer is armed by an effect that may not have run yet, so keep advancing until it fires.
     await vi.waitFor(() => {
+      act(() => { vi.advanceTimersByTime(1500); });
       expect(screen.getByRole('button', { name: /copy all "put" phrasal verbs/i })).toBeInTheDocument();
-    });
+    }, { timeout: 5000 });
   });
 
   it('clicking put copy button does not navigate to put page', () => {
@@ -372,11 +375,12 @@ describe('PhrasalVerbsListPage — take copy button', () => {
     renderPage();
     expandCard('take');
     fireEvent.click(screen.getByRole('button', { name: /copy all "take" phrasal verbs/i }));
-    await vi.waitFor(() => expect(screen.getByRole('button', { name: /copied!/i })).toBeInTheDocument());
-    vi.advanceTimersByTime(1500);
+    await vi.waitFor(() => expect(screen.getByRole('button', { name: /copied!/i })).toBeInTheDocument(), { timeout: 5000 });
+    // The reset timer is armed by an effect that may not have run yet, so keep advancing until it fires.
     await vi.waitFor(() => {
+      act(() => { vi.advanceTimersByTime(1500); });
       expect(screen.getByRole('button', { name: /copy all "take" phrasal verbs/i })).toBeInTheDocument();
-    });
+    }, { timeout: 5000 });
   });
 
   it('clicking take copy button does not navigate to take page', () => {
@@ -477,11 +481,12 @@ describe('PhrasalVerbsListPage — give copy button', () => {
     renderPage();
     expandCard('give');
     fireEvent.click(screen.getByRole('button', { name: /copy all "give" phrasal verbs/i }));
-    await vi.waitFor(() => expect(screen.getByRole('button', { name: /copied!/i })).toBeInTheDocument());
-    vi.advanceTimersByTime(1500);
+    await vi.waitFor(() => expect(screen.getByRole('button', { name: /copied!/i })).toBeInTheDocument(), { timeout: 5000 });
+    // The reset timer is armed by an effect that may not have run yet, so keep advancing until it fires.
     await vi.waitFor(() => {
+      act(() => { vi.advanceTimersByTime(1500); });
       expect(screen.getByRole('button', { name: /copy all "give" phrasal verbs/i })).toBeInTheDocument();
-    });
+    }, { timeout: 5000 });
   });
 
   it('clicking give copy button does not navigate to give page', () => {
@@ -582,11 +587,12 @@ describe('PhrasalVerbsListPage — go copy button', () => {
     renderPage();
     expandCard('go');
     fireEvent.click(screen.getByRole('button', { name: /copy all "go" phrasal verbs/i }));
-    await vi.waitFor(() => expect(screen.getByRole('button', { name: /copied!/i })).toBeInTheDocument());
-    vi.advanceTimersByTime(1500);
+    await vi.waitFor(() => expect(screen.getByRole('button', { name: /copied!/i })).toBeInTheDocument(), { timeout: 5000 });
+    // The reset timer is armed by an effect that may not have run yet, so keep advancing until it fires.
     await vi.waitFor(() => {
+      act(() => { vi.advanceTimersByTime(1500); });
       expect(screen.getByRole('button', { name: /copy all "go" phrasal verbs/i })).toBeInTheDocument();
-    });
+    }, { timeout: 5000 });
   });
 
   it('clicking go copy button does not navigate to go page', () => {
@@ -687,11 +693,12 @@ describe('PhrasalVerbsListPage — come copy button', () => {
     renderPage();
     expandCard('come');
     fireEvent.click(screen.getByRole('button', { name: /copy all "come" phrasal verbs/i }));
-    await vi.waitFor(() => expect(screen.getByRole('button', { name: /copied!/i })).toBeInTheDocument());
-    vi.advanceTimersByTime(1500);
+    await vi.waitFor(() => expect(screen.getByRole('button', { name: /copied!/i })).toBeInTheDocument(), { timeout: 5000 });
+    // The reset timer is armed by an effect that may not have run yet, so keep advancing until it fires.
     await vi.waitFor(() => {
+      act(() => { vi.advanceTimersByTime(1500); });
       expect(screen.getByRole('button', { name: /copy all "come" phrasal verbs/i })).toBeInTheDocument();
-    });
+    }, { timeout: 5000 });
   });
 
   it('clicking come copy button does not navigate to come page', () => {

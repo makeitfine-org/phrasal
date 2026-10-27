@@ -1985,3 +1985,54 @@ start implementing functionality from  multiuser-todos.md Phase 1.
 ## 2026-10-27T12:39:35Z
 git add all changes and commit them with suitable message
 ---
+
+## 2026-10-27T12:40:36Z
+start implementing functionality from  multiuser-todos.md Phase 2.
+  Don't forget to check off implemented boxes.
+  On phase completion `make clean build` must pass successfully.
+---
+
+## 2026-10-27T12:55:02Z
+On `make clean build` I've got:
+
+
+
+<pasted_content id="81f1">
+                  class="w-5 h-5 transition-transform duration-200 "                                                                                                                          
+                  fill="currentColor"
+                  viewBox="0 0 20 20"
+                  xmlns=
+ ❯ Object.getElementError node_modules/@testing-library/dom/dist/config.js:37:19
+ ❯ node_modules/@testing-library/dom/dist/query-helpers.js:76:38
+ ❯ node_modules/@testing-library/dom/dist/query-helpers.js:52:17
+ ❯ node_modules/@testing-library/dom/dist/query-helpers.js:95:19
+ ❯ src/__tests__/listPage/get-come.test.tsx:378:21
+    376|     vi.advanceTimersByTime(1500);
+    377|     await vi.waitFor(() => {
+    378|       expect(screen.getByRole('button', { name: /copy all "take" phrasal verbs/i })).toBeInTheDocument();
+       |                     ^
+    379|     });
+    380|   });
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[1/1]⎯
+
+
+ Test Files  1 failed | 49 passed (50)
+      Tests  1 failed | 1302 passed (1303)
+   Start at  13:54:12
+   Duration  13.08s (tests 77%, environment 15%, setup 5%, import 2%, transform 1%)
+
+    Isolate  50 workers spawned · ~625ms startup each (spawn + environment, per file)
+             at least ~1.46s faster with isolate: false — reuses workers across files instead of one per file
+
+==============================================
+=============  ➤ MESSAGE (TELEGRAM) ➤  =============
+==============================================
+Sending message:
+❌ BUILD FRONTEND FAILED (phrasal) ❌
+</pasted_content id="81f1">
+---
+
+## 2026-10-27T13:02:27Z
+git add all changes and commit them with suitable message
+---

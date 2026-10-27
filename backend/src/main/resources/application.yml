@@ -28,6 +28,10 @@ spring:
         order_inserts: true
         order_updates: true
 
+  session:
+    jdbc:
+      initialize-schema: never
+
   flyway:
     enabled: true
     baseline-on-migrate: true
