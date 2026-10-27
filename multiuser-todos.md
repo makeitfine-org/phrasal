@@ -641,30 +641,30 @@ no per-account lockout, because anyone could use it to lock a victim out.
 ## Phase 13 — Auth API and auth context
 
 ### 13.1 API module
-- [ ] **13.1.1** `src/api/authApi.ts`:
+- [x] **13.1.1** `src/api/authApi.ts`:
   - `register(email, password): Promise<CurrentUser>` → `POST /auth/register`
   - `login(email, password): Promise<CurrentUser>` → `POST /auth/login`
   - `logout(): Promise<void>` → `POST /auth/logout`
   - `fetchCurrentUser(): Promise<CurrentUser | null>` → `GET /auth/me`; `ApiError` with status 401 → `null`, other errors rethrown
-- [ ] **13.1.2** `src/__tests__/api/authApi.test.ts`: each function hits the right path/method/body; `fetchCurrentUser` 401 → `null`,
+- [x] **13.1.2** `src/__tests__/api/authApi.test.ts`: each function hits the right path/method/body; `fetchCurrentUser` 401 → `null`,
       500 → throws.
 
 ### 13.2 Context + hook
 `frontend/CLAUDE.md` currently says "no context or global store". Phase 17 updates that rule: one auth context is allowed.
-- [ ] **13.2.1** `src/auth/AuthContext.tsx`:
-  - [ ] state: `status: 'loading' | 'authenticated' | 'anonymous'`, `user: CurrentUser | null`
-  - [ ] on mount: `fetchCurrentUser()` → set state. On a network error → `anonymous` (the site must work without the backend auth).
-  - [ ] actions:
+- [x] **13.2.1** `src/auth/AuthContext.tsx`:
+  - [x] state: `status: 'loading' | 'authenticated' | 'anonymous'`, `user: CurrentUser | null`
+  - [x] on mount: `fetchCurrentUser()` → set state. On a network error → `anonymous` (the site must work without the backend auth).
+  - [x] actions:
     - `login(email, password)`: api login, then `refresh()`
     - `register(email, password)`: api register, then `login` with the same credentials
     - `logout()`: api logout, then `refresh()`. The refresh is required: logout clears the XSRF cookie, and the follow-up GET sets a new one.
     - `refresh()`
-  - [ ] actions rethrow `ApiError` so pages can show messages
-  - [ ] **default context value** = `{ status: 'anonymous', user: null, …no-op actions }`. Then components rendered without a provider
+  - [x] actions rethrow `ApiError` so pages can show messages
+  - [x] **default context value** = `{ status: 'anonymous', user: null, …no-op actions }`. Then components rendered without a provider
         (all existing tests) keep working without changes.
-- [ ] **13.2.2** `src/auth/useAuth.ts`: `export function useAuth() { return useContext(AuthContext); }`.
-- [ ] **13.2.3** `src/main.tsx`: wrap `<BrowserRouter>` in `<AuthProvider>`, inside `ErrorBoundary`.
-- [ ] **13.2.4** `src/__tests__/auth/AuthContext.test.tsx` (mock `authApi`):
+- [x] **13.2.2** `src/auth/useAuth.ts`: `export function useAuth() { return useContext(AuthContext); }`.
+- [x] **13.2.3** `src/main.tsx`: wrap `<BrowserRouter>` in `<AuthProvider>`, inside `ErrorBoundary`.
+- [x] **13.2.4** `src/__tests__/auth/AuthContext.test.tsx` (mock `authApi`):
   - initial `loading` → `authenticated` when `/me` returns a user
   - `anonymous` on `null`
   - `anonymous` on a network error
@@ -678,46 +678,46 @@ no per-account lockout, because anyone could use it to lock a victim out.
 
 ## Phase 14 — Login and Register pages
 
-- [ ] **14.1** `src/pages/LoginPage.tsx` (route `/login`):
-  - [ ] fields: email (`type="email"`, `autoComplete="email"`, `required`), password (`type="password"`,
+- [x] **14.1** `src/pages/LoginPage.tsx` (route `/login`):
+  - [x] fields: email (`type="email"`, `autoComplete="email"`, `required`), password (`type="password"`,
         `autoComplete="current-password"`, `required`)
-  - [ ] submit button shows "Logging in…" and is disabled while pending
-  - [ ] on success, `navigate(location.state?.from ?? '/', { replace: true })`
-  - [ ] on `ApiError`, show `error.message` in a `role="alert"` box (401 → "Invalid email or password", 429 → the server
+  - [x] submit button shows "Logging in…" and is disabled while pending
+  - [x] on success, `navigate(location.state?.from ?? '/', { replace: true })`
+  - [x] on `ApiError`, show `error.message` in a `role="alert"` box (401 → "Invalid email or password", 429 → the server
         detail, which says to try later)
-  - [ ] a link "No account? Sign up" → `/register`
-  - [ ] already authenticated → `<Navigate to="/" replace />`
-  - [ ] Tailwind classes match existing pages, including `dark:` variants. Layout works at 375 px width.
-  - [ ] `data-testid`s: `login-email`, `login-password`, `login-submit`, `auth-error`
-- [ ] **14.2** `src/pages/RegisterPage.tsx` (route `/register`):
-  - [ ] fields: email, password (`autoComplete="new-password"`, `minLength={10}`), confirm password
-  - [ ] client checks before the request: passwords match, length ≥ 10. Show a hint under the field: "At least 10 characters".
-  - [ ] server errors:
+  - [x] a link "No account? Sign up" → `/register`
+  - [x] already authenticated → `<Navigate to="/" replace />`
+  - [x] Tailwind classes match existing pages, including `dark:` variants. Layout works at 375 px width.
+  - [x] `data-testid`s: `login-email`, `login-password`, `login-submit`, `auth-error`
+- [x] **14.2** `src/pages/RegisterPage.tsx` (route `/register`):
+  - [x] fields: email, password (`autoComplete="new-password"`, `minLength={10}`), confirm password
+  - [x] client checks before the request: passwords match, length ≥ 10. Show a hint under the field: "At least 10 characters".
+  - [x] server errors:
     - `problem.errors.<field>` shown under that field
     - 409 → "An account with this email already exists", with a link to `/login`
     - other → alert box
-  - [ ] on success, `register()` from the context (which also logs in), then navigate to `/`
-  - [ ] a link "Already have an account? Log in"
-  - [ ] `data-testid`s: `register-email`, `register-password`, `register-password-confirm`, `register-submit`, `auth-error`,
+  - [x] on success, `register()` from the context (which also logs in), then navigate to `/`
+  - [x] a link "Already have an account? Log in"
+  - [x] `data-testid`s: `register-email`, `register-password`, `register-password-confirm`, `register-submit`, `auth-error`,
         `field-error-<name>`
-- [ ] **14.3** `src/main.tsx`: add `<Route path="/login" …>` and `<Route path="/register" …>` inside the `PageShell` route,
+- [x] **14.3** `src/main.tsx`: add `<Route path="/login" …>` and `<Route path="/register" …>` inside the `PageShell` route,
       **before** `*`.
-- [ ] **14.4** Tests, rendered with `MemoryRouter` and a test `AuthContext.Provider` value, or a mocked `authApi`:
-  - [ ] `src/__tests__/LoginPage.test.tsx`:
+- [x] **14.4** Tests, rendered with `MemoryRouter` and a test `AuthContext.Provider` value, or a mocked `authApi`:
+  - [x] `src/__tests__/LoginPage.test.tsx`:
     - renders the fields
     - submit calls `login` with the typed values
     - pending state disables the button
     - 401 error shows the alert
     - success navigates to `from` or `/`
     - an authenticated user is redirected
-  - [ ] `src/__tests__/RegisterPage.test.tsx`:
+  - [x] `src/__tests__/RegisterPage.test.tsx`:
     - mismatched passwords → no request, error shown
     - short password → no request
     - success → `register` called, then navigate
     - 400 field error shown under password
     - 409 shows the message + login link
-  - [ ] `src/__tests__/routeReload.test.tsx` (or similar): `/login` and `/register` render inside the shell
-- [ ] **14.5** `npm --prefix frontend run test:run && npm --prefix frontend run build` → green.
+  - [x] `src/__tests__/routeReload.test.tsx` (or similar): `/login` and `/register` render inside the shell
+- [x] **14.5** `npm --prefix frontend run test:run && npm --prefix frontend run build` → green.
 
 ---
 

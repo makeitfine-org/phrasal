@@ -9,7 +9,7 @@
 
 ## Architecture
 
-Multi-page SPA with no global store. State is component-local + localStorage.
+Multi-page SPA. State is component-local + localStorage; the only context is `auth/AuthContext` (current user, `useAuth()`).
 
 ### Routing (`src/main.tsx`)
 
@@ -47,7 +47,7 @@ Native `fetch` wrapper, no external dependencies. Base URL `/api/v1`.
 
 ### State Management
 
-No context or global store. State is component-local + localStorage:
+Only one context: `auth/AuthContext` (default value = anonymous, so components work without a provider). State is component-local + localStorage:
 
 | Owner | localStorage key | Manages |
 |---|---|---|

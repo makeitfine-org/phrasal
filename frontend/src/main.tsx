@@ -9,14 +9,18 @@ import PhrasalVerbsListPage from './pages/PhrasalVerbsListPage';
 import VerbDetailPage from './pages/VerbDetailPage';
 import ParticlesPage from './pages/particles/ParticlesPage';
 import IWishPage from './pages/IWishPage';
+import LoginPage from './pages/LoginPage';
+import RegisterPage from './pages/RegisterPage';
 import NotFoundPage from './pages/NotFoundPage';
 import ErrorBoundary from './components/ErrorBoundary';
 import PageShell from './components/PageShell';
+import { AuthProvider } from './auth/AuthContext';
 import './index.css';
 
 ReactDOM.createRoot(document.getElementById('root')!).render(
   <React.StrictMode>
     <ErrorBoundary>
+      <AuthProvider>
       <BrowserRouter basename={import.meta.env.BASE_URL}>
         <Routes>
           <Route element={<PageShell><Outlet /></PageShell>}>
@@ -28,10 +32,13 @@ ReactDOM.createRoot(document.getElementById('root')!).render(
             <Route path="/phrasal-verbs/list/:verb" element={<VerbDetailPage />} />
             <Route path="/grammar" element={<GrammarPage />} />
             <Route path="/grammar/i-wish-if-only" element={<IWishPage />} />
+            <Route path="/login" element={<LoginPage />} />
+            <Route path="/register" element={<RegisterPage />} />
             <Route path="*" element={<NotFoundPage />} />
           </Route>
         </Routes>
       </BrowserRouter>
+      </AuthProvider>
     </ErrorBoundary>
   </React.StrictMode>
 );

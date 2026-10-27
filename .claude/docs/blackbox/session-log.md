@@ -1059,3 +1059,20 @@
 - .claude/docs/blackbox/audit.md
 - backend/src/test/java/net/phrasal/integration/AbstractIntegrationTest.java
 <!-- end-snapshot -->
+
+<!-- git-snapshot 2026-10-27T20:06:40Z -->
+- .claude/docs/blackbox/audit.md
+- frontend/CLAUDE.md
+- frontend/src/__tests__/LoginPage.test.tsx
+- frontend/src/__tests__/RegisterPage.test.tsx
+- frontend/src/__tests__/api/authApi.test.ts
+- frontend/src/__tests__/auth/AuthContext.test.tsx
+- frontend/src/__tests__/routeReload.test.tsx
+- frontend/src/api/authApi.ts
+- frontend/src/auth/AuthContext.tsx
+- frontend/src/auth/useAuth.ts
+- frontend/src/main.tsx
+- frontend/src/pages/LoginPage.tsx
+- frontend/src/pages/RegisterPage.tsx
+- multiuser-todos.md
+<!-- end-snapshot -->

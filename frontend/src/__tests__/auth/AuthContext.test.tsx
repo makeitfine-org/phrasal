@@ -1,0 +1,96 @@
+import React from 'react';
+import { render, screen, act, waitFor } from '@testing-library/react';
+import { AuthProvider } from '../../auth/AuthContext';
+import { useAuth } from '../../auth/useAuth';
+import * as authApi from '../../api/authApi';
+import { ApiError } from '../../api/client';
+
+vi.mock('../../api/authApi');
+
+const user = { id: 1, email: 'a@b.co', role: 'USER' as const };
+let auth: ReturnType<typeof useAuth>;
+
+function Probe() {
+  auth = useAuth();
+  return <div data-testid="state">{auth.status}:{auth.user?.email ?? '-'}</div>;
+}
+
+function renderProvider() {
+  return render(<AuthProvider><Probe /></AuthProvider>);
+}
+
+beforeEach(() => {
+  vi.mocked(authApi.fetchCurrentUser).mockReset();
+  vi.mocked(authApi.login).mockReset();
+  vi.mocked(authApi.register).mockReset();
+  vi.mocked(authApi.logout).mockReset();
+});
+
+describe('AuthProvider', () => {
+  it('starts loading then authenticated', async () => {
+    vi.mocked(authApi.fetchCurrentUser).mockResolvedValue(user);
+    renderProvider();
+    expect(screen.getByTestId('state')).toHaveTextContent('loading:-');
+    await waitFor(() => expect(screen.getByTestId('state')).toHaveTextContent('authenticated:a@b.co'));
+  });
+
+  it('is anonymous when /me returns null', async () => {
+    vi.mocked(authApi.fetchCurrentUser).mockResolvedValue(null);
+    renderProvider();
+    await waitFor(() => expect(screen.getByTestId('state')).toHaveTextContent('anonymous:-'));
+  });
+
+  it('is anonymous on a network error', async () => {
+    vi.mocked(authApi.fetchCurrentUser).mockRejectedValue(new TypeError('network'));
+    renderProvider();
+    await waitFor(() => expect(screen.getByTestId('state')).toHaveTextContent('anonymous:-'));
+  });
+
+  it('login updates the user', async () => {
+    vi.mocked(authApi.fetchCurrentUser).mockResolvedValueOnce(null).mockResolvedValue(user);
+    vi.mocked(authApi.login).mockResolvedValue(user);
+    renderProvider();
+    await waitFor(() => expect(screen.getByTestId('state')).toHaveTextContent('anonymous'));
+    await act(() => auth.login('a@b.co', 'pw'));
+    expect(authApi.login).toHaveBeenCalledWith('a@b.co', 'pw');
+    expect(screen.getByTestId('state')).toHaveTextContent('authenticated:a@b.co');
+  });
+
+  it('register calls register then login', async () => {
+    const order: string[] = [];
+    vi.mocked(authApi.fetchCurrentUser).mockResolvedValueOnce(null).mockResolvedValue(user);
+    vi.mocked(authApi.register).mockImplementation(async () => { order.push('register'); return user; });
+    vi.mocked(authApi.login).mockImplementation(async () => { order.push('login'); return user; });
+    renderProvider();
+    await waitFor(() => expect(screen.getByTestId('state')).toHaveTextContent('anonymous'));
+    await act(() => auth.register('a@b.co', 'pw'));
+    expect(order).toEqual(['register', 'login']);
+    expect(screen.getByTestId('state')).toHaveTextContent('authenticated');
+  });
+
+  it('logout returns to anonymous and re-fetches /me', async () => {
+    vi.mocked(authApi.fetchCurrentUser).mockResolvedValueOnce(user).mockResolvedValue(null);
+    vi.mocked(authApi.logout).mockResolvedValue(undefined);
+    renderProvider();
+    await waitFor(() => expect(screen.getByTestId('state')).toHaveTextContent('authenticated'));
+    await act(() => auth.logout());
+    expect(authApi.fetchCurrentUser).toHaveBeenCalledTimes(2);
+    expect(screen.getByTestId('state')).toHaveTextContent('anonymous:-');
+  });
+
+  it('failing login rethrows and stays anonymous', async () => {
+    vi.mocked(authApi.fetchCurrentUser).mockResolvedValue(null);
+    vi.mocked(authApi.login).mockRejectedValue(new ApiError(401, 'Invalid email or password'));
+    renderProvider();
+    await waitFor(() => expect(screen.getByTestId('state')).toHaveTextContent('anonymous'));
+    await expect(act(() => auth.login('a@b.co', 'bad'))).rejects.toMatchObject({ status: 401 });
+    expect(screen.getByTestId('state')).toHaveTextContent('anonymous:-');
+  });
+});
+
+describe('useAuth without provider', () => {
+  it('returns the anonymous default', () => {
+    render(<Probe />);
+    expect(screen.getByTestId('state')).toHaveTextContent('anonymous:-');
+  });
+});

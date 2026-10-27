@@ -4,6 +4,8 @@ import { MemoryRouter, Routes, Route, Outlet } from 'react-router-dom';
 import App from '../App';
 import HomePage from '../pages/HomePage';
 import NotFoundPage from '../pages/NotFoundPage';
+import LoginPage from '../pages/LoginPage';
+import RegisterPage from '../pages/RegisterPage';
 import PageShell from '../components/PageShell';
 
 vi.mock('../hooks/usePhrasalVerbs', () => ({
@@ -30,6 +32,8 @@ function renderApp(initialPath: string) {
         <Route element={<PageShell><Outlet /></PageShell>}>
           <Route path="/" element={<HomePage />} />
           <Route path="/phrasal-verbs" element={<App />} />
+          <Route path="/login" element={<LoginPage />} />
+          <Route path="/register" element={<RegisterPage />} />
           <Route path="*" element={<NotFoundPage />} />
         </Route>
       </Routes>
@@ -51,6 +55,16 @@ describe('Page reload — router renders correct page, no console errors', () =>
   afterEach(() => {
     errorSpy.mockRestore();
     warnSpy.mockRestore();
+  });
+
+  it('reload /login renders the login page inside the shell', () => {
+    renderApp('/login');
+    expect(screen.getByRole('heading', { name: 'Log in' })).toBeInTheDocument();
+  });
+
+  it('reload /register renders the register page inside the shell', () => {
+    renderApp('/register');
+    expect(screen.getByRole('heading', { name: 'Sign up' })).toBeInTheDocument();
   });
 
   it('reload / renders the home page', () => {

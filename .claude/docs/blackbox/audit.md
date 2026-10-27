@@ -3141,3 +3141,13 @@ fix
 ## 2026-10-27T19:56:59Z
 git add all changes and commit them with suitable message
 ---
+
+## 2026-10-27T20:03:16Z
+start implementing functionality from  multiuser-todos.md Phase 13 and 14.
+  Don't forget to check off implemented boxes.
+  On phase completion `make clean build` must pass successfully.
+---
+
+## 2026-10-27T20:08:23Z
+git add all changes and commit them with suitable message
+---
