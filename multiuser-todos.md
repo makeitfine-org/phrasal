@@ -472,7 +472,7 @@ Pick one endpoint per resource and test every rule. Use `@ParameterizedTest` wit
   - [x] after logout the row is gone
   - [x] a separate unit/slice test with `@TestPropertySource(properties = "server.servlet.session.cookie.secure=true")` (or
         the prod profile property) → the cookie has `Secure`. It's a new context, which is acceptable for one class.
-- [ ] **8.5** Manual restart check (once, during Phase 18): log in through the UI, `docker compose restart backend`,
+- [x] **8.5** Manual restart check (once, during Phase 18): log in through the UI, `docker compose restart backend`,
       reload. Still logged in.
 - [x] **8.6** `cd backend && mvn clean verify` → green. Ask for commit approval →
       `feat(backend): add register, login, logout and me endpoints`
@@ -869,16 +869,16 @@ no per-account lockout, because anyone could use it to lock a victim out.
 
 ## Phase 18 — Final verification
 
-- [ ] **18.1** `make clean build` → green: backend verify (JaCoCo 85 %/package, Checkstyle), frontend build + tests, docker rebuild, e2e.
-- [ ] **18.2** Manual run with `make dockerAll`, at http://localhost:3000:
-  - [ ] anonymous: home, quiz, verb list and grammar quiz all work; the nav shows "Log in / Sign up"
-  - [ ] register a new account → logged in, the menu shows the email
-  - [ ] DevTools → the `SESSION` cookie is `HttpOnly`, `SameSite=Lax`; `XSRF-TOKEN` is readable
-  - [ ] `docker compose restart backend`, reload → still logged in
-  - [ ] log out → anonymous; log in again → works
-  - [ ] wrong password 6× → a readable "too many requests" message
-  - [ ] `curl -i -X POST localhost:3000/api/v1/phrasal-verbs -H 'Content-Type: application/json' -d '{}'` → `401` problem+json
-  - [ ] log in as the dev admin → `/me` role is ADMIN; the admin badge shows in the menu
+- [x] **18.1** `make clean build` → green: backend verify (JaCoCo 85 %/package, Checkstyle), frontend build + tests, docker rebuild, e2e.
+- [x] **18.2** Manual run with `make dockerAll`, at http://localhost:3000:
+  - [x] anonymous: home, quiz, verb list and grammar quiz all work; the nav shows "Log in / Sign up"
+  - [x] register a new account → logged in, the menu shows the email
+  - [x] DevTools → the `SESSION` cookie is `HttpOnly`, `SameSite=Lax`; `XSRF-TOKEN` is readable
+  - [x] `docker compose restart backend`, reload → still logged in
+  - [x] log out → anonymous; log in again → works
+  - [x] wrong password 6× → a readable "too many requests" message
+  - [x] `curl -i -X POST localhost:3000/api/v1/phrasal-verbs -H 'Content-Type: application/json' -d '{}'` → `403` problem+json (CSRF rejects a write with no token first); with a valid `X-XSRF-TOKEN` header → `401` problem+json
+  - [x] log in as the dev admin → `/me` role is ADMIN; the admin badge shows in the menu
 - [ ] **18.3** Optional reviews before merging: `/code-review`, `/security-review`, the `api-contract-review` skill on the auth endpoints.
 - [ ] **18.4** Before the first prod deploy (tagged release):
   - [ ] the task-98 backups decision has been made (see the warning at the top)

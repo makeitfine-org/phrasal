@@ -1132,3 +1132,8 @@
 - frontend/CLAUDE.md
 - multiuser-todos.md
 <!-- end-snapshot -->
+
+<!-- git-snapshot 2026-10-27T20:31:48Z -->
+- .claude/docs/blackbox/audit.md
+- multiuser-todos.md
+<!-- end-snapshot -->
