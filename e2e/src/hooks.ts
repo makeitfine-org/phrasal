@@ -1,6 +1,8 @@
 import { Before, After, BeforeAll, AfterAll, setDefaultTimeout } from '@cucumber/cucumber';
 import { chromium, Browser } from 'playwright';
 import { ApiClient } from './support/api-client';
+import { createDbClient } from './support/db-client';
+import { TEST_EMAIL_PATTERN } from './support/test-users';
 import dotenv from 'dotenv';
 
 dotenv.config();
@@ -18,6 +20,14 @@ AfterAll(async function () {
         await browser.close();
         browser = null;
     }
+    const db = await createDbClient();
+    try {
+        await db.query('DELETE FROM spring_session WHERE principal_name LIKE $1', [TEST_EMAIL_PATTERN]);
+        await db.query('DELETE FROM phrasal_verbs WHERE verb = $1', ['E2E admin verb']);
+        await db.query('DELETE FROM users WHERE email LIKE $1', [TEST_EMAIL_PATTERN]);
+    } finally {
+        await db.end();
+    }
 });
 
 Before(function () {
@@ -25,6 +35,7 @@ Before(function () {
     this.lastResponse = null;
     this.browser = browser;
     this.page = null;
+    this.currentEmail = null;
 });
 
 After(async function () {

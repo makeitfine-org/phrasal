@@ -1084,3 +1084,19 @@
 - frontend/src/components/NavigationMenu.tsx
 - multiuser-todos.md
 <!-- end-snapshot -->
+
+<!-- git-snapshot 2026-10-27T20:18:59Z -->
+- .claude/docs/blackbox/audit.md
+- e2e/.env.example
+- e2e/CLAUDE.md
+- e2e/features/auth-api/auth.feature
+- e2e/features/frontend/auth.feature
+- e2e/features/phrasal-verbs-api/crud.feature
+- e2e/src/hooks.ts
+- e2e/src/steps/auth-api.steps.ts
+- e2e/src/steps/auth-ui.steps.ts
+- e2e/src/support/api-client.ts
+- e2e/src/support/test-users.ts
+- e2e/src/world.ts
+- multiuser-todos.md
+<!-- end-snapshot -->

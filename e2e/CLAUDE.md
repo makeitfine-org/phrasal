@@ -21,7 +21,7 @@ Or step by step:
 
 - Steps are in `src/steps/`, support utilities in `src/support/`
 - Reports land in `reports/` (gitignored)
-- `ApiClient` fetches an `XSRF-TOKEN` cookie once and sends it as `X-XSRF-TOKEN` on POST/PUT/DELETE; writes still need ADMIN
+- `ApiClient` keeps a cookie jar (session + `XSRF-TOKEN`) and sends `X-XSRF-TOKEN` on POST/PUT/DELETE (`{ csrf: false }` omits it); admin writes need `ADMIN_EMAIL`/`ADMIN_PASSWORD`; test users `e2e-*@phrasal.test` are deleted in `AfterAll`
 - Never put real credentials in code; use `.env` (copy `.env.example`)
 
 ## Structure
@@ -29,10 +29,11 @@ Or step by step:
 ```
 features/
   phrasal-verbs-api/    → REST contract scenarios (@api)
+  auth-api/             → register/login/logout/rate-limit contract (@api)
   frontend/             → browser-driven SPA scenarios
 src/
   world.ts              → CustomWorld — shared state per scenario
   hooks.ts              → Before/After lifecycle
   steps/                → Step definitions
-  support/              → api-client.ts, db-client.ts
+  support/              → api-client.ts (cookie jar), db-client.ts, test-users.ts
 ```

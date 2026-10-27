@@ -756,24 +756,24 @@ no per-account lockout, because anyone could use it to lock a victim out.
 ## Phase 16 — E2E (Cucumber + Playwright)
 
 ### 16.1 Support code
-- [ ] **16.1.1** `e2e/src/support/api-client.ts`: add a tiny cookie jar. axios in Node keeps no cookies.
-  - [ ] after each response, parse `set-cookie` into a `Map<string, string>`; delete entries whose `Max-Age=0` / expired
-  - [ ] send `Cookie: k=v; …` on every request
-  - [ ] for POST/PUT/DELETE: if there's no `XSRF-TOKEN` in the jar yet, first do `GET /api/v1/phrasal-verbs?size=1` to obtain it,
+- [x] **16.1.1** `e2e/src/support/api-client.ts`: add a tiny cookie jar. axios in Node keeps no cookies.
+  - [x] after each response, parse `set-cookie` into a `Map<string, string>`; delete entries whose `Max-Age=0` / expired
+  - [x] send `Cookie: k=v; …` on every request
+  - [x] for POST/PUT/DELETE: if there's no `XSRF-TOKEN` in the jar yet, first do `GET /api/v1/phrasal-verbs?size=1` to obtain it,
         then send the `X-XSRF-TOKEN` header
-  - [ ] public helpers: `getCookie(name)`, `clearCookies()`, `withoutCsrf()` (for the negative scenario) or a `post(path, data, { csrf: false })` option
-- [ ] **16.1.2** `e2e/src/support/test-users.ts`:
+  - [x] public helpers: `getCookie(name)`, `clearCookies()`, `withoutCsrf()` (for the negative scenario) or a `post(path, data, { csrf: false })` option
+- [x] **16.1.2** `e2e/src/support/test-users.ts`:
   - `uniqueEmail()` → `` `e2e-${Date.now()}-${Math.random().toString(36).slice(2, 8)}@phrasal.test` ``
   - `TEST_PASSWORD = 'e2e-password-123'`
   - `ADMIN_EMAIL` / `ADMIN_PASSWORD` from `process.env`
-- [ ] **16.1.3** `e2e/src/world.ts`: add `currentEmail: string | null`. Reset it in `hooks.ts` `Before`.
-- [ ] **16.1.4** `e2e/src/hooks.ts`: an `AfterAll` cleanup via `createDbClient()`:
+- [x] **16.1.3** `e2e/src/world.ts`: add `currentEmail: string | null`. Reset it in `hooks.ts` `Before`.
+- [x] **16.1.4** `e2e/src/hooks.ts`: an `AfterAll` cleanup via `createDbClient()`:
   `DELETE FROM spring_session WHERE principal_name LIKE 'e2e-%@phrasal.test'`, then
   `DELETE FROM users WHERE email LIKE 'e2e-%@phrasal.test'`. Wrap it in try/finally and close the client.
-- [ ] **16.1.5** `e2e/.env.example`: add `ADMIN_EMAIL=admin@phrasal.test` and `ADMIN_PASSWORD=admin-dev-password` (the compose dev defaults).
+- [x] **16.1.5** `e2e/.env.example`: add `ADMIN_EMAIL=admin@phrasal.test` and `ADMIN_PASSWORD=admin-dev-password` (the compose dev defaults).
 
 ### 16.2 API steps + features
-- [ ] **16.2.1** `e2e/src/steps/auth-api.steps.ts`:
+- [x] **16.2.1** `e2e/src/steps/auth-api.steps.ts`:
   - `Given I am logged in as the admin`
   - `Given I am logged in as a new user`
   - `Given a registered user exists`
@@ -786,24 +786,24 @@ no per-account lockout, because anyone could use it to lock a victim out.
   - `Then the profile email should be the current email`
   - `Then the response role should be {string}`
   - Reuse the existing `the response status should be {int}` step.
-- [ ] **16.2.2** `e2e/features/auth-api/auth.feature` (`@api`):
-  - [ ] register a new account → 201, role USER
-  - [ ] duplicate email → 409
-  - [ ] password "short" → 400
-  - [ ] log in → 200; my profile → 200 with my email
-  - [ ] wrong password → 401
-  - [ ] anonymous profile → 401
-  - [ ] log out → 204; profile afterwards → 401
-  - [ ] 6 failed logins for one email → the 6th returns 429
-- [ ] **16.2.3** `e2e/features/phrasal-verbs-api/crud.feature`:
-  - [ ] keep "Anonymous visitor cannot create a phrasal verb" → 401 (from Phase 3)
-  - [ ] add "Regular user cannot create a phrasal verb": `Given I am logged in as a new user` … → 403
-  - [ ] add "Admin creates a phrasal verb": `Given I am logged in as the admin` … → 201 + `id`
-  - [ ] GET scenarios unchanged (anonymous)
-- [ ] **16.2.4** `npm --prefix e2e run test:api` against the running stack → green.
+- [x] **16.2.2** `e2e/features/auth-api/auth.feature` (`@api`):
+  - [x] register a new account → 201, role USER
+  - [x] duplicate email → 409
+  - [x] password "short" → 400
+  - [x] log in → 200; my profile → 200 with my email
+  - [x] wrong password → 401
+  - [x] anonymous profile → 401
+  - [x] log out → 204; profile afterwards → 401
+  - [x] 6 failed logins for one email → the 6th returns 429
+- [x] **16.2.3** `e2e/features/phrasal-verbs-api/crud.feature`:
+  - [x] keep "Anonymous visitor cannot create a phrasal verb" → 401 (from Phase 3)
+  - [x] add "Regular user cannot create a phrasal verb": `Given I am logged in as a new user` … → 403
+  - [x] add "Admin creates a phrasal verb": `Given I am logged in as the admin` … → 201 + `id`
+  - [x] GET scenarios unchanged (anonymous)
+- [x] **16.2.4** `npm --prefix e2e run test:api` against the running stack → green.
 
 ### 16.3 Browser steps + feature
-- [ ] **16.3.1** `e2e/src/steps/auth-ui.steps.ts`:
+- [x] **16.3.1** `e2e/src/steps/auth-ui.steps.ts`:
   - `When I open the {string} page`
   - `When I sign up through the form with a new email`
   - `When I log in through the form`
@@ -813,15 +813,15 @@ no per-account lockout, because anyone could use it to lock a victim out.
   - `Then I should see the {string} link in the navigation`
   - `Then I should see an auth error`
   Use the `data-testid`s from Phases 14–15, and `FRONTEND_URL` as in `frontend.steps.ts`.
-- [ ] **16.3.2** `e2e/features/frontend/auth.feature` (`@frontend`):
-  - [ ] sign up through the form → redirected home, the user menu shows my email
-  - [ ] log out → the "Log in" link is back
-  - [ ] a registered user logs in through the form → the user menu shows the email
-  - [ ] wrong password → an auth error is visible, still anonymous
-  - [ ] logged in, reload the page → still logged in (session cookie through nginx)
-  - [ ] anonymous visitor still sees the quiz input (keeps AC #7 visible in the UI)
-- [ ] **16.3.3** `make acceptanceTest` → all features green, including the old ones.
-- [ ] **16.3.4** Ask for commit approval → `test(e2e): cover register, login, logout and admin-only writes`
+- [x] **16.3.2** `e2e/features/frontend/auth.feature` (`@frontend`):
+  - [x] sign up through the form → redirected home, the user menu shows my email
+  - [x] log out → the "Log in" link is back
+  - [x] a registered user logs in through the form → the user menu shows the email
+  - [x] wrong password → an auth error is visible, still anonymous
+  - [x] logged in, reload the page → still logged in (session cookie through nginx)
+  - [x] anonymous visitor still sees the quiz input (keeps AC #7 visible in the UI)
+- [x] **16.3.3** `make acceptanceTest` → all features green, including the old ones.
+- [x] **16.3.4** Ask for commit approval → `test(e2e): cover register, login, logout and admin-only writes`
 
 ---
 
