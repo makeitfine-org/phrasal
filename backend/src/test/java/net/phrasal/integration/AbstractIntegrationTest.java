@@ -1,6 +1,8 @@
 package net.phrasal.integration;
 
 import jakarta.servlet.http.Cookie;
+import org.junit.jupiter.api.AfterEach;
+import org.junit.jupiter.api.BeforeEach;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.webmvc.test.autoconfigure.AutoConfigureMockMvc;
@@ -8,6 +10,8 @@ import org.springframework.test.context.ActiveProfiles;
 import org.springframework.test.context.DynamicPropertyRegistry;
 import org.springframework.test.context.DynamicPropertySource;
 import org.springframework.http.MediaType;
+import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.security.test.context.TestSecurityContextHolder;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.request.RequestPostProcessor;
 import org.testcontainers.postgresql.PostgreSQLContainer;
@@ -37,6 +41,14 @@ abstract class AbstractIntegrationTest {
 
     @Autowired
     protected MockMvc mockMvc;
+
+    /** Drops any authentication left on the thread by a previous login so tests stay order-independent. */
+    @BeforeEach
+    @AfterEach
+    void clearSecurityContext() {
+        SecurityContextHolder.clearContext();
+        TestSecurityContextHolder.clearContext();
+    }
 
     /** Authenticates the request as an ADMIN and attaches a valid CSRF token. */
     protected static RequestPostProcessor adminWithCsrf() {

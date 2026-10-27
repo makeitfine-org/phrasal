@@ -1054,3 +1054,8 @@
 - frontend/src/types.ts
 - multiuser-todos.md
 <!-- end-snapshot -->
+
+<!-- git-snapshot 2026-10-27T19:54:37Z -->
+- .claude/docs/blackbox/audit.md
+- backend/src/test/java/net/phrasal/integration/AbstractIntegrationTest.java
+<!-- end-snapshot -->

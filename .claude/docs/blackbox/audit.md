@@ -2737,3 +2737,407 @@ start implementing functionality from  multiuser-todos.md Phase 12.
 ## 2026-10-27T19:45:53Z
 git add all changes and commit them with suitable message
 ---
+
+## 2026-10-27T19:52:56Z
+on github Action build-and-test I got:
+
+
+
+<pasted_content id="81f1">
+[ERROR] Failures: 
+[ERROR]   SecurityRulesIntegrationTest.anonymousWritesAreUnauthorized:60 Status expected:<401> but was:<403>
+[INFO] 
+[ERROR] Tests run: 193, Failures: 1, Errors: 0, Skipped: 0
+</pasted_content id="81f1">
+
+
+
+
+<pasted_content id="81f1">
+2026-10-27T19:47:06.205Z  INFO 2431 --- [backend] [           main] n.p.i.RateLimitIntegrationTest           : Started RateLimitIntegrationTest in 0.665 seconds (process running for 32.201)
+2026-10-27T19:47:06.207Z  INFO 2431 --- [backend] [           main] n.p.a.service.AdminAccountInitializer    : Admin bootstrap skipped: PHRASAL_ADMIN_EMAIL/PASSWORD not set
+Hibernate: 
+    select
+        u1_0.id 
+    from
+        users u1_0 
+    where
+        u1_0.email=? 
+    fetch
+        first ? rows only
+Hibernate: 
+    select
+        nextval('users_id_seq')
+Hibernate: 
+    insert 
+    into
+        users
+        (created_at, email, password_hash, role, updated_at, version, id) 
+    values
+        (?, ?, ?, ?, ?, ?, ?)
+2026-10-27T19:47:06.301Z  INFO 2431 --- [backend] [           main] n.p.application.service.AuthService      : Registered user id=22
+Hibernate: 
+    select
+        u1_0.id 
+    from
+        users u1_0 
+    where
+        u1_0.email=? 
+    fetch
+        first ? rows only
+Hibernate: 
+    select
+        nextval('users_id_seq')
+Hibernate: 
+    insert 
+    into
+        users
+        (created_at, email, password_hash, role, updated_at, version, id) 
+    values
+        (?, ?, ?, ?, ?, ?, ?)
+2026-10-27T19:47:06.384Z  INFO 2431 --- [backend] [           main] n.p.application.service.AuthService      : Registered user id=23
+2026-10-27T19:47:06.390Z  WARN 2431 --- [backend] [           main] n.p.i.exception.GlobalExceptionHandler   : Rate limit exceeded: rule=register-per-ip
+Hibernate: 
+    select
+        u1_0.id 
+    from
+        users u1_0 
+    where
+        u1_0.email=? 
+    fetch
+        first ? rows only
+Hibernate: 
+    select
+        nextval('users_id_seq')
+Hibernate: 
+    insert 
+    into
+        users
+        (created_at, email, password_hash, role, updated_at, version, id) 
+    values
+        (?, ?, ?, ?, ?, ?, ?)
+2026-10-27T19:47:06.486Z  INFO 2431 --- [backend] [           main] n.p.application.service.AuthService      : Registered user id=24
+Hibernate: 
+    select
+        u1_0.id 
+    from
+        users u1_0 
+    where
+        u1_0.email=? 
+    fetch
+        first ? rows only
+Hibernate: 
+    select
+        nextval('users_id_seq')
+Hibernate: 
+    insert 
+    into
+        users
+        (created_at, email, password_hash, role, updated_at, version, id) 
+    values
+        (?, ?, ?, ?, ?, ?, ?)
+2026-10-27T19:47:06.572Z  INFO 2431 --- [backend] [           main] n.p.application.service.AuthService      : Registered user id=25
+Hibernate: 
+    select
+        u1_0.id,
+        u1_0.created_at,
+        u1_0.email,
+        u1_0.password_hash,
+        u1_0.role,
+        u1_0.updated_at,
+        u1_0.version 
+    from
+        users u1_0 
+    where
+        u1_0.email=?
+2026-10-27T19:47:06.731Z  INFO 2431 --- [backend] [           main] n.p.p.security.SessionAuthenticator      : Logged in user id=24
+Hibernate: 
+    select
+        u1_0.id,
+        u1_0.created_at,
+        u1_0.email,
+        u1_0.password_hash,
+        u1_0.role,
+        u1_0.updated_at,
+        u1_0.version 
+    from
+        users u1_0 
+    where
+        u1_0.email=?
+2026-10-27T19:47:06.814Z  INFO 2431 --- [backend] [           main] n.p.p.security.SessionAuthenticator      : Logged in user id=24
+Hibernate: 
+    select
+        u1_0.id,
+        u1_0.created_at,
+        u1_0.email,
+        u1_0.password_hash,
+        u1_0.role,
+        u1_0.updated_at,
+        u1_0.version 
+    from
+        users u1_0 
+    where
+        u1_0.email=?
+2026-10-27T19:47:06.895Z  INFO 2431 --- [backend] [           main] n.p.p.security.SessionAuthenticator      : Logged in user id=24
+2026-10-27T19:47:06.901Z  WARN 2431 --- [backend] [           main] n.p.i.exception.GlobalExceptionHandler   : Rate limit exceeded: rule=login-per-email
+Hibernate: 
+    select
+        u1_0.id,
+        u1_0.created_at,
+        u1_0.email,
+        u1_0.password_hash,
+        u1_0.role,
+        u1_0.updated_at,
+        u1_0.version 
+    from
+        users u1_0 
+    where
+        u1_0.email=?
+2026-10-27T19:47:06.978Z  INFO 2431 --- [backend] [           main] n.p.p.security.SessionAuthenticator      : Logged in user id=25
+[INFO] Tests run: 2, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 1.450 s -- in Rate limit integration
+[INFO] Running GlobalExceptionHandler
+2026-10-27T19:47:06.985Z  WARN 2431 --- [backend] [           main] n.p.i.exception.GlobalExceptionHandler   : Rate limit exceeded: rule=login-per-ip
+2026-10-27T19:47:06.986Z ERROR 2431 --- [backend] [           main] n.p.i.exception.GlobalExceptionHandler   : Unexpected error
+
+java.lang.RuntimeException: unexpected
+    at net.phrasal.infrastructure.exception.GlobalExceptionHandlerTest.handleGlobal(GlobalExceptionHandlerTest.java:64) ~[test-classes/:na]
+    at java.base/jdk.internal.reflect.DirectMethodHandleAccessor.invoke(DirectMethodHandleAccessor.java:104) ~[na:na]
+    at java.base/java.lang.reflect.Method.invoke(Method.java:565) ~[na:na]
+    at org.junit.platform.commons.util.ReflectionUtils.invokeMethod(ReflectionUtils.java:701) ~[junit-platform-commons-6.0.3.jar:6.0.3]
+    at org.junit.platform.engine.support.hierarchical.HierarchicalTestExecutor.execute(HierarchicalTestExecutor.java:52) ~[junit-platform-engine-6.0.3.jar:6.0.3]
+    at org.junit.platform.engine.support.hierarchical.HierarchicalTestEngine.execute(HierarchicalTestEngine.java:58) ~[junit-platform-engine-6.0.3.jar:6.0.3]
+    at org.junit.platform.launcher.core.EngineExecutionOrchestrator.executeEngine(EngineExecutionOrchestrator.java:246) ~[junit-platform-launcher-6.0.3.jar:6.0.3]
+    at org.junit.platform.launcher.core.EngineExecutionOrchestrator.failOrExecuteEngine(EngineExecutionOrchestrator.java:218) ~[junit-platform-launcher-6.0.3.jar:6.0.3]
+    at org.junit.platform.launcher.core.EngineExecutionOrchestrator.execute(EngineExecutionOrchestrator.java:179) ~[junit-platform-launcher-6.0.3.jar:6.0.3]
+    at org.junit.platform.launcher.core.EngineExecutionOrchestrator.execute(EngineExecutionOrchestrator.java:108) ~[junit-platform-launcher-6.0.3.jar:6.0.3]
+    at org.junit.platform.launcher.core.EngineExecutionOrchestrator.lambda$execute$0(EngineExecutionOrchestrator.java:66) ~[junit-platform-launcher-6.0.3.jar:6.0.3]
+    at org.junit.platform.launcher.core.EngineExecutionOrchestrator.withInterceptedStreams(EngineExecutionOrchestrator.java:157) ~[junit-platform-launcher-6.0.3.jar:6.0.3]
+    at org.junit.platform.launcher.core.EngineExecutionOrchestrator.execute(EngineExecutionOrchestrator.java:65) ~[junit-platform-launcher-6.0.3.jar:6.0.3]
+    at org.junit.platform.launcher.core.DefaultLauncher.execute(DefaultLauncher.java:125) ~[junit-platform-launcher-6.0.3.jar:6.0.3]
+    at org.junit.platform.launcher.core.DefaultLauncher.execute(DefaultLauncher.java:114) ~[junit-platform-launcher-6.0.3.jar:6.0.3]
+    at org.junit.platform.launcher.core.DelegatingLauncher.execute(DelegatingLauncher.java:58) ~[junit-platform-launcher-6.0.3.jar:6.0.3]
+    at org.junit.platform.launcher.core.InterceptingLauncher.lambda$execute$2(InterceptingLauncher.java:57) ~[junit-platform-launcher-6.0.3.jar:6.0.3]
+    at org.junit.platform.launcher.core.ClasspathAlignmentCheckingLauncherInterceptor.intercept(ClasspathAlignmentCheckingLauncherInterceptor.java:25) ~[junit-platform-launcher-6.0.3.jar:6.0.3]
+    at org.junit.platform.launcher.core.InterceptingLauncher.execute(InterceptingLauncher.java:56) ~[junit-platform-launcher-6.0.3.jar:6.0.3]
+    at org.junit.platform.launcher.core.DelegatingLauncher.execute(DelegatingLauncher.java:58) ~[junit-platform-launcher-6.0.3.jar:6.0.3]
+    at java.base/jdk.internal.reflect.DirectMethodHandleAccessor.invoke(DirectMethodHandleAccessor.java:104) ~[na:na]
+    at java.base/java.lang.reflect.Method.invoke(Method.java:565) ~[na:na]
+    at org.apache.maven.surefire.api.util.ReflectionUtils.invokeMethodWithArray(ReflectionUtils.java:125) ~[surefire-api-3.5.6.jar:3.5.6]
+    at org.apache.maven.surefire.junitplatform.LauncherAdapter.executeWithCancellationToken(LauncherAdapter.java:68) ~[surefire-junit-platform-3.5.6.jar:3.5.6]
+    at org.apache.maven.surefire.junitplatform.LauncherAdapter.execute(LauncherAdapter.java:54) ~[surefire-junit-platform-3.5.6.jar:3.5.6]
+    at org.apache.maven.surefire.junitplatform.JUnitPlatformProvider.execute(JUnitPlatformProvider.java:203) ~[surefire-junit-platform-3.5.6.jar:3.5.6]
+    at org.apache.maven.surefire.junitplatform.JUnitPlatformProvider.invokeAllTests(JUnitPlatformProvider.java:168) ~[surefire-junit-platform-3.5.6.jar:3.5.6]
+    at org.apache.maven.surefire.junitplatform.JUnitPlatformProvider.invoke(JUnitPlatformProvider.java:136) ~[surefire-junit-platform-3.5.6.jar:3.5.6]
+    at org.apache.maven.surefire.booter.ForkedBooter.runSuitesInProcess(ForkedBooter.java:385) ~[surefire-booter-3.5.6.jar:3.5.6]
+    at org.apache.maven.surefire.booter.ForkedBooter.execute(ForkedBooter.java:162) ~[surefire-booter-3.5.6.jar:3.5.6]
+    at org.apache.maven.surefire.booter.ForkedBooter.run(ForkedBooter.java:507) ~[surefire-booter-3.5.6.jar:3.5.6]
+    at org.apache.maven.surefire.booter.ForkedBooter.main(ForkedBooter.java:495) ~[surefire-booter-3.5.6.jar:3.5.6]
+
+2026-10-27T19:47:06.993Z  WARN 2431 --- [backend] [           main] n.p.i.exception.GlobalExceptionHandler   : Phrasal Verb not found: Phrasal v
+</pasted_content id="81f1">
+---
+
+## 2026-10-27T19:53:00Z
+on github Action build-and-test I got:
+
+
+
+<pasted_content id="81f1">
+[ERROR] Failures: 
+[ERROR]   SecurityRulesIntegrationTest.anonymousWritesAreUnauthorized:60 Status expected:<401> but was:<403>
+[INFO] 
+[ERROR] Tests run: 193, Failures: 1, Errors: 0, Skipped: 0
+</pasted_content id="81f1">
+
+
+
+<pasted_content id="81f1">
+2026-10-27T19:47:06.205Z  INFO 2431 --- [backend] [           main] n.p.i.RateLimitIntegrationTest           : Started RateLimitIntegrationTest in 0.665 seconds (process running for 32.201)
+2026-10-27T19:47:06.207Z  INFO 2431 --- [backend] [           main] n.p.a.service.AdminAccountInitializer    : Admin bootstrap skipped: PHRASAL_ADMIN_EMAIL/PASSWORD not set
+Hibernate: 
+    select
+        u1_0.id 
+    from
+        users u1_0 
+    where
+        u1_0.email=? 
+    fetch
+        first ? rows only
+Hibernate: 
+    select
+        nextval('users_id_seq')
+Hibernate: 
+    insert 
+    into
+        users
+        (created_at, email, password_hash, role, updated_at, version, id) 
+    values
+        (?, ?, ?, ?, ?, ?, ?)
+2026-10-27T19:47:06.301Z  INFO 2431 --- [backend] [           main] n.p.application.service.AuthService      : Registered user id=22
+Hibernate: 
+    select
+        u1_0.id 
+    from
+        users u1_0 
+    where
+        u1_0.email=? 
+    fetch
+        first ? rows only
+Hibernate: 
+    select
+        nextval('users_id_seq')
+Hibernate: 
+    insert 
+    into
+        users
+        (created_at, email, password_hash, role, updated_at, version, id) 
+    values
+        (?, ?, ?, ?, ?, ?, ?)
+2026-10-27T19:47:06.384Z  INFO 2431 --- [backend] [           main] n.p.application.service.AuthService      : Registered user id=23
+2026-10-27T19:47:06.390Z  WARN 2431 --- [backend] [           main] n.p.i.exception.GlobalExceptionHandler   : Rate limit exceeded: rule=register-per-ip
+Hibernate: 
+    select
+        u1_0.id 
+    from
+        users u1_0 
+    where
+        u1_0.email=? 
+    fetch
+        first ? rows only
+Hibernate: 
+    select
+        nextval('users_id_seq')
+Hibernate: 
+    insert 
+    into
+        users
+        (created_at, email, password_hash, role, updated_at, version, id) 
+    values
+        (?, ?, ?, ?, ?, ?, ?)
+2026-10-27T19:47:06.486Z  INFO 2431 --- [backend] [           main] n.p.application.service.AuthService      : Registered user id=24
+Hibernate: 
+    select
+        u1_0.id 
+    from
+        users u1_0 
+    where
+        u1_0.email=? 
+    fetch
+        first ? rows only
+Hibernate: 
+    select
+        nextval('users_id_seq')
+Hibernate: 
+    insert 
+    into
+        users
+        (created_at, email, password_hash, role, updated_at, version, id) 
+    values
+        (?, ?, ?, ?, ?, ?, ?)
+2026-10-27T19:47:06.572Z  INFO 2431 --- [backend] [           main] n.p.application.service.AuthService      : Registered user id=25
+Hibernate: 
+    select
+        u1_0.id,
+        u1_0.created_at,
+        u1_0.email,
+        u1_0.password_hash,
+        u1_0.role,
+        u1_0.updated_at,
+        u1_0.version 
+    from
+        users u1_0 
+    where
+        u1_0.email=?
+2026-10-27T19:47:06.731Z  INFO 2431 --- [backend] [           main] n.p.p.security.SessionAuthenticator      : Logged in user id=24
+Hibernate: 
+    select
+        u1_0.id,
+        u1_0.created_at,
+        u1_0.email,
+        u1_0.password_hash,
+        u1_0.role,
+        u1_0.updated_at,
+        u1_0.version 
+    from
+        users u1_0 
+    where
+        u1_0.email=?
+2026-10-27T19:47:06.814Z  INFO 2431 --- [backend] [           main] n.p.p.security.SessionAuthenticator      : Logged in user id=24
+Hibernate: 
+    select
+        u1_0.id,
+        u1_0.created_at,
+        u1_0.email,
+        u1_0.password_hash,
+        u1_0.role,
+        u1_0.updated_at,
+        u1_0.version 
+    from
+        users u1_0 
+    where
+        u1_0.email=?
+2026-10-27T19:47:06.895Z  INFO 2431 --- [backend] [           main] n.p.p.security.SessionAuthenticator      : Logged in user id=24
+2026-10-27T19:47:06.901Z  WARN 2431 --- [backend] [           main] n.p.i.exception.GlobalExceptionHandler   : Rate limit exceeded: rule=login-per-email
+Hibernate: 
+    select
+        u1_0.id,
+        u1_0.created_at,
+        u1_0.email,
+        u1_0.password_hash,
+        u1_0.role,
+        u1_0.updated_at,
+        u1_0.version 
+    from
+        users u1_0 
+    where
+        u1_0.email=?
+2026-10-27T19:47:06.978Z  INFO 2431 --- [backend] [           main] n.p.p.security.SessionAuthenticator      : Logged in user id=25
+[INFO] Tests run: 2, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 1.450 s -- in Rate limit integration
+[INFO] Running GlobalExceptionHandler
+2026-10-27T19:47:06.985Z  WARN 2431 --- [backend] [           main] n.p.i.exception.GlobalExceptionHandler   : Rate limit exceeded: rule=login-per-ip
+2026-10-27T19:47:06.986Z ERROR 2431 --- [backend] [           main] n.p.i.exception.GlobalExceptionHandler   : Unexpected error
+
+java.lang.RuntimeException: unexpected
+    at net.phrasal.infrastructure.exception.GlobalExceptionHandlerTest.handleGlobal(GlobalExceptionHandlerTest.java:64) ~[test-classes/:na]
+    at java.base/jdk.internal.reflect.DirectMethodHandleAccessor.invoke(DirectMethodHandleAccessor.java:104) ~[na:na]
+    at java.base/java.lang.reflect.Method.invoke(Method.java:565) ~[na:na]
+    at org.junit.platform.commons.util.ReflectionUtils.invokeMethod(ReflectionUtils.java:701) ~[junit-platform-commons-6.0.3.jar:6.0.3]
+    at org.junit.platform.engine.support.hierarchical.HierarchicalTestExecutor.execute(HierarchicalTestExecutor.java:52) ~[junit-platform-engine-6.0.3.jar:6.0.3]
+    at org.junit.platform.engine.support.hierarchical.HierarchicalTestEngine.execute(HierarchicalTestEngine.java:58) ~[junit-platform-engine-6.0.3.jar:6.0.3]
+    at org.junit.platform.launcher.core.EngineExecutionOrchestrator.executeEngine(EngineExecutionOrchestrator.java:246) ~[junit-platform-launcher-6.0.3.jar:6.0.3]
+    at org.junit.platform.launcher.core.EngineExecutionOrchestrator.failOrExecuteEngine(EngineExecutionOrchestrator.java:218) ~[junit-platform-launcher-6.0.3.jar:6.0.3]
+    at org.junit.platform.launcher.core.EngineExecutionOrchestrator.execute(EngineExecutionOrchestrator.java:179) ~[junit-platform-launcher-6.0.3.jar:6.0.3]
+    at org.junit.platform.launcher.core.EngineExecutionOrchestrator.execute(EngineExecutionOrchestrator.java:108) ~[junit-platform-launcher-6.0.3.jar:6.0.3]
+    at org.junit.platform.launcher.core.EngineExecutionOrchestrator.lambda$execute$0(EngineExecutionOrchestrator.java:66) ~[junit-platform-launcher-6.0.3.jar:6.0.3]
+    at org.junit.platform.launcher.core.EngineExecutionOrchestrator.withInterceptedStreams(EngineExecutionOrchestrator.java:157) ~[junit-platform-launcher-6.0.3.jar:6.0.3]
+    at org.junit.platform.launcher.core.EngineExecutionOrchestrator.execute(EngineExecutionOrchestrator.java:65) ~[junit-platform-launcher-6.0.3.jar:6.0.3]
+    at org.junit.platform.launcher.core.DefaultLauncher.execute(DefaultLauncher.java:125) ~[junit-platform-launcher-6.0.3.jar:6.0.3]
+    at org.junit.platform.launcher.core.DefaultLauncher.execute(DefaultLauncher.java:114) ~[junit-platform-launcher-6.0.3.jar:6.0.3]
+    at org.junit.platform.launcher.core.DelegatingLauncher.execute(DelegatingLauncher.java:58) ~[junit-platform-launcher-6.0.3.jar:6.0.3]
+    at org.junit.platform.launcher.core.InterceptingLauncher.lambda$execute$2(InterceptingLauncher.java:57) ~[junit-platform-launcher-6.0.3.jar:6.0.3]
+    at org.junit.platform.launcher.core.ClasspathAlignmentCheckingLauncherInterceptor.intercept(ClasspathAlignmentCheckingLauncherInterceptor.java:25) ~[junit-platform-launcher-6.0.3.jar:6.0.3]
+    at org.junit.platform.launcher.core.InterceptingLauncher.execute(InterceptingLauncher.java:56) ~[junit-platform-launcher-6.0.3.jar:6.0.3]
+    at org.junit.platform.launcher.core.DelegatingLauncher.execute(DelegatingLauncher.java:58) ~[junit-platform-launcher-6.0.3.jar:6.0.3]
+    at java.base/jdk.internal.reflect.DirectMethodHandleAccessor.invoke(DirectMethodHandleAccessor.java:104) ~[na:na]
+    at java.base/java.lang.reflect.Method.invoke(Method.java:565) ~[na:na]
+    at org.apache.maven.surefire.api.util.ReflectionUtils.invokeMethodWithArray(ReflectionUtils.java:125) ~[surefire-api-3.5.6.jar:3.5.6]
+    at org.apache.maven.surefire.junitplatform.LauncherAdapter.executeWithCancellationToken(LauncherAdapter.java:68) ~[surefire-junit-platform-3.5.6.jar:3.5.6]
+    at org.apache.maven.surefire.junitplatform.LauncherAdapter.execute(LauncherAdapter.java:54) ~[surefire-junit-platform-3.5.6.jar:3.5.6]
+    at org.apache.maven.surefire.junitplatform.JUnitPlatformProvider.execute(JUnitPlatformProvider.java:203) ~[surefire-junit-platform-3.5.6.jar:3.5.6]
+    at org.apache.maven.surefire.junitplatform.JUnitPlatformProvider.invokeAllTests(JUnitPlatformProvider.java:168) ~[surefire-junit-platform-3.5.6.jar:3.5.6]
+    at org.apache.maven.surefire.junitplatform.JUnitPlatformProvider.invoke(JUnitPlatformProvider.java:136) ~[surefire-junit-platform-3.5.6.jar:3.5.6]
+    at org.apache.maven.surefire.booter.ForkedBooter.runSuitesInProcess(ForkedBooter.java:385) ~[surefire-booter-3.5.6.jar:3.5.6]
+    at org.apache.maven.surefire.booter.ForkedBooter.execute(ForkedBooter.java:162) ~[surefire-booter-3.5.6.jar:3.5.6]
+    at org.apache.maven.surefire.booter.ForkedBooter.run(ForkedBooter.java:507) ~[surefire-booter-3.5.6.jar:3.5.6]
+    at org.apache.maven.surefire.booter.ForkedBooter.main(ForkedBooter.java:495) ~[surefire-booter-3.5.6.jar:3.5.6]
+
+2026-10-27T19:47:06.993Z  WARN 2431 --- [backend] [           main] n.p.i.exception.GlobalExceptionHandler   : Phrasal Verb not found: Phrasal v
+</pasted_content id="81f1">
+
+
+fix
+---
+
+## 2026-10-27T19:56:59Z
+git add all changes and commit them with suitable message
+---
