@@ -122,22 +122,22 @@ Source plan: `.claude/docs/blackbox/plans/2026-10-26 18:10 Multi-user accounts T
 Why: each of the 3 integration test classes starts its own Postgres container. This phase adds about 5 more classes.
 A shared singleton container plus one cached Spring context keeps build time flat.
 
-- [ ] **1.1** Create `backend/src/test/java/net/phrasal/integration/AbstractIntegrationTest.java`:
-  - [ ] `@SpringBootTest @AutoConfigureMockMvc @ActiveProfiles("test")`, `abstract class`
-  - [ ] `static final PostgreSQLContainer POSTGRES = new PostgreSQLContainer("postgres:16-alpine")…`, started in a
+- [x] **1.1** Create `backend/src/test/java/net/phrasal/integration/AbstractIntegrationTest.java`:
+  - [x] `@SpringBootTest @AutoConfigureMockMvc @ActiveProfiles("test")`, `abstract class`
+  - [x] `static final PostgreSQLContainer POSTGRES = new PostgreSQLContainer("postgres:16-alpine")…`, started in a
         `static {}` block (singleton pattern: no `@Container`/`@Testcontainers`, so the container lives for the whole JVM)
-  - [ ] `@DynamicPropertySource` registering `spring.datasource.url/username/password`
-  - [ ] `@Autowired protected MockMvc mockMvc;`
-- [ ] **1.2** Make `PhrasalVerbIntegrationTest`, `GrammarEntryIntegrationTest` and `VerbDetailIntegrationTest` extend it:
-  - [ ] remove their own `@Container`, `@DynamicPropertySource`, `@SpringBootTest`, `@AutoConfigureMockMvc`,
+  - [x] `@DynamicPropertySource` registering `spring.datasource.url/username/password`
+  - [x] `@Autowired protected MockMvc mockMvc;`
+- [x] **1.2** Make `PhrasalVerbIntegrationTest`, `GrammarEntryIntegrationTest` and `VerbDetailIntegrationTest` extend it:
+  - [x] remove their own `@Container`, `@DynamicPropertySource`, `@SpringBootTest`, `@AutoConfigureMockMvc`,
         `@Testcontainers`, `@ActiveProfiles` and the `mockMvc` field
-  - [ ] keep every test method unchanged
-- [ ] **1.3** Check that tests don't depend on each other's data now that they share one DB:
-  - [ ] grep for `findAll().get(0)` and count-based asserts, and make sure created rows use unique names
-  - [ ] if a test deletes or changes seed rows that another class reads, make it create its own row first
-- [ ] **1.4** Run `cd backend && mvn clean verify`. All tests pass, JaCoCo and Checkstyle are green, and only one Postgres
+  - [x] keep every test method unchanged
+- [x] **1.3** Check that tests don't depend on each other's data now that they share one DB:
+  - [x] grep for `findAll().get(0)` and count-based asserts, and make sure created rows use unique names
+  - [x] if a test deletes or changes seed rows that another class reads, make it create its own row first
+- [x] **1.4** Run `cd backend && mvn clean verify`. All tests pass, JaCoCo and Checkstyle are green, and only one Postgres
       container starts (check the log).
-- [ ] **1.5** Ask for commit approval → `test(backend): share one Testcontainers Postgres across integration tests`
+- [x] **1.5** Ask for commit approval → `test(backend): share one Testcontainers Postgres across integration tests`
 
 ---
 

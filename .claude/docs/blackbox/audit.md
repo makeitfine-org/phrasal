@@ -1975,3 +1975,13 @@ start implementing functionality from  multiuser-todos.md Phase 0.
 ## 2026-10-27T12:34:11Z
 git add all changes and commit them with suitable message
 ---
+
+## 2026-10-27T12:35:01Z
+start implementing functionality from  multiuser-todos.md Phase 1.
+  Don't forget to check off implemented boxes.
+  On phase completion `make clean build` must pass successfully.
+---
+
+## 2026-10-27T12:39:35Z
+git add all changes and commit them with suitable message
+---
