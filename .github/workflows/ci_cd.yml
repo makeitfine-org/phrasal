@@ -126,6 +126,8 @@ jobs:
           DB_NAME: phrasaldb
           DB_USER: postgres
           DB_PASSWORD: postgres
+          ADMIN_EMAIL: admin@phrasal.test # compose defaults
+          ADMIN_PASSWORD: admin-dev-password
 
       - name: Upload Cucumber report
         if: always()
@@ -253,6 +255,8 @@ jobs:
         env:
           DB_USERNAME: ${{ secrets.DB_USERNAME }}
           DB_PASSWORD: ${{ secrets.DB_PASSWORD }}
+          PHRASAL_ADMIN_EMAIL: ${{ secrets.PHRASAL_ADMIN_EMAIL }}
+          PHRASAL_ADMIN_PASSWORD: ${{ secrets.PHRASAL_ADMIN_PASSWORD }}
         run: |
           printf '%s\n' \
             "apiVersion: v1" \
@@ -263,6 +267,8 @@ jobs:
             "stringData:" \
             "  database.username: ${DB_USERNAME}" \
             "  database.password: ${DB_PASSWORD}" \
+            "  admin.email: ${PHRASAL_ADMIN_EMAIL}" \
+            "  admin.password: ${PHRASAL_ADMIN_PASSWORD}" \
             > k8s/overlays/prod/patches/secret.yaml
 
       - name: Set image tags

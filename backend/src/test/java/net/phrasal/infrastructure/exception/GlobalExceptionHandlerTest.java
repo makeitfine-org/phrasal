@@ -108,4 +108,15 @@ class GlobalExceptionHandlerTest {
         assertThat(detail.getType().toString()).endsWith("/errors/email-already-registered");
         assertThat(detail.getDetail()).isEqualTo("An account with this email already exists");
     }
+
+    @Test
+    @DisplayName("returns 429 with a Retry-After header")
+    void handleRateLimited() {
+        var response = handler.handleRateLimited(new RateLimitExceededException("login-per-ip", 42));
+
+        assertThat(response.getStatusCode().value()).isEqualTo(HttpStatus.TOO_MANY_REQUESTS.value());
+        assertThat(response.getHeaders().getFirst("Retry-After")).isEqualTo("42");
+        assertThat(response.getBody().getTitle()).isEqualTo("Too Many Requests");
+        assertThat(response.getBody().getType().toString()).endsWith("/errors/rate-limited");
+    }
 }

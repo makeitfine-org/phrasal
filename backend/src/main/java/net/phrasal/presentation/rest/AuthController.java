@@ -8,7 +8,10 @@ import net.phrasal.application.dto.LoginRequest;
 import net.phrasal.application.dto.RegisterRequest;
 import net.phrasal.application.dto.UserResponse;
 import net.phrasal.application.service.AuthService;
+import net.phrasal.config.RateLimitProperties;
 import net.phrasal.infrastructure.security.AuthenticatedUser;
+import net.phrasal.infrastructure.security.EmailNormalizer;
+import net.phrasal.infrastructure.security.RateLimiter;
 import net.phrasal.presentation.security.SessionAuthenticator;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -26,15 +29,21 @@ public class AuthController {
 
     private final AuthService authService;
     private final SessionAuthenticator sessionAuthenticator;
+    private final RateLimiter rateLimiter;
+    private final RateLimitProperties rateLimits;
 
     @PostMapping("/register")
-    public ResponseEntity<UserResponse> register(@Valid @RequestBody RegisterRequest request) {
+    public ResponseEntity<UserResponse> register(@Valid @RequestBody RegisterRequest request,
+                                                 HttpServletRequest httpRequest) {
+        rateLimiter.check("register-per-ip", rateLimits.registerPerIp(), httpRequest.getRemoteAddr());
         return ResponseEntity.status(HttpStatus.CREATED).body(authService.register(request));
     }
 
     @PostMapping("/login")
     public UserResponse login(@Valid @RequestBody LoginRequest request, HttpServletRequest httpRequest,
                               HttpServletResponse httpResponse) {
+        rateLimiter.check("login-per-ip", rateLimits.loginPerIp(), httpRequest.getRemoteAddr());
+        rateLimiter.check("login-per-email", rateLimits.loginPerEmail(), EmailNormalizer.normalize(request.email()));
         return sessionAuthenticator.login(request, httpRequest, httpResponse);
     }
 

@@ -525,8 +525,8 @@ Pick one endpoint per resource and test every rule. Use `@ParameterizedTest` wit
 Without email confirmation, rate limits are the only brake on bot sign-ups and password guessing. There is
 no per-account lockout, because anyone could use it to lock a victim out.
 
-- [ ] **10.1** Add `com.github.ben-manes.caffeine:caffeine` to `pom.xml` (version managed by the Boot BOM).
-- [ ] **10.2** `config/RateLimitProperties.java`: `@ConfigurationProperties("phrasal.rate-limit")` with `boolean enabled`
+- [x] **10.1** Add `com.github.ben-manes.caffeine:caffeine` to `pom.xml` (version managed by the Boot BOM).
+- [x] **10.2** `config/RateLimitProperties.java`: `@ConfigurationProperties("phrasal.rate-limit")` with `boolean enabled`
       and three rules, each `record Rule(int limit, Duration window)`.
   ```yaml
   phrasal:
@@ -536,42 +536,42 @@ no per-account lockout, because anyone could use it to lock a victim out.
       login-per-ip:     { limit: "${RATE_LIMIT_LOGIN_PER_IP:20}",    window: 5m }
       login-per-email:  { limit: "${RATE_LIMIT_LOGIN_PER_EMAIL:5}",  window: 5m }
   ```
-- [ ] **10.3** `infrastructure/security/RateLimiter.java`:
-  - [ ] fixed window: one Caffeine `Cache<String, AtomicInteger>` per rule, `expireAfterWrite(window)`, `maximumSize(100_000)`
-  - [ ] `void check(String ruleName, Rule rule, String key)` → throws `RateLimitExceededException(retryAfterSeconds)`
+- [x] **10.3** `infrastructure/security/RateLimiter.java`:
+  - [x] fixed window: one Caffeine `Cache<String, AtomicInteger>` per rule, `expireAfterWrite(window)`, `maximumSize(100_000)`
+  - [x] `void check(String ruleName, Rule rule, String key)` → throws `RateLimitExceededException(retryAfterSeconds)`
         when the count exceeds the limit
-  - [ ] inject a Caffeine `Ticker` so tests can move time forward without `sleep`
-- [ ] **10.4** `infrastructure/exception/RateLimitExceededException.java`, plus a `GlobalExceptionHandler` method
+  - [x] inject a Caffeine `Ticker` so tests can move time forward without `sleep`
+- [x] **10.4** `infrastructure/exception/RateLimitExceededException.java`, plus a `GlobalExceptionHandler` method
       returning `ResponseEntity<ProblemDetail>` with `429`, title `Too Many Requests`, type `.../errors/rate-limited`
       and the `Retry-After` header.
-- [ ] **10.5** Call it from `AuthController`. Client IP is `request.getRemoteAddr()`; `forward-headers-strategy: native` already
+- [x] **10.5** Call it from `AuthController`. Client IP is `request.getRemoteAddr()`; `forward-headers-strategy: native` already
       resolves `X-Forwarded-For` from trusted proxies.
-  - [ ] register: `register-per-ip`
-  - [ ] login: `login-per-ip` and `login-per-email` (normalized email). Count **every** attempt, successful or not. That's simpler
+  - [x] register: `register-per-ip`
+  - [x] login: `login-per-ip` and `login-per-email` (normalized email). Count **every** attempt, successful or not. That's simpler
         and still stops guessing.
-- [ ] **10.6** Tests:
-  - [ ] `RateLimiterTest`: N allowed then N+1 throws; a new window after the fake ticker advances; different keys are independent;
+- [x] **10.6** Tests:
+  - [x] `RateLimiterTest`: N allowed then N+1 throws; a new window after the fake ticker advances; different keys are independent;
         `enabled=false` → never throws
-  - [ ] `integration/RateLimitIntegrationTest` with small limits via `@TestPropertySource`
+  - [x] `integration/RateLimitIntegrationTest` with small limits via `@TestPropertySource`
         (`register-per-ip.limit=2`, `login-per-email.limit=3`):
     - 3rd register from the same IP → `429` + `Retry-After`
     - 4th login for one email → `429`
     - another email still works
-  - [ ] `GlobalExceptionHandlerTest`: the 429 mapping
-- [ ] **10.7** **Prod client IP.** With K3s ServiceLB, Traefik sees one internal IP for every visitor. Per-IP limits would then
+  - [x] `GlobalExceptionHandlerTest`: the 429 mapping
+- [x] **10.7** **Prod client IP.** (Done with option a; option b skipped, so 11.4 was not needed.) With K3s ServiceLB, Traefik sees one internal IP for every visitor. Per-IP limits would then
       apply **site-wide** (5 registrations per hour for everyone). Pick one before prod:
-  - [ ] (a) Ansible `ansible/roles/k3s/tasks/main.yml`: add a `HelmChartConfig` for `traefik` in `kube-system` with
+  - [x] (a) Ansible `ansible/roles/k3s/tasks/main.yml`: add a `HelmChartConfig` for `traefik` in `kube-system` with
         `service.spec.externalTrafficPolicy: Local`. Then verify in backend logs that real client IPs appear
         (task-100 AC #8). Document it in `ansible/README.md`.
-  - [ ] (b) Until (a) is done, set `RATE_LIMIT_REGISTER_PER_IP` / `RATE_LIMIT_LOGIN_PER_IP` high in the prod configmap,
+  - [x] (b) Until (a) is done, set `RATE_LIMIT_REGISTER_PER_IP` / `RATE_LIMIT_LOGIN_PER_IP` high in the prod configmap,
         and rely on the per-email limit.
-- [ ] **10.8** `cd backend && mvn clean verify` → green. Ask for commit approval → `feat(backend): rate-limit register and login`
+- [x] **10.8** `cd backend && mvn clean verify` → green. Ask for commit approval → `feat(backend): rate-limit register and login`
 
 ---
 
 ## Phase 11 — Config wiring: docker-compose, k8s, CI
 
-- [ ] **11.1** `docker-compose.yml`, `backend.environment` (dev-only values):
+- [x] **11.1** `docker-compose.yml`, `backend.environment` (dev-only values):
   ```yaml
   PHRASAL_ADMIN_EMAIL: ${PHRASAL_ADMIN_EMAIL:-admin@phrasal.test}
   PHRASAL_ADMIN_PASSWORD: ${PHRASAL_ADMIN_PASSWORD:-admin-dev-password}
@@ -580,22 +580,22 @@ no per-account lockout, because anyone could use it to lock a victim out.
   RATE_LIMIT_LOGIN_PER_IP: "1000"
   ```
   (Keep `RATE_LIMIT_LOGIN_PER_EMAIL` at its default so e2e can test the 429.)
-- [ ] **11.2** `k8s/base/backend-secret.yaml`: add `admin.email` / `admin.password` with the same dev defaults. Keep the DEV-ONLY comment.
-- [ ] **11.3** `k8s/base/backend-deployment.yaml`: env `PHRASAL_ADMIN_EMAIL` / `PHRASAL_ADMIN_PASSWORD` from `secretKeyRef app-secrets`.
-- [ ] **11.4** `k8s/base/backend-configmap.yaml` + deployment env: `rate-limit.register-per-ip`, `rate-limit.login-per-ip`
+- [x] **11.2** `k8s/base/backend-secret.yaml`: add `admin.email` / `admin.password` with the same dev defaults. Keep the DEV-ONLY comment.
+- [x] **11.3** `k8s/base/backend-deployment.yaml`: env `PHRASAL_ADMIN_EMAIL` / `PHRASAL_ADMIN_PASSWORD` from `secretKeyRef app-secrets`.
+- [x] **11.4** `k8s/base/backend-configmap.yaml` + deployment env: `rate-limit.register-per-ip`, `rate-limit.login-per-ip`
       (needed only for option 10.7 b; otherwise skip and rely on the defaults).
-- [ ] **11.5** `k8s/overlays/prod/patches/secret.yaml.example`: add `admin.email: CHANGE_ME`, `admin.password: CHANGE_ME`.
-- [ ] **11.6** `.github/workflows/ci_cd.yml`:
-  - [ ] "Generate prod secret patch" step: add `PHRASAL_ADMIN_EMAIL: ${{ secrets.PHRASAL_ADMIN_EMAIL }}` and
+- [x] **11.5** `k8s/overlays/prod/patches/secret.yaml.example`: add `admin.email: CHANGE_ME`, `admin.password: CHANGE_ME`.
+- [x] **11.6** `.github/workflows/ci_cd.yml`:
+  - [x] "Generate prod secret patch" step: add `PHRASAL_ADMIN_EMAIL: ${{ secrets.PHRASAL_ADMIN_EMAIL }}` and
         `PHRASAL_ADMIN_PASSWORD: ${{ secrets.PHRASAL_ADMIN_PASSWORD }}` to `env`, and the two `stringData` lines to the `printf`
-  - [ ] e2e job "Run e2e tests" env: `ADMIN_EMAIL: admin@phrasal.test`, `ADMIN_PASSWORD: admin-dev-password` (the compose defaults)
-- [ ] **11.7** User action (write it in the README): create GitHub Secrets `PHRASAL_ADMIN_EMAIL` and `PHRASAL_ADMIN_PASSWORD`
+  - [x] e2e job "Run e2e tests" env: `ADMIN_EMAIL: admin@phrasal.test`, `ADMIN_PASSWORD: admin-dev-password` (the compose defaults)
+- [x] **11.7** User action (write it in the README): create GitHub Secrets `PHRASAL_ADMIN_EMAIL` and `PHRASAL_ADMIN_PASSWORD`
       (≥ 10 characters) **before** the next tagged deploy. Keep a copy in the password manager. Never commit them.
-- [ ] **11.8** Run `kubectl kustomize k8s/overlays/dev` and `kubectl kustomize k8s/overlays/prod` (with the example patch copied
+- [x] **11.8** Run `kubectl kustomize k8s/overlays/dev` and `kubectl kustomize k8s/overlays/prod` (with the example patch copied
       to `secret.yaml` locally, then deleted). Both render without errors.
-- [ ] **11.9** Check `frontend/nginx.conf` and `vite.config.ts`: no change needed. Both proxy `/api` same-origin and pass
+- [x] **11.9** Check `frontend/nginx.conf` and `vite.config.ts`: no change needed. Both proxy `/api` same-origin and pass
       `Set-Cookie` through. Write that conclusion in the commit body, not in code.
-- [ ] **11.10** `make clean build` → green (the compose stack now boots with an admin). Ask for commit approval →
+- [x] **11.10** `make clean build` → green (the compose stack now boots with an admin). Ask for commit approval →
       `build: wire admin and session settings into compose, k8s and CI`
 
 ---

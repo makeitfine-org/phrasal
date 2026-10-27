@@ -5,3 +5,12 @@ spring:
 logging:
   level:
     net.phrasal: DEBUG
+
+phrasal:
+  rate-limit:
+    register-per-ip:
+      limit: 100000
+    login-per-ip:
+      limit: 100000
+    login-per-email:
+      limit: 100000

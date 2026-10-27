@@ -1,8 +1,10 @@
 package net.phrasal.infrastructure.exception;
 
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ProblemDetail;
+import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.AccessDeniedException;
 import org.springframework.security.authentication.BadCredentialsException;
 import org.springframework.security.core.AuthenticationException;
@@ -78,6 +80,16 @@ public class GlobalExceptionHandler {
         log.warn("Registration rejected: email already registered");
         return buildProblem(HttpStatus.CONFLICT, "Email Already Registered",
                 "email-already-registered", ex.getMessage());
+    }
+
+    @ExceptionHandler(RateLimitExceededException.class)
+    public ResponseEntity<ProblemDetail> handleRateLimited(RateLimitExceededException ex) {
+        log.warn("Rate limit exceeded: rule={}", ex.getRuleName());
+        ProblemDetail problem = buildProblem(HttpStatus.TOO_MANY_REQUESTS, "Too Many Requests",
+                "rate-limited", ex.getMessage());
+        return ResponseEntity.status(HttpStatus.TOO_MANY_REQUESTS)
+                .header(HttpHeaders.RETRY_AFTER, String.valueOf(ex.getRetryAfterSeconds()))
+                .body(problem);
     }
 
     @ExceptionHandler(Exception.class)

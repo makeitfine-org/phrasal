@@ -2678,3 +2678,52 @@ cd /home/ilaptop/dev/projects/my/phrasal &amp;&amp; (make clean build &gt; /tmp/
 ## 2026-10-27T14:32:32Z
 git add all changes and commit them with suitable message
 ---
+
+## 2026-10-27T14:34:47Z
+start implementing functionality from  multiuser-todos.md Phase 10 and 11.
+  Don't forget to check off implemented boxes.
+  On phase completion `make clean build` must pass successfully.
+---
+
+## 2026-10-27T14:39:05Z
+<task-notification>
+<task-id>bmlqz9057</task-id>
+<tool-use-id>toolu_01Qwur4BoyLQtPNPPtjP2bfo</tool-use-id>
+<output-file>/tmp/claude-1000/-home-ilaptop-dev-projects-my-phrasal/9f7cd46a-5653-44f9-926c-587a9119b4b5/tasks/bmlqz9057.output</output-file>
+<status>completed</status>
+<summary>Background command "python3 - &lt;&lt;'EOF'
+p='README.md'
+s=open(p).read()
+s=s.replace("""Infrastructure provisioning is managed by Ansible""","""**Before the next tagged deploy:** create the GitHub Secrets `PHRASAL_ADMIN_EMAIL` and `PHRASAL_ADMIN_PASSWORD`
+(password at least 10 characters). The backend creates or repairs that ADMIN account at every startup, and the
+deploy workflow writes both values into the prod `app-secrets`. Keep a copy in your password manager and never
+commit them. Register and login are rate-limited per client IP and per email; the per-IP limits need the Traefik
+client-IP setting described in [`ansible/README.md`](ansible/README.md#client-ip-behind-traefik).
+
+Infrastructure provisioning is managed by Ansible""",1)
+open(p,'w').write(s)
+p='backend/CLAUDE.md'
+s=open(p).read()
+s=s.replace("- Integration tests write via `adminWithCsrf()`","""- Sessions: Spring Session JDBC, `SESSION` cookie flags come from `server.servlet.session.cookie.*` via the `cookieSerializer` bean in `SecurityConfig` (Spring Session ignores them otherwise). Session principal is the `AuthenticatedUser` record, never the entity.
+- Admin account: `AdminAccountInitializer` creates/repairs it from `PHRASAL_ADMIN_EMAIL` / `PHRASAL_ADMIN_PASSWORD` at every start (takeover is intentional; a weak password fails startup).
+- Rate limits (`phrasal.rate-limit.*`, `RateLimiter`, in-memory per instance): register per IP, login per IP and per email; 429 problem+json with `Retry-After`. `application-test.yml` raises the limits; override in a test with `@TestPropertySource`.
+- Integration tests write via `adminWithCsrf()`""",1)
+open(p,'w').write(s)
+lines=open('multiuser-todos.md').read().split('\n')
+out=[];inr=False
+for l in lines:
+    if l.startswith('## Phase 10') or l.startswith('## Phase 11'): inr=True
+    elif l.startswith('## '): inr=False
+    if inr and not (l.startswith('- [ ] **10.8**') or l.startswith('- [ ] **11.10**')): l=l.replace('- [ ]','- [x]')
+    out.append(l)
+s='\n'.join(out)
+s=s.replace("- [x] **10.7** **Prod client IP.**","- [x] **10.7** **Prod client IP.** (Done with option a; option b skipped, so 11.4 was not needed.)",1)
+open('multiuser-todos.md','w').write(s)
+EOF
+grep -n "10.7\|11.4" multiuser-todos.md | head -4; (make clean build &gt; /tmp/p1011.log 2&gt;&amp;1; echo EXIT $? &gt;&gt; /tmp/p1011.log) &amp;" completed (exit code 0)</summary>
+</task-notification>
+---
+
+## 2026-10-27T14:42:22Z
+git add all changes and commit them with suitable message
+---

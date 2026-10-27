@@ -46,6 +46,16 @@ spec:
             secretKeyRef:
               name: app-secrets
               key: database.password
+        - name: PHRASAL_ADMIN_EMAIL
+          valueFrom:
+            secretKeyRef:
+              name: app-secrets
+              key: admin.email
+        - name: PHRASAL_ADMIN_PASSWORD
+          valueFrom:
+            secretKeyRef:
+              name: app-secrets
+              key: admin.password
         - name: SERVER_PORT
           valueFrom:
             configMapKeyRef:

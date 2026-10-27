@@ -1,0 +1,13 @@
+# Managed by Ansible. K3s applies every manifest in this directory automatically.
+# externalTrafficPolicy: Local keeps the real client IP, so per-IP rate limits in the backend
+# apply per visitor instead of to the single internal ServiceLB address.
+apiVersion: helm.cattle.io/v1
+kind: HelmChartConfig
+metadata:
+  name: traefik
+  namespace: kube-system
+spec:
+  valuesContent: |-
+    service:
+      spec:
+        externalTrafficPolicy: Local

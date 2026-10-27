@@ -58,6 +58,18 @@ phrasal:
       email: ${PHRASAL_ADMIN_EMAIL:}
       password: ${PHRASAL_ADMIN_PASSWORD:}
 
+  rate-limit:
+    enabled: ${RATE_LIMIT_ENABLED:true}
+    register-per-ip:
+      limit: ${RATE_LIMIT_REGISTER_PER_IP:5}
+      window: 1h
+    login-per-ip:
+      limit: ${RATE_LIMIT_LOGIN_PER_IP:20}
+      window: 5m
+    login-per-email:
+      limit: ${RATE_LIMIT_LOGIN_PER_EMAIL:5}
+      window: 5m
+
 management:
   endpoints:
     web:

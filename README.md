@@ -286,6 +286,12 @@ push to any branch → build + test + e2e
 push tag v1.2.3 → build + test + e2e → docker push → kubectl apply -k k8s/overlays/prod
 ```
 
+**Before the next tagged deploy:** create the GitHub Secrets `PHRASAL_ADMIN_EMAIL` and `PHRASAL_ADMIN_PASSWORD`
+(password at least 10 characters). The backend creates or repairs that ADMIN account at every startup, and the
+deploy workflow writes both values into the prod `app-secrets`. Keep a copy in your password manager and never
+commit them. Register and login are rate-limited per client IP and per email; the per-IP limits need the Traefik
+client-IP setting described in [`ansible/README.md`](ansible/README.md#client-ip-behind-traefik).
+
 Infrastructure provisioning is managed by Ansible playbooks in `ansible/`. See [`ansible/README.md`](ansible/README.md) for cluster setup and [`aux/docs/k3sconf.md`](aux/docs/k3sconf.md) for the full K3s configuration reference.
 
 ---

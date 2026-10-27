@@ -1024,3 +1024,24 @@
 - backend/src/main/resources/application.yml
 - multiuser-todos.md
 <!-- end-snapshot -->
+
+<!-- git-snapshot 2026-10-27T14:39:13Z -->
+- .claude/docs/blackbox/audit.md
+- .github/workflows/ci_cd.yml
+- README.md
+- ansible/README.md
+- ansible/roles/k3s/defaults/main.yml
+- ansible/roles/k3s/tasks/main.yml
+- backend/CLAUDE.md
+- backend/pom.xml
+- backend/src/main/java/net/phrasal/infrastructure/exception/GlobalExceptionHandler.java
+- backend/src/main/java/net/phrasal/presentation/rest/AuthController.java
+- backend/src/main/resources/application.yml
+- backend/src/test/java/net/phrasal/infrastructure/exception/GlobalExceptionHandlerTest.java
+- backend/src/test/resources/application-test.yml
+- docker-compose.yml
+- k8s/base/backend-deployment.yaml
+- k8s/base/backend-secret.yaml
+- k8s/overlays/prod/patches/secret.yaml.example
+- multiuser-todos.md
+<!-- end-snapshot -->

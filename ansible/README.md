@@ -58,6 +58,18 @@ sudo k3s crictl imagefsinfo
 kubectl get --raw /api/v1/nodes/vps-h1/proxy/configz | jq '.kubeletconfig.imageMaximumGCAge'
 ```
 
+### Client IP behind Traefik
+
+The backend rate-limits register and login per client IP. With K3s ServiceLB, Traefik would see one internal
+address for every visitor, so the limits would apply site-wide. The k3s role writes a `HelmChartConfig` for
+`traefik` (`templates/traefik-config.yaml.j2`) that sets `service.spec.externalTrafficPolicy: Local`.
+
+```bash
+ansible-playbook playbooks/k3s.yml --tags traefik-client-ip
+# verify: prints Local
+kubectl get svc traefik -n kube-system -o jsonpath='{.spec.externalTrafficPolicy}'
+```
+
 ### Ingress + TLS
 
 ```bash
@@ -94,6 +106,7 @@ ansible/
     │   ├── handlers/main.yml         # restart k3s
     │   ├── tasks/main.yml            # install, configure, verify
     │   ├── templates/config.yaml.j2  # k3s server config
+    │   ├── templates/traefik-config.yaml.j2  # Traefik HelmChartConfig (keep client IP)
     │   ├── templates/kubelet-image-gc.conf.j2  # kubelet image GC drop-in
     │   └── files/k8s-completion      # kubectl bash completion
     └── ingress-tls/
