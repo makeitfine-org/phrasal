@@ -23,7 +23,7 @@ Multi-page SPA. State is component-local + localStorage; the only context is `au
 
 **Quiz-shared:** `Header`, `QuizCard`, `Feedback`, `NavigationControls`, `ExcludedModal`, `SearchModal`.
 
-**Other:** `AllVerbsModal`, `TutorialModal`, `ListSearchModal`, `Icons`.
+**Other:** `AllVerbsModal`, `TutorialModal`, `ListSearchModal`, `Icons`, `UserMenu` (login/signup links or email dropdown with logout, rendered by `NavigationMenu`).
 
 ### API Client (`src/api/`)
 

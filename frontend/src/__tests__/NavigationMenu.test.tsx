@@ -263,3 +263,21 @@ describe('NavigationMenu — theme toggle', () => {
     expect(themeButton.parentElement).toHaveClass('flex', 'items-center', 'gap-2');
   });
 });
+
+describe('NavigationMenu — auth links', () => {
+  it('shows the Log in link on desktop', () => {
+    renderNav('/');
+    expect(screen.getByTestId('nav-login')).toHaveAttribute('href', '/login');
+  });
+
+  it('mobile menu contains the auth links and closes when one is tapped', async () => {
+    const user = userEvent.setup();
+    renderNav('/');
+    await user.click(screen.getByTestId('nav-hamburger'));
+    const menu = screen.getByTestId('nav-mobile-menu');
+    expect(within(menu).getByTestId('nav-mobile-login')).toBeInTheDocument();
+    expect(within(menu).getByTestId('nav-mobile-register')).toBeInTheDocument();
+    await user.click(within(menu).getByTestId('nav-mobile-login'));
+    expect(screen.queryByTestId('nav-mobile-menu')).not.toBeInTheDocument();
+  });
+});

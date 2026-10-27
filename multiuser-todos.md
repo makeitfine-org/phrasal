@@ -723,32 +723,32 @@ no per-account lockout, because anyone could use it to lock a victim out.
 
 ## Phase 15 — User menu in the navigation bar
 
-- [ ] **15.1** `src/components/UserMenu.tsx` (uses `useAuth`):
-  - [ ] `loading` → render nothing (no flicker of "Log in")
-  - [ ] `anonymous` → links "Log in" (`/login`, `data-testid="nav-login"`) and "Sign up" (`/register`, `nav-register`)
-  - [ ] `authenticated` → button with the email (truncated, `data-testid="user-menu"`), plus a dropdown with:
+- [x] **15.1** `src/components/UserMenu.tsx` (uses `useAuth`):
+  - [x] `loading` → render nothing (no flicker of "Log in")
+  - [x] `anonymous` → links "Log in" (`/login`, `data-testid="nav-login"`) and "Sign up" (`/register`, `nav-register`)
+  - [x] `authenticated` → button with the email (truncated, `data-testid="user-menu"`), plus a dropdown with:
     - the email
     - an "Admin" badge when `role === 'ADMIN'`
     - "Log out" (`nav-logout`): `logout()` then `navigate('/')`
-  - [ ] reuse the existing `useClickOutside` pattern from `NavigationMenu.tsx`: move it to `src/hooks/useClickOutside.ts`
+  - [x] reuse the existing `useClickOutside` pattern from `NavigationMenu.tsx`: move it to `src/hooks/useClickOutside.ts`
         instead of copying it
-  - [ ] the dropdown closes on route change, like `DesktopDropdown`
-- [ ] **15.2** `NavigationMenu.tsx`:
-  - [ ] desktop: render `<UserMenu />` in the right-hand group, before the theme toggle
-  - [ ] mobile menu: the same entries at the bottom of `nav-mobile-menu`; tapping one closes the menu
-- [ ] **15.3** Tests:
-  - [ ] `src/__tests__/UserMenu.test.tsx`:
+  - [x] the dropdown closes on route change, like `DesktopDropdown`
+- [x] **15.2** `NavigationMenu.tsx`:
+  - [x] desktop: render `<UserMenu />` in the right-hand group, before the theme toggle
+  - [x] mobile menu: the same entries at the bottom of `nav-mobile-menu`; tapping one closes the menu
+- [x] **15.3** Tests:
+  - [x] `src/__tests__/UserMenu.test.tsx`:
     - anonymous shows both links
     - loading shows nothing
     - authenticated shows the email
     - the admin badge only for ADMIN
     - logout calls `logout` and navigates home
     - click outside closes the dropdown
-  - [ ] `src/__tests__/NavigationMenu.test.tsx`: existing tests still pass (the default context is anonymous). Add:
+  - [x] `src/__tests__/NavigationMenu.test.tsx`: existing tests still pass (the default context is anonymous). Add:
     - the "Log in" link is visible on desktop
     - the mobile menu contains the auth links
-  - [ ] if `useClickOutside` moved: `src/__tests__/hooks/useClickOutside.test.ts`
-- [ ] **15.4** `npm --prefix frontend run test:run && npm --prefix frontend run build` → green. Ask for commit approval →
+  - [x] if `useClickOutside` moved: `src/__tests__/hooks/useClickOutside.test.ts`
+- [x] **15.4** `npm --prefix frontend run test:run && npm --prefix frontend run build` → green. Ask for commit approval →
       `feat(frontend): add login, register pages and user menu`
 
 ---

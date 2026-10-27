@@ -1076,3 +1076,11 @@
 - frontend/src/pages/RegisterPage.tsx
 - multiuser-todos.md
 <!-- end-snapshot -->
+
+<!-- git-snapshot 2026-10-27T20:11:46Z -->
+- .claude/docs/blackbox/audit.md
+- frontend/CLAUDE.md
+- frontend/src/__tests__/NavigationMenu.test.tsx
+- frontend/src/components/NavigationMenu.tsx
+- multiuser-todos.md
+<!-- end-snapshot -->

@@ -1,5 +1,7 @@
 import React, { useState, useRef, useEffect } from 'react';
 import { Link, useLocation } from 'react-router-dom';
+import { useClickOutside } from '../hooks/useClickOutside';
+import UserMenu from './UserMenu';
 import { MenuIcon, XIcon, ChevronDown, SunIcon, MoonIcon } from './Icons';
 
 interface NavigationMenuProps {
@@ -36,16 +38,6 @@ const NAV_SECTIONS: NavSection[] = [
     ],
   },
 ];
-
-function useClickOutside(ref: React.RefObject<HTMLElement | null>, handler: () => void) {
-  useEffect(() => {
-    function onMouseDown(e: MouseEvent) {
-      if (ref.current && !ref.current.contains(e.target as Node)) handler();
-    }
-    document.addEventListener('mousedown', onMouseDown);
-    return () => document.removeEventListener('mousedown', onMouseDown);
-  }, [ref, handler]);
-}
 
 function DesktopDropdown({ section }: { section: NavSection }) {
   const location = useLocation();
@@ -185,6 +177,9 @@ export default function NavigationMenu({ darkMode, onToggleDarkMode }: Navigatio
 
         <div className="flex items-center gap-2">
           <div id="verb-page-actions" />
+          <div className="hidden md:block">
+            <UserMenu />
+          </div>
           {onToggleDarkMode && (
             <button
               onClick={onToggleDarkMode}
@@ -221,6 +216,9 @@ export default function NavigationMenu({ darkMode, onToggleDarkMode }: Navigatio
               onNavigate={() => setMobileOpen(false)}
             />
           ))}
+          <div className="border-t border-gray-200 dark:border-gray-800 mt-1 pt-1">
+            <UserMenu variant="mobile" onNavigate={() => setMobileOpen(false)} />
+          </div>
         </div>
       )}
     </nav>
