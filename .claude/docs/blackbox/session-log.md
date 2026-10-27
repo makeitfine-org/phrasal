@@ -842,3 +842,41 @@
 - frontend/src/__tests__/listPage/get-come.test.tsx
 - frontend/src/pages/PhrasalVerbsListPage.tsx
 <!-- end-snapshot -->
+
+<!-- git-snapshot 2026-10-27T10:54:51Z -->
+- .claude/docs/blackbox/audit.md
+<!-- end-snapshot -->
+
+<!-- git-snapshot 2026-10-27T11:02:15Z -->
+- .claude/docs/blackbox/audit.md
+- .claude/docs/blackbox/session-log.md
+<!-- end-snapshot -->
+
+<!-- git-snapshot 2026-10-27T11:03:40Z -->
+- .claude/docs/blackbox/audit.md
+- .claude/docs/blackbox/session-log.md
+- .claude/settings.local.json
+- CLAUDE.md
+<!-- end-snapshot -->
+
+<!-- git-snapshot 2026-10-27T11:06:28Z -->
+- .claude/docs/blackbox/audit.md
+- .claude/docs/blackbox/session-log.md
+- .claude/settings.local.json
+- CLAUDE.md
+<!-- end-snapshot -->
+
+<!-- git-snapshot 2026-10-27T11:08:47Z -->
+- .claude/docs/blackbox/audit.md
+- .claude/docs/blackbox/session-log.md
+- .claude/settings.local.json
+- CLAUDE.md
+<!-- end-snapshot -->
+
+<!-- git-snapshot 2026-10-27T11:17:53Z -->
+- .claude/docs/blackbox/audit.md
+- .claude/docs/blackbox/session-log.md
+- .claude/hooks/task-timeout.sh
+- .claude/settings.local.json
+- CLAUDE.md
+<!-- end-snapshot -->

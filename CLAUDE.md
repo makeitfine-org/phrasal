@@ -66,7 +66,8 @@ Use these project skills proactively when the task matches — don't wait to be 
 | Backend naming review | `backend-naming-reviewer` |
 | Frontend naming review | `frontend-naming-reviewer` |
 
-Delegate to subagents liberally — keep the main context window clean.
+Delegate to subagents only for large, self-contained, read-heavy work (broad searches, full reviews) —
+each subagent starts cold and re-reads files, so do small or focused tasks inline.
 Load skills from `.claude/skills/` for targeted in-context capabilities
 (e.g. `jpa-patterns` for N+1 issues, `api-contract-review` before releasing endpoints).
 

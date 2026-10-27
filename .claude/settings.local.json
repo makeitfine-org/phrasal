@@ -3,8 +3,9 @@
   "cleanupPeriodDays": 30,
   "env": {
     "CLAUDE_BASH_MAINTAIN_PROJECT_WORKING_DIR": "1",
-    "MAX_THINKING_TOKENS": "10000",
-    "CLAUDE_CODE_MAX_OUTPUT_TOKENS": "16000"
+    "MAX_THINKING_TOKENS": "4000",
+    "BASH_MAX_TIMEOUT_MS": "600000",
+    "CLAUDE_CODE_MAX_OUTPUT_TOKENS": "10000"
   },
   "permissions": {
     "allow": [
@@ -180,6 +181,22 @@
           {
             "type": "command",
             "command": "$CLAUDE_PROJECT_DIR/.claude/hooks/prompt-audit-log.sh",
+            "timeout": 5
+          },
+          {
+            "type": "command",
+            "command": "$CLAUDE_PROJECT_DIR/.claude/hooks/task-timeout.sh start",
+            "timeout": 5
+          }
+        ]
+      }
+    ],
+    "PreToolUse": [
+      {
+        "hooks": [
+          {
+            "type": "command",
+            "command": "$CLAUDE_PROJECT_DIR/.claude/hooks/task-timeout.sh check",
             "timeout": 5
           }
         ]

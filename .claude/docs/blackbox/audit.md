@@ -1882,3 +1882,53 @@ fix
 ## 2026-10-26T22:52:28Z
 git add all changes and commit them with suitable message
 ---
+
+## 2026-10-27T10:54:37Z
+I have in @.claude/settings.local.json 
+
+
+
+<pasted_content id="d0ca">
+  "$schema": "https://json.schemastore.org/claude-code-settings.json",
+  "cleanupPeriodDays": 30,
+  "env": {
+    "CLAUDE_BASH_MAINTAIN_PROJECT_WORKING_DIR": "1",
+    "MAX_THINKING_TOKENS": "10000",
+    "CLAUDE_CODE_MAX_OUTPUT_TOKENS": "16000"
+  },
+</pasted_content id="d0ca">
+
+explain that with examples.
+---
+
+## 2026-10-27T11:01:46Z
+So I have Claude Code Pro for 20 dollars a month, And I'd like to use more saving tokens. how it's better to change my settings local JSON.
+---
+
+## 2026-10-27T11:01:59Z
+So I have Claude Code Pro for 20 dollars a month, And I'd like to use more saving tokens. how it's better to change my settings local JSON. Maybe it's better to rename it to settings.json.
+---
+
+## 2026-10-27T11:02:03Z
+So I have Claude Code Pro for 20 dollars a month, And I'd like to use more saving tokens. how it's better to change my settings local JSON. Maybe it's better to rename it to settings.json?
+---
+
+## 2026-10-27T11:03:27Z
+run 2-3
+---
+
+## 2026-10-27T11:06:14Z
+I want Claude have some timeout until it's completed task. I don't want it works infinitely or more than 15 minutes, for example. At least he should ask if he needs to proceed if this time elapsed. how to configure this?
+---
+
+## 2026-10-27T11:08:23Z
+Okay, so do that all you proposed, implement it.
+---
+
+## 2026-10-27T11:17:44Z
+I didn't get task-timeout.sh start and check. how it works, purpose.
+---
+
+## 2026-10-27T11:19:50Z
+git add all changes and commit them with suitable message
+---
