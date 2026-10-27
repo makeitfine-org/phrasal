@@ -287,7 +287,7 @@ Pick one endpoint per resource and test every rule. Use `@ParameterizedTest` wit
 - [x] **3.7.2** `make clean build`, everything green including e2e.
 - [x] **3.7.3** (note: a bare `curl -X POST` without a token returns `403` csrf, not `401`, because the CSRF filter runs first; with a token it is `401`) Manual check: `make dockerAll`, open http://localhost:3000, the quizzes and list pages still load.
       `curl -i -X POST localhost:8080/api/v1/phrasal-verbs` → 401 problem+json.
-- [ ] **3.7.4** Ask for commit approval → `feat(backend): add Spring Security, users table and admin-only writes`
+- [x] **3.7.4** Ask for commit approval → committed after approval as `09ed32f feat(backend): add Spring Security, admin-only writes and CSRF`
 
 ---
 
@@ -879,7 +879,10 @@ no per-account lockout, because anyone could use it to lock a victim out.
   - [x] wrong password 6× → a readable "too many requests" message
   - [x] `curl -i -X POST localhost:3000/api/v1/phrasal-verbs -H 'Content-Type: application/json' -d '{}'` → `403` problem+json (CSRF rejects a write with no token first); with a valid `X-XSRF-TOKEN` header → `401` problem+json
   - [x] log in as the dev admin → `/me` role is ADMIN; the admin badge shows in the menu
-- [ ] **18.3** Optional reviews before merging: `/code-review`, `/security-review`, the `api-contract-review` skill on the auth endpoints.
+- [ ] **18.3** Optional reviews before merging:
+  - [ ] `/code-review` (not run yet)
+  - [x] `/security-review`: no findings at confidence 8+; noted only register-409 email enumeration (covered by task-107)
+  - [x] `api-contract-review` on the auth endpoints: versioned `/api/v1/auth`, DTO-only responses, 201/204/401/403/409/429 problem+json; no changes needed
 - [ ] **18.4** Before the first prod deploy (tagged release):
   - [ ] the task-98 backups decision has been made (see the warning at the top)
   - [ ] GitHub Secrets `PHRASAL_ADMIN_EMAIL` / `PHRASAL_ADMIN_PASSWORD` exist
