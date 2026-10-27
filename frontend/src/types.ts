@@ -27,3 +27,19 @@ export interface GrammarEntry {
   sentence: string;
   correctAnswers: string[];
 }
+
+export interface ProblemDetail {
+  type?: string;
+  title?: string;
+  status?: number;
+  detail?: string;
+  errors?: Record<string, string>;
+}
+
+export type Role = 'USER' | 'ADMIN';
+
+export interface CurrentUser {
+  id: number;
+  email: string;
+  role: Role;
+}

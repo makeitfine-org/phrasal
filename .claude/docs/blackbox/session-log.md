@@ -1045,3 +1045,12 @@
 - k8s/overlays/prod/patches/secret.yaml.example
 - multiuser-todos.md
 <!-- end-snapshot -->
+
+<!-- git-snapshot 2026-10-27T19:43:42Z -->
+- .claude/docs/blackbox/audit.md
+- frontend/CLAUDE.md
+- frontend/src/__tests__/api/client.test.ts
+- frontend/src/api/client.ts
+- frontend/src/types.ts
+- multiuser-todos.md
+<!-- end-snapshot -->

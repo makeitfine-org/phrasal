@@ -2727,3 +2727,13 @@ grep -n "10.7\|11.4" multiuser-todos.md | head -4; (make clean build &gt; /tmp/p
 ## 2026-10-27T14:42:22Z
 git add all changes and commit them with suitable message
 ---
+
+## 2026-10-27T19:39:57Z
+start implementing functionality from  multiuser-todos.md Phase 12.
+  Don't forget to check off implemented boxes.
+  On phase completion `make clean build` must pass successfully.
+---
+
+## 2026-10-27T19:45:53Z
+git add all changes and commit them with suitable message
+---

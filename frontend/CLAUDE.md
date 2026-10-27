@@ -31,7 +31,7 @@ Native `fetch` wrapper, no external dependencies. Base URL `/api/v1`.
 
 | File | Purpose |
 |---|---|
-| `client.ts` | `get<T>(path, params?)`, `ApiError` |
+| `client.ts` | `get<T>`, `post<T>`, `put<T>`, `del<T>`; sends `credentials: 'same-origin'` and the `X-XSRF-TOKEN` header (from the `XSRF-TOKEN` cookie, via `utils/cookies.ts`) on non-GET. `ApiError(status, message, problem?)` carries the parsed `ProblemDetail` |
 | `phrasalVerbsApi.ts` | Fetches phrasal verbs → `VerbEntry[]` + `BrowseVerbEntry[]` |
 | `grammarEntriesApi.ts` | Fetches grammar entries by category → `GrammarEntry[]` |
 | `verbDetailsApi.ts` | Fetches verb list summaries and full verb detail sections |

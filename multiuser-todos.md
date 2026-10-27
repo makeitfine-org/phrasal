@@ -602,7 +602,7 @@ no per-account lockout, because anyone could use it to lock a victim out.
 
 ## Phase 12 — Frontend API client: POST/PUT/DELETE, CSRF, ProblemDetail
 
-- [ ] **12.1** `src/types.ts`: add
+- [x] **12.1** `src/types.ts`: add
   ```ts
   export interface ProblemDetail {
     type?: string; title?: string; status?: number; detail?: string;
@@ -611,21 +611,21 @@ no per-account lockout, because anyone could use it to lock a victim out.
   export type Role = 'USER' | 'ADMIN';
   export interface CurrentUser { id: number; email: string; role: Role; }
   ```
-- [ ] **12.2** `src/utils/cookies.ts`: `readCookie(name: string): string | null`. Parse `document.cookie` and decode the value.
-- [ ] **12.3** `src/api/client.ts`:
-  - [ ] `ApiError` gets an optional third field `problem?: ProblemDetail`. `message` = `problem.detail ?? problem.title ?? statusText`.
-  - [ ] private `request<T>(method, path, { params?, body? })`:
+- [x] **12.2** `src/utils/cookies.ts`: `readCookie(name: string): string | null`. Parse `document.cookie` and decode the value.
+- [x] **12.3** `src/api/client.ts`:
+  - [x] `ApiError` gets an optional third field `problem?: ProblemDetail`. `message` = `problem.detail ?? problem.title ?? statusText`.
+  - [x] private `request<T>(method, path, { params?, body? })`:
     - always `credentials: 'same-origin'`
     - for non-GET: `Content-Type: application/json` (only when there is a body) and `X-XSRF-TOKEN: readCookie('XSRF-TOKEN')`
       when the cookie exists
     - `!response.ok`: try to parse a JSON body (`application/problem+json` or `application/json`) into `problem`; ignore parse errors
     - `204` or an empty body → `undefined as T`
-  - [ ] keep the public `get<T>(path, params?)` signature, so existing callers don't change
-  - [ ] add `post<T>(path, body?)`, `put<T>(path, body?)`, `del<T>(path)`
-- [ ] **12.4** `src/__tests__/api/client.test.ts`:
-  - [ ] update the existing assertion `toHaveBeenCalledWith(expect.stringContaining(...))` to also accept the init object
+  - [x] keep the public `get<T>(path, params?)` signature, so existing callers don't change
+  - [x] add `post<T>(path, body?)`, `put<T>(path, body?)`, `del<T>(path)`
+- [x] **12.4** `src/__tests__/api/client.test.ts`:
+  - [x] update the existing assertion `toHaveBeenCalledWith(expect.stringContaining(...))` to also accept the init object
         (`expect.objectContaining({ credentials: 'same-origin' })`)
-  - [ ] new cases:
+  - [x] new cases:
     - POST sends method, JSON body, `Content-Type`, `X-XSRF-TOKEN` from `document.cookie`
     - no cookie → no header
     - PUT/DELETE send the header
@@ -633,8 +633,8 @@ no per-account lockout, because anyone could use it to lock a victim out.
     - a 400 problem+json → `ApiError` with `problem.errors.password`
     - a 401 with an empty body → `ApiError` without `problem`, `status === 401`
     - a non-JSON error body doesn't throw a parse error
-  - [ ] `src/__tests__/utils/cookies.test.ts`: found, missing, URL-encoded value, several cookies
-- [ ] **12.5** `npm --prefix frontend run test:run` → green.
+  - [x] `src/__tests__/utils/cookies.test.ts`: found, missing, URL-encoded value, several cookies
+- [x] **12.5** `npm --prefix frontend run test:run` → green.
 
 ---
 
