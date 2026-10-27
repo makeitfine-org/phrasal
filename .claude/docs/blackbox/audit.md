@@ -2615,3 +2615,66 @@ sed -n 395,400p multiuser-todos.md; (make clean build &gt; /tmp/p67make.log 2&gt
 ## 2026-10-27T14:13:46Z
 git add all changes and commit them with suitable message
 ---
+
+## 2026-10-27T14:14:27Z
+start implementing functionality from  multiuser-todos.md Phase 8 and 9.
+  Don't forget to check off implemented boxes.
+  On phase completion `make clean build` must pass successfully.
+---
+
+## 2026-10-27T14:16:57Z
+<task-notification>
+<task-id>b55jrjy32</task-id>
+<tool-use-id>toolu_01FeqTJpKh5cEGgS9jQocX1i</tool-use-id>
+<output-file>/tmp/claude-1000/-home-ilaptop-dev-projects-my-phrasal/9f7cd46a-5653-44f9-926c-587a9119b4b5/tasks/b55jrjy32.output</output-file>
+<status>completed</status>
+<summary>Background command "python3 - &lt;&lt;'EOF'
+lines=open('multiuser-todos.md').read().split('\n')
+out=[];inr=False
+for l in lines:
+    if l.startswith('## Phase 8') or l.startswith('## Phase 9'): inr=True
+    elif l.startswith('## '): inr=False
+    if inr and not (l.startswith('- [ ] **8.5**') or l.startswith('- [ ] **8.6**')): l=l.replace('- [ ]','- [x]')
+    out.append(l)
+s='\n'.join(out)
+s=s.replace("If it doesn't, declare a `CookieSerializer` bean in `SecurityConfig`.","If it doesn't, declare a `CookieSerializer` bean in `SecurityConfig`.\n      **Result:** it does not (flags were missing in the test). `SecurityConfig.cookieSerializer` now builds a\n      `DefaultCookieSerializer` from `ServerProperties`. `AuthenticatedUser` also implements `AuthenticatedPrincipal`\n      (name = email), otherwise `spring_session.principal_name` held the record's `toString()`.",1)
+open('multiuser-todos.md','w').write(s)
+EOF
+grep -n "8.3" -A4 multiuser-todos.md | head -8; (make clean build &gt; /tmp/p89make.log 2&gt;&amp;1; echo EXIT $? &gt;&gt; /tmp/p89make.log) &amp;" completed (exit code 0)</summary>
+</task-notification>
+---
+
+## 2026-10-27T14:18:52Z
+<task-notification>
+<task-id>be31rnqwq</task-id>
+<tool-use-id>toolu_019k4i5STvU9N6V37jxpgFk2</tool-use-id>
+<output-file>/tmp/claude-1000/-home-ilaptop-dev-projects-my-phrasal/9f7cd46a-5653-44f9-926c-587a9119b4b5/tasks/be31rnqwq.output</output-file>
+<status>completed</status>
+<summary>Background command "cd /home/ilaptop/dev/projects/my/phrasal/backend/src/main/java/net/phrasal &amp;&amp; python3 - &lt;&lt;'EOF'
+p='config/SecurityConfig.java'
+s=open(p).read()
+s=s.replace("import org.springframework.session.web.http.DefaultCookieSerializer;\n","")
+s=s.replace("import org.springframework.security.web.csrf.CsrfFilter;\n","import org.springframework.security.web.csrf.CsrfFilter;\nimport org.springframework.session.web.http.DefaultCookieSerializer;\n")
+s=s.replace("import org.springframework.boot.web.server.Cookie.SameSite;\n","")
+s=s.replace("import org.springframework.boot.web.server.autoconfigure.ServerProperties;\n","import org.springframework.boot.web.server.Cookie.SameSite;\nimport org.springframework.boot.web.server.autoconfigure.ServerProperties;\n")
+s=s.replace("""    /**
+     * Session cookie flags from {@code server.servlet.session.cookie.*}; Spring Session does not read them itself.
+     */""","""    // Session cookie flags from server.servlet.session.cookie.*; Spring Session does not read them itself.""")
+open(p,'w').write(s)
+p='application/validation/PasswordPolicy.java'
+s=open(p).read()
+s=s.replace("    /** Returns the first broken rule as a message, or empty when the password is acceptable. */","""    /**
+     * Finds the first broken rule.
+     *
+     * @param password raw password
+     * @return the rule message, or empty when the password is acceptable
+     */""")
+open(p,'w').write(s)
+EOF
+cd /home/ilaptop/dev/projects/my/phrasal &amp;&amp; (make clean build &gt; /tmp/p89make.log 2&gt;&amp;1; echo EXIT $? &gt;&gt; /tmp/p89make.log) &amp;" completed (exit code 0)</summary>
+</task-notification>
+---
+
+## 2026-10-27T14:32:32Z
+git add all changes and commit them with suitable message
+---

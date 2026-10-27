@@ -448,7 +448,7 @@ Pick one endpoint per resource and test every rule. Use `@ParameterizedTest` wit
 
 ## Phase 8 — Session cookie flags and persistence
 
-- [ ] **8.1** `application.yml`:
+- [x] **8.1** `application.yml`:
   ```yaml
   server:
     servlet:
@@ -459,29 +459,32 @@ Pick one endpoint per resource and test every rule. Use `@ParameterizedTest` wit
           same-site: lax
           secure: ${SESSION_COOKIE_SECURE:false}
   ```
-- [ ] **8.2** `application-prod.yml`: `server.servlet.session.cookie.secure: true` (hard-coded, so prod can't be misconfigured).
-- [ ] **8.3** Check with Context7 that Boot 4.1 applies `server.servlet.session.cookie.*` to Spring Session's
+- [x] **8.2** `application-prod.yml`: `server.servlet.session.cookie.secure: true` (hard-coded, so prod can't be misconfigured).
+- [x] **8.3** Check with Context7 that Boot 4.1 applies `server.servlet.session.cookie.*` to Spring Session's
       `DefaultCookieSerializer`. If it doesn't, declare a `CookieSerializer` bean in `SecurityConfig`.
-- [ ] **8.4** `integration/SessionPersistenceIntegrationTest.java`:
-  - [ ] after login, the `Set-Cookie` header for `SESSION` contains `HttpOnly` and `SameSite=Lax`, and no `Secure` in the test profile
-  - [ ] after login, `SELECT count(*) FROM spring_session WHERE principal_name = ?` (email) = 1. This proves the session lives in
+      **Result:** it does not (flags were missing in the test). `SecurityConfig.cookieSerializer` now builds a
+      `DefaultCookieSerializer` from `ServerProperties`. `AuthenticatedUser` also implements `AuthenticatedPrincipal`
+      (name = email), otherwise `spring_session.principal_name` held the record's `toString()`.
+- [x] **8.4** `integration/SessionPersistenceIntegrationTest.java`:
+  - [x] after login, the `Set-Cookie` header for `SESSION` contains `HttpOnly` and `SameSite=Lax`, and no `Secure` in the test profile
+  - [x] after login, `SELECT count(*) FROM spring_session WHERE principal_name = ?` (email) = 1. This proves the session lives in
         Postgres and survives restarts (task-99 AC #6).
-  - [ ] after logout the row is gone
-  - [ ] a separate unit/slice test with `@TestPropertySource(properties = "server.servlet.session.cookie.secure=true")` (or
+  - [x] after logout the row is gone
+  - [x] a separate unit/slice test with `@TestPropertySource(properties = "server.servlet.session.cookie.secure=true")` (or
         the prod profile property) → the cookie has `Secure`. It's a new context, which is acceptable for one class.
 - [ ] **8.5** Manual restart check (once, during Phase 18): log in through the UI, `docker compose restart backend`,
       reload. Still logged in.
-- [ ] **8.6** `cd backend && mvn clean verify` → green. Ask for commit approval →
+- [x] **8.6** `cd backend && mvn clean verify` → green. Ask for commit approval →
       `feat(backend): add register, login, logout and me endpoints`
 
 ---
 
 ## Phase 9 — Admin account bootstrap
 
-- [ ] **9.1** `config/AdminAccountProperties.java`: `@ConfigurationProperties("phrasal.security.admin")`
+- [x] **9.1** `config/AdminAccountProperties.java`: `@ConfigurationProperties("phrasal.security.admin")`
       `record AdminAccountProperties(String email, String password)`. Enable it with
       `@EnableConfigurationProperties` / `@ConfigurationPropertiesScan`.
-- [ ] **9.2** `application.yml`:
+- [x] **9.2** `application.yml`:
   ```yaml
   phrasal:
     security:
@@ -489,31 +492,31 @@ Pick one endpoint per resource and test every rule. Use `@ParameterizedTest` wit
         email: ${PHRASAL_ADMIN_EMAIL:}
         password: ${PHRASAL_ADMIN_PASSWORD:}
   ```
-- [ ] **9.3** `application/service/AdminAccountInitializer.java` (`ApplicationRunner`, `@Transactional`):
-  - [ ] email or password blank → `log.info("Admin bootstrap skipped: PHRASAL_ADMIN_EMAIL/PASSWORD not set")` and return
-  - [ ] configured password breaks the password policy (reuse `PasswordPolicyValidator` logic via a static
+- [x] **9.3** `application/service/AdminAccountInitializer.java` (`ApplicationRunner`, `@Transactional`):
+  - [x] email or password blank → `log.info("Admin bootstrap skipped: PHRASAL_ADMIN_EMAIL/PASSWORD not set")` and return
+  - [x] configured password breaks the password policy (reuse `PasswordPolicyValidator` logic via a static
         `PasswordPolicy.violation(String)` helper, or extract it) → **fail startup** with `IllegalStateException`.
         A weak admin password must never be accepted silently.
-  - [ ] user missing → create it with role `ADMIN` and the encoded password, and log `Admin account created id={}`
-  - [ ] user exists:
+  - [x] user missing → create it with role `ADMIN` and the encoded password, and log `Admin account created id={}`
+  - [x] user exists:
     - role not `ADMIN` → set `ADMIN`
     - `!passwordEncoder.matches(configured, hash)` → re-encode
     - log what changed, never the password
-  - [ ] idempotent: a second run with the same config changes nothing (no `UPDATE`; check that `version` is unchanged)
-  - [ ] the takeover rule above (role + password reset) is intentional. Write it in the class Javadoc: it closes the
+  - [x] idempotent: a second run with the same config changes nothing (no `UPDATE`; check that `version` is unchanged)
+  - [x] the takeover rule above (role + password reset) is intentional. Write it in the class Javadoc: it closes the
         "someone registered the admin email first" hole that exists because email confirmation is missing.
-- [ ] **9.4** `AdminAccountInitializerTest` (Mockito):
+- [x] **9.4** `AdminAccountInitializerTest` (Mockito):
   - blank config → no repo calls
   - weak password → exception
   - create
   - promote + reset password
   - already in sync → no save
-- [ ] **9.5** `integration/AdminBootstrapIntegrationTest.java` with
+- [x] **9.5** `integration/AdminBootstrapIntegrationTest.java` with
       `@TestPropertySource(properties = {"phrasal.security.admin.email=admin@it.test", "phrasal.security.admin.password=…"})`:
-  - [ ] the admin can log in, `/me` → `role == "ADMIN"`
-  - [ ] with that real admin session cookie + CSRF, `POST /api/v1/phrasal-verbs` → `201`
-  - [ ] registering `admin@it.test` → `409`
-  - [ ] keep the number of distinct test contexts low: put every admin-dependent test in this one class
+  - [x] the admin can log in, `/me` → `role == "ADMIN"`
+  - [x] with that real admin session cookie + CSRF, `POST /api/v1/phrasal-verbs` → `201`
+  - [x] registering `admin@it.test` → `409`
+  - [x] keep the number of distinct test contexts low: put every admin-dependent test in this one class
 
 ---
 

@@ -1013,3 +1013,14 @@
 - backend/src/test/java/net/phrasal/integration/AbstractIntegrationTest.java
 - multiuser-todos.md
 <!-- end-snapshot -->
+
+<!-- git-snapshot 2026-10-27T14:19:00Z -->
+- .claude/docs/blackbox/audit.md
+- backend/src/main/java/net/phrasal/PhrasalApplication.java
+- backend/src/main/java/net/phrasal/application/validation/PasswordPolicyValidator.java
+- backend/src/main/java/net/phrasal/config/SecurityConfig.java
+- backend/src/main/java/net/phrasal/infrastructure/security/AuthenticatedUser.java
+- backend/src/main/resources/application-prod.yml
+- backend/src/main/resources/application.yml
+- multiuser-todos.md
+<!-- end-snapshot -->

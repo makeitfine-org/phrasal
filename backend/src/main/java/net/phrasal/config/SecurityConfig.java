@@ -6,6 +6,8 @@ import net.phrasal.infrastructure.security.JpaUserDetailsService;
 import net.phrasal.presentation.security.CsrfCookieFilter;
 import net.phrasal.presentation.security.ProblemDetailAccessDeniedHandler;
 import net.phrasal.presentation.security.ProblemDetailAuthenticationEntryPoint;
+import org.springframework.boot.web.server.Cookie.SameSite;
+import org.springframework.boot.web.server.autoconfigure.ServerProperties;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.http.HttpMethod;
@@ -24,6 +26,7 @@ import org.springframework.security.web.context.HttpSessionSecurityContextReposi
 import org.springframework.security.web.context.SecurityContextRepository;
 import org.springframework.security.web.csrf.CookieCsrfTokenRepository;
 import org.springframework.security.web.csrf.CsrfFilter;
+import org.springframework.session.web.http.DefaultCookieSerializer;
 
 /**
  * Access rules: public reads, ADMIN-only writes, SPA-style CSRF and problem+json 401/403 responses.
@@ -40,6 +43,18 @@ public class SecurityConfig {
 
     private final ProblemDetailAuthenticationEntryPoint entryPoint;
     private final ProblemDetailAccessDeniedHandler deniedHandler;
+
+    // Session cookie flags from server.servlet.session.cookie.*; Spring Session does not read them itself.
+    @Bean
+    DefaultCookieSerializer cookieSerializer(ServerProperties serverProperties) {
+        var cookie = serverProperties.getServlet().getSession().getCookie();
+        DefaultCookieSerializer serializer = new DefaultCookieSerializer();
+        serializer.setUseHttpOnlyCookie(!Boolean.FALSE.equals(cookie.getHttpOnly()));
+        serializer.setUseSecureCookie(Boolean.TRUE.equals(cookie.getSecure()));
+        SameSite sameSite = cookie.getSameSite();
+        serializer.setSameSite(sameSite == null ? null : sameSite.attributeValue());
+        return serializer;
+    }
 
     @Bean
     PasswordEncoder passwordEncoder() {
