@@ -3209,3 +3209,57 @@ git add all changes and commit them with suitable message
 ## 2026-10-27T21:27:45Z
 git add all changes and commit them with suitable message
 ---
+
+## 2026-10-27T21:48:58Z
+Just analyze and answer my question. Critial: Don't implement or change anything:
+
+check my sign up and login functionality. 
+So I created two users, then I signed out, then login again with the different users.
+Also, I played with quiz, so I signed it, checked off few phrasal verbs like learned, so excluded.
+And I see that doesn't matter with which the user I logged in doesn't track individually my quiz progress just save everything on the level of local storage of cookies.
+but I though that in. @.claude/docs/blackbox/todos/multiuser-todos.md the functionality of saving the progress for user was implemented.
+Or it okey?
+---
+
+## 2026-10-27T21:51:44Z
+Admin-only writes to content (phrasal verbs, grammar entries, verb details).
+  - A user menu in the navigation bar.
+
+1) hot to create admin and login with it, and write content.
+2) about what menu are you talking, don't udnerstand
+---
+
+## 2026-10-27T21:57:39Z
+be concise and short, just resume what's did you do in @.claude/docs/blackbox/todos/multiuser-todos.md ?
+---
+
+## 2026-10-27T22:01:54Z
+be concise and shot: What are benefits from that the functionality which was implemented in @.claude/docs/blackbox/todos/multiuser-todos.md ?
+---
+
+## 2026-10-27T22:03:37Z
+Protected content. Only an admin can add, edit or delete phrasal verbs, grammar entries and verb details. Before, anyone could call the write API.
+
+means that I should be logged with admin to do Add, edit, delete from for example postman?
+---
+
+## 2026-10-27T22:17:06Z
+
+
+<pasted_content id="81f1">
+Create detailed save-on-server-multiuser-todos.md fils with checkboxes (- [ ]), which describes a step-by-step implementation for such task:
+
+- Analyze:
+  @".claude/docs/blackbox/plans/2026-10-26 18:10 Multi-user accounts TOTP 2FA and reliable storage for phrasal.md"
+  and @"backlog/tasks/" from task-97 to task-106 md files.
+- I'd like to just implement Store learning progress per user on the server.
+- Each step of implementation should be simple, detailed, granular, covered with backend, frontend and if reasonable with e2e tests.
+- Consider as template: @.claude/docs/blackbox/todos/multiuser-todos.md
+
+- Critical: DO NOT start any steps of implement.
+</pasted_content id="81f1">
+---
+
+## 2026-10-27T22:34:35Z
+git add all changes and commit them with suitable message
+---

@@ -219,11 +219,13 @@ On phase completion `make clean build` must pass successfully.
 ---
 -- // Use Opus
 
-Create detailed multiuser-todos.md fils with checkboxes (- [ ]), which describes a step-by-step implementation for such task:
+Create detailed save-on-server-multiuser-todos.md fils with checkboxes (- [ ]), which describes a step-by-step implementation for such task:
 
 - Analyze:
   @".claude/docs/blackbox/plans/2026-10-26 18:10 Multi-user accounts TOTP 2FA and reliable storage for phrasal.md"
   and @"backlog/tasks/" from task-97 to task-106 md files.
-- I'd like to just implement sign up with email/password, without the email confirmation for now.
+- I'd like to just implement Store learning progress per user on the server.
 - Each step of implementation should be simple, detailed, granular, covered with backend, frontend and if reasonable with e2e tests.
+- Consider as template: @.claude/docs/blackbox/todos/multiuser-todos.md
+
 - Critical: DO NOT start any steps of implement.
