@@ -885,3 +885,16 @@
 - .claude/docs/blackbox/audit.md
 - .claude/settings.local.json
 <!-- end-snapshot -->
+
+<!-- git-snapshot 2026-10-27T12:26:12Z -->
+- .claude/docs/blackbox/audit.md
+- backlog/tasks/task-99 - Let-visitors-register-and-log-in-with-email-password-restrict-content-edits-to-admins.md
+- multiuser-todos.md
+<!-- end-snapshot -->
+
+<!-- git-snapshot 2026-10-27T12:27:59Z -->
+- .claude/docs/blackbox/audit.md
+- .claude/docs/blackbox/session-log.md
+- backlog/tasks/task-99 - Let-visitors-register-and-log-in-with-email-password-restrict-content-edits-to-admins.md
+- multiuser-todos.md
+<!-- end-snapshot -->

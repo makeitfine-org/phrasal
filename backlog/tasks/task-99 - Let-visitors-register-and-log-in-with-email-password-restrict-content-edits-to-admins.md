@@ -3,10 +3,10 @@ id: TASK-99
 title: >-
   Let visitors register and log in with email + password; restrict content edits
   to admins
-status: To Do
+status: In Progress
 assignee: []
 created_date: '2026-10-26T17:37:00Z'
-updated_date: '2026-10-26T17:57:00Z'
+updated_date: '2026-10-27T12:25:00Z'
 labels:
   - multi-user
   - security
@@ -98,4 +98,12 @@ The product needs public sign-up for up to a few hundred users. This task is the
 - [ ] #18 E2E: an API scenario registers an admin, verifies via Mailpit, logs in and runs the existing CRUD feature. Another scenario asserts that an anonymous POST returns 401.
 - [ ] #19 backend/CLAUDE.md, frontend/CLAUDE.md and README.md document the auth model, env vars and local Mailpit usage.
 - [ ] #20 `make clean build` passes
+- [ ] #21 Admin account is created/updated at startup from PHRASAL_ADMIN_EMAIL / PHRASAL_ADMIN_PASSWORD
+- [ ] #22 Register and login are rate-limited per IP and per email (429 ProblemDetail)
 <!-- AC:END -->
+
+## Implementation Notes
+
+<!-- SECTION:NOTES:BEGIN -->
+Scope reduction (2026-10-27): email confirmation deferred; admin bootstrapped from config (PHRASAL_ADMIN_EMAIL / PHRASAL_ADMIN_PASSWORD); register returns 409 on duplicate email. Deferred AC: #1 (verification part), #3, #13, #18 (Mailpit part), and the mail/app-base-URL part of #16. Follow-up task: email verification. Step-by-step plan: multiuser-todos.md.
+<!-- SECTION:NOTES:END -->

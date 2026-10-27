@@ -88,15 +88,16 @@ Source plan: `.claude/docs/blackbox/plans/2026-10-26 18:10 Multi-user accounts T
 
 ## Phase 0 — Preparation (no code)
 
-- [ ] **0.1** Make sure the work happens on branch `multi-user`, with a clean working tree apart from blackbox files.
-- [ ] **0.2** Run `make clean build` once on the untouched branch and note the baseline (all green, e2e count).
-- [ ] **0.3** Move **task-99** to `In Progress` in Backlog.md.
-- [ ] **0.4** Update task-99 to match the reduced scope (Backlog.md MCP `task_edit`):
-  - [ ] add an implementation note: "email confirmation deferred; admin bootstrapped from config; register returns 409 on duplicate"
-  - [ ] leave the email-related AC (#1 verification part, #3, #13, the Mailpit part of #18) unchecked, with a note that they are deferred
-  - [ ] add AC: "Admin account is created/updated at startup from PHRASAL_ADMIN_EMAIL / PHRASAL_ADMIN_PASSWORD"
-  - [ ] add AC: "Register and login are rate-limited per IP and per email (429 ProblemDetail)"
-- [ ] **0.5** Look up with Context7 and note the exact APIs for:
+- [x] **0.1** Make sure the work happens on branch `multi-user`, with a clean working tree apart from blackbox files.
+- [x] **0.2** Run `make clean build` once on the untouched branch and note the baseline (all green, e2e count).
+  - Baseline (2026-10-27): `make clean build` green — backend 89 tests, e2e 33 scenarios / 222 steps passed.
+- [x] **0.3** Move **task-99** to `In Progress` in Backlog.md.
+- [x] **0.4** Update task-99 to match the reduced scope (Backlog.md MCP `task_edit`):
+  - [x] add an implementation note: "email confirmation deferred; admin bootstrapped from config; register returns 409 on duplicate"
+  - [x] leave the email-related AC (#1 verification part, #3, #13, the Mailpit part of #18) unchecked, with a note that they are deferred
+  - [x] add AC: "Admin account is created/updated at startup from PHRASAL_ADMIN_EMAIL / PHRASAL_ADMIN_PASSWORD"
+  - [x] add AC: "Register and login are rate-limited per IP and per email (429 ProblemDetail)"
+- [x] **0.5** Look up with Context7 and note the exact APIs for:
   - Security 7.1:
     - `csrf.spa()`
     - `DaoAuthenticationProvider` constructor
@@ -105,6 +106,14 @@ Source plan: `.claude/docs/blackbox/plans/2026-10-26 18:10 Multi-user accounts T
     - `PathPatternRequestMatcher` / `requestMatchers(HttpMethod, String...)`
   - Spring Session JDBC: the PostgreSQL schema file inside the jar (`org/springframework/session/jdbc/schema-postgresql.sql`).
   - Boot 4.1: the `server.servlet.session.cookie.*` and `spring.session.*` properties.
+
+  - **Notes from Context7 (Security 7.1 / Spring Session):**
+    - `http.csrf(csrf -> csrf.spa())` exists; the token cookie is cleared on login/logout, so the client must fetch a fresh one (any GET) before the next unsafe request.
+    - `new DaoAuthenticationProvider(userDetailsService)` + `setPasswordEncoder(...)`, wrapped in `new ProviderManager(provider)`.
+    - Manual login: `securityContextRepository.saveContext(context, request, response)` (explicit save is required).
+    - `logout.logoutSuccessHandler(new HttpStatusReturningLogoutSuccessHandler(HttpStatus.NO_CONTENT))`.
+    - `requestMatchers(HttpMethod.POST, "/api/v1/...")` works in `authorizeHttpRequests`.
+    - Schema file: `org/springframework/session/jdbc/schema-postgresql.sql`; properties `spring.session.jdbc.initialize-schema=never`, `server.servlet.session.timeout`, `server.servlet.session.cookie.*`.
 
 ---
 
