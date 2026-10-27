@@ -211,3 +211,19 @@ Create plan to add improvements
    One useful row to add given common failures here:                        
    | make build fails on mvn install | Stale Maven cache | make clean && make build |
 ---
+
+start implementing functionality from  multiuser-todos.md Phase 0.
+Don't forget to check off implemented boxes.
+On phase completion `make clean build` must pass successfully.
+
+---
+-- // Use Opus
+
+Create detailed multiuser-todos.md fils with checkboxes (- [ ]), which describes a step-by-step implementation for such task:
+
+- Analyze:
+  @".claude/docs/blackbox/plans/2026-10-26 18:10 Multi-user accounts TOTP 2FA and reliable storage for phrasal.md"
+  and @"backlog/tasks/" from task-97 to task-106 md files.
+- I'd like to just implement sign up with email/password, without the email confirmation for now.
+- Each step of implementation should be simple, detailed, granular, covered with backend, frontend and if reasonable with e2e tests.
+- Critical: DO NOT start any steps of implement.

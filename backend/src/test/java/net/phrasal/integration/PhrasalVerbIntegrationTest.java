@@ -70,6 +70,7 @@ class PhrasalVerbIntegrationTest extends AbstractIntegrationTest {
                 """;
 
         mockMvc.perform(post(BASE_URL)
+                        .with(adminWithCsrf())
                         .contentType(MediaType.APPLICATION_JSON)
                         .content(json))
                 .andExpect(status().isCreated())
@@ -94,6 +95,7 @@ class PhrasalVerbIntegrationTest extends AbstractIntegrationTest {
                 """.formatted(verb.getVerb());
 
         mockMvc.perform(put(BASE_URL + "/{id}", verb.getId())
+                        .with(adminWithCsrf())
                         .contentType(MediaType.APPLICATION_JSON)
                         .content(json))
                 .andExpect(status().isOk())
@@ -107,7 +109,7 @@ class PhrasalVerbIntegrationTest extends AbstractIntegrationTest {
         PhrasalVerb verb = new PhrasalVerb("Delete me", "To be deleted", List.of("Delete this."), List.of("delete"));
         verb = repository.save(verb);
 
-        mockMvc.perform(delete(BASE_URL + "/{id}", verb.getId()))
+        mockMvc.perform(delete(BASE_URL + "/{id}", verb.getId()).with(adminWithCsrf()))
                 .andExpect(status().isNoContent());
 
         mockMvc.perform(get(BASE_URL + "/{id}", verb.getId()))
@@ -147,6 +149,7 @@ class PhrasalVerbIntegrationTest extends AbstractIntegrationTest {
                 """;
 
         mockMvc.perform(post(BASE_URL)
+                        .with(adminWithCsrf())
                         .contentType(MediaType.APPLICATION_JSON)
                         .content(json))
                 .andExpect(status().isBadRequest())

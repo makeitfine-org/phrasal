@@ -103,6 +103,7 @@ class VerbDetailIntegrationTest extends AbstractIntegrationTest {
                 """;
 
         mockMvc.perform(post(BASE_URL)
+                        .with(adminWithCsrf())
                         .contentType(MediaType.APPLICATION_JSON)
                         .content(json))
                 .andExpect(status().isCreated())
@@ -138,6 +139,7 @@ class VerbDetailIntegrationTest extends AbstractIntegrationTest {
                 """;
 
         mockMvc.perform(put(BASE_URL + "/{id}", toUpdate.getId())
+                        .with(adminWithCsrf())
                         .contentType(MediaType.APPLICATION_JSON)
                         .content(json))
                 .andExpect(status().isOk())
@@ -152,7 +154,7 @@ class VerbDetailIntegrationTest extends AbstractIntegrationTest {
         VerbDetail toDelete = new VerbDetail("deleteme", "DeleteMe", List.of("x"), List.of(section));
         toDelete = repository.save(toDelete);
 
-        mockMvc.perform(delete(BASE_URL + "/{id}", toDelete.getId()))
+        mockMvc.perform(delete(BASE_URL + "/{id}", toDelete.getId()).with(adminWithCsrf()))
                 .andExpect(status().isNoContent());
 
         mockMvc.perform(get(BASE_URL + "/{id}", toDelete.getId()))
@@ -172,6 +174,7 @@ class VerbDetailIntegrationTest extends AbstractIntegrationTest {
                 """;
 
         mockMvc.perform(post(BASE_URL)
+                        .with(adminWithCsrf())
                         .contentType(MediaType.APPLICATION_JSON)
                         .content(json))
                 .andExpect(status().isBadRequest())

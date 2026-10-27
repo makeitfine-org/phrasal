@@ -7,7 +7,11 @@ import org.springframework.test.context.ActiveProfiles;
 import org.springframework.test.context.DynamicPropertyRegistry;
 import org.springframework.test.context.DynamicPropertySource;
 import org.springframework.test.web.servlet.MockMvc;
+import org.springframework.test.web.servlet.request.RequestPostProcessor;
 import org.testcontainers.postgresql.PostgreSQLContainer;
+
+import static org.springframework.security.test.web.servlet.request.SecurityMockMvcRequestPostProcessors.csrf;
+import static org.springframework.security.test.web.servlet.request.SecurityMockMvcRequestPostProcessors.user;
 
 /**
  * Base for integration tests: one Postgres container per JVM and one cached Spring context.
@@ -29,6 +33,11 @@ abstract class AbstractIntegrationTest {
 
     @Autowired
     protected MockMvc mockMvc;
+
+    /** Authenticates the request as an ADMIN and attaches a valid CSRF token. */
+    protected static RequestPostProcessor adminWithCsrf() {
+        return request -> csrf().postProcessRequest(user("admin@test").roles("ADMIN").postProcessRequest(request));
+    }
 
     @DynamicPropertySource
     static void configureProperties(DynamicPropertyRegistry registry) {

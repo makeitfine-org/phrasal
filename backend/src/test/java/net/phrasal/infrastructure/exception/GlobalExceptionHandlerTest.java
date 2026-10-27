@@ -4,6 +4,9 @@ import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ProblemDetail;
+import org.springframework.security.access.AccessDeniedException;
+import org.springframework.security.authentication.BadCredentialsException;
+import org.springframework.security.authentication.InsufficientAuthenticationException;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
@@ -64,5 +67,34 @@ class GlobalExceptionHandlerTest {
         assertThat(detail.getStatus()).isEqualTo(HttpStatus.INTERNAL_SERVER_ERROR.value());
         assertThat(detail.getTitle()).isEqualTo("Internal Server Error");
         assertThat(detail.getDetail()).isEqualTo("An unexpected error occurred");
+    }
+
+    @Test
+    @DisplayName("returns 401 'Invalid email or password' for bad credentials")
+    void handleBadCredentials() {
+        ProblemDetail detail = handler.handleAuthentication(new BadCredentialsException("internal"));
+
+        assertThat(detail.getStatus()).isEqualTo(HttpStatus.UNAUTHORIZED.value());
+        assertThat(detail.getTitle()).isEqualTo("Unauthorized");
+        assertThat(detail.getDetail()).isEqualTo("Invalid email or password");
+    }
+
+    @Test
+    @DisplayName("returns 401 with generic detail for other authentication errors")
+    void handleOtherAuthenticationError() {
+        ProblemDetail detail = handler.handleAuthentication(new InsufficientAuthenticationException("internal"));
+
+        assertThat(detail.getStatus()).isEqualTo(HttpStatus.UNAUTHORIZED.value());
+        assertThat(detail.getDetail()).isEqualTo("Authentication is required");
+    }
+
+    @Test
+    @DisplayName("returns 403 without leaking the denial reason")
+    void handleAccessDenied() {
+        ProblemDetail detail = handler.handleAccessDenied(new AccessDeniedException("internal rule"));
+
+        assertThat(detail.getStatus()).isEqualTo(HttpStatus.FORBIDDEN.value());
+        assertThat(detail.getTitle()).isEqualTo("Forbidden");
+        assertThat(detail.getDetail()).doesNotContain("internal");
     }
 }

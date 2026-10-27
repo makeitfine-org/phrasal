@@ -21,6 +21,7 @@ Or step by step:
 
 - Steps are in `src/steps/`, support utilities in `src/support/`
 - Reports land in `reports/` (gitignored)
+- `ApiClient` fetches an `XSRF-TOKEN` cookie once and sends it as `X-XSRF-TOKEN` on POST/PUT/DELETE; writes still need ADMIN
 - Never put real credentials in code; use `.env` (copy `.env.example`)
 
 ## Structure

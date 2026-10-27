@@ -3,14 +3,15 @@ package net.phrasal.infrastructure.exception;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ProblemDetail;
+import org.springframework.security.access.AccessDeniedException;
+import org.springframework.security.authentication.BadCredentialsException;
+import org.springframework.security.core.AuthenticationException;
 import org.springframework.validation.FieldError;
 import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.RestControllerAdvice;
 import org.springframework.web.servlet.resource.NoResourceFoundException;
 
-import java.net.URI;
-import java.time.Instant;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -18,14 +19,8 @@ import java.util.Map;
 @RestControllerAdvice
 public class GlobalExceptionHandler {
 
-    private static final String ERROR_BASE_URI = "https://api.phrasal.net/errors/";
-
     private ProblemDetail buildProblem(HttpStatus status, String title, String errorType, String detail) {
-        ProblemDetail problem = ProblemDetail.forStatusAndDetail(status, detail);
-        problem.setTitle(title);
-        problem.setType(URI.create(ERROR_BASE_URI + errorType));
-        problem.setProperty("timestamp", Instant.now());
-        return problem;
+        return ProblemDetailFactory.build(status, title, errorType, detail);
     }
 
     @ExceptionHandler(ResourceNotFoundException.class)
@@ -61,6 +56,21 @@ public class GlobalExceptionHandler {
     public ProblemDetail handleNoResourceFound(NoResourceFoundException ex) {
         return buildProblem(HttpStatus.NOT_FOUND, "Resource Not Found",
                 "not-found", ex.getMessage());
+    }
+
+    @ExceptionHandler(AuthenticationException.class)
+    public ProblemDetail handleAuthentication(AuthenticationException ex) {
+        log.warn("Authentication failed: {}", ex.getClass().getSimpleName());
+        String detail = ex instanceof BadCredentialsException
+                ? "Invalid email or password" : "Authentication is required";
+        return buildProblem(HttpStatus.UNAUTHORIZED, "Unauthorized", "unauthorized", detail);
+    }
+
+    @ExceptionHandler(AccessDeniedException.class)
+    public ProblemDetail handleAccessDenied(AccessDeniedException ex) {
+        log.warn("Access denied: {}", ex.getClass().getSimpleName());
+        return buildProblem(HttpStatus.FORBIDDEN, "Forbidden", "forbidden",
+                "You do not have permission to perform this action");
     }
 
     @ExceptionHandler(Exception.class)

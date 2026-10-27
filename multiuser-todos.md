@@ -206,33 +206,33 @@ A shared singleton container plus one cached Spring context keeps build time fla
 ## Phase 3 — Security baseline (public reads, ADMIN writes, CSRF, ProblemDetail errors)
 
 ### 3.1 ProblemDetail for 401 / 403
-- [ ] **3.1.1** `presentation/security/ProblemDetailAuthenticationEntryPoint.java` (`AuthenticationEntryPoint`):
-  - [ ] writes `401`, `Content-Type: application/problem+json`
-  - [ ] body: title `Unauthorized`, type `https://api.phrasal.net/errors/unauthorized`, detail `Authentication is required`,
+- [x] **3.1.1** `presentation/security/ProblemDetailAuthenticationEntryPoint.java` (`AuthenticationEntryPoint`):
+  - [x] writes `401`, `Content-Type: application/problem+json`
+  - [x] body: title `Unauthorized`, type `https://api.phrasal.net/errors/unauthorized`, detail `Authentication is required`,
         `timestamp`
-  - [ ] serialize with the Spring-managed Jackson 3 `JsonMapper` (inject it, don't `new` one)
-- [ ] **3.1.2** `presentation/security/ProblemDetailAccessDeniedHandler.java` (`AccessDeniedHandler`):
-  - [ ] writes `403` ProblemDetail, title `Forbidden`, type `.../errors/forbidden`
-  - [ ] if the exception is a `CsrfException` (`MissingCsrfTokenException` / `InvalidCsrfTokenException`):
+  - [x] serialize with the Spring-managed Jackson 3 `JsonMapper` (inject it, don't `new` one)
+- [x] **3.1.2** `presentation/security/ProblemDetailAccessDeniedHandler.java` (`AccessDeniedHandler`):
+  - [x] writes `403` ProblemDetail, title `Forbidden`, type `.../errors/forbidden`
+  - [x] if the exception is a `CsrfException` (`MissingCsrfTokenException` / `InvalidCsrfTokenException`):
         detail `Invalid or missing CSRF token`, type `.../errors/csrf`
-  - [ ] otherwise detail `You do not have permission to perform this action`
-- [ ] **3.1.3** Extract the shared "build ProblemDetail" code instead of copying it. Options: a small
+  - [x] otherwise detail `You do not have permission to perform this action`
+- [x] **3.1.3** Extract the shared "build ProblemDetail" code instead of copying it. Options: a small
       `infrastructure/exception/ProblemDetailFactory` used by `GlobalExceptionHandler` and both handlers, or a static
       helper. Keep `ERROR_BASE_URI` in one place.
 
 ### 3.2 GlobalExceptionHandler
-- [ ] **3.2.1** Add handlers **before** the `Exception` catch-all:
-  - [ ] `AuthenticationException` → `401` ProblemDetail (title `Unauthorized`; detail `Invalid email or password` for
+- [x] **3.2.1** Add handlers **before** the `Exception` catch-all:
+  - [x] `AuthenticationException` → `401` ProblemDetail (title `Unauthorized`; detail `Invalid email or password` for
         `BadCredentialsException`, generic otherwise). Login in Phase 6 depends on this.
-  - [ ] `AccessDeniedException` → `403` ProblemDetail
-- [ ] **3.2.2** Extend `GlobalExceptionHandlerTest` with both handlers (status, title, no internal message leaked).
+  - [x] `AccessDeniedException` → `403` ProblemDetail
+- [x] **3.2.2** Extend `GlobalExceptionHandlerTest` with both handlers (status, title, no internal message leaked).
 
 ### 3.3 SecurityConfig
-- [ ] **3.3.1** `config/SecurityConfig.java` with `@Configuration @EnableWebSecurity` and one `SecurityFilterChain` bean:
-  - [ ] `csrf(c -> c.spa())`
-  - [ ] `exceptionHandling(e -> e.authenticationEntryPoint(entryPoint).accessDeniedHandler(deniedHandler))`
-  - [ ] turn off `formLogin`, `httpBasic` and `requestCache` (JSON API only, no redirects)
-  - [ ] `authorizeHttpRequests`, in this order:
+- [x] **3.3.1** `config/SecurityConfig.java` with `@Configuration @EnableWebSecurity` and one `SecurityFilterChain` bean:
+  - [x] `csrf(c -> c.spa())`
+  - [x] `exceptionHandling(e -> e.authenticationEntryPoint(entryPoint).accessDeniedHandler(deniedHandler))`
+  - [x] turn off `formLogin`, `httpBasic` and `requestCache` (JSON API only, no redirects)
+  - [x] `authorizeHttpRequests`, in this order:
     1. `/error` → `permitAll`
     2. `/actuator/health`, `/actuator/health/**` → `permitAll`
     3. `/actuator/**` → `hasRole("ADMIN")`
@@ -241,46 +241,51 @@ A shared singleton container plus one cached Spring context keeps build time fla
     6. `POST|PUT|DELETE /api/v1/phrasal-verbs/**`, `/api/v1/grammar-entries/**`, `/api/v1/verb-details/**` → `hasRole("ADMIN")`
     7. `GET /api/**` → `permitAll`
     8. `anyRequest()` → `denyAll()`
-  - [ ] use the `requestMatchers(HttpMethod, String...)` form (PathPattern based in Security 7)
-- [ ] **3.3.2** Make sure the `XSRF-TOKEN` cookie is actually sent to the browser. The token is *deferred*, and the docs say it is
+  - [x] use the `requestMatchers(HttpMethod, String...)` form (PathPattern based in Security 7)
+- [x] **3.3.2** Make sure the `XSRF-TOKEN` cookie is actually sent to the browser. The token is *deferred*, and the docs say it is
       cleared after login and logout.
-  - [ ] check with an integration test (3.5.6) whether `GET /api/v1/phrasal-verbs` returns `Set-Cookie: XSRF-TOKEN`
-  - [ ] if it doesn't, add `presentation/security/CsrfCookieFilter` (`OncePerRequestFilter` that reads
+  - [x] check with an integration test (3.5.6) whether `GET /api/v1/phrasal-verbs` returns `Set-Cookie: XSRF-TOKEN`
+  - [x] if it doesn't, add `presentation/security/CsrfCookieFilter` (`OncePerRequestFilter` that reads
         `request.getAttribute(CsrfToken.class.getName())` and calls `getToken()`), registered `addFilterAfter(…, CsrfFilter.class)`
-- [ ] **3.3.3** Delete the CORS mapping. The whole `config/WebMvcConfig.java` goes, since it only contains CORS.
+- [x] **3.3.3** Delete the CORS mapping. The whole `config/WebMvcConfig.java` goes, since it only contains CORS.
       The Vite proxy, the nginx container and the Traefik ingress all make calls same-origin.
-- [ ] **3.3.4** `grep -rn "allowedOrigins\|CorsRegistry" backend/src` returns nothing.
+- [x] **3.3.4** `grep -rn "allowedOrigins\|CorsRegistry" backend/src` returns nothing.
 
 ### 3.4 Existing integration tests
-- [ ] **3.4.1** In the three CRUD integration tests, add to every POST/PUT/DELETE request:
+- [x] **3.4.1** In the three CRUD integration tests, add to every POST/PUT/DELETE request:
       `.with(user("admin@test").roles("ADMIN")).with(csrf())`
       (static imports from `SecurityMockMvcRequestPostProcessors`).
-- [ ] **3.4.2** Leave the GET tests unchanged. They prove anonymous reads still work (task-99 AC #7).
+- [x] **3.4.2** Leave the GET tests unchanged. They prove anonymous reads still work (task-99 AC #7).
 
 ### 3.5 New tests: `integration/SecurityRulesIntegrationTest.java`
 Pick one endpoint per resource and test every rule. Use `@ParameterizedTest` with `@MethodSource` over the three resources where it helps.
-- [ ] **3.5.1** Anonymous `GET` on each of the 3 list endpoints and one `/{id}` → `200`.
-- [ ] **3.5.2** Anonymous `POST`/`PUT`/`DELETE` (with CSRF) → `401`, `Content-Type` `application/problem+json`,
+- [x] **3.5.1** Anonymous `GET` on each of the 3 list endpoints and one `/{id}` → `200`.
+- [x] **3.5.2** Anonymous `POST`/`PUT`/`DELETE` (with CSRF) → `401`, `Content-Type` `application/problem+json`,
       `$.title == "Unauthorized"`.
-- [ ] **3.5.3** `user().roles("USER")` + CSRF on POST/PUT/DELETE → `403`, `$.title == "Forbidden"`.
-- [ ] **3.5.4** `ADMIN` **without** `csrf()` on POST → `403`, `$.type` ends with `/csrf`.
-- [ ] **3.5.5** `ADMIN` + CSRF on POST → `201` (positive control).
-- [ ] **3.5.6** The XSRF cookie: a GET response sets the `XSRF-TOKEN` cookie, which is **not** HttpOnly (the SPA must read it).
-- [ ] **3.5.7** `GET /actuator/health` anonymous → `200`; `GET /actuator/metrics` anonymous → `401`, as ADMIN → `200`.
-- [ ] **3.5.8** A CORS preflight `OPTIONS` with `Origin: http://localhost:5173` gets no `Access-Control-Allow-Origin` header.
-- [ ] **3.5.9** Unit tests `ProblemDetailAuthenticationEntryPointTest` / `ProblemDetailAccessDeniedHandlerTest` with
+- [x] **3.5.3** `user().roles("USER")` + CSRF on POST/PUT/DELETE → `403`, `$.title == "Forbidden"`.
+- [x] **3.5.4** `ADMIN` **without** `csrf()` on POST → `403`, `$.type` ends with `/csrf`.
+- [x] **3.5.5** `ADMIN` + CSRF on POST → `201` (positive control).
+- [x] **3.5.6** The XSRF cookie: a GET response sets the `XSRF-TOKEN` cookie, which is **not** HttpOnly (the SPA must read it).
+- [x] **3.5.7** `GET /actuator/health` anonymous → `200`; `GET /actuator/metrics` anonymous → `401`, as ADMIN → `200`.
+- [x] **3.5.8** A CORS preflight `OPTIONS` with `Origin: http://localhost:5173` gets no `Access-Control-Allow-Origin` header.
+- [x] **3.5.9** Unit tests `ProblemDetailAuthenticationEntryPointTest` / `ProblemDetailAccessDeniedHandlerTest` with
       `MockHttpServletResponse`: status, content type, JSON body; CSRF and non-CSRF branches.
 
 ### 3.6 Keep e2e green
+> Done differently from the plan: (a) 3.5.6 lives in `CsrfCookieIntegrationTest` (real HTTP) because spring-security-test's
+> `csrf()` swaps the shared filter's token repository and hides the cookie in MockMvc; (b) `CsrfCookieFilter` was needed;
+> (c) integration tests use an `adminWithCsrf()` helper in `AbstractIntegrationTest` instead of inline post-processors;
+> (d) CSRF runs before authorization, so the e2e `ApiClient` now primes an `XSRF-TOKEN` cookie, otherwise the anonymous
+> POST would get `403 csrf` instead of `401`.
 `make clean build` runs e2e, and `crud.feature → "Create a new phrasal verb"` now gets `401` as anonymous.
-- [ ] **3.6.1** Change that scenario into **"Anonymous visitor cannot create a phrasal verb"**: same `When`, `Then the
+- [x] **3.6.1** Change that scenario into **"Anonymous visitor cannot create a phrasal verb"**: same `When`, `Then the
       response status should be 401`. That covers task-99 AC #18, second half. Phase 16 adds the authenticated create back.
-- [ ] **3.6.2** Keep `isLearned: false` in the create step payload. That field stays until task-102.
+- [x] **3.6.2** Keep `isLearned: false` in the create step payload. That field stays until task-102.
 
 ### 3.7 Verify and commit
-- [ ] **3.7.1** `cd backend && mvn clean verify`, everything green.
-- [ ] **3.7.2** `make clean build`, everything green including e2e.
-- [ ] **3.7.3** Manual check: `make dockerAll`, open http://localhost:3000, the quizzes and list pages still load.
+- [x] **3.7.1** `cd backend && mvn clean verify`, everything green.
+- [x] **3.7.2** `make clean build`, everything green including e2e.
+- [x] **3.7.3** (note: a bare `curl -X POST` without a token returns `403` csrf, not `401`, because the CSRF filter runs first; with a token it is `401`) Manual check: `make dockerAll`, open http://localhost:3000, the quizzes and list pages still load.
       `curl -i -X POST localhost:8080/api/v1/phrasal-verbs` → 401 problem+json.
 - [ ] **3.7.4** Ask for commit approval → `feat(backend): add Spring Security, users table and admin-only writes`
 

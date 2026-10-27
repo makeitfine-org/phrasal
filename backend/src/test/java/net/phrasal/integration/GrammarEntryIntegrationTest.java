@@ -75,6 +75,7 @@ class GrammarEntryIntegrationTest extends AbstractIntegrationTest {
                 """;
 
         mockMvc.perform(post(BASE_URL)
+                        .with(adminWithCsrf())
                         .contentType(MediaType.APPLICATION_JSON)
                         .content(json))
                 .andExpect(status().isCreated())
@@ -97,6 +98,7 @@ class GrammarEntryIntegrationTest extends AbstractIntegrationTest {
                 """;
 
         mockMvc.perform(put(BASE_URL + "/{id}", entry.getId())
+                        .with(adminWithCsrf())
                         .contentType(MediaType.APPLICATION_JSON)
                         .content(json))
                 .andExpect(status().isOk())
@@ -109,7 +111,7 @@ class GrammarEntryIntegrationTest extends AbstractIntegrationTest {
         GrammarEntry entry = new GrammarEntry("delete-me", "To delete", List.of("answer"));
         entry = repository.save(entry);
 
-        mockMvc.perform(delete(BASE_URL + "/{id}", entry.getId()))
+        mockMvc.perform(delete(BASE_URL + "/{id}", entry.getId()).with(adminWithCsrf()))
                 .andExpect(status().isNoContent());
 
         mockMvc.perform(get(BASE_URL + "/{id}", entry.getId()))
@@ -128,6 +130,7 @@ class GrammarEntryIntegrationTest extends AbstractIntegrationTest {
                 """;
 
         mockMvc.perform(post(BASE_URL)
+                        .with(adminWithCsrf())
                         .contentType(MediaType.APPLICATION_JSON)
                         .content(json))
                 .andExpect(status().isBadRequest())

@@ -939,3 +939,26 @@
 - frontend/src/__tests__/listPage/get-come.test.tsx
 - multiuser-todos.md
 <!-- end-snapshot -->
+
+<!-- git-snapshot 2026-10-27T13:21:48Z -->
+- .claude/docs/blackbox/audit.md
+- backend/CLAUDE.md
+- backend/src/main/java/net/phrasal/config/SecurityConfig.java
+- backend/src/main/java/net/phrasal/config/WebMvcConfig.java
+- backend/src/main/java/net/phrasal/infrastructure/exception/GlobalExceptionHandler.java
+- backend/src/main/java/net/phrasal/infrastructure/exception/ProblemDetailFactory.java
+- backend/src/main/java/net/phrasal/presentation/security/CsrfCookieFilter.java
+- backend/src/main/java/net/phrasal/presentation/security/ProblemDetailAccessDeniedHandler.java
+- backend/src/main/java/net/phrasal/presentation/security/ProblemDetailAuthenticationEntryPoint.java
+- backend/src/main/java/net/phrasal/presentation/security/ProblemDetailWriter.java
+- backend/src/test/java/net/phrasal/infrastructure/exception/GlobalExceptionHandlerTest.java
+- backend/src/test/java/net/phrasal/integration/AbstractIntegrationTest.java
+- backend/src/test/java/net/phrasal/integration/CsrfCookieIntegrationTest.java
+- backend/src/test/java/net/phrasal/integration/GrammarEntryIntegrationTest.java
+- backend/src/test/java/net/phrasal/integration/PhrasalVerbIntegrationTest.java
+- backend/src/test/java/net/phrasal/integration/SecurityRulesIntegrationTest.java
+- backend/src/test/java/net/phrasal/integration/VerbDetailIntegrationTest.java
+- backend/src/test/java/net/phrasal/presentation/security/ProblemDetailHandlersTest.java
+- backlog/drafts/hard.md
+- e2e/CLAUDE.md
+<!-- end-snapshot -->

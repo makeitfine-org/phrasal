@@ -14,9 +14,17 @@
 domain/         → entities, repository interfaces only
 application/    → services, DTOs, MapStruct mappers
 presentation/   → REST controllers (@RestController)
-infrastructure/ → exception handlers (@RestControllerAdvice)
-config/         → Spring @Configuration classes
+infrastructure/ → exception handlers (@RestControllerAdvice), ProblemDetailFactory
+config/         → Spring @Configuration classes (SecurityConfig = access rules)
 ```
+
+## Security
+
+- Public `GET /api/**`; `POST/PUT/DELETE` on phrasal-verbs, grammar-entries, verb-details need role `ADMIN`; `/actuator/health/**` public, other actuator endpoints ADMIN.
+- CSRF is cookie-based (`XSRF-TOKEN`, readable by the SPA, echoed in `X-XSRF-TOKEN`); `presentation/security/CsrfCookieFilter` forces the deferred token to be sent.
+- 401/403 are written as `application/problem+json` by `presentation/security` handlers; build bodies with `ProblemDetailFactory`.
+- No CORS mapping: the SPA is same-origin (Vite proxy / nginx / ingress).
+- Integration tests write via `adminWithCsrf()` from `AbstractIntegrationTest`.
 
 - Base package: `net.phrasal`
 - Never let a lower layer import from a higher layer.
