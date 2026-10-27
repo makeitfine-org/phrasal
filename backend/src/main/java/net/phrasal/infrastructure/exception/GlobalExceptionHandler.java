@@ -73,6 +73,13 @@ public class GlobalExceptionHandler {
                 "You do not have permission to perform this action");
     }
 
+    @ExceptionHandler(EmailAlreadyRegisteredException.class)
+    public ProblemDetail handleEmailAlreadyRegistered(EmailAlreadyRegisteredException ex) {
+        log.warn("Registration rejected: email already registered");
+        return buildProblem(HttpStatus.CONFLICT, "Email Already Registered",
+                "email-already-registered", ex.getMessage());
+    }
+
     @ExceptionHandler(Exception.class)
     public ProblemDetail handleGlobal(Exception ex) {
         log.error("Unexpected error", ex);

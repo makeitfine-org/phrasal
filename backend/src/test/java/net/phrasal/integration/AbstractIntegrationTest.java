@@ -1,17 +1,21 @@
 package net.phrasal.integration;
 
+import jakarta.servlet.http.Cookie;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.webmvc.test.autoconfigure.AutoConfigureMockMvc;
 import org.springframework.test.context.ActiveProfiles;
 import org.springframework.test.context.DynamicPropertyRegistry;
 import org.springframework.test.context.DynamicPropertySource;
+import org.springframework.http.MediaType;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.request.RequestPostProcessor;
 import org.testcontainers.postgresql.PostgreSQLContainer;
 
 import static org.springframework.security.test.web.servlet.request.SecurityMockMvcRequestPostProcessors.csrf;
 import static org.springframework.security.test.web.servlet.request.SecurityMockMvcRequestPostProcessors.user;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
 /**
  * Base for integration tests: one Postgres container per JVM and one cached Spring context.
@@ -37,6 +41,24 @@ abstract class AbstractIntegrationTest {
     /** Authenticates the request as an ADMIN and attaches a valid CSRF token. */
     protected static RequestPostProcessor adminWithCsrf() {
         return request -> csrf().postProcessRequest(user("admin@test").roles("ADMIN").postProcessRequest(request));
+    }
+
+    /** Registers a new USER, logs in over HTTP and returns the {@code SESSION} cookie. */
+    protected Cookie registerAndLogin(String email, String password) throws Exception {
+        String body = "{\"email\":\"" + email + "\",\"password\":\"" + password + "\"}";
+        mockMvc.perform(post("/api/v1/auth/register").contentType(MediaType.APPLICATION_JSON).content(body)
+                .with(csrf())).andExpect(status().isCreated());
+        return login(body, null);
+    }
+
+    /** Logs in with a raw JSON body, optionally sending an existing cookie, and returns the new cookie. */
+    protected Cookie login(String body, Cookie existing) throws Exception {
+        var request = post("/api/v1/auth/login").contentType(MediaType.APPLICATION_JSON).content(body)
+                .with(csrf());
+        if (existing != null) {
+            request.cookie(existing);
+        }
+        return mockMvc.perform(request).andExpect(status().isOk()).andReturn().getResponse().getCookie("SESSION");
     }
 
     @DynamicPropertySource

@@ -97,4 +97,15 @@ class GlobalExceptionHandlerTest {
         assertThat(detail.getTitle()).isEqualTo("Forbidden");
         assertThat(detail.getDetail()).doesNotContain("internal");
     }
+
+    @Test
+    @DisplayName("returns 409 for an already registered email")
+    void handleEmailAlreadyRegistered() {
+        ProblemDetail detail = handler.handleEmailAlreadyRegistered(new EmailAlreadyRegisteredException());
+
+        assertThat(detail.getStatus()).isEqualTo(HttpStatus.CONFLICT.value());
+        assertThat(detail.getTitle()).isEqualTo("Email Already Registered");
+        assertThat(detail.getType().toString()).endsWith("/errors/email-already-registered");
+        assertThat(detail.getDetail()).isEqualTo("An account with this email already exists");
+    }
 }

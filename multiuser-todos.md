@@ -331,15 +331,15 @@ Pick one endpoint per resource and test every rule. Use `@ParameterizedTest` wit
 ## Phase 5 — Register endpoint
 
 ### 5.1 Password rule as a Bean Validation constraint
-- [ ] **5.1.1** `application/validation/ValidPassword.java`: annotation `@Constraint(validatedBy = PasswordPolicyValidator.class)`.
-- [ ] **5.1.2** `application/validation/PasswordPolicyValidator.java`:
-  - [ ] constants `MIN_LENGTH = 10`, `MAX_UTF8_BYTES = 72` (Checkstyle MagicNumber)
-  - [ ] `null` → valid (`@NotBlank` reports that case)
-  - [ ] fewer than 10 characters → violation `Password must be at least 10 characters`
-  - [ ] `getBytes(UTF_8).length > 72` → violation `Password must not exceed 72 bytes (UTF-8)`
-  - [ ] use `context.disableDefaultConstraintViolation()` + `buildConstraintViolationWithTemplate`, so the message names
+- [x] **5.1.1** `application/validation/ValidPassword.java`: annotation `@Constraint(validatedBy = PasswordPolicyValidator.class)`.
+- [x] **5.1.2** `application/validation/PasswordPolicyValidator.java`:
+  - [x] constants `MIN_LENGTH = 10`, `MAX_UTF8_BYTES = 72` (Checkstyle MagicNumber)
+  - [x] `null` → valid (`@NotBlank` reports that case)
+  - [x] fewer than 10 characters → violation `Password must be at least 10 characters`
+  - [x] `getBytes(UTF_8).length > 72` → violation `Password must not exceed 72 bytes (UTF-8)`
+  - [x] use `context.disableDefaultConstraintViolation()` + `buildConstraintViolationWithTemplate`, so the message names
         the rule that failed (task-99 AC #2)
-- [ ] **5.1.3** `PasswordPolicyValidatorTest`:
+- [x] **5.1.3** `PasswordPolicyValidatorTest`:
   - 9 chars ✗, 10 chars ✓
   - 72 ASCII ✓, 73 ASCII ✗
   - 25 × "€" (3 bytes each = 75 bytes, only 25 chars) ✗
@@ -347,22 +347,22 @@ Pick one endpoint per resource and test every rule. Use `@ParameterizedTest` wit
   - null ✓
 
 ### 5.2 DTOs
-- [ ] **5.2.1** `application/dto/RegisterRequest.java`:
+- [x] **5.2.1** `application/dto/RegisterRequest.java`:
   - `@NotBlank @Email @Size(max = 254) String email`
   - `@NotBlank @ValidPassword String password`
   - override `toString()` to mask the password
-- [ ] **5.2.2** `application/dto/UserResponse.java`: `record UserResponse(Long id, String email, String role)`. Used by
+- [x] **5.2.2** `application/dto/UserResponse.java`: `record UserResponse(Long id, String email, String role)`. Used by
       register, login and me.
 
 ### 5.3 Exception
-- [ ] **5.3.1** `infrastructure/exception/EmailAlreadyRegisteredException.java` (`RuntimeException`), with a generic message
+- [x] **5.3.1** `infrastructure/exception/EmailAlreadyRegisteredException.java` (`RuntimeException`), with a generic message
       `An account with this email already exists`.
-- [ ] **5.3.2** `GlobalExceptionHandler`: handler → `409` ProblemDetail, title `Email Already Registered`, type
+- [x] **5.3.2** `GlobalExceptionHandler`: handler → `409` ProblemDetail, title `Email Already Registered`, type
       `.../errors/email-already-registered`.
-- [ ] **5.3.3** `GlobalExceptionHandlerTest`: add the 409 case.
+- [x] **5.3.3** `GlobalExceptionHandlerTest`: add the 409 case.
 
 ### 5.4 Service
-- [ ] **5.4.1** `application/service/AuthService.java` (`@Service @Transactional @RequiredArgsConstructor @Slf4j`).
+- [x] **5.4.1** `application/service/AuthService.java` (`@Service @Transactional @RequiredArgsConstructor @Slf4j`).
       `UserResponse register(RegisterRequest)`:
   1. `email = EmailNormalizer.normalize(request.email())`
   2. `existsByEmail` → throw `EmailAlreadyRegisteredException`
@@ -370,35 +370,35 @@ Pick one endpoint per resource and test every rule. Use `@ParameterizedTest` wit
   4. catch `DataIntegrityViolationException` (race between two registers) → `EmailAlreadyRegisteredException`
   5. `log.info("Registered user id={}", id)`. **Never log the email or password at INFO.**
   6. return `UserResponse`
-- [ ] **5.4.2** Map entity → DTO with MapStruct: `application/mapper/UserMapper` (`componentModel = "spring"`), role enum → `String`.
-- [ ] **5.4.3** `UserMapperTest`: entity → response, `null` → `null`.
-- [ ] **5.4.4** `AuthServiceTest` (Mockito):
-  - [ ] success: the encoder is called, the saved user is `USER` with a normalized email, the hash is not the raw password
-  - [ ] duplicate (`existsByEmail` true) → exception, `save` never called
-  - [ ] race (`saveAndFlush` throws `DataIntegrityViolationException`) → `EmailAlreadyRegisteredException`
+- [x] **5.4.2** Map entity → DTO with MapStruct: `application/mapper/UserMapper` (`componentModel = "spring"`), role enum → `String`.
+- [x] **5.4.3** `UserMapperTest`: entity → response, `null` → `null`.
+- [x] **5.4.4** `AuthServiceTest` (Mockito):
+  - [x] success: the encoder is called, the saved user is `USER` with a normalized email, the hash is not the raw password
+  - [x] duplicate (`existsByEmail` true) → exception, `save` never called
+  - [x] race (`saveAndFlush` throws `DataIntegrityViolationException`) → `EmailAlreadyRegisteredException`
 
 ### 5.5 Controller
-- [ ] **5.5.1** `presentation/rest/AuthController.java`, `@RequestMapping("/api/v1/auth")`:
+- [x] **5.5.1** `presentation/rest/AuthController.java`, `@RequestMapping("/api/v1/auth")`:
   - `@PostMapping("/register")` → `ResponseEntity.status(CREATED).body(authService.register(request))`
-- [ ] **5.5.2** `integration/AuthRegisterIntegrationTest.java`. All requests use `.with(csrf())` unless stated otherwise.
-  - [ ] valid → `201`, `$.email` lower-cased, `$.role == "USER"`, no `password`/`passwordHash` in the body
-  - [ ] the DB row has a hash starting with `{bcrypt}`
-  - [ ] same email again, in different letter case → `409`, `$.title == "Email Already Registered"`
-  - [ ] password with 9 characters → `400`, `$.errors.password` contains `at least 10`
-  - [ ] password over 72 bytes → `400`, `$.errors.password` contains `72 bytes`
-  - [ ] invalid email / blank fields → `400` Validation Error
-  - [ ] without CSRF token → `403`
-  - [ ] register as anonymous works (no auth needed)
+- [x] **5.5.2** `integration/AuthRegisterIntegrationTest.java`. All requests use `.with(csrf())` unless stated otherwise.
+  - [x] valid → `201`, `$.email` lower-cased, `$.role == "USER"`, no `password`/`passwordHash` in the body
+  - [x] the DB row has a hash starting with `{bcrypt}`
+  - [x] same email again, in different letter case → `409`, `$.title == "Email Already Registered"`
+  - [x] password with 9 characters → `400`, `$.errors.password` contains `at least 10`
+  - [x] password over 72 bytes → `400`, `$.errors.password` contains `72 bytes`
+  - [x] invalid email / blank fields → `400` Validation Error
+  - [x] without CSRF token → `403`
+  - [x] register as anonymous works (no auth needed)
 
 ---
 
 ## Phase 6 — Login endpoint
 
-- [ ] **6.1** `application/dto/LoginRequest.java`: `@NotBlank @Email String email`, `@NotBlank String password`. Mask the
+- [x] **6.1** `application/dto/LoginRequest.java`: `@NotBlank String email` (no `@Email`: padded input like `"  USER@x.com "` must reach normalization), `@NotBlank String password`. Mask the
       password in `toString()`.
-- [ ] **6.2** `presentation/security/SessionAuthenticator.java` (`@Component`). It keeps the session code in one place,
+- [x] **6.2** `presentation/security/SessionAuthenticator.java` (`@Component`). It keeps the session code in one place,
       so register auto-login or Google login can reuse it later.
-  - [ ] `UserResponse login(LoginRequest, HttpServletRequest, HttpServletResponse)`:
+  - [x] `UserResponse login(LoginRequest, HttpServletRequest, HttpServletResponse)`:
     1. `authenticationManager.authenticate(UsernamePasswordAuthenticationToken.unauthenticated(normalizedEmail, password))`.
        A `BadCredentialsException` propagates to the `GlobalExceptionHandler` → 401.
     2. take `AuthenticatedUser` from the `AppUserDetails` principal and build a **new** authenticated token with
@@ -407,41 +407,41 @@ Pick one endpoint per resource and test every rule. Use `@ParameterizedTest` wit
     4. `SecurityContext ctx = securityContextHolderStrategy.createEmptyContext(); ctx.setAuthentication(token);`
        `securityContextHolderStrategy.setContext(ctx); securityContextRepository.saveContext(ctx, request, response);`
     5. return `UserResponse`
-- [ ] **6.3** `AuthController`: `@PostMapping("/login")` → `200` with `UserResponse`.
-- [ ] **6.4** `SessionAuthenticatorTest` (unit, Mockito + `MockHttpServletRequest`):
-  - [ ] success saves the context, and the principal is the `AuthenticatedUser` record, **not** `AppUserDetails`
-  - [ ] an existing session gets a new id
-  - [ ] bad credentials → the exception propagates and `saveContext` is never called
-- [ ] **6.5** `integration/AuthLoginIntegrationTest.java`:
-  - [ ] register, then login → `200`, body has id/email/role, response sets the `SESSION` cookie
-  - [ ] the login email is normalized (`"  USER@x.com "` works)
-  - [ ] wrong password → `401`, `$.detail == "Invalid email or password"`
-  - [ ] unknown email → `401` with **the same** body as a wrong password (no enumeration)
-  - [ ] fixation: get a session cookie first (e.g. a GET that creates one, or `MockHttpSession`), log in, and check the id differs
-  - [ ] without CSRF → `403`
-  - [ ] blank fields → `400`
+- [x] **6.3** `AuthController`: `@PostMapping("/login")` → `200` with `UserResponse`.
+- [x] **6.4** `SessionAuthenticatorTest` (unit, Mockito + `MockHttpServletRequest`):
+  - [x] success saves the context, and the principal is the `AuthenticatedUser` record, **not** `AppUserDetails`
+  - [x] an existing session gets a new id
+  - [x] bad credentials → the exception propagates and `saveContext` is never called
+- [x] **6.5** `integration/AuthLoginIntegrationTest.java`:
+  - [x] register, then login → `200`, body has id/email/role, response sets the `SESSION` cookie
+  - [x] the login email is normalized (`"  USER@x.com "` works)
+  - [x] wrong password → `401`, `$.detail == "Invalid email or password"`
+  - [x] unknown email → `401` with **the same** body as a wrong password (no enumeration)
+  - [x] fixation: get a session cookie first (e.g. a GET that creates one, or `MockHttpSession`), log in, and check the id differs
+  - [x] without CSRF → `403`
+  - [x] blank fields → `400`
 
 ---
 
 ## Phase 7 — `/me` and logout
 
-- [ ] **7.1** `AuthController`: `@GetMapping("/me")` with `@AuthenticationPrincipal AuthenticatedUser user` → `200 UserResponse`.
+- [x] **7.1** `AuthController`: `@GetMapping("/me")` with `@AuthenticationPrincipal AuthenticatedUser user` → `200 UserResponse`.
       Build it from the principal, so there's no DB call.
-- [ ] **7.2** `SecurityConfig` logout:
+- [x] **7.2** `SecurityConfig` logout:
   ```java
   .logout(l -> l
       .logoutUrl("/api/v1/auth/logout")                  // POST only, CSRF-protected by default
       .logoutSuccessHandler(new HttpStatusReturningLogoutSuccessHandler(HttpStatus.NO_CONTENT))
       .deleteCookies("SESSION"))
   ```
-- [ ] **7.3** `integration/AuthSessionIntegrationTest.java`. It runs the full flow over **real cookies** and doesn't use
+- [x] **7.3** `integration/AuthSessionIntegrationTest.java`. It runs the full flow over **real cookies** and doesn't use
       `user()`, so the principal goes through Spring Session.
-  - [ ] register → login (keep the `SESSION` cookie) → `GET /me` with the cookie → `200`, matching email and role
-  - [ ] `GET /me` anonymous → `401` problem+json (task-99 AC #5)
-  - [ ] `POST /logout` with cookie + CSRF → `204`; afterwards `GET /me` with the old cookie → `401`
-  - [ ] `POST /logout` without CSRF → `403`
-  - [ ] a `USER` session cookie on `POST /api/v1/phrasal-verbs` → `403` (a real session, not the mock `user()`)
-- [ ] **7.4** Put the "register + login and return the cookies" code in a small test helper
+  - [x] register → login (keep the `SESSION` cookie) → `GET /me` with the cookie → `200`, matching email and role
+  - [x] `GET /me` anonymous → `401` problem+json (task-99 AC #5)
+  - [x] `POST /logout` with cookie + CSRF → `204`; afterwards `GET /me` with the old cookie → `401`
+  - [x] `POST /logout` without CSRF → `403`
+  - [x] a `USER` session cookie on `POST /api/v1/phrasal-verbs` → `403` (a real session, not the mock `user()`)
+- [x] **7.4** Put the "register + login and return the cookies" code in a small test helper
       (`integration/support/AuthTestClient` or a protected method in `AbstractIntegrationTest`). Phases 8–10 reuse it.
 
 ---

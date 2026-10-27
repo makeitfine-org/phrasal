@@ -996,3 +996,20 @@
 - backend/src/main/java/net/phrasal/config/SecurityConfig.java
 - multiuser-todos.md
 <!-- end-snapshot -->
+
+<!-- git-snapshot 2026-10-27T13:39:06Z -->
+- .claude/docs/blackbox/audit.md
+- backend/src/main/java/net/phrasal/infrastructure/exception/GlobalExceptionHandler.java
+- backend/src/test/java/net/phrasal/infrastructure/exception/GlobalExceptionHandlerTest.java
+- multiuser-todos.md
+<!-- end-snapshot -->
+
+<!-- git-snapshot 2026-10-27T13:49:18Z -->
+- .claude/docs/blackbox/audit.md
+- .claude/docs/blackbox/session-log.md
+- backend/src/main/java/net/phrasal/config/SecurityConfig.java
+- backend/src/main/java/net/phrasal/infrastructure/exception/GlobalExceptionHandler.java
+- backend/src/test/java/net/phrasal/infrastructure/exception/GlobalExceptionHandlerTest.java
+- backend/src/test/java/net/phrasal/integration/AbstractIntegrationTest.java
+- multiuser-todos.md
+<!-- end-snapshot -->
