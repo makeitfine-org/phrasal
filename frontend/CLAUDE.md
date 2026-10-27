@@ -2,7 +2,7 @@
 
 ## Stack
 
-- React 18, TypeScript (strict), Vite 8
+- React 19, TypeScript (strict), Vite 8
 - Tailwind CSS 4 (PostCSS plugin)
 - react-router-dom 7
 - Vitest, React Testing Library
@@ -13,7 +13,7 @@ Multi-page SPA. State is component-local + localStorage; the only context is `au
 
 ### Routing (`src/main.tsx`)
 
-`ErrorBoundary` > `BrowserRouter` > `PageShell` (layout shell with `<Outlet />`) > all routes.
+`ErrorBoundary` > `AuthProvider` > `BrowserRouter` > `PageShell` (layout shell with `<Outlet />`) > all routes.
 
 ### Component Tree
 
@@ -22,6 +22,8 @@ Multi-page SPA. State is component-local + localStorage; the only context is `au
 **Quiz:** `PhrasalVerbQuiz` (receives `allVerbs` + `verbsForBrowse` props), `GrammarQuiz` (receives `entries` props).
 
 **Quiz-shared:** `Header`, `QuizCard`, `Feedback`, `NavigationControls`, `ExcludedModal`, `SearchModal`.
+
+**Auth:** `pages/LoginPage`, `pages/RegisterPage` (routes `/login`, `/register`), `components/UserMenu`, `auth/AuthContext` + `auth/useAuth`, `hooks/useClickOutside`.
 
 **Other:** `AllVerbsModal`, `TutorialModal`, `ListSearchModal`, `Icons`, `UserMenu` (login/signup links or email dropdown with logout, rendered by `NavigationMenu`).
 
@@ -32,6 +34,7 @@ Native `fetch` wrapper, no external dependencies. Base URL `/api/v1`.
 | File | Purpose |
 |---|---|
 | `client.ts` | `get<T>`, `post<T>`, `put<T>`, `del<T>`; sends `credentials: 'same-origin'` and the `X-XSRF-TOKEN` header (from the `XSRF-TOKEN` cookie, via `utils/cookies.ts`) on non-GET. `ApiError(status, message, problem?)` carries the parsed `ProblemDetail` |
+| `authApi.ts` | `register`, `login`, `logout`, `fetchCurrentUser` (401 → `null`) |
 | `phrasalVerbsApi.ts` | Fetches phrasal verbs → `VerbEntry[]` + `BrowseVerbEntry[]` |
 | `grammarEntriesApi.ts` | Fetches grammar entries by category → `GrammarEntry[]` |
 | `verbDetailsApi.ts` | Fetches verb list summaries and full verb detail sections |
@@ -79,7 +82,7 @@ Verb data is in the `verb_details` database table. Create a Flyway migration —
 ## Coding Rules
 
 - Use **Context7 MCP** before writing any React/Vite/library API code — docs drift
-- No external state management libraries — component-local state + localStorage only
+- No external state management libraries — component-local state + localStorage only; the single exception is `AuthContext` (no other global state)
 
 ## Testing
 

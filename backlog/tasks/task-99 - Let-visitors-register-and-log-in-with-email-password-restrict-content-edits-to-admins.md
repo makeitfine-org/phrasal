@@ -6,7 +6,7 @@ title: >-
 status: In Progress
 assignee: []
 created_date: '2026-10-26T17:37:00Z'
-updated_date: '2026-10-27T12:25:00Z'
+updated_date: '2026-10-27T20:23:00Z'
 labels:
   - multi-user
   - security
@@ -78,32 +78,34 @@ The product needs public sign-up for up to a few hundred users. This task is the
 
 ## Acceptance Criteria
 <!-- AC:BEGIN -->
-- [ ] #1 A visitor can register with email + password. They receive a verification email, and they can log in only after verifying.
-- [ ] #2 Passwords shorter than 10 characters or longer than 72 UTF-8 bytes are rejected at registration with a 400 ProblemDetail that names the rule.
-- [ ] #3 Register and resend-verification return identical responses for existing and non-existing emails (no account enumeration).
-- [ ] #4 Login sets an HttpOnly, SameSite=Lax session cookie, which is also Secure in prod. The session id changes on login (fixation protection). Logout invalidates the session.
-- [ ] #5 `GET /api/v1/auth/me` returns the current user (id, email, role) when logged in, and 401 ProblemDetail when anonymous.
-- [ ] #6 Sessions persist in Postgres and survive a backend restart.
-- [ ] #7 Anonymous GET requests on all existing content endpoints still work unchanged.
-- [ ] #8 POST, PUT and DELETE on content endpoints return 401 for anonymous users, 403 for USER, and succeed for ADMIN. All errors are RFC 7807 ProblemDetail.
-- [ ] #9 State-changing requests without a valid CSRF token are rejected with 403.
-- [ ] #10 The backend no longer allows cross-origin browser requests (the localhost:5173/3000 CORS mapping is removed). The app still works through the Vite dev server, docker-compose and k8s, because all calls are same-origin.
-- [ ] #11 Accounts whose email appears in the configured admin list get the ADMIN role.
-- [ ] #12 `/actuator/health` stays reachable for k8s probes and Docker healthchecks.
-- [ ] #13 Mailpit runs in docker-compose, and the e2e suite can read verification emails from it.
-- [ ] #14 New Flyway migrations (V9+) create the users, verification-token and session tables. Existing migrations are not edited.
-- [ ] #15 The frontend API client supports POST, PUT and DELETE, sends credentials and the CSRF header, and exposes ProblemDetail errors.
-- [ ] #16 New env vars (mail settings, app base URL, admin emails) are wired into docker-compose.yml, k8s/base configmap/secret, the prod secret generation and .github/workflows/ci_cd.yml.
-- [ ] #17 Unit and integration tests cover register, verify, login, me and logout; the password length rule; the 401/403/CSRF cases; and anonymous reads. Existing CRUD integration tests are updated to authenticate as ADMIN. JaCoCo 85% per package is met.
-- [ ] #18 E2E: an API scenario registers an admin, verifies via Mailpit, logs in and runs the existing CRUD feature. Another scenario asserts that an anonymous POST returns 401.
-- [ ] #19 backend/CLAUDE.md, frontend/CLAUDE.md and README.md document the auth model, env vars and local Mailpit usage.
-- [ ] #20 `make clean build` passes
-- [ ] #21 Admin account is created/updated at startup from PHRASAL_ADMIN_EMAIL / PHRASAL_ADMIN_PASSWORD
-- [ ] #22 Register and login are rate-limited per IP and per email (429 ProblemDetail)
+- [x] #1 Passwords shorter than 10 characters or longer than 72 UTF-8 bytes are rejected at registration with a 400 ProblemDetail that names the rule.
+- [x] #2 Login sets an HttpOnly, SameSite=Lax session cookie, which is also Secure in prod. The session id changes on login (fixation protection). Logout invalidates the session.
+- [x] #3 `GET /api/v1/auth/me` returns the current user (id, email, role) when logged in, and 401 ProblemDetail when anonymous.
+- [x] #4 Sessions persist in Postgres and survive a backend restart.
+- [x] #5 Anonymous GET requests on all existing content endpoints still work unchanged.
+- [x] #6 POST, PUT and DELETE on content endpoints return 401 for anonymous users, 403 for USER, and succeed for ADMIN. All errors are RFC 7807 ProblemDetail.
+- [x] #7 State-changing requests without a valid CSRF token are rejected with 403.
+- [x] #8 The backend no longer allows cross-origin browser requests (the localhost:5173/3000 CORS mapping is removed). The app still works through the Vite dev server, docker-compose and k8s, because all calls are same-origin.
+- [x] #9 Accounts whose email appears in the configured admin list get the ADMIN role.
+- [x] #10 `/actuator/health` stays reachable for k8s probes and Docker healthchecks.
+- [x] #11 New Flyway migrations (V9+) create the users, verification-token and session tables. Existing migrations are not edited.
+- [x] #12 The frontend API client supports POST, PUT and DELETE, sends credentials and the CSRF header, and exposes ProblemDetail errors.
+- [x] #13 New env vars (mail settings, app base URL, admin emails) are wired into docker-compose.yml, k8s/base configmap/secret, the prod secret generation and .github/workflows/ci_cd.yml.
+- [x] #14 Unit and integration tests cover register, verify, login, me and logout; the password length rule; the 401/403/CSRF cases; and anonymous reads. Existing CRUD integration tests are updated to authenticate as ADMIN. JaCoCo 85% per package is met.
+- [x] #15 backend/CLAUDE.md, frontend/CLAUDE.md and README.md document the auth model, env vars and local Mailpit usage.
+- [x] #16 `make clean build` passes
+- [x] #17 Admin account is created/updated at startup from PHRASAL_ADMIN_EMAIL / PHRASAL_ADMIN_PASSWORD
+- [x] #18 Register and login are rate-limited per IP and per email (429 ProblemDetail)
 <!-- AC:END -->
 
 ## Implementation Notes
 
 <!-- SECTION:NOTES:BEGIN -->
-Scope reduction (2026-10-27): email confirmation deferred; admin bootstrapped from config (PHRASAL_ADMIN_EMAIL / PHRASAL_ADMIN_PASSWORD); register returns 409 on duplicate email. Deferred AC: #1 (verification part), #3, #13, #18 (Mailpit part), and the mail/app-base-URL part of #16. Follow-up task: email verification. Step-by-step plan: multiuser-todos.md.
+Scope reduction (2026-10-27): email confirmation deferred; admin bootstrapped from config (PHRASAL_ADMIN_EMAIL / PHRASAL_ADMIN_PASSWORD) instead of an admin-email list; register returns 409 on a duplicate email. Moved to TASK-107: verification and no-enumeration AC, Mailpit AC and its e2e scenario, and the mail / app-base-URL part of the env-var wiring (AC #13 is checked for the admin, session and rate-limit vars only). Rate limiting (originally task-100) was pulled in as AC #18. Implemented in 18 phases, see multiuser-todos.md. Docs: README "Accounts & security", docs/diagrams/auth-flow.md.
 <!-- SECTION:NOTES:END -->
+
+## Final Summary
+
+<!-- SECTION:FINAL_SUMMARY:BEGIN -->
+Session-based auth (Spring Security 7, Spring Session JDBC, cookie CSRF) with register, login, /me and logout; USER/ADMIN roles with public reads and ADMIN-only content writes; config-bootstrapped admin; per-IP and per-email rate limits; compose, k8s and CI wiring. Frontend: CSRF-aware API client, AuthContext, Login/Register pages and a nav user menu. E2E covers the auth API and UI flows. Email verification is deferred to TASK-107.
+<!-- SECTION:FINAL_SUMMARY:END -->

@@ -1100,3 +1100,35 @@
 - e2e/src/world.ts
 - multiuser-todos.md
 <!-- end-snapshot -->
+
+## 2026-10-27T20:30:00Z
+### Decisions
+- Multi-user v1 (task-99) shipped in phases 0-17: session auth (Spring Session JDBC), cookie CSRF, USER/ADMIN, config-bootstrapped admin (PHRASAL_ADMIN_EMAIL / PHRASAL_ADMIN_PASSWORD=*****), per-IP/per-email rate limits.
+- Email verification deferred to TASK-107 (depends on TASK-106); register returns 409 on duplicate email.
+- Frontend: one AuthContext allowed; Login/Register pages, UserMenu; e2e ApiClient got a cookie jar, test users cleaned in AfterAll.
+- Fixed flaky CI test by clearing SecurityContext in AbstractIntegrationTest.
+- Created docs/diagrams/auth-flow.md; plan Mutations Log row added (P2 split).
+### Constraints Stated by User
+- Implement only the named phases; make clean build must pass per phase; commit only on explicit approval.
+### Files Modified
+- backend/, frontend/, e2e/, k8s/, ansible/, docker-compose.yml, .github/workflows/ci_cd.yml — auth feature
+- README.md, backend/CLAUDE.md, frontend/CLAUDE.md, e2e/CLAUDE.md, docs/diagrams/auth-flow.md — docs
+- multiuser-todos.md, backlog task-99/103/107 — tracking
+### Deferred
+- Phase 18 final verification (manual restart check 8.5); task-99 status to Done (ask user); email verification (TASK-107); server-side progress (task-102/103).
+---
+
+<!-- git-snapshot 2026-10-27T20:25:28Z -->
+- .claude/docs/blackbox/audit.md
+- .claude/docs/blackbox/plans/2026-10-26 18:10 Multi-user accounts TOTP 2FA and reliable storage for phrasal.md
+- .claude/docs/blackbox/session-log.md
+- README.md
+- backend/CLAUDE.md
+- backlog/tasks/task-103 - Add-sign-up-login-2FA-and-account-screens-to-the-frontend-and-sync-quiz-progress-for-logged-in-users.md
+- backlog/tasks/task-107 - Email-verification-for-registered-accounts.md
+- backlog/tasks/task-99 - Let-visitors-register-and-log-in-with-email-password-restrict-content-edits-to-admins.md
+- docs/diagrams/auth-flow.md
+- e2e/CLAUDE.md
+- frontend/CLAUDE.md
+- multiuser-todos.md
+<!-- end-snapshot -->

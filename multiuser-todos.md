@@ -827,43 +827,43 @@ no per-account lockout, because anyone could use it to lock a victim out.
 
 ## Phase 17 — Docs, diagram, backlog
 
-- [ ] **17.1** `README.md`: new section "Accounts & security":
-  - [ ] endpoint table (`register`, `login`, `logout`, `me`) with status codes
-  - [ ] roles; who can write content
-  - [ ] admin bootstrap (`PHRASAL_ADMIN_EMAIL`/`PASSWORD`, the takeover rule); how to promote a user by SQL if ever needed
-  - [ ] session cookie flags and timeout (`SESSION_TIMEOUT`), CSRF header for API clients (curl example: get `XSRF-TOKEN`, then
+- [x] **17.1** `README.md`: new section "Accounts & security":
+  - [x] endpoint table (`register`, `login`, `logout`, `me`) with status codes
+  - [x] roles; who can write content
+  - [x] admin bootstrap (`PHRASAL_ADMIN_EMAIL`/`PASSWORD`, the takeover rule); how to promote a user by SQL if ever needed
+  - [x] session cookie flags and timeout (`SESSION_TIMEOUT`), CSRF header for API clients (curl example: get `XSRF-TOKEN`, then
         send `X-XSRF-TOKEN`)
-  - [ ] rate limits and their env vars
-  - [ ] the GitHub Secrets to create before the next deploy
-  - [ ] "email confirmation: not yet" note
-- [ ] **17.2** `backend/CLAUDE.md`: "Security" section:
+  - [x] rate limits and their env vars
+  - [x] the GitHub Secrets to create before the next deploy
+  - [x] "email confirmation: not yet" note
+- [x] **17.2** `backend/CLAUDE.md`: "Security" section:
   - `SecurityConfig` rules order
   - the principal is the `AuthenticatedUser` record (never an entity)
   - ProblemDetail entry point and denied handler
   - new packages `infrastructure/security`, `presentation/security`, `application/validation`
   - tests extend `AbstractIntegrationTest`; mutating MockMvc calls need `.with(user(...).roles("ADMIN")).with(csrf())`
-- [ ] **17.3** `frontend/CLAUDE.md`:
-  - [ ] fix the stack line: React **19** (package.json already has `^19.3.1`)
-  - [ ] replace "no context or global store" with "one `AuthContext` (src/auth) is allowed; no other global state"
-  - [ ] API client table: `post/put/del`, CSRF, `ApiError.problem`, `authApi.ts`
-  - [ ] new pages (`LoginPage`, `RegisterPage`), `UserMenu`, `useClickOutside`
-- [ ] **17.4** `e2e/CLAUDE.md`: new `features/auth-api/`, the auth steps, the cookie jar in `api-client.ts`, `test-users.ts`, cleanup
+- [x] **17.3** `frontend/CLAUDE.md`:
+  - [x] fix the stack line: React **19** (package.json already has `^19.3.1`)
+  - [x] replace "no context or global store" with "one `AuthContext` (src/auth) is allowed; no other global state"
+  - [x] API client table: `post/put/del`, CSRF, `ApiError.problem`, `authApi.ts`
+  - [x] new pages (`LoginPage`, `RegisterPage`), `UserMenu`, `useClickOutside`
+- [x] **17.4** `e2e/CLAUDE.md`: new `features/auth-api/`, the auth steps, the cookie jar in `api-client.ts`, `test-users.ts`, cleanup
       hook, and the `ADMIN_EMAIL`/`ADMIN_PASSWORD` env vars.
-- [ ] **17.5** `docs/diagrams/auth-flow.md` (blackbox policy, new flow): Mermaid diagrams for
-  - [ ] a sequence diagram: register → login (changeSessionId, `SESSION` row in Postgres) → `/me` → logout
-  - [ ] a sequence diagram: CSRF cookie-to-header on a POST
-  - [ ] a flowchart: authorization rules (public GET / ADMIN writes / actuator)
-  - [ ] a note listing what's deferred (verification, reset, TOTP, Google)
-- [ ] **17.6** Plan file `.claude/docs/blackbox/plans/2026-10-26 18:10 Multi-user …md`: append a `## Mutations Log` table row
+- [x] **17.5** `docs/diagrams/auth-flow.md` (blackbox policy, new flow): Mermaid diagrams for
+  - [x] a sequence diagram: register → login (changeSessionId, `SESSION` row in Postgres) → `/me` → logout
+  - [x] a sequence diagram: CSRF cookie-to-header on a POST
+  - [x] a flowchart: authorization rules (public GET / ADMIN writes / actuator)
+  - [x] a note listing what's deferred (verification, reset, TOTP, Google)
+- [x] **17.6** Plan file `.claude/docs/blackbox/plans/2026-10-26 18:10 Multi-user …md`: append a `## Mutations Log` table row
       "P2 split: email verification + Mailpit deferred; admin bootstrap via config instead of admin-email list". Add only;
       don't delete anything in that folder.
-- [ ] **17.7** Backlog (MCP):
-  - [ ] task-99: check off the AC that are done, add implementation notes and the final summary
-  - [ ] create a follow-up task "Email verification for registered accounts". Move the deferred task-99 AC
+- [x] **17.7** Backlog (MCP):
+  - [x] task-99: check off the AC that are done, add implementation notes and the final summary
+  - [x] create a follow-up task "Email verification for registered accounts". Move the deferred task-99 AC
         (#1 verification part, #3, #13, the Mailpit part of #18) there, and depend it on task-106 for prod SMTP.
   - [ ] after that split, task-99 can move to `Done`. **Ask the user before changing the status.**
-  - [ ] task-103: note that login, register and the user menu are done here; the rest stays open
-- [ ] **17.8** Append the blackbox `session-log.md` entry (format in `.claude/rules/blackbox-policy.md`, no secrets).
+  - [x] task-103: note that login, register and the user menu are done here; the rest stays open
+- [x] **17.8** Append the blackbox `session-log.md` entry (format in `.claude/rules/blackbox-policy.md`, no secrets).
 
 ---
 

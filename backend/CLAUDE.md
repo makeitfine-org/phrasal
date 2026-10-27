@@ -20,6 +20,7 @@ config/         → Spring @Configuration classes (SecurityConfig = access rules
 
 ## Security
 
+- `SecurityConfig` rule order matters (first match wins): `/error` and `/actuator/health/**` public → other `/actuator/**` ADMIN → `GET /api/v1/auth/me` authenticated → `POST register|login` public → `POST/PUT/DELETE` content paths ADMIN → `GET /api/**` public → everything else denied.
 - Public `GET /api/**`; `POST/PUT/DELETE` on phrasal-verbs, grammar-entries, verb-details need role `ADMIN`; `/actuator/health/**` public, other actuator endpoints ADMIN.
 - CSRF is cookie-based (`XSRF-TOKEN`, readable by the SPA, echoed in `X-XSRF-TOKEN`); `presentation/security/CsrfCookieFilter` forces the deferred token to be sent.
 - 401/403 are written as `application/problem+json` by `presentation/security` handlers; build bodies with `ProblemDetailFactory`.
@@ -27,7 +28,9 @@ config/         → Spring @Configuration classes (SecurityConfig = access rules
 - Sessions: Spring Session JDBC, `SESSION` cookie flags come from `server.servlet.session.cookie.*` via the `cookieSerializer` bean in `SecurityConfig` (Spring Session ignores them otherwise). Session principal is the `AuthenticatedUser` record, never the entity.
 - Admin account: `AdminAccountInitializer` creates/repairs it from `PHRASAL_ADMIN_EMAIL` / `PHRASAL_ADMIN_PASSWORD` at every start (takeover is intentional; a weak password fails startup).
 - Rate limits (`phrasal.rate-limit.*`, `RateLimiter`, in-memory per instance): register per IP, login per IP and per email; 429 problem+json with `Retry-After`. `application-test.yml` raises the limits; override in a test with `@TestPropertySource`.
-- Integration tests write via `adminWithCsrf()` from `AbstractIntegrationTest`.
+- 401 comes from `ProblemDetailAuthenticationEntryPoint`, 403 from `ProblemDetailAccessDeniedHandler` (CSRF failures get type `/csrf`); both live in `presentation/security`.
+- Security packages: `infrastructure/security` (`AuthenticatedUser`, `AppUserDetails`, `JpaUserDetailsService`, `RateLimiter`, `EmailNormalizer`), `presentation/security` (filters, handlers, `SessionAuthenticator`), `application/validation` (`@ValidPassword`, `PasswordPolicy`).
+- Integration tests extend `AbstractIntegrationTest`, which clears the security context before/after each test. Mutating MockMvc calls need `.with(user(...).roles("ADMIN")).with(csrf())`, or `adminWithCsrf()`; use `registerAndLogin()` for a real session.
 
 - Base package: `net.phrasal`
 - Never let a lower layer import from a higher layer.

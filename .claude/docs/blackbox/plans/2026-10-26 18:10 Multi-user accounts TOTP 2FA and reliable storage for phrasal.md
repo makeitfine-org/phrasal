@@ -240,3 +240,9 @@ The goal is public sign-up for a few hundred users, with:
 - **P5:** sign in with Google on localhost and on prod, link an existing verified account, and confirm that a 2FA-enabled user is asked for the code.
 - **P6/P7:** while logged in, answer quiz items, clear localStorage, reload, and confirm the progress is restored. As an anonymous visitor, confirm the quiz still works.
 - **Prod:** `curl -X POST https://<domain>/api/v1/phrasal-verbs` returns 401. Check that the session cookie has the `Secure; HttpOnly; SameSite=Lax` flags.
+
+## Mutations Log
+
+| Date | Type | Change | Reason |
+|---|---|---|---|
+| 2026-10-27 | split | P2 split: email verification + Mailpit deferred; admin bootstrap via config instead of admin-email list | Smaller first release; no email provider yet (task-106) |

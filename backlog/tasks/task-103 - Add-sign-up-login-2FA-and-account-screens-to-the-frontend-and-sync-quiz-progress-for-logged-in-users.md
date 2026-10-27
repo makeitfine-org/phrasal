@@ -6,7 +6,7 @@ title: >-
 status: To Do
 assignee: []
 created_date: '2026-10-26T17:38:00Z'
-updated_date: '2026-10-26T17:56:00Z'
+updated_date: '2026-10-27T20:22:00Z'
 labels:
   - multi-user
   - frontend
@@ -88,3 +88,9 @@ Logged-in users also expect their quiz progress to follow them across devices.
 - [ ] #14 E2E: features/frontend/auth.feature covers register, verify via Mailpit, login and logout. A progress-sync feature verifies that progress survives clearing localStorage for a logged-in user.
 - [ ] #15 `make clean build` passes
 <!-- AC:END -->
+
+## Implementation Notes
+
+<!-- SECTION:NOTES:BEGIN -->
+Partly done in task-99 (2026-10-27): API client write methods with CSRF/ProblemDetail, AuthContext + useAuth, Login and Register pages, UserMenu in the nav bar, and e2e for them. Still open here: 2FA and account screens, and quiz progress sync.
+<!-- SECTION:NOTES:END -->

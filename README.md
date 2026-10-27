@@ -409,6 +409,68 @@ git tag --sort=-v:refname
 
 ---
 
+## Accounts & security
+
+Visitors can sign up with an email and password. Content stays public to read; only admins can change it.
+
+| Endpoint | Success | Errors |
+|---|---|---|
+| `POST /api/v1/auth/register` `{email, password}` | `201` + `{id, email, role}` | `400` invalid email or password (min 10 chars, max 72 UTF-8 bytes), `409` email already registered, `429` rate limited |
+| `POST /api/v1/auth/login` `{email, password}` | `200` + `{id, email, role}`, sets the `SESSION` cookie | `400` invalid body, `401` wrong email or password, `429` rate limited |
+| `GET /api/v1/auth/me` | `200` + `{id, email, role}` | `401` anonymous |
+| `POST /api/v1/auth/logout` | `204`, session invalidated | - |
+
+Errors are `application/problem+json` (RFC 7807).
+
+**Roles.** `USER` (default for sign-ups) and `ADMIN`. Anyone can `GET /api/**`. `POST`/`PUT`/`DELETE` on phrasal-verbs,
+grammar-entries and verb-details need `ADMIN` (anonymous gets `401`, a `USER` gets `403`). `/actuator/health/**` is public,
+other actuator endpoints need `ADMIN`.
+
+**Admin bootstrap.** The backend creates or repairs one `ADMIN` account at every start from `PHRASAL_ADMIN_EMAIL` and
+`PHRASAL_ADMIN_PASSWORD` (docker-compose dev defaults: `admin@phrasal.test` / see `docker-compose.yml`). The configured
+account always gets the configured password and the `ADMIN` role, so a change of the secret takes effect on the next start;
+a password shorter than 10 characters fails startup. To promote another user by hand:
+
+```sql
+UPDATE users SET role = 'ADMIN' WHERE email = 'someone@example.com';
+```
+
+**Sessions.** Spring Session JDBC stores sessions in Postgres, so they survive backend restarts and redeploys. The
+`SESSION` cookie is `HttpOnly; SameSite=Lax`, and `Secure` when `SESSION_COOKIE_SECURE=true` (set in prod). The session
+id changes on login. Idle timeout: `SESSION_TIMEOUT` (default `7d`).
+
+**CSRF.** Writes need the cookie-to-header pattern: the backend sets a readable `XSRF-TOKEN` cookie, and the client echoes it
+in the `X-XSRF-TOKEN` header. Without a matching header the answer is `403`. From curl:
+
+```bash
+curl -s -c jar.txt -o /dev/null http://localhost:8080/api/v1/phrasal-verbs?size=1
+TOKEN=$(awk '$6=="XSRF-TOKEN"{print $7}' jar.txt)
+curl -s -b jar.txt -c jar.txt -H "X-XSRF-TOKEN: $TOKEN" -H 'Content-Type: application/json' \
+  -d '{"email":"me@example.com","password":"a-long-password"}' http://localhost:8080/api/v1/auth/login
+```
+
+After login the token may rotate, so read `XSRF-TOKEN` from the jar again before the next write. The SPA does this
+automatically (`frontend/src/api/client.ts`).
+
+**Rate limits** (in memory, per backend instance; exceeding them returns `429` with `Retry-After`):
+
+| Rule | Env var | Default |
+|---|---|---|
+| register per IP | `RATE_LIMIT_REGISTER_PER_IP` (per hour) | 5 |
+| login per IP | `RATE_LIMIT_LOGIN_PER_IP` (per 5 min) | 20 |
+| login per email | `RATE_LIMIT_LOGIN_PER_EMAIL` (per 5 min) | 5 |
+| master switch | `RATE_LIMIT_ENABLED` | `true` |
+
+docker-compose raises the per-IP limits so the e2e suite can register many users.
+
+**GitHub Secrets to create before the next tagged deploy:** `PHRASAL_ADMIN_EMAIL` and `PHRASAL_ADMIN_PASSWORD`
+(see [Production Deployment](#production-deployment-k3s)).
+
+**Not yet:** email confirmation, password reset, 2FA and Google sign-in. Accounts are usable right after sign-up.
+Flow diagrams: [`docs/diagrams/auth-flow.md`](docs/diagrams/auth-flow.md).
+
+---
+
 ## Repository Layout
 
 ```
