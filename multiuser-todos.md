@@ -293,38 +293,38 @@ Pick one endpoint per resource and test every rule. Use `@ParameterizedTest` wit
 
 ## Phase 4 — Password hashing, user lookup, session principal
 
-- [ ] **4.1** `infrastructure/security/AuthenticatedUser.java`:
-  - [ ] `record AuthenticatedUser(Long id, String email, Role role) implements Serializable`
-  - [ ] `@Serial private static final long serialVersionUID = 1L;`
-  - [ ] a method `List<GrantedAuthority> authorities()` → `ROLE_` + role
-- [ ] **4.2** `infrastructure/security/AppUserDetails.java`: implements `UserDetails` (and
+- [x] **4.1** `infrastructure/security/AuthenticatedUser.java`:
+  - [x] `record AuthenticatedUser(Long id, String email, Role role) implements Serializable`
+  - [x] `@Serial private static final long serialVersionUID = 1L;`
+  - [x] a method `List<GrantedAuthority> authorities()` → `ROLE_` + role
+- [x] **4.2** `infrastructure/security/AppUserDetails.java`: implements `UserDetails` (and
       `CredentialsContainer`). Holds `AuthenticatedUser` plus the password hash.
-  - [ ] `getUsername()` = email
-  - [ ] `isEnabled()` = `true`. Email confirmation is deferred; leave a short comment saying so (no `TODO`, Checkstyle).
-  - [ ] `eraseCredentials()` nulls the hash
-  - [ ] `toAuthenticatedUser()` returns the record. Only the record is stored in the session (Phase 6).
-- [ ] **4.3** `infrastructure/security/JpaUserDetailsService.java` (`UserDetailsService`):
-  - [ ] `loadUserByUsername(email)`: normalize email (trim + `toLowerCase(Locale.ROOT)`), then `UserRepository.findByEmail`
-  - [ ] missing user → `UsernameNotFoundException`
-  - [ ] user with `passwordHash == null` → also `UsernameNotFoundException` (future Google-only accounts can't password-login)
-- [ ] **4.4** `infrastructure/security/EmailNormalizer.java`: a final utility class with a private constructor (or a static method
+  - [x] `getUsername()` = email
+  - [x] `isEnabled()` = `true`. Email confirmation is deferred; leave a short comment saying so (no `TODO`, Checkstyle).
+  - [x] `eraseCredentials()` nulls the hash
+  - [x] `toAuthenticatedUser()` returns the record. Only the record is stored in the session (Phase 6).
+- [x] **4.3** `infrastructure/security/JpaUserDetailsService.java` (`UserDetailsService`):
+  - [x] `loadUserByUsername(email)`: normalize email (trim + `toLowerCase(Locale.ROOT)`), then `UserRepository.findByEmail`
+  - [x] missing user → `UsernameNotFoundException`
+  - [x] user with `passwordHash == null` → also `UsernameNotFoundException` (future Google-only accounts can't password-login)
+- [x] **4.4** `infrastructure/security/EmailNormalizer.java`: a final utility class with a private constructor (or a static method
       on `AuthenticatedUser`'s package) used by register, login and the admin initializer. One rule everywhere.
-- [ ] **4.5** In `SecurityConfig`, add beans:
-  - [ ] `PasswordEncoder` = `PasswordEncoderFactories.createDelegatingPasswordEncoder()` (stores `{bcrypt}…`)
-  - [ ] `AuthenticationManager` = `new ProviderManager(daoProvider)`, where `DaoAuthenticationProvider` gets the
+- [x] **4.5** In `SecurityConfig`, add beans:
+  - [x] `PasswordEncoder` = `PasswordEncoderFactories.createDelegatingPasswordEncoder()` (stores `{bcrypt}…`)
+  - [x] `AuthenticationManager` = `new ProviderManager(daoProvider)`, where `DaoAuthenticationProvider` gets the
         `JpaUserDetailsService` + `PasswordEncoder` (check the Security 7 constructor in Context7)
-  - [ ] `SecurityContextRepository` = `new HttpSessionSecurityContextRepository()`, also passed to
+  - [x] `SecurityContextRepository` = `new HttpSessionSecurityContextRepository()`, also passed to
         `http.securityContext(c -> c.securityContextRepository(repo))`
-- [ ] **4.6** Unit tests:
-  - [ ] `AuthenticatedUserTest`: authorities for USER and ADMIN; Java-serialize and deserialize gives an equal record
-  - [ ] `AppUserDetailsTest`: username/enabled/authorities; `eraseCredentials` nulls the password
-  - [ ] `JpaUserDetailsServiceTest` (Mockito):
+- [x] **4.6** Unit tests:
+  - [x] `AuthenticatedUserTest`: authorities for USER and ADMIN; Java-serialize and deserialize gives an equal record
+  - [x] `AppUserDetailsTest`: username/enabled/authorities; `eraseCredentials` nulls the password
+  - [x] `JpaUserDetailsServiceTest` (Mockito):
     - found
     - email normalized before lookup (`" Bob@X.com "` → `"bob@x.com"`)
     - not found → exception
     - null hash → exception
-  - [ ] `EmailNormalizerTest`: trim, lower-case, Turkish-locale-safe (`Locale.ROOT`)
-- [ ] **4.7** Run `mvn -q test -Dtest='AuthenticatedUserTest,AppUserDetailsTest,JpaUserDetailsServiceTest,EmailNormalizerTest'`.
+  - [x] `EmailNormalizerTest`: trim, lower-case, Turkish-locale-safe (`Locale.ROOT`)
+- [x] **4.7** Run `mvn -q test -Dtest='AuthenticatedUserTest,AppUserDetailsTest,JpaUserDetailsServiceTest,EmailNormalizerTest'`.
 
 ---
 

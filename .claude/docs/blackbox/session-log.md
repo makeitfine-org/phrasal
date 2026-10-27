@@ -962,3 +962,37 @@
 - backlog/drafts/hard.md
 - e2e/CLAUDE.md
 <!-- end-snapshot -->
+
+<!-- git-snapshot 2026-10-27T13:27:51Z -->
+- .claude/docs/blackbox/audit.md
+- backend/src/main/java/net/phrasal/config/SecurityConfig.java
+- multiuser-todos.md
+<!-- end-snapshot -->
+
+<!-- git-snapshot 2026-10-27T13:28:00Z -->
+- .claude/docs/blackbox/audit.md
+- .claude/docs/blackbox/session-log.md
+- backend/src/main/java/net/phrasal/config/SecurityConfig.java
+- multiuser-todos.md
+<!-- end-snapshot -->
+
+<!-- git-snapshot 2026-10-27T13:28:19Z -->
+- .claude/docs/blackbox/audit.md
+- .claude/docs/blackbox/session-log.md
+- backend/src/main/java/net/phrasal/config/SecurityConfig.java
+- multiuser-todos.md
+<!-- end-snapshot -->
+
+<!-- git-snapshot 2026-10-27T13:28:22Z -->
+- .claude/docs/blackbox/audit.md
+- .claude/docs/blackbox/session-log.md
+- backend/src/main/java/net/phrasal/config/SecurityConfig.java
+- multiuser-todos.md
+<!-- end-snapshot -->
+
+<!-- git-snapshot 2026-10-27T13:30:00Z -->
+- .claude/docs/blackbox/audit.md
+- .claude/docs/blackbox/session-log.md
+- backend/src/main/java/net/phrasal/config/SecurityConfig.java
+- multiuser-todos.md
+<!-- end-snapshot -->
