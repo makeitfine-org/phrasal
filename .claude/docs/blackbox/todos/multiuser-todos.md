@@ -68,7 +68,7 @@ Source plan: `.claude/docs/blackbox/plans/2026-10-26 18:10 Multi-user accounts T
 
 ## Conventions for every step
 
-- Backend rules are in `backend/CLAUDE.md`. Short version:
+- Backend rules are in `../../../../backend/CLAUDE.md`. Short version:
   - layers `domain → application → presentation`, with `infrastructure`/`config` cross-cutting
   - DTOs are records in `application/dto`
   - Lombok on entities/services
@@ -122,7 +122,7 @@ Source plan: `.claude/docs/blackbox/plans/2026-10-26 18:10 Multi-user accounts T
 Why: each of the 3 integration test classes starts its own Postgres container. This phase adds about 5 more classes.
 A shared singleton container plus one cached Spring context keeps build time flat.
 
-- [x] **1.1** Create `backend/src/test/java/net/phrasal/integration/AbstractIntegrationTest.java`:
+- [x] **1.1** Create `../../../../backend/src/test/java/net/phrasal/integration/AbstractIntegrationTest.java`:
   - [x] `@SpringBootTest @AutoConfigureMockMvc @ActiveProfiles("test")`, `abstract class`
   - [x] `static final PostgreSQLContainer POSTGRES = new PostgreSQLContainer("postgres:16-alpine")…`, started in a
         `static {}` block (singleton pattern: no `@Container`/`@Testcontainers`, so the container lives for the whole JVM)
@@ -144,7 +144,7 @@ A shared singleton container plus one cached Spring context keeps build time fla
 ## Phase 2 — Dependencies, users table, session tables
 
 ### 2.1 Dependencies
-- [x] **2.1.1** Add to `backend/pom.xml`. Versions come from the Boot BOM, so don't pin them:
+- [x] **2.1.1** Add to `../../../../backend/pom.xml`. Versions come from the Boot BOM, so don't pin them:
   - [x] `spring-boot-starter-security`
   - [x] `spring-boot-starter-session-jdbc`
   - [x] `spring-boot-starter-security-test` (scope `test`). If Boot 4.1 has no such starter (check Context7 / the BOM),
@@ -153,7 +153,7 @@ A shared singleton container plus one cached Spring context keeps build time fla
       don't exist yet. Phases 2.2–3 fix that. Don't commit in between.
 
 ### 2.2 Flyway migrations
-- [x] **2.2.1** `backend/src/main/resources/db/migration/V9__create_users.sql`:
+- [x] **2.2.1** `../../../../backend/src/main/resources/db/migration/V9__create_users.sql`:
   ```sql
   CREATE TABLE users
   (
@@ -560,9 +560,9 @@ no per-account lockout, because anyone could use it to lock a victim out.
   - [x] `GlobalExceptionHandlerTest`: the 429 mapping
 - [x] **10.7** **Prod client IP.** (Done with option a; option b skipped, so 11.4 was not needed.) With K3s ServiceLB, Traefik sees one internal IP for every visitor. Per-IP limits would then
       apply **site-wide** (5 registrations per hour for everyone). Pick one before prod:
-  - [x] (a) Ansible `ansible/roles/k3s/tasks/main.yml`: add a `HelmChartConfig` for `traefik` in `kube-system` with
+  - [x] (a) Ansible `../../../../ansible/roles/k3s/tasks/main.yml`: add a `HelmChartConfig` for `traefik` in `kube-system` with
         `service.spec.externalTrafficPolicy: Local`. Then verify in backend logs that real client IPs appear
-        (task-100 AC #8). Document it in `ansible/README.md`.
+    (task-100 AC #8). Document it in `ansible/README.md`.
   - [x] (b) Until (a) is done, set `RATE_LIMIT_REGISTER_PER_IP` / `RATE_LIMIT_LOGIN_PER_IP` high in the prod configmap,
         and rely on the per-email limit.
 - [x] **10.8** `cd backend && mvn clean verify` → green. Ask for commit approval → `feat(backend): rate-limit register and login`
@@ -571,7 +571,7 @@ no per-account lockout, because anyone could use it to lock a victim out.
 
 ## Phase 11 — Config wiring: docker-compose, k8s, CI
 
-- [x] **11.1** `docker-compose.yml`, `backend.environment` (dev-only values):
+- [x] **11.1** `../../../../docker-compose.yml`, `backend.environment` (dev-only values):
   ```yaml
   PHRASAL_ADMIN_EMAIL: ${PHRASAL_ADMIN_EMAIL:-admin@phrasal.test}
   PHRASAL_ADMIN_PASSWORD: ${PHRASAL_ADMIN_PASSWORD:-admin-dev-password}
@@ -580,12 +580,12 @@ no per-account lockout, because anyone could use it to lock a victim out.
   RATE_LIMIT_LOGIN_PER_IP: "1000"
   ```
   (Keep `RATE_LIMIT_LOGIN_PER_EMAIL` at its default so e2e can test the 429.)
-- [x] **11.2** `k8s/base/backend-secret.yaml`: add `admin.email` / `admin.password` with the same dev defaults. Keep the DEV-ONLY comment.
-- [x] **11.3** `k8s/base/backend-deployment.yaml`: env `PHRASAL_ADMIN_EMAIL` / `PHRASAL_ADMIN_PASSWORD` from `secretKeyRef app-secrets`.
-- [x] **11.4** `k8s/base/backend-configmap.yaml` + deployment env: `rate-limit.register-per-ip`, `rate-limit.login-per-ip`
+- [x] **11.2** `../../../../k8s/base/backend-secret.yaml`: add `admin.email` / `admin.password` with the same dev defaults. Keep the DEV-ONLY comment.
+- [x] **11.3** `../../../../k8s/base/backend-deployment.yaml`: env `PHRASAL_ADMIN_EMAIL` / `PHRASAL_ADMIN_PASSWORD` from `secretKeyRef app-secrets`.
+- [x] **11.4** `../../../../k8s/base/backend-configmap.yaml` + deployment env: `rate-limit.register-per-ip`, `rate-limit.login-per-ip`
       (needed only for option 10.7 b; otherwise skip and rely on the defaults).
-- [x] **11.5** `k8s/overlays/prod/patches/secret.yaml.example`: add `admin.email: CHANGE_ME`, `admin.password: CHANGE_ME`.
-- [x] **11.6** `.github/workflows/ci_cd.yml`:
+- [x] **11.5** `../../../../k8s/overlays/prod/patches/secret.yaml.example`: add `admin.email: CHANGE_ME`, `admin.password: CHANGE_ME`.
+- [x] **11.6** `../../../../.github/workflows/ci_cd.yml`:
   - [x] "Generate prod secret patch" step: add `PHRASAL_ADMIN_EMAIL: ${{ secrets.PHRASAL_ADMIN_EMAIL }}` and
         `PHRASAL_ADMIN_PASSWORD: ${{ secrets.PHRASAL_ADMIN_PASSWORD }}` to `env`, and the two `stringData` lines to the `printf`
   - [x] e2e job "Run e2e tests" env: `ADMIN_EMAIL: admin@phrasal.test`, `ADMIN_PASSWORD: admin-dev-password` (the compose defaults)
@@ -593,7 +593,7 @@ no per-account lockout, because anyone could use it to lock a victim out.
       (≥ 10 characters) **before** the next tagged deploy. Keep a copy in the password manager. Never commit them.
 - [x] **11.8** Run `kubectl kustomize k8s/overlays/dev` and `kubectl kustomize k8s/overlays/prod` (with the example patch copied
       to `secret.yaml` locally, then deleted). Both render without errors.
-- [x] **11.9** Check `frontend/nginx.conf` and `vite.config.ts`: no change needed. Both proxy `/api` same-origin and pass
+- [x] **11.9** Check `../../../../frontend/nginx.conf` and `vite.config.ts`: no change needed. Both proxy `/api` same-origin and pass
       `Set-Cookie` through. Write that conclusion in the commit body, not in code.
 - [x] **11.10** `make clean build` → green (the compose stack now boots with an admin). Ask for commit approval →
       `build: wire admin and session settings into compose, k8s and CI`
@@ -650,7 +650,7 @@ no per-account lockout, because anyone could use it to lock a victim out.
       500 → throws.
 
 ### 13.2 Context + hook
-`frontend/CLAUDE.md` currently says "no context or global store". Phase 17 updates that rule: one auth context is allowed.
+`../../../../frontend/CLAUDE.md` currently says "no context or global store". Phase 17 updates that rule: one auth context is allowed.
 - [x] **13.2.1** `src/auth/AuthContext.tsx`:
   - [x] state: `status: 'loading' | 'authenticated' | 'anonymous'`, `user: CurrentUser | null`
   - [x] on mount: `fetchCurrentUser()` → set state. On a network error → `anonymous` (the site must work without the backend auth).
@@ -756,24 +756,24 @@ no per-account lockout, because anyone could use it to lock a victim out.
 ## Phase 16 — E2E (Cucumber + Playwright)
 
 ### 16.1 Support code
-- [x] **16.1.1** `e2e/src/support/api-client.ts`: add a tiny cookie jar. axios in Node keeps no cookies.
+- [x] **16.1.1** `../../../../e2e/src/support/api-client.ts`: add a tiny cookie jar. axios in Node keeps no cookies.
   - [x] after each response, parse `set-cookie` into a `Map<string, string>`; delete entries whose `Max-Age=0` / expired
   - [x] send `Cookie: k=v; …` on every request
   - [x] for POST/PUT/DELETE: if there's no `XSRF-TOKEN` in the jar yet, first do `GET /api/v1/phrasal-verbs?size=1` to obtain it,
         then send the `X-XSRF-TOKEN` header
   - [x] public helpers: `getCookie(name)`, `clearCookies()`, `withoutCsrf()` (for the negative scenario) or a `post(path, data, { csrf: false })` option
-- [x] **16.1.2** `e2e/src/support/test-users.ts`:
+- [x] **16.1.2** `../../../../e2e/src/support/test-users.ts`:
   - `uniqueEmail()` → `` `e2e-${Date.now()}-${Math.random().toString(36).slice(2, 8)}@phrasal.test` ``
   - `TEST_PASSWORD = 'e2e-password-123'`
   - `ADMIN_EMAIL` / `ADMIN_PASSWORD` from `process.env`
-- [x] **16.1.3** `e2e/src/world.ts`: add `currentEmail: string | null`. Reset it in `hooks.ts` `Before`.
-- [x] **16.1.4** `e2e/src/hooks.ts`: an `AfterAll` cleanup via `createDbClient()`:
+- [x] **16.1.3** `../../../../e2e/src/world.ts`: add `currentEmail: string | null`. Reset it in `hooks.ts` `Before`.
+- [x] **16.1.4** `../../../../e2e/src/hooks.ts`: an `AfterAll` cleanup via `createDbClient()`:
   `DELETE FROM spring_session WHERE principal_name LIKE 'e2e-%@phrasal.test'`, then
   `DELETE FROM users WHERE email LIKE 'e2e-%@phrasal.test'`. Wrap it in try/finally and close the client.
-- [x] **16.1.5** `e2e/.env.example`: add `ADMIN_EMAIL=admin@phrasal.test` and `ADMIN_PASSWORD=admin-dev-password` (the compose dev defaults).
+- [x] **16.1.5** `../../../../e2e/.env.example`: add `ADMIN_EMAIL=admin@phrasal.test` and `ADMIN_PASSWORD=admin-dev-password` (the compose dev defaults).
 
 ### 16.2 API steps + features
-- [x] **16.2.1** `e2e/src/steps/auth-api.steps.ts`:
+- [x] **16.2.1** `../../../../e2e/src/steps/auth-api.steps.ts`:
   - `Given I am logged in as the admin`
   - `Given I am logged in as a new user`
   - `Given a registered user exists`
@@ -786,7 +786,7 @@ no per-account lockout, because anyone could use it to lock a victim out.
   - `Then the profile email should be the current email`
   - `Then the response role should be {string}`
   - Reuse the existing `the response status should be {int}` step.
-- [x] **16.2.2** `e2e/features/auth-api/auth.feature` (`@api`):
+- [x] **16.2.2** `../../../../e2e/features/auth-api/auth.feature` (`@api`):
   - [x] register a new account → 201, role USER
   - [x] duplicate email → 409
   - [x] password "short" → 400
@@ -795,7 +795,7 @@ no per-account lockout, because anyone could use it to lock a victim out.
   - [x] anonymous profile → 401
   - [x] log out → 204; profile afterwards → 401
   - [x] 6 failed logins for one email → the 6th returns 429
-- [x] **16.2.3** `e2e/features/phrasal-verbs-api/crud.feature`:
+- [x] **16.2.3** `../../../../e2e/features/phrasal-verbs-api/crud.feature`:
   - [x] keep "Anonymous visitor cannot create a phrasal verb" → 401 (from Phase 3)
   - [x] add "Regular user cannot create a phrasal verb": `Given I am logged in as a new user` … → 403
   - [x] add "Admin creates a phrasal verb": `Given I am logged in as the admin` … → 201 + `id`
@@ -803,7 +803,7 @@ no per-account lockout, because anyone could use it to lock a victim out.
 - [x] **16.2.4** `npm --prefix e2e run test:api` against the running stack → green.
 
 ### 16.3 Browser steps + feature
-- [x] **16.3.1** `e2e/src/steps/auth-ui.steps.ts`:
+- [x] **16.3.1** `../../../../e2e/src/steps/auth-ui.steps.ts`:
   - `When I open the {string} page`
   - `When I sign up through the form with a new email`
   - `When I log in through the form`
@@ -813,7 +813,7 @@ no per-account lockout, because anyone could use it to lock a victim out.
   - `Then I should see the {string} link in the navigation`
   - `Then I should see an auth error`
   Use the `data-testid`s from Phases 14–15, and `FRONTEND_URL` as in `frontend.steps.ts`.
-- [x] **16.3.2** `e2e/features/frontend/auth.feature` (`@frontend`):
+- [x] **16.3.2** `../../../../e2e/features/frontend/auth.feature` (`@frontend`):
   - [x] sign up through the form → redirected home, the user menu shows my email
   - [x] log out → the "Log in" link is back
   - [x] a registered user logs in through the form → the user menu shows the email
@@ -827,7 +827,7 @@ no per-account lockout, because anyone could use it to lock a victim out.
 
 ## Phase 17 — Docs, diagram, backlog
 
-- [x] **17.1** `README.md`: new section "Accounts & security":
+- [x] **17.1** `../../../../README.md`: new section "Accounts & security":
   - [x] endpoint table (`register`, `login`, `logout`, `me`) with status codes
   - [x] roles; who can write content
   - [x] admin bootstrap (`PHRASAL_ADMIN_EMAIL`/`PASSWORD`, the takeover rule); how to promote a user by SQL if ever needed
@@ -836,20 +836,20 @@ no per-account lockout, because anyone could use it to lock a victim out.
   - [x] rate limits and their env vars
   - [x] the GitHub Secrets to create before the next deploy
   - [x] "email confirmation: not yet" note
-- [x] **17.2** `backend/CLAUDE.md`: "Security" section:
+- [x] **17.2** `../../../../backend/CLAUDE.md`: "Security" section:
   - `SecurityConfig` rules order
   - the principal is the `AuthenticatedUser` record (never an entity)
   - ProblemDetail entry point and denied handler
   - new packages `infrastructure/security`, `presentation/security`, `application/validation`
   - tests extend `AbstractIntegrationTest`; mutating MockMvc calls need `.with(user(...).roles("ADMIN")).with(csrf())`
-- [x] **17.3** `frontend/CLAUDE.md`:
+- [x] **17.3** `../../../../frontend/CLAUDE.md`:
   - [x] fix the stack line: React **19** (package.json already has `^19.3.1`)
   - [x] replace "no context or global store" with "one `AuthContext` (src/auth) is allowed; no other global state"
   - [x] API client table: `post/put/del`, CSRF, `ApiError.problem`, `authApi.ts`
   - [x] new pages (`LoginPage`, `RegisterPage`), `UserMenu`, `useClickOutside`
-- [x] **17.4** `e2e/CLAUDE.md`: new `features/auth-api/`, the auth steps, the cookie jar in `api-client.ts`, `test-users.ts`, cleanup
-      hook, and the `ADMIN_EMAIL`/`ADMIN_PASSWORD` env vars.
-- [x] **17.5** `docs/diagrams/auth-flow.md` (blackbox policy, new flow): Mermaid diagrams for
+- [x] **17.4** `../../../../e2e/CLAUDE.md`: new `features/auth-api/`, the auth steps, the cookie jar in `api-client.ts`, `test-users.ts`, cleanup
+  hook, and the `ADMIN_EMAIL`/`ADMIN_PASSWORD` env vars.
+- [x] **17.5** `../../../../docs/diagrams/auth-flow.md` (blackbox policy, new flow): Mermaid diagrams for
   - [x] a sequence diagram: register → login (changeSessionId, `SESSION` row in Postgres) → `/me` → logout
   - [x] a sequence diagram: CSRF cookie-to-header on a POST
   - [x] a flowchart: authorization rules (public GET / ADMIN writes / actuator)
@@ -863,7 +863,7 @@ no per-account lockout, because anyone could use it to lock a victim out.
         (#1 verification part, #3, #13, the Mailpit part of #18) there, and depend it on task-106 for prod SMTP.
   - [ ] after that split, task-99 can move to `Done`. **Ask the user before changing the status.**
   - [x] task-103: note that login, register and the user menu are done here; the rest stays open
-- [x] **17.8** Append the blackbox `session-log.md` entry (format in `.claude/rules/blackbox-policy.md`, no secrets).
+- [x] **17.8** Append the blackbox `session-log.md` entry (format in `../../../rules/blackbox-policy.md`, no secrets).
 
 ---
 
