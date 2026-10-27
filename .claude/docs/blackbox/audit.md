@@ -1932,3 +1932,26 @@ I didn't get task-timeout.sh start and check. how it works, purpose.
 ## 2026-10-27T11:19:50Z
 git add all changes and commit them with suitable message
 ---
+
+## 2026-10-27T11:31:48Z
+
+
+<pasted_content id="81f1">
+  Create detailed multiuser-todos.md fils with checkboxes (- [ ]), which describes a step-by-step implementation for such task:  
+
+  - Analyze:
+    @".claude/docs/blackbox/plans/2026-10-26 18:10 Multi-user accounts TOTP 2FA and reliable storage for phrasal.md"
+    and @"backlog/tasks/" from task-97 to task-106 md files.
+  - I'd like to just implement sign up with email/password, without the email confirmation for now.
+  - Each step of implementation should be simple, detailed, granular, covered with backend, frontend and if reasonable with e2e tests.
+  - Critical: DO NOT start any steps of implement.
+</pasted_content id="81f1">
+---
+
+## 2026-10-27T11:50:06Z
+set, continue
+---
+
+## 2026-10-27T12:18:33Z
+git add all changes and commit them with suitable message
+---
