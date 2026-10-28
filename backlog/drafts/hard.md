@@ -229,3 +229,9 @@ Create detailed save-on-server-multiuser-todos.md fils with checkboxes (- [ ]), 
 - Consider as template: @.claude/docs/blackbox/todos/multiuser-todos.md
 
 - Critical: DO NOT start any steps of implement.
+
+---
+Start implementing functionality from  @.claude/docs/blackbox/todos/save-on-server-multiuser-todos.md Phase 18.                                                                                                      
+Don't forget to check off implemented boxes.
+On phase completion `make clean build` must pass successfully.
+

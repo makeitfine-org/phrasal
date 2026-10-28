@@ -5,7 +5,7 @@ Source plan: `.claude/docs/blackbox/plans/2026-10-26 18:10 Multi-user accounts T
 (AC #7–#11, and the sync parts of #13 and #14).
 Template: `multiuser-todos.md` (same folder). Builds on task-99 (users, sessions, CSRF, `AuthContext`).
 
-> Status: plan only. Nothing below is implemented yet.
+> Status: Phase 0 done on branch `quiz-progress` (2026-10-28), except the prod data check in 0.4.
 
 ---
 
@@ -154,28 +154,79 @@ Template: `multiuser-todos.md` (same folder). Builds on task-99 (users, sessions
 
 ## Phase 0 — Preparation (no code)
 
-- [ ] **0.1** Branch: create `quiz-progress` from `multi-user`, because it needs the task-99 code. Rebase onto `main` once
+- [x] **0.1** Branch: create `quiz-progress` from `multi-user`, because it needs the task-99 code. Rebase onto `main` once
       `multi-user` is merged. The working tree must be clean apart from blackbox files.
-- [ ] **0.2** Run `make clean build` once on the untouched branch. Note the baseline: backend test count, Vitest count, e2e
+      → created from `dcbe5e5`. Only blackbox files and the user's `backlog/drafts/hard.md` draft were modified.
+- [x] **0.2** Run `make clean build` once on the untouched branch. Note the baseline: backend test count, Vitest count, e2e
       scenarios and steps.
-- [ ] **0.3** Move **task-102** to `In Progress` (Backlog.md MCP `task_edit`). Add a note to task-103: "progress-sync part
+      → green (2026-10-28). Backend **193** tests, Checkstyle 0 violations, JaCoCo met. Vitest **57** files /
+      **1358** tests. e2e **49** scenarios / **322** steps.
+- [x] **0.3** Move **task-102** to `In Progress` (Backlog.md MCP `task_edit`). Add a note to task-103: "progress-sync part
       started in `save-on-server-multiuser-todos.md`".
 - [ ] **0.4** Data check before dropping the column. Expect `0` on both:
-  - [ ] dev: `docker compose exec postgres psql -U postgres -d phrasaldb -c "SELECT count(*) FROM phrasal_verbs WHERE is_learned"`
-  - [ ] prod: the same query via `kubectl exec` on the postgres pod
+  - [x] dev: `docker compose exec postgres psql -U postgres -d phrasaldb -c "SELECT count(*) FROM phrasal_verbs WHERE is_learned"`
+        → `0` of 270 rows. The V4 seed sets `false` on every row and contains no `true`.
+  - [ ] prod: the same query via `kubectl exec` on the postgres pod (`--context hetzner`, `default/postgres-0`).
+        **Pending:** the auto-mode classifier blocked production reads, so the user runs it. **Must be done before
+        Phase 1.**
   - [ ] if either is not `0`: stop and ask the user. Dropping the column would then put those verbs into the quiz pool
         and shift local indices.
-- [ ] **0.5** Look up with Context7 and note here:
-  - [ ] Boot 4 / Jackson 3: is `FAIL_ON_UNKNOWN_PROPERTIES` off by default? That decides whether a legacy `isLearned`
+- [x] **0.5** Look up with Context7 and note here:
+  - [x] Boot 4 / Jackson 3: is `FAIL_ON_UNKNOWN_PROPERTIES` off by default? That decides whether a legacy `isLearned`
         body field is ignored or rejected (decision 9).
-  - [ ] Hibernate 7: `@JdbcTypeCode(SqlTypes.JSON)` on `Map<String, Object>` with a `jsonb` column, which the project's
+        → **Off.**
+        - In jackson-databind 3.1.7 the enum default is `false` (checked in the bytecode).
+        - `spring-boot-jackson` 4.1.2 doesn't override it, and the project has no `spring.jackson.*` settings.
+        - So a legacy `isLearned` is ignored, and 1.3.3 `shouldAcceptLegacyIsLearnedInBody` expects `201`.
+          No `@JsonIgnoreProperties` is needed.
+  - [x] Hibernate 7: `@JdbcTypeCode(SqlTypes.JSON)` on `Map<String, Object>` with a `jsonb` column, which the project's
         format mapper must support. `PhrasalVerb.sentences` already uses it for `List<String>`.
-  - [ ] Spring Data JPA: `@Modifying @Query(nativeQuery = true)` with `INSERT … ON CONFLICT … DO UPDATE`, binding a
+        → **Works.**
+        - Hibernate 7.4.13 uses JSON for any attribute type marked `@JdbcTypeCode(SqlTypes.JSON)`, and detects the
+          JSON library automatically (`hibernate.type.json_format_mapper` overrides it).
+        - The project already maps `VerbDetail.sections` (`List<VerbDetailSection>`) this way.
+        - Numbers come back as `Integer`/`Long`/`Double`, so tests compare values, not Java types.
+  - [x] Spring Data JPA: `@Modifying @Query(nativeQuery = true)` with `INSERT … ON CONFLICT … DO UPDATE`, binding a
         JSON string with `CAST(:state AS jsonb)`.
-  - [ ] Spring MVC: which exception is thrown for an unreadable JSON body or a type mismatch in a record component
+        → **Supported** (4.1.2): `@Modifying` methods return `void` or `int`. `clearAutomatically` clears the
+        `EntityManager` after the query; it isn't cleared by default.
+        - The query needs an active transaction (the service's `@Transactional`). The repository integration test
+          needs one too: `@Transactional` or a `TransactionTemplate`.
+        - Use `CAST(:state AS jsonb)`, not `:state::jsonb`, which clashes with named-parameter parsing.
+        - `@NativeQuery` is an equivalent shorthand.
+  - [x] Spring MVC: which exception is thrown for an unreadable JSON body or a type mismatch in a record component
         (`HttpMessageNotReadableException`).
-  - [ ] `fetch` `keepalive` limits (body ≤ 64 KB in Chromium), React 19 `useEffect` cleanup ordering, Vitest fake timers.
-  - [ ] Playwright: `page.waitForResponse`, `page.request` (shares the browser cookies), `page.on('request')`.
+        → **Confirmed** in spring-web 7.0.10.
+        - `AbstractJacksonHttpMessageConverter` wraps every `JacksonException` in `HttpMessageNotReadableException`:
+          syntax errors, and `MismatchedInputException` such as `{"state":[1,2]}`, `{"state":"x"}` or a top-level
+          `[1,2]`.
+        - A missing body throws it too.
+        - Only `InvalidDefinitionException`, a server-side bug, becomes `HttpMessageConversionException` and stays 500.
+        - `GlobalExceptionHandler` doesn't extend `ResponseEntityExceptionHandler`, so today all of these hit the 500
+          catch-all. This confirms decision 11.
+  - [x] `fetch` `keepalive` limits (body ≤ 64 KB in Chromium), React 19 `useEffect` cleanup ordering, Vitest fake timers.
+        → **keepalive:** the Fetch Standard caps the sum of in-flight keepalive bodies at 64 KiB per document, in every
+        browser. Over the cap, `fetch` rejects with `TypeError`.
+          A state close to the 65536-byte server cap, plus the `{"state":…}` wrapper, goes over it. **Phase 8:** on
+          `pagehide`, send bodies above ~60 KB without `keepalive` (best effort). `dirty` stays `true` on failure, so the
+          same user's next mount pushes it (8.2.4 step 1).
+        → **React 19.3:** a cleanup runs with the old values before the next setup, and once on unmount.
+          `main.tsx` uses `<React.StrictMode>`, so in dev every effect runs setup → cleanup → setup once. **Phase 8:**
+          - the load effect ignores a stale result (an `active` flag cleared in the cleanup)
+          - the load-once guard is keyed by `(userId, quizKey)`
+          - the cleanup flush sends only when a save is pending
+          - one extra GET in dev is acceptable
+        → **Vitest 5.0.3:**
+          - `vi.useFakeTimers()` fakes `setTimeout`, `clearTimeout`, `Date` and the rest; `toFake` narrows it.
+          - `await vi.advanceTimersByTimeAsync(2000)` runs timers and flushes promise callbacks between them. Use it in
+            debounce tests.
+          - `await vi.runAllTimersAsync()` drains everything.
+  - [x] Playwright: `page.waitForResponse`, `page.request` (shares the browser cookies), `page.on('request')`.
+        → Playwright 1.63+ (the e2e module uses ^1.64.1):
+          - Create the `page.waitForResponse(predicate)` promise **before** the click, then await it.
+          - `page.request` is `page.context().request`. It sends the context's cookies and writes `Set-Cookie` back, so
+            the saved-progress check runs as the logged-in browser user. A GET needs no CSRF header.
+          - Record requests with `page.on('request', fn)` and detach with `page.off`.
 
 ---
 

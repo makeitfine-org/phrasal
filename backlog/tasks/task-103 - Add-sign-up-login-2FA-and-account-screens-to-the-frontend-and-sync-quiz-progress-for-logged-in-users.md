@@ -6,7 +6,7 @@ title: >-
 status: To Do
 assignee: []
 created_date: '2026-10-26T17:38:00Z'
-updated_date: '2026-10-27T20:22:00Z'
+updated_date: '2026-10-28T09:20:00Z'
 labels:
   - multi-user
   - frontend
@@ -93,4 +93,6 @@ Logged-in users also expect their quiz progress to follow them across devices.
 
 <!-- SECTION:NOTES:BEGIN -->
 Partly done in task-99 (2026-10-27): API client write methods with CSRF/ProblemDetail, AuthContext + useAuth, Login and Register pages, UserMenu in the nav bar, and e2e for them. Still open here: 2FA and account screens, and quiz progress sync.
+
+Progress-sync part started 2026-10-28 in `.claude/docs/blackbox/todos/save-on-server-multiuser-todos.md` (branch `quiz-progress`).
 <!-- SECTION:NOTES:END -->

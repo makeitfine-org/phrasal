@@ -1,9 +1,10 @@
 ---
 id: TASK-102
 title: Store learning progress per user on the server
-status: To Do
+status: In Progress
 assignee: []
 created_date: '2026-10-26T17:38:00Z'
+updated_date: '2026-10-28T09:20:00Z'
 labels:
   - multi-user
   - backend
@@ -72,3 +73,9 @@ task-87 (versioning localStorage state).
 - [ ] #10 backend/CLAUDE.md and README.md document the progress API.
 - [ ] #11 `make clean build` passes
 <!-- AC:END -->
+
+## Implementation Notes
+
+<!-- SECTION:NOTES:BEGIN -->
+Started 2026-10-28 on branch `quiz-progress` (from `multi-user`). Step-by-step plan: `.claude/docs/blackbox/todos/save-on-server-multiuser-todos.md`.
+<!-- SECTION:NOTES:END -->

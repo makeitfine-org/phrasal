@@ -1183,3 +1183,21 @@
 - .claude/docs/blackbox/audit.md
 - .claude/settings.local.json
 <!-- end-snapshot -->
+
+<!-- git-snapshot 2026-10-28T09:13:00Z -->
+- .claude/docs/blackbox/audit.md
+<!-- end-snapshot -->
+
+<!-- git-snapshot 2026-10-28T09:15:24Z -->
+- .claude/docs/blackbox/audit.md
+- .claude/docs/blackbox/session-log.md
+<!-- end-snapshot -->
+
+<!-- git-snapshot 2026-10-28T09:24:37Z -->
+- .claude/docs/blackbox/audit.md
+- .claude/docs/blackbox/session-log.md
+- .claude/docs/blackbox/todos/save-on-server-multiuser-todos.md
+- backlog/drafts/hard.md
+- backlog/tasks/task-102 - Store-learning-progress-per-user-on-the-server.md
+- backlog/tasks/task-103 - Add-sign-up-login-2FA-and-account-screens-to-the-frontend-and-sync-quiz-progress-for-logged-in-users.md
+<!-- end-snapshot -->
