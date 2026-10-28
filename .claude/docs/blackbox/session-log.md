@@ -1356,3 +1356,14 @@
 ⚠️  Diagrams that may need updating:
   - docs/diagrams/auth-flow.md (auth/ was modified)
 <!-- end-diagram-staleness -->
+
+<!-- git-snapshot 2026-10-28T11:35:23Z -->
+- .claude/docs/blackbox/audit.md
+- docker-compose.yml
+<!-- end-snapshot -->
+
+<!-- git-snapshot 2026-10-28T11:36:27Z -->
+- .claude/docs/blackbox/audit.md
+- .claude/docs/blackbox/session-log.md
+- docker-compose.yml
+<!-- end-snapshot -->

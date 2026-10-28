@@ -3808,3 +3808,15 @@ sleep 2; echo started" failed with exit code 144</summary>
 ## 2026-10-28T11:33:27Z
 git add all changes and commit them with suitable message
 ---
+
+## 2026-10-28T11:35:09Z
+Add to @docker-compose.yml volume for Postgres.
+---
+
+## 2026-10-28T11:36:16Z
+is it volume, phrase-postgres-data.
+---
+
+## 2026-10-28T11:36:36Z
+git add all changes and commit them with suitable message
+---
