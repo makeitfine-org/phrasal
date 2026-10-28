@@ -6,6 +6,7 @@ title: >-
 status: To Do
 assignee: []
 created_date: '2026-10-26T17:37:00Z'
+updated_date: '2026-10-28T16:32:00Z'
 labels:
   - multi-user
   - security
@@ -84,3 +85,9 @@ Account deletion requires re-entering the password and removes all of the user's
 - [ ] #11 README.md and backend/CLAUDE.md document the rate limits and password policy. ansible/README.md documents the Traefik change.
 - [ ] #12 `make clean build` passes
 <!-- AC:END -->
+
+## Implementation Notes
+
+<!-- SECTION:NOTES:BEGIN -->
+Ready from task-107 for password reset: user_tokens table + TokenType (add PASSWORD_RESET), SecureTokenGenerator, EmailSender port with SMTP/logging adapters, VerificationEmailComposer pattern, after-commit async mail events, and the resend/verify rate-limit setup.
+<!-- SECTION:NOTES:END -->

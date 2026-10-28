@@ -4,7 +4,7 @@ title: Email verification for registered accounts
 status: In Progress
 assignee: []
 created_date: '2026-10-27T20:22:00Z'
-updated_date: '2026-10-28T14:32:00Z'
+updated_date: '2026-10-28T16:32:00Z'
 labels:
   - multi-user
   - security
@@ -42,13 +42,13 @@ Scope:
 
 ## Acceptance Criteria
 <!-- AC:BEGIN -->
-- [ ] #1 A visitor can register with email + password. They receive a verification email, and they can log in only after verifying.
-- [ ] #2 Register and resend-verification return identical responses for existing and non-existing emails (no account enumeration).
-- [ ] #3 Mailpit runs in docker-compose, and the e2e suite can read verification emails from it.
-- [ ] #4 E2E: an API scenario registers a user, verifies via Mailpit, logs in and runs an authenticated write.
-- [ ] #5 Mail settings and the app base URL are wired into docker-compose.yml, k8s/base configmap/secret, the prod secret generation and .github/workflows/ci_cd.yml.
-- [ ] #6 Unit and integration tests cover verify, resend and the no-enumeration rule. JaCoCo 85% per package is met.
-- [ ] #7 README.md, backend/CLAUDE.md and e2e/CLAUDE.md document the verification flow and local Mailpit usage.
+- [x] #1 A visitor can register with email + password. They receive a verification email, and they can log in only after verifying.
+- [x] #2 Register and resend-verification return identical responses for existing and non-existing emails (no account enumeration).
+- [x] #3 Mailpit runs in docker-compose, and the e2e suite can read verification emails from it.
+- [x] #4 E2E: an API scenario registers a user, verifies via Mailpit, logs in and runs an authenticated write.
+- [x] #5 Mail settings and the app base URL are wired into docker-compose.yml, k8s/base configmap/secret, the prod secret generation and .github/workflows/ci_cd.yml.
+- [x] #6 Unit and integration tests cover verify, resend and the no-enumeration rule. JaCoCo 85% per package is met.
+- [x] #7 README.md, backend/CLAUDE.md and e2e/CLAUDE.md document the verification flow and local Mailpit usage.
 - [ ] #8 `make clean build` passes
 <!-- AC:END -->
 
@@ -56,4 +56,6 @@ Scope:
 
 <!-- SECTION:NOTES:BEGIN -->
 Implementation plan: .claude/docs/blackbox/todos/email-verification-on-server-multiuser-todos.md (branch email-verification)
+
+Implemented on branch email-verification (phases 0-9). Register returns 202 with an identical body for every address (breaking: no 201/409). Tokens live in the generic user_tokens table (V14, SHA-256 only, 24h TTL, single use, newest wins); users.email_verified_at is V13. Mail goes out after commit through EmailSender (SMTP or logging adapter). Login checks the password first, then returns 403 email-not-verified. Nightly cleanup removes old tokens and unverified accounts after 7 days. Diagrams: docs/diagrams/email-verification-flow.md, auth-flow.md. Prod rollout (Brevo, GitHub Secrets MAIL_USERNAME/MAIL_PASSWORD) is phase 10.
 <!-- SECTION:NOTES:END -->

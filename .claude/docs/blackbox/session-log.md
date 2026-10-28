@@ -1639,3 +1639,19 @@
 - k8s/overlays/prod/patches/backend-configmap.yaml
 - k8s/overlays/prod/patches/secret.yaml.example
 <!-- end-snapshot -->
+
+<!-- git-snapshot 2026-10-28T16:35:33Z -->
+- .claude/docs/blackbox/audit.md
+- .claude/docs/blackbox/plans/2026-10-26 18:10 Multi-user accounts TOTP 2FA and reliable storage for phrasal.md
+- .claude/docs/blackbox/todos/email-verification-on-server-multiuser-todos.md
+- README.md
+- backend/CLAUDE.md
+- backlog/tasks/task-100 - Let-users-reset-forgotten-passwords-delete-their-account-and-protect-auth-endpoints-from-abuse.md
+- backlog/tasks/task-103 - Add-sign-up-login-2FA-and-account-screens-to-the-frontend-and-sync-quiz-progress-for-logged-in-users.md
+- backlog/tasks/task-106 - Set-up-a-real-domain-transactional-email-and-Google-OAuth-for-production.md
+- backlog/tasks/task-107 - Email-verification-for-registered-accounts.md
+- docs/diagrams/auth-flow.md
+- docs/diagrams/email-verification-flow.md
+- e2e/CLAUDE.md
+- frontend/CLAUDE.md
+<!-- end-snapshot -->

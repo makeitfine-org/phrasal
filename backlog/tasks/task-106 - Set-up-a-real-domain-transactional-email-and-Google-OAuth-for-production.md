@@ -4,7 +4,7 @@ title: Set up a real domain, transactional email and Google OAuth for production
 status: To Do
 assignee: []
 created_date: '2026-10-26T17:56:00Z'
-updated_date: '2026-10-28T14:32:00Z'
+updated_date: '2026-10-28T16:32:00Z'
 labels:
   - multi-user
   - infra
@@ -59,4 +59,6 @@ They are stored only as GitHub Secrets, in a password manager, or in local `.env
 
 <!-- SECTION:NOTES:BEGIN -->
 2026-10-28: domain phrasalbox.com, Brevo sender domain (SPF/DKIM/DMARC) and SMTP key done.
+
+SMTP secrets step: create GitHub Secrets MAIL_USERNAME (Brevo SMTP login) and MAIL_PASSWORD (SMTP key) before the next tagged deploy; ci_cd.yml writes them into the prod secret patch (task-107 phase 8). AC #1-#3/#6 not checked yet: awaiting the user's confirmation.
 <!-- SECTION:NOTES:END -->

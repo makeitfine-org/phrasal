@@ -962,51 +962,51 @@ Why: expired tokens pile up, and an address squatted by an attacker who can't ve
 
 ## Phase 9 — Docs, diagrams, backlog
 
-- [ ] **9.1** `README.md` → "Accounts & security":
-  - [ ] the endpoint table gains `verify-email` (204/400/403/429) and `resend-verification` (202/403/429); register is
+- [x] **9.1** `README.md` → "Accounts & security":
+  - [x] the endpoint table gains `verify-email` (204/400/403/429) and `resend-verification` (202/403/429); register is
         now `202`, and the `409` row goes
-  - [ ] "Email verification" subsection: the link expires after `EMAIL_VERIFICATION_TOKEN_TTL` (24 h), only the newest
+  - [x] "Email verification" subsection: the link expires after `EMAIL_VERIFICATION_TOKEN_TTL` (24 h), only the newest
         link works, login needs a confirmed email, unverified accounts are deleted after 7 days, existing accounts were
         marked verified
-  - [ ] local mail: Mailpit UI at http://localhost:8025 (`make dockerAll`); with mail disabled the link is in the
+  - [x] local mail: Mailpit UI at http://localhost:8025 (`make dockerAll`); with mail disabled the link is in the
         backend log
-  - [ ] prod mail: Brevo SMTP (`smtp-relay.brevo.com:587`, STARTTLS), sender `no-reply@phrasalbox.com`, free tier
+  - [x] prod mail: Brevo SMTP (`smtp-relay.brevo.com:587`, STARTTLS), sender `no-reply@phrasalbox.com`, free tier
         300 emails/day; the SPF/DKIM/DMARC records live at the DNS host
-  - [ ] the env table: `MAIL_ENABLED`, `MAIL_HOST`, `MAIL_PORT`, `MAIL_USERNAME`, `MAIL_PASSWORD`, `PHRASAL_MAIL_FROM`,
+  - [x] the env table: `MAIL_ENABLED`, `MAIL_HOST`, `MAIL_PORT`, `MAIL_USERNAME`, `MAIL_PASSWORD`, `PHRASAL_MAIL_FROM`,
         `APP_BASE_URL`, `EMAIL_VERIFICATION_TOKEN_TTL`, `UNVERIFIED_ACCOUNT_RETENTION`, the new `RATE_LIMIT_*`
-  - [ ] the GitHub Secrets to create (8.7); remove the "email confirmation: not yet" note
-  - [ ] breaking change: register returns `202` and never `409`
-- [ ] **9.2** `backend/CLAUDE.md`:
-  - [ ] the `infrastructure/mail` package (`EmailSender` port, SMTP/logging adapters, `@ConditionalOnProperty`)
-  - [ ] after-commit async events for mail; never send mail inside the request transaction
-  - [ ] `user_tokens` + `TokenType` (task-100 adds `PASSWORD_RESET`), hashing via `SecureTokenGenerator`
-  - [ ] the pre/post authentication checks in `SecurityConfig` and why
-  - [ ] tests: `RecordingEmailSender`, `verifyEmail(...)` in `AbstractIntegrationTest`, `registerAndLogin` verifies
-  - [ ] the injected `Clock`; `management.health.mail.enabled: false`
-- [ ] **9.3** `frontend/CLAUDE.md`: `VerifyEmailPage`, `ResendVerification`, `problemTypes.ts`, the new `authApi`
+  - [x] the GitHub Secrets to create (8.7); remove the "email confirmation: not yet" note
+  - [x] breaking change: register returns `202` and never `409`
+- [x] **9.2** `backend/CLAUDE.md`:
+  - [x] the `infrastructure/mail` package (`EmailSender` port, SMTP/logging adapters, `@ConditionalOnProperty`)
+  - [x] after-commit async events for mail; never send mail inside the request transaction
+  - [x] `user_tokens` + `TokenType` (task-100 adds `PASSWORD_RESET`), hashing via `SecureTokenGenerator`
+  - [x] the pre/post authentication checks in `SecurityConfig` and why
+  - [x] tests: `RecordingEmailSender`, `verifyEmail(...)` in `AbstractIntegrationTest`, `registerAndLogin` verifies
+  - [x] the injected `Clock`; `management.health.mail.enabled: false`
+- [x] **9.3** `frontend/CLAUDE.md`: `VerifyEmailPage`, `ResendVerification`, `problemTypes.ts`, the new `authApi`
       functions; register no longer logs in; the `VERIFICATION_LINK_TTL_HOURS` sync note.
-- [ ] **9.4** `e2e/CLAUDE.md`: `mailpit-client.ts`, `MAILPIT_URL`, the new feature files and steps, the fact that
+- [x] **9.4** `e2e/CLAUDE.md`: `mailpit-client.ts`, `MAILPIT_URL`, the new feature files and steps, the fact that
       "sign up through the form" now verifies through Mailpit, the Mailpit clean-up in `AfterAll`.
-- [ ] **9.5** `docs/diagrams/email-verification-flow.md` (blackbox policy, new flow), in Mermaid:
-  - [ ] sequence: register → 202 → after-commit event → SMTP → inbox → `/verify-email?token` (SPA) → `POST verify-email`
+- [x] **9.5** `docs/diagrams/email-verification-flow.md` (blackbox policy, new flow), in Mermaid:
+  - [x] sequence: register → 202 → after-commit event → SMTP → inbox → `/verify-email?token` (SPA) → `POST verify-email`
         → 204 → login
-  - [ ] flowchart: register branches (new / existing unverified / existing verified)
-  - [ ] flowchart: verify outcomes (unknown / used+verified / used+unverified / expired / ok)
-  - [ ] sequence: login of an unverified account (password check first, then `403`)
-- [ ] **9.6** `docs/diagrams/auth-flow.md`: the authorization-rules flowchart gains the two new `permitAll` endpoints;
+  - [x] flowchart: register branches (new / existing unverified / existing verified)
+  - [x] flowchart: verify outcomes (unknown / used+verified / used+unverified / expired / ok)
+  - [x] sequence: login of an unverified account (password check first, then `403`)
+- [x] **9.6** `docs/diagrams/auth-flow.md`: the authorization-rules flowchart gains the two new `permitAll` endpoints;
       the register step shows `202`; the "Deferred" note strikes email verification and links the new diagram.
-- [ ] **9.7** Plan file `.claude/docs/blackbox/plans/2026-10-26 18:10 Multi-user …md`: append a `## Mutations Log` row:
+- [x] **9.7** Plan file `.claude/docs/blackbox/plans/2026-10-26 18:10 Multi-user …md`: append a `## Mutations Log` row:
       "P2 remainder done as task-107: verify link points to the SPA; register 202 with existing-account notice; tokens
       in generic user_tokens; migrations V13/V14 instead of V9/V11 parts." Add only; don't delete anything there.
-- [ ] **9.8** Backlog (MCP):
-  - [ ] task-107: check off AC #1–#8 that are done; implementation notes; final summary
-  - [ ] task-103: note that the verify-email page and readable errors for it are done (part of AC #1, #6)
-  - [ ] task-100: note that `user_tokens`, `SecureTokenGenerator`, `EmailSender` and the composer are ready for reset
+- [x] **9.8** Backlog (MCP):
+  - [x] task-107: check off AC #1–#8 that are done; implementation notes; final summary
+  - [x] task-103: note that the verify-email page and readable errors for it are done (part of AC #1, #6)
+  - [x] task-100: note that `user_tokens`, `SecureTokenGenerator`, `EmailSender` and the composer are ready for reset
   - [ ] task-106: note the SMTP secrets step (8.7); **ask the user** before checking AC #1–#3/#6
   - [ ] **ask the user** before moving task-107 to `Done`
 - [ ] **9.9** Append the blackbox `session-log.md` entry (format in `.claude/rules/blackbox-policy.md`, **no secrets**,
       SMTP values as `*****`). Mention the plan mutation and the new/updated diagrams.
-- [ ] **9.10** Ask for commit approval → `docs: document email verification, Mailpit and Brevo setup`
+- [x] **9.10** Ask for commit approval → `docs: document email verification, Mailpit and Brevo setup`
 
 ---
 

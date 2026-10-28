@@ -23,6 +23,7 @@ Or step by step:
 - Reports land in `reports/` (gitignored)
 - `ApiClient` keeps a cookie jar (session + `XSRF-TOKEN`) and sends `X-XSRF-TOKEN` on POST/PUT/DELETE (`{ csrf: false }` omits it); admin writes need `ADMIN_EMAIL`/`ADMIN_PASSWORD`; test users `e2e-*@phrasal.test` are deleted in `AfterAll`
 - Env vars `ADMIN_EMAIL` / `ADMIN_PASSWORD` must match the stack's `PHRASAL_ADMIN_*` (compose dev defaults are in `.env.example`; CI sets them in `ci_cd.yml`)
+- `MAILPIT_URL` (default `http://localhost:8025`, in `.env.example`) points at Mailpit; sign-ups are confirmed through it, so the stack must run with `MAIL_ENABLED=true` (docker-compose does). `AfterAll` also deletes Mailpit messages to `e2e-*@phrasal.test`
 - Never put real credentials in code; use `.env` (copy `.env.example`)
 
 ## Structure
@@ -30,12 +31,14 @@ Or step by step:
 ```
 features/
   phrasal-verbs-api/    → REST contract scenarios (@api)
-  auth-api/             → register/login/logout/rate-limit contract (@api)
+  auth-api/             → register/login/logout/rate-limit contract + email-verification.feature (@api)
   progress-api/         → per-user quiz progress contract (@api, quiz-progress.feature)
-  frontend/             → browser-driven SPA scenarios (incl. auth.feature, progress-sync.feature)
+  frontend/             → browser-driven SPA scenarios (incl. auth.feature, email-verification.feature, progress-sync.feature)
 src/
   world.ts              → CustomWorld — shared state per scenario
   hooks.ts              → Before/After lifecycle
-  steps/                → Step definitions (auth-api.steps.ts: register/login/logout/rate limit; auth-ui.steps.ts: forms + user menu; quiz-progress-api.steps.ts: progress API; progress-sync.steps.ts: browser sync, uses the test ids `excluded-count` and `exclude-toggle`)
-  support/              → api-client.ts (cookie jar), db-client.ts, test-users.ts
+  steps/                → Step definitions (auth-api.steps.ts: register/login/logout/rate limit; auth-ui.steps.ts: forms + user menu; quiz-progress-api.steps.ts: progress API; email-verification-api.steps.ts: verification mail/link/resend API; progress-sync.steps.ts: browser sync, uses the test ids `excluded-count` and `exclude-toggle`)
+  support/              → api-client.ts (cookie jar), db-client.ts, test-users.ts, mailpit-client.ts (latestMessageTo, verificationLink/Token, countMessagesTo, deleteMessagesTo)
 ```
+
+"Sign up through the form" steps now open the emailed link from Mailpit to verify before logging in.

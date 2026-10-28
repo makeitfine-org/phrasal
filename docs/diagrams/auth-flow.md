@@ -12,8 +12,9 @@ sequenceDiagram
 
     U->>B: POST /api/v1/auth/register {email, password}
     B->>B: rate limit, validate password, hash
-    B->>DB: INSERT users (role USER)
-    B-->>U: 201 {id, email, role}
+    B->>DB: INSERT users (role USER, email unverified)
+    B-->>U: 202 {message} (same body for every address)
+    Note over U,B: verify-email and login: see email-verification-flow.md
 
     U->>B: POST /api/v1/auth/login {email, password}
     B->>B: rate limit (IP + email), authenticate
@@ -62,7 +63,7 @@ flowchart TD
     ME -- yes --> AUTH[Require login: 401 if anonymous]
     ME -- no --> MEP{/api/v1/me/** ?}
     MEP -- yes --> AUTH
-    MEP -- no --> RL{POST register or login?}
+    MEP -- no --> RL{POST register, login, verify-email or resend-verification?}
     RL -- yes --> PUB
     RL -- no --> W{POST / PUT / DELETE on phrasal-verbs, grammar-entries, verb-details?}
     W -- yes --> ADM
@@ -78,4 +79,4 @@ flowchart TD
 
 ## Deferred
 
-Email verification (and Mailpit), password reset, TOTP 2FA, Google sign-in, ~~server-side quiz progress~~ (done, see [quiz-progress-flow.md](quiz-progress-flow.md)).
+Password reset, TOTP 2FA, Google sign-in, ~~email verification~~ (done, see [email-verification-flow.md](email-verification-flow.md)), ~~server-side quiz progress~~ (done, see [quiz-progress-flow.md](quiz-progress-flow.md)).

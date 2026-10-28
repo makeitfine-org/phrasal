@@ -6,7 +6,7 @@ title: >-
 status: To Do
 assignee: []
 created_date: '2026-10-26T17:38:00Z'
-updated_date: '2026-10-28T10:46:00Z'
+updated_date: '2026-10-28T16:32:00Z'
 labels:
   - multi-user
   - frontend
@@ -97,4 +97,6 @@ Partly done in task-99 (2026-10-27): API client write methods with CSRF/ProblemD
 Progress-sync part started 2026-10-28 in `.claude/docs/blackbox/todos/save-on-server-multiuser-todos.md` (branch `quiz-progress`).
 
 Sync part done 2026-10-28: useQuizProgressSync, id mapping, logout flush/clear, progress-sync.feature. AC #13 and #14 are done for the sync part only. Still open: 2FA, account and email-flow screens (AC #1-#6, #12 rest, #15).
+
+Done in task-107: the /verify-email page (VerifyEmailPage), the resend action (ResendVerification), check-your-inbox panel after register, and readable errors for email-not-verified and the verification-link problems (part of AC #1 and #6).
 <!-- SECTION:NOTES:END -->

@@ -416,8 +416,10 @@ Visitors can sign up with an email and password. Content stays public to read; o
 
 | Endpoint | Success | Errors |
 |---|---|---|
-| `POST /api/v1/auth/register` `{email, password}` | `201` + `{id, email, role}` | `400` invalid email or password (min 10 chars, max 72 UTF-8 bytes), `409` email already registered, `429` rate limited |
-| `POST /api/v1/auth/login` `{email, password}` | `200` + `{id, email, role}`, sets the `SESSION` cookie | `400` invalid body, `401` wrong email or password, `429` rate limited |
+| `POST /api/v1/auth/register` `{email, password}` | `202` + `{"message": ...}` (always the same body, see below) | `400` invalid email or password (min 10 chars, max 72 UTF-8 bytes), `429` rate limited |
+| `POST /api/v1/auth/verify-email` `{token}` | `204`, the address is confirmed | `400` `verification-link-invalid` or `verification-link-expired`, `403` CSRF, `429` rate limited |
+| `POST /api/v1/auth/resend-verification` `{email}` | `202` (always, even for unknown or verified addresses) | `400` invalid body, `403` CSRF, `429` rate limited |
+| `POST /api/v1/auth/login` `{email, password}` | `200` + `{id, email, role}`, sets the `SESSION` cookie | `400` invalid body, `401` wrong email or password, `403` `email-not-verified` (right password, unconfirmed address), `429` rate limited |
 | `GET /api/v1/auth/me` | `200` + `{id, email, role}` | `401` anonymous |
 | `POST /api/v1/auth/logout` | `204`, session invalidated | - |
 
@@ -453,13 +455,50 @@ curl -s -b jar.txt -c jar.txt -H "X-XSRF-TOKEN: $TOKEN" -H 'Content-Type: applic
 After login the token may rotate, so read `XSRF-TOKEN` from the jar again before the next write. The SPA does this
 automatically (`frontend/src/api/client.ts`).
 
+### Email verification
+
+Sign-up does not log anyone in. `register` answers `202` with the same body whether the address is new, pending or already
+verified, so it cannot be used to find out who has an account (**breaking change:** it used to return `201` and `409`).
+
+- A new address gets a link to `${APP_BASE_URL}/verify-email?token=...`; the SPA page posts the token to `verify-email`.
+- The link expires after `EMAIL_VERIFICATION_TOKEN_TTL` (default 24 h) and works once; only the newest link works, so
+  `resend-verification` or registering again invalidates older ones. Opening an already used link of a verified account is still `204`.
+- An already verified address gets an "account exists" notice instead, and its password is not touched. An unverified one
+  takes the new password and a fresh link.
+- Login needs a confirmed email: the password is checked first, then the answer is `403` `email-not-verified` (a wrong
+  password stays `401`).
+- A nightly job (`phrasal.cleanup.cron`, default `0 30 3 * * *`; `phrasal.cleanup.enabled`) removes used or expired tokens
+  after 7 days and accounts still unverified after `UNVERIFIED_ACCOUNT_RETENTION` (default `7d`).
+- Accounts that existed before this feature were marked verified by migration `V13`.
+- Mail is sent after the database commit, on a separate thread, so a slow relay never delays or fails sign-up.
+
+**Local mail.** `make dockerAll` starts Mailpit; read the messages at http://localhost:8025. With `MAIL_ENABLED=false`
+(the default outside prod and docker-compose) nothing is sent and the link is written to the backend log.
+
+**Prod mail.** Brevo SMTP relay (`smtp-relay.brevo.com:587`, STARTTLS), sender `no-reply@phrasalbox.com`, free tier
+300 emails/day. The SPF, DKIM and DMARC records for the sender domain live at the DNS host.
+
+| Env var | Purpose | Default |
+|---|---|---|
+| `MAIL_ENABLED` | send through SMTP (`false` = log the link) | `false` (`true` in prod and docker-compose) |
+| `MAIL_HOST` / `MAIL_PORT` | SMTP server | `localhost` / `1025` |
+| `MAIL_USERNAME` / `MAIL_PASSWORD` | SMTP login and key (GitHub Secrets in prod, never committed) | empty |
+| `PHRASAL_MAIL_FROM` | sender | `Phrasal <no-reply@phrasalbox.com>` |
+| `APP_BASE_URL` | origin used in emailed links | `http://localhost:3000` |
+| `EMAIL_VERIFICATION_TOKEN_TTL` | link lifetime | `24h` |
+| `UNVERIFIED_ACCOUNT_RETENTION` | age after which an unverified account is deleted | `7d` |
+
 **Rate limits** (in memory, per backend instance; exceeding them returns `429` with `Retry-After`):
 
 | Rule | Env var | Default |
 |---|---|---|
 | register per IP | `RATE_LIMIT_REGISTER_PER_IP` (per hour) | 5 |
+| register per email | `RATE_LIMIT_REGISTER_PER_EMAIL` (per hour) | 3 |
 | login per IP | `RATE_LIMIT_LOGIN_PER_IP` (per 5 min) | 20 |
 | login per email | `RATE_LIMIT_LOGIN_PER_EMAIL` (per 5 min) | 5 |
+| resend per IP | `RATE_LIMIT_RESEND_PER_IP` (per hour) | 10 |
+| resend per email | `RATE_LIMIT_RESEND_PER_EMAIL` (per hour) | 3 |
+| verify per IP | `RATE_LIMIT_VERIFY_PER_IP` (per 5 min) | 30 |
 | master switch | `RATE_LIMIT_ENABLED` | `true` |
 
 docker-compose raises the per-IP limits so the e2e suite can register many users.
@@ -467,8 +506,9 @@ docker-compose raises the per-IP limits so the e2e suite can register many users
 **GitHub Secrets to create before the next tagged deploy:** `PHRASAL_ADMIN_EMAIL`, `PHRASAL_ADMIN_PASSWORD`,
 `MAIL_USERNAME` and `MAIL_PASSWORD` (see [Production Deployment](#production-deployment-k3s)).
 
-**Not yet:** email confirmation, password reset, 2FA and Google sign-in. Accounts are usable right after sign-up.
-Flow diagrams: [`docs/diagrams/auth-flow.md`](docs/diagrams/auth-flow.md).
+**Not yet:** password reset, 2FA and Google sign-in.
+Flow diagrams: [`docs/diagrams/auth-flow.md`](docs/diagrams/auth-flow.md),
+[`docs/diagrams/email-verification-flow.md`](docs/diagrams/email-verification-flow.md).
 
 ### Learning progress
 
