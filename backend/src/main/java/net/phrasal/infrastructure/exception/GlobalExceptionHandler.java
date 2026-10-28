@@ -8,6 +8,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.http.converter.HttpMessageNotReadableException;
 import org.springframework.security.access.AccessDeniedException;
 import org.springframework.security.authentication.BadCredentialsException;
+import org.springframework.security.authentication.DisabledException;
 import org.springframework.security.core.AuthenticationException;
 import org.springframework.validation.FieldError;
 import org.springframework.web.bind.MethodArgumentNotValidException;
@@ -61,6 +62,13 @@ public class GlobalExceptionHandler {
                 "not-found", ex.getMessage());
     }
 
+    @ExceptionHandler(DisabledException.class)
+    public ProblemDetail handleEmailNotVerified(DisabledException ex) {
+        log.warn("Login rejected: email not verified");
+        return buildProblem(HttpStatus.FORBIDDEN, "Email Not Verified", "email-not-verified",
+                "Please confirm your email address before logging in");
+    }
+
     @ExceptionHandler(AuthenticationException.class)
     public ProblemDetail handleAuthentication(AuthenticationException ex) {
         log.warn("Authentication failed: {}", ex.getClass().getSimpleName());
@@ -74,13 +82,6 @@ public class GlobalExceptionHandler {
         log.warn("Access denied: {}", ex.getClass().getSimpleName());
         return buildProblem(HttpStatus.FORBIDDEN, "Forbidden", "forbidden",
                 "You do not have permission to perform this action");
-    }
-
-    @ExceptionHandler(EmailAlreadyRegisteredException.class)
-    public ProblemDetail handleEmailAlreadyRegistered(EmailAlreadyRegisteredException ex) {
-        log.warn("Registration rejected: email already registered");
-        return buildProblem(HttpStatus.CONFLICT, "Email Already Registered",
-                "email-already-registered", ex.getMessage());
     }
 
     @ExceptionHandler(VerificationLinkInvalidException.class)

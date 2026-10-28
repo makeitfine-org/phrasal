@@ -6,13 +6,24 @@ Feature: Authentication API
 
   Scenario: Register a new account
     When I register with a new email and password "e2e-password-123"
-    Then the response status should be 201
-    And the response role should be "USER"
+    Then the response status should be 202
 
-  Scenario: Registering the same email twice is rejected
+  Scenario: Registering an existing email looks the same as a new one
     Given a registered user exists
     When I register again with the same email
-    Then the response status should be 409
+    Then the response status should be 202
+    And the response should equal the first registration response
+
+  Scenario: An unverified user cannot log in
+    Given an unverified user exists
+    When I log in with the current email and password "e2e-password-123"
+    Then the response status should be 403
+
+  Scenario: Login works after verification
+    Given an unverified user exists
+    When I open the verification link from my email
+    And I log in with the current email and password "e2e-password-123"
+    Then the response status should be 200
 
   Scenario: A too short password is rejected
     When I register with a new email and password "short"

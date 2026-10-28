@@ -106,6 +106,16 @@ When('I log in through the form', async function (this: PhrasalWorld) {
     await this.page!.getByTestId('user-menu').waitFor({ timeout: PAGE_TIMEOUT });
 });
 
+When('I try to log in through the form', async function (this: PhrasalWorld) {
+    await submitLogin(this, TEST_PASSWORD);
+});
+
+Then('I should see the email-not-verified message with a resend option', async function (this: PhrasalWorld) {
+    const page = this.page!;
+    await page.getByTestId('auth-error').waitFor({ timeout: PAGE_TIMEOUT });
+    await page.getByTestId('resend-verification').waitFor({ timeout: PAGE_TIMEOUT });
+});
+
 When('I log in through the form with password {string}', async function (this: PhrasalWorld, password: string) {
     await submitLogin(this, password);
     await this.page!.getByTestId('auth-error').waitFor({ timeout: PAGE_TIMEOUT });

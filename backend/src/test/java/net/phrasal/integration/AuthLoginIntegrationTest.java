@@ -38,6 +38,11 @@ class AuthLoginIntegrationTest extends AbstractIntegrationTest {
         return post(URL).contentType(MediaType.APPLICATION_JSON).content(body(email, password));
     }
 
+    private static MockHttpServletRequestBuilder register(String email) {
+        return post("/api/v1/auth/register").contentType(MediaType.APPLICATION_JSON).content(body(email, PASSWORD))
+                .with(csrf());
+    }
+
     @Test
     @DisplayName("valid credentials return 200, the user and a SESSION cookie")
     void loginSuccess() throws Exception {
@@ -92,6 +97,45 @@ class AuthLoginIntegrationTest extends AbstractIntegrationTest {
 
         assertThat(withoutTimestamp(unknown.getResponse().getContentAsString()))
                 .isEqualTo(withoutTimestamp(wrongPassword));
+    }
+
+    @Test
+    @DisplayName("unverified account with the correct password returns 403 and no session")
+    void unverifiedCorrectPassword() throws Exception {
+        String email = uniqueEmail();
+        mockMvc.perform(register(email)).andExpect(status().isAccepted());
+
+        MvcResult result = mockMvc.perform(loginRequest(email, PASSWORD).with(csrf()))
+                .andExpect(status().isForbidden())
+                .andExpect(jsonPath("$.title").value("Email Not Verified"))
+                .andReturn();
+
+        assertThat(result.getResponse().getCookie("SESSION")).isNull();
+    }
+
+    @Test
+    @DisplayName("unverified account with a wrong password returns the same 401 as an unknown email")
+    void unverifiedWrongPassword() throws Exception {
+        String email = uniqueEmail();
+        mockMvc.perform(register(email)).andExpect(status().isAccepted());
+
+        String unverified = mockMvc.perform(loginRequest(email, "wrong password!").with(csrf()))
+                .andExpect(status().isUnauthorized())
+                .andReturn().getResponse().getContentAsString();
+        String unknown = mockMvc.perform(loginRequest(uniqueEmail(), "wrong password!").with(csrf()))
+                .andReturn().getResponse().getContentAsString();
+
+        assertThat(withoutTimestamp(unverified)).isEqualTo(withoutTimestamp(unknown));
+    }
+
+    @Test
+    @DisplayName("the same account logs in after verification")
+    void loginAfterVerification() throws Exception {
+        String email = uniqueEmail();
+        mockMvc.perform(register(email)).andExpect(status().isAccepted());
+        verifyEmail(email);
+
+        mockMvc.perform(loginRequest(email, PASSWORD).with(csrf())).andExpect(status().isOk());
     }
 
     @Test

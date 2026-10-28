@@ -13,11 +13,13 @@ import java.util.Collection;
 public class AppUserDetails implements UserDetails, CredentialsContainer {
 
     private final AuthenticatedUser principal;
+    private final boolean emailVerified;
     private String passwordHash;
 
     public AppUserDetails(User user) {
         this.principal = new AuthenticatedUser(user.getId(), user.getEmail(), user.getRole());
         this.passwordHash = user.getPasswordHash();
+        this.emailVerified = user.isEmailVerified();
     }
 
     public AuthenticatedUser toAuthenticatedUser() {
@@ -41,8 +43,7 @@ public class AppUserDetails implements UserDetails, CredentialsContainer {
 
     @Override
     public boolean isEnabled() {
-        // Email confirmation is deferred, so every stored account is enabled.
-        return true;
+        return emailVerified;
     }
 
     @Override

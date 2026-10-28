@@ -6,6 +6,7 @@ import org.junit.jupiter.api.Test;
 import org.springframework.http.MediaType;
 import org.springframework.test.context.TestPropertySource;
 
+import static org.assertj.core.api.Assertions.assertThat;
 import static org.springframework.security.test.web.servlet.request.SecurityMockMvcRequestPostProcessors.csrf;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
@@ -60,11 +61,14 @@ class AdminBootstrapIntegrationTest extends AbstractIntegrationTest {
     }
 
     @Test
-    @DisplayName("registering the admin email returns 409")
+    @DisplayName("registering the admin email returns 202, keeps the admin password and sends a notice")
     void adminEmailTaken() throws Exception {
         mockMvc.perform(post("/api/v1/auth/register").contentType(MediaType.APPLICATION_JSON)
                         .content("{\"email\":\"Admin@It.Test\",\"password\":\"another-long-password\"}")
                         .with(csrf()))
-                .andExpect(status().isConflict());
+                .andExpect(status().isAccepted());
+
+        assertThat(mailbox.awaitLatest("admin@it.test").subject()).isEqualTo("You already have a Phrasal account");
+        login(BODY, null);
     }
 }

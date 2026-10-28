@@ -44,6 +44,7 @@ Before(function () {
     this.page = null;
     this.currentEmail = null;
     this.verificationTokens = [];
+    this.firstRegistrationResponse = null;
 });
 
 After(async function () {

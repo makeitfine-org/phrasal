@@ -6,7 +6,7 @@ Feature: Email verification API
 
   Scenario: Registering sends a verification email
     When I register with a new email and password "e2e-password-123"
-    Then the response status should be 201
+    Then the response status should be 202
     And I should receive a verification email
 
   Scenario: The verification link verifies the address and can be opened again

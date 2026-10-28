@@ -787,26 +787,26 @@ sends a verification email and the link works.
 ## Phase 6 — Enforce verification, hide existing emails (breaking)
 
 ### 6.1 Login only after verification (decision 7)
-- [ ] **6.1.1** `infrastructure/security/AppUserDetails.java`:
-  - [ ] store `boolean emailVerified` from `user.isEmailVerified()`
-  - [ ] `isEnabled()` returns it; replace the "email confirmation is deferred" comment
-- [ ] **6.1.2** `config/SecurityConfig.authenticationManager`:
-  - [ ] `provider.setPreAuthenticationChecks(user -> { })`: no account-status check before the password check
-  - [ ] `provider.setPostAuthenticationChecks(new AccountStatusUserDetailsChecker())`: disabled → `DisabledException`
+- [x] **6.1.1** `infrastructure/security/AppUserDetails.java`:
+  - [x] store `boolean emailVerified` from `user.isEmailVerified()`
+  - [x] `isEnabled()` returns it; replace the "email confirmation is deferred" comment
+- [x] **6.1.2** `config/SecurityConfig.authenticationManager`:
+  - [x] `provider.setPreAuthenticationChecks(user -> { })`: no account-status check before the password check
+  - [x] `provider.setPostAuthenticationChecks(new AccountStatusUserDetailsChecker())`: disabled → `DisabledException`
         only after a correct password
-  - [ ] a short comment saying why (no enumeration of unverified accounts)
-- [ ] **6.1.3** `GlobalExceptionHandler`: `DisabledException` → `403`, title `Email Not Verified`, type
+  - [x] a short comment saying why (no enumeration of unverified accounts)
+- [x] **6.1.3** `GlobalExceptionHandler`: `DisabledException` → `403`, title `Email Not Verified`, type
       `email-not-verified`, detail `Please confirm your email address before logging in`. Put it before the generic
       `AuthenticationException` handler.
-- [ ] **6.1.4** Tests:
-  - [ ] `AppUserDetailsTest`: verified → enabled; unverified → disabled
-  - [ ] `GlobalExceptionHandlerTest`: the `403` mapping
-  - [ ] `SecurityConfigAuthenticationTest` (unit, real `DaoAuthenticationProvider` from the config method, mocked
+- [x] **6.1.4** Tests:
+  - [x] `AppUserDetailsTest`: verified → enabled; unverified → disabled
+  - [x] `GlobalExceptionHandlerTest`: the `403` mapping
+  - [x] `SecurityConfigAuthenticationTest` (unit, real `DaoAuthenticationProvider` from the config method, mocked
         `JpaUserDetailsService`): unverified + **wrong** password → `BadCredentialsException`; unverified + correct
         password → `DisabledException`; verified + correct → authenticated
 
 ### 6.2 Register: always 202 (decisions 4, 5)
-- [ ] **6.2.1** `AuthService.register(RegisterRequest)` returns `void`:
+- [x] **6.2.1** `AuthService.register(RegisterRequest)` returns `void`:
   1. `email = normalize(...)`; `hash = passwordEncoder.encode(password)` **on every path** (timing)
   2. `findByEmail(email)`:
      - empty → `saveAndFlush(new User(email, hash, USER))` → `issueFor(user)`. A `DataIntegrityViolationException`
@@ -815,74 +815,74 @@ sends a verification email and the link works.
      - present, verified → publish `AccountExistsNoticeRequested(userId, email)`; nothing else changes
   3. log `Registration accepted userId={} outcome={NEW|PENDING|EXISTING}` at `DEBUG`; at `INFO` only for `NEW`
      (`Registered user id={}`), so logs don't become an enumeration oracle for log readers
-- [ ] **6.2.2** `VerificationEmailListener`: handle `AccountExistsNoticeRequested` with `composer.accountExists(...)`.
-- [ ] **6.2.3** `AuthController.register`:
-  - [ ] new limit `register-per-email` (normalized email) next to `register-per-ip`, counted before the service call
-  - [ ] returns `ResponseEntity.accepted().body(AcceptedResponse.CHECK_INBOX)`
-- [ ] **6.2.4** `RateLimitProperties` + `application.yml`: `register-per-email: { limit: "${RATE_LIMIT_REGISTER_PER_EMAIL:3}", window: 1h }`;
+- [x] **6.2.2** `VerificationEmailListener`: handle `AccountExistsNoticeRequested` with `composer.accountExists(...)`.
+- [x] **6.2.3** `AuthController.register`:
+  - [x] new limit `register-per-email` (normalized email) next to `register-per-ip`, counted before the service call
+  - [x] returns `ResponseEntity.accepted().body(AcceptedResponse.CHECK_INBOX)`
+- [x] **6.2.4** `RateLimitProperties` + `application.yml`: `register-per-email: { limit: "${RATE_LIMIT_REGISTER_PER_EMAIL:3}", window: 1h }`;
       `application-test.yml`: `100000`.
-- [ ] **6.2.5** Delete `EmailAlreadyRegisteredException`, its handler and its `GlobalExceptionHandlerTest` case.
+- [x] **6.2.5** Delete `EmailAlreadyRegisteredException`, its handler and its `GlobalExceptionHandlerTest` case.
       `grep -rn "EmailAlreadyRegistered\|email-already-registered" backend frontend e2e` → nothing (frontend/e2e are
       cleaned in 6.5/6.6).
-- [ ] **6.2.6** `AuthServiceTest` (rewrite the register cases):
-  - [ ] new → user saved unverified as `USER`, `issueFor` called
-  - [ ] existing unverified → password hash replaced, `issueFor` called, no new user
-  - [ ] existing verified → password unchanged, no token, `AccountExistsNoticeRequested` published
-  - [ ] the encoder is called exactly once on each of the three paths
-  - [ ] race (`saveAndFlush` throws) → falls back to the existing-account branch, no exception
+- [x] **6.2.6** `AuthServiceTest` (rewrite the register cases):
+  - [x] new → user saved unverified as `USER`, `issueFor` called
+  - [x] existing unverified → password hash replaced, `issueFor` called, no new user
+  - [x] existing verified → password unchanged, no token, `AccountExistsNoticeRequested` published
+  - [x] the encoder is called exactly once on each of the three paths
+  - [x] race (`saveAndFlush` throws) → falls back to the existing-account branch, no exception
 
 ### 6.3 Admin bootstrap
-- [ ] **6.3.1** `AdminAccountInitializer`:
-  - [ ] create → `markEmailVerified(now)`
-  - [ ] repair → when unverified: `markEmailVerified(now)` and `userTokenRepository.invalidateActive(...)`; log
+- [x] **6.3.1** `AdminAccountInitializer`:
+  - [x] create → `markEmailVerified(now)`
+  - [x] repair → when unverified: `markEmailVerified(now)` and `userTokenRepository.invalidateActive(...)`; log
         `verified=true` alongside `promoted` / `passwordReset`; an already verified admin is unchanged (idempotent,
         `version` unchanged)
-  - [ ] update the class Javadoc: the takeover rule stays. Someone could still register the admin address before the
+  - [x] update the class Javadoc: the takeover rule stays. Someone could still register the admin address before the
         first boot; they can't verify it, and the initializer takes it over.
-- [ ] **6.3.2** `AdminAccountInitializerTest`: create sets verified; repair verifies an unverified account; an already
+- [x] **6.3.2** `AdminAccountInitializerTest`: create sets verified; repair verifies an unverified account; an already
       verified admin causes no save.
 
 ### 6.4 Integration tests
-- [ ] **6.4.1** `AbstractIntegrationTest.registerAndLogin`: register (`202`) → `verifyEmail(email)` (3.7.3) → login.
+- [x] **6.4.1** `AbstractIntegrationTest.registerAndLogin`: register (`202`) → `verifyEmail(email)` (3.7.3) → login.
       Every existing caller keeps working unchanged (QuizProgress, Session, RateLimit, …).
-- [ ] **6.4.2** `AuthRegisterIntegrationTest`:
-  - [ ] valid → `202`, body equals `AcceptedResponse.CHECK_INBOX`; the DB row is unverified, hash starts `{bcrypt}`
-  - [ ] **no enumeration (task-107 AC #2):** register a new email, register it again (unverified), verify it, register
+- [x] **6.4.2** `AuthRegisterIntegrationTest`:
+  - [x] valid → `202`, body equals `AcceptedResponse.CHECK_INBOX`; the DB row is unverified, hash starts `{bcrypt}`
+  - [x] **no enumeration (task-107 AC #2):** register a new email, register it again (unverified), verify it, register
         it a third time (verified). All three responses have the same status, headers (except `Date`/cookies) and
         byte-identical bodies.
-  - [ ] existing unverified + a new password → the old password no longer logs in (after verification), the new one does
-  - [ ] existing verified → the notice email arrives (`You already have a Phrasal account`), the password is unchanged,
+  - [x] existing unverified + a new password → the old password no longer logs in (after verification), the new one does
+  - [x] existing verified → the notice email arrives (`You already have a Phrasal account`), the password is unchanged,
         and no verification token was created
-  - [ ] the old "duplicate → 409" test is removed; the password-rule, blank-field and CSRF tests stay
-- [ ] **6.4.3** `AuthLoginIntegrationTest`:
-  - [ ] unverified + correct password → `403`, `$.title == "Email Not Verified"`, no `SESSION` cookie
-  - [ ] unverified + wrong password → `401`, the same body as an unknown email (no enumeration)
-  - [ ] after verification → `200`
-- [ ] **6.4.4** `RateLimitIntegrationTest`: register cases expect `202` before the limit; new
+  - [x] the old "duplicate → 409" test is removed; the password-rule, blank-field and CSRF tests stay
+- [x] **6.4.3** `AuthLoginIntegrationTest`:
+  - [x] unverified + correct password → `403`, `$.title == "Email Not Verified"`, no `SESSION` cookie
+  - [x] unverified + wrong password → `401`, the same body as an unknown email (no enumeration)
+  - [x] after verification → `200`
+- [x] **6.4.4** `RateLimitIntegrationTest`: register cases expect `202` before the limit; new
       `register-per-email.limit=2` → the 3rd register for one email → `429`.
-- [ ] **6.4.5** `AdminBootstrapIntegrationTest`: "registering the admin email → 409" becomes "→ 202, the admin password
+- [x] **6.4.5** `AdminBootstrapIntegrationTest`: "registering the admin email → 409" becomes "→ 202, the admin password
       still works, and a notice email goes to the admin address".
-- [ ] **6.4.6** `grep -rn "isCreated()" backend/src/test | grep -i register` → nothing left.
-- [ ] **6.4.7** `cd backend && mvn clean verify` → green.
+- [x] **6.4.6** `grep -rn "isCreated()" backend/src/test | grep -i register` → nothing left.
+- [x] **6.4.7** `cd backend && mvn clean verify` → green.
 
 ### 6.5 Frontend
-- [ ] **6.5.1** `RegisterPage.tsx`: remove the `409` branch, `duplicate` state and `HTTP_CONFLICT`. Field errors (`400`) and
+- [x] **6.5.1** `RegisterPage.tsx`: remove the `409` branch, `duplicate` state and `HTTP_CONFLICT`. Field errors (`400`) and
       `429` stay.
-- [ ] **6.5.2** `RegisterPage.test.tsx`: remove the 409 case; add "a 429 shows the server detail".
-- [ ] **6.5.3** `npm --prefix frontend run test:run` → green.
+- [x] **6.5.2** `RegisterPage.test.tsx`: remove the 409 case; add "a 429 shows the server detail".
+- [x] **6.5.3** `npm --prefix frontend run test:run` → green.
 
 ### 6.6 E2E
-- [ ] **6.6.1** `features/auth-api/auth.feature`:
-  - [ ] "Register a new account" → status `202` (drop the role check: the response has no user)
-  - [ ] "Registering the same email twice is rejected" → "Registering an existing email looks the same as a new one":
+- [x] **6.6.1** `features/auth-api/auth.feature`:
+  - [x] "Register a new account" → status `202` (drop the role check: the response has no user)
+  - [x] "Registering the same email twice is rejected" → "Registering an existing email looks the same as a new one":
         the second response is `202` with the same body as the first (new step
         `Then the response should equal the first registration response`)
-  - [ ] new "An unverified user cannot log in": `Given an unverified user exists` → log in → `403`
-  - [ ] new "Login works after verification": unverified user → open the link → log in → `200`
-- [ ] **6.6.2** `auth-api.steps.ts`: the register helper no longer asserts `201`; `Given …` steps assert `202`.
-- [ ] **6.6.3** `features/frontend/email-verification.feature`: new "An unverified user sees a resend option on the login
+  - [x] new "An unverified user cannot log in": `Given an unverified user exists` → log in → `403`
+  - [x] new "Login works after verification": unverified user → open the link → log in → `200`
+- [x] **6.6.2** `auth-api.steps.ts`: the register helper no longer asserts `201`; `Given …` steps assert `202`.
+- [x] **6.6.3** `features/frontend/email-verification.feature`: new "An unverified user sees a resend option on the login
       page": unverified user → log in through the form → the not-verified message and `resend-verification` are visible.
-- [ ] **6.6.4** `make clean build` → green. Ask for commit approval →
+- [x] **6.6.4** `make clean build` → green. Ask for commit approval →
       `feat(backend)!: require email verification and hide existing emails`
 
 ---

@@ -66,7 +66,8 @@ abstract class AbstractIntegrationTest {
     protected Cookie registerAndLogin(String email, String password) throws Exception {
         String body = "{\"email\":\"" + email + "\",\"password\":\"" + password + "\"}";
         mockMvc.perform(post("/api/v1/auth/register").contentType(MediaType.APPLICATION_JSON).content(body)
-                .with(csrf())).andExpect(status().isCreated());
+                .with(csrf())).andExpect(status().isAccepted());
+        verifyEmail(email);
         return login(body, null);
     }
 

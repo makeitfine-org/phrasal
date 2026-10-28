@@ -42,7 +42,7 @@ class EmailVerificationIntegrationTest extends AbstractIntegrationTest {
     private void register(String email) throws Exception {
         mockMvc.perform(post("/api/v1/auth/register").contentType(MediaType.APPLICATION_JSON).with(csrf())
                 .content("{\"email\":\"" + email + "\",\"password\":\"" + PASSWORD + "\"}"))
-                .andExpect(status().isCreated());
+                .andExpect(status().isAccepted());
     }
 
     private MockHttpServletRequestBuilder verifyRequest(String token) {

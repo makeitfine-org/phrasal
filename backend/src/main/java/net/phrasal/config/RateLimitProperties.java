@@ -9,6 +9,7 @@ import java.time.Duration;
  *
  * @param enabled         master switch; when false nothing is limited
  * @param registerPerIp   registrations per client IP
+ * @param registerPerEmail registrations per normalized email
  * @param loginPerIp      login attempts per client IP
  * @param loginPerEmail   login attempts per normalized email
  * @param resendPerIp     verification email resends per client IP
@@ -16,8 +17,8 @@ import java.time.Duration;
  * @param verifyPerIp     verification link redemptions per client IP
  */
 @ConfigurationProperties("phrasal.rate-limit")
-public record RateLimitProperties(boolean enabled, Rule registerPerIp, Rule loginPerIp, Rule loginPerEmail,
-                                  Rule resendPerIp, Rule resendPerEmail, Rule verifyPerIp) {
+public record RateLimitProperties(boolean enabled, Rule registerPerIp, Rule registerPerEmail, Rule loginPerIp,
+                                  Rule loginPerEmail, Rule resendPerIp, Rule resendPerEmail, Rule verifyPerIp) {
 
     /**
      * One limit.

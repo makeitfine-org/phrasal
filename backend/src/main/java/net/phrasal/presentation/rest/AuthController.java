@@ -38,10 +38,13 @@ public class AuthController {
     private final RateLimitProperties rateLimits;
 
     @PostMapping("/register")
-    public ResponseEntity<UserResponse> register(@Valid @RequestBody RegisterRequest request,
+    public ResponseEntity<AcceptedResponse> register(@Valid @RequestBody RegisterRequest request,
                                                  HttpServletRequest httpRequest) {
         rateLimiter.check("register-per-ip", rateLimits.registerPerIp(), httpRequest.getRemoteAddr());
-        return ResponseEntity.status(HttpStatus.CREATED).body(authService.register(request));
+        rateLimiter.check("register-per-email", rateLimits.registerPerEmail(),
+                EmailNormalizer.normalize(request.email()));
+        authService.register(request);
+        return ResponseEntity.status(HttpStatus.ACCEPTED).body(AcceptedResponse.CHECK_INBOX);
     }
 
     @PostMapping("/login")

@@ -27,3 +27,8 @@ Feature: Email verification in the browser
     And I ask for a new verification email
     Then I should see the resend confirmation
     And I should have received 2 verification emails
+
+  Scenario: An unverified user sees a resend option on the login page
+    Given an unverified user exists
+    When I try to log in through the form
+    Then I should see the email-not-verified message with a resend option

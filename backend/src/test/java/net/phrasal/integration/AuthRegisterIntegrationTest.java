@@ -1,12 +1,19 @@
 package net.phrasal.integration;
 
+import net.phrasal.application.dto.AcceptedResponse;
+import net.phrasal.domain.entity.Role;
+import net.phrasal.domain.entity.User;
 import net.phrasal.domain.repository.UserRepository;
+import net.phrasal.domain.repository.UserTokenRepository;
+import net.phrasal.infrastructure.mail.EmailMessage;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
+import org.springframework.test.web.servlet.MvcResult;
 import org.springframework.test.web.servlet.request.MockHttpServletRequestBuilder;
 
+import java.util.List;
 import java.util.UUID;
 
 import static org.assertj.core.api.Assertions.assertThat;
@@ -25,6 +32,9 @@ class AuthRegisterIntegrationTest extends AbstractIntegrationTest {
     @Autowired
     private UserRepository userRepository;
 
+    @Autowired
+    private UserTokenRepository userTokenRepository;
+
     private static String uniqueEmail() {
         return "Reg-" + UUID.randomUUID() + "@Example.com";
     }
@@ -35,31 +45,69 @@ class AuthRegisterIntegrationTest extends AbstractIntegrationTest {
     }
 
     @Test
-    @DisplayName("valid request creates a USER, lower-cases the email and hides the hash")
+    @DisplayName("valid request returns 202 with the check-inbox body and stores an unverified bcrypt user")
     void registerSuccess() throws Exception {
         String email = uniqueEmail();
 
         mockMvc.perform(register(email, PASSWORD).with(csrf()))
-                .andExpect(status().isCreated())
-                .andExpect(jsonPath("$.id").isNumber())
-                .andExpect(jsonPath("$.email").value(email.toLowerCase()))
-                .andExpect(jsonPath("$.role").value("USER"))
-                .andExpect(jsonPath("$.password").doesNotExist())
-                .andExpect(jsonPath("$.passwordHash").doesNotExist());
+                .andExpect(status().isAccepted())
+                .andExpect(jsonPath("$.message").value(AcceptedResponse.CHECK_INBOX.message()))
+                .andExpect(jsonPath("$.id").doesNotExist());
 
-        String hash = userRepository.findByEmail(email.toLowerCase()).orElseThrow().getPasswordHash();
-        assertThat(hash).startsWith("{bcrypt}").doesNotContain(PASSWORD);
+        User user = userRepository.findByEmail(email.toLowerCase()).orElseThrow();
+        assertThat(user.getPasswordHash()).startsWith("{bcrypt}").doesNotContain(PASSWORD);
+        assertThat(user.getRole()).isEqualTo(Role.USER);
+        assertThat(user.isEmailVerified()).isFalse();
     }
 
     @Test
-    @DisplayName("same email in different letter case returns 409")
-    void duplicateEmail() throws Exception {
+    @DisplayName("new, unverified and verified addresses get identical responses")
+    void noEnumeration() throws Exception {
         String email = uniqueEmail();
-        mockMvc.perform(register(email, PASSWORD).with(csrf())).andExpect(status().isCreated());
 
-        mockMvc.perform(register(email.toUpperCase(), PASSWORD).with(csrf()))
-                .andExpect(status().isConflict())
-                .andExpect(jsonPath("$.title").value("Email Already Registered"));
+        MvcResult fresh = mockMvc.perform(register(email, PASSWORD).with(csrf())).andReturn();
+        MvcResult pending = mockMvc.perform(register(email, PASSWORD).with(csrf())).andReturn();
+        verifyEmail(email.toLowerCase());
+        MvcResult existing = mockMvc.perform(register(email.toUpperCase(), PASSWORD).with(csrf())).andReturn();
+
+        for (MvcResult other : List.of(pending, existing)) {
+            assertThat(other.getResponse().getStatus()).isEqualTo(fresh.getResponse().getStatus());
+            assertThat(other.getResponse().getContentAsString()).isEqualTo(fresh.getResponse().getContentAsString());
+            assertThat(other.getResponse().getContentType()).isEqualTo(fresh.getResponse().getContentType());
+        }
+    }
+
+    @Test
+    @DisplayName("registering an unverified address again replaces the password")
+    void unverifiedPasswordReplaced() throws Exception {
+        String email = uniqueEmail();
+        String lower = email.toLowerCase();
+        mockMvc.perform(register(email, PASSWORD).with(csrf())).andExpect(status().isAccepted());
+        mockMvc.perform(register(email, "another horse battery").with(csrf())).andExpect(status().isAccepted());
+        verifyEmail(lower);
+
+        mockMvc.perform(post("/api/v1/auth/login").contentType(MediaType.APPLICATION_JSON).with(csrf())
+                        .content("{\"email\":\"" + lower + "\",\"password\":\"" + PASSWORD + "\"}"))
+                .andExpect(status().isUnauthorized());
+        login("{\"email\":\"" + lower + "\",\"password\":\"another horse battery\"}", null);
+    }
+
+    @Test
+    @DisplayName("registering a verified address sends a notice, keeps the password and creates no token")
+    void verifiedGetsNotice() throws Exception {
+        String email = uniqueEmail();
+        String lower = email.toLowerCase();
+        registerAndLogin(lower, PASSWORD);
+        String hashBefore = userRepository.findByEmail(lower).orElseThrow().getPasswordHash();
+        Long userId = userRepository.findByEmail(lower).orElseThrow().getId();
+
+        mockMvc.perform(register(email, "another horse battery").with(csrf())).andExpect(status().isAccepted());
+
+        List<EmailMessage> messages = mailbox.awaitCount(lower, 2);
+        assertThat(messages.get(1).subject()).isEqualTo("You already have a Phrasal account");
+        assertThat(userRepository.findByEmail(lower).orElseThrow().getPasswordHash()).isEqualTo(hashBefore);
+        assertThat(userTokenRepository.findAll()).filteredOn(token -> token.getUserId().equals(userId))
+                .hasSize(1);
     }
 
     @Test

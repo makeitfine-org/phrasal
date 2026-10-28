@@ -85,14 +85,7 @@ describe('RegisterPage', () => {
     expect(await screen.findByTestId('field-error-password')).toHaveTextContent('Too weak');
   });
 
-  it('shows duplicate-email message with a login link', async () => {
-    renderPage(ctx(vi.fn().mockRejectedValue(new ApiError(409, 'Conflict'))));
-    fill('long-enough-pw', 'long-enough-pw');
-    expect(await screen.findByTestId('auth-error')).toHaveTextContent('An account with this email already exists');
-    expect(screen.getAllByRole('link', { name: 'Log in' })).toHaveLength(2);
-  });
-
-  it('shows other errors in an alert', async () => {
+  it('shows the server detail when the request is rate limited', async () => {
     renderPage(ctx(vi.fn().mockRejectedValue(new ApiError(429, 'Too many attempts'))));
     fill('long-enough-pw', 'long-enough-pw');
     expect(await screen.findByTestId('auth-error')).toHaveTextContent('Too many attempts');

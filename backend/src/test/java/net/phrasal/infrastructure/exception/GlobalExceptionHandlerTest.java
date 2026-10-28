@@ -8,6 +8,7 @@ import org.springframework.http.ProblemDetail;
 import org.springframework.http.converter.HttpMessageNotReadableException;
 import org.springframework.security.access.AccessDeniedException;
 import org.springframework.security.authentication.BadCredentialsException;
+import org.springframework.security.authentication.DisabledException;
 import org.springframework.security.authentication.InsufficientAuthenticationException;
 
 import static org.assertj.core.api.Assertions.assertThat;
@@ -101,14 +102,14 @@ class GlobalExceptionHandlerTest {
     }
 
     @Test
-    @DisplayName("returns 409 for an already registered email")
-    void handleEmailAlreadyRegistered() {
-        ProblemDetail detail = handler.handleEmailAlreadyRegistered(new EmailAlreadyRegisteredException());
+    @DisplayName("returns 403 email-not-verified for a disabled account")
+    void handleEmailNotVerified() {
+        ProblemDetail detail = handler.handleEmailNotVerified(new DisabledException("User is disabled"));
 
-        assertThat(detail.getStatus()).isEqualTo(HttpStatus.CONFLICT.value());
-        assertThat(detail.getTitle()).isEqualTo("Email Already Registered");
-        assertThat(detail.getType().toString()).endsWith("/errors/email-already-registered");
-        assertThat(detail.getDetail()).isEqualTo("An account with this email already exists");
+        assertThat(detail.getStatus()).isEqualTo(HttpStatus.FORBIDDEN.value());
+        assertThat(detail.getTitle()).isEqualTo("Email Not Verified");
+        assertThat(detail.getType().toString()).endsWith("/errors/email-not-verified");
+        assertThat(detail.getDetail()).isEqualTo("Please confirm your email address before logging in");
     }
 
     @Test

@@ -16,6 +16,7 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 
 @TestPropertySource(properties = {
         "phrasal.rate-limit.register-per-ip.limit=2",
+        "phrasal.rate-limit.register-per-email.limit=2",
         "phrasal.rate-limit.login-per-email.limit=3",
         "phrasal.rate-limit.login-per-ip.limit=1000",
         "phrasal.rate-limit.resend-per-email.limit=2"
@@ -42,8 +43,8 @@ class RateLimitIntegrationTest extends AbstractIntegrationTest {
     @DisplayName("third registration from one IP returns 429 with Retry-After")
     void registerPerIp() throws Exception {
         String ip = "10.1.0.1";
-        mockMvc.perform(authPost("/api/v1/auth/register", uniqueEmail(), ip)).andExpect(status().isCreated());
-        mockMvc.perform(authPost("/api/v1/auth/register", uniqueEmail(), ip)).andExpect(status().isCreated());
+        mockMvc.perform(authPost("/api/v1/auth/register", uniqueEmail(), ip)).andExpect(status().isAccepted());
+        mockMvc.perform(authPost("/api/v1/auth/register", uniqueEmail(), ip)).andExpect(status().isAccepted());
 
         mockMvc.perform(authPost("/api/v1/auth/register", uniqueEmail(), ip))
                 .andExpect(status().isTooManyRequests())
@@ -52,14 +53,27 @@ class RateLimitIntegrationTest extends AbstractIntegrationTest {
     }
 
     @Test
+    @DisplayName("third registration of one email returns 429 even from different IPs")
+    void registerPerEmail() throws Exception {
+        String email = uniqueEmail();
+        mockMvc.perform(authPost("/api/v1/auth/register", email, "10.3.0.1")).andExpect(status().isAccepted());
+        mockMvc.perform(authPost("/api/v1/auth/register", email, "10.3.0.2")).andExpect(status().isAccepted());
+
+        mockMvc.perform(authPost("/api/v1/auth/register", email, "10.3.0.3"))
+                .andExpect(status().isTooManyRequests())
+                .andExpect(header().exists("Retry-After"));
+    }
+
+    @Test
     @DisplayName("fourth login for one email returns 429, another email still works")
     void loginPerEmail() throws Exception {
         String email = uniqueEmail();
         String other = uniqueEmail();
-        mockMvc.perform(authPost("/api/v1/auth/register", email, "10.2.0.1")).andExpect(status().isCreated());
-        mockMvc.perform(authPost("/api/v1/auth/register", other, "10.2.0.2")).andExpect(status().isCreated());
+        // registerAndLogin spends the first of the three allowed logins for each address
+        registerAndLogin(email, PASSWORD);
+        registerAndLogin(other, PASSWORD);
 
-        for (int i = 0; i < 3; i++) {
+        for (int i = 0; i < 2; i++) {
             mockMvc.perform(authPost("/api/v1/auth/login", email, "10.2.0.3")).andExpect(status().isOk());
         }
         mockMvc.perform(authPost("/api/v1/auth/login", email, "10.2.0.3"))

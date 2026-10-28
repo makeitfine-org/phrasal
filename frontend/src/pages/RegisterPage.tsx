@@ -6,7 +6,6 @@ import ResendVerification from '../components/ResendVerification';
 import { alertClass, buttonClass, inputClass, linkClass } from './LoginPage';
 
 const MIN_PASSWORD_LENGTH = 10;
-const HTTP_CONFLICT = 409;
 /** Keep in sync with the backend `EMAIL_VERIFICATION_TOKEN_TTL`. */
 const VERIFICATION_LINK_TTL_HOURS = 24;
 
@@ -17,7 +16,6 @@ export default function RegisterPage() {
   const [confirm, setConfirm] = useState('');
   const [pending, setPending] = useState(false);
   const [error, setError] = useState<string | null>(null);
-  const [duplicate, setDuplicate] = useState(false);
   const [sentTo, setSentTo] = useState<string | null>(null);
   const [fieldErrors, setFieldErrors] = useState<Record<string, string>>({});
 
@@ -28,7 +26,6 @@ export default function RegisterPage() {
   const handleSubmit = async (event: React.FormEvent) => {
     event.preventDefault();
     setError(null);
-    setDuplicate(false);
     setFieldErrors({});
 
     if (password.length < MIN_PASSWORD_LENGTH) {
@@ -45,9 +42,7 @@ export default function RegisterPage() {
       await register(email, password);
       setSentTo(email);
     } catch (e) {
-      if (e instanceof ApiError && e.status === HTTP_CONFLICT) {
-        setDuplicate(true);
-      } else if (e instanceof ApiError && e.problem?.errors && Object.keys(e.problem.errors).length > 0) {
+      if (e instanceof ApiError && e.problem?.errors && Object.keys(e.problem.errors).length > 0) {
         setFieldErrors(e.problem.errors);
       } else {
         setError(e instanceof ApiError ? e.message : 'Something went wrong. Please try again.');
@@ -85,11 +80,6 @@ export default function RegisterPage() {
   return (
     <main id="main-content" className="max-w-sm mx-auto pt-16 px-4 pb-20">
       <h1 className="text-2xl font-bold text-gray-900 dark:text-gray-100 mb-6">Sign up</h1>
-      {duplicate && (
-        <div role="alert" data-testid="auth-error" className={alertClass}>
-          An account with this email already exists. <Link to="/login" className={linkClass}>Log in</Link>
-        </div>
-      )}
       {error && (
         <div role="alert" data-testid="auth-error" className={alertClass}>{error}</div>
       )}

@@ -9,6 +9,7 @@ const AUTH = '/api/v1/auth';
 async function register(world: PhrasalWorld, email: string, password: string) {
     world.currentEmail = email;
     world.lastResponse = await world.apiClient.post(`${AUTH}/register`, { email, password });
+    world.firstRegistrationResponse ??= world.lastResponse;
 }
 
 async function login(world: PhrasalWorld, email: string, password: string) {
@@ -36,7 +37,7 @@ Given('I am logged in as the admin', async function (this: PhrasalWorld) {
 
 Given('I am logged in as a new user', async function (this: PhrasalWorld) {
     await register(this, uniqueEmail(), TEST_PASSWORD);
-    assert.equal(this.lastResponse!.status, 201, 'Registration failed');
+    assert.equal(this.lastResponse!.status, 202, 'Registration failed');
     await verifyCurrentEmail(this);
     await login(this, currentEmail(this), TEST_PASSWORD);
     assert.equal(this.lastResponse!.status, 200, 'Login failed');
@@ -44,14 +45,14 @@ Given('I am logged in as a new user', async function (this: PhrasalWorld) {
 
 Given('a registered user exists', async function (this: PhrasalWorld) {
     await register(this, uniqueEmail(), TEST_PASSWORD);
-    assert.equal(this.lastResponse!.status, 201, 'Registration failed');
+    assert.equal(this.lastResponse!.status, 202, 'Registration failed');
     await verifyCurrentEmail(this);
     this.apiClient.clearCookies();
 });
 
 Given('an unverified user exists', async function (this: PhrasalWorld) {
     await register(this, uniqueEmail(), TEST_PASSWORD);
-    assert.equal(this.lastResponse!.status, 201, 'Registration failed');
+    assert.equal(this.lastResponse!.status, 202, 'Registration failed');
     this.apiClient.clearCookies();
 });
 
@@ -84,6 +85,12 @@ When('I fail to log in {int} times', async function (this: PhrasalWorld, attempt
 Then('the profile email should be the current email', function (this: PhrasalWorld) {
     assert.ok(this.lastResponse, 'No response recorded');
     assert.equal(this.lastResponse!.data.email, currentEmail(this));
+});
+
+Then('the response should equal the first registration response', function (this: PhrasalWorld) {
+    assert.ok(this.lastResponse && this.firstRegistrationResponse, 'No registration responses recorded');
+    assert.equal(this.lastResponse!.status, this.firstRegistrationResponse!.status);
+    assert.deepEqual(this.lastResponse!.data, this.firstRegistrationResponse!.data);
 });
 
 Then('the response role should be {string}', function (this: PhrasalWorld, role: string) {

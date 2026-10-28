@@ -1598,3 +1598,26 @@
 ⚠️  Diagrams that may need updating:
   - docs/diagrams/auth-flow.md (auth/ was modified)
 <!-- end-diagram-staleness -->
+
+<!-- git-snapshot 2026-10-28T16:15:12Z -->
+- .claude/docs/blackbox/audit.md
+- .claude/docs/blackbox/todos/email-verification-on-server-multiuser-todos.md
+- backend/src/main/java/net/phrasal/application/service/AdminAccountInitializer.java
+- backend/src/main/java/net/phrasal/application/service/AuthService.java
+- backend/src/main/java/net/phrasal/config/RateLimitProperties.java
+- backend/src/main/java/net/phrasal/config/SecurityConfig.java
+- backend/src/main/java/net/phrasal/infrastructure/exception/EmailAlreadyRegisteredException.java
+- backend/src/main/java/net/phrasal/infrastructure/exception/GlobalExceptionHandler.java
+- backend/src/main/java/net/phrasal/infrastructure/security/AppUserDetails.java
+- backend/src/main/java/net/phrasal/presentation/rest/AuthController.java
+- backend/src/main/resources/application.yml
+- backend/src/test/java/net/phrasal/application/service/AdminAccountInitializerTest.java
+- backend/src/test/java/net/phrasal/application/service/AuthServiceTest.java
+- backend/src/test/java/net/phrasal/infrastructure/exception/GlobalExceptionHandlerTest.java
+- backend/src/test/java/net/phrasal/infrastructure/security/AppUserDetailsTest.java
+- backend/src/test/java/net/phrasal/infrastructure/security/RateLimiterTest.java
+- backend/src/test/java/net/phrasal/integration/AbstractIntegrationTest.java
+- backend/src/test/java/net/phrasal/integration/AdminBootstrapIntegrationTest.java
+- backend/src/test/java/net/phrasal/integration/AuthLoginIntegrationTest.java
+- backend/src/test/java/net/phrasal/integration/AuthRegisterIntegrationTest.java
+<!-- end-snapshot -->
