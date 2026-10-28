@@ -249,7 +249,7 @@ sessions, CSRF, rate limiter, `AuthContext`) and task-102 (quiz progress, `Abstr
 ## Phase 1 — Schema, domain, token generation
 
 ### 1.1 Migrations
-- [ ] **1.1.1** `backend/src/main/resources/db/migration/V13__add_users_email_verified_at.sql`:
+- [x] **1.1.1** `backend/src/main/resources/db/migration/V13__add_users_email_verified_at.sql`:
   ```sql
   -- Email verification (task-107). Accounts created before this migration are treated as verified.
   ALTER TABLE users ADD COLUMN email_verified_at TIMESTAMP;
@@ -257,7 +257,7 @@ sessions, CSRF, rate limiter, `AuthContext`) and task-102 (quiz progress, `Abstr
   ```
   - No index: the column is read through the user row, never searched on its own. Phase 7's clean-up query filters on
     `created_at` + `IS NULL`, and the table is small.
-- [ ] **1.1.2** `V14__create_user_tokens.sql`:
+- [x] **1.1.2** `V14__create_user_tokens.sql`:
   ```sql
   CREATE TABLE user_tokens
   (
@@ -275,50 +275,51 @@ sessions, CSRF, rate limiter, `AuthContext`) and task-102 (quiz progress, `Abstr
   ```
   - `idx_user_tokens_user_type` serves "invalidate older tokens"; `idx_user_tokens_expires_at` serves the clean-up.
   - No `version` column: a token row is written once and updated once (`used_at`).
-- [ ] **1.1.3** Don't touch V1–V12. `git diff --stat` on them is empty.
+- [x] **1.1.3** Don't touch V1–V12. `git diff --stat` on them is empty.
 
 ### 1.2 Domain
-- [ ] **1.2.1** `domain/entity/User.java`:
-  - [ ] `@Column(name = "email_verified_at") private LocalDateTime emailVerifiedAt;`
-  - [ ] `public boolean isEmailVerified() { return emailVerifiedAt != null; }`
-  - [ ] `public void markEmailVerified(LocalDateTime at)`: sets it only when it is still `null` (idempotent)
-  - [ ] keep `@ToString(of = {"id", "email", "role"})`; the constructor stays (new users start unverified)
-- [ ] **1.2.2** `domain/entity/TokenType.java`: `enum TokenType { EMAIL_VERIFICATION }`. Javadoc: task-100 adds
+- [x] **1.2.1** `domain/entity/User.java`:
+  - [x] `@Column(name = "email_verified_at") private LocalDateTime emailVerifiedAt;`
+  - [x] `public boolean isEmailVerified() { return emailVerifiedAt != null; }`
+  - [x] `public void markEmailVerified(LocalDateTime at)`: sets it only when it is still `null` (idempotent)
+  - [x] keep `@ToString(of = {"id", "email", "role"})`; the constructor stays (new users start unverified)
+- [x] **1.2.2** `domain/entity/TokenType.java`: `enum TokenType { EMAIL_VERIFICATION }`. Javadoc: task-100 adds
       `PASSWORD_RESET`; the DB stores `name()` via `@Enumerated(EnumType.STRING)`.
-- [ ] **1.2.3** `domain/entity/UserToken.java`:
-  - [ ] table `user_tokens`; sequence `user_tokens_id_seq`, `allocationSize = 1`
-  - [ ] `Long userId` (`updatable = false`), `TokenType type`, `String tokenHash`, `LocalDateTime expiresAt`,
+- [x] **1.2.3** `domain/entity/UserToken.java`:
+  - [x] table `user_tokens`; sequence `user_tokens_id_seq`, `allocationSize = 1`
+  - [x] `Long userId` (`updatable = false`), `TokenType type`, `String tokenHash`, `LocalDateTime expiresAt`,
         `LocalDateTime usedAt`, `@CreatedDate LocalDateTime createdAt` + `@EntityListeners(AuditingEntityListener.class)`
-  - [ ] `boolean isExpired(LocalDateTime now)` (`!now.isBefore(expiresAt)`), `boolean isUsed()`,
+  - [x] `boolean isExpired(LocalDateTime now)` (`!now.isBefore(expiresAt)`), `boolean isUsed()`,
         `void markUsed(LocalDateTime now)`
-  - [ ] `@ToString(of = {"id", "userId", "type", "expiresAt", "usedAt"})`. **Never include `tokenHash`.**
-  - [ ] `@EqualsAndHashCode(of = {"id"})`; constructor `UserToken(Long userId, TokenType type, String tokenHash, LocalDateTime expiresAt)`
-- [ ] **1.2.4** `domain/repository/UserTokenRepository.java` (`JpaRepository<UserToken, Long>`):
-  - [ ] `Optional<UserToken> findByTokenHashAndType(String tokenHash, TokenType type)`
-  - [ ] `@Modifying @Query("UPDATE UserToken t SET t.usedAt = :now WHERE t.userId = :userId AND t.type = :type AND t.usedAt IS NULL")`
+  - [x] `@ToString(of = {"id", "userId", "type", "expiresAt", "usedAt"})`. **Never include `tokenHash`.**
+  - [x] `@EqualsAndHashCode(of = {"id"})`; constructor `UserToken(Long userId, TokenType type, String tokenHash, LocalDateTime expiresAt)`
+- [x] **1.2.4** `domain/repository/UserTokenRepository.java` (`JpaRepository<UserToken, Long>`):
+  - [x] `Optional<UserToken> findByTokenHashAndType(String tokenHash, TokenType type)`
+  - [x] `@Modifying @Query("UPDATE UserToken t SET t.usedAt = :now WHERE t.userId = :userId AND t.type = :type AND t.usedAt IS NULL")`
         `int invalidateActive(Long userId, TokenType type, LocalDateTime now)`
-  - [ ] `@Modifying @Query("DELETE FROM UserToken t WHERE t.expiresAt < :cutoff")` `int deleteExpiredBefore(LocalDateTime cutoff)`
+  - [x] `@Modifying @Query("DELETE FROM UserToken t WHERE t.expiresAt < :cutoff")` `int deleteExpiredBefore(LocalDateTime cutoff)`
         (used by Phase 7)
-- [ ] **1.2.5** `domain/repository/UserRepository.java`: add
+- [x] **1.2.5** `domain/repository/UserRepository.java`: add
       `@Modifying @Query("DELETE FROM User u WHERE u.emailVerifiedAt IS NULL AND u.createdAt < :cutoff") int deleteUnverifiedCreatedBefore(LocalDateTime cutoff)`
       (Phase 7). A bulk JPQL delete skips entity callbacks; the FK cascade removes tokens and progress in the DB.
 
 ### 1.3 Clock and token generator
-- [ ] **1.3.1** `config/ClockConfig.java`: `@Bean Clock clock() { return Clock.systemUTC(); }`. Check first that no
+- [x] **1.3.1** `config/ClockConfig.java`: `@Bean Clock clock() { return Clock.systemUTC(); }`. Check first that no
       `Clock` bean exists (`grep -rn "Clock" backend/src/main`).
-- [ ] **1.3.2** `infrastructure/security/SecureTokenGenerator.java` (`@Component`):
-  - [ ] constant `TOKEN_BYTES = 32`; one `SecureRandom` field
-  - [ ] `IssuedToken generate()` → `record IssuedToken(String rawToken, String hash)` (nested or top-level, with Javadoc
+      → No `Clock` bean existed; `ClockConfig` added.
+- [x] **1.3.2** `infrastructure/security/SecureTokenGenerator.java` (`@Component`):
+  - [x] constant `TOKEN_BYTES = 32`; one `SecureRandom` field
+  - [x] `IssuedToken generate()` → `record IssuedToken(String rawToken, String hash)` (nested or top-level, with Javadoc
         `@param`); raw = base64url without padding
-  - [ ] `static String hash(String rawToken)`: SHA-256 over UTF-8 bytes → `HexFormat.of().formatHex(...)`
-  - [ ] `IssuedToken.toString()` masks `rawToken`
-- [ ] **1.3.3** `config/EmailVerificationProperties.java`:
+  - [x] `static String hash(String rawToken)`: SHA-256 over UTF-8 bytes → `HexFormat.of().formatHex(...)`
+  - [x] `IssuedToken.toString()` masks `rawToken`
+- [x] **1.3.3** `config/EmailVerificationProperties.java`:
       `@ConfigurationProperties("phrasal.email-verification") record EmailVerificationProperties(Duration tokenTtl, Duration unverifiedAccountRetention)`
       with Javadoc `@param`s.
-- [ ] **1.3.4** `config/AppProperties.java`: `@ConfigurationProperties("phrasal.app") record AppProperties(URI baseUrl)`.
+- [x] **1.3.4** `config/AppProperties.java`: `@ConfigurationProperties("phrasal.app") record AppProperties(URI baseUrl)`.
       Validate at startup (`@Validated` + `@NotNull`): the URL has a scheme and host and no trailing slash, so links are
       built as `baseUrl + "/verify-email?token=" + token`.
-- [ ] **1.3.5** `application.yml`:
+- [x] **1.3.5** `application.yml`:
   ```yaml
   phrasal:
     app:
@@ -329,30 +330,30 @@ sessions, CSRF, rate limiter, `AuthContext`) and task-102 (quiz progress, `Abstr
   ```
 
 ### 1.4 Tests
-- [ ] **1.4.1** `domain/entity/UserEntityTest`: new user is unverified; `markEmailVerified` sets the time once, a second
+- [x] **1.4.1** `domain/entity/UserEntityTest`: new user is unverified; `markEmailVerified` sets the time once, a second
       call keeps the first time.
-- [ ] **1.4.2** `domain/entity/UserTokenEntityTest`:
-  - [ ] constructor sets the fields; `toString` doesn't contain the hash
-  - [ ] `isExpired`: one second before → `false`; exactly at `expiresAt` → `true`; after → `true`
-  - [ ] `markUsed` → `isUsed()`; equals/hashCode use `id`
-- [ ] **1.4.3** `infrastructure/security/SecureTokenGeneratorTest`:
-  - [ ] raw token is 43 chars and matches `^[A-Za-z0-9_-]{43}$`
-  - [ ] 1 000 tokens are all distinct
-  - [ ] `hash` is 64 lowercase hex chars, deterministic, and equals a known SHA-256 vector (`"abc"` →
+- [x] **1.4.2** `domain/entity/UserTokenEntityTest`:
+  - [x] constructor sets the fields; `toString` doesn't contain the hash
+  - [x] `isExpired`: one second before → `false`; exactly at `expiresAt` → `true`; after → `true`
+  - [x] `markUsed` → `isUsed()`; equals/hashCode use `id`
+- [x] **1.4.3** `infrastructure/security/SecureTokenGeneratorTest`:
+  - [x] raw token is 43 chars and matches `^[A-Za-z0-9_-]{43}$`
+  - [x] 1 000 tokens are all distinct
+  - [x] `hash` is 64 lowercase hex chars, deterministic, and equals a known SHA-256 vector (`"abc"` →
         `ba7816bf…f20015ad`)
-  - [ ] `hash(generate().rawToken()) == generate().hash()` for the same token; `IssuedToken.toString()` hides the raw token
-- [ ] **1.4.4** `integration/UserTokenRepositoryIntegrationTest` (extends `AbstractIntegrationTest`, `@Transactional` or
+  - [x] `hash(generate().rawToken()) == generate().hash()` for the same token; `IssuedToken.toString()` hides the raw token
+- [x] **1.4.4** `integration/UserTokenRepositoryIntegrationTest` (extends `AbstractIntegrationTest`, `@Transactional` or
       `TransactionTemplate` for the `@Modifying` queries):
-  - [ ] save + `findByTokenHashAndType` round trip; wrong type → empty
-  - [ ] `invalidateActive` marks only the unused tokens of that user and type; returns the count; other users untouched
-  - [ ] `deleteExpiredBefore` removes only rows older than the cutoff
-  - [ ] cascade: deleting the user removes its tokens (check with `JdbcTemplate`)
-  - [ ] negative: a duplicate `token_hash` → `DataIntegrityViolationException`
-  - [ ] negative: a non-existent `user_id` → FK violation
-- [ ] **1.4.5** `integration/UserRepositoryIntegrationTest`: V13 backfill — a user inserted through `JdbcTemplate` without
+  - [x] save + `findByTokenHashAndType` round trip; wrong type → empty
+  - [x] `invalidateActive` marks only the unused tokens of that user and type; returns the count; other users untouched
+  - [x] `deleteExpiredBefore` removes only rows older than the cutoff
+  - [x] cascade: deleting the user removes its tokens (check with `JdbcTemplate`)
+  - [x] negative: a duplicate `token_hash` → `DataIntegrityViolationException`
+  - [x] negative: a non-existent `user_id` → FK violation
+- [x] **1.4.5** `integration/UserRepositoryIntegrationTest`: V13 backfill — a user inserted through `JdbcTemplate` without
       `email_verified_at` stays `NULL` (the backfill ran once, at migration time); `deleteUnverifiedCreatedBefore`
       deletes only old unverified rows and keeps verified and recent ones.
-- [ ] **1.4.6** `cd backend && mvn clean verify` → green (Flyway applies V13/V14, `ddl-auto: validate` passes).
+- [x] **1.4.6** `cd backend && mvn clean verify` → green (Flyway applies V13/V14, `ddl-auto: validate` passes).
       `make clean build` → green (nothing uses the new schema yet). Ask for commit approval →
       `feat(backend): add email verification schema and token generator`
 

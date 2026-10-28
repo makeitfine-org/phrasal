@@ -8,7 +8,9 @@ import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.jdbc.core.JdbcTemplate;
+import org.springframework.transaction.support.TransactionTemplate;
 
+import java.time.LocalDateTime;
 import java.util.UUID;
 
 import static org.assertj.core.api.Assertions.assertThat;
@@ -24,6 +26,9 @@ class UserRepositoryIntegrationTest extends AbstractIntegrationTest {
 
     @Autowired
     private JdbcTemplate jdbcTemplate;
+
+    @Autowired
+    private TransactionTemplate transactionTemplate;
 
     private static String uniqueEmail() {
         return "user-" + UUID.randomUUID() + "@example.com";
@@ -99,5 +104,36 @@ class UserRepositoryIntegrationTest extends AbstractIntegrationTest {
                 Integer.class);
 
         assertThat(count).isEqualTo(2);
+    }
+
+    @Test
+    @DisplayName("a user saved after the migration is unverified; the V13 backfill ran once at migration time")
+    void newUserIsUnverified() {
+        String email = uniqueEmail();
+
+        repository.saveAndFlush(new User(email, HASH, Role.USER));
+
+        assertThat(repository.findByEmail(email).orElseThrow().isEmailVerified()).isFalse();
+    }
+
+    @Test
+    @DisplayName("deleteUnverifiedCreatedBefore deletes only old unverified users")
+    void deleteUnverifiedCreatedBefore() {
+        User oldUnverified = repository.saveAndFlush(new User(uniqueEmail(), HASH, Role.USER));
+        User oldVerified = new User(uniqueEmail(), HASH, Role.USER);
+        oldVerified.markEmailVerified(LocalDateTime.now());
+        oldVerified = repository.saveAndFlush(oldVerified);
+        User recentUnverified = repository.saveAndFlush(new User(uniqueEmail(), HASH, Role.USER));
+        LocalDateTime past = LocalDateTime.now().minusDays(30);
+        jdbcTemplate.update("UPDATE users SET created_at = ? WHERE id IN (?, ?)",
+                past, oldUnverified.getId(), oldVerified.getId());
+
+        int deleted = transactionTemplate.execute(
+                status -> repository.deleteUnverifiedCreatedBefore(LocalDateTime.now().minusDays(7)));
+
+        assertThat(deleted).isGreaterThanOrEqualTo(1);
+        assertThat(repository.findById(oldUnverified.getId())).isEmpty();
+        assertThat(repository.findById(oldVerified.getId())).isPresent();
+        assertThat(repository.findById(recentUnverified.getId())).isPresent();
     }
 }

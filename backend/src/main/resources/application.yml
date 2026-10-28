@@ -71,6 +71,11 @@ phrasal:
       window: 5m
   quiz-progress:
     max-state-bytes: 65536
+  app:
+    base-url: ${APP_BASE_URL:http://localhost:3000}
+  email-verification:
+    token-ttl: ${EMAIL_VERIFICATION_TOKEN_TTL:24h}
+    unverified-account-retention: ${UNVERIFIED_ACCOUNT_RETENTION:7d}
 
 management:
   endpoints:

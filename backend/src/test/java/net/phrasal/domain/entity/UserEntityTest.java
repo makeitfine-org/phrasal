@@ -3,6 +3,8 @@ package net.phrasal.domain.entity;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 
+import java.time.LocalDateTime;
+
 import static org.assertj.core.api.Assertions.assertThat;
 
 @DisplayName("User Entity")
@@ -66,5 +68,27 @@ class UserEntityTest {
 
         assertThat(first).isEqualTo(sameKey).hasSameHashCodeAs(sameKey);
         assertThat(first).isNotEqualTo(otherId).isNotEqualTo(otherEmail);
+    }
+
+    @Test
+    @DisplayName("a new user is unverified")
+    void newUserUnverified() {
+        User user = new User(EMAIL, HASH, Role.USER);
+
+        assertThat(user.isEmailVerified()).isFalse();
+        assertThat(user.getEmailVerifiedAt()).isNull();
+    }
+
+    @Test
+    @DisplayName("markEmailVerified sets the time once and keeps the first time on a second call")
+    void markEmailVerifiedIsIdempotent() {
+        User user = new User(EMAIL, HASH, Role.USER);
+        LocalDateTime first = LocalDateTime.of(2026, 10, 28, 12, 0);
+
+        user.markEmailVerified(first);
+        user.markEmailVerified(first.plusHours(1));
+
+        assertThat(user.isEmailVerified()).isTrue();
+        assertThat(user.getEmailVerifiedAt()).isEqualTo(first);
     }
 }

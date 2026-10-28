@@ -63,6 +63,9 @@ public class User {
     @Column(name = "updated_at", nullable = false)
     private LocalDateTime updatedAt;
 
+    @Column(name = "email_verified_at")
+    private LocalDateTime emailVerifiedAt;
+
     @Version
     private Long version;
 
@@ -70,5 +73,20 @@ public class User {
         this.email = email;
         this.passwordHash = passwordHash;
         this.role = role;
+    }
+
+    public boolean isEmailVerified() {
+        return emailVerifiedAt != null;
+    }
+
+    /**
+     * Records the verification time once; later calls keep the first time.
+     *
+     * @param at moment the email was verified
+     */
+    public void markEmailVerified(LocalDateTime at) {
+        if (emailVerifiedAt == null) {
+            emailVerifiedAt = at;
+        }
     }
 }

@@ -1465,3 +1465,13 @@
 - backlog/tasks/task-106 - Set-up-a-real-domain-transactional-email-and-Google-OAuth-for-production.md
 - backlog/tasks/task-107 - Email-verification-for-registered-accounts.md
 <!-- end-snapshot -->
+
+<!-- git-snapshot 2026-10-28T14:52:11Z -->
+- .claude/docs/blackbox/audit.md
+- .claude/docs/blackbox/todos/email-verification-on-server-multiuser-todos.md
+- backend/src/main/java/net/phrasal/domain/entity/User.java
+- backend/src/main/java/net/phrasal/domain/repository/UserRepository.java
+- backend/src/main/resources/application.yml
+- backend/src/test/java/net/phrasal/domain/entity/UserEntityTest.java
+- backend/src/test/java/net/phrasal/integration/UserRepositoryIntegrationTest.java
+<!-- end-snapshot -->
