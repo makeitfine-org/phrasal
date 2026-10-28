@@ -54,6 +54,13 @@ beforeEach(() => {
 });
 
 describe('QuizCard', () => {
+  it('exposes the exclude toggle with a test id in both states', () => {
+    const { rerender } = render(<QuizCard {...makeProps({ isExcluded: false })} />);
+    expect(screen.getByTestId('exclude-toggle')).toHaveTextContent('Exclude');
+    rerender(<QuizCard {...makeProps({ isExcluded: true })} />);
+    expect(screen.getByTestId('exclude-toggle')).toHaveTextContent('Excluded');
+  });
+
   it('renders the definition text', () => {
     render(<QuizCard {...makeProps()} />);
     expect(screen.getByText('To escape or start suddenly')).toBeInTheDocument();

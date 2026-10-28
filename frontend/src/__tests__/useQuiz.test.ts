@@ -258,3 +258,18 @@ describe('useQuiz — modal state', () => {
     expect(result.current.showSearchModal).toBe(true);
   });
 });
+
+describe('useQuiz — sync option', () => {
+  const SYNC = { quizKey: 'phrasal-verbs' as const, itemIds: [10, 20, 30, 40, 50] };
+
+  it('behaves identically for an anonymous visitor and sends no request', () => {
+    const fetchSpy = vi.fn();
+    vi.stubGlobal('fetch', fetchSpy);
+    const { result } = renderHook(() => useQuiz(makeConfig({ sync: SYNC })));
+    expect(result.current.history).toHaveLength(1);
+    expect(result.current.currentIndex).toBe(0);
+    expect(result.current.excluded.size).toBe(0);
+    expect(fetchSpy).not.toHaveBeenCalled();
+    vi.unstubAllGlobals();
+  });
+});

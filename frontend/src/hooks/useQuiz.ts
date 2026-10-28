@@ -1,4 +1,6 @@
-import React, { useState, useEffect, useRef, useCallback } from 'react';
+import React, { useState, useEffect, useRef, useCallback, useMemo } from 'react';
+import { useQuizProgressSync } from './useQuizProgressSync';
+import type { QuizKey } from '../api/quizProgressApi';
 import type { HistoryItem, QuizPersistedState, Status } from '../types';
 
 export interface UseQuizConfig {
@@ -6,6 +8,7 @@ export interface UseQuizConfig {
   poolSize: number;
   completionMessage: string;
   checkAnswer: (input: string, itemIndex: number) => boolean;
+  sync?: { quizKey: QuizKey; itemIds: number[] };
 }
 
 export interface UseQuizReturn {
@@ -40,6 +43,8 @@ export interface UseQuizReturn {
   onTouchMove: (e: React.TouchEvent<HTMLDivElement>) => void;
   onTouchEnd: () => void;
 }
+
+const NO_IDS: number[] = [];
 
 export function useQuiz(config: UseQuizConfig, extraModalOpen = false): UseQuizReturn {
   const { storageKey, poolSize, completionMessage, checkAnswer } = config;
@@ -120,6 +125,31 @@ export function useQuiz(config: UseQuizConfig, extraModalOpen = false): UseQuizR
       bootstrapDone.current = false;
     }
   }, [storageKey]);
+
+  const applyState = useCallback((state: QuizPersistedState) => {
+    const nextHistory = state.history ?? [];
+    setMastered(new Set(state.mastered ?? []));
+    setExcluded(new Set(state.excluded ?? []));
+    setHistory(nextHistory);
+    const pointer = state.currentIndex ?? -1;
+    setCurrentIndex(nextHistory.length > 0 && pointer < 0 ? nextHistory.length - 1 : pointer);
+    setShowExcludedModal(false);
+    setShowSearchModal(false);
+    bootstrapDone.current = nextHistory.length > 0;
+  }, []);
+
+  const snapshot = useMemo<QuizPersistedState>(
+    () => ({ mastered: Array.from(mastered), excluded: Array.from(excluded), history, currentIndex }),
+    [mastered, excluded, history, currentIndex],
+  );
+
+  useQuizProgressSync({
+    quizKey: config.sync?.quizKey ?? 'phrasal-verbs',
+    itemIds: config.sync?.itemIds ?? NO_IDS,
+    snapshot,
+    applyState,
+    enabled: config.sync !== undefined,
+  });
 
   const handleNext = useCallback(() => {
     if (currentIndex < history.length - 1) {

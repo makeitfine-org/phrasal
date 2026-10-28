@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useMemo, useState } from 'react';
 import { isAnswerCorrect } from '../utils/normalizeAnswer';
 import { renderSentenceWithMask } from '../utils/renderSentence';
 import { useQuiz } from '../hooks/useQuiz';
@@ -40,11 +40,14 @@ export default function GrammarQuiz({ entries }: GrammarQuizProps) {
   const checkAnswer = (input: string, index: number) =>
     isAnswerCorrect(input, entries[index].correctAnswers);
 
+  const itemIds = useMemo(() => entries.map(e => e.id), [entries]);
+
   const quiz = useQuiz({
     storageKey: 'grammarIWishState',
     poolSize: entries.length,
     completionMessage: 'Congratulations! You have completed all available sentences in this session!',
     checkAnswer,
+    sync: { quizKey: 'grammar-i-wish-if-only', itemIds },
   }, showTutorialModal);
 
   if (!quiz.ready) return null;

@@ -1,5 +1,7 @@
 import React, { createContext, useCallback, useEffect, useMemo, useState } from 'react';
 import * as authApi from '../api/authApi';
+import { flushQuizProgress } from '../hooks/useQuizProgressSync';
+import { clearAccountQuizProgress } from '../utils/quizProgressStorage';
 import type { CurrentUser } from '../types';
 
 export type AuthStatus = 'loading' | 'authenticated' | 'anonymous';
@@ -56,7 +58,11 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
   }, [login]);
 
   const logout = useCallback(async () => {
+    // Push pending progress while the session is still valid (best effort).
+    await flushQuizProgress().catch(() => {});
     await authApi.logout();
+    // Privacy: the next person using this browser starts clean.
+    clearAccountQuizProgress();
     // Logout clears the XSRF cookie; the follow-up GET sets a fresh one.
     await refresh();
   }, [refresh]);

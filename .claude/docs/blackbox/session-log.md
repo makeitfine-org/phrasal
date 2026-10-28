@@ -1262,3 +1262,27 @@
 - frontend/src/api/phrasalVerbsApi.ts
 - frontend/src/api/quizProgressApi.ts
 <!-- end-snapshot -->
+
+<!-- git-snapshot 2026-10-28T10:25:28Z -->
+- .claude/docs/blackbox/audit.md
+- .claude/docs/blackbox/todos/save-on-server-multiuser-todos.md
+- frontend/src/__tests__/Header.test.tsx
+- frontend/src/__tests__/QuizCard.test.tsx
+- frontend/src/__tests__/QuizSync.test.tsx
+- frontend/src/__tests__/auth/AuthContext.test.tsx
+- frontend/src/__tests__/hooks/useQuizProgressSync.test.tsx
+- frontend/src/__tests__/useQuiz.test.ts
+- frontend/src/__tests__/useQuizApplyState.test.tsx
+- frontend/src/auth/AuthContext.tsx
+- frontend/src/components/GrammarQuiz.tsx
+- frontend/src/components/Header.tsx
+- frontend/src/components/PhrasalVerbQuiz.tsx
+- frontend/src/components/QuizCard.tsx
+- frontend/src/hooks/useQuiz.ts
+- frontend/src/hooks/useQuizProgressSync.ts
+<!-- end-snapshot -->
+
+<!-- diagram-staleness 2026-10-28T10:25:28Z -->
+⚠️  Diagrams that may need updating:
+  - docs/diagrams/auth-flow.md (auth/ was modified)
+<!-- end-diagram-staleness -->

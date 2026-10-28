@@ -4,8 +4,12 @@ import { AuthProvider } from '../../auth/AuthContext';
 import { useAuth } from '../../auth/useAuth';
 import * as authApi from '../../api/authApi';
 import { ApiError } from '../../api/client';
+import { flushQuizProgress } from '../../hooks/useQuizProgressSync';
+import { clearAccountQuizProgress } from '../../utils/quizProgressStorage';
 
 vi.mock('../../api/authApi');
+vi.mock('../../hooks/useQuizProgressSync', () => ({ flushQuizProgress: vi.fn() }));
+vi.mock('../../utils/quizProgressStorage', () => ({ clearAccountQuizProgress: vi.fn() }));
 
 const user = { id: 1, email: 'a@b.co', role: 'USER' as const };
 let auth: ReturnType<typeof useAuth>;
@@ -24,6 +28,8 @@ beforeEach(() => {
   vi.mocked(authApi.login).mockReset();
   vi.mocked(authApi.register).mockReset();
   vi.mocked(authApi.logout).mockReset();
+  vi.mocked(flushQuizProgress).mockReset().mockResolvedValue(undefined);
+  vi.mocked(clearAccountQuizProgress).mockReset();
 });
 
 describe('AuthProvider', () => {
@@ -76,6 +82,43 @@ describe('AuthProvider', () => {
     await act(() => auth.logout());
     expect(authApi.fetchCurrentUser).toHaveBeenCalledTimes(2);
     expect(screen.getByTestId('state')).toHaveTextContent('anonymous:-');
+  });
+
+  it('logout runs flush → api logout → clear local progress → /me', async () => {
+    const order: string[] = [];
+    vi.mocked(authApi.fetchCurrentUser)
+      .mockResolvedValueOnce(user)
+      .mockImplementation(async () => { order.push('me'); return null; });
+    vi.mocked(flushQuizProgress).mockImplementation(async () => { order.push('flush'); });
+    vi.mocked(authApi.logout).mockImplementation(async () => { order.push('logout'); });
+    vi.mocked(clearAccountQuizProgress).mockImplementation(() => { order.push('clear'); });
+    renderProvider();
+    await waitFor(() => expect(screen.getByTestId('state')).toHaveTextContent('authenticated'));
+    await act(() => auth.logout());
+    expect(order).toEqual(['flush', 'logout', 'clear', 'me']);
+  });
+
+  it('a failing flush still logs out and clears local progress', async () => {
+    vi.mocked(authApi.fetchCurrentUser).mockResolvedValueOnce(user).mockResolvedValue(null);
+    vi.mocked(flushQuizProgress).mockRejectedValue(new Error('flush failed'));
+    vi.mocked(authApi.logout).mockResolvedValue(undefined);
+    renderProvider();
+    await waitFor(() => expect(screen.getByTestId('state')).toHaveTextContent('authenticated'));
+    await act(() => auth.logout());
+    expect(authApi.logout).toHaveBeenCalled();
+    expect(clearAccountQuizProgress).toHaveBeenCalled();
+    expect(screen.getByTestId('state')).toHaveTextContent('anonymous');
+  });
+
+  it('a failing api logout does not clear local progress', async () => {
+    vi.mocked(authApi.fetchCurrentUser).mockResolvedValue(user);
+    vi.mocked(flushQuizProgress).mockResolvedValue(undefined);
+    vi.mocked(clearAccountQuizProgress).mockReset();
+    vi.mocked(authApi.logout).mockRejectedValue(new ApiError(500, 'boom'));
+    renderProvider();
+    await waitFor(() => expect(screen.getByTestId('state')).toHaveTextContent('authenticated'));
+    await expect(act(() => auth.logout())).rejects.toMatchObject({ status: 500 });
+    expect(clearAccountQuizProgress).not.toHaveBeenCalled();
   });
 
   it('failing login rethrows and stays anonymous', async () => {

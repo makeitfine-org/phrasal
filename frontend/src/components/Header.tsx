@@ -48,7 +48,7 @@ export default function Header({ masteredCount, totalCount, currentIndex, onRese
         >
           <EyeOffIcon />
           {excludedCount > 0 && (
-            <span className="absolute -top-1 -right-1 bg-orange-500 text-white text-xs font-bold w-6 h-4 rounded-full flex items-center justify-center">
+            <span data-testid="excluded-count" className="absolute -top-1 -right-1 bg-orange-500 text-white text-xs font-bold w-6 h-4 rounded-full flex items-center justify-center">
               {excludedCount > 99 ? '99+' : excludedCount}
             </span>
           )}

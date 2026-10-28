@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useMemo, useState } from 'react';
 import { renderSentenceWithMask } from '../utils/renderSentence';
 import { useQuiz } from '../hooks/useQuiz';
 import Header from './Header';
@@ -25,11 +25,14 @@ export default function PhrasalVerbQuiz({ allVerbs, verbsForBrowse }: PhrasalVer
     return cleanUser === cleanCorrect;
   };
 
+  const itemIds = useMemo(() => allVerbs.map(v => v.id), [allVerbs]);
+
   const quiz = useQuiz({
     storageKey: 'phrasalQuizState',
     poolSize: allVerbs.length,
     completionMessage: 'Congratulations! You have completed all available phrasal verbs in this session!',
     checkAnswer,
+    sync: { quizKey: 'phrasal-verbs', itemIds },
   }, showAllVerbsModal);
 
   if (!quiz.ready) return null;

@@ -65,10 +65,12 @@ describe('Header', () => {
   it('does not render the excluded badge when excludedCount is 0', () => {
     render(<Header {...makeProps({ excludedCount: 0 })} />);
     expect(screen.queryByText('0')).not.toBeInTheDocument();
+    expect(screen.queryByTestId('excluded-count')).not.toBeInTheDocument();
   });
 
   it('renders the excluded badge with the count when excludedCount > 0', () => {
     render(<Header {...makeProps({ excludedCount: 5 })} />);
+    expect(screen.getByTestId('excluded-count')).toHaveTextContent('5');
     expect(screen.getByText('5')).toBeInTheDocument();
   });
 

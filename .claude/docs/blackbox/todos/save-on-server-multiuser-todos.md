@@ -655,27 +655,27 @@ Why first: it is small and independent. Our frontend keeps working without chang
 ## Phase 8 — Frontend: sync hook, `useQuiz` integration, logout flush
 
 ### 8.1 `useQuiz` changes (no behaviour change for anonymous visitors)
-- [ ] **8.1.1** `UseQuizConfig` gets an optional `sync?: { quizKey: QuizKey; itemIds: number[] }`. Without it, the hook
+- [x] **8.1.1** `UseQuizConfig` gets an optional `sync?: { quizKey: QuizKey; itemIds: number[] }`. Without it, the hook
       behaves exactly as today. All existing `useQuiz.test.ts` cases must stay green, unchanged.
-- [ ] **8.1.2** New internal `applyState(state: QuizPersistedState)`:
+- [x] **8.1.2** New internal `applyState(state: QuizPersistedState)`:
   - sets `mastered`, `excluded`, `history` and `currentIndex`
   - sets `bootstrapDone.current = state.history.length > 0`, so an empty applied state bootstraps the next item
   - closes the open modals
   - The existing persistence effect then writes the applied state to localStorage, keeping `darkMode` via the merge.
-- [ ] **8.1.3** Build a memoized `snapshot: QuizPersistedState` from the four state values. When `config.sync` is set, call
+- [x] **8.1.3** Build a memoized `snapshot: QuizPersistedState` from the four state values. When `config.sync` is set, call
       `useQuizProgressSync({ ...config.sync, storageKey, snapshot, applyState })`.
-- [ ] **8.1.4** `handleGlobalReset` stays as it is. For a logged-in user, the reset state is saved by the normal debounced
+- [x] **8.1.4** `handleGlobalReset` stays as it is. For a logged-in user, the reset state is saved by the normal debounced
       PUT (decision 1: no DELETE).
 
 ### 8.2 `src/hooks/useQuizProgressSync.ts` (decision 7)
-- [ ] **8.2.1** Inputs: `quizKey`, `storageKey`, `itemIds`, `snapshot`, `applyState`. It reads `useAuth()`.
+- [x] **8.2.1** Inputs: `quizKey`, `storageKey`, `itemIds`, `snapshot`, `applyState`. It reads `useAuth()`.
       It returns `{ syncStatus: 'off' | 'loading' | 'synced' | 'error' }`, which tests and a future indicator can use.
-- [ ] **8.2.2** `status === 'loading'` → do nothing.
-- [ ] **8.2.3** `status === 'anonymous'`:
+- [x] **8.2.2** `status === 'loading'` → do nothing.
+- [x] **8.2.3** `status === 'anonymous'`:
   - if `readSyncMeta(quizKey).ownerId != null`: this is a cached copy of an account whose session ended. Call
     `clearLocalQuizState` + `writeSyncMeta(key, { ownerId: null, dirty: false })` + `applyState(EMPTY)`.
   - otherwise do nothing, and **send no request** (task-103 AC #7)
-- [ ] **8.2.4** `status === 'authenticated'` (user `U`). Run the load once per `(U.id, quizKey)`:
+- [x] **8.2.4** `status === 'authenticated'` (user `U`). Run the load once per `(U.id, quizKey)`:
   1. `meta.ownerId === U.id && meta.dirty` → `saveQuizProgress(toProgressDocument(snapshot))`. On success,
      `dirty = false` → `synced`.
   2. Otherwise `fetchQuizProgress`:
@@ -687,80 +687,80 @@ Why first: it is small and independent. Our frontend keeps working without chang
        - another owner → `applyState(EMPTY)` first, then PUT the empty state
        - then meta `{ ownerId: U.id, dirty: false }` → `synced`
      - **error** → `error`. Local state stays, and nothing is saved for this mount (decision 7).
-- [ ] **8.2.5** Saving while `synced`:
-  - [ ] keep `lastSavedJson` (a ref) = JSON of the last document sent or received. A snapshot whose document equals it is
+- [x] **8.2.5** Saving while `synced`:
+  - [x] keep `lastSavedJson` (a ref) = JSON of the last document sent or received. A snapshot whose document equals it is
         not saved. This skips the echo after `applyState` and no-op renders.
-  - [ ] on a change: `writeSyncMeta(dirty: true)`, then (re)start a `SAVE_DEBOUNCE_MS = 2000` timer → PUT →
+  - [x] on a change: `writeSyncMeta(dirty: true)`, then (re)start a `SAVE_DEBOUNCE_MS = 2000` timer → PUT →
         `dirty = false` and update `lastSavedJson`
-  - [ ] PUT `401` → `off` (the session expired); keep `dirty = true`, so the same user's next login pushes it (step 1)
-  - [ ] PUT `400` → `console.warn` once (e.g. the size limit); keep `dirty`
-  - [ ] network error → keep `dirty`; the next change retries
-  - [ ] never two PUTs in flight for one quiz key: chain them, so the last snapshot always wins
-- [ ] **8.2.6** Flush:
-  - [ ] unmount → a pending timer is sent immediately
-  - [ ] `window` `pagehide` → a pending save is sent with `keepalive: true`
-  - [ ] module-level registry: `export async function flushQuizProgress(): Promise<void>` runs every mounted hook's
+  - [x] PUT `401` → `off` (the session expired); keep `dirty = true`, so the same user's next login pushes it (step 1)
+  - [x] PUT `400` → `console.warn` once (e.g. the size limit); keep `dirty`
+  - [x] network error → keep `dirty`; the next change retries
+  - [x] never two PUTs in flight for one quiz key: chain them, so the last snapshot always wins
+- [x] **8.2.6** Flush:
+  - [x] unmount → a pending timer is sent immediately
+  - [x] `window` `pagehide` → a pending save is sent with `keepalive: true`
+  - [x] module-level registry: `export async function flushQuizProgress(): Promise<void>` runs every mounted hook's
         pending save and waits for it. This is the only module-level state, used by `AuthContext.logout`.
-- [ ] **8.2.7** User switch without a logout (`U.id` changes while mounted): cancel the pending timer, then run the load
+- [x] **8.2.7** User switch without a logout (`U.id` changes while mounted): cancel the pending timer, then run the load
       again (step 8.2.4).
 
 ### 8.3 `AuthContext.logout`
-- [ ] **8.3.1** `src/auth/AuthContext.tsx` `logout`:
+- [x] **8.3.1** `src/auth/AuthContext.tsx` `logout`:
   - `await flushQuizProgress().catch(() => {})` (best effort)
   - then `await authApi.logout()`
   - then `clearAccountQuizProgress()` (privacy: the next person in this browser starts clean)
   - then `refresh()`
-- [ ] **8.3.2** `login`/`register` don't change. The sync hook reacts to the status change.
+- [x] **8.3.2** `login`/`register` don't change. The sync hook reacts to the status change.
 
 ### 8.4 Tests (Vitest, fake timers, mocked `quizProgressApi`, a test `AuthContext.Provider`)
-- [ ] **8.4.1** `src/__tests__/hooks/useQuizProgressSync.test.ts`:
-  - [ ] anonymous → no API calls at all, even after changes (AC #7)
-  - [ ] loading → no calls
-  - [ ] authenticated + server 200 → `applyState` called with the mapped state, meta owner set, and no PUT echo
-  - [ ] authenticated + 404 + anonymous local → a PUT of the local snapshot (first-login import, AC #9)
-  - [ ] authenticated + 404 + local owned by **another** user → `applyState(EMPTY)` and a PUT of the empty state. The
+- [x] **8.4.1** `src/__tests__/hooks/useQuizProgressSync.test.ts`:
+  - [x] anonymous → no API calls at all, even after changes (AC #7)
+  - [x] loading → no calls
+  - [x] authenticated + server 200 → `applyState` called with the mapped state, meta owner set, and no PUT echo
+  - [x] authenticated + 404 + anonymous local → a PUT of the local snapshot (first-login import, AC #9)
+  - [x] authenticated + 404 + local owned by **another** user → `applyState(EMPTY)` and a PUT of the empty state. The
         other user's data is never uploaded (the reported bug).
-  - [ ] same owner + `dirty` → PUT first, no GET
-  - [ ] GET 500 / network error → `error`, and no PUT even after changes
-  - [ ] unknown `schemaVersion` → `error`, no apply, no PUT
-  - [ ] debounce: 5 changes within 2 s → exactly **one** PUT with the last snapshot; `dirty` is `true` before and `false`
+  - [x] same owner + `dirty` → PUT first, no GET
+  - [x] GET 500 / network error → `error`, and no PUT even after changes
+  - [x] unknown `schemaVersion` → `error`, no apply, no PUT
+  - [x] debounce: 5 changes within 2 s → exactly **one** PUT with the last snapshot; `dirty` is `true` before and `false`
         after
-  - [ ] a PUT failing with 401 → `off`, and `dirty` stays `true`
-  - [ ] unmount with a pending change → an immediate PUT; `pagehide` → a PUT with `keepalive: true`
-  - [ ] `flushQuizProgress()` resolves after the pending PUT finishes
-  - [ ] anonymous + owned meta (expired session) → local state cleared, `darkMode` kept
-  - [ ] user switch A → B while mounted → A's pending timer cancelled, and B loads
-- [ ] **8.4.2** `src/__tests__/useQuiz.test.ts`:
-  - [ ] the existing cases are unchanged and green
-  - [ ] new: `sync` set + an anonymous context → identical behaviour, no fetch
-  - [ ] new: an applied server state shows in `mastered`, `excluded` and `history`, and is written to localStorage while
+  - [x] a PUT failing with 401 → `off`, and `dirty` stays `true`
+  - [x] unmount with a pending change → an immediate PUT; `pagehide` → a PUT with `keepalive: true`
+  - [x] `flushQuizProgress()` resolves after the pending PUT finishes
+  - [x] anonymous + owned meta (expired session) → local state cleared, `darkMode` kept
+  - [x] user switch A → B while mounted → A's pending timer cancelled, and B loads
+- [x] **8.4.2** `src/__tests__/useQuiz.test.ts`:
+  - [x] the existing cases are unchanged and green
+  - [x] new: `sync` set + an anonymous context → identical behaviour, no fetch
+  - [x] new: an applied server state shows in `mastered`, `excluded` and `history`, and is written to localStorage while
         `darkMode` is kept
-  - [ ] new: an applied empty state bootstraps a new item
-- [ ] **8.4.3** `src/__tests__/auth/AuthContext.test.tsx`:
+  - [x] new: an applied empty state bootstraps a new item
+- [x] **8.4.3** `src/__tests__/auth/AuthContext.test.tsx`:
   - logout order: flush → api logout → local progress cleared → `/me` re-fetched
   - a failing flush still logs out
-- [ ] **8.4.4** `npx vitest run src/__tests__/hooks src/__tests__/useQuiz.test.ts src/__tests__/auth` → green.
+- [x] **8.4.4** `npx vitest run src/__tests__/hooks src/__tests__/useQuiz.test.ts src/__tests__/auth` → green.
 
 ---
 
 ## Phase 9 — Frontend: wire the quizzes, test ids
 
-- [ ] **9.1** `PhrasalVerbQuiz.tsx`: `useQuiz({ …, sync: { quizKey: 'phrasal-verbs', itemIds } })`, with
+- [x] **9.1** `PhrasalVerbQuiz.tsx`: `useQuiz({ …, sync: { quizKey: 'phrasal-verbs', itemIds } })`, with
       `itemIds = useMemo(() => allVerbs.map(v => v.id), [allVerbs])`.
-- [ ] **9.2** `GrammarQuiz.tsx`: `sync: { quizKey: 'grammar-i-wish-if-only', itemIds: entries.map(e => e.id) }` (memoized).
-- [ ] **9.3** Test ids for e2e:
-  - [ ] `Header.tsx`: `data-testid="excluded-count"` on the excluded badge. It is rendered only when > 0.
-  - [ ] `QuizCard.tsx`: `data-testid="exclude-toggle"` on the exclude/include button
-- [ ] **9.4** Tests:
-  - [ ] `src/__tests__/PhrasalVerbsPage.test.tsx` and `GrammarPage.test.tsx`: the existing cases stay green (the default
+- [x] **9.2** `GrammarQuiz.tsx`: `sync: { quizKey: 'grammar-i-wish-if-only', itemIds: entries.map(e => e.id) }` (memoized).
+- [x] **9.3** Test ids for e2e:
+  - [x] `Header.tsx`: `data-testid="excluded-count"` on the excluded badge. It is rendered only when > 0.
+  - [x] `QuizCard.tsx`: `data-testid="exclude-toggle"` on the exclude/include button
+- [x] **9.4** Tests:
+  - [x] `src/__tests__/PhrasalVerbsPage.test.tsx` and `GrammarPage.test.tsx`: the existing cases stay green (the default
         auth context is anonymous)
-  - [ ] new: an authenticated test provider + a mocked `quizProgressApi` returning progress → the excluded badge shows the
+  - [x] new: an authenticated test provider + a mocked `quizProgressApi` returning progress → the excluded badge shows the
         server count after load
-  - [ ] `Header.test.tsx` / `QuizCard.test.tsx`: the new test ids render
+  - [x] `Header.test.tsx` / `QuizCard.test.tsx`: the new test ids render
 - [ ] **9.5** Manual smoke with `npm run dev`:
   - anonymous: the quiz works, and DevTools shows no `/me/quiz-progress` requests
   - logged in: one GET on load, one PUT about 2 s after a change
-- [ ] **9.6** `npm --prefix frontend run test:run && npm --prefix frontend run build` → green. `make clean build` → green.
+- [x] **9.6** `npm --prefix frontend run test:run && npm --prefix frontend run build` → green. `make clean build` → green.
       Ask for commit approval → `feat(frontend): sync quiz progress for logged-in users`
 
 ---

@@ -49,6 +49,7 @@ export default function QuizCard({
     <div className="p-6 md:p-8 relative">
       <button
         type="button"
+        data-testid="exclude-toggle"
         onClick={onToggleExclude}
         className={`absolute top-4 right-4 text-xs font-semibold px-3 py-1 rounded-full border transition-colors ${
           isExcluded
