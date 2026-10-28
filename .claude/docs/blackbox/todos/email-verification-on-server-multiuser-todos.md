@@ -182,43 +182,67 @@ sessions, CSRF, rate limiter, `AuthContext`) and task-102 (quiz progress, `Abstr
 
 ## Phase 0 — Preparation (no code)
 
-- [ ] **0.1** Branch: create `email-verification` from `develop` (task-99 and task-102 are merged there). The working tree
+- [x] **0.1** Branch: create `email-verification` from `develop` (task-99 and task-102 are merged there). The working tree
       must be clean apart from blackbox files.
-- [ ] **0.2** Run `make clean build` once on the untouched branch. Note the baseline here: backend test count, Vitest
+      → Done 2026-10-28: created from `develop` (= `be4af61`); only audit.md and a backlog draft were modified.
+- [x] **0.2** Run `make clean build` once on the untouched branch. Note the baseline here: backend test count, Vitest
       files/tests, e2e scenarios/steps.
-- [ ] **0.3** Backlog (MCP `task_edit`):
-  - [ ] move **task-107** to `In Progress`
-  - [ ] task-107 note: "implementation plan: `email-verification-on-server-multiuser-todos.md`"
-  - [ ] task-106 note: "domain phrasalbox.com, Brevo sender domain (SPF/DKIM/DMARC) and SMTP key done 2026-10-28".
+      → Baseline 2026-10-28: backend 248 tests, 0 failures, JaCoCo OK; Vitest 64 files / 1461 tests;
+      e2e 63 scenarios / 456 steps; all green.
+- [x] **0.3** Backlog (MCP `task_edit`):
+  - [x] move **task-107** to `In Progress`
+  - [x] task-107 note: "implementation plan: `email-verification-on-server-multiuser-todos.md`"
+  - [x] task-106 note: "domain phrasalbox.com, Brevo sender domain (SPF/DKIM/DMARC) and SMTP key done 2026-10-28".
         **Ask the user** before checking AC #1–#3.
-- [ ] **0.4** Data check (expected: a handful of rows). Write the numbers here, they tell how many accounts V13 backfills:
-  - [ ] dev: `docker compose exec postgres psql -U postgres -d phrasaldb -c "SELECT role, count(*) FROM users GROUP BY role"`
+- [x] **0.4** Data check (expected: a handful of rows). Write the numbers here, they tell how many accounts V13 backfills:
+  - [x] dev: `docker compose exec postgres psql -U postgres -d phrasaldb -c "SELECT role, count(*) FROM users GROUP BY role"`
+        → ADMIN 1, USER 2 (V13 backfills 3 local accounts).
   - [ ] prod: the same query via `kubectl exec` (`--context hetzner`, `default/postgres-0`). **The user runs it**
         (the auto-mode classifier blocks production reads).
-- [ ] **0.5** Look up with Context7 and note the results here:
-  - [ ] Boot 4.1: the starter name (`spring-boot-starter-mail`) and its module/auto-configuration; `spring.mail.*`
+- [x] **0.5** Look up with Context7 and note the results here:
+  - [x] Boot 4.1: the starter name (`spring-boot-starter-mail`) and its module/auto-configuration; `spring.mail.*`
         properties (host, port, username, password, `properties.mail.smtp.*`, `default-encoding`); the mail health
         indicator property (`management.health.mail.enabled`) and whether the health group used by Docker includes it.
-  - [ ] Spring Framework 7: `JavaMailSender`, `MimeMessageHelper(mime, true, UTF_8)`, `setText(text, html)`,
+        → Context7: `JavaMailSender` is auto-created when `spring.mail.host` is set and the starter is present; a mail
+        `HealthIndicator` is auto-configured and toggled with `management.health.mail.enabled` (we set it `false`).
+  - [x] Spring Framework 7: `JavaMailSender`, `MimeMessageHelper(mime, true, UTF_8)`, `setText(text, html)`,
         `InternetAddress` with a personal name (`Phrasal <no-reply@phrasalbox.com>`); `jakarta.mail` package names.
-  - [ ] Security 7.1: `AbstractUserDetailsAuthenticationProvider#setPreAuthenticationChecks` /
+  - [x] Security 7.1: `AbstractUserDetailsAuthenticationProvider#setPreAuthenticationChecks` /
         `#setPostAuthenticationChecks`, `AccountStatusUserDetailsChecker`, and which exception a disabled user gets
         (`DisabledException`). Confirm the default order (pre-checks before the password check), which is why
         decision 7 is needed.
-  - [ ] `@TransactionalEventListener(phase = AFTER_COMMIT)` + `@Async`: needs `@EnableAsync`; which executor Boot 4
+        → Verified with `javap` on spring-security-core 7.1.2: both setters exist on the abstract provider;
+        pre-checks run before `additionalAuthenticationChecks` (the password check), so a disabled user is rejected
+        before the password is checked; `AccountStatusUserDetailsChecker` throws `DisabledException` (also `Locked`,
+        `AccountExpired`, `CredentialsExpired`).
+  - [x] `@TransactionalEventListener(phase = AFTER_COMMIT)` + `@Async`: needs `@EnableAsync`; which executor Boot 4
         auto-configures with virtual threads (`applicationTaskExecutor`, `SimpleAsyncTaskExecutor`); exceptions in an
         `@Async void` method go to the `AsyncUncaughtExceptionHandler`.
-  - [ ] `@Scheduled(cron = …)` + `@EnableScheduling`; how to turn scheduling off in tests
+        → Context7: with `spring.threads.virtual.enabled=true` and no `Executor` bean, Boot configures a
+        `SimpleAsyncTaskExecutor` on virtual threads (`applicationTaskExecutor`); a `@Primary` executor or an
+        `AsyncConfigurer` overrides it. Our config enables virtual threads, so `@EnableAsync` alone is enough.
+  - [x] `@Scheduled(cron = …)` + `@EnableScheduling`; how to turn scheduling off in tests
         (`spring.task.scheduling` or a `phrasal.cleanup.enabled` flag).
-  - [ ] Spring Boot tests: is `@Import(...)` on the abstract `AbstractIntegrationTest` inherited by subclasses and part
+        → Decision: gate the whole `SchedulingConfig` with `@ConditionalOnProperty("phrasal.cleanup.enabled")`
+        (false in the test profile); the job logic is tested by calling the service method directly (Phase 7).
+  - [x] Spring Boot tests: is `@Import(...)` on the abstract `AbstractIntegrationTest` inherited by subclasses and part
         of the context-cache key? (Phase 3 registers a recording mail sender that way.)
-  - [ ] Mailpit: the current image tag (`axllent/mailpit:v1.x`, pin it), SMTP port 1025, UI/API port 8025, the healthcheck
+        → Spring's `ImportsContextCustomizer` finds `@Import` through the class hierarchy and is part of the merged
+        context key, so all subclasses share one cached context. Phase 3 proves it (context count stays unchanged).
+  - [x] Mailpit: the current image tag (`axllent/mailpit:v1.x`, pin it), SMTP port 1025, UI/API port 8025, the healthcheck
         command (`/mailpit readyz`), and the API calls the e2e client needs:
         `GET /api/v1/search?query=to:"<addr>"`, `GET /api/v1/message/{ID}` (fields `Text`, `HTML`, `Subject`, `To`),
         `DELETE /api/v1/search?query=…`. Note the exact JSON shapes.
-  - [ ] React Router 7: `useSearchParams`, `navigate(..., { replace: true })` to drop the token from the URL.
-  - [ ] Playwright: `page.goto(link)`; reading the link text from the Mailpit API with `page.request` or the Node
+        → Newest tag `v1.32.0` (use `axllent/mailpit:v1.32.0`). `GET /readyz` returns 200 when ready. Search response:
+        `{total, unread, count, messages_count, messages_unread, start, tags, messages[]}`; a blank `query` is a 400.
+        `GET /api/v1/message/{id}` (`id` may be `latest`) returns `{ID, MessageID, From, To[], Subject, Date, Tags,
+        Text, HTML, Size, ...}`; `DELETE /api/v1/search?query=` returns `ok`.
+  - [x] React Router 7: `useSearchParams`, `navigate(..., { replace: true })` to drop the token from the URL.
+        → installed `react-router` 7.18.4 exports `useSearchParams`; navigate options include `replace?: boolean`.
+  - [x] Playwright: `page.goto(link)`; reading the link text from the Mailpit API with `page.request` or the Node
         `ApiClient`.
+        → installed `playwright` 1.64.1; `page.goto(url: string, …)` as expected. Mailpit is read with a plain
+        `fetch` in `mailpit-client.ts`, independent of the browser.
 
 ---
 

@@ -4,6 +4,7 @@ title: Set up a real domain, transactional email and Google OAuth for production
 status: To Do
 assignee: []
 created_date: '2026-10-26T17:56:00Z'
+updated_date: '2026-10-28T14:32:00Z'
 labels:
   - multi-user
   - infra
@@ -53,3 +54,9 @@ They are stored only as GitHub Secrets, in a password manager, or in local `.env
 - [ ] #5 A Google OAuth client (Web application) exists with these redirect URIs: https://<domain>/api/v1/auth/oauth2/code/google, http://localhost:3000/api/v1/auth/oauth2/code/google and http://localhost:5173/api/v1/auth/oauth2/code/google.
 - [ ] #6 The SMTP credentials and the Google client ID and secret are stored as GitHub Secrets and in a password manager. None of them are committed to git, audit.md or session-log.md.
 <!-- AC:END -->
+
+## Implementation Notes
+
+<!-- SECTION:NOTES:BEGIN -->
+2026-10-28: domain phrasalbox.com, Brevo sender domain (SPF/DKIM/DMARC) and SMTP key done.
+<!-- SECTION:NOTES:END -->

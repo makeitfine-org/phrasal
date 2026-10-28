@@ -1457,3 +1457,11 @@
 - .claude/docs/blackbox/audit.md
 - .claude/docs/blackbox/todos/email-verification-on-server-multiuser-todos.md
 <!-- end-snapshot -->
+
+<!-- git-snapshot 2026-10-28T14:37:17Z -->
+- .claude/docs/blackbox/audit.md
+- .claude/docs/blackbox/todos/email-verification-on-server-multiuser-todos.md
+- backlog/drafts/hard.md
+- backlog/tasks/task-106 - Set-up-a-real-domain-transactional-email-and-Google-OAuth-for-production.md
+- backlog/tasks/task-107 - Email-verification-for-registered-accounts.md
+<!-- end-snapshot -->

@@ -233,7 +233,7 @@ Create detailed save-on-server-multiuser-todos.md fils with checkboxes (- [ ]), 
 
 ---
 -- // Prompt
-Start implementing functionality from  @.claude/docs/blackbox/todos/save-on-server-multiuser-todos.md Phase 18.                                                                                                      
+Implement functionality from @.claude/docs/blackbox/todos/email-verification-on-server-multiuser-todos.md Phase 0.                                                                                                      
 Don't forget to check off implemented boxes.
 On phase completion `make clean build` must pass successfully.
 

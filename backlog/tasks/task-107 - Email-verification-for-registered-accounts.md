@@ -1,9 +1,10 @@
 ---
 id: TASK-107
 title: Email verification for registered accounts
-status: To Do
+status: In Progress
 assignee: []
 created_date: '2026-10-27T20:22:00Z'
+updated_date: '2026-10-28T14:32:00Z'
 labels:
   - multi-user
   - security
@@ -50,3 +51,9 @@ Scope:
 - [ ] #7 README.md, backend/CLAUDE.md and e2e/CLAUDE.md document the verification flow and local Mailpit usage.
 - [ ] #8 `make clean build` passes
 <!-- AC:END -->
+
+## Implementation Notes
+
+<!-- SECTION:NOTES:BEGIN -->
+Implementation plan: .claude/docs/blackbox/todos/email-verification-on-server-multiuser-todos.md (branch email-verification)
+<!-- SECTION:NOTES:END -->
