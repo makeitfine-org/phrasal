@@ -3,8 +3,17 @@ import type { CurrentUser } from '../types';
 
 const HTTP_UNAUTHORIZED = 401;
 
-export function register(email: string, password: string): Promise<CurrentUser> {
-  return post<CurrentUser>('/auth/register', { email, password });
+/** Resolves for any 2xx; the body is ignored (the account only exists after the email is verified). */
+export async function register(email: string, password: string): Promise<void> {
+  await post<unknown>('/auth/register', { email, password });
+}
+
+export function verifyEmail(token: string): Promise<void> {
+  return post<void>('/auth/verify-email', { token });
+}
+
+export function resendVerification(email: string): Promise<void> {
+  return post<void>('/auth/resend-verification', { email });
 }
 
 export function login(email: string, password: string): Promise<CurrentUser> {

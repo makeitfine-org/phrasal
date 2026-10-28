@@ -6,6 +6,7 @@ import HomePage from '../pages/HomePage';
 import NotFoundPage from '../pages/NotFoundPage';
 import LoginPage from '../pages/LoginPage';
 import RegisterPage from '../pages/RegisterPage';
+import VerifyEmailPage from '../pages/VerifyEmailPage';
 import PageShell from '../components/PageShell';
 
 vi.mock('../hooks/usePhrasalVerbs', () => ({
@@ -34,6 +35,7 @@ function renderApp(initialPath: string) {
           <Route path="/phrasal-verbs" element={<App />} />
           <Route path="/login" element={<LoginPage />} />
           <Route path="/register" element={<RegisterPage />} />
+          <Route path="/verify-email" element={<VerifyEmailPage />} />
           <Route path="*" element={<NotFoundPage />} />
         </Route>
       </Routes>
@@ -65,6 +67,12 @@ describe('Page reload — router renders correct page, no console errors', () =>
   it('reload /register renders the register page inside the shell', () => {
     renderApp('/register');
     expect(screen.getByRole('heading', { name: 'Sign up' })).toBeInTheDocument();
+  });
+
+  it('reload /verify-email renders the verification page inside the shell', () => {
+    renderApp('/verify-email');
+    expect(screen.getByRole('heading', { name: 'Confirm your email' })).toBeInTheDocument();
+    expect(screen.getByTestId('nav-menu')).toBeInTheDocument();
   });
 
   it('reload / renders the home page', () => {

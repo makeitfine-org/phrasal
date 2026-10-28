@@ -4,6 +4,9 @@ import { MemoryRouter, Routes, Route } from 'react-router-dom';
 import LoginPage from '../pages/LoginPage';
 import { AuthContext, type AuthContextValue } from '../auth/AuthContext';
 import { ApiError } from '../api/client';
+import * as authApi from '../api/authApi';
+
+vi.mock('../api/authApi', () => ({ resendVerification: vi.fn() }));
 
 function ctx(overrides: Partial<AuthContextValue> = {}): AuthContextValue {
   return {
@@ -73,6 +76,25 @@ describe('LoginPage', () => {
     fillAndSubmit();
     expect(await screen.findByRole('alert')).toHaveTextContent('Invalid email or password');
     expect(screen.getByTestId('login-submit')).not.toBeDisabled();
+  });
+
+  it('offers a resend when the email is not verified', async () => {
+    vi.mocked(authApi.resendVerification).mockResolvedValue(undefined);
+    const problem = { type: 'https://phrasal.net/problems/email-not-verified', status: 403 };
+    const login = vi.fn().mockRejectedValue(new ApiError(403, 'Email not verified', problem));
+    renderPage(ctx({ login }));
+    fillAndSubmit();
+    expect(await screen.findByTestId('auth-error')).toHaveTextContent('Please confirm your email first. Check your inbox.');
+    fireEvent.click(screen.getByTestId('resend-verification'));
+    await waitFor(() => expect(authApi.resendVerification).toHaveBeenCalledWith('a@b.co'));
+  });
+
+  it('shows no resend for a 401', async () => {
+    const login = vi.fn().mockRejectedValue(new ApiError(401, 'Invalid email or password'));
+    renderPage(ctx({ login }));
+    fillAndSubmit();
+    expect(await screen.findByRole('alert')).toHaveTextContent('Invalid email or password');
+    expect(screen.queryByTestId('resend-verification')).not.toBeInTheDocument();
   });
 
   it('redirects an authenticated user', () => {

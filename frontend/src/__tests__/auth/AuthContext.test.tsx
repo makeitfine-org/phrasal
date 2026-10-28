@@ -86,16 +86,16 @@ describe('AuthProvider', () => {
     expect(stashAllAnonymousProgress).not.toHaveBeenCalled();
   });
 
-  it('register calls register then login', async () => {
-    const order: string[] = [];
-    vi.mocked(authApi.fetchCurrentUser).mockResolvedValueOnce(null).mockResolvedValue(user);
-    vi.mocked(authApi.register).mockImplementation(async () => { order.push('register'); return user; });
-    vi.mocked(authApi.login).mockImplementation(async () => { order.push('login'); return user; });
+  it('register calls only register; status stays anonymous', async () => {
+    vi.mocked(authApi.fetchCurrentUser).mockResolvedValue(null);
+    vi.mocked(authApi.register).mockResolvedValue(undefined);
     renderProvider();
     await waitFor(() => expect(screen.getByTestId('state')).toHaveTextContent('anonymous'));
     await act(() => auth.register('a@b.co', 'pw'));
-    expect(order).toEqual(['register', 'login']);
-    expect(screen.getByTestId('state')).toHaveTextContent('authenticated');
+    expect(authApi.register).toHaveBeenCalledWith('a@b.co', 'pw');
+    expect(authApi.login).not.toHaveBeenCalled();
+    expect(stashAllAnonymousProgress).not.toHaveBeenCalled();
+    expect(screen.getByTestId('state')).toHaveTextContent('anonymous:-');
   });
 
   it('logout returns to anonymous and re-fetches /me', async () => {

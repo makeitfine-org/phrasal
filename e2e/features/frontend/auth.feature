@@ -4,7 +4,7 @@ Feature: Accounts in the browser
   Background:
     Given the browser is open
 
-  Scenario: Signing up logs the user in
+  Scenario: Signing up and confirming the email logs the user in
     When I sign up through the form with a new email
     Then the user menu should show my email
 

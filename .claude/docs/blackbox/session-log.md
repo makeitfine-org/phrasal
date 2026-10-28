@@ -1574,3 +1574,27 @@
 - e2e/src/steps/auth-api.steps.ts
 - e2e/src/world.ts
 <!-- end-snapshot -->
+
+<!-- git-snapshot 2026-10-28T16:04:06Z -->
+- .claude/docs/blackbox/audit.md
+- .claude/docs/blackbox/todos/email-verification-on-server-multiuser-todos.md
+- docker-compose.yml
+- e2e/features/frontend/auth.feature
+- e2e/src/steps/auth-ui.steps.ts
+- frontend/nginx.conf
+- frontend/src/__tests__/LoginPage.test.tsx
+- frontend/src/__tests__/RegisterPage.test.tsx
+- frontend/src/__tests__/api/authApi.test.ts
+- frontend/src/__tests__/auth/AuthContext.test.tsx
+- frontend/src/__tests__/routeReload.test.tsx
+- frontend/src/api/authApi.ts
+- frontend/src/auth/AuthContext.tsx
+- frontend/src/main.tsx
+- frontend/src/pages/LoginPage.tsx
+- frontend/src/pages/RegisterPage.tsx
+<!-- end-snapshot -->
+
+<!-- diagram-staleness 2026-10-28T16:04:06Z -->
+⚠️  Diagrams that may need updating:
+  - docs/diagrams/auth-flow.md (auth/ was modified)
+<!-- end-diagram-staleness -->

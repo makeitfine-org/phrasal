@@ -681,105 +681,105 @@ sends a verification email and the link works.
 ## Phase 5 — Frontend: check-inbox, verify page, resend
 
 ### 5.1 API
-- [ ] **5.1.1** `src/api/authApi.ts`:
-  - [ ] `register(email, password): Promise<void>` (ignore the body; works for today's `201` and Phase 6's `202`)
-  - [ ] `verifyEmail(token: string): Promise<void>` → `POST /auth/verify-email`
-  - [ ] `resendVerification(email: string): Promise<void>` → `POST /auth/resend-verification`
-- [ ] **5.1.2** `src/api/problemTypes.ts` (or in `client.ts`): `isProblemType(error: unknown, type: string): boolean`,
+- [x] **5.1.1** `src/api/authApi.ts`:
+  - [x] `register(email, password): Promise<void>` (ignore the body; works for today's `201` and Phase 6's `202`)
+  - [x] `verifyEmail(token: string): Promise<void>` → `POST /auth/verify-email`
+  - [x] `resendVerification(email: string): Promise<void>` → `POST /auth/resend-verification`
+- [x] **5.1.2** `src/api/problemTypes.ts` (or in `client.ts`): `isProblemType(error: unknown, type: string): boolean`,
       true when `error instanceof ApiError` and `error.problem?.type` ends with `/${type}`. Constants
       `EMAIL_NOT_VERIFIED`, `VERIFICATION_LINK_EXPIRED`, `VERIFICATION_LINK_INVALID`.
-- [ ] **5.1.3** `src/__tests__/api/authApi.test.ts`: path/method/body of the two new calls; `register` resolves for `201`
+- [x] **5.1.3** `src/__tests__/api/authApi.test.ts`: path/method/body of the two new calls; `register` resolves for `201`
       and `202`. `src/__tests__/api/problemTypes.test.ts`: match, no match, non-`ApiError`, missing problem.
 
 ### 5.2 Auth context
-- [ ] **5.2.1** `src/auth/AuthContext.tsx`: `register(email, password)` calls only `authApi.register`. **No login**
+- [x] **5.2.1** `src/auth/AuthContext.tsx`: `register(email, password)` calls only `authApi.register`. **No login**
       (decision 6 / task-107: login only after verification). Update the interface Javadoc/comment.
-- [ ] **5.2.2** `src/__tests__/auth/AuthContext.test.tsx`: replace "register calls register then login" with "register
+- [x] **5.2.2** `src/__tests__/auth/AuthContext.test.tsx`: replace "register calls register then login" with "register
       calls only register; status stays anonymous"; `stashAllAnonymousProgress` is not called by register.
 
 ### 5.3 Shared resend component
-- [ ] **5.3.1** `src/components/ResendVerification.tsx`, props `{ initialEmail?: string; compact?: boolean }`:
-  - [ ] an email field (prefilled, hidden when `initialEmail` is given and `compact`), button "Resend verification email"
+- [x] **5.3.1** `src/components/ResendVerification.tsx`, props `{ initialEmail?: string; compact?: boolean }`:
+  - [x] an email field (prefilled, hidden when `initialEmail` is given and `compact`), button "Resend verification email"
         (`data-testid="resend-verification"`)
-  - [ ] pending → disabled, "Sending…"
-  - [ ] success → `role="status"` text "If an account needs verification, we've sent a new link." (`resend-done`)
-  - [ ] `429` → the server detail (it contains the wait time); other errors → generic message
-  - [ ] after a success, the button stays disabled for 30 s (`RESEND_COOLDOWN_MS` constant) to stop double sends
-- [ ] **5.3.2** `src/__tests__/ResendVerification.test.tsx` (mocked `authApi`, fake timers): calls the API with the
+  - [x] pending → disabled, "Sending…"
+  - [x] success → `role="status"` text "If an account needs verification, we've sent a new link." (`resend-done`)
+  - [x] `429` → the server detail (it contains the wait time); other errors → generic message
+  - [x] after a success, the button stays disabled for 30 s (`RESEND_COOLDOWN_MS` constant) to stop double sends
+- [x] **5.3.2** `src/__tests__/ResendVerification.test.tsx` (mocked `authApi`, fake timers): calls the API with the
       typed/prefilled email; success message; 429 message; cooldown re-enables after 30 s.
 
 ### 5.4 Register page
-- [ ] **5.4.1** `src/pages/RegisterPage.tsx`: on success, replace the form with a "Check your inbox" panel
+- [x] **5.4.1** `src/pages/RegisterPage.tsx`: on success, replace the form with a "Check your inbox" panel
       (`data-testid="register-check-email"`):
-  - [ ] "We sent a link to **{email}**. It expires in 24 hours." (the hours from a `VERIFICATION_LINK_TTL_HOURS`
+  - [x] "We sent a link to **{email}**. It expires in 24 hours." (the hours from a `VERIFICATION_LINK_TTL_HOURS`
         constant, documented as "keep in sync with `EMAIL_VERIFICATION_TOKEN_TTL`")
-  - [ ] "Didn't get it? Check spam, or" + `<ResendVerification initialEmail={email} compact />`
-  - [ ] a link "Back to log in"
-  - [ ] no `navigate('/')`
-  - [ ] keep the `409` branch for now; Phase 6 removes it
-- [ ] **5.4.2** `src/__tests__/RegisterPage.test.tsx`: success shows the panel with the email, no navigation, no login;
+  - [x] "Didn't get it? Check spam, or" + `<ResendVerification initialEmail={email} compact />`
+  - [x] a link "Back to log in"
+  - [x] no `navigate('/')`
+  - [x] keep the `409` branch for now; Phase 6 removes it
+- [x] **5.4.2** `src/__tests__/RegisterPage.test.tsx`: success shows the panel with the email, no navigation, no login;
       the resend button is there; the existing validation cases stay.
 
 ### 5.5 Verify page
-- [ ] **5.5.1** `src/pages/VerifyEmailPage.tsx` (route `/verify-email`):
-  - [ ] read `token` with `useSearchParams`; immediately `navigate('/verify-email', { replace: true })` with the token
+- [x] **5.5.1** `src/pages/VerifyEmailPage.tsx` (route `/verify-email`):
+  - [x] read `token` with `useSearchParams`; immediately `navigate('/verify-email', { replace: true })` with the token
         kept in a ref, so it leaves the address bar and history
-  - [ ] no token → "This link is incomplete" + `<ResendVerification />`
-  - [ ] one POST per token: a ref guard (StrictMode runs the effect twice; the server is idempotent anyway)
-  - [ ] states (`data-testid="verify-status"` with `data-state`):
+  - [x] no token → "This link is incomplete" + `<ResendVerification />`
+  - [x] one POST per token: a ref guard (StrictMode runs the effect twice; the server is idempotent anyway)
+  - [x] states (`data-testid="verify-status"` with `data-state`):
     - `verifying`: "Confirming your email…"
     - `success`: "Your email is confirmed." + a button "Log in" → `/login` (`verify-login-link`)
     - `expired`: "This link has expired." + `<ResendVerification />`
     - `invalid`: "This link is invalid or was already used." + `<ResendVerification />` + "Log in" link (a used link
       for an already verified account answers `204`, so "invalid" really means a dead link)
     - `error` (network/5xx/429): "Something went wrong. Try the link again." + retry button
-  - [ ] an authenticated visitor still sees the result (no redirect), then "Go to the quiz"
-  - [ ] Tailwind + `dark:` variants like `LoginPage`; works at 375 px
-- [ ] **5.5.2** `src/main.tsx`: `<Route path="/verify-email" element={<VerifyEmailPage />} />` before `*`.
-- [ ] **5.5.3** `src/__tests__/VerifyEmailPage.test.tsx` (mocked `authApi`, `MemoryRouter` with
+  - [x] an authenticated visitor still sees the result (no redirect), then "Go to the quiz"
+  - [x] Tailwind + `dark:` variants like `LoginPage`; works at 375 px
+- [x] **5.5.2** `src/main.tsx`: `<Route path="/verify-email" element={<VerifyEmailPage />} />` before `*`.
+- [x] **5.5.3** `src/__tests__/VerifyEmailPage.test.tsx` (mocked `authApi`, `MemoryRouter` with
       `initialEntries={['/verify-email?token=abc']}`):
-  - [ ] calls `verifyEmail('abc')` exactly once, even under `<React.StrictMode>`
-  - [ ] success / expired / invalid / error states render the right text and actions
-  - [ ] no token → no API call, the resend form shows
-  - [ ] the token is removed from the location after mount
-- [ ] **5.5.4** `src/__tests__/routeReload.test.tsx`: `/verify-email` renders inside the shell.
+  - [x] calls `verifyEmail('abc')` exactly once, even under `<React.StrictMode>`
+  - [x] success / expired / invalid / error states render the right text and actions
+  - [x] no token → no API call, the resend form shows
+  - [x] the token is removed from the location after mount
+- [x] **5.5.4** `src/__tests__/routeReload.test.tsx`: `/verify-email` renders inside the shell.
 
 ### 5.6 Login page
-- [ ] **5.6.1** `src/pages/LoginPage.tsx`: when `isProblemType(e, EMAIL_NOT_VERIFIED)`, show "Please confirm your email
+- [x] **5.6.1** `src/pages/LoginPage.tsx`: when `isProblemType(e, EMAIL_NOT_VERIFIED)`, show "Please confirm your email
       first. Check your inbox." (`auth-error`) plus `<ResendVerification initialEmail={email} compact />`. Inert until
       Phase 6, since the backend doesn't answer `403` yet.
-- [ ] **5.6.2** `src/__tests__/LoginPage.test.tsx`: a `403` `email-not-verified` shows the message and the resend button
+- [x] **5.6.2** `src/__tests__/LoginPage.test.tsx`: a `403` `email-not-verified` shows the message and the resend button
       with the typed email; a `401` still shows only the alert.
 
 ### 5.7 nginx
-- [ ] **5.7.1** `frontend/nginx.conf`: `add_header Referrer-Policy "strict-origin-when-cross-origin" always;` in the
+- [x] **5.7.1** `frontend/nginx.conf`: `add_header Referrer-Policy "strict-origin-when-cross-origin" always;` in the
       `location /` block. Browsers already default to it; making it explicit means a token in the URL never goes to
       Google Fonts in a `Referer`. The SPA fallback (`try_files … /index.html`) already serves `/verify-email`.
       Check `frontend/vite.config.ts` dev server too (history fallback is on by default).
 
 ### 5.8 E2E: browser
-- [ ] **5.8.1** `e2e/src/steps/auth-ui.steps.ts`, keep the meaning of the 25 existing usages ("I end up signed up and
+- [x] **5.8.1** `e2e/src/steps/auth-ui.steps.ts`, keep the meaning of the 25 existing usages ("I end up signed up and
       logged in"):
-  - [ ] `When I sign up through the form with a new email`: fill + submit → wait for `register-check-email` →
+  - [x] `When I sign up through the form with a new email`: fill + submit → wait for `register-check-email` →
         `page.goto(verificationLink)` → wait for `verify-status[data-state="success"]` → log in through the form →
         wait for `user-menu`. The same tab keeps localStorage, so the progress-sync scenarios still see their anonymous
         progress.
-  - [ ] new `When I submit the sign-up form with a new email` (stops at the check-email panel)
-  - [ ] new `Then I should see the check-your-inbox message`
-  - [ ] new `When I open the verification link from my email in the browser`
-  - [ ] new `Then I should see that my email is confirmed`
-  - [ ] new `When I open the verification page with the token {string}`
-  - [ ] new `Then I should see the verification state {string}`
-  - [ ] new `When I ask for a new verification email`, `Then I should see the resend confirmation`
-- [ ] **5.8.2** `e2e/features/frontend/email-verification.feature` (`@frontend`):
-  - [ ] sign up → check-inbox message → open the link → confirmed → log in → the user menu shows my email
-  - [ ] an invented token → state `invalid` + resend form
-  - [ ] the page without a token → resend form
-  - [ ] check-inbox panel → resend → resend confirmation, and a second email arrives in Mailpit
-- [ ] **5.8.3** `e2e/features/frontend/auth.feature` "Signing up logs the user in" → rename to "Signing up and
+  - [x] new `When I submit the sign-up form with a new email` (stops at the check-email panel)
+  - [x] new `Then I should see the check-your-inbox message`
+  - [x] new `When I open the verification link from my email in the browser`
+  - [x] new `Then I should see that my email is confirmed`
+  - [x] new `When I open the verification page with the token {string}`
+  - [x] new `Then I should see the verification state {string}`
+  - [x] new `When I ask for a new verification email`, `Then I should see the resend confirmation`
+- [x] **5.8.2** `e2e/features/frontend/email-verification.feature` (`@frontend`):
+  - [x] sign up → check-inbox message → open the link → confirmed → log in → the user menu shows my email
+  - [x] an invented token → state `invalid` + resend form
+  - [x] the page without a token → resend form
+  - [x] check-inbox panel → resend → resend confirmation, and a second email arrives in Mailpit
+- [x] **5.8.3** `e2e/features/frontend/auth.feature` "Signing up logs the user in" → rename to "Signing up and
       confirming the email logs the user in" (the step does the full flow now).
-- [ ] **5.8.4** `npx tsc --noEmit` in `frontend/` → no new errors (the 3 known ones stay).
-- [ ] **5.8.5** `npm --prefix frontend run test:run && npm --prefix frontend run build` → green. `make clean build` →
+- [x] **5.8.4** `npx tsc --noEmit` in `frontend/` → no new errors (the 3 known ones stay).
+- [x] **5.8.5** `npm --prefix frontend run test:run && npm --prefix frontend run build` → green. `make clean build` →
       green. Ask for commit approval → `feat(frontend): add email verification page and resend action`
 
 ---

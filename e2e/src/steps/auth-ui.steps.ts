@@ -2,6 +2,7 @@ import { When, Then } from '@cucumber/cucumber';
 import { strict as assert } from 'assert';
 import { PhrasalWorld } from '../world';
 import { TEST_PASSWORD, uniqueEmail } from '../support/test-users';
+import { verificationToken } from '../support/mailpit-client';
 
 const FRONTEND_URL = `http://localhost:${process.env.FRONTEND_PORT || '3000'}`;
 const PAGE_TIMEOUT = 10_000;
@@ -27,15 +28,77 @@ When('I open the {string} page', async function (this: PhrasalWorld, name: strin
     await this.page!.waitForLoadState('networkidle');
 });
 
-When('I sign up through the form with a new email', async function (this: PhrasalWorld) {
-    this.currentEmail = uniqueEmail();
-    const page = this.page!;
+async function submitSignUp(world: PhrasalWorld) {
+    world.currentEmail = uniqueEmail();
+    const page = world.page!;
     await page.goto(`${FRONTEND_URL}/register`);
-    await page.getByTestId('register-email').fill(this.currentEmail);
+    await page.getByTestId('register-email').fill(world.currentEmail);
     await page.getByTestId('register-password').fill(TEST_PASSWORD);
     await page.getByTestId('register-password-confirm').fill(TEST_PASSWORD);
     await page.getByTestId('register-submit').click();
-    await page.getByTestId('user-menu').waitFor({ timeout: PAGE_TIMEOUT });
+    await page.getByTestId('register-check-email').waitFor({ timeout: PAGE_TIMEOUT });
+}
+
+async function openVerificationLink(world: PhrasalWorld) {
+    assert.ok(world.currentEmail, 'No current email: sign up first');
+    // The emailed link carries APP_BASE_URL; only its token is used, so a non-default FRONTEND_PORT still works.
+    const token = await verificationToken(world.currentEmail!);
+    await world.page!.goto(`${FRONTEND_URL}/verify-email?token=${token}`);
+}
+
+async function waitForVerifyState(world: PhrasalWorld, state: string) {
+    await world.page!.locator(`[data-testid="verify-status"][data-state="${state}"]`).waitFor({ timeout: PAGE_TIMEOUT });
+}
+
+When('I submit the sign-up form with a new email', async function (this: PhrasalWorld) {
+    await submitSignUp(this);
+});
+
+When('I sign up through the form with a new email', async function (this: PhrasalWorld) {
+    await submitSignUp(this);
+    await openVerificationLink(this);
+    await waitForVerifyState(this, 'success');
+    // Same tab: localStorage (anonymous progress) survives into the login.
+    await submitLogin(this, TEST_PASSWORD);
+    await this.page!.getByTestId('user-menu').waitFor({ timeout: PAGE_TIMEOUT });
+});
+
+When('I open the verification link from my email in the browser', async function (this: PhrasalWorld) {
+    await openVerificationLink(this);
+});
+
+When('I open the verification page with the token {string}', async function (this: PhrasalWorld, token: string) {
+    await this.page!.goto(`${FRONTEND_URL}/verify-email?token=${encodeURIComponent(token)}`);
+});
+
+When('I open the verification page without a token', async function (this: PhrasalWorld) {
+    await this.page!.goto(`${FRONTEND_URL}/verify-email`);
+});
+
+When('I ask for a new verification email', async function (this: PhrasalWorld) {
+    await this.page!.getByTestId('resend-verification').click();
+});
+
+Then('I should see the check-your-inbox message', async function (this: PhrasalWorld) {
+    const panel = this.page!.getByTestId('register-check-email');
+    await panel.waitFor({ timeout: PAGE_TIMEOUT });
+    assert.ok((await panel.textContent())?.includes(this.currentEmail!), 'Expected the panel to show my email');
+});
+
+Then('I should see that my email is confirmed', async function (this: PhrasalWorld) {
+    await waitForVerifyState(this, 'success');
+});
+
+Then('I should see the verification state {string}', async function (this: PhrasalWorld, state: string) {
+    await waitForVerifyState(this, state);
+});
+
+Then('I should see the resend form', async function (this: PhrasalWorld) {
+    await this.page!.getByTestId('resend-verification').waitFor({ timeout: PAGE_TIMEOUT });
+});
+
+Then('I should see the resend confirmation', async function (this: PhrasalWorld) {
+    await this.page!.getByTestId('resend-done').waitFor({ timeout: PAGE_TIMEOUT });
 });
 
 When('I log in through the form', async function (this: PhrasalWorld) {

@@ -1,4 +1,4 @@
-import { register, login, logout, fetchCurrentUser } from '../../api/authApi';
+import { register, login, logout, fetchCurrentUser, verifyEmail, resendVerification } from '../../api/authApi';
 import { get, post, ApiError } from '../../api/client';
 
 vi.mock('../../api/client', async () => {
@@ -14,10 +14,27 @@ afterEach(() => {
 });
 
 describe('authApi', () => {
-  it('register posts credentials', async () => {
+  it('register posts credentials and resolves for a 201 body', async () => {
     vi.mocked(post).mockResolvedValue(user);
-    expect(await register('a@b.co', 'secret-pass-1')).toEqual(user);
+    await expect(register('a@b.co', 'secret-pass-1')).resolves.toBeUndefined();
     expect(post).toHaveBeenCalledWith('/auth/register', { email: 'a@b.co', password: 'secret-pass-1' });
+  });
+
+  it('register resolves for a 202 message body', async () => {
+    vi.mocked(post).mockResolvedValue({ message: 'If this address can be used, we have sent a link to it.' });
+    await expect(register('a@b.co', 'secret-pass-1')).resolves.toBeUndefined();
+  });
+
+  it('verifyEmail posts the token', async () => {
+    vi.mocked(post).mockResolvedValue(undefined);
+    await verifyEmail('tok');
+    expect(post).toHaveBeenCalledWith('/auth/verify-email', { token: 'tok' });
+  });
+
+  it('resendVerification posts the email', async () => {
+    vi.mocked(post).mockResolvedValue(undefined);
+    await resendVerification('a@b.co');
+    expect(post).toHaveBeenCalledWith('/auth/resend-verification', { email: 'a@b.co' });
   });
 
   it('login posts credentials', async () => {

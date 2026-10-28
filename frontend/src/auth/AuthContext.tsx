@@ -10,6 +10,7 @@ export interface AuthContextValue {
   status: AuthStatus;
   user: CurrentUser | null;
   login: (email: string, password: string) => Promise<void>;
+  /** Creates the account only; it cannot log in until the emailed link is opened, so no session starts here. */
   register: (email: string, password: string) => Promise<void>;
   logout: () => Promise<void>;
   refresh: () => Promise<void>;
@@ -56,8 +57,7 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
 
   const register = useCallback(async (email: string, password: string) => {
     await authApi.register(email, password);
-    await login(email, password);
-  }, [login]);
+  }, []);
 
   const logout = useCallback(async () => {
     // Push pending progress while the session is still valid (best effort).

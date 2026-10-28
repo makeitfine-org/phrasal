@@ -4,6 +4,9 @@ import { MemoryRouter, Routes, Route } from 'react-router-dom';
 import RegisterPage from '../pages/RegisterPage';
 import { AuthContext, type AuthContextValue } from '../auth/AuthContext';
 import { ApiError } from '../api/client';
+import * as authApi from '../api/authApi';
+
+vi.mock('../api/authApi', () => ({ resendVerification: vi.fn() }));
 
 function ctx(register = vi.fn().mockResolvedValue(undefined)): AuthContextValue {
   return { status: 'anonymous', user: null, login: vi.fn(), register, logout: vi.fn(), refresh: vi.fn() };
@@ -53,12 +56,26 @@ describe('RegisterPage', () => {
     expect(value.register).not.toHaveBeenCalled();
   });
 
-  it('registers and navigates home', async () => {
+  it('shows the check-your-inbox panel without navigating or logging in', async () => {
     const value = ctx();
     renderPage(value);
     fill('long-enough-pw', 'long-enough-pw');
-    await waitFor(() => expect(screen.getByText('home')).toBeInTheDocument());
+    const panel = await screen.findByTestId('register-check-email');
     expect(value.register).toHaveBeenCalledWith('a@b.co', 'long-enough-pw');
+    expect(panel).toHaveTextContent('We sent a link to a@b.co. It expires in 24 hours.');
+    expect(screen.queryByText('home')).not.toBeInTheDocument();
+    expect(value.login).not.toHaveBeenCalled();
+    expect(screen.queryByTestId('register-submit')).not.toBeInTheDocument();
+    expect(screen.getByRole('link', { name: 'Back to log in' })).toHaveAttribute('href', '/login');
+  });
+
+  it('offers to resend to the entered email', async () => {
+    vi.mocked(authApi.resendVerification).mockResolvedValue(undefined);
+    renderPage(ctx());
+    fill('long-enough-pw', 'long-enough-pw');
+    fireEvent.click(await screen.findByTestId('resend-verification'));
+    await waitFor(() => expect(authApi.resendVerification).toHaveBeenCalledWith('a@b.co'));
+    expect(await screen.findByTestId('resend-done')).toBeInTheDocument();
   });
 
   it('shows a server field error under the field', async () => {

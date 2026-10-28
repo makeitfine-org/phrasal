@@ -2,6 +2,8 @@ import React, { useState } from 'react';
 import { Link, Navigate, useLocation, useNavigate } from 'react-router-dom';
 import { useAuth } from '../auth/useAuth';
 import { ApiError } from '../api/client';
+import { EMAIL_NOT_VERIFIED, isProblemType } from '../api/problemTypes';
+import ResendVerification from '../components/ResendVerification';
 
 export const inputClass =
   'w-full px-3 py-2 rounded-lg border border-gray-300 dark:border-gray-700 bg-white dark:bg-gray-900 ' +
@@ -21,6 +23,7 @@ export default function LoginPage() {
   const [password, setPassword] = useState('');
   const [pending, setPending] = useState(false);
   const [error, setError] = useState<string | null>(null);
+  const [unverified, setUnverified] = useState(false);
 
   if (status === 'authenticated') {
     return <Navigate to="/" replace />;
@@ -30,11 +33,16 @@ export default function LoginPage() {
     event.preventDefault();
     setPending(true);
     setError(null);
+    setUnverified(false);
     try {
       await login(email, password);
       const from = (location.state as { from?: string } | null)?.from ?? '/';
       navigate(from, { replace: true });
     } catch (e) {
+      if (isProblemType(e, EMAIL_NOT_VERIFIED)) {
+        setUnverified(true);
+        return;
+      }
       setError(e instanceof ApiError ? e.message : 'Something went wrong. Please try again.');
     } finally {
       setPending(false);
@@ -46,6 +54,12 @@ export default function LoginPage() {
       <h1 className="text-2xl font-bold text-gray-900 dark:text-gray-100 mb-6">Log in</h1>
       {error && (
         <div role="alert" data-testid="auth-error" className={alertClass}>{error}</div>
+      )}
+      {unverified && (
+        <div role="alert" data-testid="auth-error" className={alertClass}>
+          <p className="mb-2">Please confirm your email first. Check your inbox.</p>
+          <ResendVerification initialEmail={email} compact />
+        </div>
       )}
       <form onSubmit={handleSubmit} className="space-y-4">
         <label className="block text-sm text-gray-700 dark:text-gray-300">

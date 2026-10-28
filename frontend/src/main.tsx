@@ -11,6 +11,7 @@ import ParticlesPage from './pages/particles/ParticlesPage';
 import IWishPage from './pages/IWishPage';
 import LoginPage from './pages/LoginPage';
 import RegisterPage from './pages/RegisterPage';
+import VerifyEmailPage from './pages/VerifyEmailPage';
 import NotFoundPage from './pages/NotFoundPage';
 import ErrorBoundary from './components/ErrorBoundary';
 import PageShell from './components/PageShell';
@@ -34,6 +35,7 @@ ReactDOM.createRoot(document.getElementById('root')!).render(
             <Route path="/grammar/i-wish-if-only" element={<IWishPage />} />
             <Route path="/login" element={<LoginPage />} />
             <Route path="/register" element={<RegisterPage />} />
+            <Route path="/verify-email" element={<VerifyEmailPage />} />
             <Route path="*" element={<NotFoundPage />} />
           </Route>
         </Routes>

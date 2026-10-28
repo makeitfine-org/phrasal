@@ -1,21 +1,24 @@
 import React, { useState } from 'react';
-import { Link, Navigate, useNavigate } from 'react-router-dom';
+import { Link, Navigate } from 'react-router-dom';
 import { useAuth } from '../auth/useAuth';
 import { ApiError } from '../api/client';
+import ResendVerification from '../components/ResendVerification';
 import { alertClass, buttonClass, inputClass, linkClass } from './LoginPage';
 
 const MIN_PASSWORD_LENGTH = 10;
 const HTTP_CONFLICT = 409;
+/** Keep in sync with the backend `EMAIL_VERIFICATION_TOKEN_TTL`. */
+const VERIFICATION_LINK_TTL_HOURS = 24;
 
 export default function RegisterPage() {
   const { status, register } = useAuth();
-  const navigate = useNavigate();
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [confirm, setConfirm] = useState('');
   const [pending, setPending] = useState(false);
   const [error, setError] = useState<string | null>(null);
   const [duplicate, setDuplicate] = useState(false);
+  const [sentTo, setSentTo] = useState<string | null>(null);
   const [fieldErrors, setFieldErrors] = useState<Record<string, string>>({});
 
   if (status === 'authenticated') {
@@ -40,7 +43,7 @@ export default function RegisterPage() {
     setPending(true);
     try {
       await register(email, password);
-      navigate('/', { replace: true });
+      setSentTo(email);
     } catch (e) {
       if (e instanceof ApiError && e.status === HTTP_CONFLICT) {
         setDuplicate(true);
@@ -60,6 +63,24 @@ export default function RegisterPage() {
         {fieldErrors[name]}
       </span>
     ) : null;
+
+  if (sentTo) {
+    return (
+      <main id="main-content" className="max-w-sm mx-auto pt-16 px-4 pb-20">
+        <h1 className="text-2xl font-bold text-gray-900 dark:text-gray-100 mb-6">Check your inbox</h1>
+        <div data-testid="register-check-email" className="space-y-4 text-gray-700 dark:text-gray-300">
+          <p>
+            We sent a link to <strong>{sentTo}</strong>. It expires in {VERIFICATION_LINK_TTL_HOURS} hours.
+          </p>
+          <p className="text-sm">Didn't get it? Check spam, or</p>
+          <ResendVerification initialEmail={sentTo} compact />
+          <p className="text-sm">
+            <Link to="/login" className={linkClass}>Back to log in</Link>
+          </p>
+        </div>
+      </main>
+    );
+  }
 
   return (
     <main id="main-content" className="max-w-sm mx-auto pt-16 px-4 pb-20">
