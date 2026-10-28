@@ -4548,3 +4548,29 @@ How they're set
 ## 2026-10-28T22:01:49Z
 git add all changes and commit them with suitable message
 ---
+
+## 2026-10-28T22:08:44Z
+
+
+<pasted_content id="3010">
+Implement functionality:
+While sign-up when user create a password, give a tip which symbols should password contain and which length it must have
+Covered that with reasonable tests, including e2e
+On phase completion `make clean build` must pass successfully.
+</pasted_content id="3010">
+---
+
+## 2026-10-28T22:13:18Z
+what is the rules for secure password? Because now I have password which have only one requirements to be more than 10 symbols?
+---
+
+## 2026-10-28T22:18:19Z
+Yes, implement option 2
+
+Covered that with reasonable tests, including e2e
+On phase completion `make clean build` must pass successfully.
+---
+
+## 2026-10-28T22:32:15Z
+git add all changes and commit them with suitable message
+---

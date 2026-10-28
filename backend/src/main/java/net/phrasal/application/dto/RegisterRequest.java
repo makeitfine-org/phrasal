@@ -3,6 +3,7 @@ package net.phrasal.application.dto;
 import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.Size;
+import net.phrasal.application.validation.PasswordNotContainingEmail;
 import net.phrasal.application.validation.ValidPassword;
 
 /**
@@ -11,6 +12,7 @@ import net.phrasal.application.validation.ValidPassword;
  * @param email    account email, normalized before use
  * @param password raw password, validated by {@link ValidPassword}; never logged
  */
+@PasswordNotContainingEmail
 public record RegisterRequest(
 
         @NotBlank(message = "Email is required")

@@ -3,9 +3,9 @@ import { Link, Navigate } from 'react-router-dom';
 import { useAuth } from '../auth/useAuth';
 import { ApiError } from '../api/client';
 import ResendVerification from '../components/ResendVerification';
+import { MIN_PASSWORD_LENGTH, PASSWORD_TIP, passwordRules, passwordViolation } from '../auth/passwordPolicy';
 import { alertClass, buttonClass, inputClass, linkClass } from './LoginPage';
 
-const MIN_PASSWORD_LENGTH = 10;
 /** Keep in sync with the backend `EMAIL_VERIFICATION_TOKEN_TTL`. */
 const VERIFICATION_LINK_TTL_HOURS = 24;
 
@@ -28,8 +28,9 @@ export default function RegisterPage() {
     setError(null);
     setFieldErrors({});
 
-    if (password.length < MIN_PASSWORD_LENGTH) {
-      setFieldErrors({ password: `Password must be at least ${MIN_PASSWORD_LENGTH} characters` });
+    const violation = passwordViolation(password, email);
+    if (violation) {
+      setFieldErrors({ password: violation });
       return;
     }
     if (password !== confirm) {
@@ -97,10 +98,21 @@ export default function RegisterPage() {
           Password
           <input
             type="password" autoComplete="new-password" required minLength={MIN_PASSWORD_LENGTH} value={password}
+            aria-describedby="password-requirements"
             onChange={e => setPassword(e.target.value)}
             data-testid="register-password" className={`${inputClass} mt-1`}
           />
-          <span className="block mt-1 text-xs text-gray-500 dark:text-gray-400">At least {MIN_PASSWORD_LENGTH} characters</span>
+          <div id="password-requirements" data-testid="password-requirements" className="mt-1 text-xs text-gray-500 dark:text-gray-400">
+            <ul>
+              {passwordRules(password, email).map(rule => (
+                <li key={rule.id} data-testid={`password-rule-${rule.id}`} data-met={rule.met}
+                  className={rule.met ? 'text-green-700 dark:text-green-400' : undefined}>
+                  <span aria-hidden="true">{rule.met ? '✓' : '○'}</span> {rule.label}
+                </li>
+              ))}
+            </ul>
+            <p data-testid="password-tip" className="mt-1">{PASSWORD_TIP}</p>
+          </div>
           {fieldError('password')}
         </label>
         <label className="block text-sm text-gray-700 dark:text-gray-300">

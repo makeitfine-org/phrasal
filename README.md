@@ -442,7 +442,7 @@ Visitors can sign up with an email and password. Content stays public to read; o
 
 | Endpoint | Success | Errors |
 |---|---|---|
-| `POST /api/v1/auth/register` `{email, password}` | `202` + `{"message": ...}` (always the same body, see below) | `400` invalid email or password (min 10 chars, max 72 UTF-8 bytes), `429` rate limited |
+| `POST /api/v1/auth/register` `{email, password}` | `202` + `{"message": ...}` (always the same body, see below) | `400` invalid email or password (see policy below), `429` rate limited |
 | `POST /api/v1/auth/verify-email` `{token}` | `204`, the address is confirmed | `400` `verification-link-invalid` or `verification-link-expired`, `403` CSRF, `429` rate limited |
 | `POST /api/v1/auth/resend-verification` `{email}` | `202` (always, even for unknown or verified addresses) | `400` invalid body, `403` CSRF, `429` rate limited |
 | `POST /api/v1/auth/login` `{email, password}` | `200` + `{id, email, role}`, sets the `SESSION` cookie | `400` invalid body, `401` wrong email or password, `403` `email-not-verified` (right password, unconfirmed address), `429` rate limited |
@@ -450,6 +450,13 @@ Visitors can sign up with an email and password. Content stays public to read; o
 | `POST /api/v1/auth/logout` | `204`, session invalidated | - |
 
 Errors are `application/problem+json` (RFC 7807).
+
+Password policy (follows NIST SP 800-63B: length over composition): 10+ characters, at most 72 UTF-8 bytes, not a single
+repeated character, not in the common-password blocklist (`backend/src/main/resources/password-blocklist.txt`, matched
+case-insensitively), and not containing the account email or its local part (4+ characters). No symbol/digit/case
+requirement. The sign-up form shows these as a live checklist plus a tip; the blocklist is enforced by the backend only
+(its error is shown under the field). The client-side rules live in `frontend/src/auth/passwordPolicy.ts` and must stay in
+sync with the backend `PasswordPolicy`.
 
 **Roles.** `USER` (default for sign-ups) and `ADMIN`. Anyone can `GET /api/**`. `POST`/`PUT`/`DELETE` on phrasal-verbs,
 grammar-entries and verb-details need `ADMIN` (anonymous gets `401`, a `USER` gets `403`). `/actuator/health/**` is public,

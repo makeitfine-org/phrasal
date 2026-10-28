@@ -1741,3 +1741,42 @@
 - .claude/docs/blackbox/session-log.md
 - README.md
 <!-- end-snapshot -->
+
+<!-- git-snapshot 2026-10-28T22:12:05Z -->
+- .claude/docs/blackbox/audit.md
+- README.md
+- backlog/drafts/hard.md
+- e2e/features/frontend/auth.feature
+- e2e/src/steps/auth-ui.steps.ts
+- frontend/src/__tests__/RegisterPage.test.tsx
+- frontend/src/pages/RegisterPage.tsx
+<!-- end-snapshot -->
+
+<!-- git-snapshot 2026-10-28T22:13:27Z -->
+- .claude/docs/blackbox/audit.md
+- .claude/docs/blackbox/session-log.md
+- README.md
+- backlog/drafts/hard.md
+- e2e/features/frontend/auth.feature
+- e2e/src/steps/auth-ui.steps.ts
+- frontend/src/__tests__/RegisterPage.test.tsx
+- frontend/src/pages/RegisterPage.tsx
+<!-- end-snapshot -->
+
+<!-- git-snapshot 2026-10-28T22:28:38Z -->
+- .claude/docs/blackbox/audit.md
+- .claude/docs/blackbox/session-log.md
+- README.md
+- backend/src/main/java/net/phrasal/application/dto/RegisterRequest.java
+- backend/src/main/java/net/phrasal/application/validation/PasswordPolicy.java
+- backend/src/main/java/net/phrasal/application/validation/ValidPassword.java
+- backend/src/test/java/net/phrasal/application/validation/PasswordPolicyValidatorTest.java
+- backend/src/test/java/net/phrasal/integration/AuthRegisterIntegrationTest.java
+- backlog/drafts/hard.md
+- e2e/features/auth-api/auth.feature
+- e2e/features/frontend/auth.feature
+- e2e/src/steps/auth-api.steps.ts
+- e2e/src/steps/auth-ui.steps.ts
+- frontend/src/__tests__/RegisterPage.test.tsx
+- frontend/src/pages/RegisterPage.tsx
+<!-- end-snapshot -->

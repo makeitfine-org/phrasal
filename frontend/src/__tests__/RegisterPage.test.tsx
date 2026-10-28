@@ -36,8 +36,49 @@ function fill(password: string, confirm: string) {
 describe('RegisterPage', () => {
   it('shows the length hint and login link', () => {
     renderPage(ctx());
-    expect(screen.getByText('At least 10 characters')).toBeInTheDocument();
+    expect(screen.getByText(/At least 10 characters/)).toBeInTheDocument();
+    expect(screen.getByTestId('password-tip')).toHaveTextContent('letters, digits and symbols');
     expect(screen.getByRole('link', { name: 'Log in' })).toHaveAttribute('href', '/login');
+  });
+
+  it('ticks the length rule live as the password is typed', () => {
+    renderPage(ctx());
+    const rule = () => screen.getByTestId('password-rule-min-length');
+    expect(rule()).toHaveAttribute('data-met', 'false');
+    fireEvent.change(screen.getByTestId('register-password'), { target: { value: '1234567890' } });
+    expect(rule()).toHaveAttribute('data-met', 'true');
+    fireEvent.change(screen.getByTestId('register-password'), { target: { value: '123456789' } });
+    expect(rule()).toHaveAttribute('data-met', 'false');
+  });
+
+  it('flags a password over 72 UTF-8 bytes and does not submit it', () => {
+    const value = ctx();
+    renderPage(value);
+    const tooLong = 'é'.repeat(37); // 74 bytes
+    fireEvent.change(screen.getByTestId('register-password'), { target: { value: tooLong } });
+    expect(screen.getByTestId('password-rule-max-bytes')).toHaveAttribute('data-met', 'false');
+    fill(tooLong, tooLong);
+    expect(screen.getByTestId('field-error-password')).toHaveTextContent('must not exceed 72 bytes');
+    expect(value.register).not.toHaveBeenCalled();
+  });
+
+  it('rejects a password containing the email without a request', () => {
+    const value = ctx();
+    renderPage(value);
+    fireEvent.change(screen.getByTestId('register-email'), { target: { value: 'janedoe@site.org' } });
+    fireEvent.change(screen.getByTestId('register-password'), { target: { value: 'my-janedoe-pass' } });
+    expect(screen.getByTestId('password-rule-no-email')).toHaveAttribute('data-met', 'false');
+    fireEvent.change(screen.getByTestId('register-password-confirm'), { target: { value: 'my-janedoe-pass' } });
+    fireEvent.click(screen.getByTestId('register-submit'));
+    expect(screen.getByTestId('field-error-password')).toHaveTextContent('must not contain your email');
+    expect(value.register).not.toHaveBeenCalled();
+  });
+
+  it('shows the server blocklist error under the password field', async () => {
+    const problem = { type: 't', title: 'Bad', status: 400, errors: { password: 'Password is too common, choose a less predictable one' } };
+    renderPage(ctx(vi.fn().mockRejectedValue(new ApiError(400, 'Bad', problem))));
+    fill('password123', 'password123');
+    expect(await screen.findByTestId('field-error-password')).toHaveTextContent('too common');
   });
 
   it('rejects mismatched passwords without a request', () => {

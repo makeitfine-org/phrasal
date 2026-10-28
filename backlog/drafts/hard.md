@@ -233,7 +233,16 @@ Create detailed save-on-server-multiuser-todos.md fils with checkboxes (- [ ]), 
 
 ---
 -- // Prompt
+
 Implement functionality from @.claude/docs/blackbox/todos/email-verification-on-server-multiuser-todos.md Phase 0.                                                                                                      
 Don't forget to check off implemented boxes.
+On phase completion `make clean build` must pass successfully.
+
+---
+-- // Prompt
+
+Implement functionality:
+While sign-up when user create a password, give a tip which symbols should password contain and which length it must have
+Covered that with reasonable tests, including e2e
 On phase completion `make clean build` must pass successfully.
 

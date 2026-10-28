@@ -127,6 +127,31 @@ class AuthRegisterIntegrationTest extends AbstractIntegrationTest {
     }
 
     @Test
+    @DisplayName("common password returns 400 naming the blocklist rule")
+    void passwordTooCommon() throws Exception {
+        mockMvc.perform(register(uniqueEmail(), "Password123").with(csrf()))
+                .andExpect(status().isBadRequest())
+                .andExpect(jsonPath("$.errors.password").value(containsString("too common")));
+    }
+
+    @Test
+    @DisplayName("single repeated character returns 400")
+    void passwordRepeated() throws Exception {
+        mockMvc.perform(register(uniqueEmail(), "z".repeat(12)).with(csrf()))
+                .andExpect(status().isBadRequest())
+                .andExpect(jsonPath("$.errors.password").value(containsString("repeated")));
+    }
+
+    @Test
+    @DisplayName("password containing the email local part returns 400 on the password field")
+    void passwordContainsEmail() throws Exception {
+        mockMvc.perform(register("janedoe@example.com", "my-JaneDoe-pass").with(csrf()))
+                .andExpect(status().isBadRequest())
+                .andExpect(jsonPath("$.errors.password").value(containsString("email")));
+        assertThat(userRepository.findByEmail("janedoe@example.com")).isEmpty();
+    }
+
+    @Test
     @DisplayName("invalid email returns 400 Validation Error")
     void invalidEmail() throws Exception {
         mockMvc.perform(register("not-an-email", PASSWORD).with(csrf()))

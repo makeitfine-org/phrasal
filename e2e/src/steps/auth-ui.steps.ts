@@ -142,3 +142,56 @@ Then('I should see the {string} link in the navigation', async function (this: P
 Then('I should see an auth error', async function (this: PhrasalWorld) {
     assert.ok(await this.page!.getByTestId('auth-error').isVisible(), 'Expected an auth error to be visible');
 });
+
+When('I type the password {string} on the sign-up form', async function (this: PhrasalWorld, password: string) {
+    await this.page!.getByTestId('register-password').fill(password);
+});
+
+Then('I should see the password tip mentioning letters, digits and symbols', async function (this: PhrasalWorld) {
+    const tip = this.page!.getByTestId('password-tip');
+    await tip.waitFor({ timeout: PAGE_TIMEOUT });
+    const text = (await tip.textContent()) ?? '';
+    assert.ok(/letters/.test(text) && /digits/.test(text) && /symbols/.test(text), `Unexpected tip: ${text}`);
+    const rules = (await this.page!.getByTestId('password-rule-min-length').textContent()) ?? '';
+    assert.ok(rules.includes('At least 10 characters'), `Unexpected length rule: ${rules}`);
+});
+
+async function assertLengthRule(world: PhrasalWorld, met: boolean) {
+    await world.page!
+        .locator(`[data-testid="password-rule-min-length"][data-met="${met}"]`)
+        .waitFor({ timeout: PAGE_TIMEOUT });
+}
+
+Then('the password length rule should be unmet', async function (this: PhrasalWorld) {
+    await assertLengthRule(this, false);
+});
+
+Then('the password length rule should be met', async function (this: PhrasalWorld) {
+    await assertLengthRule(this, true);
+});
+
+When('I submit the sign-up form with the password {string}', async function (this: PhrasalWorld, password: string) {
+    const page = this.page!;
+    await page.getByTestId('register-email').fill(uniqueEmail());
+    await page.getByTestId('register-password').fill(password);
+    await page.getByTestId('register-password-confirm').fill(password);
+    await page.getByTestId('register-submit').click();
+});
+
+When('I type the email {string} and the password {string} on the sign-up form',
+    async function (this: PhrasalWorld, email: string, password: string) {
+        await this.page!.getByTestId('register-email').fill(email);
+        await this.page!.getByTestId('register-password').fill(password);
+    });
+
+Then('I should see the password field error mentioning {string}', async function (this: PhrasalWorld, text: string) {
+    const error = this.page!.getByTestId('field-error-password');
+    await error.waitFor({ timeout: PAGE_TIMEOUT });
+    assert.ok((await error.textContent())?.includes(text), `Expected the password error to mention "${text}"`);
+});
+
+Then('the password email rule should be unmet', async function (this: PhrasalWorld) {
+    await this.page!
+        .locator('[data-testid="password-rule-no-email"][data-met="false"]')
+        .waitFor({ timeout: PAGE_TIMEOUT });
+});

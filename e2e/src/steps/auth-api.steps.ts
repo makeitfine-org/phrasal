@@ -60,6 +60,17 @@ When('I register with a new email and password {string}', async function (this: 
     await register(this, uniqueEmail(), password);
 });
 
+When('I register with a password containing my own email', async function (this: PhrasalWorld) {
+    const email = uniqueEmail();
+    await register(this, email, `pw-${email.split('@')[0]}-x`);
+});
+
+Then('the password error should mention {string}', function (this: PhrasalWorld, text: string) {
+    assert.ok(this.lastResponse, 'No response recorded');
+    const message: string | undefined = this.lastResponse!.data?.errors?.password;
+    assert.ok(message?.includes(text), `Expected password error to mention "${text}", got: ${message}`);
+});
+
 When('I register again with the same email', async function (this: PhrasalWorld) {
     await register(this, currentEmail(this), TEST_PASSWORD);
 });

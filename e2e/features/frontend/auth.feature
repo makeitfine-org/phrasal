@@ -8,6 +8,26 @@ Feature: Accounts in the browser
     When I sign up through the form with a new email
     Then the user menu should show my email
 
+  Scenario: The sign-up form tips which password is acceptable
+    When I open the "sign up" page
+    Then I should see the password tip mentioning letters, digits and symbols
+    And the password length rule should be unmet
+
+  Scenario: The password length rule turns met once the password is long enough
+    When I open the "sign up" page
+    And I type the password "e2e-password-123" on the sign-up form
+    Then the password length rule should be met
+
+  Scenario: The sign-up form rejects a common password with the server explanation
+    When I open the "sign up" page
+    And I submit the sign-up form with the password "Password123"
+    Then I should see the password field error mentioning "too common"
+
+  Scenario: The sign-up form warns live when the password contains the email
+    When I open the "sign up" page
+    And I type the email "janedoe@phrasal.test" and the password "my-janedoe-pass" on the sign-up form
+    Then the password email rule should be unmet
+
   Scenario: Logging out brings back the Log in link
     When I sign up through the form with a new email
     And I log out through the user menu

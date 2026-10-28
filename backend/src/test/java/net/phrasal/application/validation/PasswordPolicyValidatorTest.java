@@ -40,14 +40,22 @@ class PasswordPolicyValidatorTest {
     @Test
     @DisplayName("10 characters is accepted")
     void minLength() {
-        assertThat(validator.isValid("a".repeat(10), context)).isTrue();
+        assertThat(validator.isValid("kx9tq2mzv4", context)).isTrue();
         verify(context, never()).buildConstraintViolationWithTemplate(anyString());
+    }
+
+    @Test
+    @DisplayName("common password is rejected with the blocklist message")
+    void commonPassword() {
+        assertThat(validator.isValid("Password123", context)).isFalse();
+
+        verify(context).buildConstraintViolationWithTemplate(PasswordPolicy.TOO_COMMON);
     }
 
     @Test
     @DisplayName("72 ASCII bytes is accepted")
     void maxAscii() {
-        assertThat(validator.isValid("a".repeat(MAX_ASCII), context)).isTrue();
+        assertThat(validator.isValid("ab".repeat(MAX_ASCII / 2), context)).isTrue();
     }
 
     @Test
@@ -61,7 +69,7 @@ class PasswordPolicyValidatorTest {
     @Test
     @DisplayName("24 x 3-byte characters (72 bytes) is accepted")
     void multiByteFits() {
-        assertThat(validator.isValid("€".repeat(EURO_FITS), context)).isTrue();
+        assertThat(validator.isValid("€x".repeat(EURO_FITS / 2), context)).isTrue();
     }
 
     @Test

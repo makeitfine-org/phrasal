@@ -13,7 +13,8 @@ import static java.lang.annotation.ElementType.RECORD_COMPONENT;
 import static java.lang.annotation.RetentionPolicy.RUNTIME;
 
 /**
- * Password policy: at least 10 characters and at most 72 UTF-8 bytes (the BCrypt input limit).
+ * Password policy: at least 10 characters, at most 72 UTF-8 bytes (the BCrypt input limit), not a common password and
+ * not a single repeated character. See {@link PasswordPolicy}.
  */
 @Documented
 @Constraint(validatedBy = PasswordPolicyValidator.class)

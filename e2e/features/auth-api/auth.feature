@@ -29,6 +29,25 @@ Feature: Authentication API
     When I register with a new email and password "short"
     Then the response status should be 400
 
+  Scenario: A common password is rejected with an explanation
+    When I register with a new email and password "Password123"
+    Then the response status should be 400
+    And the password error should mention "too common"
+
+  Scenario: A single repeated character is rejected
+    When I register with a new email and password "zzzzzzzzzzzz"
+    Then the response status should be 400
+    And the password error should mention "repeated"
+
+  Scenario: A password containing the email is rejected
+    When I register with a password containing my own email
+    Then the response status should be 400
+    And the password error should mention "email"
+
+  Scenario: A long passphrase without symbols is accepted
+    When I register with a new email and password "correct horse battery staple"
+    Then the response status should be 202
+
   Scenario: Log in and read my profile
     Given a registered user exists
     When I log in with the current email and password "e2e-password-123"
