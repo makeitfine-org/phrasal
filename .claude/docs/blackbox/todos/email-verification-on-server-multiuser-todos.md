@@ -630,22 +630,22 @@ sends a verification email and the link works.
 ## Phase 4 — E2E: read mail from Mailpit, verify over the API
 
 ### 4.1 Support code
-- [ ] **4.1.1** `e2e/src/support/mailpit-client.ts` (axios, base URL `MAILPIT_URL`, default `http://localhost:8025`),
+- [x] **4.1.1** `e2e/src/support/mailpit-client.ts` (axios, base URL `MAILPIT_URL`, default `http://localhost:8025`),
       API shapes from 0.5:
-  - [ ] `latestMessageTo(email, { timeoutMs = 10_000 })`: polls `GET /api/v1/search?query=to:"<email>"` every 250 ms
+  - [x] `latestMessageTo(email, { timeoutMs = 10_000 })`: polls `GET /api/v1/search?query=to:"<email>"` every 250 ms
         until a message exists, then `GET /api/v1/message/{ID}`; returns `{ subject, text, html }`
-  - [ ] `verificationLink(email)`: `latestMessageTo` + regex `/https?:\/\/[^\s"<]+\/verify-email\?token=[A-Za-z0-9_-]{43}/`;
+  - [x] `verificationLink(email)`: `latestMessageTo` + regex `/https?:\/\/[^\s"<]+\/verify-email\?token=[A-Za-z0-9_-]{43}/`;
         throws with the subject list when none matches
-  - [ ] `verificationToken(email)`: the `token` query parameter of that link
-  - [ ] `countMessagesTo(email)`: for the "nothing sent" checks
-  - [ ] `deleteMessagesTo(pattern)`: `DELETE /api/v1/search?query=to:"<pattern>"` for clean-up
-- [ ] **4.1.2** `e2e/.env.example`: `MAILPIT_URL=http://localhost:8025`.
-- [ ] **4.1.3** `e2e/src/hooks.ts` `AfterAll`: also delete Mailpit messages to `@phrasal.test` addresses (inside the
+  - [x] `verificationToken(email)`: the `token` query parameter of that link
+  - [x] `countMessagesTo(email)`: for the "nothing sent" checks
+  - [x] `deleteMessagesTo(pattern)`: `DELETE /api/v1/search?query=to:"<pattern>"` for clean-up
+- [x] **4.1.2** `e2e/.env.example`: `MAILPIT_URL=http://localhost:8025`.
+- [x] **4.1.3** `e2e/src/hooks.ts` `AfterAll`: also delete Mailpit messages to `@phrasal.test` addresses (inside the
       existing try/finally; a Mailpit error must not hide a DB clean-up error). `user_tokens` rows go with the users
       (FK cascade), so no new SQL.
 
 ### 4.2 Steps
-- [ ] **4.2.1** `e2e/src/steps/email-verification-api.steps.ts`:
+- [x] **4.2.1** `e2e/src/steps/email-verification-api.steps.ts`:
   - `When I open the verification link from my email` → `POST /api/v1/auth/verify-email` with the token from Mailpit
   - `When I verify with the token {string}` (negative cases)
   - `When I request a new verification email`
@@ -655,26 +655,26 @@ sends a verification email and the link works.
   - `Then the previous verification link should no longer work` (keeps the first token in the world)
   - `Then no email should have been sent to that address` (waits 2 s, then counts)
   - Reuse `the response status should be {int}`.
-- [ ] **4.2.2** `e2e/src/world.ts`: `verificationTokens: string[]`, reset in `Before`.
-- [ ] **4.2.3** `e2e/src/steps/auth-api.steps.ts`, make the shared steps already verify (works before and after
+- [x] **4.2.2** `e2e/src/world.ts`: `verificationTokens: string[]`, reset in `Before`.
+- [x] **4.2.3** `e2e/src/steps/auth-api.steps.ts`, make the shared steps already verify (works before and after
       Phase 6):
-  - [ ] `Given I am logged in as a new user`: register → `verificationToken` → verify (`204`) → login (`200`)
-  - [ ] `Given a registered user exists`: register → verify → clear cookies
-  - [ ] new `Given an unverified user exists`: register only, clear cookies
+  - [x] `Given I am logged in as a new user`: register → `verificationToken` → verify (`204`) → login (`200`)
+  - [x] `Given a registered user exists`: register → verify → clear cookies
+  - [x] new `Given an unverified user exists`: register only, clear cookies
 
 ### 4.3 Feature
-- [ ] **4.3.1** `e2e/features/auth-api/email-verification.feature` (`@api`):
-  - [ ] register → a verification email arrives
-  - [ ] open the link → `204`; open it again → `204`
-  - [ ] an invented token → `400`
-  - [ ] resend → `202`, two emails received, the previous link no longer works, the new one works
-  - [ ] resend for an unknown address → `202`, and no email is sent
-  - [ ] resend for a verified user → `202`, and no new email arrives
-- [ ] **4.3.2** `npm --prefix e2e run test:api` against the running stack → green, the old features included.
-- [ ] **4.3.3** `.github/workflows/ci_cd.yml`, e2e job "Run e2e tests" env: `MAILPIT_URL: http://localhost:8025`.
+- [x] **4.3.1** `e2e/features/auth-api/email-verification.feature` (`@api`):
+  - [x] register → a verification email arrives
+  - [x] open the link → `204`; open it again → `204`
+  - [x] an invented token → `400`
+  - [x] resend → `202`, two emails received, the previous link no longer works, the new one works
+  - [x] resend for an unknown address → `202`, and no email is sent
+  - [x] resend for a verified user → `202`, and no new email arrives
+- [x] **4.3.2** `npm --prefix e2e run test:api` against the running stack → green, the old features included.
+- [x] **4.3.3** `.github/workflows/ci_cd.yml`, e2e job "Run e2e tests" env: `MAILPIT_URL: http://localhost:8025`.
       The CI stack comes from `docker compose up -d --wait`, so mailpit starts with it; check `--wait` also waits for
       its healthcheck.
-- [ ] **4.3.4** `make clean build` → green. Ask for commit approval → `test(e2e): verify accounts through Mailpit`
+- [x] **4.3.4** `make clean build` → green. Ask for commit approval → `test(e2e): verify accounts through Mailpit`
 
 ---
 

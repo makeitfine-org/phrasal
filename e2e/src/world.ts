@@ -9,4 +9,5 @@ export interface PhrasalWorld extends World {
     browser: Browser | null;
     page: Page | null;
     currentEmail: string | null;
+    verificationTokens: string[];
 }

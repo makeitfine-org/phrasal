@@ -2,10 +2,13 @@ import { Before, After, BeforeAll, AfterAll, setDefaultTimeout } from '@cucumber
 import { chromium, Browser } from 'playwright';
 import { ApiClient } from './support/api-client';
 import { createDbClient } from './support/db-client';
+import { deleteMessagesTo } from './support/mailpit-client';
 import { TEST_EMAIL_PATTERN } from './support/test-users';
 import dotenv from 'dotenv';
 
 dotenv.config();
+
+const MAILPIT_TEST_PATTERN = 'e2e-*@phrasal.test';
 
 setDefaultTimeout(30_000);
 
@@ -20,13 +23,17 @@ AfterAll(async function () {
         await browser.close();
         browser = null;
     }
-    const db = await createDbClient();
     try {
-        await db.query('DELETE FROM spring_session WHERE principal_name LIKE $1', [TEST_EMAIL_PATTERN]);
-        await db.query('DELETE FROM phrasal_verbs WHERE verb = $1', ['E2E admin verb']);
-        await db.query('DELETE FROM users WHERE email LIKE $1', [TEST_EMAIL_PATTERN]);
+        const db = await createDbClient();
+        try {
+            await db.query('DELETE FROM spring_session WHERE principal_name LIKE $1', [TEST_EMAIL_PATTERN]);
+            await db.query('DELETE FROM phrasal_verbs WHERE verb = $1', ['E2E admin verb']);
+            await db.query('DELETE FROM users WHERE email LIKE $1', [TEST_EMAIL_PATTERN]);
+        } finally {
+            await db.end();
+        }
     } finally {
-        await db.end();
+        await deleteMessagesTo(MAILPIT_TEST_PATTERN);
     }
 });
 
@@ -36,6 +43,7 @@ Before(function () {
     this.browser = browser;
     this.page = null;
     this.currentEmail = null;
+    this.verificationTokens = [];
 });
 
 After(async function () {

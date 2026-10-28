@@ -1,6 +1,7 @@
 import { Given, When, Then } from '@cucumber/cucumber';
 import { strict as assert } from 'assert';
 import { PhrasalWorld } from '../world';
+import { verificationToken } from '../support/mailpit-client';
 import { TEST_PASSWORD, adminCredentials, uniqueEmail } from '../support/test-users';
 
 const AUTH = '/api/v1/auth';
@@ -12,6 +13,13 @@ async function register(world: PhrasalWorld, email: string, password: string) {
 
 async function login(world: PhrasalWorld, email: string, password: string) {
     world.lastResponse = await world.apiClient.post(`${AUTH}/login`, { email, password });
+}
+
+async function verifyCurrentEmail(world: PhrasalWorld) {
+    const token = await verificationToken(currentEmail(world));
+    world.verificationTokens.push(token);
+    world.lastResponse = await world.apiClient.post(`${AUTH}/verify-email`, { token });
+    assert.equal(world.lastResponse!.status, 204, 'Email verification failed');
 }
 
 function currentEmail(world: PhrasalWorld): string {
@@ -29,11 +37,19 @@ Given('I am logged in as the admin', async function (this: PhrasalWorld) {
 Given('I am logged in as a new user', async function (this: PhrasalWorld) {
     await register(this, uniqueEmail(), TEST_PASSWORD);
     assert.equal(this.lastResponse!.status, 201, 'Registration failed');
+    await verifyCurrentEmail(this);
     await login(this, currentEmail(this), TEST_PASSWORD);
     assert.equal(this.lastResponse!.status, 200, 'Login failed');
 });
 
 Given('a registered user exists', async function (this: PhrasalWorld) {
+    await register(this, uniqueEmail(), TEST_PASSWORD);
+    assert.equal(this.lastResponse!.status, 201, 'Registration failed');
+    await verifyCurrentEmail(this);
+    this.apiClient.clearCookies();
+});
+
+Given('an unverified user exists', async function (this: PhrasalWorld) {
     await register(this, uniqueEmail(), TEST_PASSWORD);
     assert.equal(this.lastResponse!.status, 201, 'Registration failed');
     this.apiClient.clearCookies();

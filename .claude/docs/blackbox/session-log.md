@@ -1564,3 +1564,13 @@
 - backend/src/test/java/net/phrasal/integration/RateLimitIntegrationTest.java
 - backend/src/test/resources/application-test.yml
 <!-- end-snapshot -->
+
+<!-- git-snapshot 2026-10-28T15:36:36Z -->
+- .claude/docs/blackbox/audit.md
+- .claude/docs/blackbox/todos/email-verification-on-server-multiuser-todos.md
+- .github/workflows/ci_cd.yml
+- e2e/.env.example
+- e2e/src/hooks.ts
+- e2e/src/steps/auth-api.steps.ts
+- e2e/src/world.ts
+<!-- end-snapshot -->
