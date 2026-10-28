@@ -19,7 +19,6 @@ When(
             definition,
             sentences: ['Example sentence.'],
             wordsToHide: [verb.toLowerCase()],
-            isLearned: false,
         });
     }
 );
@@ -39,4 +38,9 @@ Then('the response should contain a paginated list', function (this: PhrasalWorl
 Then('the response should contain {string}', function (this: PhrasalWorld, field: string) {
     assert.ok(this.lastResponse, 'No response recorded');
     assert.ok(field in this.lastResponse!.data, `Expected field "${field}" in response`);
+});
+
+Then('the response should not contain {string}', function (this: PhrasalWorld, field: string) {
+    assert.ok(this.lastResponse, 'No response recorded');
+    assert.ok(!(field in this.lastResponse!.data), `Unexpected field "${field}" in response`);
 });

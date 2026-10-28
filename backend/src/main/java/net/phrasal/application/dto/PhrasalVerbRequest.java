@@ -19,14 +19,7 @@ public record PhrasalVerbRequest(
         List<String> sentences,
 
         @NotNull(message = "Words to hide are required")
-        List<String> wordsToHide,
-
-        Boolean isLearned
+        List<String> wordsToHide
 ) {
 
-    public PhrasalVerbRequest {
-        if (isLearned == null) {
-            isLearned = false;
-        }
-    }
 }

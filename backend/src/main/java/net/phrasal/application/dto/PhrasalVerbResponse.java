@@ -9,7 +9,6 @@ public record PhrasalVerbResponse(
         String definition,
         List<String> sentences,
         List<String> wordsToHide,
-        Boolean isLearned,
         LocalDateTime createdAt,
         LocalDateTime updatedAt,
         Long version

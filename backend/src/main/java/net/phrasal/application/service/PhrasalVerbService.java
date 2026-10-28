@@ -22,14 +22,14 @@ import java.util.Set;
 @RequiredArgsConstructor
 public class PhrasalVerbService {
 
-    private static final Set<String> ALLOWED_SORT_FIELDS = Set.of("verb", "definition", "isLearned", "createdAt");
+    private static final Set<String> ALLOWED_SORT_FIELDS = Set.of("verb", "definition", "createdAt");
 
     private final PhrasalVerbRepository repository;
     private final PhrasalVerbMapper mapper;
 
-    public Page<PhrasalVerbResponse> getAll(String q, Boolean learned, Pageable pageable) {
+    public Page<PhrasalVerbResponse> getAll(String q, Pageable pageable) {
         Pageable safe = PageableUtils.sanitize(pageable, ALLOWED_SORT_FIELDS, "verb");
-        return repository.search(q, learned, safe).map(mapper::toResponse);
+        return repository.search(q, safe).map(mapper::toResponse);
     }
 
     public PhrasalVerbResponse getById(Long id) {

@@ -35,10 +35,9 @@ public class PhrasalVerbController {
     @GetMapping
     public ResponseEntity<Page<PhrasalVerbResponse>> getAll(
             @RequestParam(required = false) String q,
-            @RequestParam(required = false) Boolean learned,
             @PageableDefault(size = 20, sort = "verb", direction = Sort.Direction.ASC) Pageable pageable
     ) {
-        Page<PhrasalVerbResponse> response = service.getAll(q, learned, pageable);
+        Page<PhrasalVerbResponse> response = service.getAll(q, pageable);
         return ResponseEntity.ok(response);
     }
 

@@ -28,7 +28,7 @@ class SecurityRulesIntegrationTest extends AbstractIntegrationTest {
     private static final String PROBLEM_JSON = "application/problem+json";
     private static final String VERB_JSON = """
             {"verb": "Sec check", "definition": "To verify", "sentences": ["Sec check it."],
-             "wordsToHide": ["sec check"], "isLearned": false}
+             "wordsToHide": ["sec check"]}
             """;
 
     private static MockHttpServletRequestBuilder write(HttpMethod method, String url) {

@@ -26,14 +26,13 @@ import java.util.List;
 
 @Entity
 @Table(name = "phrasal_verbs", indexes = {
-        @Index(name = "idx_phrasal_verbs_verb", columnList = "verb"),
-        @Index(name = "idx_phrasal_verbs_is_learned", columnList = "is_learned")
+        @Index(name = "idx_phrasal_verbs_verb", columnList = "verb")
 })
 @EntityListeners(AuditingEntityListener.class)
 @Getter
 @Setter
 @NoArgsConstructor
-@ToString(of = {"id", "verb", "isLearned"})
+@ToString(of = {"id", "verb"})
 @EqualsAndHashCode(of = {"id", "verb"})
 public class PhrasalVerb {
 
@@ -59,9 +58,6 @@ public class PhrasalVerb {
     @JdbcTypeCode(SqlTypes.JSON)
     @Column(name = "words_to_hide", nullable = false, columnDefinition = "jsonb")
     private List<String> wordsToHide;
-
-    @Column(name = "is_learned", nullable = false)
-    private Boolean isLearned = false;
 
     @CreatedDate
     @Column(name = "created_at", nullable = false, updatable = false)

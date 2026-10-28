@@ -52,20 +52,20 @@ class PhrasalVerbServiceTest {
         entity.setId(1L);
 
         response = new PhrasalVerbResponse(1L, "Break down", "To stop working",
-                List.of("It broke down."), List.of("broke down"), false, null, null, 0L);
+                List.of("It broke down."), List.of("broke down"), null, null, 0L);
 
         request = new PhrasalVerbRequest("Break down", "To stop working",
-                List.of("It broke down."), List.of("broke down"), false);
+                List.of("It broke down."), List.of("broke down"));
     }
 
     @Test
     @DisplayName("getAll returns page of verbs")
     void getAll_returnsPageOfVerbs() {
         Page<PhrasalVerb> page = new PageImpl<>(List.of(entity));
-        when(repository.search(any(), any(), any(Pageable.class))).thenReturn(page);
+        when(repository.search(any(), any(Pageable.class))).thenReturn(page);
         when(mapper.toResponse(entity)).thenReturn(response);
 
-        Page<PhrasalVerbResponse> result = service.getAll(null, null, PageRequest.of(0, 20, Sort.by("verb")));
+        Page<PhrasalVerbResponse> result = service.getAll(null, PageRequest.of(0, 20, Sort.by("verb")));
 
         assertThat(result.getContent()).hasSize(1);
         assertThat(result.getContent().get(0).verb()).isEqualTo("Break down");
@@ -75,13 +75,27 @@ class PhrasalVerbServiceTest {
     @DisplayName("getAll sanitizes invalid sort fields")
     void getAll_sanitizesInvalidSortField() {
         Page<PhrasalVerb> page = new PageImpl<>(List.of(entity));
-        when(repository.search(any(), any(), any(Pageable.class))).thenReturn(page);
+        when(repository.search(any(), any(Pageable.class))).thenReturn(page);
         when(mapper.toResponse(entity)).thenReturn(response);
 
-        service.getAll(null, null, PageRequest.of(0, 20, Sort.by("invalidField")));
+        service.getAll(null, PageRequest.of(0, 20, Sort.by("invalidField")));
 
-        verify(repository).search(any(), any(), argThat(p ->
+        verify(repository).search(any(), argThat(p ->
                 p.getSort().getOrderFor("verb") != null
+        ));
+    }
+
+    @Test
+    @DisplayName("getAll drops the removed isLearned sort field")
+    void getAll_dropsLegacyIsLearnedSort() {
+        Page<PhrasalVerb> page = new PageImpl<>(List.of(entity));
+        when(repository.search(any(), any(Pageable.class))).thenReturn(page);
+        when(mapper.toResponse(entity)).thenReturn(response);
+
+        service.getAll(null, PageRequest.of(0, 20, Sort.by("isLearned")));
+
+        verify(repository).search(any(), argThat(p ->
+                p.getSort().getOrderFor("isLearned") == null && p.getSort().getOrderFor("verb") != null
         ));
     }
 

@@ -39,8 +39,7 @@ class AdminBootstrapIntegrationTest extends AbstractIntegrationTest {
         mockMvc.perform(post("/api/v1/phrasal-verbs").cookie(session).with(csrf())
                         .contentType(MediaType.APPLICATION_JSON)
                         .content("{\"verb\":\"Boot up\",\"definition\":\"To start a computer\","
-                                + "\"sentences\":[\"Boot up the laptop.\"],\"wordsToHide\":[\"boot up\"],"
-                                + "\"isLearned\":false}"))
+                                + "\"sentences\":[\"Boot up the laptop.\"],\"wordsToHide\":[\"boot up\"]}"))
                 .andExpect(status().isCreated());
     }
 

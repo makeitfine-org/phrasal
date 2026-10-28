@@ -13,14 +13,12 @@ public interface PhrasalVerbRepository extends JpaRepository<PhrasalVerb, Long> 
 
     @Query("""
             SELECT pv FROM PhrasalVerb pv
-            WHERE (:learned IS NULL OR pv.isLearned = :learned)
-              AND (:q IS NULL OR :q = ''
-                   OR LOWER(pv.verb) LIKE LOWER(CONCAT('%', :q, '%'))
-                   OR LOWER(pv.definition) LIKE LOWER(CONCAT('%', :q, '%')))
+            WHERE :q IS NULL OR :q = ''
+               OR LOWER(pv.verb) LIKE LOWER(CONCAT('%', :q, '%'))
+               OR LOWER(pv.definition) LIKE LOWER(CONCAT('%', :q, '%'))
             """)
     Page<PhrasalVerb> search(
             @Param("q") String q,
-            @Param("learned") Boolean learned,
             Pageable pageable
     );
 }

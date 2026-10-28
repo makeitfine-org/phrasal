@@ -236,59 +236,77 @@ Why first: it is small and independent. Our frontend keeps working without chang
 `if (!r.isLearned)` treats a missing field as "not learned" and puts every verb into the pool.
 
 ### 1.1 Migration
-- [ ] **1.1.1** `backend/src/main/resources/db/migration/V11__drop_phrasal_verbs_is_learned.sql`:
+- [x] **1.1.1** `backend/src/main/resources/db/migration/V11__drop_phrasal_verbs_is_learned.sql`:
   ```sql
   DROP INDEX IF EXISTS idx_phrasal_verbs_is_learned;
   ALTER TABLE phrasal_verbs DROP COLUMN is_learned;
   ```
-- [ ] **1.1.2** Don't touch V1, V3 or V4. They are applied migrations, and a fresh DB still runs them in order.
+  → it also starts with a one-line comment that points to V12.
+- [x] **1.1.2** Don't touch V1, V3 or V4. They are applied migrations, and a fresh DB still runs them in order.
+      → `git diff` on V1/V3/V4 is empty.
 
 ### 1.2 Domain, DTOs, mapper, repository, service, controller
-- [ ] **1.2.1** `domain/entity/PhrasalVerb.java`:
-  - [ ] remove the `isLearned` field
-  - [ ] remove the `idx_phrasal_verbs_is_learned` `@Index`
-  - [ ] change `@ToString(of = {"id", "verb", "isLearned"})` to `{"id", "verb"}`
-- [ ] **1.2.2** `application/dto/PhrasalVerbRequest.java`: remove `Boolean isLearned` and the compact constructor that
+- [x] **1.2.1** `domain/entity/PhrasalVerb.java`:
+  - [x] remove the `isLearned` field
+  - [x] remove the `idx_phrasal_verbs_is_learned` `@Index`
+  - [x] change `@ToString(of = {"id", "verb", "isLearned"})` to `{"id", "verb"}`
+- [x] **1.2.2** `application/dto/PhrasalVerbRequest.java`: remove `Boolean isLearned` and the compact constructor that
       defaulted it.
-- [ ] **1.2.3** `application/dto/PhrasalVerbResponse.java`: remove `Boolean isLearned`.
-- [ ] **1.2.4** `application/mapper/PhrasalVerbMapper.java`: no explicit mapping exists. Make sure MapStruct compiles with no
+- [x] **1.2.3** `application/dto/PhrasalVerbResponse.java`: remove `Boolean isLearned`.
+- [x] **1.2.4** `application/mapper/PhrasalVerbMapper.java`: no explicit mapping exists. Make sure MapStruct compiles with no
       "unmapped target" warning.
-- [ ] **1.2.5** `domain/repository/PhrasalVerbRepository.search`:
-  - [ ] drop the `(:learned IS NULL OR pv.isLearned = :learned)` clause
-  - [ ] drop the `learned` parameter
-- [ ] **1.2.6** `application/service/PhrasalVerbService`:
-  - [ ] `getAll(String q, Pageable pageable)`
-  - [ ] remove `"isLearned"` from `ALLOWED_SORT_FIELDS`
-- [ ] **1.2.7** `presentation/rest/PhrasalVerbController.getAll`: remove `@RequestParam Boolean learned`.
-- [ ] **1.2.8** `grep -rn -i "learned" backend/src/main/java` returns nothing.
+      → no change needed; the build log has no "unmapped" warning.
+- [x] **1.2.5** `domain/repository/PhrasalVerbRepository.search`:
+  - [x] drop the `(:learned IS NULL OR pv.isLearned = :learned)` clause
+  - [x] drop the `learned` parameter
+- [x] **1.2.6** `application/service/PhrasalVerbService`:
+  - [x] `getAll(String q, Pageable pageable)`
+  - [x] remove `"isLearned"` from `ALLOWED_SORT_FIELDS`
+- [x] **1.2.7** `presentation/rest/PhrasalVerbController.getAll`: remove `@RequestParam Boolean learned`.
+- [x] **1.2.8** `grep -rn -i "learned" backend/src/main/java` returns nothing.
 
 ### 1.3 Backend tests
-- [ ] **1.3.1** `PhrasalVerbEntityTest`:
-  - [ ] drop the `isLearned` asserts and the setter test
-  - [ ] rename the display name "defaults isLearned to false"
-- [ ] **1.3.2** `PhrasalVerbMapperTest`: remove the `setIsLearned` / `isLearned()` lines. Mapping of the remaining fields
+- [x] **1.3.1** `PhrasalVerbEntityTest`:
+  - [x] drop the `isLearned` asserts and the setter test
+  - [x] rename the display name "defaults isLearned to false"
+        → now "constructor sets fields and leaves id and audit fields empty". Also added `toStringOmitsOtherFields`.
+- [x] **1.3.2** `PhrasalVerbMapperTest`: remove the `setIsLearned` / `isLearned()` lines. Mapping of the remaining fields
       stays covered.
-- [ ] **1.3.3** `PhrasalVerbIntegrationTest`:
-  - [ ] remove `"isLearned"` from the create and update bodies (lines ~68 and ~93) and the `$.isLearned` assert (~103)
-  - [ ] replace `shouldFilterByLearned` with `shouldIgnoreLegacyLearnedParam`: `GET ?learned=true` → `200`, and
+      → `wordsToHide` and `version` are now asserted too.
+- [x] **1.3.3** `PhrasalVerbIntegrationTest`:
+  - [x] remove `"isLearned"` from the create and update bodies (lines ~68 and ~93) and the `$.isLearned` assert (~103)
+  - [x] replace `shouldFilterByLearned` with `shouldIgnoreLegacyLearnedParam`: `GET ?learned=true` → `200`, and
         `totalElements` equals the unfiltered count
-  - [ ] new `shouldNotExposeIsLearned`: `GET /{id}` → `jsonPath("$.isLearned").doesNotExist()`
-  - [ ] new `shouldIgnoreSortByIsLearned`: `GET ?sort=isLearned,desc` → `200`, sorted by the default `verb`
-  - [ ] new `shouldAcceptLegacyIsLearnedInBody` (admin + CSRF): a POST body with `"isLearned": true` → `201`, and the
+  - [x] new `shouldNotExposeIsLearned`: `GET /{id}` → `jsonPath("$.isLearned").doesNotExist()`
+  - [x] new `shouldIgnoreSortByIsLearned`: `GET ?sort=isLearned,desc` → `200`, sorted by the default `verb`
+  - [x] new `shouldAcceptLegacyIsLearnedInBody` (admin + CSRF): a POST body with `"isLearned": true` → `201`, and the
         response has no `isLearned`. If 0.5 shows Jackson rejects unknown properties, decide with the user instead:
         accept with `@JsonIgnoreProperties(ignoreUnknown = true)` on the request record, or document a `400`.
-- [ ] **1.3.4** `SecurityRulesIntegrationTest` (~line 31) and `AdminBootstrapIntegrationTest` (~line 43): drop
+        → `201`, as 0.5 predicted. No annotation was needed.
+  - [x] `PhrasalVerbServiceTest`: new `getAll_dropsLegacyIsLearnedSort` (falls back to `verb`).
+- [x] **1.3.4** `SecurityRulesIntegrationTest` (~line 31) and `AdminBootstrapIntegrationTest` (~line 43): drop
       `isLearned` from the JSON bodies.
-- [ ] **1.3.5** `cd backend && mvn clean verify` → green. Flyway applies V11 on the Testcontainers DB, and
+- [x] **1.3.5** `cd backend && mvn clean verify` → green. Flyway applies V11 on the Testcontainers DB, and
       `ddl-auto: validate` passes.
+      → The first run failed the JaCoCo gate: `net.phrasal.application.dto` had 0.83 line coverage, below 0.85. The
+        removed compact constructor had been covered, and the password-masking `toString` overrides of
+        `LoginRequest` and `RegisterRequest` never were.
+        - Added `application/dto/CredentialRequestTest`, which asserts the password is masked.
+        - Now green: **200** tests, Checkstyle 0 violations, all coverage checks met.
 
 ### 1.4 e2e payload (task-102 AC #9)
-- [ ] **1.4.1** `e2e/src/steps/phrasal-verbs-api.steps.ts`: remove `isLearned: false` from the create payload.
-- [ ] **1.4.2** `e2e/features/phrasal-verbs-api/crud.feature` → "Get a single phrasal verb": add
+- [x] **1.4.1** `e2e/src/steps/phrasal-verbs-api.steps.ts`: remove `isLearned: false` from the create payload.
+- [x] **1.4.2** `e2e/features/phrasal-verbs-api/crud.feature` → "Get a single phrasal verb": add
       `And the response should not contain "isLearned"`. Add that step next to `the response should contain {string}`
       if it doesn't exist.
-- [ ] **1.4.3** `make clean build` → green. The frontend still works, because every verb is in the pool. Ask for commit
+      → step added.
+- [x] **1.4.3** `make clean build` → green. The frontend still works, because every verb is in the pool. Ask for commit
       approval → `feat(backend)!: drop global isLearned flag and learned filter`
+      → green (2026-10-28):
+        - backend **200** tests (193 + 7)
+        - Vitest **57** files / **1358** tests
+        - e2e **49** scenarios / **323** steps (one new step)
+      Commit approval requested. **Don't deploy V11** until the 0.4 prod check returns `0`.
 
 ---
 

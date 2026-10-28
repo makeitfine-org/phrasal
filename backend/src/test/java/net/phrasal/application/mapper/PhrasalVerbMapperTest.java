@@ -22,7 +22,6 @@ class PhrasalVerbMapperTest {
         PhrasalVerb entity = new PhrasalVerb("Break down", "To stop working",
                 List.of("It broke down."), List.of("broke down"));
         entity.setId(1L);
-        entity.setIsLearned(false);
         entity.setVersion(0L);
 
         PhrasalVerbResponse response = mapper.toResponse(entity);
@@ -32,21 +31,21 @@ class PhrasalVerbMapperTest {
         assertThat(response.definition()).isEqualTo("To stop working");
         assertThat(response.sentences()).containsExactly("It broke down.");
         assertThat(response.wordsToHide()).containsExactly("broke down");
-        assertThat(response.isLearned()).isFalse();
+        assertThat(response.version()).isZero();
     }
 
     @Test
     @DisplayName("toEntity maps request fields, ignores audit fields")
     void toEntity_mapsRequestFields() {
         PhrasalVerbRequest request = new PhrasalVerbRequest(
-                "Get up", "To rise", List.of("I get up early."), List.of("get up"), true);
+                "Get up", "To rise", List.of("I get up early."), List.of("get up"));
 
         PhrasalVerb entity = mapper.toEntity(request);
 
         assertThat(entity.getVerb()).isEqualTo("Get up");
         assertThat(entity.getDefinition()).isEqualTo("To rise");
         assertThat(entity.getSentences()).containsExactly("I get up early.");
-        assertThat(entity.getIsLearned()).isTrue();
+        assertThat(entity.getWordsToHide()).containsExactly("get up");
         assertThat(entity.getId()).isNull();
     }
 

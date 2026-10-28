@@ -11,7 +11,7 @@ import static org.assertj.core.api.Assertions.assertThat;
 class PhrasalVerbEntityTest {
 
     @Test
-    @DisplayName("constructor sets fields and defaults isLearned to false")
+    @DisplayName("constructor sets fields and leaves id and audit fields empty")
     void constructorAndGetters() {
         PhrasalVerb verb = new PhrasalVerb("Get up", "To rise", List.of("I get up early."), List.of("get up"));
 
@@ -19,7 +19,8 @@ class PhrasalVerbEntityTest {
         assertThat(verb.getDefinition()).isEqualTo("To rise");
         assertThat(verb.getSentences()).containsExactly("I get up early.");
         assertThat(verb.getWordsToHide()).containsExactly("get up");
-        assertThat(verb.getIsLearned()).isFalse();
+        assertThat(verb.getId()).isNull();
+        assertThat(verb.getCreatedAt()).isNull();
     }
 
     @Test
@@ -31,12 +32,11 @@ class PhrasalVerbEntityTest {
         verb.setDefinition("Def");
         verb.setSentences(List.of("S"));
         verb.setWordsToHide(List.of("W"));
-        verb.setIsLearned(true);
         verb.setVersion(1L);
 
         assertThat(verb.getId()).isEqualTo(1L);
         assertThat(verb.getVerb()).isEqualTo("Test");
-        assertThat(verb.getIsLearned()).isTrue();
+        assertThat(verb.getWordsToHide()).containsExactly("W");
         assertThat(verb.getVersion()).isEqualTo(1L);
     }
 
@@ -61,5 +61,12 @@ class PhrasalVerbEntityTest {
         PhrasalVerb verb = new PhrasalVerb();
         verb.setVerb("Break down");
         assertThat(verb.toString()).contains("Break down");
+    }
+
+    @Test
+    @DisplayName("toString leaves out definition and the removed isLearned flag")
+    void toStringOmitsOtherFields() {
+        PhrasalVerb verb = new PhrasalVerb("Get up", "To rise", List.of("S"), List.of("W"));
+        assertThat(verb.toString()).doesNotContain("To rise").doesNotContain("isLearned");
     }
 }

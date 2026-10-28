@@ -3322,3 +3322,231 @@ On phase completion `make clean build` must pass successfully.
 ## 2026-10-28T09:27:12Z
 git add all changes and commit them with suitable message
 ---
+
+## 2026-10-28T09:28:22Z
+Implement functionality from  @.claude/docs/blackbox/todos/save-on-server-multiuser-todos.md Phases: 1, 2, 3, 4.                                                                                                      
+Don't forget to check off implemented boxes.
+On phase completion `make clean build` must pass successfully.
+---
+
+## 2026-10-28T09:31:53Z
+<task-notification>
+<task-id>b4lnf91ql</task-id>
+<tool-use-id>toolu_0159GkDYju97KfMu48f2jgi6</tool-use-id>
+<output-file>/tmp/claude-1000/-home-ilaptop-dev-projects-my-phrasal/bbb6b665-8cfb-47e0-b81c-f6dc966d7b6e/tasks/b4lnf91ql.output</output-file>
+<status>completed</status>
+<summary>Background command "Run make clean build for Phase 1" completed (exit code 0)</summary>
+</task-notification>
+---
+
+## 2026-10-28T09:33:55Z
+Implement functionality from  @.claude/docs/blackbox/todos/save-on-server-multiuser-todos.md Phases: 1.                                                                                                      
+Don't forget to check off implemented boxes.
+On phase completion `make clean build` must pass successfully.
+---
+
+## 2026-10-28T09:34:55Z
+<task-notification>
+<task-id>bia2wtcb2</task-id>
+<summary>Monitor event: "phase 1 make clean build milestones and failures"</summary>
+<event>[INFO] BUILD SUCCESS
+[INFO] Tests run: 3, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 0.308 s -- in net.phrasal.infrastructure.security.AuthenticatedUserTest
+[INFO] Tests run: 4, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 0.099 s -- in RateLimiter
+[INFO] Tests run: 3, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 0.014 s -- in net.phrasal.infrastructure.security.EmailNormalizerTest
+[INFO] Tests run: 4, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 1.213 s -- in net.phrasal.infrastructure.security.JpaUserDetailsServiceTest
+[INFO] Tests run: 3, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 0.006 s -- in net.phrasal.infrastructure.security.AppUserDetailsTest
+[INFO] Tests run: 10, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 0.104 s -- in GlobalExceptionHandler</event>
+If this event is something the user would act on now, send a PushNotification. Routine or benign output doesn't need one.
+</task-notification>
+---
+
+## 2026-10-28T09:34:55Z
+<task-notification>
+<task-id>bia2wtcb2</task-id>
+<summary>Monitor event: "phase 1 make clean build milestones and failures"</summary>
+<event>[INFO] Tests run: 3, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 11.46 s -- in Admin bootstrap integration</event>
+If this event is something the user would act on now, send a PushNotification. Routine or benign output doesn't need one.
+</task-notification>
+---
+
+## 2026-10-28T09:34:58Z
+<task-notification>
+<task-id>bia2wtcb2</task-id>
+<summary>Monitor event: "phase 1 make clean build milestones and failures"</summary>
+<event>[INFO] Tests run: 2, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 1.469 s -- in Rate limit integration</event>
+If this event is something the user would act on now, send a PushNotification. Routine or benign output doesn't need one.
+</task-notification>
+---
+
+## 2026-10-28T09:34:58Z
+<task-notification>
+<task-id>bia2wtcb2</task-id>
+<summary>Monitor event: "phase 1 make clean build milestones and failures"</summary>
+<event>[INFO] Tests run: 2, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 1.264 s -- in CSRF cookie over real HTTP</event>
+If this event is something the user would act on now, send a PushNotification. Routine or benign output doesn't need one.
+</task-notification>
+---
+
+## 2026-10-28T09:34:58Z
+<task-notification>
+<task-id>bia2wtcb2</task-id>
+<summary>Monitor event: "phase 1 make clean build milestones and failures"</summary>
+<event>[INFO] Tests run: 8, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 1.012 s -- in Grammar Entries API Integration</event>
+If this event is something the user would act on now, send a PushNotification. Routine or benign output doesn't need one.
+</task-notification>
+---
+
+## 2026-10-28T09:35:01Z
+<task-notification>
+<task-id>bia2wtcb2</task-id>
+<summary>Monitor event: "phase 1 make clean build milestones and failures"</summary>
+<event>[INFO] Tests run: 7, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 0.265 s -- in POST /api/v1/auth/register integration</event>
+If this event is something the user would act on now, send a PushNotification. Routine or benign output doesn't need one.
+</task-notification>
+---
+
+## 2026-10-28T09:35:01Z
+<task-notification>
+<task-id>bia2wtcb2</task-id>
+<summary>Monitor event: "phase 1 make clean build milestones and failures"</summary>
+<event>[INFO] Tests run: 5, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 0.712 s -- in Auth session integration</event>
+If this event is something the user would act on now, send a PushNotification. Routine or benign output doesn't need one.
+</task-notification>
+---
+
+## 2026-10-28T09:35:01Z
+<task-notification>
+<task-id>bia2wtcb2</task-id>
+<summary>Monitor event: "phase 1 make clean build milestones and failures"</summary>
+<event>[INFO] Tests run: 16, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 0.281 s -- in Security rules integration</event>
+If this event is something the user would act on now, send a PushNotification. Routine or benign output doesn't need one.
+</task-notification>
+---
+
+## 2026-10-28T09:35:01Z
+<task-notification>
+<task-id>bia2wtcb2</task-id>
+<summary>Monitor event: "phase 1 make clean build milestones and failures"</summary>
+<event>[INFO] Tests run: 12, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 0.264 s -- in Phrasal Verbs API Integration
+[INFO] Tests run: 9, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 0.144 s -- in Verb Details API Integration</event>
+If this event is something the user would act on now, send a PushNotification. Routine or benign output doesn't need one.
+</task-notification>
+---
+
+## 2026-10-28T09:35:01Z
+<task-notification>
+<task-id>bia2wtcb2</task-id>
+<summary>Monitor event: "phase 1 make clean build milestones and failures"</summary>
+<event>[INFO] Tests run: 7, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 1.263 s -- in POST /api/v1/auth/login integration</event>
+If this event is something the user would act on now, send a PushNotification. Routine or benign output doesn't need one.
+</task-notification>
+---
+
+## 2026-10-28T09:35:09Z
+<task-notification>
+<task-id>bia2wtcb2</task-id>
+<summary>Monitor event: "phase 1 make clean build milestones and failures"</summary>
+<event>[INFO] Tests run: 1, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 1.003 s -- in Secure session cookie (prod setting)
+[INFO] Tests run: 7, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 0.066 s -- in User repository and session schema</event>
+If this event is something the user would act on now, send a PushNotification. Routine or benign output doesn't need one.
+</task-notification>
+---
+
+## 2026-10-28T09:35:09Z
+<task-notification>
+<task-id>bia2wtcb2</task-id>
+<summary>Monitor event: "phase 1 make clean build milestones and failures"</summary>
+<event>[INFO] Tests run: 2, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 0.359 s -- in Session cookie flags and persistence
+[INFO] Tests run: 4, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 0.186 s -- in SessionAuthenticator</event>
+If this event is something the user would act on now, send a PushNotification. Routine or benign output doesn't need one.
+</task-notification>
+---
+
+## 2026-10-28T09:35:09Z
+<task-notification>
+<task-id>bia2wtcb2</task-id>
+<summary>Monitor event: "phase 1 make clean build milestones and failures"</summary>
+<event>[INFO] Tests run: 4, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 0.015 s -- in Security problem+json handlers</event>
+If this event is something the user would act on now, send a PushNotification. Routine or benign output doesn't need one.
+</task-notification>
+---
+
+## 2026-10-28T09:35:09Z
+<task-notification>
+<task-id>bia2wtcb2</task-id>
+<summary>Monitor event: "phase 1 make clean build milestones and failures"</summary>
+<event>[INFO] Tests run: 10, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 0.214 s -- in PhrasalVerbService
+[INFO] Tests run: 3, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 0.089 s -- in AuthService
+[INFO] Tests run: 5, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 0.009 s -- in AdminAccountInitializer</event>
+If this event is something the user would act on now, send a PushNotification. Routine or benign output doesn't need one.
+</task-notification>
+---
+
+## 2026-10-28T09:35:09Z
+<task-notification>
+<task-id>bia2wtcb2</task-id>
+<summary>Monitor event: "phase 1 make clean build milestones and failures"</summary>
+<event>[INFO] Tests run: 11, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 0.201 s -- in VerbDetailService</event>
+If this event is something the user would act on now, send a PushNotification. Routine or benign output doesn't need one.
+</task-notification>
+---
+
+## 2026-10-28T09:35:09Z
+<task-notification>
+<task-id>bia2wtcb2</task-id>
+<summary>Monitor event: "phase 1 make clean build milestones and failures"</summary>
+<event>[1 events suppressed — output rate too high. Consider using TaskStop to restart this monitor with a more selective filter.]</event>
+</task-notification>
+---
+
+## 2026-10-28T09:35:09Z
+<task-notification>
+<task-id>bia2wtcb2</task-id>
+<summary>Monitor event: "phase 1 make clean build milestones and failures"</summary>
+<event>[INFO] Tests run: 3, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 0.003 s -- in PhrasalVerbMapper
+[INFO] Tests run: 5, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 0.003 s -- in PageableUtils
+[INFO] Tests run: 4, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 0.003 s -- in GrammarEntry Entity
+[INFO] Tests run: 5, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 0.004 s -- in PhrasalVerb Entity
+[INFO] Tests run: 5, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 0.004 s -- in User Entity
+[INFO] Tests run: 6, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 0.005 s -- in VerbDetail Entity</event>
+If this event is something the user would act on now, send a PushNotification. Routine or benign output doesn't need one.
+</task-notification>
+---
+
+## 2026-10-28T09:36:50Z
+<task-notification>
+<task-id>bg5wk0f2g</task-id>
+<summary>Monitor event: "phase 1 build totals and failures"</summary>
+<event>Test Files  57 passed (57)</event>
+If this event is something the user would act on now, send a PushNotification. Routine or benign output doesn't need one.
+</task-notification>
+---
+
+## 2026-10-28T09:36:50Z
+<task-notification>
+<task-id>bg5wk0f2g</task-id>
+<summary>Monitor event: "phase 1 build totals and failures"</summary>
+<event>49 scenarios (49 passed)</event>
+If this event is something the user would act on now, send a PushNotification. Routine or benign output doesn't need one.
+</task-notification>
+---
+
+## 2026-10-28T09:36:50Z
+<task-notification>
+<task-id>b3y916bm3</task-id>
+<tool-use-id>toolu_01Dgz1nu23iVCo99SCuo12Jg</tool-use-id>
+<output-file>/tmp/claude-1000/-home-ilaptop-dev-projects-my-phrasal/bbb6b665-8cfb-47e0-b81c-f6dc966d7b6e/tasks/b3y916bm3.output</output-file>
+<status>completed</status>
+<summary>Background command "Run full clean build for Phase 1" completed (exit code 0)</summary>
+</task-notification>
+---
+
+## 2026-10-28T09:40:12Z
+Implement functionality from  @.claude/docs/blackbox/todos/save-on-server-multiuser-todos.md Phases: 2, 3.                                                                                                      
+Don't forget to check off implemented boxes.
+On phase completion `make clean build` must pass successfully.
+---
+
+## 2026-10-28T09:40:33Z
+git add all changes and commit them with suitable message
+---

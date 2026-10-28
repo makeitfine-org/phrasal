@@ -1201,3 +1201,25 @@
 - backlog/tasks/task-102 - Store-learning-progress-per-user-on-the-server.md
 - backlog/tasks/task-103 - Add-sign-up-login-2FA-and-account-screens-to-the-frontend-and-sync-quiz-progress-for-logged-in-users.md
 <!-- end-snapshot -->
+
+<!-- git-snapshot 2026-10-28T09:37:40Z -->
+- .claude/docs/blackbox/audit.md
+- .claude/docs/blackbox/todos/save-on-server-multiuser-todos.md
+- backend/src/main/java/net/phrasal/application/dto/PhrasalVerbRequest.java
+- backend/src/main/java/net/phrasal/application/dto/PhrasalVerbResponse.java
+- backend/src/main/java/net/phrasal/application/service/PhrasalVerbService.java
+- backend/src/main/java/net/phrasal/domain/entity/PhrasalVerb.java
+- backend/src/main/java/net/phrasal/domain/repository/PhrasalVerbRepository.java
+- backend/src/main/java/net/phrasal/presentation/rest/PhrasalVerbController.java
+- backend/src/main/resources/db/migration/V11__drop_phrasal_verbs_is_learned.sql
+- backend/src/test/java/net/phrasal/application/dto/CredentialRequestTest.java
+- backend/src/test/java/net/phrasal/application/mapper/PhrasalVerbMapperTest.java
+- backend/src/test/java/net/phrasal/application/service/PhrasalVerbServiceTest.java
+- backend/src/test/java/net/phrasal/domain/entity/PhrasalVerbEntityTest.java
+- backend/src/test/java/net/phrasal/integration/AdminBootstrapIntegrationTest.java
+- backend/src/test/java/net/phrasal/integration/PhrasalVerbIntegrationTest.java
+- backend/src/test/java/net/phrasal/integration/SecurityRulesIntegrationTest.java
+- backlog/drafts/hard.md
+- e2e/features/phrasal-verbs-api/crud.feature
+- e2e/src/steps/phrasal-verbs-api.steps.ts
+<!-- end-snapshot -->

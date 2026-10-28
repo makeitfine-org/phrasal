@@ -13,6 +13,7 @@ Feature: Phrasal Verbs API CRUD
     When I request GET "/api/v1/phrasal-verbs/1"
     Then the response status should be 200
     And the response should contain "verb"
+    And the response should not contain "isLearned"
 
   Scenario: Anonymous visitor cannot create a phrasal verb
     When I create a phrasal verb with verb "Test out" and definition "To test something"

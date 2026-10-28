@@ -217,6 +217,7 @@ Don't forget to check off implemented boxes.
 On phase completion `make clean build` must pass successfully.
 
 ---
+-- // Prompt
 -- // Use Opus
 
 Create detailed save-on-server-multiuser-todos.md fils with checkboxes (- [ ]), which describes a step-by-step implementation for such task:
@@ -231,6 +232,7 @@ Create detailed save-on-server-multiuser-todos.md fils with checkboxes (- [ ]), 
 - Critical: DO NOT start any steps of implement.
 
 ---
+-- // Prompt
 Start implementing functionality from  @.claude/docs/blackbox/todos/save-on-server-multiuser-todos.md Phase 18.                                                                                                      
 Don't forget to check off implemented boxes.
 On phase completion `make clean build` must pass successfully.

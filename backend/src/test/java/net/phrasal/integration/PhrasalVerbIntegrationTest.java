@@ -1,5 +1,6 @@
 package net.phrasal.integration;
 
+import com.jayway.jsonpath.JsonPath;
 import net.phrasal.domain.entity.PhrasalVerb;
 import net.phrasal.domain.repository.PhrasalVerbRepository;
 import org.junit.jupiter.api.DisplayName;
@@ -64,8 +65,7 @@ class PhrasalVerbIntegrationTest extends AbstractIntegrationTest {
                     "verb": "Test out",
                     "definition": "To try something",
                     "sentences": ["Let me test out this feature."],
-                    "wordsToHide": ["test out"],
-                    "isLearned": false
+                    "wordsToHide": ["test out"]
                 }
                 """;
 
@@ -89,8 +89,7 @@ class PhrasalVerbIntegrationTest extends AbstractIntegrationTest {
                     "verb": "%s",
                     "definition": "Updated definition",
                     "sentences": ["Updated sentence."],
-                    "wordsToHide": ["updated"],
-                    "isLearned": true
+                    "wordsToHide": ["updated"]
                 }
                 """.formatted(verb.getVerb());
 
@@ -99,8 +98,7 @@ class PhrasalVerbIntegrationTest extends AbstractIntegrationTest {
                         .contentType(MediaType.APPLICATION_JSON)
                         .content(json))
                 .andExpect(status().isOk())
-                .andExpect(jsonPath("$.definition").value("Updated definition"))
-                .andExpect(jsonPath("$.isLearned").value(true));
+                .andExpect(jsonPath("$.definition").value("Updated definition"));
     }
 
     @Test
@@ -127,13 +125,60 @@ class PhrasalVerbIntegrationTest extends AbstractIntegrationTest {
     }
 
     @Test
-    @DisplayName("GET /?learned= filters by learned status")
-    void shouldFilterByLearned() throws Exception {
+    @DisplayName("GET /?learned= is ignored: the removed filter no longer narrows results")
+    void shouldIgnoreLegacyLearnedParam() throws Exception {
+        long total = repository.count();
+
         mockMvc.perform(get(BASE_URL)
-                        .param("learned", "false")
+                        .param("learned", "true")
                         .param("size", "5"))
                 .andExpect(status().isOk())
-                .andExpect(jsonPath("$.content[0].isLearned").value(false));
+                .andExpect(jsonPath("$.totalElements").value(total));
+    }
+
+    @Test
+    @DisplayName("GET /{id} no longer exposes isLearned")
+    void shouldNotExposeIsLearned() throws Exception {
+        PhrasalVerb verb = repository.findAll().get(0);
+
+        mockMvc.perform(get(BASE_URL + "/{id}", verb.getId()))
+                .andExpect(status().isOk())
+                .andExpect(jsonPath("$.isLearned").doesNotExist());
+    }
+
+    @Test
+    @DisplayName("GET /?sort=isLearned falls back to the default sort by verb")
+    void shouldIgnoreSortByIsLearned() throws Exception {
+        String firstByVerb = mockMvc.perform(get(BASE_URL).param("size", "1").param("sort", "verb,asc"))
+                .andExpect(status().isOk())
+                .andReturn().getResponse().getContentAsString();
+        String expectedVerb = JsonPath.read(firstByVerb, "$.content[0].verb");
+
+        mockMvc.perform(get(BASE_URL).param("size", "1").param("sort", "isLearned,desc"))
+                .andExpect(status().isOk())
+                .andExpect(jsonPath("$.content[0].verb").value(expectedVerb));
+    }
+
+    @Test
+    @DisplayName("POST / ignores a legacy isLearned field in the body")
+    void shouldAcceptLegacyIsLearnedInBody() throws Exception {
+        String json = """
+                {
+                    "verb": "Legacy out",
+                    "definition": "Sent by an old client",
+                    "sentences": ["The old client sent legacy out."],
+                    "wordsToHide": ["legacy out"],
+                    "isLearned": true
+                }
+                """;
+
+        mockMvc.perform(post(BASE_URL)
+                        .with(adminWithCsrf())
+                        .contentType(MediaType.APPLICATION_JSON)
+                        .content(json))
+                .andExpect(status().isCreated())
+                .andExpect(jsonPath("$.verb").value("Legacy out"))
+                .andExpect(jsonPath("$.isLearned").doesNotExist());
     }
 
     @Test
