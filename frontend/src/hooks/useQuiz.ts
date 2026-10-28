@@ -1,12 +1,5 @@
 import React, { useState, useEffect, useRef, useCallback } from 'react';
-import type { HistoryItem, Status } from '../types';
-
-interface PersistedState {
-  mastered?: number[];
-  excluded?: number[];
-  history?: HistoryItem[];
-  currentIndex?: number;
-}
+import type { HistoryItem, QuizPersistedState, Status } from '../types';
 
 export interface UseQuizConfig {
   storageKey: string;
@@ -51,7 +44,7 @@ export interface UseQuizReturn {
 export function useQuiz(config: UseQuizConfig, extraModalOpen = false): UseQuizReturn {
   const { storageKey, poolSize, completionMessage, checkAnswer } = config;
 
-  const savedState = JSON.parse(localStorage.getItem(storageKey) || '{}') as PersistedState;
+  const savedState = JSON.parse(localStorage.getItem(storageKey) || '{}') as QuizPersistedState;
 
   const [mastered, setMastered] = useState<Set<number>>(new Set(savedState.mastered ?? []));
   const [excluded, setExcluded] = useState<Set<number>>(new Set(savedState.excluded ?? []));

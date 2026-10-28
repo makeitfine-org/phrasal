@@ -19,6 +19,7 @@ export class ApiError extends Error {
 interface RequestOptions {
   params?: Record<string, string>;
   body?: unknown;
+  keepalive?: boolean;
 }
 
 async function readProblem(response: Response): Promise<ProblemDetail | undefined> {
@@ -53,6 +54,10 @@ async function request<T>(method: string, path: string, options: RequestOptions 
     }
   }
 
+  if (options.keepalive) {
+    init.keepalive = true;
+  }
+
   const response = await fetch(url.toString(), init);
 
   if (!response.ok) {
@@ -76,8 +81,8 @@ export function post<T>(path: string, body?: unknown): Promise<T> {
   return request<T>('POST', path, { body });
 }
 
-export function put<T>(path: string, body?: unknown): Promise<T> {
-  return request<T>('PUT', path, { body });
+export function put<T>(path: string, body?: unknown, options?: { keepalive?: boolean }): Promise<T> {
+  return request<T>('PUT', path, { body, keepalive: options?.keepalive });
 }
 
 export function del<T>(path: string): Promise<T> {

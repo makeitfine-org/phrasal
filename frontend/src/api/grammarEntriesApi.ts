@@ -25,6 +25,7 @@ export async function fetchGrammarEntries(category: string): Promise<GrammarEntr
   });
 
   return page.content.map(r => ({
+    id: r.id,
     sentence: r.sentence,
     correctAnswers: r.correctAnswers,
   }));

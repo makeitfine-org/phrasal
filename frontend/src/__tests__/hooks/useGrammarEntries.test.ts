@@ -12,8 +12,8 @@ afterEach(() => {
 });
 
 const mockEntries = [
-  { sentence: 'Test sentence', correctAnswers: ['Answer one'] },
-  { sentence: 'Another sentence', correctAnswers: ['Answer two', 'Answer three'] },
+  { id: 5, sentence: 'Test sentence', correctAnswers: ['Answer one'] },
+  { id: 9, sentence: 'Another sentence', correctAnswers: ['Answer two', 'Answer three'] },
 ];
 
 describe('useGrammarEntries', () => {
@@ -38,6 +38,7 @@ describe('useGrammarEntries', () => {
     await waitFor(() => expect(result.current.loading).toBe(false));
 
     expect(result.current.entries).toEqual(mockEntries);
+    expect(result.current.entries.map(e => e.id)).toEqual([5, 9]);
     expect(result.current.error).toBeNull();
   });
 

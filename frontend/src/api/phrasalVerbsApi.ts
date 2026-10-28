@@ -7,7 +7,6 @@ interface PhrasalVerbResponse {
   definition: string;
   sentences: string[];
   wordsToHide: string[];
-  isLearned: boolean;
   createdAt: string;
   updatedAt: string;
   version: number;
@@ -30,27 +29,14 @@ export async function fetchPhrasalVerbs(): Promise<PhrasalVerbsData> {
     sort: 'id,asc',
   });
 
-  const responses = page.content;
-
-  let quizIndex = 0;
-  const allVerbs: VerbEntry[] = [];
-  const verbsForBrowse: BrowseVerbEntry[] = [];
-
-  for (const r of responses) {
-    const entry: VerbEntry = {
-      verb: r.verb,
-      definition: r.definition,
-      sentences: r.sentences,
-      wordsToHide: r.wordsToHide,
-    };
-
-    if (!r.isLearned) {
-      allVerbs.push(entry);
-      verbsForBrowse.push({ ...entry, quizIndex: quizIndex++ });
-    } else {
-      verbsForBrowse.push({ ...entry });
-    }
-  }
+  const allVerbs: VerbEntry[] = page.content.map(r => ({
+    id: r.id,
+    verb: r.verb,
+    definition: r.definition,
+    sentences: r.sentences,
+    wordsToHide: r.wordsToHide,
+  }));
+  const verbsForBrowse: BrowseVerbEntry[] = allVerbs.map((v, i) => ({ ...v, quizIndex: i }));
 
   return { allVerbs, verbsForBrowse };
 }

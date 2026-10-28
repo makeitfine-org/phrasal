@@ -4,6 +4,7 @@ import QuizCard from '../components/QuizCard';
 import type { VerbEntry, Status } from '../types';
 
 const mockVerb: VerbEntry = {
+  id: 1,
   verb: 'Break out',
   definition: 'To escape or start suddenly',
   sentences: ['A riot broke out in the city.', 'Fire broke out in the building.'],

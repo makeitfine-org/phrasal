@@ -4,9 +4,9 @@ import AllVerbsModal from '../components/AllVerbsModal';
 import type { BrowseVerbEntry } from '../types';
 
 const verbs: BrowseVerbEntry[] = [
-  { verb: 'Act out', definition: 'To perform a role', sentences: ['The students acted out a scene.'], wordsToHide: ['acted out'], quizIndex: 0 },
-  { verb: 'Break down', definition: 'To stop working', sentences: ['My car broke down.', 'She broke down and cried.'], wordsToHide: ['broke down'], quizIndex: 1 },
-  { verb: 'Call up', definition: 'To make a phone call', sentences: ['I will call up the restaurant.'], wordsToHide: ['call up'], quizIndex: 2 },
+  { id: 7, verb: 'Act out', definition: 'To perform a role', sentences: ['The students acted out a scene.'], wordsToHide: ['acted out'], quizIndex: 0 },
+  { id: 8, verb: 'Break down', definition: 'To stop working', sentences: ['My car broke down.', 'She broke down and cried.'], wordsToHide: ['broke down'], quizIndex: 1 },
+  { id: 9, verb: 'Call up', definition: 'To make a phone call', sentences: ['I will call up the restaurant.'], wordsToHide: ['call up'], quizIndex: 2 },
 ];
 
 function renderModal(excluded = new Set<number>(), onClose = vi.fn()) {
@@ -112,9 +112,9 @@ describe('AllVerbsModal', () => {
 
   it('renders list sorted alphabetically', () => {
     const unordered: BrowseVerbEntry[] = [
-      { verb: 'Zoom in', definition: 'To zoom', sentences: [], wordsToHide: [], quizIndex: 0 },
-      { verb: 'Act out', definition: 'To act', sentences: [], wordsToHide: [], quizIndex: 1 },
-      { verb: 'Mark up', definition: 'To mark', sentences: [], wordsToHide: [], quizIndex: 2 },
+      { id: 115, verb: 'Zoom in', definition: 'To zoom', sentences: [], wordsToHide: [], quizIndex: 0 },
+      { id: 116, verb: 'Act out', definition: 'To act', sentences: [], wordsToHide: [], quizIndex: 1 },
+      { id: 117, verb: 'Mark up', definition: 'To mark', sentences: [], wordsToHide: [], quizIndex: 2 },
     ];
     render(<AllVerbsModal verbs={unordered} excluded={new Set()} onClose={vi.fn()} />);
     const items = screen.getAllByRole('listitem');
@@ -151,14 +151,10 @@ describe('AllVerbsModal', () => {
     expect(badge).toHaveClass('text-orange-600');
   });
 
-  it('isLearned entry (quizIndex undefined) is never hidden by excluded checkbox', () => {
-    const withLearned: BrowseVerbEntry[] = [
-      ...verbs,
-      { verb: 'Zero in', definition: 'To focus', sentences: [], wordsToHide: [], quizIndex: undefined },
-    ];
-    render(<AllVerbsModal verbs={withLearned} excluded={new Set([0, 1, 2])} onClose={vi.fn()} />);
-    // All quiz verbs are excluded and checkbox is unchecked, but isLearned entry must still appear
-    expect(screen.getByText('Zero in')).toBeInTheDocument();
+  it('hides every excluded entry while the checkbox is unchecked', () => {
+    render(<AllVerbsModal verbs={verbs} excluded={new Set([0, 1, 2])} onClose={vi.fn()} />);
+    expect(screen.queryByRole('listitem')).not.toBeInTheDocument();
+    expect(screen.getByText('No matches found')).toBeInTheDocument();
   });
 
   it('has role="dialog" on the panel', () => {

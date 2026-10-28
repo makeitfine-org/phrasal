@@ -4,9 +4,9 @@ import ExcludedModal from '../components/ExcludedModal';
 import type { VerbEntry } from '../types';
 
 const allVerbs: VerbEntry[] = [
-  { verb: 'Act out', definition: 'To perform a role', sentences: [], wordsToHide: [] },
-  { verb: 'Break out', definition: 'To escape suddenly', sentences: [], wordsToHide: [] },
-  { verb: 'Call up', definition: 'To make a phone call', sentences: [], wordsToHide: [] },
+  { id: 7, verb: 'Act out', definition: 'To perform a role', sentences: [], wordsToHide: [] },
+  { id: 8, verb: 'Break out', definition: 'To escape suddenly', sentences: [], wordsToHide: [] },
+  { id: 9, verb: 'Call up', definition: 'To make a phone call', sentences: [], wordsToHide: [] },
 ];
 
 interface ModalProps {

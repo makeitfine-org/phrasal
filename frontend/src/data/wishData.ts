@@ -1,6 +1,6 @@
 import { GrammarEntry } from '../types';
 
-export const wishData: GrammarEntry[] = [
+const wishEntries: Omit<GrammarEntry, 'id'>[] = [
   {
     sentence: 'Жаль, что я не прочитал ту документацию по Java на прошлой неделе',
     correctAnswers: ['I wish I had read that Java documentation last week'],
@@ -17,3 +17,6 @@ export const wishData: GrammarEntry[] = [
     ],
   },
 ];
+
+// Synthetic ids (row index + 1): static reference data, not served by the API.
+export const wishData: GrammarEntry[] = wishEntries.map((entry, i) => ({ id: i + 1, ...entry }));

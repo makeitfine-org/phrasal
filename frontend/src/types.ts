@@ -6,24 +6,33 @@ export interface HistoryItem {
   status: Status;
 }
 
+export interface QuizPersistedState {
+  mastered?: number[];
+  excluded?: number[];
+  history?: HistoryItem[];
+  currentIndex?: number;
+}
+
 export type RawVerbEntry = [
   string,
   string,
   string | string[],
   string[],
-  boolean,
+  boolean, // seed flag, unused
 ];
 
 export interface VerbEntry {
+  id: number;
   verb: string;
   definition: string;
   sentences: string[];
   wordsToHide: string[];
 }
 
-export type BrowseVerbEntry = VerbEntry & { quizIndex?: number };
+export type BrowseVerbEntry = VerbEntry & { quizIndex: number };
 
 export interface GrammarEntry {
+  id: number;
   sentence: string;
   correctAnswers: string[];
 }

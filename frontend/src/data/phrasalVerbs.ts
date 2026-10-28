@@ -1,4 +1,4 @@
-import type { RawVerbEntry, VerbEntry, BrowseVerbEntry } from '../types';
+import type { RawVerbEntry } from '../types';
 
 // Database format: [Verb, Extended Definition, Example Sentence, Exact words to hide, Mastery Status]
 export const rawData: RawVerbEntry[] = [
@@ -273,30 +273,3 @@ export const rawData: RawVerbEntry[] = [
     ["Turn up", "When something that was lost is found unexpectedly", "Anything I lose usually turns up under the couch. It's my cat's favorite hiding place.", ["turns up"], false],
     ["Work out", "To exercise", "I try to work out every morning by repeatedly lifting a heavy donut to my mouth.", ["work out"], false],
 ];
-
-export const allVerbs: VerbEntry[] = rawData
-    .filter(row => !row[4])
-    .map(row => ({
-        verb: row[0],
-        definition: row[1],
-        sentences: Array.isArray(row[2]) ? row[2] : [row[2]],
-        wordsToHide: row[3],
-    }));
-
-export const allVerbsWithLearned: VerbEntry[] = rawData.map(row => ({
-    verb: row[0],
-    definition: row[1],
-    sentences: Array.isArray(row[2]) ? row[2] : [row[2]],
-    wordsToHide: row[3],
-}));
-
-export const verbsForBrowse: BrowseVerbEntry[] = (() => {
-    let qi = 0;
-    return rawData.map(row => ({
-        verb: row[0],
-        definition: row[1],
-        sentences: Array.isArray(row[2]) ? row[2] : [row[2]],
-        wordsToHide: row[3],
-        quizIndex: !row[4] ? qi++ : undefined,
-    }));
-})();

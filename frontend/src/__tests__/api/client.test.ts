@@ -34,10 +34,10 @@ describe('API client — get()', () => {
 
   it('appends query params to URL', async () => {
     mockFetch.mockResolvedValue(jsonResponse({}));
-    await get('/phrasal-verbs', { size: '1000', learned: 'false' });
+    await get('/phrasal-verbs', { size: '1000', q: 'get' });
     const calledUrl = mockFetch.mock.calls[0][0] as string;
     expect(calledUrl).toContain('size=1000');
-    expect(calledUrl).toContain('learned=false');
+    expect(calledUrl).toContain('q=get');
   });
 
   it('throws ApiError on 404', async () => {
@@ -92,6 +92,18 @@ describe('API client — writes', () => {
     expect(mockFetch.mock.calls[1][1].method).toBe('DELETE');
     expect(mockFetch.mock.calls[1][1].headers['X-XSRF-TOKEN']).toBe('t');
     expect(mockFetch.mock.calls[1][1].headers).not.toHaveProperty('Content-Type');
+  });
+
+  it('PUT passes keepalive: true to fetch when requested', async () => {
+    mockFetch.mockResolvedValue(jsonResponse({}));
+    await put('/x', { a: 1 }, { keepalive: true });
+    expect(lastInit().keepalive).toBe(true);
+  });
+
+  it('PUT without options sends no keepalive key', async () => {
+    mockFetch.mockResolvedValue(jsonResponse({}));
+    await put('/x', { a: 1 });
+    expect(lastInit()).not.toHaveProperty('keepalive');
   });
 
   it('returns undefined on 204', async () => {

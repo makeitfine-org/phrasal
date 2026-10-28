@@ -541,43 +541,43 @@ Why first: it is small and independent. Our frontend keeps working without chang
 
 ## Phase 6 — Frontend: content carries ids, `isLearned` split removed
 
-- [ ] **6.1** `src/types.ts`:
-  - [ ] `VerbEntry` gets `id: number`
-  - [ ] `GrammarEntry` gets `id: number`
-  - [ ] `BrowseVerbEntry = VerbEntry & { quizIndex: number }`. `quizIndex` is now always set.
-- [ ] **6.2** `src/api/phrasalVerbsApi.ts` (task-103 AC #11):
-  - [ ] remove `isLearned` from `PhrasalVerbResponse`
-  - [ ] every response becomes a `VerbEntry` with `id: r.id`
-  - [ ] `verbsForBrowse = allVerbs.map((v, i) => ({ ...v, quizIndex: i }))`
-  - [ ] order stays `sort: 'id,asc'`, so existing local indices keep pointing at the same verbs (decision 8)
-- [ ] **6.3** `src/api/grammarEntriesApi.ts`: map `id: r.id`.
-- [ ] **6.4** `src/components/GrammarQuiz.tsx`: `entryToVerbEntry` and `displayEntries` pass `id: entry.id`.
-- [ ] **6.5** `src/components/AllVerbsModal.tsx`: drop the `v.quizIndex !== undefined` guard, since `quizIndex` is always a
+- [x] **6.1** `src/types.ts`:
+  - [x] `VerbEntry` gets `id: number`
+  - [x] `GrammarEntry` gets `id: number`
+  - [x] `BrowseVerbEntry = VerbEntry & { quizIndex: number }`. `quizIndex` is now always set.
+- [x] **6.2** `src/api/phrasalVerbsApi.ts` (task-103 AC #11):
+  - [x] remove `isLearned` from `PhrasalVerbResponse`
+  - [x] every response becomes a `VerbEntry` with `id: r.id`
+  - [x] `verbsForBrowse = allVerbs.map((v, i) => ({ ...v, quizIndex: i }))`
+  - [x] order stays `sort: 'id,asc'`, so existing local indices keep pointing at the same verbs (decision 8)
+- [x] **6.3** `src/api/grammarEntriesApi.ts`: map `id: r.id`.
+- [x] **6.4** `src/components/GrammarQuiz.tsx`: `entryToVerbEntry` and `displayEntries` pass `id: entry.id`.
+- [x] **6.5** `src/components/AllVerbsModal.tsx`: drop the `v.quizIndex !== undefined` guard, since `quizIndex` is always a
       number.
-- [ ] **6.6** Static reference data:
-  - [ ] `grep -rn "allVerbsWithLearned\|verbsForBrowse\|allVerbs" src --include=*.ts --include=*.tsx` to find what still
+- [x] **6.6** Static reference data:
+  - [x] `grep -rn "allVerbsWithLearned\|verbsForBrowse\|allVerbs" src --include=*.ts --include=*.tsx` to find what still
         imports `src/data/phrasalVerbs.ts`
-  - [ ] delete the unused exports (`allVerbsWithLearned`, and the learned-based `allVerbs`/`verbsForBrowse` builders if
+  - [x] delete the unused exports (`allVerbsWithLearned`, and the learned-based `allVerbs`/`verbsForBrowse` builders if
         nothing imports them)
-  - [ ] keep `rawData`. Its 5th tuple element stays as reference data, documented in `RawVerbEntry` as "seed flag,
+  - [x] keep `rawData`. Its 5th tuple element stays as reference data, documented in `RawVerbEntry` as "seed flag,
         unused".
-  - [ ] if a builder is still used: give it a synthetic `id` (row index + 1)
-  - [ ] `wishData.ts`: add a synthetic `id` if the type requires it
-- [ ] **6.7** Tests and fixtures:
-  - [ ] `src/__tests__/__fixtures__/phrasalVerbs.json` and any inline `VerbEntry`/`GrammarEntry` literals get `id`s
-  - [ ] `src/__tests__/hooks/usePhrasalVerbs.test.ts`:
+  - [x] if a builder is still used: give it a synthetic `id` (row index + 1)
+  - [x] `wishData.ts`: add a synthetic `id` if the type requires it
+- [x] **6.7** Tests and fixtures:
+  - [x] `src/__tests__/__fixtures__/phrasalVerbs.json` and any inline `VerbEntry`/`GrammarEntry` literals get `id`s
+  - [x] `src/__tests__/hooks/usePhrasalVerbs.test.ts`:
     - a response without `isLearned` → every verb in `allVerbs`
     - `verbsForBrowse[i].quizIndex === i`
     - ids carried through
-  - [ ] `src/__tests__/hooks/useGrammarEntries.test.ts`: ids carried through
-  - [ ] `src/__tests__/AllVerbsModal.test.tsx`: delete "isLearned entry (quizIndex undefined) is never hidden". Add
+  - [x] `src/__tests__/hooks/useGrammarEntries.test.ts`: ids carried through
+  - [x] `src/__tests__/AllVerbsModal.test.tsx`: delete "isLearned entry (quizIndex undefined) is never hidden". Add
         "excluded entries are hidden unless 'show excluded' is on", if that's not already covered.
-  - [ ] `src/__tests__/api/client.test.ts` (~line 37): replace the `learned: 'false'` example param with a neutral one
+  - [x] `src/__tests__/api/client.test.ts` (~line 37): replace the `learned: 'false'` example param with a neutral one
         (`q: 'get'`)
-- [ ] **6.8** `grep -rn -i "isLearned\|learned" frontend/src` → only the `rawData` reference comment remains.
-- [ ] **6.9** `npx tsc --noEmit` (in `frontend/`) → no new errors. The 3 known errors stay: `useFocusTrap.test.tsx`,
+- [x] **6.8** `grep -rn -i "isLearned\|learned" frontend/src` → only the `rawData` reference comment remains.
+- [x] **6.9** `npx tsc --noEmit` (in `frontend/`) → no new errors. The 3 known errors stay: `useFocusTrap.test.tsx`,
       `useQuiz.ts:312`, `e2e theme.steps.ts`.
-- [ ] **6.10** `npm --prefix frontend run test:run && npm --prefix frontend run build` → green. `make clean build` → green.
+- [x] **6.10** `npm --prefix frontend run test:run && npm --prefix frontend run build` → green. `make clean build` → green.
       Ask for commit approval → `refactor(frontend): carry content ids and drop isLearned split`
 
 ---
@@ -585,12 +585,12 @@ Why first: it is small and independent. Our frontend keeps working without chang
 ## Phase 7 — Frontend: progress API, id mapping, sync metadata
 
 ### 7.1 API client
-- [ ] **7.1.1** `src/api/client.ts`:
-  - [ ] the private `request` options get `keepalive?: boolean`, passed to `fetch`
-  - [ ] `put<T>(path, body?, options?: { keepalive?: boolean })`; existing callers don't change
-- [ ] **7.1.2** `src/__tests__/api/client.test.ts`: `put` with `{ keepalive: true }` passes `keepalive: true` to `fetch`.
+- [x] **7.1.1** `src/api/client.ts`:
+  - [x] the private `request` options get `keepalive?: boolean`, passed to `fetch`
+  - [x] `put<T>(path, body?, options?: { keepalive?: boolean })`; existing callers don't change
+- [x] **7.1.2** `src/__tests__/api/client.test.ts`: `put` with `{ keepalive: true }` passes `keepalive: true` to `fetch`.
       Without it, no `keepalive` key is sent.
-- [ ] **7.1.3** `src/api/quizProgressApi.ts`:
+- [x] **7.1.3** `src/api/quizProgressApi.ts`:
   ```ts
   export type QuizKey = 'phrasal-verbs' | 'grammar-i-wish-if-only';
   export interface QuizProgressDocument {               // decision 6
@@ -604,51 +604,51 @@ Why first: it is small and independent. Our frontend keeps working without chang
   export async function saveQuizProgress(key: QuizKey, state: QuizProgressDocument,
                                          options?: { keepalive?: boolean }): Promise<QuizProgress>
   ```
-- [ ] **7.1.4** `src/__tests__/api/quizProgressApi.test.ts`:
-  - [ ] GET path `/api/v1/me/quiz-progress/phrasal-verbs`; 200 → object; 404 → `null`; 401 and 500 → throw `ApiError`
-  - [ ] PUT sends method, `{ state }` body, `X-XSRF-TOKEN` and `keepalive` when asked
+- [x] **7.1.4** `src/__tests__/api/quizProgressApi.test.ts`:
+  - [x] GET path `/api/v1/me/quiz-progress/phrasal-verbs`; 200 → object; 404 → `null`; 401 and 500 → throw `ApiError`
+  - [x] PUT sends method, `{ state }` body, `X-XSRF-TOKEN` and `keepalive` when asked
 
 ### 7.2 Index ↔ id mapping (pure functions)
-- [ ] **7.2.1** Move `PersistedState` from `useQuiz.ts` to `src/types.ts` as `export interface QuizPersistedState`.
+- [x] **7.2.1** Move `PersistedState` from `useQuiz.ts` to `src/types.ts` as `export interface QuizPersistedState`.
       `useQuiz` imports it.
-- [ ] **7.2.2** `src/utils/quizProgressMapping.ts`:
-  - [ ] `toProgressDocument(local: QuizPersistedState, itemIds: number[]): QuizProgressDocument`:
+- [x] **7.2.2** `src/utils/quizProgressMapping.ts`:
+  - [x] `toProgressDocument(local: QuizPersistedState, itemIds: number[]): QuizProgressDocument`:
     - indices → ids
     - out-of-range indices dropped
     - `currentIndex` unchanged (it is a position in `history`, not an item index)
-  - [ ] `fromProgressDocument(doc: unknown, itemIds: number[]): QuizPersistedState | null`:
+  - [x] `fromProgressDocument(doc: unknown, itemIds: number[]): QuizPersistedState | null`:
     - `schemaVersion !== 1` or a wrong shape → `null`
     - ids → indices through a `Map<id, index>`
     - unknown ids dropped (content deleted)
     - history items with unknown ids dropped
     - `currentIndex` clamped to `[-1, history.length - 1]`. If the item it pointed at was dropped, it falls back to the
       last remaining item.
-- [ ] **7.2.3** `src/__tests__/utils/quizProgressMapping.test.ts` (task-103 AC #10, #13):
-  - [ ] round trip: local → document → local gives equal state
-  - [ ] a document uses ids, never indices (`itemIds = [10, 20, 30]`, index 1 → id 20)
-  - [ ] **content deleted before an item**: ids `[10, 20, 30]` → `[10, 30]`. The excluded id 30 now maps to index 1, and
+- [x] **7.2.3** `src/__tests__/utils/quizProgressMapping.test.ts` (task-103 AC #10, #13):
+  - [x] round trip: local → document → local gives equal state
+  - [x] a document uses ids, never indices (`itemIds = [10, 20, 30]`, index 1 → id 20)
+  - [x] **content deleted before an item**: ids `[10, 20, 30]` → `[10, 30]`. The excluded id 30 now maps to index 1, and
         mastered 20 is dropped.
-  - [ ] **content added**: a new id appended → existing ids keep their state, and the new item is unseen
-  - [ ] history with a deleted item → removed, and `currentIndex` clamped
-  - [ ] an unsupported `schemaVersion: 2`, `null`, an array, or missing fields → `null`
-  - [ ] an empty document → empty state
+  - [x] **content added**: a new id appended → existing ids keep their state, and the new item is unseen
+  - [x] history with a deleted item → removed, and `currentIndex` clamped
+  - [x] an unsupported `schemaVersion: 2`, `null`, an array, or missing fields → `null`
+  - [x] an empty document → empty state
 
 ### 7.3 Sync metadata + local clearing
-- [ ] **7.3.1** `src/utils/quizProgressStorage.ts`:
-  - [ ] `QUIZ_STORAGE_KEYS: Record<QuizKey, string>` = `{ 'phrasal-verbs': 'phrasalQuizState', 'grammar-i-wish-if-only': 'grammarIWishState' }`
-  - [ ] `readSyncMeta(key): { ownerId: number | null; dirty: boolean }`, stored in localStorage key `quizProgressSync`.
+- [x] **7.3.1** `src/utils/quizProgressStorage.ts`:
+  - [x] `QUIZ_STORAGE_KEYS: Record<QuizKey, string>` = `{ 'phrasal-verbs': 'phrasalQuizState', 'grammar-i-wish-if-only': 'grammarIWishState' }`
+  - [x] `readSyncMeta(key): { ownerId: number | null; dirty: boolean }`, stored in localStorage key `quizProgressSync`.
         Tolerate missing or corrupt JSON (→ defaults).
-  - [ ] `writeSyncMeta(key, meta)`; `clearSyncMeta()`
-  - [ ] `clearLocalQuizState(key)`: remove only `mastered`, `excluded`, `history` and `currentIndex` from that storage key.
+  - [x] `writeSyncMeta(key, meta)`; `clearSyncMeta()`
+  - [x] `clearLocalQuizState(key)`: remove only `mastered`, `excluded`, `history` and `currentIndex` from that storage key.
         Keep other fields such as `darkMode` in `phrasalQuizState`.
-  - [ ] `clearAccountQuizProgress()`: for every key whose meta has an `ownerId`, call `clearLocalQuizState`, then
+  - [x] `clearAccountQuizProgress()`: for every key whose meta has an `ownerId`, call `clearLocalQuizState`, then
         `clearSyncMeta()`
-  - [ ] every `localStorage` access is wrapped in try/catch, so a blocked storage never breaks the quiz
-- [ ] **7.3.2** `src/__tests__/utils/quizProgressStorage.test.ts`:
-  - [ ] meta defaults; round trip; corrupt JSON → defaults
-  - [ ] `clearLocalQuizState('phrasal-verbs')` keeps `darkMode`
-  - [ ] `clearAccountQuizProgress` clears only owned keys. Anonymous local progress (no `ownerId`) stays.
-- [ ] **7.3.3** `npx vitest run src/__tests__/api src/__tests__/utils` → green.
+  - [x] every `localStorage` access is wrapped in try/catch, so a blocked storage never breaks the quiz
+- [x] **7.3.2** `src/__tests__/utils/quizProgressStorage.test.ts`:
+  - [x] meta defaults; round trip; corrupt JSON → defaults
+  - [x] `clearLocalQuizState('phrasal-verbs')` keeps `darkMode`
+  - [x] `clearAccountQuizProgress` clears only owned keys. Anonymous local progress (no `ownerId`) stays.
+- [x] **7.3.3** `npx vitest run src/__tests__/api src/__tests__/utils` → green.
 
 ---
 

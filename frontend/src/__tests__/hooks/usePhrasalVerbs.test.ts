@@ -13,10 +13,10 @@ afterEach(() => {
 
 const mockData = {
   allVerbs: [
-    { verb: 'Act out', definition: 'To perform', sentences: ['They acted out.'], wordsToHide: ['acted out'] },
+    { id: 11, verb: 'Act out', definition: 'To perform', sentences: ['They acted out.'], wordsToHide: ['acted out'] },
   ],
   verbsForBrowse: [
-    { verb: 'Act out', definition: 'To perform', sentences: ['They acted out.'], wordsToHide: ['acted out'], quizIndex: 0 },
+    { id: 11, verb: 'Act out', definition: 'To perform', sentences: ['They acted out.'], wordsToHide: ['acted out'], quizIndex: 0 },
   ],
 };
 

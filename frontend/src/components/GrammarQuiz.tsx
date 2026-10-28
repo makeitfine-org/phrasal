@@ -21,6 +21,7 @@ export default function GrammarQuiz({ entries }: GrammarQuizProps) {
   const entryToVerbEntry = (index: number): VerbEntry => {
     const entry = entries[index];
     return {
+      id: entry.id,
       verb: entry.correctAnswers[0],
       definition: entry.sentence,
       sentences: [],
@@ -29,6 +30,7 @@ export default function GrammarQuiz({ entries }: GrammarQuizProps) {
   };
 
   const displayEntries: VerbEntry[] = entries.map(entry => ({
+    id: entry.id,
     verb: entry.sentence,
     definition: entry.correctAnswers[0],
     sentences: [],

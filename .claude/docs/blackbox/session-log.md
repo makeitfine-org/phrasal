@@ -1239,3 +1239,26 @@
 - backend/src/main/java/net/phrasal/config/SecurityConfig.java
 - backend/src/test/java/net/phrasal/integration/AdminBootstrapIntegrationTest.java
 <!-- end-snapshot -->
+
+<!-- git-snapshot 2026-10-28T10:12:05Z -->
+- .claude/docs/blackbox/audit.md
+- .claude/docs/blackbox/todos/save-on-server-multiuser-todos.md
+- frontend/src/__tests__/AllVerbsModal.test.tsx
+- frontend/src/__tests__/App.test.tsx
+- frontend/src/__tests__/ExcludedModal.test.tsx
+- frontend/src/__tests__/HomePage.test.tsx
+- frontend/src/__tests__/QuizCard.test.tsx
+- frontend/src/__tests__/SearchModal.test.tsx
+- frontend/src/__tests__/api/client.test.ts
+- frontend/src/__tests__/api/phrasalVerbsApi.test.ts
+- frontend/src/__tests__/api/quizProgressApi.test.ts
+- frontend/src/__tests__/hooks/useGrammarEntries.test.ts
+- frontend/src/__tests__/hooks/usePhrasalVerbs.test.ts
+- frontend/src/__tests__/routeReload.test.tsx
+- frontend/src/__tests__/utils/quizProgressMapping.test.ts
+- frontend/src/__tests__/utils/quizProgressStorage.test.ts
+- frontend/src/api/client.ts
+- frontend/src/api/grammarEntriesApi.ts
+- frontend/src/api/phrasalVerbsApi.ts
+- frontend/src/api/quizProgressApi.ts
+<!-- end-snapshot -->

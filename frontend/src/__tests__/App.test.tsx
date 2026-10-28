@@ -11,9 +11,9 @@ vi.mock('../hooks/usePhrasalVerbs', () => ({
       { verb: 'Call up',   definition: 'To phone',    sentences: ['I called up the office.'],    wordsToHide: ['called up'] },
     ],
     verbsForBrowse: [
-      { verb: 'Act out',   definition: 'To perform',  sentences: ['They acted out the scene.'], wordsToHide: ['acted out'], quizIndex: 0 },
-      { verb: 'Break out', definition: 'To escape',   sentences: ['A riot broke out.'],          wordsToHide: ['broke out'], quizIndex: 1 },
-      { verb: 'Call up',   definition: 'To phone',    sentences: ['I called up the office.'],    wordsToHide: ['called up'], quizIndex: 2 },
+      { id: 14, verb: 'Act out',   definition: 'To perform',  sentences: ['They acted out the scene.'], wordsToHide: ['acted out'], quizIndex: 0 },
+      { id: 15, verb: 'Break out', definition: 'To escape',   sentences: ['A riot broke out.'],          wordsToHide: ['broke out'], quizIndex: 1 },
+      { id: 16, verb: 'Call up',   definition: 'To phone',    sentences: ['I called up the office.'],    wordsToHide: ['called up'], quizIndex: 2 },
     ],
     loading: false,
     error: null,

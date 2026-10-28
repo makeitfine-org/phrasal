@@ -23,7 +23,7 @@ export default function AllVerbsModal({ verbs, excluded, onClose }: AllVerbsModa
 
   const filtered = verbs
     .filter(v => {
-      if (!showExcluded && v.quizIndex !== undefined && excluded.has(v.quizIndex)) return false;
+      if (!showExcluded && excluded.has(v.quizIndex)) return false;
       if (!query.trim()) return true;
       const q = query.toLowerCase();
       return v.verb.toLowerCase().includes(q) || v.definition.toLowerCase().includes(q);
@@ -86,7 +86,7 @@ export default function AllVerbsModal({ verbs, excluded, onClose }: AllVerbsModa
                 <li key={`${idx}-${v.verb}`} className="p-3 rounded-xl bg-gray-50 dark:bg-gray-800">
                   <div className="flex items-center gap-2">
                     <p className="font-semibold text-gray-900 dark:text-white">{v.verb}</p>
-                    {v.quizIndex !== undefined && excluded.has(v.quizIndex) && (
+                    {excluded.has(v.quizIndex) && (
                       <span className="text-xs px-1.5 py-0.5 rounded bg-orange-100 dark:bg-orange-900/40 text-orange-600 dark:text-orange-400 font-medium">
                         excluded
                       </span>

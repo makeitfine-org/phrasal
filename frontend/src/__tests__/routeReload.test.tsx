@@ -14,7 +14,7 @@ vi.mock('../hooks/usePhrasalVerbs', () => ({
       { verb: 'Act out', definition: 'To perform', sentences: ['They acted out the scene.'], wordsToHide: ['acted out'] },
     ],
     verbsForBrowse: [
-      { verb: 'Act out', definition: 'To perform', sentences: ['They acted out the scene.'], wordsToHide: ['acted out'], quizIndex: 0 },
+      { id: 17, verb: 'Act out', definition: 'To perform', sentences: ['They acted out the scene.'], wordsToHide: ['acted out'], quizIndex: 0 },
     ],
     loading: false,
     error: null,

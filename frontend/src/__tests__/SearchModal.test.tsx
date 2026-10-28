@@ -4,6 +4,7 @@ import SearchModal from '../components/SearchModal';
 import type { VerbEntry } from '../types';
 
 const allVerbs: VerbEntry[] = Array.from({ length: 20 }, (_, i) => ({
+  id: i + 1,
   verb: `Verb ${i}`,
   definition: `Definition number ${i}`,
   sentences: [],
@@ -235,9 +236,9 @@ describe('SearchModal', () => {
 
   it('displays results sorted alphabetically by verb', () => {
     const unordered: VerbEntry[] = [
-      { verb: 'zoom in', definition: 'def z', sentences: [], wordsToHide: [] },
-      { verb: 'break down', definition: 'def b', sentences: [], wordsToHide: [] },
-      { verb: 'look up', definition: 'def l', sentences: [], wordsToHide: [] },
+      { id: 238, verb: 'zoom in', definition: 'def z', sentences: [], wordsToHide: [] },
+      { id: 239, verb: 'break down', definition: 'def b', sentences: [], wordsToHide: [] },
+      { id: 240, verb: 'look up', definition: 'def l', sentences: [], wordsToHide: [] },
     ];
     render(<SearchModal {...makeProps({ allVerbs: unordered })} />);
     const items = screen.getAllByRole('listitem').map(li => li.querySelector('.font-semibold')!.textContent);
@@ -246,9 +247,9 @@ describe('SearchModal', () => {
 
   it('returns matching results sorted by relevance for non-empty query', async () => {
     const unordered: VerbEntry[] = [
-      { verb: 'zone out', definition: 'stop paying attention', sentences: [], wordsToHide: [] },
-      { verb: 'act up', definition: 'behave badly', sentences: [], wordsToHide: [] },
-      { verb: 'burn out', definition: 'exhaust', sentences: [], wordsToHide: [] },
+      { id: 249, verb: 'zone out', definition: 'stop paying attention', sentences: [], wordsToHide: [] },
+      { id: 250, verb: 'act up', definition: 'behave badly', sentences: [], wordsToHide: [] },
+      { id: 251, verb: 'burn out', definition: 'exhaust', sentences: [], wordsToHide: [] },
     ];
     const user = userEvent.setup();
     render(<SearchModal {...makeProps({ allVerbs: unordered })} />);
@@ -261,8 +262,8 @@ describe('SearchModal', () => {
 
   it('finds verbs with typos via fuzzy matching', async () => {
     const verbs: VerbEntry[] = [
-      { verb: 'figure out', definition: 'understand a problem', sentences: [], wordsToHide: [] },
-      { verb: 'look up', definition: 'search for information', sentences: [], wordsToHide: [] },
+      { id: 264, verb: 'figure out', definition: 'understand a problem', sentences: [], wordsToHide: [] },
+      { id: 265, verb: 'look up', definition: 'search for information', sentences: [], wordsToHide: [] },
     ];
     const user = userEvent.setup();
     render(<SearchModal {...makeProps({ allVerbs: verbs })} />);
@@ -272,8 +273,8 @@ describe('SearchModal', () => {
 
   it('ranks best match first when query is non-empty', async () => {
     const verbs: VerbEntry[] = [
-      { verb: 'look out', definition: 'be careful', sentences: [], wordsToHide: [] },
-      { verb: 'look up', definition: 'search for information', sentences: [], wordsToHide: [] },
+      { id: 275, verb: 'look out', definition: 'be careful', sentences: [], wordsToHide: [] },
+      { id: 276, verb: 'look up', definition: 'search for information', sentences: [], wordsToHide: [] },
     ];
     const user = userEvent.setup();
     render(<SearchModal {...makeProps({ allVerbs: verbs })} />);
@@ -284,9 +285,9 @@ describe('SearchModal', () => {
 
   describe('partial and tokenized search', () => {
     const verbs: VerbEntry[] = [
-      { verb: 'figure out', definition: 'To understand a problem and find a solution', sentences: ['It took the team three hours to figure out why the Java application was crashing.'], wordsToHide: [] },
-      { verb: 'look up', definition: 'To search for information', sentences: [], wordsToHide: [] },
-      { verb: 'break down', definition: 'To stop functioning or to divide into parts', sentences: [], wordsToHide: [] },
+      { id: 287, verb: 'figure out', definition: 'To understand a problem and find a solution', sentences: ['It took the team three hours to figure out why the Java application was crashing.'], wordsToHide: [] },
+      { id: 288, verb: 'look up', definition: 'To search for information', sentences: [], wordsToHide: [] },
+      { id: 289, verb: 'break down', definition: 'To stop functioning or to divide into parts', sentences: [], wordsToHide: [] },
     ];
 
     it('finds verbs by subsequence across word boundaries', async () => {
