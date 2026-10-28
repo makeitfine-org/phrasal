@@ -1452,3 +1452,8 @@
 - .claude/docs/blackbox/session-log.md
 - email.sh
 <!-- end-snapshot -->
+
+<!-- git-snapshot 2026-10-28T14:24:56Z -->
+- .claude/docs/blackbox/audit.md
+- .claude/docs/blackbox/todos/email-verification-on-server-multiuser-todos.md
+<!-- end-snapshot -->

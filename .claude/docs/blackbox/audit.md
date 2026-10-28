@@ -4176,3 +4176,26 @@ Create detailed email-verification-on-server-multiuser-todos.md fils with checkb
 - Critical: DO NOT start any steps of implement.
 </pasted_content id="81f1">
 ---
+
+## 2026-10-28T14:09:25Z
+ 
+
+<pasted_content id="d2ac">
+Create detailed email-verification-on-server-multiuser-todos.md fils with checkboxes (- [ ]), which describes a step-by-step implementation for such task:
+
+- Analyze the project and also:
+  @".claude/docs/blackbox/plans/2026-10-26 18:10 Multi-user accounts TOTP 2FA and reliable storage for phrasal.md"
+  and @"backlog/tasks/" from task-97 to task-106 md files.
+- I'd like to add sign-up email verification link which is valid for some limited period of time.
+  I have configured Brevo SMTP for production.
+- Each step of implementation should be simple, detailed, granular, covered with backend, frontend and if reasonable with e2e tests.
+- Consider as templates: @.claude/docs/blackbox/todos/multiuser-todos.md
+                         @.claude/docs/blackbox/todos/save-on-server-multiuser-todos.md
+
+- Critical: DO NOT start any steps of implement.
+</pasted_content id="d2ac">
+---
+
+## 2026-10-28T14:25:59Z
+git add all changes and commit them with suitable message
+---
