@@ -1231,3 +1231,11 @@
 - backend/src/main/resources/application.yml
 - backend/src/test/java/net/phrasal/infrastructure/exception/GlobalExceptionHandlerTest.java
 <!-- end-snapshot -->
+
+<!-- git-snapshot 2026-10-28T10:02:59Z -->
+- .claude/docs/blackbox/audit.md
+- .claude/docs/blackbox/todos/save-on-server-multiuser-todos.md
+- backend/CLAUDE.md
+- backend/src/main/java/net/phrasal/config/SecurityConfig.java
+- backend/src/test/java/net/phrasal/integration/AdminBootstrapIntegrationTest.java
+<!-- end-snapshot -->

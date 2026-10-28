@@ -9,6 +9,7 @@ import org.springframework.test.context.TestPropertySource;
 import static org.springframework.security.test.web.servlet.request.SecurityMockMvcRequestPostProcessors.csrf;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.put;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
@@ -41,6 +42,21 @@ class AdminBootstrapIntegrationTest extends AbstractIntegrationTest {
                         .content("{\"verb\":\"Boot up\",\"definition\":\"To start a computer\","
                                 + "\"sentences\":[\"Boot up the laptop.\"],\"wordsToHide\":[\"boot up\"]}"))
                 .andExpect(status().isCreated());
+    }
+
+    @Test
+    @DisplayName("admin session can save and read its own quiz progress")
+    void adminOwnProgress() throws Exception {
+        Cookie session = login(BODY, null);
+        String url = "/api/v1/me/quiz-progress/phrasal-verbs";
+
+        mockMvc.perform(put(url).cookie(session).with(csrf()).contentType(MediaType.APPLICATION_JSON)
+                        .content("{\"state\":{\"excluded\":[1]}}"))
+                .andExpect(status().isOk());
+
+        mockMvc.perform(get(url).cookie(session))
+                .andExpect(status().isOk())
+                .andExpect(jsonPath("$.state.excluded[0]").value(1));
     }
 
     @Test

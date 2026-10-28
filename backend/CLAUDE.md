@@ -20,7 +20,7 @@ config/         → Spring @Configuration classes (SecurityConfig = access rules
 
 ## Security
 
-- `SecurityConfig` rule order matters (first match wins): `/error` and `/actuator/health/**` public → other `/actuator/**` ADMIN → `GET /api/v1/auth/me` authenticated → `POST register|login` public → `POST/PUT/DELETE` content paths ADMIN → `GET /api/**` public → everything else denied.
+- `SecurityConfig` rule order matters (first match wins): `/error` and `/actuator/health/**` public → other `/actuator/**` ADMIN → `GET /api/v1/auth/me` authenticated → `/api/v1/me/**` authenticated (per-user data, e.g. quiz progress) → `POST register|login` public → `POST/PUT/DELETE` content paths ADMIN → `GET /api/**` public → everything else denied.
 - Public `GET /api/**`; `POST/PUT/DELETE` on phrasal-verbs, grammar-entries, verb-details need role `ADMIN`; `/actuator/health/**` public, other actuator endpoints ADMIN.
 - CSRF is cookie-based (`XSRF-TOKEN`, readable by the SPA, echoed in `X-XSRF-TOKEN`); `presentation/security/CsrfCookieFilter` forces the deferred token to be sent.
 - 401/403 are written as `application/problem+json` by `presentation/security` handlers; build bodies with `ProblemDetailFactory`.

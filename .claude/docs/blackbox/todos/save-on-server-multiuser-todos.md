@@ -453,57 +453,57 @@ Why first: it is small and independent. Our frontend keeps working without chang
 ## Phase 4 — Controller, security rule, integration tests
 
 ### 4.1 Controller
-- [ ] **4.1.1** `presentation/rest/QuizProgressController`, `@RequestMapping("/api/v1/me/quiz-progress")`:
-  - [ ] `@GetMapping("/{quizKey}")` → `200 QuizProgressResponse`
-  - [ ] `@PutMapping(path = "/{quizKey}", consumes = APPLICATION_JSON_VALUE)` with `@Valid @RequestBody QuizProgressRequest`
+- [x] **4.1.1** `presentation/rest/QuizProgressController`, `@RequestMapping("/api/v1/me/quiz-progress")`:
+  - [x] `@GetMapping("/{quizKey}")` → `200 QuizProgressResponse`
+  - [x] `@PutMapping(path = "/{quizKey}", consumes = APPLICATION_JSON_VALUE)` with `@Valid @RequestBody QuizProgressRequest`
         → `200 QuizProgressResponse`
-  - [ ] both take `@AuthenticationPrincipal AuthenticatedUser user` and pass `user.id()`. Never read a user id from the
+  - [x] both take `@AuthenticationPrincipal AuthenticatedUser user` and pass `user.id()`. Never read a user id from the
         request.
 
 ### 4.2 Security rule
-- [ ] **4.2.1** `config/SecurityConfig.authorizeHttpRequests`: add `.requestMatchers("/api/v1/me/**").authenticated()`
+- [x] **4.2.1** `config/SecurityConfig.authorizeHttpRequests`: add `.requestMatchers("/api/v1/me/**").authenticated()`
       right after the `GET /api/v1/auth/me` rule and **before** `GET /api/**` → `permitAll`. Otherwise an anonymous GET
       would be permitted and the controller would get a `null` principal.
-- [ ] **4.2.2** Leave the CSRF configuration unchanged. The PUT is an unsafe method, so CSRF already applies.
-- [ ] **4.2.3** Update the class Javadoc / rule-order comment if it lists the rules.
+- [x] **4.2.2** Leave the CSRF configuration unchanged. The PUT is an unsafe method, so CSRF already applies.
+- [x] **4.2.3** Update the class Javadoc / rule-order comment if it lists the rules.
 
 ### 4.3 `integration/QuizProgressIntegrationTest` (real sessions via `registerAndLogin`)
-- [ ] **4.3.1** Anonymous `GET` → `401` problem+json; anonymous `PUT` with CSRF → `401` (task-102 AC #2).
-- [ ] **4.3.2** A new user's `GET /phrasal-verbs` → `404`, `$.title == "Quiz Progress Not Found"` (AC #1).
-- [ ] **4.3.3** `PUT` with cookie + CSRF → `200`:
+- [x] **4.3.1** Anonymous `GET` → `401` problem+json; anonymous `PUT` with CSRF → `401` (task-102 AC #2).
+- [x] **4.3.2** A new user's `GET /phrasal-verbs` → `404`, `$.title == "Quiz Progress Not Found"` (AC #1).
+- [x] **4.3.3** `PUT` with cookie + CSRF → `200`:
   - `$.quizKey == "phrasal-verbs"`, `$.version == 0`
   - then `GET` → `200` with an identical `$.state` (nested arrays/objects)
-- [ ] **4.3.4** A second `PUT` → `$.version == 1`, and the state is replaced, not merged.
-- [ ] **4.3.5** The two quiz keys are independent: a save on `phrasal-verbs` → `GET grammar-i-wish-if-only` still `404`.
-- [ ] **4.3.6** Cross-user isolation (AC #3):
+- [x] **4.3.4** A second `PUT` → `$.version == 1`, and the state is replaced, not merged.
+- [x] **4.3.5** The two quiz keys are independent: a save on `phrasal-verbs` → `GET grammar-i-wish-if-only` still `404`.
+- [x] **4.3.6** Cross-user isolation (AC #3):
   - user A saves
   - user B `GET` → `404`
   - user B `PUT` → A's `GET` still returns A's state
-- [ ] **4.3.7** An unknown key, `PUT /unknown-quiz` and `GET /unknown-quiz` → `400`, `$.title == "Unknown Quiz Key"` (AC #4).
-- [ ] **4.3.8** A non-object body (AC #4). Each of these → `400`:
+- [x] **4.3.7** An unknown key, `PUT /unknown-quiz` and `GET /unknown-quiz` → `400`, `$.title == "Unknown Quiz Key"` (AC #4).
+- [x] **4.3.8** A non-object body (AC #4). Each of these → `400`:
   - `{"state": [1,2]}`
   - `{"state": "x"}`
   - `[1,2]`
   - `not json`
   - The malformed ones get `$.title == "Malformed Request"`. A missing `state` (`{}`) → `400 Validation Error`.
-- [ ] **4.3.9** Size limit (AC #4): a separate small class `QuizProgressSizeLimitIntegrationTest` with
+- [x] **4.3.9** Size limit (AC #4): a separate small class `QuizProgressSizeLimitIntegrationTest` with
       `@TestPropertySource(properties = "phrasal.quiz-progress.max-state-bytes=200")`, so there is only one extra context:
   - just under the limit → `200`
   - over the limit → `400` `Quiz Progress Too Large`
-- [ ] **4.3.10** `PUT` **without** CSRF → `403`, `$.type` ends with `/csrf`.
-- [ ] **4.3.11** The real admin session (`AdminBootstrapIntegrationTest`, which already has an admin) can save and read its
+- [x] **4.3.10** `PUT` **without** CSRF → `403`, `$.type` ends with `/csrf`.
+- [x] **4.3.11** The real admin session (`AdminBootstrapIntegrationTest`, which already has an admin) can save and read its
       own progress → `200`. Put this case in that class, so there is no new context.
-- [ ] **4.3.12** Content GETs stay public: anonymous `GET /api/v1/phrasal-verbs` → `200`. This is a regression guard for the
+- [x] **4.3.12** Content GETs stay public: anonymous `GET /api/v1/phrasal-verbs` → `200`. This is a regression guard for the
       new rule order (AC #6).
-- [ ] **4.3.13** Malformed JSON on a content POST (admin + CSRF) → `400 Malformed Request`, not `500` (decision 11).
+- [x] **4.3.13** Malformed JSON on a content POST (admin + CSRF) → `400 Malformed Request`, not `500` (decision 11).
 
 ### 4.4 Verify and commit
-- [ ] **4.4.1** Run the `api-contract-review` skill on `QuizProgressController`:
+- [x] **4.4.1** Run the `api-contract-review` skill on `QuizProgressController`:
   - versioned path, DTO-only responses
   - 200/400/401/403/404 problem+json
   - idempotent PUT
   - Fix the findings or note them.
-- [ ] **4.4.2** `cd backend && mvn clean verify`: green, with JaCoCo ≥ 85 % in every touched package
+- [x] **4.4.2** `cd backend && mvn clean verify`: green, with JaCoCo ≥ 85 % in every touched package
       (`domain.entity`, `domain.repository`, `application.service`, `application.mapper`, `presentation.rest`,
       `infrastructure.exception`, `config`).
 - [ ] **4.4.3** `make clean build` → green. Ask for commit approval → `feat(backend): add per-user quiz progress API`
@@ -512,7 +512,7 @@ Why first: it is small and independent. Our frontend keeps working without chang
 
 ## Phase 5 — E2E: progress API
 
-- [ ] **5.1** `e2e/src/steps/quiz-progress-api.steps.ts`. Reuse `Given I am logged in as a new user` and
+- [x] **5.1** `e2e/src/steps/quiz-progress-api.steps.ts`. Reuse `Given I am logged in as a new user` and
       `the response status should be {int}`.
   - `When I request my {string} quiz progress` → `GET /api/v1/me/quiz-progress/{key}`
   - `When I save my {string} quiz progress with {int} excluded items` → `PUT` with a v1 document
@@ -521,20 +521,20 @@ Why first: it is small and independent. Our frontend keeps working without chang
   - `When I save an oversized {string} quiz progress` → `state.padding = 'x'.repeat(70_000)`
   - `Then the quiz progress should have {int} excluded items`
   - `Then the quiz progress version should be {int}`
-- [ ] **5.2** `e2e/features/progress-api/quiz-progress.feature` (`@api`):
-  - [ ] anonymous → `401`
-  - [ ] new user, read → `404`
-  - [ ] save 3 excluded → `200`; read back → `200`, 3 excluded, version 0
-  - [ ] save again → version 1
-  - [ ] another new user reads the same key → `404` (isolation)
-  - [ ] unknown key `"unknown-quiz"` → `400`
-  - [ ] state is an array → `400`
-  - [ ] oversized → `400`
+- [x] **5.2** `e2e/features/progress-api/quiz-progress.feature` (`@api`):
+  - [x] anonymous → `401`
+  - [x] new user, read → `404`
+  - [x] save 3 excluded → `200`; read back → `200`, 3 excluded, version 0
+  - [x] save again → version 1
+  - [x] another new user reads the same key → `404` (isolation)
+  - [x] unknown key `"unknown-quiz"` → `400`
+  - [x] state is an array → `400`
+  - [x] oversized → `400`
 - [ ] **5.3** Cleanup: no new SQL. `hooks.ts` `AfterAll` already deletes the e2e users, and the cascade removes their
       progress. Check once with `SELECT count(*) FROM user_quiz_progress` after a run: no e2e rows are left.
-- [ ] **5.4** `package.json`: make sure the `@api` tag run (`test:api`) picks up the new feature folder. Check the
+- [x] **5.4** `package.json`: make sure the `@api` tag run (`test:api`) picks up the new feature folder. Check the
       `cucumber.js` paths glob.
-- [ ] **5.5** `npm --prefix e2e run test:api` against the running stack → green. `make clean build` → green. Ask for commit
+- [x] **5.5** `npm --prefix e2e run test:api` against the running stack → green. `make clean build` → green. Ask for commit
       approval → `test(e2e): cover quiz progress API`
 
 ---

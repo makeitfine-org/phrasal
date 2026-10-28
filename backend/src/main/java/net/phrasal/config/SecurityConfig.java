@@ -29,7 +29,8 @@ import org.springframework.security.web.csrf.CsrfFilter;
 import org.springframework.session.web.http.DefaultCookieSerializer;
 
 /**
- * Access rules: public reads, ADMIN-only writes, SPA-style CSRF and problem+json 401/403 responses.
+ * Access rules: public reads, ADMIN-only writes, per-user {@code /api/v1/me/**} for any signed-in user,
+ * SPA-style CSRF and problem+json 401/403 responses.
  */
 @Configuration
 @EnableWebSecurity
@@ -94,6 +95,7 @@ public class SecurityConfig {
                         .requestMatchers("/actuator/health", "/actuator/health/**").permitAll()
                         .requestMatchers("/actuator/**").hasRole(ADMIN)
                         .requestMatchers(HttpMethod.GET, "/api/v1/auth/me").authenticated()
+                        .requestMatchers("/api/v1/me/**").authenticated()
                         .requestMatchers(HttpMethod.POST, "/api/v1/auth/register", "/api/v1/auth/login").permitAll()
                         .requestMatchers(HttpMethod.POST, CONTENT_PATHS).hasRole(ADMIN)
                         .requestMatchers(HttpMethod.PUT, CONTENT_PATHS).hasRole(ADMIN)
