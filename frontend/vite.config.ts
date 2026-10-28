@@ -6,6 +6,8 @@ const BACKEND = 'http://localhost:8080';
 export default defineConfig({
   plugins: [react()],
   server: {
+    // PORT env var overrides the default dev server port
+    port: process.env.PORT ? parseInt(process.env.PORT) : 5173,
     proxy: {
       '/api': BACKEND,
       '/actuator': BACKEND,

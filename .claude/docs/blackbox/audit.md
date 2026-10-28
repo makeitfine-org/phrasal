@@ -4612,3 +4612,37 @@ Covered that with reasonable tests
 ## 2026-10-28T22:57:09Z
 git add all changes and commit them with suitable message
 ---
+
+## 2026-10-28T23:00:37Z
+
+
+<pasted_content id="3010">
+server: {
+    // This tells Vite to check for a PORT environment variable, 
+    // and fall back to 5173 if one isn't provided.
+    port: process.env.PORT ? parseInt(process.env.PORT) : 5173,
+  }
+</pasted_content id="3010">
+---
+
+## 2026-10-28T23:03:15Z
+
+
+<pasted_content id="3010">
+ns :80
+(Not all processes could be identified, non-owned process info
+ will not be shown, you would have to be root to see it all.)
+tcp6       0      0 :::8080                 :::*                    LISTEN      1329021/node
+</pasted_content id="3010">
+
+
+what's the process on 8080?
+---
+
+## 2026-10-28T23:04:05Z
+kill
+---
+
+## 2026-10-28T23:08:31Z
+git add all changes and commit them with suitable message
+---

@@ -1800,3 +1800,26 @@
 - frontend/src/__tests__/RegisterPage.test.tsx
 - frontend/src/pages/RegisterPage.tsx
 <!-- end-snapshot -->
+
+<!-- git-snapshot 2026-10-28T22:57:30Z -->
+- e2e/features/frontend/auth.feature
+- e2e/src/steps/auth-ui.steps.ts
+<!-- end-snapshot -->
+
+<!-- git-snapshot 2026-10-28T23:00:59Z -->
+- .claude/docs/blackbox/audit.md
+- .claude/docs/blackbox/session-log.md
+- frontend/vite.config.ts
+<!-- end-snapshot -->
+
+<!-- git-snapshot 2026-10-28T23:03:23Z -->
+- .claude/docs/blackbox/audit.md
+- .claude/docs/blackbox/session-log.md
+- frontend/vite.config.ts
+<!-- end-snapshot -->
+
+<!-- git-snapshot 2026-10-28T23:04:13Z -->
+- .claude/docs/blackbox/audit.md
+- .claude/docs/blackbox/session-log.md
+- frontend/vite.config.ts
+<!-- end-snapshot -->
