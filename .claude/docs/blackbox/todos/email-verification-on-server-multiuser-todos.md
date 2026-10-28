@@ -1038,7 +1038,7 @@ Why: expired tokens pile up, and an address squatted by an attacker who can't ve
 
 ## Phase 11 — Final verification
 
-- [ ] **11.1** `make clean build` → green: backend verify (JaCoCo 85 %/package, Checkstyle), frontend build + tests,
+- [x] **11.1** `make clean build` → green: backend verify (JaCoCo 85 %/package, Checkstyle), frontend build + tests,
       docker rebuild, e2e.
 - [ ] **11.2** Manual run with `make dockerAll`, at http://localhost:3000 and the Mailpit UI at http://localhost:8025:
   - [ ] sign up → "Check your inbox" → the mail in Mailpit → the link → confirmed → log in → the user menu shows the email
