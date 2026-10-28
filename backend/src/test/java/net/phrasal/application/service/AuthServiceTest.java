@@ -37,10 +37,13 @@ class AuthServiceTest {
     @Mock
     private PasswordEncoder passwordEncoder;
 
+    @Mock
+    private EmailVerificationService emailVerificationService;
+
     private final UserMapper userMapper = Mappers.getMapper(UserMapper.class);
 
     private AuthService service() {
-        return new AuthService(userRepository, passwordEncoder, userMapper);
+        return new AuthService(userRepository, passwordEncoder, userMapper, emailVerificationService);
     }
 
     @Test
@@ -63,6 +66,7 @@ class AuthServiceTest {
         assertThat(saved.getRole()).isEqualTo(Role.USER);
         assertThat(saved.getPasswordHash()).isEqualTo(HASH).isNotEqualTo(PASSWORD);
         assertThat(response).isEqualTo(new UserResponse(9L, "a@b.com", "USER"));
+        verify(emailVerificationService).issueFor(saved);
     }
 
     @Test
@@ -74,6 +78,7 @@ class AuthServiceTest {
                 .isInstanceOf(EmailAlreadyRegisteredException.class);
 
         verify(userRepository, never()).saveAndFlush(any());
+        verify(emailVerificationService, never()).issueFor(any());
     }
 
     @Test
@@ -85,5 +90,6 @@ class AuthServiceTest {
 
         assertThatThrownBy(() -> service().register(new RegisterRequest("a@b.com", PASSWORD)))
                 .isInstanceOf(EmailAlreadyRegisteredException.class);
+        verify(emailVerificationService, never()).issueFor(any());
     }
 }

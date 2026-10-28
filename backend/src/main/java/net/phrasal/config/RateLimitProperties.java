@@ -11,9 +11,13 @@ import java.time.Duration;
  * @param registerPerIp   registrations per client IP
  * @param loginPerIp      login attempts per client IP
  * @param loginPerEmail   login attempts per normalized email
+ * @param resendPerIp     verification email resends per client IP
+ * @param resendPerEmail  verification email resends per normalized email
+ * @param verifyPerIp     verification link redemptions per client IP
  */
 @ConfigurationProperties("phrasal.rate-limit")
-public record RateLimitProperties(boolean enabled, Rule registerPerIp, Rule loginPerIp, Rule loginPerEmail) {
+public record RateLimitProperties(boolean enabled, Rule registerPerIp, Rule loginPerIp, Rule loginPerEmail,
+                                  Rule resendPerIp, Rule resendPerEmail, Rule verifyPerIp) {
 
     /**
      * One limit.

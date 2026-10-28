@@ -112,6 +112,28 @@ class GlobalExceptionHandlerTest {
     }
 
     @Test
+    @DisplayName("returns 400 verification-link-invalid without internal detail")
+    void handleVerificationLinkInvalid() {
+        ProblemDetail detail = handler.handleVerificationLinkInvalid(new VerificationLinkInvalidException());
+
+        assertThat(detail.getStatus()).isEqualTo(HttpStatus.BAD_REQUEST.value());
+        assertThat(detail.getTitle()).isEqualTo("Verification Link Invalid");
+        assertThat(detail.getType().toString()).endsWith("/errors/verification-link-invalid");
+        assertThat(detail.getDetail()).isEqualTo("This verification link is invalid or has already been used");
+    }
+
+    @Test
+    @DisplayName("returns 400 verification-link-expired without internal detail")
+    void handleVerificationLinkExpired() {
+        ProblemDetail detail = handler.handleVerificationLinkExpired(new VerificationLinkExpiredException());
+
+        assertThat(detail.getStatus()).isEqualTo(HttpStatus.BAD_REQUEST.value());
+        assertThat(detail.getTitle()).isEqualTo("Verification Link Expired");
+        assertThat(detail.getType().toString()).endsWith("/errors/verification-link-expired");
+        assertThat(detail.getDetail()).isEqualTo("This verification link has expired");
+    }
+
+    @Test
     @DisplayName("returns 429 with a Retry-After header")
     void handleRateLimited() {
         var response = handler.handleRateLimited(new RateLimitExceededException("login-per-ip", 42));

@@ -485,59 +485,59 @@ After this phase: register still answers `201` and login still accepts unverifie
 sends a verification email and the link works.
 
 ### 3.1 Configuration
-- [ ] **3.1.1** `config/RateLimitProperties.java`: add `Rule resendPerIp, Rule resendPerEmail, Rule verifyPerIp`
+- [x] **3.1.1** `config/RateLimitProperties.java`: add `Rule resendPerIp, Rule resendPerEmail, Rule verifyPerIp`
       (Javadoc `@param`s). `registerPerEmail` comes in Phase 6.
-- [ ] **3.1.2** `application.yml` under `phrasal.rate-limit` (decision 9):
+- [x] **3.1.2** `application.yml` under `phrasal.rate-limit` (decision 9):
   ```yaml
   resend-per-ip:    { limit: "${RATE_LIMIT_RESEND_PER_IP:10}",    window: 1h }
   resend-per-email: { limit: "${RATE_LIMIT_RESEND_PER_EMAIL:3}",  window: 1h }
   verify-per-ip:    { limit: "${RATE_LIMIT_VERIFY_PER_IP:30}",    window: 5m }
   ```
-- [ ] **3.1.3** `application-test.yml`: the three new rules at `100000`, like the existing ones.
+- [x] **3.1.3** `application-test.yml`: the three new rules at `100000`, like the existing ones.
 
 ### 3.2 Composer
-- [ ] **3.2.1** `application/service/VerificationEmailComposer.java` (`@Component`), using `AppProperties` and
+- [x] **3.2.1** `application/service/VerificationEmailComposer.java` (`@Component`), using `AppProperties` and
       `EmailVerificationProperties`:
-  - [ ] `EmailMessage verification(String to, String rawToken)`:
+  - [x] `EmailMessage verification(String to, String rawToken)`:
     - link = `baseUrl + "/verify-email?token=" + rawToken` (the token is base64url, so no URL-encoding is needed;
       assert that in a test)
     - subject `Confirm your Phrasal account`
     - text and HTML: greeting, the link, "This link expires in 24 hours" (from the TTL, formatted as hours),
       "If you didn't sign up, ignore this email."
     - HTML: one `<a href>` and the same link as plain text; HTML-escape every dynamic value
-  - [ ] `EmailMessage accountExists(String to)` (used in Phase 6): subject `You already have a Phrasal account`, a link to
+  - [x] `EmailMessage accountExists(String to)` (used in Phase 6): subject `You already have a Phrasal account`, a link to
         `baseUrl + "/login"`, "If this wasn't you, you can ignore this email."
-- [ ] **3.2.2** `VerificationEmailComposerTest`:
-  - [ ] the link has the configured base URL, `/verify-email?token=`, and the raw token
-  - [ ] `24h` TTL → "24 hours"; `30m` → "30 minutes" (or whatever the formatter supports; test both units)
-  - [ ] the HTML escapes a base URL containing `&` (defensive)
-  - [ ] `accountExists` contains `/login` and **no** token
+- [x] **3.2.2** `VerificationEmailComposerTest`:
+  - [x] the link has the configured base URL, `/verify-email?token=`, and the raw token
+  - [x] `24h` TTL → "24 hours"; `30m` → "30 minutes" (or whatever the formatter supports; test both units)
+  - [x] the HTML escapes a base URL containing `&` (defensive)
+  - [x] `accountExists` contains `/login` and **no** token
 
 ### 3.3 Events and the async listener
-- [ ] **3.3.1** `application/event/VerificationEmailRequested.java`: `record VerificationEmailRequested(Long userId, String email, String rawToken)`
+- [x] **3.3.1** `application/event/VerificationEmailRequested.java`: `record VerificationEmailRequested(Long userId, String email, String rawToken)`
       with a masking `toString()` (no token, no email).
-- [ ] **3.3.2** `application/event/AccountExistsNoticeRequested.java`: `record AccountExistsNoticeRequested(Long userId, String email)`
+- [x] **3.3.2** `application/event/AccountExistsNoticeRequested.java`: `record AccountExistsNoticeRequested(Long userId, String email)`
       (used in Phase 6), masking `toString()`.
-- [ ] **3.3.3** `application/service/VerificationEmailListener.java` (`@Component`):
-  - [ ] `@Async @TransactionalEventListener(phase = TransactionPhase.AFTER_COMMIT)` for each event type
-  - [ ] composes the message and calls `EmailSender.send`
-  - [ ] catches `MailException` (and `RuntimeException`): `log.warn("Verification email failed userId={}: {}", id, ex.getClass().getSimpleName())`.
+- [x] **3.3.3** `application/service/VerificationEmailListener.java` (`@Component`):
+  - [x] `@Async @TransactionalEventListener(phase = TransactionPhase.AFTER_COMMIT)` for each event type
+  - [x] composes the message and calls `EmailSender.send`
+  - [x] catches `MailException` (and `RuntimeException`): `log.warn("Verification email failed userId={}: {}", id, ex.getClass().getSimpleName())`.
         Never rethrows, never logs the token or the email.
-  - [ ] `log.info("Verification email sent userId={}", id)` on success
-- [ ] **3.3.4** `VerificationEmailListenerTest` (plain unit test, call the methods directly):
-  - [ ] composer + sender called with the right recipient
-  - [ ] sender throws → no exception escapes; a `WARN` is logged without the token (Logback `ListAppender`)
+  - [x] `log.info("Verification email sent userId={}", id)` on success
+- [x] **3.3.4** `VerificationEmailListenerTest` (plain unit test, call the methods directly):
+  - [x] composer + sender called with the right recipient
+  - [x] sender throws → no exception escapes; a `WARN` is logged without the token (Logback `ListAppender`)
 
 ### 3.4 Service
-- [ ] **3.4.1** `application/service/EmailVerificationService.java` (`@Service @Transactional @RequiredArgsConstructor @Slf4j`),
+- [x] **3.4.1** `application/service/EmailVerificationService.java` (`@Service @Transactional @RequiredArgsConstructor @Slf4j`),
       dependencies: `UserRepository`, `UserTokenRepository`, `SecureTokenGenerator`, `EmailVerificationProperties`,
       `Clock`, `ApplicationEventPublisher`.
-  - [ ] `void issueFor(User user)`:
+  - [x] `void issueFor(User user)`:
     1. `now = LocalDateTime.now(clock)`
     2. `userTokenRepository.invalidateActive(user.getId(), EMAIL_VERIFICATION, now)` (only the newest link works)
     3. `IssuedToken t = generator.generate()`; save `new UserToken(userId, EMAIL_VERIFICATION, t.hash(), now.plus(ttl))`
     4. `publisher.publishEvent(new VerificationEmailRequested(userId, email, t.rawToken()))`
-  - [ ] `void verify(String rawToken)`:
+  - [x] `void verify(String rawToken)`:
     1. `token = repo.findByTokenHashAndType(SecureTokenGenerator.hash(rawToken), EMAIL_VERIFICATION)`;
        missing → `VerificationLinkInvalidException`
     2. load the user (missing → invalid, defensive)
@@ -545,84 +545,84 @@ sends a verification email and the link works.
     4. `token.isExpired(now)` → `VerificationLinkExpiredException`
     5. `token.markUsed(now)`; `user.markEmailVerified(now)`; `invalidateActive(...)` for any other open token
     6. `log.info("Email verified userId={}", id)`
-  - [ ] `void resend(String rawEmail)`:
+  - [x] `void resend(String rawEmail)`:
     1. `email = EmailNormalizer.normalize(rawEmail)`
     2. `findByEmail(email).filter(u -> !u.isEmailVerified()).ifPresent(this::issueFor)`
     3. nothing else: unknown and verified addresses return silently (decision 8)
-- [ ] **3.4.2** `AuthService.register` (still `201`, still `409` on duplicate in this phase): after `saveAndFlush`, call
+- [x] **3.4.2** `AuthService.register` (still `201`, still `409` on duplicate in this phase): after `saveAndFlush`, call
       `emailVerificationService.issueFor(user)`.
-- [ ] **3.4.3** `EmailVerificationServiceTest` (Mockito, fixed `Clock`):
-  - [ ] `issueFor`: invalidates older tokens **before** saving; saved hash = `hash(raw)`; `expiresAt = now + ttl`;
+- [x] **3.4.3** `EmailVerificationServiceTest` (Mockito, fixed `Clock`):
+  - [x] `issueFor`: invalidates older tokens **before** saving; saved hash = `hash(raw)`; `expiresAt = now + ttl`;
         event published with the raw token
-  - [ ] `verify` happy path: token used, user verified at `now`
-  - [ ] unknown token → `VerificationLinkInvalidException`
-  - [ ] expired (now = expiresAt) → `VerificationLinkExpiredException`; the user stays unverified, the token stays unused
-  - [ ] used token + verified user → no exception, nothing changes
-  - [ ] used token + unverified user (an invalidated older link) → invalid
-  - [ ] `resend`: unverified → `issueFor` called; verified → nothing; unknown → nothing; email normalized before lookup
-- [ ] **3.4.4** `AuthServiceTest`: register calls `issueFor` with the saved user; a duplicate never calls it.
+  - [x] `verify` happy path: token used, user verified at `now`
+  - [x] unknown token → `VerificationLinkInvalidException`
+  - [x] expired (now = expiresAt) → `VerificationLinkExpiredException`; the user stays unverified, the token stays unused
+  - [x] used token + verified user → no exception, nothing changes
+  - [x] used token + unverified user (an invalidated older link) → invalid
+  - [x] `resend`: unverified → `issueFor` called; verified → nothing; unknown → nothing; email normalized before lookup
+- [x] **3.4.4** `AuthServiceTest`: register calls `issueFor` with the saved user; a duplicate never calls it.
 
 ### 3.5 Exceptions and handler
-- [ ] **3.5.1** `infrastructure/exception/VerificationLinkInvalidException` (message
+- [x] **3.5.1** `infrastructure/exception/VerificationLinkInvalidException` (message
       `This verification link is invalid or has already been used`) and `VerificationLinkExpiredException`
       (message `This verification link has expired`). Both `RuntimeException`.
-- [ ] **3.5.2** `GlobalExceptionHandler`, before the catch-all:
-  - [ ] invalid → `400`, title `Verification Link Invalid`, type `verification-link-invalid`
-  - [ ] expired → `400`, title `Verification Link Expired`, type `verification-link-expired`
-- [ ] **3.5.3** `GlobalExceptionHandlerTest`: both mappings (status, title, type, no internal detail).
+- [x] **3.5.2** `GlobalExceptionHandler`, before the catch-all:
+  - [x] invalid → `400`, title `Verification Link Invalid`, type `verification-link-invalid`
+  - [x] expired → `400`, title `Verification Link Expired`, type `verification-link-expired`
+- [x] **3.5.3** `GlobalExceptionHandlerTest`: both mappings (status, title, type, no internal detail).
 
 ### 3.6 DTOs and controller
-- [ ] **3.6.1** `application/dto/VerifyEmailRequest.java`: `record VerifyEmailRequest(@NotBlank @Size(max = 100) String token)`;
+- [x] **3.6.1** `application/dto/VerifyEmailRequest.java`: `record VerifyEmailRequest(@NotBlank @Size(max = 100) String token)`;
       `toString()` masks the token.
-- [ ] **3.6.2** `application/dto/ResendVerificationRequest.java`: `record ResendVerificationRequest(@NotBlank String email)`
+- [x] **3.6.2** `application/dto/ResendVerificationRequest.java`: `record ResendVerificationRequest(@NotBlank String email)`
       (no `@Email`, same reason as `LoginRequest`: normalization first).
-- [ ] **3.6.3** `application/dto/AcceptedResponse.java`: `record AcceptedResponse(String message)` with a constant
+- [x] **3.6.3** `application/dto/AcceptedResponse.java`: `record AcceptedResponse(String message)` with a constant
       `AcceptedResponse.CHECK_INBOX` holding the decision-4 text. Resend uses it now; register in Phase 6.
-- [ ] **3.6.4** `AuthController`:
-  - [ ] `@PostMapping("/verify-email")`: `verify-per-ip` limit → `service.verify(token)` → `204`
-  - [ ] `@PostMapping("/resend-verification")`: `resend-per-ip` + `resend-per-email` (normalized) limits →
+- [x] **3.6.4** `AuthController`:
+  - [x] `@PostMapping("/verify-email")`: `verify-per-ip` limit → `service.verify(token)` → `204`
+  - [x] `@PostMapping("/resend-verification")`: `resend-per-ip` + `resend-per-email` (normalized) limits →
         `service.resend(email)` → `202 AcceptedResponse.CHECK_INBOX`
-- [ ] **3.6.5** `SecurityConfig`: add `/api/v1/auth/verify-email` and `/api/v1/auth/resend-verification` to the
+- [x] **3.6.5** `SecurityConfig`: add `/api/v1/auth/verify-email` and `/api/v1/auth/resend-verification` to the
       `POST … permitAll` matcher. CSRF stays on (the SPA sends the header; e2e primes it).
 
 ### 3.7 Test support: a recording mail sender
-- [ ] **3.7.1** `src/test/java/net/phrasal/integration/support/RecordingEmailSender.java`: an `EmailSender` keeping
+- [x] **3.7.1** `src/test/java/net/phrasal/integration/support/RecordingEmailSender.java`: an `EmailSender` keeping
       messages in a `ConcurrentHashMap<String, BlockingDeque<EmailMessage>>` by recipient.
-  - [ ] `EmailMessage awaitLatest(String to)`: polls up to 5 s (the listener is async), else fails with a clear message
-  - [ ] `String awaitVerificationToken(String to)`: extracts the token with
+  - [x] `EmailMessage awaitLatest(String to)`: polls up to 5 s (the listener is async), else fails with a clear message
+  - [x] `String awaitVerificationToken(String to)`: extracts the token with
         `Pattern.compile("/verify-email\\?token=([A-Za-z0-9_-]{43})")`
-  - [ ] `void assertNothingSentTo(String to, Duration wait)` for the negative cases
-- [ ] **3.7.2** `@Import(RecordingEmailSenderConfig.class)` on `AbstractIntegrationTest`, where the config declares the
+  - [x] `void assertNothingSentTo(String to, Duration wait)` for the negative cases
+- [x] **3.7.2** `@Import(RecordingEmailSenderConfig.class)` on `AbstractIntegrationTest`, where the config declares the Done as `@Import(RecordingEmailSenderConfig.class)`; inherited by all integration classes.
       recorder as a `@Primary EmailSender` bean. All integration classes then share **one** context (0.5 confirms the
       inheritance; otherwise put the bean in a `@TestConfiguration` picked up by component scan of a test-only package).
-- [ ] **3.7.3** `AbstractIntegrationTest`: add `protected void verifyEmail(String email)`: read the token from the
+- [x] **3.7.3** `AbstractIntegrationTest`: add `protected void verifyEmail(String email)`: read the token from the
       recorder, `POST /verify-email` with CSRF → `204`. Phase 6 calls it from `registerAndLogin`.
 
 ### 3.8 `integration/EmailVerificationIntegrationTest`
-- [ ] **3.8.1** register → exactly one email to that address; subject `Confirm your Phrasal account`; the link starts with
+- [x] **3.8.1** register → exactly one email to that address; subject `Confirm your Phrasal account`; the link starts with
       the configured `phrasal.app.base-url`.
-- [ ] **3.8.2** `POST /verify-email` with the token → `204`; the DB row has `email_verified_at` set; the `user_tokens` row
+- [x] **3.8.2** `POST /verify-email` with the token → `204`; the DB row has `email_verified_at` set; the `user_tokens` row
       has `used_at` set.
-- [ ] **3.8.3** the same token again → `204` (idempotent).
-- [ ] **3.8.4** a random 43-char token → `400 Verification Link Invalid`; blank/missing token → `400 Validation Error`;
+- [x] **3.8.3** the same token again → `204` (idempotent).
+- [x] **3.8.4** a random 43-char token → `400 Verification Link Invalid`; blank/missing token → `400 Validation Error`;
       a 101-char token → `400`.
-- [ ] **3.8.5** expired: move the row's `expires_at` into the past with `JdbcTemplate` → `400 Verification Link Expired`,
+- [x] **3.8.5** expired: move the row's `expires_at` into the past with `JdbcTemplate` → `400 Verification Link Expired`,
       and the user is still unverified.
-- [ ] **3.8.6** resend for an unverified user → `202` with the `CHECK_INBOX` body; a second email arrives; the **first**
+- [x] **3.8.6** resend for an unverified user → `202` with the `CHECK_INBOX` body; a second email arrives; the **first**
       token is now `400 Invalid`, the second works.
-- [ ] **3.8.7** resend for an unknown email → `202` with a byte-identical body; nothing is sent
+- [x] **3.8.7** resend for an unknown email → `202` with a byte-identical body; nothing is sent
       (`assertNothingSentTo`, 1 s).
-- [ ] **3.8.8** resend for a verified user → `202` identical; nothing is sent.
-- [ ] **3.8.9** resend/verify **without** CSRF → `403` csrf.
-- [ ] **3.8.10** the DB never contains the raw token: `SELECT count(*) FROM user_tokens WHERE token_hash = ?` with the raw
+- [x] **3.8.8** resend for a verified user → `202` identical; nothing is sent.
+- [x] **3.8.9** resend/verify **without** CSRF → `403` csrf.
+- [x] **3.8.10** the DB never contains the raw token: `SELECT count(*) FROM user_tokens WHERE token_hash = ?` with the raw
       token → `0`; with `hash(raw)` → `1`.
-- [ ] **3.8.11** `RateLimitIntegrationTest` (it already lowers limits via `@TestPropertySource`): add
+- [x] **3.8.11** `RateLimitIntegrationTest` (it already lowers limits via `@TestPropertySource`): add
       `resend-per-email.limit=2` → the 3rd resend for one email → `429` + `Retry-After`, for an **unknown** email too
       (no enumeration through 429).
-- [ ] **3.8.12** Run the `api-contract-review` skill on the two new endpoints (versioned path, 202/204/400/403/429
+- [x] **3.8.12** Run the `api-contract-review` skill on the two new endpoints (versioned path, 202/204/400/403/429 Result: no contract problems; added `@Size(max = 254)` to the resend email (it is a rate-limiter key).
       problem+json, no body echo). Fix or note findings.
-- [ ] **3.8.13** `cd backend && mvn clean verify` → green, JaCoCo ≥ 85 % in every touched package.
-- [ ] **3.8.14** `make clean build` → green. The Mailpit UI now shows a verification email for each e2e registration.
+- [x] **3.8.13** `cd backend && mvn clean verify` → green, JaCoCo ≥ 85 % in every touched package.
+- [x] **3.8.14** `make clean build` → green. The Mailpit UI now shows a verification email for each e2e registration. (green: backend 316, Vitest 1461, e2e 63/456; commit pending approval)
       Ask for commit approval → `feat(backend): send verification emails and add verify/resend endpoints`
 
 ---

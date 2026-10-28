@@ -1,11 +1,14 @@
 package net.phrasal.integration;
 
 import jakarta.servlet.http.Cookie;
+import net.phrasal.integration.support.RecordingEmailSender;
+import net.phrasal.integration.support.RecordingEmailSenderConfig;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.webmvc.test.autoconfigure.AutoConfigureMockMvc;
+import org.springframework.context.annotation.Import;
 import org.springframework.test.context.ActiveProfiles;
 import org.springframework.test.context.DynamicPropertyRegistry;
 import org.springframework.test.context.DynamicPropertySource;
@@ -28,6 +31,7 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 @SpringBootTest
 @AutoConfigureMockMvc
 @ActiveProfiles("test")
+@Import(RecordingEmailSenderConfig.class)
 abstract class AbstractIntegrationTest {
 
     static final PostgreSQLContainer POSTGRES = new PostgreSQLContainer("postgres:16-alpine")
@@ -41,6 +45,9 @@ abstract class AbstractIntegrationTest {
 
     @Autowired
     protected MockMvc mockMvc;
+
+    @Autowired
+    protected RecordingEmailSender mailbox;
 
     /** Drops any authentication left on the thread by a previous login so tests stay order-independent. */
     @BeforeEach
@@ -71,6 +78,13 @@ abstract class AbstractIntegrationTest {
             request.cookie(existing);
         }
         return mockMvc.perform(request).andExpect(status().isOk()).andReturn().getResponse().getCookie("SESSION");
+    }
+
+    /** Reads the newest verification link sent to the address and redeems it. */
+    protected void verifyEmail(String email) throws Exception {
+        String token = mailbox.awaitVerificationToken(email);
+        mockMvc.perform(post("/api/v1/auth/verify-email").contentType(MediaType.APPLICATION_JSON)
+                .content("{\"token\":\"" + token + "\"}").with(csrf())).andExpect(status().isNoContent());
     }
 
     @DynamicPropertySource

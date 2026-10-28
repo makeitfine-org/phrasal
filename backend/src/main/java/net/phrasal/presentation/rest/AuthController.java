@@ -4,10 +4,14 @@ import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
+import net.phrasal.application.dto.AcceptedResponse;
 import net.phrasal.application.dto.LoginRequest;
 import net.phrasal.application.dto.RegisterRequest;
+import net.phrasal.application.dto.ResendVerificationRequest;
 import net.phrasal.application.dto.UserResponse;
+import net.phrasal.application.dto.VerifyEmailRequest;
 import net.phrasal.application.service.AuthService;
+import net.phrasal.application.service.EmailVerificationService;
 import net.phrasal.config.RateLimitProperties;
 import net.phrasal.infrastructure.security.AuthenticatedUser;
 import net.phrasal.infrastructure.security.EmailNormalizer;
@@ -28,6 +32,7 @@ import org.springframework.web.bind.annotation.RestController;
 public class AuthController {
 
     private final AuthService authService;
+    private final EmailVerificationService emailVerificationService;
     private final SessionAuthenticator sessionAuthenticator;
     private final RateLimiter rateLimiter;
     private final RateLimitProperties rateLimits;
@@ -45,6 +50,24 @@ public class AuthController {
         rateLimiter.check("login-per-ip", rateLimits.loginPerIp(), httpRequest.getRemoteAddr());
         rateLimiter.check("login-per-email", rateLimits.loginPerEmail(), EmailNormalizer.normalize(request.email()));
         return sessionAuthenticator.login(request, httpRequest, httpResponse);
+    }
+
+    @PostMapping("/verify-email")
+    public ResponseEntity<Void> verifyEmail(@Valid @RequestBody VerifyEmailRequest request,
+                                            HttpServletRequest httpRequest) {
+        rateLimiter.check("verify-per-ip", rateLimits.verifyPerIp(), httpRequest.getRemoteAddr());
+        emailVerificationService.verify(request.token());
+        return ResponseEntity.noContent().build();
+    }
+
+    @PostMapping("/resend-verification")
+    public ResponseEntity<AcceptedResponse> resendVerification(@Valid @RequestBody ResendVerificationRequest request,
+                                                               HttpServletRequest httpRequest) {
+        rateLimiter.check("resend-per-ip", rateLimits.resendPerIp(), httpRequest.getRemoteAddr());
+        rateLimiter.check("resend-per-email", rateLimits.resendPerEmail(),
+                EmailNormalizer.normalize(request.email()));
+        emailVerificationService.resend(request.email());
+        return ResponseEntity.status(HttpStatus.ACCEPTED).body(AcceptedResponse.CHECK_INBOX);
     }
 
     @GetMapping("/me")

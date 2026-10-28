@@ -16,3 +16,9 @@ phrasal:
       limit: 100000
     login-per-email:
       limit: 100000
+    resend-per-ip:
+      limit: 100000
+    resend-per-email:
+      limit: 100000
+    verify-per-ip:
+      limit: 100000

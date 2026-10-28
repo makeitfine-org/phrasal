@@ -24,6 +24,7 @@ public class AuthService {
     private final UserRepository userRepository;
     private final PasswordEncoder passwordEncoder;
     private final UserMapper userMapper;
+    private final EmailVerificationService emailVerificationService;
 
     public UserResponse register(RegisterRequest request) {
         String email = EmailNormalizer.normalize(request.email());
@@ -36,6 +37,7 @@ public class AuthService {
         } catch (DataIntegrityViolationException ex) {
             throw new EmailAlreadyRegisteredException();
         }
+        emailVerificationService.issueFor(user);
         log.info("Registered user id={}", user.getId());
         return userMapper.toResponse(user);
     }

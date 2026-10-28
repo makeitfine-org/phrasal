@@ -1545,3 +1545,22 @@
 - backend/src/test/resources/application-test.yml
 - docker-compose.yml
 <!-- end-snapshot -->
+
+<!-- git-snapshot 2026-10-28T15:22:00Z -->
+- .claude/docs/blackbox/audit.md
+- .claude/docs/blackbox/todos/email-verification-on-server-multiuser-todos.md
+- backend/src/main/java/net/phrasal/application/service/AuthService.java
+- backend/src/main/java/net/phrasal/config/ClockConfig.java
+- backend/src/main/java/net/phrasal/config/RateLimitProperties.java
+- backend/src/main/java/net/phrasal/config/SecurityConfig.java
+- backend/src/main/java/net/phrasal/infrastructure/exception/GlobalExceptionHandler.java
+- backend/src/main/java/net/phrasal/presentation/rest/AuthController.java
+- backend/src/main/resources/application.yml
+- backend/src/test/java/net/phrasal/application/service/AuthServiceTest.java
+- backend/src/test/java/net/phrasal/infrastructure/exception/GlobalExceptionHandlerTest.java
+- backend/src/test/java/net/phrasal/infrastructure/security/RateLimiterTest.java
+- backend/src/test/java/net/phrasal/integration/AbstractIntegrationTest.java
+- backend/src/test/java/net/phrasal/integration/MailSenderSelectionIntegrationTest.java
+- backend/src/test/java/net/phrasal/integration/RateLimitIntegrationTest.java
+- backend/src/test/resources/application-test.yml
+<!-- end-snapshot -->

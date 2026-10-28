@@ -96,7 +96,8 @@ public class SecurityConfig {
                         .requestMatchers("/actuator/**").hasRole(ADMIN)
                         .requestMatchers(HttpMethod.GET, "/api/v1/auth/me").authenticated()
                         .requestMatchers("/api/v1/me/**").authenticated()
-                        .requestMatchers(HttpMethod.POST, "/api/v1/auth/register", "/api/v1/auth/login").permitAll()
+                        .requestMatchers(HttpMethod.POST, "/api/v1/auth/register", "/api/v1/auth/login",
+                                "/api/v1/auth/verify-email", "/api/v1/auth/resend-verification").permitAll()
                         .requestMatchers(HttpMethod.POST, CONTENT_PATHS).hasRole(ADMIN)
                         .requestMatchers(HttpMethod.PUT, CONTENT_PATHS).hasRole(ADMIN)
                         .requestMatchers(HttpMethod.DELETE, CONTENT_PATHS).hasRole(ADMIN)

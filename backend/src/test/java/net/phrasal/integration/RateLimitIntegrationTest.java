@@ -17,7 +17,8 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 @TestPropertySource(properties = {
         "phrasal.rate-limit.register-per-ip.limit=2",
         "phrasal.rate-limit.login-per-email.limit=3",
-        "phrasal.rate-limit.login-per-ip.limit=1000"
+        "phrasal.rate-limit.login-per-ip.limit=1000",
+        "phrasal.rate-limit.resend-per-email.limit=2"
 })
 @DisplayName("Rate limit integration")
 class RateLimitIntegrationTest extends AbstractIntegrationTest {
@@ -65,5 +66,21 @@ class RateLimitIntegrationTest extends AbstractIntegrationTest {
                 .andExpect(status().isTooManyRequests());
 
         mockMvc.perform(authPost("/api/v1/auth/login", other, "10.2.0.3")).andExpect(status().isOk());
+    }
+
+    @Test
+    @DisplayName("third resend for one email returns 429, also for an unknown address")
+    void resendPerEmail() throws Exception {
+        String unknown = uniqueEmail();
+        for (int i = 0; i < 2; i++) {
+            mockMvc.perform(authPost("/api/v1/auth/resend-verification", unknown, "10.3.0." + i))
+                    .andExpect(status().isAccepted());
+        }
+
+        mockMvc.perform(authPost("/api/v1/auth/resend-verification", unknown, "10.3.0.9"))
+                .andExpect(status().isTooManyRequests())
+                .andExpect(header().exists("Retry-After"));
+        mockMvc.perform(authPost("/api/v1/auth/resend-verification", uniqueEmail(), "10.3.0.9"))
+                .andExpect(status().isAccepted());
     }
 }

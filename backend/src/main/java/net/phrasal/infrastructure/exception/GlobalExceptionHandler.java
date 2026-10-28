@@ -83,6 +83,20 @@ public class GlobalExceptionHandler {
                 "email-already-registered", ex.getMessage());
     }
 
+    @ExceptionHandler(VerificationLinkInvalidException.class)
+    public ProblemDetail handleVerificationLinkInvalid(VerificationLinkInvalidException ex) {
+        log.warn("Verification rejected: link invalid");
+        return buildProblem(HttpStatus.BAD_REQUEST, "Verification Link Invalid",
+                "verification-link-invalid", ex.getMessage());
+    }
+
+    @ExceptionHandler(VerificationLinkExpiredException.class)
+    public ProblemDetail handleVerificationLinkExpired(VerificationLinkExpiredException ex) {
+        log.warn("Verification rejected: link expired");
+        return buildProblem(HttpStatus.BAD_REQUEST, "Verification Link Expired",
+                "verification-link-expired", ex.getMessage());
+    }
+
     @ExceptionHandler(RateLimitExceededException.class)
     public ResponseEntity<ProblemDetail> handleRateLimited(RateLimitExceededException ex) {
         log.warn("Rate limit exceeded: rule={}", ex.getRuleName());

@@ -1,9 +1,10 @@
 package net.phrasal.integration;
 
-import net.phrasal.infrastructure.mail.EmailSender;
 import net.phrasal.infrastructure.mail.LoggingEmailSender;
+import net.phrasal.infrastructure.mail.SmtpEmailSender;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.ApplicationContext;
 
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.hamcrest.Matchers.hasKey;
@@ -15,11 +16,12 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 class MailSenderSelectionIntegrationTest extends AbstractIntegrationTest {
 
     @Autowired
-    private EmailSender emailSender;
+    private ApplicationContext context;
 
     @Test
-    void defaultContext_usesLoggingSender() {
-        assertThat(emailSender).isInstanceOf(LoggingEmailSender.class);
+    void defaultContext_registersLoggingSenderAndNoSmtpSender() {
+        assertThat(context.getBeansOfType(LoggingEmailSender.class)).hasSize(1);
+        assertThat(context.getBeansOfType(SmtpEmailSender.class)).isEmpty();
     }
 
     @Test
