@@ -295,6 +295,32 @@ client-IP setting described in [`ansible/README.md`](ansible/README.md#client-ip
 
 Infrastructure provisioning is managed by Ansible playbooks in `ansible/`. See [`ansible/README.md`](ansible/README.md) for cluster setup and [`aux/docs/k3sconf.md`](aux/docs/k3sconf.md) for the full K3s configuration reference.
 
+### Production database access
+
+**How the credentials are set**
+- The deploy workflow (`.github/workflows/ci_cd.yml`) builds the prod `app-secrets` Secret from the GitHub Actions secrets `DB_USERNAME` and `DB_PASSWORD`.
+- Postgres reads them from that Secret (`k8s/base/postgres-statefulset.yaml`).
+- The database name is `phrasaldb`.
+- The service is `postgres-service:5432`, reachable only inside the cluster. There is no external exposure.
+
+**Where to get the values.** GitHub secrets are write-only, so read them from the cluster instead (needs your prod kubeconfig; add `-n <namespace>` if the app isn't in the default one):
+
+```bash
+kubectl get secret app-secrets -o jsonpath='{.data.database\.username}' | base64 -d; echo
+kubectl get secret app-secrets -o jsonpath='{.data.database\.password}' | base64 -d; echo
+```
+
+**Connecting**
+
+```bash
+kubectl port-forward svc/postgres-service 5433:5432
+psql -h localhost -p 5433 -U <username> phrasaldb
+```
+
+**Warnings**
+- `k8s/base/backend-secret.yaml` has a TODO noting that prod may still be on the dev defaults `postgres` / `postgres`. Check the decoded Secret; if it matches, rotate the credentials.
+- Changing `POSTGRES_PASSWORD` on an existing volume does not change the stored password. Also run `ALTER USER` inside Postgres.
+
 ---
 
 ## Releasing

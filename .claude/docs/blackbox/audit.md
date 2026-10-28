@@ -4463,3 +4463,88 @@ On phase completion `make clean build` must pass successfully.
 ## 2026-10-28T20:33:08Z
 git add all changes and commit them with suitable message
 ---
+
+## 2026-10-28T20:53:47Z
+Check what is the last release version now and output without applying or code changing anything for the new one: tag, description and steps for git applying.
+---
+
+## 2026-10-28T20:56:50Z
+connect to Postgres on production. What's credentials?
+---
+
+## 2026-10-28T21:05:46Z
+execute steps: 3
+---
+
+## 2026-10-28T21:06:07Z
+execute steps: 4
+---
+
+## 2026-10-28T21:07:09Z
+see logs on production while deploying new version?
+---
+
+## 2026-10-28T21:11:35Z
+
+
+<pasted_content id="d2ac">
+2. Rollout progress
+  kubectl --context hetzner rollout status deployment/backend --timeout=180s
+  kubectl --context hetzner rollout status deployment/phrasal-frontend --timeout=180s
+  kubectl --context hetzner get pods -w   # watch the new pods replace the old ones
+</pasted_content id="d2ac">
+
+
+if I run one of that command, they will roll back to previous verions of what?
+---
+
+## 2026-10-28T21:43:02Z
+I can't run lens
+---
+
+## 2026-10-28T21:43:09Z
+I can't run lens
+
+
+
+<pasted_content id="3010">
+sudo lens-desktop 
+[sudo] password for ilaptop: 
+[1028/224121.367046:FATAL:electron/shell/app/electron_main_delegate.cc:219] Running as root without --no-sandbox is not supported. See https://crbug.com/638180.
+Trace/breakpoint trap
+</pasted_content id="3010">
+---
+
+## 2026-10-28T22:01:05Z
+Add to readme:
+
+
+
+<pasted_content id="3010">
+How they're set
+  - The deploy workflow (.github/workflows/ci_cd.yml:255-275) builds the prod app-secrets Secret from the GitHub Actions secrets DB_USERNAME and DB_PASSWORD.
+  - Postgres reads them from that Secret (k8s/base/postgres-statefulset.yaml:27-36).
+  - The database name is phrasaldb.
+  - The service is postgres-service:5432, reachable only inside the cluster. There is no external exposure.
+
+  Where to get the values
+  - GitHub secrets are write-only, so you can't read them back in the UI. You can read them from the cluster instead:
+  kubectl get secret app-secrets -o jsonpath='{.data.database\.username}' | base64 -d; echo
+  kubectl get secret app-secrets -o jsonpath='{.data.database\.password}' | base64 -d; echo
+    Add -n <namespace> if the app isn't in the default one. These need your prod kubeconfig.
+
+  Connecting
+  kubectl port-forward svc/postgres-service 5433:5432
+  psql -h localhost -p 5433 -U <username> phrasaldb
+
+  Two warnings
+  - k8s/base/backend-secret.yaml:13 has a TODO that prod may still be on the dev defaults postgres / postgres. If so, rotate them. Check the decoded Secret to find out.
+  - Changing POSTGRES_PASSWORD on an existing volume doesn't change the stored password. You'd need ALTER USER as well.
+
+  I didn't touch prod. If you want me to run the kubectl commands, I'd need your confirmation first, since that reads live secrets.
+</pasted_content id="3010">
+---
+
+## 2026-10-28T22:01:49Z
+git add all changes and commit them with suitable message
+---
