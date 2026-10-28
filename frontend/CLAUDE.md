@@ -65,7 +65,7 @@ Only one context: `auth/AuthContext` (default value = anonymous, so components w
 
 `PageShell` and `PhrasalVerbQuiz` share `phrasalQuizState`. `PhrasalVerbQuiz` preserves fields it doesn't own (like `darkMode`) by merging before writing.
 
-Quiz progress sync: anonymous = localStorage only. A logged-in user's progress is loaded from the server (server wins; an empty server takes the local copy once), saved after a 2 s debounce, and flushed on unmount, `pagehide` and logout. Logout clears the account-owned quiz state from localStorage and the screen.
+Quiz progress sync: anonymous = localStorage only. A logged-in user's progress is loaded from the server (server wins; an empty server takes the local copy once), saved after a 2 s debounce, and flushed on unmount, `pagehide` and logout. Before an account replaces the local copy, the anonymous progress is stashed in `localStorage['quizProgressAnonymous']` (`stashAnonymousProgress`); logout clears the account-owned quiz state and restores that anonymous copy to storage and screen (`resetToAnonymousProgress`).
 
 Utils: `utils/quizProgressMapping.ts` converts between list indexes and stable content ids (`VerbEntry.id`, `GrammarEntry.id`); `utils/quizProgressStorage.ts` reads/writes the sync metadata and clears local quiz state. The old `isLearned` split is gone: every verb enters the quiz pool.
 

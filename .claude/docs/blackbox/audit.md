@@ -3761,3 +3761,50 @@ sleep 1; echo started" completed (exit code 0)</summary>
 ## 2026-10-28T10:47:39Z
 git add all changes and commit them with suitable message
 ---
+
+## 2026-10-28T11:04:48Z
+Now when I log in with some user, the anonymous user, local storage, erase.
+If user is not logged in or anonymous
+I'd like to proceed to save his quiz progress as it was previously in local storage.
+And even from the same browser on the same device, user login and then log out. 
+That anonymous local storage should be saved for unlogged user.
+Covered add new functionality with backend, frontend and if reasonable with e2e tests.
+On phase completion `make clean build` must pass successfully.
+---
+
+## 2026-10-28T11:09:35Z
+<task-notification>
+<task-id>bqkp71yhq</task-id>
+<tool-use-id>toolu_01QgNHg7cAcqAYdnDKi4NPDr</tool-use-id>
+<output-file>/tmp/claude-1000/-home-ilaptop-dev-projects-my-phrasal/bbb6b665-8cfb-47e0-b81c-f6dc966d7b6e/tasks/bqkp71yhq.output</output-file>
+<status>completed</status>
+<summary>Background command "sed -i "39s/clear cached account progress if one was owned/swap cached account progress for the stashed anonymous copy if one was owned/; 65s/clear the account's quiz state from localStorage and the screen/replace the account's quiz state with the stashed anonymous progress (localStorage and screen)/" docs/diagrams/quiz-progress-flow.md &amp;&amp; sed -n 39p docs/diagrams/quiz-progress-flow.md &amp;&amp; sed -n 65p docs/diagrams/quiz-progress-flow.md
+L=/tmp/claude-1000/-home-ilaptop-dev-projects-my-phrasal/9f7cd46a-5653-44f9-926c-587a9119b4b5/scratchpad/anon-build.log; rm -f $L
+(make clean build &gt; $L 2&gt;&amp;1; echo "EXIT $?" &gt;&gt; $L) &amp;
+sleep 1; echo started" completed (exit code 0)</summary>
+</task-notification>
+---
+
+## 2026-10-28T11:17:52Z
+checked, it doesn't work.
+fix it.
+And write e2e tests:
+you in the browser make some progress with anonymous user on quize, 
+then you in the same broswer register a user Login with that user, make some progress on quiz, and logout
+And eventually I see if the anonymous user has saved the progress which was before some user logged in and logout.
+---
+
+## 2026-10-28T11:30:23Z
+<task-notification>
+<task-id>bwpc04ylo</task-id>
+<tool-use-id>toolu_015z3E9cWWnfyTRrnUYeFQDT</tool-use-id>
+<output-file>/tmp/claude-1000/-home-ilaptop-dev-projects-my-phrasal/9f7cd46a-5653-44f9-926c-587a9119b4b5/tasks/bwpc04ylo.output</output-file>
+<status>failed</status>
+<summary>Background command "pkill -f "vite --port 5173"; pkill -f "listen(8080)"; cd /home/ilaptop/dev/projects/my/phrasal; L=/tmp/claude-1000/-home-ilaptop-dev-projects-my-phrasal/9f7cd46a-5653-44f9-926c-587a9119b4b5/scratchpad/anon-build2.log; rm -f $L; (make clean build &gt; $L 2&gt;&amp;1; echo "EXIT $?" &gt;&gt; $L) &amp; 
+sleep 2; echo started" failed with exit code 144</summary>
+</task-notification>
+---
+
+## 2026-10-28T11:33:27Z
+git add all changes and commit them with suitable message
+---

@@ -1,7 +1,7 @@
 import React, { createContext, useCallback, useEffect, useMemo, useState } from 'react';
 import * as authApi from '../api/authApi';
 import { flushQuizProgress } from '../hooks/useQuizProgressSync';
-import { clearAccountQuizProgress } from '../utils/quizProgressStorage';
+import { clearAccountQuizProgress, stashAllAnonymousProgress } from '../utils/quizProgressStorage';
 import type { CurrentUser } from '../types';
 
 export type AuthStatus = 'loading' | 'authenticated' | 'anonymous';
@@ -48,6 +48,8 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
   }, [refresh]);
 
   const login = useCallback(async (email: string, password: string) => {
+    // The visitor's own progress is backed up before an account can replace it.
+    stashAllAnonymousProgress();
     await authApi.login(email, password);
     await refresh();
   }, [refresh]);

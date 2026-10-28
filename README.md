@@ -487,8 +487,10 @@ device. Content is addressed by stable database ids, not list positions.
 - **Limit:** the `state` JSON may be at most 64 KB (`phrasal.quiz-progress.max-state-bytes`, default `65536`).
 - **Sync rules:** an anonymous visitor keeps progress in `localStorage` only and sends no progress requests. After login
   the server copy wins; if the server has nothing yet, the local progress is uploaded once (first-login import). Changes
-  are saved after a 2 s debounce, and flushed on tab close and logout. Logout clears the local copy of the account's
-  progress. Saves are last-write-wins.
+  are saved after a 2 s debounce, and flushed on tab close and logout. Saves are last-write-wins.
+- **Anonymous progress is preserved:** when someone signs in, the visitor's own progress is copied to a separate
+  `localStorage` slot (`quizProgressAnonymous`). Logout removes the account's local copy and puts the anonymous progress
+  back, so the same browser shows the visitor's own progress again after the account logs in and out.
 - **Breaking change:** `isLearned` and the `?learned=` filter were removed from the phrasal-verbs API (migration `V11`);
   learned state is now per user.
 

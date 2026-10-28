@@ -5,11 +5,14 @@ import { useAuth } from '../../auth/useAuth';
 import * as authApi from '../../api/authApi';
 import { ApiError } from '../../api/client';
 import { flushQuizProgress } from '../../hooks/useQuizProgressSync';
-import { clearAccountQuizProgress } from '../../utils/quizProgressStorage';
+import { clearAccountQuizProgress, stashAllAnonymousProgress } from '../../utils/quizProgressStorage';
 
 vi.mock('../../api/authApi');
 vi.mock('../../hooks/useQuizProgressSync', () => ({ flushQuizProgress: vi.fn() }));
-vi.mock('../../utils/quizProgressStorage', () => ({ clearAccountQuizProgress: vi.fn() }));
+vi.mock('../../utils/quizProgressStorage', () => ({
+  clearAccountQuizProgress: vi.fn(),
+  stashAllAnonymousProgress: vi.fn(),
+}));
 
 const user = { id: 1, email: 'a@b.co', role: 'USER' as const };
 let auth: ReturnType<typeof useAuth>;
@@ -30,6 +33,7 @@ beforeEach(() => {
   vi.mocked(authApi.logout).mockReset();
   vi.mocked(flushQuizProgress).mockReset().mockResolvedValue(undefined);
   vi.mocked(clearAccountQuizProgress).mockReset();
+  vi.mocked(stashAllAnonymousProgress).mockReset();
 });
 
 describe('AuthProvider', () => {
@@ -60,6 +64,26 @@ describe('AuthProvider', () => {
     await act(() => auth.login('a@b.co', 'pw'));
     expect(authApi.login).toHaveBeenCalledWith('a@b.co', 'pw');
     expect(screen.getByTestId('state')).toHaveTextContent('authenticated:a@b.co');
+  });
+
+  it('login backs up the anonymous progress before calling the API', async () => {
+    const order: string[] = [];
+    vi.mocked(authApi.fetchCurrentUser).mockResolvedValueOnce(null).mockResolvedValue(user);
+    vi.mocked(stashAllAnonymousProgress).mockImplementation(() => { order.push('stash'); });
+    vi.mocked(authApi.login).mockImplementation(async () => { order.push('login'); return user; });
+    renderProvider();
+    await waitFor(() => expect(screen.getByTestId('state')).toHaveTextContent('anonymous'));
+    await act(() => auth.login('a@b.co', 'pw'));
+    expect(order).toEqual(['stash', 'login']);
+  });
+
+  it('logout does not back up anonymous progress', async () => {
+    vi.mocked(authApi.fetchCurrentUser).mockResolvedValueOnce(user).mockResolvedValue(null);
+    vi.mocked(authApi.logout).mockResolvedValue(undefined);
+    renderProvider();
+    await waitFor(() => expect(screen.getByTestId('state')).toHaveTextContent('authenticated'));
+    await act(() => auth.logout());
+    expect(stashAllAnonymousProgress).not.toHaveBeenCalled();
   });
 
   it('register calls register then login', async () => {

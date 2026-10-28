@@ -1323,3 +1323,36 @@
 - e2e/CLAUDE.md
 - frontend/CLAUDE.md
 <!-- end-snapshot -->
+
+<!-- git-snapshot 2026-10-28T11:09:40Z -->
+- .claude/docs/blackbox/audit.md
+- README.md
+- docs/diagrams/quiz-progress-flow.md
+- e2e/features/frontend/progress-sync.feature
+- frontend/CLAUDE.md
+- frontend/src/__tests__/hooks/useQuizProgressSync.test.tsx
+- frontend/src/__tests__/utils/quizProgressStorage.test.ts
+- frontend/src/hooks/useQuizProgressSync.ts
+- frontend/src/utils/quizProgressStorage.ts
+<!-- end-snapshot -->
+
+<!-- git-snapshot 2026-10-28T11:30:28Z -->
+- .claude/docs/blackbox/audit.md
+- .claude/docs/blackbox/session-log.md
+- README.md
+- docs/diagrams/quiz-progress-flow.md
+- e2e/features/frontend/progress-sync.feature
+- frontend/CLAUDE.md
+- frontend/src/__tests__/auth/AuthContext.test.tsx
+- frontend/src/__tests__/hooks/useQuizProgressSync.test.tsx
+- frontend/src/__tests__/utils/quizProgressStorage.test.ts
+- frontend/src/auth/AuthContext.tsx
+- frontend/src/hooks/useQuizProgressSync.ts
+- frontend/src/utils/quizProgressStorage.ts
+- reg.png
+<!-- end-snapshot -->
+
+<!-- diagram-staleness 2026-10-28T11:30:28Z -->
+⚠️  Diagrams that may need updating:
+  - docs/diagrams/auth-flow.md (auth/ was modified)
+<!-- end-diagram-staleness -->

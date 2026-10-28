@@ -36,7 +36,7 @@ sequenceDiagram
 ```mermaid
 flowchart TD
     S[Auth status known] --> A{logged in?}
-    A -- no --> OFF[Sync off: localStorage only; clear cached account progress if one was owned]
+    A -- no --> OFF[Sync off: localStorage only; swap cached account progress for the stashed anonymous copy if one was owned]
     A -- yes --> D{local owner is this user and dirty?}
     D -- yes --> PUT[PUT the local copy]
     D -- no --> G[GET progress]
@@ -62,7 +62,7 @@ sequenceDiagram
     U->>B: PUT pending progress (flushQuizProgress, session still valid)
     U->>B: POST /api/v1/auth/logout
     B-->>U: 204, session removed
-    U->>U: clear the account's quiz state from localStorage and the screen
+    U->>U: replace the account's quiz state with the stashed anonymous progress (localStorage and screen)
     U->>B: GET /api/v1/auth/me
     B-->>U: 401 (new XSRF-TOKEN)
 ```

@@ -10,8 +10,9 @@ import {
 import type { QuizPersistedState } from '../types';
 import { fromProgressDocument, toProgressDocument } from '../utils/quizProgressMapping';
 import {
-  clearLocalQuizState,
   readSyncMeta,
+  resetToAnonymousProgress,
+  stashAnonymousProgress,
   writeSyncMeta,
 } from '../utils/quizProgressStorage';
 
@@ -110,10 +111,11 @@ export function useQuizProgressSync(input: QuizProgressSyncInput): { syncStatus:
       ownerRef.current = null;
       lastSavedJson.current = null;
       if (hadOwner) {
-        // The session ended: an account's cached progress must not stay on screen or on disk.
-        clearLocalQuizState(quizKey);
+        // The session ended: an account's cached progress must not stay on screen or on disk;
+        // the visitor's own anonymous progress comes back instead.
+        const anonymous = resetToAnonymousProgress(quizKey);
         writeSyncMeta(quizKey, { ownerId: null, dirty: false });
-        applyRef.current(EMPTY_STATE);
+        applyRef.current({ ...EMPTY_STATE, ...anonymous });
       }
       return;
     }
@@ -131,6 +133,9 @@ export function useQuizProgressSync(input: QuizProgressSyncInput): { syncStatus:
 
     const load = async () => {
       const meta = readSyncMeta(quizKey);
+      // Local progress that no account owns is the visitor's; keep a copy before the account's
+      // progress replaces it on screen.
+      if (meta.ownerId === null) stashAnonymousProgress(quizKey);
       const ids = itemIdsRef.current;
       try {
         if (meta.ownerId === userId && meta.dirty) {

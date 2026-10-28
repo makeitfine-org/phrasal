@@ -8,7 +8,7 @@ import {
 } from '../../hooks/useQuizProgressSync';
 import { ApiError } from '../../api/client';
 import * as api from '../../api/quizProgressApi';
-import { readSyncMeta, writeSyncMeta } from '../../utils/quizProgressStorage';
+import { readSyncMeta, restoreAnonymousProgress, writeSyncMeta } from '../../utils/quizProgressStorage';
 import type { QuizPersistedState } from '../../types';
 
 vi.mock('../../api/quizProgressApi');
@@ -322,6 +322,57 @@ describe('useQuizProgressSync — user switch', () => {
   });
 
   it('logout while mounted clears the in-memory state', async () => {
+    auth = asUser(1);
+    vi.mocked(api.fetchQuizProgress).mockResolvedValue(progress(LOCAL_DOC));
+    const { rerender } = mount();
+    await settle();
+    apply.mockClear();
+    auth = base;
+    rerender({ snapshot: LOCAL });
+    await settle();
+    expect(apply).toHaveBeenCalledWith(EMPTY);
+  });
+});
+
+describe('useQuizProgressSync — anonymous progress is kept across login and logout', () => {
+  const ANON = { mastered: [3], excluded: [4], history: [], currentIndex: -1 };
+
+  it('login stashes the anonymous progress before the account replaces it', async () => {
+    localStorage.setItem('phrasalQuizState', JSON.stringify(ANON));
+    auth = asUser(1);
+    vi.mocked(api.fetchQuizProgress).mockResolvedValue(progress(LOCAL_DOC));
+    mount(ANON);
+    await settle();
+    expect(JSON.parse(localStorage.getItem('quizProgressAnonymous')!)[KEY]).toEqual(ANON);
+  });
+
+  it("login does not stash another account's cached progress", async () => {
+    localStorage.setItem('phrasalQuizState', JSON.stringify(ANON));
+    writeSyncMeta(KEY, { ownerId: 1, dirty: false });
+    auth = asUser(2);
+    vi.mocked(api.fetchQuizProgress).mockResolvedValue(null);
+    mount(ANON);
+    await settle();
+    expect(localStorage.getItem('quizProgressAnonymous')).toBeNull();
+  });
+
+  it('logout while mounted applies the anonymous progress, not an empty state', async () => {
+    localStorage.setItem('phrasalQuizState', JSON.stringify(ANON));
+    auth = asUser(1);
+    vi.mocked(api.fetchQuizProgress).mockResolvedValue(progress(LOCAL_DOC));
+    const { rerender } = mount(ANON);
+    await settle();
+    localStorage.setItem('phrasalQuizState', JSON.stringify(LOCAL));
+    apply.mockClear();
+    auth = base;
+    rerender({ snapshot: LOCAL });
+    await settle();
+    expect(apply).toHaveBeenCalledWith(ANON);
+    expect(JSON.parse(localStorage.getItem('phrasalQuizState')!)).toEqual(ANON);
+    expect(restoreAnonymousProgress(KEY)).toEqual(ANON);
+  });
+
+  it('logout without an anonymous backup falls back to the empty state', async () => {
     auth = asUser(1);
     vi.mocked(api.fetchQuizProgress).mockResolvedValue(progress(LOCAL_DOC));
     const { rerender } = mount();
