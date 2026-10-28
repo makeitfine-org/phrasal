@@ -1013,7 +1013,7 @@ Why: expired tokens pile up, and an address squatted by an attacker who can't ve
 ## Phase 10 — Production rollout (Brevo)
 
 - [ ] **10.1** Before the tagged deploy:
-  - [ ] GitHub Secrets `MAIL_USERNAME` / `MAIL_PASSWORD` exist (8.7)
+  - [x] GitHub Secrets `MAIL_USERNAME` / `MAIL_PASSWORD` exist (8.7)
   - [ ] Brevo shows `phrasalbox.com` as authenticated and `no-reply@phrasalbox.com` as a verified sender
   - [ ] the 0.4 prod row count is known (that many accounts get backfilled as verified)
   - [ ] the task-98 backup decision is made (the migrations add data to `users`)

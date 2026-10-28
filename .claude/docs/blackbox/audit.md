@@ -4404,3 +4404,52 @@ On phase completion `make clean build` must pass successfully.
 ## 2026-10-28T16:35:59Z
 git add all changes and commit them with suitable message
 ---
+
+## 2026-10-28T16:39:36Z
+you just implemented @docs/diagrams/email-verification-flow.md phases from 0 to 9.
+how can I check it all locally with Docker Compose? Write me the steps and I'll check it all.
+---
+
+## 2026-10-28T17:12:55Z
+As I know, the best practice is to have Docker folder in the root of the project and keep there some Docker service files and Docker compose file. Is it right?
+---
+
+## 2026-10-28T17:16:38Z
+We have Docker volume for mailpit? after Docker down all mailboxes, print, write?
+---
+
+## 2026-10-28T17:16:48Z
+We have Docker volume for mailpit? after Docker down all mailboxes cleans?
+---
+
+## 2026-10-28T17:18:20Z
+more sense not to add this volume, right?
+---
+
+## 2026-10-28T19:40:01Z
+I going to implement @.claude/docs/blackbox/todos/email-verification-on-server-multiuser-todos.md Phase 10,
+what steps in advance should I execute manually. Write me steps for correct production deployment further working.
+Should I check?
+---
+
+## 2026-10-28T20:09:04Z
+consider that on producation is active now commit with tag:  v0.15.1
+
+I just need to release as usual describe in @README.md
+---
+
+## 2026-10-28T20:17:37Z
+Implement functionality from @.claude/docs/blackbox/todos/email-verification-on-server-multiuser-todos.md Phase 10.                                                                                                      
+Don't forget to check off implemented boxes.
+On phase completion `make clean build` must pass successfully.
+---
+
+## 2026-10-28T20:23:54Z
+Implement functionality from @.claude/docs/blackbox/todos/email-verification-on-server-multiuser-todos.md Phase 10.                                                                                                      
+Don't forget to check off implemented boxes.
+On phase completion `make clean build` must pass successfully.
+---
+
+## 2026-10-28T20:25:47Z
+git add all changes and commit them with suitable message
+---

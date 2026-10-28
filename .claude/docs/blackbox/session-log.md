@@ -1655,3 +1655,44 @@
 - e2e/CLAUDE.md
 - frontend/CLAUDE.md
 <!-- end-snapshot -->
+
+<!-- git-snapshot 2026-10-28T16:39:59Z -->
+- .claude/docs/blackbox/audit.md
+<!-- end-snapshot -->
+
+<!-- git-snapshot 2026-10-28T17:13:07Z -->
+- .claude/docs/blackbox/audit.md
+- .claude/docs/blackbox/session-log.md
+<!-- end-snapshot -->
+
+<!-- git-snapshot 2026-10-28T17:16:53Z -->
+- .claude/docs/blackbox/audit.md
+- .claude/docs/blackbox/session-log.md
+<!-- end-snapshot -->
+
+<!-- git-snapshot 2026-10-28T17:18:23Z -->
+- .claude/docs/blackbox/audit.md
+- .claude/docs/blackbox/session-log.md
+<!-- end-snapshot -->
+
+<!-- git-snapshot 2026-10-28T19:40:21Z -->
+- .claude/docs/blackbox/audit.md
+- .claude/docs/blackbox/session-log.md
+<!-- end-snapshot -->
+
+<!-- git-snapshot 2026-10-28T20:09:27Z -->
+- .claude/docs/blackbox/audit.md
+- .claude/docs/blackbox/session-log.md
+<!-- end-snapshot -->
+
+<!-- git-snapshot 2026-10-28T20:21:01Z -->
+- .claude/docs/blackbox/audit.md
+- .claude/docs/blackbox/session-log.md
+- .claude/docs/blackbox/todos/email-verification-on-server-multiuser-todos.md
+<!-- end-snapshot -->
+
+<!-- git-snapshot 2026-10-28T20:24:06Z -->
+- .claude/docs/blackbox/audit.md
+- .claude/docs/blackbox/session-log.md
+- .claude/docs/blackbox/todos/email-verification-on-server-multiuser-todos.md
+<!-- end-snapshot -->
