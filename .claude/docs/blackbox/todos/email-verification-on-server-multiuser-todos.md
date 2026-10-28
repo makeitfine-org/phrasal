@@ -375,8 +375,8 @@ So `make clean build` passes after every phase, and each phase is one reviewable
 ## Phase 2 — Mail infrastructure + Mailpit (no behaviour change)
 
 ### 2.1 Dependency and configuration
-- [ ] **2.1.1** `backend/pom.xml`: `spring-boot-starter-mail` (version from the Boot BOM; name confirmed in 0.5).
-- [ ] **2.1.2** `application.yml`:
+- [x] **2.1.1** `backend/pom.xml`: `spring-boot-starter-mail` (version from the Boot BOM; name confirmed in 0.5).
+- [x] **2.1.2** `application.yml`:
   ```yaml
   spring:
     mail:
@@ -402,7 +402,7 @@ So `make clean build` passes after every phase, and each phase is one reviewable
       mail:
         enabled: false   # decision 11: a slow SMTP relay must not mark the backend DOWN
   ```
-- [ ] **2.1.3** `application-prod.yml` (decision 11, hard-coded):
+- [x] **2.1.3** `application-prod.yml` (decision 11, hard-coded):
   ```yaml
   spring:
     mail:
@@ -414,29 +414,29 @@ So `make clean build` passes after every phase, and each phase is one reviewable
     mail:
       enabled: true
   ```
-- [ ] **2.1.4** `application-test.yml`: `phrasal.mail.enabled: false` (explicit). Tests never open an SMTP connection.
-- [ ] **2.1.5** `config/MailProperties.java`: `@ConfigurationProperties("phrasal.mail") record MailProperties(boolean enabled, String from)`.
+- [x] **2.1.4** `application-test.yml`: `phrasal.mail.enabled: false` (explicit). Tests never open an SMTP connection.
+- [x] **2.1.5** `config/MailProperties.java`: `@ConfigurationProperties("phrasal.mail") record MailProperties(boolean enabled, String from)`. Implemented as `PhrasalMailProperties`.
       Name it `PhrasalMailProperties` if it clashes with Boot's `MailProperties` in imports.
 
 ### 2.2 Port and adapters (`infrastructure/mail`, new package)
-- [ ] **2.2.1** `EmailMessage.java`: `record EmailMessage(String to, String subject, String text, String html)`.
+- [x] **2.2.1** `EmailMessage.java`: `record EmailMessage(String to, String subject, String text, String html)`.
       `toString()` shows only the subject (bodies contain links).
-- [ ] **2.2.2** `EmailSender.java`: `interface EmailSender { void send(EmailMessage message); }` with Javadoc
+- [x] **2.2.2** `EmailSender.java`: `interface EmailSender { void send(EmailMessage message); }` with Javadoc
       ("implementations may throw `MailException`; callers log and continue").
-- [ ] **2.2.3** `SmtpEmailSender.java` (`@Component @ConditionalOnProperty(name = "phrasal.mail.enabled", havingValue = "true")`):
-  - [ ] builds a `MimeMessage` with `MimeMessageHelper(message, true, UTF_8)`: from = `PhrasalMailProperties.from()`,
+- [x] **2.2.3** `SmtpEmailSender.java` (`@Component @ConditionalOnProperty(name = "phrasal.mail.enabled", havingValue = "true")`):
+  - [x] builds a `MimeMessage` with `MimeMessageHelper(message, true, UTF_8)`: from = `PhrasalMailProperties.from()`,
         to, subject, `setText(text, html)`
-  - [ ] wraps `MessagingException` into `MailPreparationException`
-  - [ ] `log.debug("Sent email subject={}", subject)`; never the recipient at INFO, never the body
-- [ ] **2.2.4** `LoggingEmailSender.java` (`@ConditionalOnProperty(..., havingValue = "false", matchIfMissing = true)`):
+  - [x] wraps `MessagingException` into `MailPreparationException`
+  - [x] `log.debug("Sent email subject={}", subject)`; never the recipient at INFO, never the body
+- [x] **2.2.4** `LoggingEmailSender.java` (`@ConditionalOnProperty(..., havingValue = "false", matchIfMissing = true)`):
       logs `"Mail disabled; would send '{subject}'. Text:\n{text}"` at `INFO`. The text contains the link, which is the
       point (minikube, quick local runs). Class Javadoc: never active in prod (decision 10).
-- [ ] **2.2.5** `config/AsyncConfig.java`: `@Configuration @EnableAsync`. Keep Boot's auto-configured executor (virtual
+- [x] **2.2.5** `config/AsyncConfig.java`: `@Configuration @EnableAsync`. Keep Boot's auto-configured executor (virtual
       threads). Register an `AsyncUncaughtExceptionHandler` that logs `WARN` with the method name only, if 0.5 shows
       the default handler logs arguments.
 
 ### 2.3 Mailpit in docker-compose
-- [ ] **2.3.1** `docker-compose.yml`, new service (tag pinned from 0.5):
+- [x] **2.3.1** `docker-compose.yml`, new service (tag pinned from 0.5):
   ```yaml
   mailpit:
     image: axllent/mailpit:v1.<x>.<y>
@@ -453,28 +453,28 @@ So `make clean build` passes after every phase, and each phase is one reviewable
     networks:
       - app-network
   ```
-- [ ] **2.3.2** `backend.environment` (dev values) and `depends_on: mailpit: condition: service_healthy`:
+- [x] **2.3.2** `backend.environment` (dev values) and `depends_on: mailpit: condition: service_healthy`:
   ```yaml
   MAIL_ENABLED: "true"
   MAIL_HOST: mailpit
   MAIL_PORT: "1025"
   APP_BASE_URL: ${APP_BASE_URL:-http://localhost:3000}
   ```
-- [ ] **2.3.3** `make dockerAll` → http://localhost:8025 opens the Mailpit UI; `docker compose ps` shows mailpit healthy.
+- [x] **2.3.3** `make dockerAll` → http://localhost:8025 opens the Mailpit UI; `docker compose ps` shows mailpit healthy. (verified: mailpit reported healthy by `docker compose up`; UI not opened by hand)
 
 ### 2.4 Tests
-- [ ] **2.4.1** `infrastructure/mail/SmtpEmailSenderTest` (Mockito `JavaMailSender`, a real `MimeMessage` from
+- [x] **2.4.1** `infrastructure/mail/SmtpEmailSenderTest` (Mockito `JavaMailSender`, a real `MimeMessage` from
       `new MimeMessage((Session) null)`):
-  - [ ] from/to/subject set; the message is multipart with both text and HTML parts; UTF-8 subject (`"Zażółć"`) survives
-  - [ ] `JavaMailSender.send` throwing `MailSendException` → propagates (the caller decides)
-- [ ] **2.4.2** `infrastructure/mail/LoggingEmailSenderTest`: logs the subject and text (capture with a Logback
+  - [x] from/to/subject set; the message is multipart with both text and HTML parts; UTF-8 subject (`"Zażółć"`) survives
+  - [x] `JavaMailSender.send` throwing `MailSendException` → propagates (the caller decides)
+- [x] **2.4.2** `infrastructure/mail/LoggingEmailSenderTest`: logs the subject and text (capture with a Logback
       `ListAppender`); never throws.
-- [ ] **2.4.3** `infrastructure/mail/EmailMessageTest`: `toString` contains the subject and not the bodies.
-- [ ] **2.4.4** `integration/MailSenderSelectionIntegrationTest`: in the default test context the `EmailSender` bean is a
+- [x] **2.4.3** `infrastructure/mail/EmailMessageTest`: `toString` contains the subject and not the bodies.
+- [x] **2.4.4** `integration/MailSenderSelectionIntegrationTest`: in the default test context the `EmailSender` bean is a
       `LoggingEmailSender`, and `/actuator/health` → `200 UP` (no mail indicator). Put these asserts into an existing
       integration class instead if that avoids a new context.
-- [ ] **2.4.5** `cd backend && mvn clean verify` → green; `infrastructure.mail` ≥ 85 %.
-- [ ] **2.4.6** `make clean build` → green (compose now starts mailpit). Ask for commit approval →
+- [x] **2.4.5** `cd backend && mvn clean verify` → green; `infrastructure.mail` ≥ 85 %.
+- [x] **2.4.6** `make clean build` → green (compose now starts mailpit). Ask for commit approval →
       `feat(backend): add email sender with SMTP and logging adapters, Mailpit`
 
 ---

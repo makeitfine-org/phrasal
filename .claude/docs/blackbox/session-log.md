@@ -1475,3 +1475,73 @@
 - backend/src/test/java/net/phrasal/domain/entity/UserEntityTest.java
 - backend/src/test/java/net/phrasal/integration/UserRepositoryIntegrationTest.java
 <!-- end-snapshot -->
+
+<!-- git-snapshot 2026-10-28T14:58:59Z -->
+- .claude/docs/blackbox/audit.md
+- backend/pom.xml
+- backend/src/main/resources/application-prod.yml
+- backend/src/main/resources/application.yml
+- backend/src/test/resources/application-test.yml
+- docker-compose.yml
+<!-- end-snapshot -->
+
+<!-- git-snapshot 2026-10-28T14:59:21Z -->
+- .claude/docs/blackbox/audit.md
+- .claude/docs/blackbox/session-log.md
+- backend/pom.xml
+- backend/src/main/resources/application-prod.yml
+- backend/src/main/resources/application.yml
+- backend/src/test/resources/application-test.yml
+- docker-compose.yml
+<!-- end-snapshot -->
+
+<!-- git-snapshot 2026-10-28T15:00:08Z -->
+- .claude/docs/blackbox/audit.md
+- .claude/docs/blackbox/session-log.md
+- backend/pom.xml
+- backend/src/main/resources/application-prod.yml
+- backend/src/main/resources/application.yml
+- backend/src/test/resources/application-test.yml
+- docker-compose.yml
+<!-- end-snapshot -->
+
+<!-- git-snapshot 2026-10-28T15:01:01Z -->
+- .claude/docs/blackbox/audit.md
+- .claude/docs/blackbox/session-log.md
+- backend/pom.xml
+- backend/src/main/java/net/phrasal/config/AsyncConfig.java
+- backend/src/main/java/net/phrasal/config/PhrasalMailProperties.java
+- backend/src/main/java/net/phrasal/infrastructure/mail/EmailMessage.java
+- backend/src/main/java/net/phrasal/infrastructure/mail/EmailSender.java
+- backend/src/main/java/net/phrasal/infrastructure/mail/LoggingEmailSender.java
+- backend/src/main/java/net/phrasal/infrastructure/mail/SmtpEmailSender.java
+- backend/src/main/resources/application-prod.yml
+- backend/src/main/resources/application.yml
+- backend/src/test/java/net/phrasal/infrastructure/mail/EmailMessageTest.java
+- backend/src/test/java/net/phrasal/infrastructure/mail/LoggingEmailSenderTest.java
+- backend/src/test/java/net/phrasal/infrastructure/mail/SmtpEmailSenderTest.java
+- backend/src/test/java/net/phrasal/integration/MailSenderSelectionIntegrationTest.java
+- backend/src/test/resources/application-test.yml
+- docker-compose.yml
+<!-- end-snapshot -->
+
+<!-- git-snapshot 2026-10-28T15:10:23Z -->
+- .claude/docs/blackbox/audit.md
+- .claude/docs/blackbox/session-log.md
+- .claude/docs/blackbox/todos/email-verification-on-server-multiuser-todos.md
+- backend/pom.xml
+- backend/src/main/java/net/phrasal/config/AsyncConfig.java
+- backend/src/main/java/net/phrasal/config/PhrasalMailProperties.java
+- backend/src/main/java/net/phrasal/infrastructure/mail/EmailMessage.java
+- backend/src/main/java/net/phrasal/infrastructure/mail/EmailSender.java
+- backend/src/main/java/net/phrasal/infrastructure/mail/LoggingEmailSender.java
+- backend/src/main/java/net/phrasal/infrastructure/mail/SmtpEmailSender.java
+- backend/src/main/resources/application-prod.yml
+- backend/src/main/resources/application.yml
+- backend/src/test/java/net/phrasal/infrastructure/mail/EmailMessageTest.java
+- backend/src/test/java/net/phrasal/infrastructure/mail/LoggingEmailSenderTest.java
+- backend/src/test/java/net/phrasal/infrastructure/mail/SmtpEmailSenderTest.java
+- backend/src/test/java/net/phrasal/integration/MailSenderSelectionIntegrationTest.java
+- backend/src/test/resources/application-test.yml
+- docker-compose.yml
+<!-- end-snapshot -->

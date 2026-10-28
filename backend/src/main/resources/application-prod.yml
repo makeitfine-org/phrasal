@@ -13,6 +13,16 @@ spring:
   flyway:
     enabled: true
 
+  mail:
+    properties:
+      mail.smtp.auth: true
+      mail.smtp.starttls.enable: true
+      mail.smtp.starttls.required: true
+
+phrasal:
+  mail:
+    enabled: true
+
 server:
   port: ${SERVER_PORT:8080}
   servlet:

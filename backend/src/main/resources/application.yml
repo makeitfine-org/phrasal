@@ -5,6 +5,19 @@ spring:
     virtual:
       enabled: true
 
+  mail:
+    host: ${MAIL_HOST:localhost}
+    port: ${MAIL_PORT:1025}
+    username: ${MAIL_USERNAME:}
+    password: ${MAIL_PASSWORD:}
+    default-encoding: UTF-8
+    properties:
+      mail.smtp.auth: ${MAIL_SMTP_AUTH:false}
+      mail.smtp.starttls.enable: ${MAIL_SMTP_STARTTLS:false}
+      mail.smtp.connectiontimeout: 5000
+      mail.smtp.timeout: 5000
+      mail.smtp.writetimeout: 5000
+
   datasource:
     url: ${DATABASE_URL:jdbc:postgresql://localhost:5432/phrasaldb}
     username: ${DATABASE_USER:postgres}
@@ -73,11 +86,18 @@ phrasal:
     max-state-bytes: 65536
   app:
     base-url: ${APP_BASE_URL:http://localhost:3000}
+  mail:
+    enabled: ${MAIL_ENABLED:false}
+    from: ${PHRASAL_MAIL_FROM:Phrasal <no-reply@phrasalbox.com>}
   email-verification:
     token-ttl: ${EMAIL_VERIFICATION_TOKEN_TTL:24h}
     unverified-account-retention: ${UNVERIFIED_ACCOUNT_RETENTION:7d}
 
 management:
+  health:
+    mail:
+      # a slow SMTP relay must not mark the backend DOWN
+      enabled: false
   endpoints:
     web:
       exposure:
