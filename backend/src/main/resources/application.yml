@@ -69,6 +69,8 @@ phrasal:
     login-per-email:
       limit: ${RATE_LIMIT_LOGIN_PER_EMAIL:5}
       window: 5m
+  quiz-progress:
+    max-state-bytes: 65536
 
 management:
   endpoints:

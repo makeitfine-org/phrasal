@@ -5,6 +5,7 @@ import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ProblemDetail;
 import org.springframework.http.ResponseEntity;
+import org.springframework.http.converter.HttpMessageNotReadableException;
 import org.springframework.security.access.AccessDeniedException;
 import org.springframework.security.authentication.BadCredentialsException;
 import org.springframework.security.core.AuthenticationException;
@@ -90,6 +91,27 @@ public class GlobalExceptionHandler {
         return ResponseEntity.status(HttpStatus.TOO_MANY_REQUESTS)
                 .header(HttpHeaders.RETRY_AFTER, String.valueOf(ex.getRetryAfterSeconds()))
                 .body(problem);
+    }
+
+    @ExceptionHandler(UnknownQuizKeyException.class)
+    public ProblemDetail handleUnknownQuizKey(UnknownQuizKeyException ex) {
+        log.warn("Quiz progress rejected: unknown quiz key");
+        return buildProblem(HttpStatus.BAD_REQUEST, "Unknown Quiz Key",
+                "unknown-quiz-key", ex.getMessage());
+    }
+
+    @ExceptionHandler(QuizProgressTooLargeException.class)
+    public ProblemDetail handleQuizProgressTooLarge(QuizProgressTooLargeException ex) {
+        log.warn("Quiz progress rejected: state too large");
+        return buildProblem(HttpStatus.BAD_REQUEST, "Quiz Progress Too Large",
+                "quiz-progress-too-large", ex.getMessage());
+    }
+
+    @ExceptionHandler(HttpMessageNotReadableException.class)
+    public ProblemDetail handleMessageNotReadable(HttpMessageNotReadableException ex) {
+        log.warn("Request body rejected: {}", ex.getClass().getSimpleName());
+        return buildProblem(HttpStatus.BAD_REQUEST, "Malformed Request",
+                "malformed-request", "Request body is missing or is not valid JSON");
     }
 
     @ExceptionHandler(Exception.class)

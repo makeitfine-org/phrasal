@@ -2,8 +2,10 @@ package net.phrasal.infrastructure.exception;
 
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
+import org.springframework.http.HttpInputMessage;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ProblemDetail;
+import org.springframework.http.converter.HttpMessageNotReadableException;
 import org.springframework.security.access.AccessDeniedException;
 import org.springframework.security.authentication.BadCredentialsException;
 import org.springframework.security.authentication.InsufficientAuthenticationException;
@@ -118,5 +120,52 @@ class GlobalExceptionHandlerTest {
         assertThat(response.getHeaders().getFirst("Retry-After")).isEqualTo("42");
         assertThat(response.getBody().getTitle()).isEqualTo("Too Many Requests");
         assertThat(response.getBody().getType().toString()).endsWith("/errors/rate-limited");
+    }
+
+    @Test
+    @DisplayName("returns 400 for an unknown quiz key without echoing it")
+    void handleUnknownQuizKey() {
+        ProblemDetail detail = handler.handleUnknownQuizKey(new UnknownQuizKeyException());
+
+        assertThat(detail.getStatus()).isEqualTo(HttpStatus.BAD_REQUEST.value());
+        assertThat(detail.getTitle()).isEqualTo("Unknown Quiz Key");
+        assertThat(detail.getType().toString()).endsWith("/errors/unknown-quiz-key");
+        assertThat(detail.getDetail()).isEqualTo("Unknown quiz key");
+    }
+
+    @Test
+    @DisplayName("returns 400 for a quiz state that is too large")
+    void handleQuizProgressTooLarge() {
+        ProblemDetail detail = handler.handleQuizProgressTooLarge(new QuizProgressTooLargeException(10));
+
+        assertThat(detail.getStatus()).isEqualTo(HttpStatus.BAD_REQUEST.value());
+        assertThat(detail.getTitle()).isEqualTo("Quiz Progress Too Large");
+        assertThat(detail.getType().toString()).endsWith("/errors/quiz-progress-too-large");
+        assertThat(detail.getDetail()).isEqualTo("Quiz progress must not exceed 10 bytes");
+    }
+
+    @Test
+    @DisplayName("returns 404 for missing quiz progress")
+    void handleQuizProgressNotFound() {
+        ProblemDetail detail = handler.handleResourceNotFound(new QuizProgressNotFoundException());
+
+        assertThat(detail.getStatus()).isEqualTo(HttpStatus.NOT_FOUND.value());
+        assertThat(detail.getTitle()).isEqualTo("Quiz Progress Not Found");
+        assertThat(detail.getType().toString()).endsWith("/errors/quiz-progress-not-found");
+    }
+
+    @Test
+    @DisplayName("returns 400 for an unreadable body without leaking the parser message")
+    void handleMessageNotReadable() {
+        HttpMessageNotReadableException ex = new HttpMessageNotReadableException(
+                "Unexpected character at line 1 secret-parser-detail", (HttpInputMessage) null);
+
+        ProblemDetail detail = handler.handleMessageNotReadable(ex);
+
+        assertThat(detail.getStatus()).isEqualTo(HttpStatus.BAD_REQUEST.value());
+        assertThat(detail.getTitle()).isEqualTo("Malformed Request");
+        assertThat(detail.getType().toString()).endsWith("/errors/malformed-request");
+        assertThat(detail.getDetail()).isEqualTo("Request body is missing or is not valid JSON")
+                .doesNotContain("secret-parser-detail");
     }
 }

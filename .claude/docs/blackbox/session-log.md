@@ -1223,3 +1223,11 @@
 - e2e/features/phrasal-verbs-api/crud.feature
 - e2e/src/steps/phrasal-verbs-api.steps.ts
 <!-- end-snapshot -->
+
+<!-- git-snapshot 2026-10-28T09:52:50Z -->
+- .claude/docs/blackbox/audit.md
+- .claude/docs/blackbox/todos/save-on-server-multiuser-todos.md
+- backend/src/main/java/net/phrasal/infrastructure/exception/GlobalExceptionHandler.java
+- backend/src/main/resources/application.yml
+- backend/src/test/java/net/phrasal/infrastructure/exception/GlobalExceptionHandlerTest.java
+<!-- end-snapshot -->

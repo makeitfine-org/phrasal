@@ -313,7 +313,7 @@ Why first: it is small and independent. Our frontend keeps working without chang
 ## Phase 2 — Progress table, entity, repository
 
 ### 2.1 Migration
-- [ ] **2.1.1** `V12__create_user_quiz_progress.sql`:
+- [x] **2.1.1** `V12__create_user_quiz_progress.sql`:
   ```sql
   CREATE TABLE user_quiz_progress
   (
@@ -332,23 +332,23 @@ Why first: it is small and independent. Our frontend keeps working without chang
   - The unique index also serves lookups by `user_id`, so there is no extra index.
 
 ### 2.2 Domain
-- [ ] **2.2.1** `domain/entity/QuizKey.java`: `enum QuizKey { PHRASAL_VERBS("phrasal-verbs"), GRAMMAR_I_WISH_IF_ONLY("grammar-i-wish-if-only") }`
-  - [ ] `String pathValue()`
-  - [ ] `static Optional<QuizKey> fromPathValue(String value)`: exact match, case-sensitive. `null` → empty.
-  - [ ] the DB stores `pathValue()` (stable), never `name()`. Convert with a JPA `AttributeConverter<QuizKey, String>`
+- [x] **2.2.1** `domain/entity/QuizKey.java`: `enum QuizKey { PHRASAL_VERBS("phrasal-verbs"), GRAMMAR_I_WISH_IF_ONLY("grammar-i-wish-if-only") }`
+  - [x] `String pathValue()`
+  - [x] `static Optional<QuizKey> fromPathValue(String value)`: exact match, case-sensitive. `null` → empty.
+  - [x] the DB stores `pathValue()` (stable), never `name()`. Convert with a JPA `AttributeConverter<QuizKey, String>`
         (`domain/entity/QuizKeyConverter`, `@Converter`), not `@Enumerated`.
-- [ ] **2.2.2** `domain/entity/UserQuizProgress.java`:
-  - [ ] table `user_quiz_progress`; sequence `user_quiz_progress_id_seq`, `allocationSize = 1` (same style as `User`)
-  - [ ] `@Column(name = "user_id", nullable = false, updatable = false) Long userId` (no relationship)
-  - [ ] `@Convert(converter = QuizKeyConverter.class) @Column(name = "quiz_key", nullable = false, updatable = false) QuizKey quizKey`
-  - [ ] `@JdbcTypeCode(SqlTypes.JSON) @Column(nullable = false, columnDefinition = "jsonb") Map<String, Object> state`
-  - [ ] `@CreatedDate` / `@LastModifiedDate` / `@Version`, `@EntityListeners(AuditingEntityListener.class)`
-  - [ ] `@ToString(of = {"id", "userId", "quizKey", "version"})`. **Never include `state`**, because it holds user input.
-  - [ ] `@EqualsAndHashCode(of = {"id"})`
-  - [ ] constructor `UserQuizProgress(Long userId, QuizKey quizKey, Map<String, Object> state)`
-- [ ] **2.2.3** `domain/repository/UserQuizProgressRepository.java` (`JpaRepository<UserQuizProgress, Long>`):
-  - [ ] `Optional<UserQuizProgress> findByUserIdAndQuizKey(Long userId, QuizKey quizKey)`
-  - [ ] the upsert (decision 4):
+- [x] **2.2.2** `domain/entity/UserQuizProgress.java`:
+  - [x] table `user_quiz_progress`; sequence `user_quiz_progress_id_seq`, `allocationSize = 1` (same style as `User`)
+  - [x] `@Column(name = "user_id", nullable = false, updatable = false) Long userId` (no relationship)
+  - [x] `@Convert(converter = QuizKeyConverter.class) @Column(name = "quiz_key", nullable = false, updatable = false) QuizKey quizKey`
+  - [x] `@JdbcTypeCode(SqlTypes.JSON) @Column(nullable = false, columnDefinition = "jsonb") Map<String, Object> state`
+  - [x] `@CreatedDate` / `@LastModifiedDate` / `@Version`, `@EntityListeners(AuditingEntityListener.class)`
+  - [x] `@ToString(of = {"id", "userId", "quizKey", "version"})`. **Never include `state`**, because it holds user input.
+  - [x] `@EqualsAndHashCode(of = {"id"})`
+  - [x] constructor `UserQuizProgress(Long userId, QuizKey quizKey, Map<String, Object> state)`
+- [x] **2.2.3** `domain/repository/UserQuizProgressRepository.java` (`JpaRepository<UserQuizProgress, Long>`):
+  - [x] `Optional<UserQuizProgress> findByUserIdAndQuizKey(Long userId, QuizKey quizKey)`
+  - [x] the upsert (decision 4):
     ```java
     @Modifying(flushAutomatically = true, clearAutomatically = true)
     @Query(nativeQuery = true, value = """
@@ -364,39 +364,39 @@ Why first: it is small and independent. Our frontend keeps working without chang
     `clearAutomatically` makes the following `findBy…` read the fresh row, not a stale persistence-context copy.
 
 ### 2.3 Tests
-- [ ] **2.3.1** `domain/entity/QuizKeyTest`:
-  - [ ] each path value round-trips
-  - [ ] unknown → empty; `null` → empty; wrong case (`Phrasal-Verbs`) → empty
-- [ ] **2.3.2** `domain/entity/QuizKeyConverterTest`:
-  - [ ] enum → path value → enum
-  - [ ] `null` stays `null` both ways
-  - [ ] an unknown DB value → `IllegalStateException`
-- [ ] **2.3.3** `domain/entity/UserQuizProgressEntityTest`:
-  - [ ] the constructor sets the fields
-  - [ ] `toString` contains no state content
-  - [ ] equals/hashCode use `id`
-- [ ] **2.3.4** `integration/UserQuizProgressRepositoryIntegrationTest` (extends `AbstractIntegrationTest`). Create the user
+- [x] **2.3.1** `domain/entity/QuizKeyTest`:
+  - [x] each path value round-trips
+  - [x] unknown → empty; `null` → empty; wrong case (`Phrasal-Verbs`) → empty
+- [x] **2.3.2** `domain/entity/QuizKeyConverterTest`:
+  - [x] enum → path value → enum
+  - [x] `null` stays `null` both ways
+  - [x] an unknown DB value → `IllegalStateException`
+- [x] **2.3.3** `domain/entity/UserQuizProgressEntityTest`:
+  - [x] the constructor sets the fields
+  - [x] `toString` contains no state content
+  - [x] equals/hashCode use `id`
+- [x] **2.3.4** `integration/UserQuizProgressRepositoryIntegrationTest` (extends `AbstractIntegrationTest`). Create the user
       with `UserRepository`, unique email.
-  - [ ] first `upsert` → 1 row, `version == 0`, the state round-trips (nested arrays/objects and numbers keep their values)
-  - [ ] second `upsert` → still 1 row, `version == 1`, new state, `updated_at` ≥ the old value
-  - [ ] the same quiz key for two users → 2 independent rows
-  - [ ] `findByUserIdAndQuizKey` for another user → empty
-  - [ ] cascade (task-102 AC #5): `userRepository.delete(user)` → the progress row is gone. Check with `JdbcTemplate`.
-  - [ ] negative: a non-object JSON (`'[1,2]'`) via `JdbcTemplate` violates `chk_user_quiz_progress_state_object`
+  - [x] first `upsert` → 1 row, `version == 0`, the state round-trips (nested arrays/objects and numbers keep their values)
+  - [x] second `upsert` → still 1 row, `version == 1`, new state, `updated_at` ≥ the old value
+  - [x] the same quiz key for two users → 2 independent rows
+  - [x] `findByUserIdAndQuizKey` for another user → empty
+  - [x] cascade (task-102 AC #5): `userRepository.delete(user)` → the progress row is gone. Check with `JdbcTemplate`.
+  - [x] negative: a non-object JSON (`'[1,2]'`) via `JdbcTemplate` violates `chk_user_quiz_progress_state_object`
         → `DataIntegrityViolationException`
-  - [ ] negative: a non-existent `user_id` → FK violation
-- [ ] **2.3.5** `cd backend && mvn clean verify` → green. Don't commit yet. Phases 2–4 form one backend commit.
+  - [x] negative: a non-existent `user_id` → FK violation
+- [x] **2.3.5** `cd backend && mvn clean verify` → green. Don't commit yet. Phases 2–4 form one backend commit.
 
 ---
 
 ## Phase 3 — Service, DTOs, exceptions, configuration
 
 ### 3.1 Configuration
-- [ ] **3.1.1** `config/QuizProgressProperties.java`:
+- [x] **3.1.1** `config/QuizProgressProperties.java`:
   - `@ConfigurationProperties("phrasal.quiz-progress") record QuizProgressProperties(int maxStateBytes)`
   - Javadoc with `@param`
   - picked up by the existing `@ConfigurationPropertiesScan`/`@EnableConfigurationProperties` (check which one is used)
-- [ ] **3.1.2** `application.yml`:
+- [x] **3.1.2** `application.yml`:
   ```yaml
   phrasal:
     quiz-progress:
@@ -406,47 +406,47 @@ Why first: it is small and independent. Our frontend keeps working without chang
   `@TestPropertySource` in their own class.
 
 ### 3.2 DTOs
-- [ ] **3.2.1** `application/dto/QuizProgressRequest.java`: `record QuizProgressRequest(@NotNull Map<String, Object> state)`.
-- [ ] **3.2.2** `application/dto/QuizProgressResponse.java`:
+- [x] **3.2.1** `application/dto/QuizProgressRequest.java`: `record QuizProgressRequest(@NotNull Map<String, Object> state)`.
+- [x] **3.2.2** `application/dto/QuizProgressResponse.java`:
       `record QuizProgressResponse(String quizKey, Map<String, Object> state, Long version, LocalDateTime updatedAt)`.
-- [ ] **3.2.3** `application/mapper/QuizProgressMapper` (MapStruct, `componentModel = "spring"`): entity → response, with
+- [x] **3.2.3** `application/mapper/QuizProgressMapper` (MapStruct, `componentModel = "spring"`): entity → response, with
       `quizKey` mapped via `QuizKey.pathValue()` (an `@Mapping(expression = …)` or a default method).
 
 ### 3.3 Exceptions + handler
-- [ ] **3.3.1** `infrastructure/exception/UnknownQuizKeyException` (`RuntimeException`). Message: `Unknown quiz key`. Don't echo
+- [x] **3.3.1** `infrastructure/exception/UnknownQuizKeyException` (`RuntimeException`). Message: `Unknown quiz key`. Don't echo
       the raw path value.
-- [ ] **3.3.2** `infrastructure/exception/QuizProgressNotFoundException extends ResourceNotFoundException`:
+- [x] **3.3.2** `infrastructure/exception/QuizProgressNotFoundException extends ResourceNotFoundException`:
   - resource name `Quiz Progress`, error type `quiz-progress-not-found`
   - the existing handler turns it into a `404` ProblemDetail
-- [ ] **3.3.3** `infrastructure/exception/QuizProgressTooLargeException` (`RuntimeException`), message
+- [x] **3.3.3** `infrastructure/exception/QuizProgressTooLargeException` (`RuntimeException`), message
       `Quiz progress must not exceed {max} bytes`.
-- [ ] **3.3.4** `GlobalExceptionHandler`, all **before** the `Exception` catch-all:
-  - [ ] `UnknownQuizKeyException` → `400`, title `Unknown Quiz Key`, type `unknown-quiz-key`
-  - [ ] `QuizProgressTooLargeException` → `400`, title `Quiz Progress Too Large`, type `quiz-progress-too-large`
-  - [ ] `HttpMessageNotReadableException` → `400`, title `Malformed Request`, type `malformed-request`.
+- [x] **3.3.4** `GlobalExceptionHandler`, all **before** the `Exception` catch-all:
+  - [x] `UnknownQuizKeyException` → `400`, title `Unknown Quiz Key`, type `unknown-quiz-key`
+  - [x] `QuizProgressTooLargeException` → `400`, title `Quiz Progress Too Large`, type `quiz-progress-too-large`
+  - [x] `HttpMessageNotReadableException` → `400`, title `Malformed Request`, type `malformed-request`.
         Detail `Request body is missing or is not valid JSON`; never the parser message (decision 11).
-- [ ] **3.3.5** `GlobalExceptionHandlerTest`: the three new mappings (status, title, type), and no internal message leaked.
+- [x] **3.3.5** `GlobalExceptionHandlerTest`: the three new mappings (status, title, type), and no internal message leaked.
 
 ### 3.4 Service
-- [ ] **3.4.1** `application/service/QuizProgressService` (`@Service @Transactional(readOnly = true) @RequiredArgsConstructor @Slf4j`):
-  - [ ] `QuizProgressResponse get(Long userId, String quizKeyPath)`:
+- [x] **3.4.1** `application/service/QuizProgressService` (`@Service @Transactional(readOnly = true) @RequiredArgsConstructor @Slf4j`):
+  - [x] `QuizProgressResponse get(Long userId, String quizKeyPath)`:
     1. `QuizKey key = QuizKey.fromPathValue(path).orElseThrow(UnknownQuizKeyException::new)`
     2. `findByUserIdAndQuizKey` → map, or throw `QuizProgressNotFoundException`
-  - [ ] `@Transactional QuizProgressResponse save(Long userId, String quizKeyPath, QuizProgressRequest request)`:
+  - [x] `@Transactional QuizProgressResponse save(Long userId, String quizKeyPath, QuizProgressRequest request)`:
     1. resolve the key (as above)
     2. `byte[] json = jsonMapper.writeValueAsBytes(request.state())`. Inject the Spring-managed Jackson 3 `JsonMapper`.
     3. `json.length > properties.maxStateBytes()` → `QuizProgressTooLargeException`
     4. `repository.upsert(userId, key.pathValue(), new String(json, UTF_8))`
     5. re-read with `findByUserIdAndQuizKey` → response
     6. `log.debug("Saved quiz progress userId={} quizKey={} bytes={}", …)`. **Never log the state.**
-- [ ] **3.4.2** `QuizProgressServiceTest` (Mockito):
-  - [ ] get: found → response; missing → `QuizProgressNotFoundException`; unknown key → `UnknownQuizKeyException`, and the
+- [x] **3.4.2** `QuizProgressServiceTest` (Mockito):
+  - [x] get: found → response; missing → `QuizProgressNotFoundException`; unknown key → `UnknownQuizKeyException`, and the
         repository is never called
-  - [ ] save: valid → `upsert` called with the compact JSON and the path value, then the response is returned
-  - [ ] save: exactly `max` bytes → OK; `max + 1` → `QuizProgressTooLargeException`, and `upsert` is never called
-  - [ ] save: unknown key → exception before serialization
-- [ ] **3.4.3** `QuizProgressMapperTest`: entity → response (quiz key as path value); `null` → `null`.
-- [ ] **3.4.4** `mvn -q test -Dtest='QuizProgressServiceTest,QuizProgressMapperTest,GlobalExceptionHandlerTest'` → green.
+  - [x] save: valid → `upsert` called with the compact JSON and the path value, then the response is returned
+  - [x] save: exactly `max` bytes → OK; `max + 1` → `QuizProgressTooLargeException`, and `upsert` is never called
+  - [x] save: unknown key → exception before serialization
+- [x] **3.4.3** `QuizProgressMapperTest`: entity → response (quiz key as path value); `null` → `null`.
+- [x] **3.4.4** `mvn -q test -Dtest='QuizProgressServiceTest,QuizProgressMapperTest,GlobalExceptionHandlerTest'` → green.
 
 ---
 
