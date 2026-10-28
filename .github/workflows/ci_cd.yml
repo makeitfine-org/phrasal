@@ -258,6 +258,8 @@ jobs:
           DB_PASSWORD: ${{ secrets.DB_PASSWORD }}
           PHRASAL_ADMIN_EMAIL: ${{ secrets.PHRASAL_ADMIN_EMAIL }}
           PHRASAL_ADMIN_PASSWORD: ${{ secrets.PHRASAL_ADMIN_PASSWORD }}
+          MAIL_USERNAME: ${{ secrets.MAIL_USERNAME }}
+          MAIL_PASSWORD: ${{ secrets.MAIL_PASSWORD }}
         run: |
           printf '%s\n' \
             "apiVersion: v1" \
@@ -270,6 +272,8 @@ jobs:
             "  database.password: ${DB_PASSWORD}" \
             "  admin.email: ${PHRASAL_ADMIN_EMAIL}" \
             "  admin.password: ${PHRASAL_ADMIN_PASSWORD}" \
+            "  mail.username: \"${MAIL_USERNAME}\"" \
+            "  mail.password: \"${MAIL_PASSWORD}\"" \
             > k8s/overlays/prod/patches/secret.yaml
 
       - name: Set image tags

@@ -287,7 +287,8 @@ push tag v1.2.3 → build + test + e2e → docker push → kubectl apply -k k8s/
 ```
 
 **Before the next tagged deploy:** create the GitHub Secrets `PHRASAL_ADMIN_EMAIL` and `PHRASAL_ADMIN_PASSWORD`
-(password at least 10 characters). The backend creates or repairs that ADMIN account at every startup, and the
+(password at least 10 characters), plus `MAIL_USERNAME` (the Brevo SMTP login, under SMTP & API → SMTP) and
+`MAIL_PASSWORD` (the Brevo SMTP key) for the verification emails (`smtp-relay.brevo.com:587`). The backend creates or repairs that ADMIN account at every startup, and the
 deploy workflow writes both values into the prod `app-secrets`. Keep a copy in your password manager and never
 commit them. Register and login are rate-limited per client IP and per email; the per-IP limits need the Traefik
 client-IP setting described in [`ansible/README.md`](ansible/README.md#client-ip-behind-traefik).
@@ -463,8 +464,8 @@ automatically (`frontend/src/api/client.ts`).
 
 docker-compose raises the per-IP limits so the e2e suite can register many users.
 
-**GitHub Secrets to create before the next tagged deploy:** `PHRASAL_ADMIN_EMAIL` and `PHRASAL_ADMIN_PASSWORD`
-(see [Production Deployment](#production-deployment-k3s)).
+**GitHub Secrets to create before the next tagged deploy:** `PHRASAL_ADMIN_EMAIL`, `PHRASAL_ADMIN_PASSWORD`,
+`MAIL_USERNAME` and `MAIL_PASSWORD` (see [Production Deployment](#production-deployment-k3s)).
 
 **Not yet:** email confirmation, password reset, 2FA and Google sign-in. Accounts are usable right after sign-up.
 Flow diagrams: [`docs/diagrams/auth-flow.md`](docs/diagrams/auth-flow.md).

@@ -61,6 +61,41 @@ spec:
             configMapKeyRef:
               name: app-config
               key: server.port
+        - name: MAIL_ENABLED
+          valueFrom:
+            configMapKeyRef:
+              name: app-config
+              key: mail.enabled
+        - name: MAIL_HOST
+          valueFrom:
+            configMapKeyRef:
+              name: app-config
+              key: mail.host
+        - name: MAIL_PORT
+          valueFrom:
+            configMapKeyRef:
+              name: app-config
+              key: mail.port
+        - name: PHRASAL_MAIL_FROM
+          valueFrom:
+            configMapKeyRef:
+              name: app-config
+              key: mail.from
+        - name: APP_BASE_URL
+          valueFrom:
+            configMapKeyRef:
+              name: app-config
+              key: app.base-url
+        - name: MAIL_USERNAME
+          valueFrom:
+            secretKeyRef:
+              name: app-secrets
+              key: mail.username
+        - name: MAIL_PASSWORD
+          valueFrom:
+            secretKeyRef:
+              name: app-secrets
+              key: mail.password
         livenessProbe:
           httpGet:
             path: /actuator/health/liveness

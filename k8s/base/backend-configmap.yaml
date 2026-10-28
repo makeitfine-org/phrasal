@@ -8,3 +8,8 @@ data:
   database.url: jdbc:postgresql://postgres-service:5432/phrasaldb
   spring.profiles.active: dev
   server.port: "8080"
+  mail.enabled: "false"
+  mail.host: mailpit-not-deployed
+  mail.port: "1025"
+  mail.from: "Phrasal <no-reply@phrasalbox.com>"
+  app.base-url: http://localhost:3000

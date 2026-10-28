@@ -1627,3 +1627,15 @@
 - .claude/docs/blackbox/todos/email-verification-on-server-multiuser-todos.md
 - backend/src/test/resources/application-test.yml
 <!-- end-snapshot -->
+
+<!-- git-snapshot 2026-10-28T16:29:33Z -->
+- .claude/docs/blackbox/audit.md
+- .claude/docs/blackbox/todos/email-verification-on-server-multiuser-todos.md
+- .github/workflows/ci_cd.yml
+- README.md
+- k8s/base/backend-configmap.yaml
+- k8s/base/backend-deployment.yaml
+- k8s/base/backend-secret.yaml
+- k8s/overlays/prod/patches/backend-configmap.yaml
+- k8s/overlays/prod/patches/secret.yaml.example
+<!-- end-snapshot -->

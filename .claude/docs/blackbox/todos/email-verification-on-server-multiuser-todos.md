@@ -920,7 +920,7 @@ Why: expired tokens pile up, and an address squatted by an attacker who can't ve
 > (`enabled: ${MAIL_ENABLED:false}` in `application.yml`), and prod still hard-codes `true`. Check 2.1.2 and 2.3.2 use
 > that name.
 
-- [ ] **8.1** `k8s/base/backend-configmap.yaml` (minikube/dev defaults; mail disabled → links in the backend log):
+- [x] **8.1** `k8s/base/backend-configmap.yaml` (minikube/dev defaults; mail disabled → links in the backend log):
   ```yaml
   mail.enabled: "false"
   mail.host: mailpit-not-deployed
@@ -928,12 +928,12 @@ Why: expired tokens pile up, and an address squatted by an attacker who can't ve
   mail.from: "Phrasal <no-reply@phrasalbox.com>"
   app.base-url: http://localhost:3000   # skaffold port-forward (frontend/skaffold.yaml)
   ```
-- [ ] **8.2** `k8s/base/backend-secret.yaml`: `mail.username: ""`, `mail.password: ""`, and the DEV-ONLY comment lists the
+- [x] **8.2** `k8s/base/backend-secret.yaml`: `mail.username: ""`, `mail.password: ""`, and the DEV-ONLY comment lists the
       new GitHub Secrets.
-- [ ] **8.3** `k8s/base/backend-deployment.yaml` env:
-  - [ ] from the configmap: `MAIL_ENABLED`, `MAIL_HOST`, `MAIL_PORT`, `PHRASAL_MAIL_FROM`, `APP_BASE_URL`
-  - [ ] from the secret: `MAIL_USERNAME`, `MAIL_PASSWORD`
-- [ ] **8.4** `k8s/overlays/prod/patches/backend-configmap.yaml`:
+- [x] **8.3** `k8s/base/backend-deployment.yaml` env:
+  - [x] from the configmap: `MAIL_ENABLED`, `MAIL_HOST`, `MAIL_PORT`, `PHRASAL_MAIL_FROM`, `APP_BASE_URL`
+  - [x] from the secret: `MAIL_USERNAME`, `MAIL_PASSWORD`
+- [x] **8.4** `k8s/overlays/prod/patches/backend-configmap.yaml`:
   ```yaml
   mail.enabled: "true"
   mail.host: smtp-relay.brevo.com
@@ -941,22 +941,22 @@ Why: expired tokens pile up, and an address squatted by an attacker who can't ve
   mail.from: "Phrasal <no-reply@phrasalbox.com>"
   app.base-url: https://phrasalbox.com
   ```
-- [ ] **8.5** `k8s/overlays/prod/patches/secret.yaml.example`: `mail.username: CHANGE_ME`, `mail.password: CHANGE_ME`.
-- [ ] **8.6** `.github/workflows/ci_cd.yml` "Generate prod secret patch":
-  - [ ] `env`: `MAIL_USERNAME: ${{ secrets.MAIL_USERNAME }}`, `MAIL_PASSWORD: ${{ secrets.MAIL_PASSWORD }}`
-  - [ ] two more `printf` lines, values in double quotes (`"  mail.password: \"${MAIL_PASSWORD}\""`), so a `:` or `#`
+- [x] **8.5** `k8s/overlays/prod/patches/secret.yaml.example`: `mail.username: CHANGE_ME`, `mail.password: CHANGE_ME`.
+- [x] **8.6** `.github/workflows/ci_cd.yml` "Generate prod secret patch":
+  - [x] `env`: `MAIL_USERNAME: ${{ secrets.MAIL_USERNAME }}`, `MAIL_PASSWORD: ${{ secrets.MAIL_PASSWORD }}`
+  - [x] two more `printf` lines, values in double quotes (`"  mail.password: \"${MAIL_PASSWORD}\""`), so a `:` or `#`
         can't break the YAML
-  - [ ] the e2e job already got `MAILPIT_URL` in 4.3.3; no other job needs mail
-- [ ] **8.7** **User action** (write it in the README): create GitHub Secrets `MAIL_USERNAME` (the Brevo SMTP login, shown
+  - [x] the e2e job already got `MAILPIT_URL` in 4.3.3; no other job needs mail
+- [x] **8.7** **User action** (write it in the README): create GitHub Secrets `MAIL_USERNAME` (the Brevo SMTP login, shown
       under SMTP & API → SMTP) and `MAIL_PASSWORD` (the SMTP key) **before** the next tagged deploy. Keep a copy in the
       password manager. Never commit them, never paste them into `audit.md` or `session-log.md`.
-- [ ] **8.8** `kubectl kustomize k8s/overlays/dev` and `kubectl kustomize k8s/overlays/prod` (with the example patch
+- [x] **8.8** `kubectl kustomize k8s/overlays/dev` and `kubectl kustomize k8s/overlays/prod` (with the example patch
       copied to `secret.yaml` locally, then deleted) both render, and the backend env lists the seven new variables.
-- [ ] **8.9** `docker-compose.yml`: check once more that the compose stack has `MAIL_ENABLED: "true"`, `MAIL_HOST: mailpit`,
+- [x] **8.9** `docker-compose.yml`: check once more that the compose stack has `MAIL_ENABLED: "true"`, `MAIL_HOST: mailpit`,
       `APP_BASE_URL`, and the high per-IP limits for e2e (`RATE_LIMIT_RESEND_PER_IP: "1000"`,
       `RATE_LIMIT_VERIFY_PER_IP: "1000"`). Keep the per-email limits at their defaults so e2e can test the `429`.
-- [ ] **8.10** `skaffold.yaml`: no change (mail is disabled in the dev overlay). Write "no change" in the commit body.
-- [ ] **8.11** `make clean build` → green. Ask for commit approval → `build: wire mail and base URL into k8s and CI`
+- [x] **8.10** `skaffold.yaml`: no change (mail is disabled in the dev overlay). Write "no change" in the commit body.
+- [x] **8.11** `make clean build` → green. Ask for commit approval → `build: wire mail and base URL into k8s and CI`
 
 ---
 
