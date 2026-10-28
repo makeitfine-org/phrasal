@@ -1780,3 +1780,23 @@
 - frontend/src/__tests__/RegisterPage.test.tsx
 - frontend/src/pages/RegisterPage.tsx
 <!-- end-snapshot -->
+
+<!-- git-snapshot 2026-10-28T22:34:32Z -->
+- .claude/docs/blackbox/audit.md
+- frontend/src/pages/RegisterPage.tsx
+<!-- end-snapshot -->
+
+<!-- git-snapshot 2026-10-28T22:48:27Z -->
+- .claude/docs/blackbox/audit.md
+- .claude/docs/blackbox/session-log.md
+- frontend/src/pages/RegisterPage.tsx
+<!-- end-snapshot -->
+
+<!-- git-snapshot 2026-10-28T22:56:06Z -->
+- .claude/docs/blackbox/audit.md
+- .claude/docs/blackbox/session-log.md
+- e2e/features/frontend/auth.feature
+- e2e/src/steps/auth-ui.steps.ts
+- frontend/src/__tests__/RegisterPage.test.tsx
+- frontend/src/pages/RegisterPage.tsx
+<!-- end-snapshot -->

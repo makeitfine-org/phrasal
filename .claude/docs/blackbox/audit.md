@@ -4574,3 +4574,41 @@ On phase completion `make clean build` must pass successfully.
 ## 2026-10-28T22:32:15Z
 git add all changes and commit them with suitable message
 ---
+
+## 2026-10-28T22:34:18Z
+
+
+<pasted_content id="3010">
+✓ At least 10 characters
+✓ At most 72 bytes (about 72 letters or digits)
+✓ Does not contain your email address
+Tip: mix letters, digits and symbols (e.g. ! ? # $), or use a passphrase of several words. Common passwords such as "password123" are rejected.
+</pasted_content id="3010">
+
+
+I want the tip to be surrounded by one beautiful yellow frame with rounded angles.
+
+you think about this idea?
+---
+
+## 2026-10-28T22:48:16Z
+
+
+<pasted_content id="3010">
+✓ At least 10 characters
+✓ At most 72 bytes (about 72 letters or digits)
+✓ Does not contain your email address
+Tip: mix letters, digits and symbols (e.g. ! ? # $), or use a passphrase of several words. Common passwords such as "password123" are rejected.
+</pasted_content id="3010">
+
+
+All that line
+---
+
+## 2026-10-28T22:50:17Z
+Covered that with reasonable tests
+---
+
+## 2026-10-28T22:57:09Z
+git add all changes and commit them with suitable message
+---

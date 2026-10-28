@@ -102,11 +102,14 @@ export default function RegisterPage() {
             onChange={e => setPassword(e.target.value)}
             data-testid="register-password" className={`${inputClass} mt-1`}
           />
-          <div id="password-requirements" data-testid="password-requirements" className="mt-1 text-xs text-gray-500 dark:text-gray-400">
+          <div
+            id="password-requirements" data-testid="password-requirements"
+            className="mt-2 rounded-xl border-2 border-yellow-400 bg-yellow-50 px-3 py-2 text-xs text-yellow-900 dark:border-yellow-500 dark:bg-yellow-950/40 dark:text-yellow-100"
+          >
             <ul>
               {passwordRules(password, email).map(rule => (
                 <li key={rule.id} data-testid={`password-rule-${rule.id}`} data-met={rule.met}
-                  className={rule.met ? 'text-green-700 dark:text-green-400' : undefined}>
+                  className={rule.met ? 'font-medium text-green-700 dark:text-green-400' : undefined}>
                   <span aria-hidden="true">{rule.met ? '✓' : '○'}</span> {rule.label}
                 </li>
               ))}

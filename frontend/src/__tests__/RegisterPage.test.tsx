@@ -41,6 +41,15 @@ describe('RegisterPage', () => {
     expect(screen.getByRole('link', { name: 'Log in' })).toHaveAttribute('href', '/login');
   });
 
+  it('frames the rules and the tip together in one rounded yellow box', () => {
+    renderPage(ctx());
+    const box = screen.getByTestId('password-requirements');
+    expect(box).toHaveClass('rounded-xl', 'border-2', 'border-yellow-400', 'bg-yellow-50');
+    expect(box).toContainElement(screen.getByTestId('password-rule-min-length'));
+    expect(box).toContainElement(screen.getByTestId('password-tip'));
+    expect(screen.getByTestId('password-tip')).not.toHaveClass('border-2');
+  });
+
   it('ticks the length rule live as the password is typed', () => {
     renderPage(ctx());
     const rule = () => screen.getByTestId('password-rule-min-length');
