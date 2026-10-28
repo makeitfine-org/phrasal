@@ -1286,3 +1286,10 @@
 ⚠️  Diagrams that may need updating:
   - docs/diagrams/auth-flow.md (auth/ was modified)
 <!-- end-diagram-staleness -->
+
+<!-- git-snapshot 2026-10-28T10:36:51Z -->
+- .claude/docs/blackbox/audit.md
+- .claude/docs/blackbox/todos/save-on-server-multiuser-todos.md
+- e2e/features/frontend/progress-sync.feature
+- e2e/src/steps/progress-sync.steps.ts
+<!-- end-snapshot -->

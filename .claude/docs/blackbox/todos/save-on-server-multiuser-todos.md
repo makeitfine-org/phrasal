@@ -767,7 +767,7 @@ Why first: it is small and independent. Our frontend keeps working without chang
 
 ## Phase 10 — E2E: progress sync in the browser
 
-- [ ] **10.1** `e2e/src/steps/progress-sync.steps.ts`. Reuse the auth UI steps (`I sign up through the form with a new
+- [x] **10.1** `e2e/src/steps/progress-sync.steps.ts`. Reuse the auth UI steps (`I sign up through the form with a new
       email`, `I log out through the user menu`) and `I navigate to the phrasal verbs quiz`.
   - `When I exclude the current quiz item`: click `exclude-toggle`
   - `When I exclude the current quiz item and wait for the progress save`: start
@@ -780,19 +780,19 @@ Why first: it is small and independent. Our frontend keeps working without chang
     cookies
   - `Given I record progress requests`: `page.on('request')` pushes matching URLs into the world
   - `Then no quiz progress request should have been sent`
-- [ ] **10.2** `e2e/features/frontend/progress-sync.feature` (`@frontend`):
-  - [ ] **Progress survives clearing localStorage** (task-103 AC #8): sign up → quiz → exclude + wait for save → clear
+- [x] **10.2** `e2e/features/frontend/progress-sync.feature` (`@frontend`):
+  - [x] **Progress survives clearing localStorage** (task-103 AC #8): sign up → quiz → exclude + wait for save → clear
         storage + reload → excluded count 1
-  - [ ] **First sign-up uploads anonymous progress** (AC #9): anonymous quiz → exclude → sign up → wait for save → saved
+  - [x] **First sign-up uploads anonymous progress** (AC #9): anonymous quiz → exclude → sign up → wait for save → saved
         `phrasal-verbs` progress has 1 excluded item
-  - [ ] **Another account doesn't see my progress** (the reported bug): sign up as A → exclude + wait for save → log out →
+  - [x] **Another account doesn't see my progress** (the reported bug): sign up as A → exclude + wait for save → log out →
         quiz shows excluded count 0 → sign up as B → quiz shows excluded count 0
-  - [ ] **Logging back in restores progress**: continue the previous scenario, or a new one: log out B → log in as A →
+  - [x] **Logging back in restores progress**: continue the previous scenario, or a new one: log out B → log in as A →
         quiz → excluded count 1
-  - [ ] **Anonymous visitor sends no progress requests** (AC #7): record requests → quiz → exclude → wait 3 s → none sent
-- [ ] **10.3** Wait strategy: never a fixed `sleep` except in the "no requests" scenario, where 3 s > the 2 s debounce.
+  - [x] **Anonymous visitor sends no progress requests** (AC #7): record requests → quiz → exclude → wait 3 s → none sent
+- [x] **10.3** Wait strategy: never a fixed `sleep` except in the "no requests" scenario, where 3 s > the 2 s debounce.
       Everywhere else, use `waitForResponse` / locator expectations.
-- [ ] **10.4** `make acceptanceTest` → every feature green, the old ones included. `make clean build` → green.
+- [x] **10.4** `make acceptanceTest` → every feature green, the old ones included. `make clean build` → green.
       Ask for commit approval → `test(e2e): cover quiz progress sync in the browser`
 
 ---

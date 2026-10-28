@@ -3667,3 +3667,76 @@ sleep 2; echo ok" completed (exit code 0)</summary>
 ## 2026-10-28T10:27:22Z
 git add all changes and commit them with suitable message
 ---
+
+## 2026-10-28T10:30:00Z
+Implement functionality from  @.claude/docs/blackbox/todos/save-on-server-multiuser-todos.md Phases: 10.                                                                                                      
+Don't forget to check off implemented boxes.
+On phase completion `make clean build` must pass successfully.
+---
+
+## 2026-10-28T10:33:28Z
+<task-notification>
+<task-id>bknrc8e5e</task-id>
+<tool-use-id>toolu_011UfRD7ruJYyBoxq7aeNWM5</tool-use-id>
+<output-file>/tmp/claude-1000/-home-ilaptop-dev-projects-my-phrasal/bbb6b665-8cfb-47e0-b81c-f6dc966d7b6e/tasks/bknrc8e5e.output</output-file>
+<status>completed</status>
+<summary>Background command "cd /home/ilaptop/dev/projects/my/phrasal/e2e &amp;&amp; python3 - &lt;&lt;'EOF'
+p='src/steps/progress-sync.steps.ts'
+s=open(p).read()
+old=s[s.index("Then('my saved"):s.index("Then('no quiz")]
+new='''Then('my saved {string} progress should have {int} excluded items',
+    async function (this: PhrasalWorld, quizKey: string, expected: number) {
+        // polls: the upload after sign-up is debounced and may land after the step starts
+        const deadline = Date.now() + SAVE_TIMEOUT;
+        let status = 0;
+        let count = -1;
+        while (Date.now() &lt; deadline) {
+            const res = await this.page!.request.get(`${FRONTEND_URL}${PROGRESS_PATH}${quizKey}`);
+            status = res.status();
+            if (status === 200) {
+                count = ((await res.json()).state.excluded ?? []).length;
+                if (count === expected) return;
+            }
+            await this.page!.waitForTimeout(300);
+        }
+        assert.fail(`Saved ${quizKey} progress: status ${status}, excluded ${count}, expected ${expected}`);
+    });
+
+'''
+s=s.replace(old,new)
+a=s.index("When('I wait for the progress save'")
+b=s.index("When('I clear")
+s=s[:a]+s[b:]
+open(p,'w').write(s)
+p='features/frontend/progress-sync.feature'
+s=open(p).read().replace("    And I wait for the progress save\n","")
+open(p,'w').write(s)
+EOF
+cd .. &amp;&amp; (make clean build &gt; /tmp/claude-1000/-home-ilaptop-dev-projects-my-phrasal/9f7cd46a-5653-44f9-926c-587a9119b4b5/scratchpad/phase10-build.log 2&gt;&amp;1; echo "EXIT $?" &gt;&gt; /tmp/claude-1000/-home-ilaptop-dev-projects-my-phrasal/9f7cd46a-5653-44f9-926c-587a9119b4b5/scratchpad/phase10-build.log) &amp;
+sleep 1; echo started" completed (exit code 0)</summary>
+</task-notification>
+---
+
+## 2026-10-28T10:36:41Z
+<task-notification>
+<task-id>bcifr9sva</task-id>
+<tool-use-id>toolu_01Rp6c4zSSNAvoAHKz6wNreH</tool-use-id>
+<output-file>/tmp/claude-1000/-home-ilaptop-dev-projects-my-phrasal/bbb6b665-8cfb-47e0-b81c-f6dc966d7b6e/tasks/bcifr9sva.output</output-file>
+<status>completed</status>
+<summary>Background command "cd /home/ilaptop/dev/projects/my/phrasal/e2e &amp;&amp; python3 - &lt;&lt;'EOF'
+p='features/frontend/progress-sync.feature'
+s=open(p).read()
+s=s.replace('''    And I sign up through the form with a new email
+    Then my saved''','''    And I sign up through the form with a new email
+    And I navigate to the phrasal verbs quiz
+    Then my saved''')
+open(p,'w').write(s)
+EOF
+cd .. &amp;&amp; git status --short &amp;&amp; (make clean build &gt; /tmp/claude-1000/-home-ilaptop-dev-projects-my-phrasal/9f7cd46a-5653-44f9-926c-587a9119b4b5/scratchpad/phase10-build.log 2&gt;&amp;1; echo "EXIT $?" &gt;&gt; /tmp/claude-1000/-home-ilaptop-dev-projects-my-phrasal/9f7cd46a-5653-44f9-926c-587a9119b4b5/scratchpad/phase10-build.log) &gt; /dev/null 2&gt;&amp;1 &amp;
+sleep 1" completed (exit code 0)</summary>
+</task-notification>
+---
+
+## 2026-10-28T10:40:37Z
+git add all changes and commit them with suitable message
+---
