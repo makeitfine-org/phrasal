@@ -469,6 +469,31 @@ docker-compose raises the per-IP limits so the e2e suite can register many users
 **Not yet:** email confirmation, password reset, 2FA and Google sign-in. Accounts are usable right after sign-up.
 Flow diagrams: [`docs/diagrams/auth-flow.md`](docs/diagrams/auth-flow.md).
 
+### Learning progress
+
+Quiz progress (mastered, excluded, history, position) is stored per account, so it survives a cleared browser or a new
+device. Content is addressed by stable database ids, not list positions.
+
+| Endpoint | Success | Errors |
+|---|---|---|
+| `GET /api/v1/me/quiz-progress/{quizKey}` | `200` + `{quizKey, state, version, updatedAt}` | `400` unknown quiz key, `401` anonymous, `404` nothing saved yet |
+| `PUT /api/v1/me/quiz-progress/{quizKey}` `{state}` | `200` + the same shape; `version` starts at `0` and grows with every save | `400` unknown key, `state` not a JSON object or larger than the limit, `401` anonymous, `403` missing CSRF token |
+
+```json
+{ "state": { "schemaVersion": 1, "excluded": [7], "history": [{ "id": 12, "status": "correct" }] } }
+```
+
+- **Quiz keys:** `phrasal-verbs` and `grammar-i-wish-if-only`. Any other key is a `400`.
+- **Limit:** the `state` JSON may be at most 64 KB (`phrasal.quiz-progress.max-state-bytes`, default `65536`).
+- **Sync rules:** an anonymous visitor keeps progress in `localStorage` only and sends no progress requests. After login
+  the server copy wins; if the server has nothing yet, the local progress is uploaded once (first-login import). Changes
+  are saved after a 2 s debounce, and flushed on tab close and logout. Logout clears the local copy of the account's
+  progress. Saves are last-write-wins.
+- **Breaking change:** `isLearned` and the `?learned=` filter were removed from the phrasal-verbs API (migration `V11`);
+  learned state is now per user.
+
+Flow diagrams: [`docs/diagrams/quiz-progress-flow.md`](docs/diagrams/quiz-progress-flow.md).
+
 ---
 
 ## Repository Layout

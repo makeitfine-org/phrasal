@@ -6,7 +6,7 @@ title: >-
 status: To Do
 assignee: []
 created_date: '2026-10-26T17:38:00Z'
-updated_date: '2026-10-28T09:20:00Z'
+updated_date: '2026-10-28T10:46:00Z'
 labels:
   - multi-user
   - frontend
@@ -78,11 +78,11 @@ Logged-in users also expect their quiz progress to follow them across devices.
 - [ ] #4 On the Account/Security page a user can enable 2FA (QR code plus manual secret), see and download recovery codes once, regenerate them, disable 2FA with a code, and delete their account with password confirmation.
 - [ ] #5 An admin without 2FA is clearly prompted to enroll.
 - [ ] #6 Backend errors (ProblemDetail, including 429 rate limits) are shown as readable messages on forms.
-- [ ] #7 Anonymous users keep the current quiz behaviour with localStorage only, and no progress requests are sent.
-- [ ] #8 For a logged-in user, quiz progress is saved to the server and restored after clearing localStorage or on another browser.
-- [ ] #9 On a user's first login, existing local quiz progress is uploaded to their account.
-- [ ] #10 Saved progress references content by stable IDs. Adding or removing a verb does not shift other verbs' mastered or excluded state.
-- [ ] #11 The frontend no longer reads or types the removed isLearned field. Every verb from the API enters the quiz pool unless it is excluded in the visitor's own progress (local or server).
+- [x] #7 Anonymous users keep the current quiz behaviour with localStorage only, and no progress requests are sent.
+- [x] #8 For a logged-in user, quiz progress is saved to the server and restored after clearing localStorage or on another browser.
+- [x] #9 On a user's first login, existing local quiz progress is uploaded to their account.
+- [x] #10 Saved progress references content by stable IDs. Adding or removing a verb does not shift other verbs' mastered or excluded state.
+- [x] #11 The frontend no longer reads or types the removed isLearned field. Every verb from the API enters the quiz pool unless it is excluded in the visitor's own progress (local or server).
 - [ ] #12 frontend/CLAUDE.md is updated: auth context allowed, React 19, new pages, hooks and API files. README.md describes the user-facing auth features.
 - [ ] #13 Vitest tests exist for each new page and hook, for the API client's CSRF and 401 handling, and for sync debounce, first-login import and index-to-ID mapping.
 - [ ] #14 E2E: features/frontend/auth.feature covers register, verify via Mailpit, login and logout. A progress-sync feature verifies that progress survives clearing localStorage for a logged-in user.
@@ -95,4 +95,6 @@ Logged-in users also expect their quiz progress to follow them across devices.
 Partly done in task-99 (2026-10-27): API client write methods with CSRF/ProblemDetail, AuthContext + useAuth, Login and Register pages, UserMenu in the nav bar, and e2e for them. Still open here: 2FA and account screens, and quiz progress sync.
 
 Progress-sync part started 2026-10-28 in `.claude/docs/blackbox/todos/save-on-server-multiuser-todos.md` (branch `quiz-progress`).
+
+Sync part done 2026-10-28: useQuizProgressSync, id mapping, logout flush/clear, progress-sync.feature. AC #13 and #14 are done for the sync part only. Still open: 2FA, account and email-flow screens (AC #1-#6, #12 rest, #15).
 <!-- SECTION:NOTES:END -->

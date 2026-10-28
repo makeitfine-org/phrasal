@@ -35,6 +35,7 @@ Native `fetch` wrapper, no external dependencies. Base URL `/api/v1`.
 |---|---|
 | `client.ts` | `get<T>`, `post<T>`, `put<T>`, `del<T>`; sends `credentials: 'same-origin'` and the `X-XSRF-TOKEN` header (from the `XSRF-TOKEN` cookie, via `utils/cookies.ts`) on non-GET. `ApiError(status, message, problem?)` carries the parsed `ProblemDetail` |
 | `authApi.ts` | `register`, `login`, `logout`, `fetchCurrentUser` (401 → `null`) |
+| `quizProgressApi.ts` | `fetchQuizProgress(key)` (404 → `null`), `saveQuizProgress(key, doc, { keepalive })`; `QuizKey` = `phrasal-verbs` \| `grammar-i-wish-if-only`. `client.put` accepts `{ keepalive }` for saves while the page unloads |
 | `phrasalVerbsApi.ts` | Fetches phrasal verbs → `VerbEntry[]` + `BrowseVerbEntry[]` |
 | `grammarEntriesApi.ts` | Fetches grammar entries by category → `GrammarEntry[]` |
 | `verbDetailsApi.ts` | Fetches verb list summaries and full verb detail sections |
@@ -43,6 +44,7 @@ Native `fetch` wrapper, no external dependencies. Base URL `/api/v1`.
 
 | Hook | Used by |
 |---|---|
+| `useQuizProgressSync({ quizKey, itemIds, snapshot, applyState })` | `useQuiz` (logged-in users only; also exports `flushQuizProgress()`, called on logout) |
 | `usePhrasalVerbs()` | `App.tsx` |
 | `useGrammarEntries(category)` | `IWishPage.tsx` |
 | `useVerbList()` | `PhrasalVerbsListPage.tsx` |
@@ -55,12 +57,17 @@ Only one context: `auth/AuthContext` (default value = anonymous, so components w
 | Owner | localStorage key | Manages |
 |---|---|---|
 | `PageShell` | `phrasalQuizState` → `darkMode` | Dark mode (shared); defaults to OS `prefers-color-scheme` until cached |
-| `PhrasalVerbQuiz` | `phrasalQuizState` | Quiz: mastered, excluded, history, currentIndex |
+| `PhrasalVerbQuiz` | `phrasalQuizState` | Quiz: mastered, excluded, history, currentIndex (localStorage; logged-in users also sync to the server) |
 | `GrammarQuiz` | `grammarIWishState` | Grammar quiz (same shape) |
+| `useQuizProgressSync` | `quizProgressSync` | Per-quiz sync metadata `{ ownerId, dirty }` (who owns the cached progress, unsent changes) |
 | `VerbPageLayout` | per-section/meaning keys | Section/meaning expand/collapse |
 | `PhrasalVerbsListPage` | `verbListExpanded` | Verb list card expand/collapse |
 
 `PageShell` and `PhrasalVerbQuiz` share `phrasalQuizState`. `PhrasalVerbQuiz` preserves fields it doesn't own (like `darkMode`) by merging before writing.
+
+Quiz progress sync: anonymous = localStorage only. A logged-in user's progress is loaded from the server (server wins; an empty server takes the local copy once), saved after a 2 s debounce, and flushed on unmount, `pagehide` and logout. Logout clears the account-owned quiz state from localStorage and the screen.
+
+Utils: `utils/quizProgressMapping.ts` converts between list indexes and stable content ids (`VerbEntry.id`, `GrammarEntry.id`); `utils/quizProgressStorage.ts` reads/writes the sync metadata and clears local quiz state. The old `isLearned` split is gone: every verb enters the quiz pool.
 
 ### Data Files (`src/data/`)
 

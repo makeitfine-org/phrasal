@@ -1293,3 +1293,33 @@
 - e2e/features/frontend/progress-sync.feature
 - e2e/src/steps/progress-sync.steps.ts
 <!-- end-snapshot -->
+
+## 2026-10-28T11:00:00+02:00
+### Decisions
+- Per-user quiz progress: V11 drops is_learned, V12 adds user_quiz_progress; native upsert (last write wins), QuizKey whitelist, 64 KB cap, /api/v1/me/** authenticated.
+- Frontend sync hook (2 s debounce, server wins, first-login import, logout flush + clear local copy) keyed by stable content ids.
+- Plan mutation: split on P6/P7 of docs/blackbox/plans/2026-10-26 18:10 Multi-user accounts TOTP 2FA and reliable storage for phrasal.md — progress sync implemented alone; surrogate id + upsert.
+- Created docs/diagrams/quiz-progress-flow.md; updated docs/diagrams/auth-flow.md (/me/** rule).
+### Constraints Stated by User
+- No commit/push without explicit approval; no Co-Authored-By trailer; `make clean build` must pass per phase.
+### Files Modified
+- backend (progress API), frontend (sync hook, mapping, api), e2e (progress-api, progress-sync features)
+- README.md, backend/CLAUDE.md, frontend/CLAUDE.md, e2e/CLAUDE.md, docs/diagrams/* — docs for the new flow
+### Deferred
+- Prod check 0.4 (is_learned count = 0) before V11 deploy; task-98 backups decision; manual smoke 13.2; reviews 13.3; PR 13.5; task-102 -> Done needs user OK.
+---
+
+<!-- git-snapshot 2026-10-28T10:46:21Z -->
+- .claude/docs/blackbox/audit.md
+- .claude/docs/blackbox/plans/2026-10-26 18:10 Multi-user accounts TOTP 2FA and reliable storage for phrasal.md
+- .claude/docs/blackbox/session-log.md
+- .claude/docs/blackbox/todos/save-on-server-multiuser-todos.md
+- README.md
+- backend/CLAUDE.md
+- backlog/tasks/task-102 - Store-learning-progress-per-user-on-the-server.md
+- backlog/tasks/task-103 - Add-sign-up-login-2FA-and-account-screens-to-the-frontend-and-sync-quiz-progress-for-logged-in-users.md
+- docs/diagrams/auth-flow.md
+- docs/diagrams/quiz-progress-flow.md
+- e2e/CLAUDE.md
+- frontend/CLAUDE.md
+<!-- end-snapshot -->

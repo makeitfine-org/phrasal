@@ -246,3 +246,4 @@ The goal is public sign-up for a few hundred users, with:
 | Date | Type | Change | Reason |
 |---|---|---|---|
 | 2026-10-27 | split | P2 split: email verification + Mailpit deferred; admin bootstrap via config instead of admin-email list | Smaller first release; no email provider yet (task-106) |
+| 2026-10-28 | split | P6/P7 split: progress sync implemented alone. Surrogate id + upsert instead of a composite PK. Migrations V11/V12 instead of V14/V15. Logout clears the local copy. | Smaller release; simpler last-write-wins model |

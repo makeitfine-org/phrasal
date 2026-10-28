@@ -31,10 +31,11 @@ Or step by step:
 features/
   phrasal-verbs-api/    → REST contract scenarios (@api)
   auth-api/             → register/login/logout/rate-limit contract (@api)
-  frontend/             → browser-driven SPA scenarios (incl. auth.feature)
+  progress-api/         → per-user quiz progress contract (@api, quiz-progress.feature)
+  frontend/             → browser-driven SPA scenarios (incl. auth.feature, progress-sync.feature)
 src/
   world.ts              → CustomWorld — shared state per scenario
   hooks.ts              → Before/After lifecycle
-  steps/                → Step definitions (auth-api.steps.ts: register/login/logout/rate limit; auth-ui.steps.ts: forms + user menu)
+  steps/                → Step definitions (auth-api.steps.ts: register/login/logout/rate limit; auth-ui.steps.ts: forms + user menu; quiz-progress-api.steps.ts: progress API; progress-sync.steps.ts: browser sync, uses the test ids `excluded-count` and `exclude-toggle`)
   support/              → api-client.ts (cookie jar), db-client.ts, test-users.ts
 ```

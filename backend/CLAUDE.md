@@ -40,6 +40,15 @@ config/         → Spring @Configuration classes (SecurityConfig = access rules
 - Services use `@Slf4j`, `@RequiredArgsConstructor`, `@Service @Transactional`.
 - Exception handling via `@RestControllerAdvice` with RFC 7807 ProblemDetail.
 
+## Quiz Progress API
+
+- `GET|PUT /api/v1/me/quiz-progress/{quizKey}` (`QuizProgressController`) stores one opaque JSON document per user and quiz in `user_quiz_progress` (`ON DELETE CASCADE` from `users`). The user id comes only from the `AuthenticatedUser` principal, never from the URL or body.
+- `QuizKey` is a whitelist enum (`phrasal-verbs`, `grammar-i-wish-if-only`); an unknown key is `400`. Adding a quiz = a new enum constant plus a frontend `QuizKey` entry.
+- Save is a native upsert (`INSERT … ON CONFLICT … DO UPDATE`, version + 1): last write wins, no optimistic locking.
+- The state is an opaque JSON object; the server never interprets it. Size is capped by `phrasal.quiz-progress.max-state-bytes` (default 65536, `QuizProgressProperties`) → `400 Quiz Progress Too Large`. Never log the state.
+- `SecurityConfig`: `/api/v1/me/**` → authenticated sits right after `GET /api/v1/auth/me`, before the public `GET /api/**` rule.
+- `GlobalExceptionHandler` maps `HttpMessageNotReadableException` to `400 Malformed Request` (a non-object `state` or broken JSON).
+
 ## Coding Rules
 
 - Maven `artifactId` = `backend`, version = semantic `MAJOR.MINOR.PATCH` (currently 0.1.0)

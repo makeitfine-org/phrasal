@@ -799,66 +799,66 @@ Why first: it is small and independent. Our frontend keeps working without chang
 
 ## Phase 11 — Config wiring check (delivery checklist)
 
-- [ ] **11.1** `docker-compose.yml`: no new env vars (`max-state-bytes` has a default in `application.yml`). Write
+- [x] **11.1** `docker-compose.yml`: no new env vars (`max-state-bytes` has a default in `application.yml`). Write
       "no change" in the commit body.
-- [ ] **11.2** `k8s/base` and `k8s/overlays/{dev,prod}`: no new config. `kubectl kustomize k8s/overlays/dev` and `…/prod`
+- [x] **11.2** `k8s/base` and `k8s/overlays/{dev,prod}`: no new config. `kubectl kustomize k8s/overlays/dev` and `…/prod`
       still render.
-- [ ] **11.3** `.github/workflows/ci_cd.yml`:
+- [x] **11.3** `.github/workflows/ci_cd.yml`:
   - no new secrets
   - the e2e job runs every feature folder, the new `progress-api/` included; check the glob/tags
-- [ ] **11.4** `frontend/nginx.conf` and `vite.config.ts`: `/api/v1/me/**` is already proxied under `/api`, so no change
+- [x] **11.4** `frontend/nginx.conf` and `vite.config.ts`: `/api/v1/me/**` is already proxied under `/api`, so no change
       is needed.
 
 ---
 
 ## Phase 12 — Docs, diagrams, backlog
 
-- [ ] **12.1** `README.md` → "Accounts & security": new subsection "Learning progress":
-  - [ ] the endpoint table (GET/PUT, 200/400/401/403/404) and an example body
-  - [ ] the quiz keys
-  - [ ] the 64 KB limit
-  - [ ] the sync rules: anonymous = local only; login = server wins / first-login import; 2 s debounce; logout clears the
+- [x] **12.1** `README.md` → "Accounts & security": new subsection "Learning progress":
+  - [x] the endpoint table (GET/PUT, 200/400/401/403/404) and an example body
+  - [x] the quiz keys
+  - [x] the 64 KB limit
+  - [x] the sync rules: anonymous = local only; login = server wins / first-login import; 2 s debounce; logout clears the
         local copy
-  - [ ] a breaking-change note: `isLearned` and `?learned=` were removed from the phrasal-verbs API
-- [ ] **12.2** `backend/CLAUDE.md`:
+  - [x] a breaking-change note: `isLearned` and `?learned=` were removed from the phrasal-verbs API
+- [x] **12.2** `backend/CLAUDE.md`:
   - the progress API
   - the `QuizKey` whitelist (adding a quiz = an enum constant plus a frontend `QuizKey` entry)
   - the native upsert (last write wins)
   - the opaque JSON document and the size limit
   - the `/api/v1/me/**` rule position in `SecurityConfig`
   - the `HttpMessageNotReadableException` → 400 handler
-- [ ] **12.3** `frontend/CLAUDE.md`:
-  - [ ] State Management table: quiz state = localStorage + server sync for logged-in users; new key `quizProgressSync`;
+- [x] **12.3** `frontend/CLAUDE.md`:
+  - [x] State Management table: quiz state = localStorage + server sync for logged-in users; new key `quizProgressSync`;
         logout clears account-owned quiz state
-  - [ ] the API table: `quizProgressApi.ts`, `put` `keepalive`
-  - [ ] the hooks table: `useQuizProgressSync`
-  - [ ] utils: `quizProgressMapping.ts`, `quizProgressStorage.ts`
-  - [ ] `VerbEntry.id` / `GrammarEntry.id`; the `isLearned` split is gone
-- [ ] **12.4** `e2e/CLAUDE.md`: the `features/progress-api/` and `features/frontend/progress-sync.feature` files, the new
+  - [x] the API table: `quizProgressApi.ts`, `put` `keepalive`
+  - [x] the hooks table: `useQuizProgressSync`
+  - [x] utils: `quizProgressMapping.ts`, `quizProgressStorage.ts`
+  - [x] `VerbEntry.id` / `GrammarEntry.id`; the `isLearned` split is gone
+- [x] **12.4** `e2e/CLAUDE.md`: the `features/progress-api/` and `features/frontend/progress-sync.feature` files, the new
       steps files, and the test ids `excluded-count` / `exclude-toggle`.
-- [ ] **12.5** `docs/diagrams/quiz-progress-flow.md` (blackbox policy, new flow), in Mermaid:
-  - [ ] a sequence diagram: login → GET → 200 apply / 404 import → debounced PUT → upsert
-  - [ ] a flowchart: the load decision (owner / dirty / 200 / 404 / error)
-  - [ ] a sequence diagram: logout → flush → `/auth/logout` → clear the local copy
-- [ ] **12.6** `docs/diagrams/auth-flow.md`: add `/api/v1/me/** → authenticated` to the authorization-rules flowchart
+- [x] **12.5** `docs/diagrams/quiz-progress-flow.md` (blackbox policy, new flow), in Mermaid:
+  - [x] a sequence diagram: login → GET → 200 apply / 404 import → debounced PUT → upsert
+  - [x] a flowchart: the load decision (owner / dirty / 200 / 404 / error)
+  - [x] a sequence diagram: logout → flush → `/auth/logout` → clear the local copy
+- [x] **12.6** `docs/diagrams/auth-flow.md`: add `/api/v1/me/** → authenticated` to the authorization-rules flowchart
       (an existing diagram covering `SecurityConfig`).
-- [ ] **12.7** Plan file `.claude/docs/blackbox/plans/2026-10-26 18:10 Multi-user …md`: append a `## Mutations Log` row:
+- [x] **12.7** Plan file `.claude/docs/blackbox/plans/2026-10-26 18:10 Multi-user …md`: append a `## Mutations Log` row:
       "P6/P7 split: progress sync implemented alone. Surrogate id + upsert instead of a composite PK. Migrations V11/V12
       instead of V14/V15. Logout clears the local copy." Add only; don't delete anything in that folder.
-- [ ] **12.8** Backlog (MCP):
-  - [ ] task-102: check off AC #1–#4 and #6–#11. For AC #5, write "covered by `ON DELETE CASCADE` + a repository test;
+- [x] **12.8** Backlog (MCP):
+  - [x] task-102: check off AC #1–#4 and #6–#11. For AC #5, write "covered by `ON DELETE CASCADE` + a repository test;
         the deletion endpoint is task-100". Add implementation notes and the final summary.
-  - [ ] task-103: check off AC #7–#11. Note that #13 and #14 are done for the sync part, and that 2FA, account and
+  - [x] task-103: check off AC #7–#11. Note that #13 and #14 are done for the sync part, and that 2FA, account and
         email-flow screens remain.
   - [ ] **ask the user** before moving task-102 to `Done`
-- [ ] **12.9** Append the blackbox `session-log.md` entry (format in `.claude/rules/blackbox-policy.md`, no secrets). Mention
+- [x] **12.9** Append the blackbox `session-log.md` entry (format in `.claude/rules/blackbox-policy.md`, no secrets). Mention
       the plan mutation and the new or updated diagrams.
 
 ---
 
 ## Phase 13 — Final verification
 
-- [ ] **13.1** `make clean build` → green: backend verify (JaCoCo 85 %/package, Checkstyle), frontend build + tests,
+- [x] **13.1** `make clean build` → green: backend verify (JaCoCo 85 %/package, Checkstyle), frontend build + tests,
       docker rebuild, e2e.
 - [ ] **13.2** Manual run with `make dockerAll`, at http://localhost:3000:
   - [ ] anonymous: both quizzes work; DevTools shows no `/me/quiz-progress` requests

@@ -60,7 +60,9 @@ flowchart TD
     A -- yes --> ADM[Require ADMIN]
     A -- no --> ME{GET /api/v1/auth/me?}
     ME -- yes --> AUTH[Require login: 401 if anonymous]
-    ME -- no --> RL{POST register or login?}
+    ME -- no --> MEP{/api/v1/me/** ?}
+    MEP -- yes --> AUTH
+    MEP -- no --> RL{POST register or login?}
     RL -- yes --> PUB
     RL -- no --> W{POST / PUT / DELETE on phrasal-verbs, grammar-entries, verb-details?}
     W -- yes --> ADM
@@ -76,4 +78,4 @@ flowchart TD
 
 ## Deferred
 
-Email verification (and Mailpit), password reset, TOTP 2FA, Google sign-in, server-side quiz progress.
+Email verification (and Mailpit), password reset, TOTP 2FA, Google sign-in, ~~server-side quiz progress~~ (done, see [quiz-progress-flow.md](quiz-progress-flow.md)).
