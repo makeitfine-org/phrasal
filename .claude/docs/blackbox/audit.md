@@ -3820,3 +3820,359 @@ is it volume, phrase-postgres-data.
 ## 2026-10-28T11:36:36Z
 git add all changes and commit them with suitable message
 ---
+
+## 2026-10-28T11:53:43Z
+intelligent idea when I see in the table JSONb column type to see a nice JSON, pretty formatted, not like just string.
+---
+
+## 2026-10-28T11:54:31Z
+intelligent idea when I see in the table JSONb column type to see a nice JSON, pretty formatted, not like just string. how to configure it.
+file:///home/ilaptop/Pictures/Screenshots/Screenshot%20from%202026-10-28%2012-52-35.png
+---
+
+## 2026-10-28T11:56:09Z
+thanks
+---
+
+## 2026-10-28T12:09:14Z
+I would like to add sing-up email verification link which is valid for some limited period of time.
+What should I need for implemented?
+Should I configure some services?
+---
+
+## 2026-10-28T12:15:23Z
+
+
+<pasted_content id="81f1">
+Sending email
+  - Prod: a transactional email provider, such as Brevo, Mailgun, Postmark, Resend or Amazon SES. Hetzner blocks outbound port 25 by default, so use a provider's SMTP on port 587 or its HTTP
+    API. Their free tiers cover this volume.
+  - Domain DNS: add SPF, DKIM and DMARC records for your sending domain. Without them, the mails land in spam. This is the part people most often forget.
+  - Dev and e2e: add a Mailpit container to docker-compose.yml. It is a fake SMTP server with a web UI and an HTTP API. The e2e tests can fetch the latest message and extract the link, so
+    the full flow is testable with no real email.
+  - Secrets: store the SMTP host, user and password in a k8s Secret, like your other secrets. Don't put them in the repo.
+</pasted_content id="81f1">
+
+
+Okay, what service to use for this prod email provider? What is the best choice? What prices? Show me the steps to configure it.
+---
+
+## 2026-10-28T12:27:36Z
+file:///home/ilaptop/Pictures/Screenshots/Screenshot%20from%202026-10-28%2013-27-19.png
+---
+
+## 2026-10-28T12:42:41Z
+
+
+<pasted_content id="81f1">
+Setting up Brevo
+
+  1. Create an account at brevo.com and complete the profile. Brevo may ask for company or sender details, and an account review can take some time.
+  2. Add your sending domain under Senders, Domains & Dedicated IPs → Domains → Add a domain. Use something like phrasal.example. You need DNS access for the domain.
+  3. Add the DNS records Brevo shows you at your DNS host:
+     - a Brevo code TXT record, which verifies you own the domain
+     - DKIM, which is a TXT record or CNAMEs
+     - DMARC, a TXT record at _dmarc, for example v=DMARC1; p=none; rua=mailto:you@yourdomain to start
+     - SPF, only if the domain has no SPF record yet. If it does, merge Brevo into the existing record. Brevo's own docs say whether it needs one.
+  4. Wait for the domain to show "authenticated". This can take minutes to hours.
+  5. Add a sender such as no-reply@yourdomain, and verify it.
+  6. Create an SMTP key under SMTP & API → SMTP. Copy the key. Brevo shows it once, and it is not your login password.
+  7. Note the SMTP settings. These are the usual values, so confirm them in your Brevo account:
+     - host: smtp-relay.brevo.com
+     - port: 587 with STARTTLS
+     - user: the login shown on that page
+     - password: the SMTP key
+  8. Store them as a k8s Secret. The command below is a sketch. The key names are placeholders until we pick the final property names.
+  kubectl create secret generic phrasal-smtp \
+    --from-literal=SPRING_MAIL_HOST=smtp-relay.brevo.com \
+    --from-literal=SPRING_MAIL_PORT=587 \
+    --from-literal=SPRING_MAIL_USERNAME='<login>' \
+    --from-literal=SPRING_MAIL_PASSWORD='<smtp-key>'
+     The backend then reads them as environment variables. Never commit these values.
+  9. Test it: send a verification mail to an address at Gmail or Outlook. Check that it arrives in the inbox and not in spam. Then use "show original" to confirm SPF, DKIM and DMARC all say
+     pass.
+  10. Tighten DMARC later, from p=none to p=quarantine, once you've seen clean reports.
+</pasted_content id="81f1">
+
+
+file:///home/ilaptop/Pictures/Screenshots/Screenshot%20from%202026-10-28%2013-41-18.png
+file:///home/ilaptop/Pictures/Screenshots/Screenshot%20from%202026-10-28%2013-41-26.png
+
+What should I click to configure mine.
+
+my domain is phrasalbox.com
+---
+
+## 2026-10-28T12:45:39Z
+file:///home/ilaptop/Pictures/Screenshots/Screenshot%20from%202026-10-28%2013-45-28.png
+---
+
+## 2026-10-28T12:46:58Z
+file:///home/ilaptop/Pictures/Screenshots/Screenshot%20from%202026-10-28%2013-46-43.png
+---
+
+## 2026-10-28T12:50:23Z
+file:///home/ilaptop/Pictures/Screenshots/Screenshot%20from%202026-10-28%2013-47-59.png
+
+
+<pasted_content id="81f1">
+file:///home/ilaptop/Pictures/Screenshots/Screenshot%20from%202026-10-28%2013-49-19.png
+file:///home/ilaptop/Pictures/Screenshots/Screenshot%20from%202026-10-28%2013-49-27.png
+file:///home/ilaptop/Pictures/Screenshots/Screenshot%20from%202026-10-28%2013-49-34.png
+file:///home/ilaptop/Pictures/Screenshots/Screenshot%20from%202026-10-28%2013-49-40.png
+</pasted_content id="81f1">
+
+
+Is it okay?
+---
+
+## 2026-10-28T12:51:24Z
+file:///home/ilaptop/Pictures/Screenshots/Screenshot%20from%202026-10-28%2013-51-16.png
+---
+
+## 2026-10-28T13:15:04Z
+file:///home/ilaptop/Pictures/Screenshots/Screenshot%20from%202026-10-28%2014-14-50.png
+file:///home/ilaptop/Pictures/Screenshots/Screenshot%20from%202026-10-28%2014-14-38.png
+---
+
+## 2026-10-28T13:17:59Z
+file:///home/ilaptop/Pictures/Screenshots/Screenshot%20from%202026-10-28%2014-17-50.png
+---
+
+## 2026-10-28T13:25:46Z
+configured how to test it in the simplest way, just from terminal, by sending some simple mail?
+---
+
+## 2026-10-28T13:26:40Z
+I think I completed the configurion. How to test it in by sending the simple email from terminal for example?
+---
+
+## 2026-10-28T13:33:22Z
+
+
+<pasted_content id="81f1">
+sh email.sh 
+  % Total    % Received % Xferd  Average Speed   Time    Time     Time  Current
+                                 Dload  Upload   Total   Spent    Left  Speed
+  0     0    0     0    0     0      0      0 --:--:-- --:--:-- --:--:--     0* Host smtp-relay.brevo.com:587 was resolved.
+* IPv6: (none)
+* IPv4: 172.246.243.66
+*   Trying 172.246.243.66:587...
+* Connected to smtp-relay.brevo.com (172.246.243.66) port 587
+< 220 smtp-relay.brevo.com ESMTP Service Ready
+> EHLO ilaptop-Latitude-5521
+< 250-Hello ilaptop-Latitude-5521
+< 250-PIPELINING
+< 250-8BITMIME
+< 250-ENHANCEDSTATUSCODES
+< 250-CHUNKING
+< 250-STARTTLS
+< 250-AUTH PLAIN LOGIN CRAM-MD5
+< 250 SIZE 20971520
+> STARTTLS
+< 220 2.0.0 Ready to start TLS
+} [5 bytes data]
+* TLSv1.3 (OUT), TLS handshake, Client hello (1):
+} [512 bytes data]
+*  CAfile: /etc/ssl/certs/ca-certificates.crt
+*  CApath: /etc/ssl/certs
+{ [5 bytes data]
+* TLSv1.3 (IN), TLS handshake, Server hello (2):
+{ [122 bytes data]
+* TLSv1.3 (IN), TLS handshake, Encrypted Extensions (8):
+{ [10 bytes data]
+* TLSv1.3 (IN), TLS handshake, Certificate (11):
+{ [4149 bytes data]
+* TLSv1.3 (IN), TLS handshake, CERT verify (15):
+{ [264 bytes data]
+* TLSv1.3 (IN), TLS handshake, Finished (20):
+{ [36 bytes data]
+* TLSv1.3 (OUT), TLS change cipher, Change cipher spec (1):
+} [1 bytes data]
+* TLSv1.3 (OUT), TLS handshake, Finished (20):
+} [36 bytes data]
+* SSL connection using TLSv1.3 / TLS_AES_128_GCM_SHA256 / X25519 / RSASSA-PSS
+* Server certificate:
+*  subject: CN=smtp-relay-ovh.brevo.com
+*  start date: Oct 19 06:57:06 2026 GMT
+*  expire date: Jan 17 06:57:05 2027 GMT
+*  subjectAltName: host "smtp-relay.brevo.com" matched cert's "smtp-relay.brevo.com"
+*  issuer: C=US; O=Let's Encrypt; CN=YR2
+*  SSL certificate verify ok.
+*   Certificate level 0: Public key type RSA (2048/112 Bits/secBits), signed using sha256WithRSAEncryption
+*   Certificate level 1: Public key type RSA (2048/112 Bits/secBits), signed using sha256WithRSAEncryption
+*   Certificate level 2: Public key type RSA (4096/152 Bits/secBits), signed using sha256WithRSAEncryption
+*   Certificate level 3: Public key type RSA (4096/152 Bits/secBits), signed using sha256WithRSAEncryption
+} [5 bytes data]
+> EHLO ilaptop-Latitude-5521
+{ [5 bytes data]
+* TLSv1.3 (IN), TLS handshake, Newsession Ticket (4):
+{ [122 bytes data]
+< 250-Hello ilaptop-Latitude-5521
+{ [5 bytes data]
+< 250-PIPELINING
+{ [5 bytes data]
+< 250-8BITMIME
+{ [5 bytes data]
+< 250-ENHANCEDSTATUSCODES
+{ [5 bytes data]
+< 250-CHUNKING
+{ [5 bytes data]
+< 250-AUTH LOGIN CRAM-MD5 PLAIN
+{ [5 bytes data]
+< 250 SIZE 20971520
+} [5 bytes data]
+> AUTH CRAM-MD5
+{ [5 bytes data]
+< 334 PDEuMjU5NTc4NzExQGlsYXB0b3AtTGF0aXR1ZGUtNTUyMT4=
+} [5 bytes data]
+> YzA1ZTgzMDAxQHNtdHAtYnJldm8uY29tIGE5NDMzMWIzNzQ2NzI0MTkxODRhM2Y1NGU2NjY4NTRm
+  0     0    0     0    0     0      0      0 --:--:-- --:--:-- --:--:--     0{ [5 bytes data]
+< 235 2.0.0 Authentication succeeded
+} [5 bytes data]
+> MAIL FROM:<no-reply@phrasalbox.com>
+{ [5 bytes data]
+< 250 2.0.0 Roger, accepting mail from <no-reply@phrasalbox.com>
+} [5 bytes data]
+> RCPT TO:<questtv8@gmail.com>
+{ [5 bytes data]
+< 250 2.0.0 I'll make sure <questtv8@gmail.com> gets this
+} [5 bytes data]
+> DATA
+{ [5 bytes data]
+< 354 Go ahead. End your data with <CR><LF>.<CR><LF>
+} [5 bytes data]
+< 554 5.0.0 Header parsing error
+100   196    0     0    0   196      0    345 --:--:-- --:--:-- --:--:--   345
+* Connection #0 to host smtp-relay.brevo.com left intact
+curl: (8) Weird server reply
+</pasted_content id="81f1">
+---
+
+## 2026-10-28T13:35:28Z
+
+
+<pasted_content id="81f1">
+  % Total    % Received % Xferd  Average Speed   Time    Time     Time  Current
+                                 Dload  Upload   Total   Spent    Left  Speed
+  0     0    0     0    0     0      0      0 --:--:-- --:--:-- --:--:--     0* Host smtp-relay.brevo.com:587 was resolved.
+* IPv6: (none)
+* IPv4: 172.246.243.66
+*   Trying 172.246.243.66:587...
+* Connected to smtp-relay.brevo.com (172.246.243.66) port 587
+< 220 smtp-relay.brevo.com ESMTP Service Ready
+> EHLO ilaptop-Latitude-5521
+< 250-Hello ilaptop-Latitude-5521
+< 250-PIPELINING
+< 250-8BITMIME
+< 250-ENHANCEDSTATUSCODES
+< 250-CHUNKING
+< 250-STARTTLS
+< 250-AUTH PLAIN LOGIN CRAM-MD5
+< 250 SIZE 20971520
+> STARTTLS
+< 220 2.0.0 Ready to start TLS
+} [5 bytes data]
+* TLSv1.3 (OUT), TLS handshake, Client hello (1):
+} [512 bytes data]
+*  CAfile: /etc/ssl/certs/ca-certificates.crt
+*  CApath: /etc/ssl/certs
+{ [5 bytes data]
+* TLSv1.3 (IN), TLS handshake, Server hello (2):
+{ [122 bytes data]
+* TLSv1.3 (IN), TLS handshake, Encrypted Extensions (8):
+{ [10 bytes data]
+* TLSv1.3 (IN), TLS handshake, Certificate (11):
+{ [4149 bytes data]
+* TLSv1.3 (IN), TLS handshake, CERT verify (15):
+{ [264 bytes data]
+* TLSv1.3 (IN), TLS handshake, Finished (20):
+{ [36 bytes data]
+* TLSv1.3 (OUT), TLS change cipher, Change cipher spec (1):
+} [1 bytes data]
+* TLSv1.3 (OUT), TLS handshake, Finished (20):
+} [36 bytes data]
+* SSL connection using TLSv1.3 / TLS_AES_128_GCM_SHA256 / X25519 / RSASSA-PSS
+* Server certificate:
+*  subject: CN=smtp-relay-ovh.brevo.com
+*  start date: Oct 19 06:57:06 2026 GMT
+*  expire date: Jan 17 06:57:05 2027 GMT
+*  subjectAltName: host "smtp-relay.brevo.com" matched cert's "smtp-relay.brevo.com"
+*  issuer: C=US; O=Let's Encrypt; CN=YR2
+*  SSL certificate verify ok.
+*   Certificate level 0: Public key type RSA (2048/112 Bits/secBits), signed using sha256WithRSAEncryption
+*   Certificate level 1: Public key type RSA (2048/112 Bits/secBits), signed using sha256WithRSAEncryption
+*   Certificate level 2: Public key type RSA (4096/152 Bits/secBits), signed using sha256WithRSAEncryption
+*   Certificate level 3: Public key type RSA (4096/152 Bits/secBits), signed using sha256WithRSAEncryption
+} [5 bytes data]
+> EHLO ilaptop-Latitude-5521
+{ [5 bytes data]
+* TLSv1.3 (IN), TLS handshake, Newsession Ticket (4):
+{ [122 bytes data]
+< 250-Hello ilaptop-Latitude-5521
+{ [5 bytes data]
+< 250-PIPELINING
+{ [5 bytes data]
+< 250-8BITMIME
+{ [5 bytes data]
+< 250-ENHANCEDSTATUSCODES
+{ [5 bytes data]
+< 250-CHUNKING
+{ [5 bytes data]
+< 250-AUTH PLAIN LOGIN CRAM-MD5
+{ [5 bytes data]
+< 250 SIZE 20971520
+} [5 bytes data]
+> AUTH CRAM-MD5
+{ [5 bytes data]
+< 334 PDEuMTE2OTgzNjgyQGlsYXB0b3AtTGF0aXR1ZGUtNTUyMT4=
+} [5 bytes data]
+> YzA1ZTgzMDAxQHNtdHAtYnJldm8uY29tIDUwODU0NzczNGQzMmZkYThhMjFhYWRlODJmMzE4Zjlm
+{ [5 bytes data]
+< 235 2.0.0 Authentication succeeded
+} [5 bytes data]
+> MAIL FROM:<no-reply@phrasalbox.com>
+{ [5 bytes data]
+< 250 2.0.0 Roger, accepting mail from <no-reply@phrasalbox.com>
+} [5 bytes data]
+> RCPT TO:<questtv8@gmail.com>
+{ [5 bytes data]
+< 250 2.0.0 I'll make sure <questtv8@gmail.com> gets this
+} [5 bytes data]
+> DATA
+{ [5 bytes data]
+< 354 Go ahead. End your data with <CR><LF>.<CR><LF>
+  0     0    0     0    0     0      0      0 --:--:-- --:--:-- --:--:--     0} [5 bytes data]
+< 554 5.0.0 Header parsing error
+100   206    0     0    0   206      0    370 --:--:-- --:--:-- --:--:--   370
+* Connection #0 to host smtp-relay.brevo.com left intact
+curl: (8) Weird server reply
+</pasted_content id="81f1">
+---
+
+## 2026-10-28T13:36:23Z
+ok just create email1.sh file correct and I past login, key, to email and run `sh email1.sh`
+---
+
+## 2026-10-28T13:39:00Z
+all good, thanks
+---
+
+## 2026-10-28T13:52:58Z
+
+
+<pasted_content id="81f1">
+Create detailed email-verification-on-server-multiuser-todos.md fils with checkboxes (- [ ]), which describes a step-by-step implementation for such task:
+
+- Analyze:
+  @".claude/docs/blackbox/plans/2026-10-26 18:10 Multi-user accounts TOTP 2FA and reliable storage for phrasal.md"
+  and @"backlog/tasks/" from task-97 to task-106 md files.
+- I'd like to add sign-up email verification link which is valid for some limited period of time.
+  I have configured Brevo SMTP for production.
+- Each step of implementation should be simple, detailed, granular, covered with backend, frontend and if reasonable with e2e tests.
+- Consider as templates: @.claude/docs/blackbox/todos/multiuser-todos.md
+                         @.claude/docs/blackbox/todos/save-on-server-multiuser-todos.md
+
+- Critical: DO NOT start any steps of implement.
+</pasted_content id="81f1">
+---
