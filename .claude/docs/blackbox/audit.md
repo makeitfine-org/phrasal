@@ -3263,3 +3263,16 @@ Create detailed save-on-server-multiuser-todos.md fils with checkboxes (- [ ]), 
 ## 2026-10-27T22:34:35Z
 git add all changes and commit them with suitable message
 ---
+
+## 2026-10-28T09:09:06Z
+I have in @.claude/settings.local.json 
+
+"command": "LC_TIME=C jq -r --arg e \"\u001b\" '\"\\($e)[1;35m\\(.model.display_name)\\($e)[0m | effort:\\($e)[0;36m \\(.effort.level)\\($e)[0m | context: \\($e)[33m\\(.context_window.used_percentage // 0)%\\($e)[0m\" + (.rate_limits.five_hour | if . then \" | session: \\($e)[32m\\(.used_percentage | round)%\\($e)[0m (resets \\(.resets_at | strflocaltime(\"%H:%M\")))\" else \"\" end) + (.rate_limits.seven_day | if . then \" | week: \\($e)[34m\\(.used_percentage | round)%\\($e)[0m (resets \\(.resets_at | strflocaltime(\"%a %H:%M\")))\" else \"\" end)'"
+
+but reset usages aren't shown.
+fix
+---
+
+## 2026-10-28T09:10:34Z
+git add all changes and commit them with suitable message
+---

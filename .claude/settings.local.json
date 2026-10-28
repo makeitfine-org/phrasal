@@ -217,6 +217,6 @@
   },
   "statusLine": {
     "type": "command",
-    "command": "LC_TIME=C jq -r --arg e \"\u001b\" '\"\\($e)[1;35m\\(.model.display_name)\\($e)[0m | effort:\\($e)[0;36m \\(.effort.level)\\($e)[0m | context: \\($e)[33m\\(.context_window.used_percentage // 0)%\\($e)[0m\" + (.rate_limits.five_hour | if . then \" | session: \\($e)[32m\\(.used_percentage | round)%\\($e)[0m (resets \\(.resets_at | strflocaltime(\"%H:%M\")))\" else \"\" end) + (.rate_limits.seven_day | if . then \" | week: \\($e)[34m\\(.used_percentage | round)%\\($e)[0m (resets \\(.resets_at | strflocaltime(\"%a %H:%M\")))\" else \"\" end)'"
+    "command": "LC_TIME=C jq -r --arg e \"$(printf '\\033')\" 'def t(f): if . == null then \"?\" else ((if type==\"string\" then (try fromdateiso8601 catch (tonumber? // 0)) else . end) | if . > 100000000000 then ./1000 else . end | floor | strflocaltime(f)) end; \"\\($e)[1;35m\\(.model.display_name)\\($e)[0m | effort:\\($e)[0;36m \\(.effort.level)\\($e)[0m | context: \\($e)[33m\\(.context_window.used_percentage // 0)%\\($e)[0m\" + (.rate_limits.five_hour | if . then \" | session: \\($e)[32m\\(.used_percentage | round)%\\($e)[0m (resets \\(.resets_at | t(\"%H:%M\")))\" else \"\" end) + (.rate_limits.seven_day | if . then \" | week: \\($e)[34m\\(.used_percentage | round)%\\($e)[0m (resets \\(.resets_at | t(\"%a %H:%M\")))\" else \"\" end)'"
   }
 }
