@@ -24,3 +24,5 @@ phrasal:
       limit: 100000
     verify-per-ip:
       limit: 100000
+  cleanup:
+    enabled: false

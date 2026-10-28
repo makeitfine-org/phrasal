@@ -891,23 +891,23 @@ sends a verification email and the link works.
 
 Why: expired tokens pile up, and an address squatted by an attacker who can't verify it should become free again.
 
-- [ ] **7.1** `config/SchedulingConfig.java`: `@Configuration @EnableScheduling
+- [x] **7.1** `config/SchedulingConfig.java`: `@Configuration @EnableScheduling
       @ConditionalOnProperty(name = "phrasal.cleanup.enabled", havingValue = "true", matchIfMissing = true)`.
       `application-test.yml`: `phrasal.cleanup.enabled: false`, so no job fires during tests.
-- [ ] **7.2** `application/service/AccountCleanupService.java` (`@Service @RequiredArgsConstructor @Slf4j`):
-  - [ ] `@Transactional int purgeExpiredTokens()`: `deleteExpiredBefore(now - 7 days)` (`TOKEN_RETENTION` constant: keep
+- [x] **7.2** `application/service/AccountCleanupService.java` (`@Service @RequiredArgsConstructor @Slf4j`):
+  - [x] `@Transactional int purgeExpiredTokens()`: `deleteExpiredBefore(now - 7 days)` (`TOKEN_RETENTION` constant: keep
         recently expired rows, so "expired" vs "invalid" stays accurate for a week)
-  - [ ] `@Transactional int purgeUnverifiedAccounts()`: `deleteUnverifiedCreatedBefore(now - unverifiedAccountRetention)`
-  - [ ] `@Scheduled(cron = "${phrasal.cleanup.cron:0 30 3 * * *}")` `void runNightly()`: both, then
+  - [x] `@Transactional int purgeUnverifiedAccounts()`: `deleteUnverifiedCreatedBefore(now - unverifiedAccountRetention)`
+  - [x] `@Scheduled(cron = "${phrasal.cleanup.cron:0 30 3 * * *}")` `void runNightly()`: both, then
         `log.info("Clean-up removed tokens={} unverifiedAccounts={}", …)`. 03:30, after the 03:00 backup (task-98).
-  - [ ] two backend replicas (dev overlay) running it at once is harmless: both deletes are idempotent
-- [ ] **7.3** `AccountCleanupServiceTest` (Mockito, fixed `Clock`): the cutoffs passed to the repositories; the counts are
+  - [x] two backend replicas (dev overlay) running it at once is harmless: both deletes are idempotent
+- [x] **7.3** `AccountCleanupServiceTest` (Mockito, fixed `Clock`): the cutoffs passed to the repositories; the counts are
       logged.
-- [ ] **7.4** `integration/AccountCleanupIntegrationTest` (calls the service directly; scheduling is off):
-  - [ ] an unverified user created 8 days ago (backdate `created_at` with `JdbcTemplate`) → deleted, with its tokens
-  - [ ] an unverified user created 1 day ago → kept; a verified user created 30 days ago → kept
-  - [ ] a token expired 8 days ago → deleted; one expired 1 day ago → kept
-- [ ] **7.5** `cd backend && mvn clean verify` → green. `make clean build` → green. Ask for commit approval →
+- [x] **7.4** `integration/AccountCleanupIntegrationTest` (calls the service directly; scheduling is off):
+  - [x] an unverified user created 8 days ago (backdate `created_at` with `JdbcTemplate`) → deleted, with its tokens
+  - [x] an unverified user created 1 day ago → kept; a verified user created 30 days ago → kept
+  - [x] a token expired 8 days ago → deleted; one expired 1 day ago → kept
+- [x] **7.5** `cd backend && mvn clean verify` → green. `make clean build` → green. Ask for commit approval →
       `feat(backend): purge expired tokens and stale unverified accounts`
 
 ---

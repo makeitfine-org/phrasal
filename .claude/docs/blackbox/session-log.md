@@ -1621,3 +1621,9 @@
 - backend/src/test/java/net/phrasal/integration/AuthLoginIntegrationTest.java
 - backend/src/test/java/net/phrasal/integration/AuthRegisterIntegrationTest.java
 <!-- end-snapshot -->
+
+<!-- git-snapshot 2026-10-28T16:23:37Z -->
+- .claude/docs/blackbox/audit.md
+- .claude/docs/blackbox/todos/email-verification-on-server-multiuser-todos.md
+- backend/src/test/resources/application-test.yml
+<!-- end-snapshot -->
