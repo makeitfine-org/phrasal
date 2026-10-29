@@ -62,9 +62,10 @@ This builds on:
 
 ## Design decisions
 
-1. **Library: `com.eatthepath:java-otp:0.4.0` + `commons-codec` (Base32).**
-   - The plan says `1.0.0`, but that version doesn't exist. Maven Central has 0.4.0 (2022-07) as the latest release.
-     RFC 6238 doesn't change, and the jar has no dependencies, so an older release is acceptable.
+1. **Library: `com.eatthepath:java-otp:1.0.0` + `commons-codec` (Base32).**
+   - Confirmed on Maven Central (`maven-metadata.xml`: latest/release 1.0.0, 2026-08-18). An earlier note here said it
+     didn't exist; that came from a stale search index. 1.0.0 targets Java 8, has no runtime dependencies, and takes a
+     `javax.crypto.SecretKey` (`SecretKeySpec(bytes, "HmacSHA1")` is one).
    - Alternative (Phase 0 asks): about 25 lines of hand-written HMAC-SHA1 with `javax.crypto.Mac`, tested against the same
      RFC vectors. That means no new dependency.
    - `commons-codec` is managed by the Boot BOM (Phase 0 confirms it), so it needs no version.
@@ -257,49 +258,84 @@ This builds on:
 
 ## Phase 0 — Preparation (no code)
 
-- [ ] **0.1** Branch: create `two-factor` from `develop`.
-  - [ ] check that `develop` contains the task-108 work: `git log --oneline develop | grep -i "reset passwords via emailed link"`
-  - [ ] the working tree is clean apart from blackbox files
-- [ ] **0.2** Run `make clean build` once on the untouched branch. Note the baseline here: backend test count, Vitest
+- [x] **0.1** Branch: create `two-factor` from `develop`.
+      Deviation: branched from `main` (2026-10-29). `develop` is an ancestor of `main`, and `main` additionally holds the
+      plan commit `a6836d4`, which `develop` lacks. Merge `two-factor` into `develop` later as usual.
+  - [x] check that `develop` contains the task-108 work: `git log --oneline develop | grep -i "reset passwords via emailed link"` — OK: `b1fef4d feat(backend): reset passwords via emailed link and revoke all sessions`
+  - [x] the working tree is clean apart from blackbox files — only `audit.md` (blackbox) was modified
+- [x] **0.2** Run `make clean build` once on the untouched branch. Note the baseline here: backend test count, Vitest
       files/tests, e2e scenarios/steps.
       (Last known: Vitest 71 files / 1532 tests, e2e 100 scenarios / 730 steps.)
-- [ ] **0.3** Backlog (MCP; the tools are deferred, load them with ToolSearch `select:`):
-  - [ ] move **task-101** to `In Progress` **before** any code; add the note "implementation plan: `2FA-todos.md`
-        (branch `two-factor`)"
-  - [ ] task-101 implementation note: the deviations from the plan (decisions 1, 5, 10, 11), so the AC wording stays
-        valid
-  - [ ] task-103: note that the 2FA screens (AC #2, #4 without account deletion, #5) are planned here
-  - [ ] task-100: note that the "2FA step" part of AC #5 is planned here
-- [ ] **0.4** **Ask the user** to confirm, or change, these decisions. Write the answers here:
-  - [ ] (a) library: java-otp 0.4.0 + commons-codec (recommended), or hand-written HMAC-SHA1 (decision 1)
-  - [ ] (b) endpoints under `/api/v1/me/2fa/*` with `POST …/disable` (recommended), or the plan's `/api/v1/account/2fa`
+      **Baseline (2026-10-29/30, `make clean build` green): backend 410 tests, Vitest 71 files / 1532 tests, e2e 100
+      scenarios / 730 steps.**
+- [x] **0.3** Backlog (MCP; the tools are deferred, load them with ToolSearch `select:`):
+  - [x] move **task-101** to `In Progress` **before** any code; add the note "implementation plan: `2FA-todos.md`
+        (branch `two-factor`)" — done 2026-10-29
+  - [x] task-101 implementation note: the deviations from the plan (decisions 1, 5, 10, 11), so the AC wording stays
+        valid — done
+  - [x] task-103: note that the 2FA screens (AC #2, #4 without account deletion, #5) are planned here — done
+  - [x] task-100: note that the "2FA step" part of AC #5 is planned here — done
+- [x] **0.4** **Ask the user** to confirm, or change, these decisions. Write the answers here:
+  - [x] (a) library: java-otp 0.4.0 + commons-codec (recommended), or hand-written HMAC-SHA1 (decision 1) → **java-otp 1.0.0** + commons-codec. The user pointed out that 1.0.0 exists; verified on Maven Central (`maven-metadata.xml`, released 2026-08-18). Decision 1 and 2.1.1 updated.
+  - [x] (b) endpoints under `/api/v1/me/2fa/*` with `POST …/disable` (recommended), or the plan's `/api/v1/account/2fa` → **`/api/v1/me/2fa/*` + `POST …/disable`**
         + `DELETE` (decision 5)
-  - [ ] (c) `setup` asks for the current password (recommended) (decision 10)
-  - [ ] (d) "2FA on/off" notice emails (recommended) (decision 16)
-- [ ] **0.5** Look up and note the results here:
-  - [ ] java-otp (Context7 or the project README):
+  - [x] (c) `setup` asks for the current password (recommended) (decision 10) → **yes, the current password is required**
+  - [x] (d) "2FA on/off" notice emails (recommended) (decision 16) → **yes, send notices**
+- [x] **0.5** Look up and note the results here:
+  - [x] java-otp (Context7 or the project README):
     - the `TimeBasedOneTimePasswordGenerator(Duration, int, String)` constructor
     - `generateOneTimePassword(Key, Instant)` → `int`
     - the `Key` type (`SecretKeySpec(bytes, "HmacSHA1")`)
     - the latest version on Maven Central (0.4.0 on 2026-10-29)
-  - [ ] `commons-codec` is in the Boot 4.1.2 BOM: `cd backend && mvn -q help:effective-pom | grep -A2 commons-codec`.
+  - [x] `commons-codec` is in the Boot 4.1.2 BOM: `cd backend && mvn -q help:effective-pom | grep -A2 commons-codec`.
         Note whether `Base32#encodeToString` of 20 bytes gives 32 characters without `=` padding.
-  - [ ] the otpauth URI format (Google Authenticator "Key Uri Format"): label `Issuer:account`, URL-encoding of `@`
+  - [x] the otpauth URI format (Google Authenticator "Key Uri Format"): label `Issuer:account`, URL-encoding of `@`
         and spaces, the parameters `secret`, `issuer`, `algorithm`, `digits`, `period`
-  - [ ] Spring Security 7:
+  - [x] Spring Security 7:
     - `SecurityContextRepository#saveContext` after `changeSessionId()` (no change from today's login)
     - how to clear an old session before the pending state (`HttpSession#invalidate` then `getSession(true)`)
-  - [ ] Spring Data JPA: `@Modifying(clearAutomatically = true) @Query("UPDATE …")` returning `int` inside a
+  - [x] Spring Data JPA: `@Modifying(clearAutomatically = true) @Query("UPDATE …")` returning `int` inside a
         `@Transactional` service
-  - [ ] `qrcode` (npm, 1.5.4 on 2026-10-29) + `@types/qrcode` (1.5.6): `QRCode.toDataURL(text, options)` → `Promise<string>`;
+  - [x] `qrcode` (npm, 1.5.4 on 2026-10-29) + `@types/qrcode` (1.5.6): `QRCode.toDataURL(text, options)` → `Promise<string>`;
         the options for margin, size and error-correction level `M`
-  - [ ] `otpauth` (npm, 9.5.2 on 2026-10-29): `new TOTP({ secret: Secret.fromBase32(s), digits: 6, period: 30,
+  - [x] `otpauth` (npm, 9.5.2 on 2026-10-29): `new TOTP({ secret: Secret.fromBase32(s), digits: 6, period: 30,
         algorithm: 'SHA1' }).generate({ timestamp })`
-- [ ] **0.6** `grep -rn "new RateLimitProperties(\|new AuthenticatedUser(\|new UserResponse(\|new AppUserDetails(" backend/src`
+- [x] **0.6** `grep -rn "new RateLimitProperties(\|new AuthenticatedUser(\|new UserResponse(\|new AppUserDetails(" backend/src`
       and note the call sites. Phases 3–4 change these constructors.
-- [ ] **0.7** `grep -rn "logged in as the admin\|adminCredentials" e2e` and note the hits.
+- [x] **0.7** `grep -rn "logged in as the admin\|adminCredentials" e2e` and note the hits.
       (2026-10-29: only `crud.feature → Admin creates a phrasal verb`.) Phase 7 changes that step.
-- [ ] **0.8** Write down the RFC 6238 Appendix B SHA-1 vectors for Phase 2. The 6-digit code is the last 6 digits of the
+- **0.5 results**
+  - java-otp **1.0.0** (Java 8 target, no runtime dependencies):
+    `new TimeBasedOneTimePasswordGenerator(Duration, int, String)` throws `NoSuchAlgorithmException`
+    (constants `DEFAULT_TIME_STEP`, `TOTP_ALGORITHM_HMAC_SHA1`).
+    `generateOneTimePassword(SecretKey, Instant)` → `int`, `generateOneTimePasswordString(SecretKey, Instant)` →
+    zero-padded `String`, `validateOneTimePassword(SecretKey, Instant, String)` → `boolean`; all throw
+    `InvalidKeyException`. The key type is `javax.crypto.SecretKey` (`new SecretKeySpec(bytes, "HmacSHA1")` works).
+    Use `generateOneTimePasswordString` and compare in constant time ourselves, since we need the matching step.
+  - `commons-codec` **1.21.0** is managed by `spring-boot-dependencies:4.1.2` (`commons-codec.version`).
+    `new Base32().encodeToString(new byte[20])` gives **32 characters, no `=` padding** (checked).
+  - otpauth URI (the `otpauth` npm example): `otpauth://totp/ACME:Alice?issuer=ACME&secret=…&algorithm=SHA1&digits=6&period=30`.
+    Backend builds the same, URL-encoding label and issuer (`@` → `%40`, space → `%20`).
+  - Spring Security 7: after a programmatic login, build the `SecurityContext` and call
+    `SecurityContextRepository#saveContext(context, request, response)` (same as today's login). `changeSessionId()`
+    keeps attributes, so the pending-state flow invalidates the old session first (`HttpSession#invalidate`, then
+    `request.getSession(true)`). Context7 doesn't show that second part; Phase 4 checks it with a test.
+  - Spring Data JPA: `@Modifying(clearAutomatically = true) @Query(...)` returning `int` (standard; used in Phase 1).
+  - `qrcode` npm **1.5.4**: `QRCode.toDataURL(text, { errorCorrectionLevel: 'M', margin: 2, width: 200 })` →
+    `Promise<string>` (`width` is honored only if ≥ 21 and ≥ symbol + 2 × margin). `@types/qrcode` is checked in Phase 9.
+  - `otpauth` npm **9.5.2**: `new TOTP({ secret: Secret.fromBase32(s), digits: 6, period: 30, algorithm: 'SHA1' })`;
+    `generate({ timestamp })` takes **milliseconds** and returns a `string`.
+- **0.6 results** (call sites to change in Phases 3–4):
+  - `new UserResponse(`: `presentation/rest/AuthController.java:100`, `presentation/security/SessionAuthenticator.java:53`;
+    tests `UserMapperTest:25`, `SessionAuthenticatorTest:63`
+  - `new AuthenticatedUser(`: `infrastructure/security/AppUserDetails.java:20`; tests `AuthenticatedUserTest` (3),
+    `SessionAuthenticatorTest:67`, `AppUserDetailsTest:32`
+  - `new AppUserDetails(`: `JpaUserDetailsService:24`; tests `AppUserDetailsTest`, `SessionAuthenticatorTest:50`,
+    `config/SecurityConfigAuthenticationTest:45`
+  - `new RateLimitProperties(`: only `infrastructure/security/RateLimiterTest.java:26` (10 rules passed positionally)
+- **0.7 results**: `crud.feature:28` (`Given I am logged in as the admin`) → `e2e/src/steps/auth-api.steps.ts:31` →
+  `e2e/src/support/test-users.ts:9` `adminCredentials()`.
+- [x] **0.8** Write down the RFC 6238 Appendix B SHA-1 vectors for Phase 2. The 6-digit code is the last 6 digits of the
       8-digit value, because both are `binary mod 10^digits`:
   - secret = ASCII `12345678901234567890`
   - `T = 59` → `94287082` → `287082`
@@ -422,7 +458,7 @@ So `make clean build` passes after every phase. **Don't release from the branch 
 
 ### 2.1 Dependencies
 - [ ] **2.1.1** `backend/pom.xml`:
-  - [ ] `com.eatthepath:java-otp` with a `<java-otp.version>0.4.0</java-otp.version>` property (or nothing, if 0.4 (a)
+  - [ ] `com.eatthepath:java-otp` with a `<java-otp.version>1.0.0</java-otp.version>` property (or nothing, if 0.4 (a)
         chose the hand-written version)
   - [ ] `commons-codec:commons-codec` without a version (BOM)
 - [ ] **2.1.2** `cd backend && mvn -q dependency:tree -Dincludes=com.eatthepath,commons-codec` shows both, and java-otp
@@ -471,7 +507,7 @@ So `make clean build` passes after every phase. **Don't release from the branch 
 - [ ] **2.4.1** `@Component`, constants `TIME_STEP = Duration.ofSeconds(30)`, `CODE_DIGITS = 6`, `ALLOWED_DRIFT_STEPS = 1`.
 - [ ] **2.4.2** `long stepAt(Instant now)` → `now.getEpochSecond() / 30`.
 - [ ] **2.4.3** `String codeAt(byte[] secret, long step)`: java-otp (`HmacSHA1`), zero-padded to 6 digits
-      (`String.format("%06d", …)`).
+      (`generateOneTimePasswordString(SecretKey, Instant)` pads already; 1.0.0 API).
 - [ ] **2.4.4** `OptionalLong matchingStep(byte[] secret, String code, Instant now)`:
   - [ ] the code isn't exactly 6 ASCII digits → empty, with no HMAC computed
   - [ ] tries steps `now − 1`, `now`, `now + 1`; compares with `MessageDigest.isEqual`; returns the matching step
@@ -1281,7 +1317,7 @@ So `make clean build` passes after every phase. **Don't release from the branch 
       the 2FA condition to the authorization flowchart.
 - [ ] **12.7** Plan file `.claude/docs/blackbox/plans/2026-10-26 18:10 Multi-user …md`: append a `## Mutations Log` row
       (add only, don't delete anything in that folder):
-      `| <date> | split | P4 done as task-101 + 2FA screens of task-103: java-otp 0.4.0 (1.0.0 doesn't exist); endpoints under /api/v1/me/2fa + POST disable; setup needs the password; confirm elevates the session; V15 instead of V12 (also deletes admin sessions) | Reuse the /me/** rule; prevent lockout via a stolen session |`
+      `| <date> | split | P4 done as task-101 + 2FA screens of task-103: java-otp 1.0.0; endpoints under /api/v1/me/2fa + POST disable; setup needs the password; confirm elevates the session; V15 instead of V12 (also deletes admin sessions) | Reuse the /me/** rule; prevent lockout via a stolen session |`
 - [ ] **12.8** Backlog (MCP):
   - [ ] task-101: check off the AC that are done, and add implementation notes and a final summary
   - [ ] task-103: note that the 2FA screens are done (AC #2, #5, the 2FA part of #4, #6, #13, #14); account deletion

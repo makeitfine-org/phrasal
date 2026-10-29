@@ -6,7 +6,7 @@ title: >-
 status: To Do
 assignee: []
 created_date: '2026-10-26T17:38:00Z'
-updated_date: '2026-10-29T19:23:00Z'
+updated_date: '2026-10-29T22:47:00Z'
 labels:
   - multi-user
   - frontend
@@ -103,4 +103,6 @@ Done in task-107: the /verify-email page (VerifyEmailPage), the resend action (R
 2026-10-29: the Forgot password and Reset password pages (part of AC #1, #6, #13) are planned in TASK-108 (`.claude/docs/blackbox/todos/reset-password-todos.md`, branch `password-reset`).
 
 2026-10-29: the Forgot password and Reset password pages, the login-page link, the shared PasswordRequirements component, Vitest tests and the browser e2e (features/frontend/password-reset.feature) are done in TASK-108 (part of AC #1, #6, #13). Still open: 2FA and account screens, AC #12 rest and #15.
+
+2026-10-29: the 2FA screens (AC #2, #4 without account deletion, #5) are planned in TASK-101's `.claude/docs/blackbox/todos/2FA-todos.md` (branch `two-factor`, Phases 8-10).
 <!-- SECTION:NOTES:END -->

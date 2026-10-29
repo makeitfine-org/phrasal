@@ -2021,3 +2021,11 @@
 - .claude/docs/blackbox/session-log.md
 - backlog/drafts/hard.md
 <!-- end-snapshot -->
+
+<!-- git-snapshot 2026-10-29T23:01:48Z -->
+- .claude/docs/blackbox/audit.md
+- .claude/docs/blackbox/todos/2FA-todos.md
+- backlog/tasks/task-100 - Let-users-reset-forgotten-passwords-delete-their-account-and-protect-auth-endpoints-from-abuse.md
+- backlog/tasks/task-101 - Add-authenticator-app-2FA-TOTP-with-recovery-codes-mandatory-for-admins.md
+- backlog/tasks/task-103 - Add-sign-up-login-2FA-and-account-screens-to-the-frontend-and-sync-quiz-progress-for-logged-in-users.md
+<!-- end-snapshot -->

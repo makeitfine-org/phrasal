@@ -1,9 +1,10 @@
 ---
 id: TASK-101
 title: Add authenticator-app 2FA (TOTP) with recovery codes, mandatory for admins
-status: To Do
+status: In Progress
 assignee: []
 created_date: '2026-10-26T17:37:00Z'
+updated_date: '2026-10-29T22:47:00Z'
 labels:
   - multi-user
   - security
@@ -82,3 +83,9 @@ Admin accounts can change content that every visitor sees. A stolen admin passwo
 - [ ] #12 README.md documents 2FA usage and the key backup requirement. backend/CLAUDE.md documents the 2FA design.
 - [ ] #13 `make clean build` passes
 <!-- AC:END -->
+
+## Implementation Notes
+
+<!-- SECTION:NOTES:BEGIN -->
+2026-10-29: implementation plan: `.claude/docs/blackbox/todos/2FA-todos.md` (branch `two-factor`). Deviations from the plan, subject to confirmation in Phase 0.4: java-otp 0.4.0 (1.0.0 does not exist); endpoints under /api/v1/me/2fa/* with POST .../disable; setup asks for the current password; on/off notice emails.
+<!-- SECTION:NOTES:END -->
