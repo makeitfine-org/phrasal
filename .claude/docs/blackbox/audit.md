@@ -4863,3 +4863,34 @@ and frontend port export PORT=3000
 ## 2026-10-29T21:30:28Z
 git add all changes and commit them with suitable message
 ---
+
+## 2026-10-29T22:03:58Z
+Check what is the last release version now and output without applying or code changing anything for the new one: tag, description and steps for git applying.
+---
+
+## 2026-10-29T22:07:19Z
+execute steps: 2, 3
+---
+
+## 2026-10-29T22:24:42Z
+
+
+<pasted_content id="d2ac">
+
+Create detailed 2FA-todos.md fils with checkboxes (- [ ]), which describes a step-by-step implementation for such task:
+
+- Analyze:
+  @".claude/docs/blackbox/plans/2026-10-26 18:10 Multi-user accounts TOTP 2FA and reliable storage for phrasal.md"
+  and @"backlog/tasks/" from task-97 to task-108 md files.
+  Consider that was done in @.claude/docs/blackbox/todos/
+- I'd like to just implement 2FA
+- Each step of implementation should be simple, detailed, granular, covered with backend, frontend and if reasonable with e2e tests.
+- Consider as template: @.claude/docs/blackbox/todos/multiuser-todos.md
+
+- Critical: DO NOT start any steps of implement.
+</pasted_content id="d2ac">
+---
+
+## 2026-10-29T22:42:40Z
+git add all changes and commit them with suitable message
+---

@@ -2006,3 +2006,18 @@
 - .claude/docs/blackbox/todos/reset-password-todos.md
 - README.md
 <!-- end-snapshot -->
+
+<!-- git-snapshot 2026-10-29T22:04:10Z -->
+- .claude/docs/blackbox/audit.md
+<!-- end-snapshot -->
+
+<!-- git-snapshot 2026-10-29T22:07:33Z -->
+- .claude/docs/blackbox/audit.md
+- .claude/docs/blackbox/session-log.md
+<!-- end-snapshot -->
+
+<!-- git-snapshot 2026-10-29T22:42:12Z -->
+- .claude/docs/blackbox/audit.md
+- .claude/docs/blackbox/session-log.md
+- backlog/drafts/hard.md
+<!-- end-snapshot -->
