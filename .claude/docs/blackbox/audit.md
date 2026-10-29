@@ -4932,3 +4932,31 @@ Add Claude code hook on Stop "curl -X POST \"https://api.telegram.org/bot$NOTIFI
 ## 2026-10-29T23:46:33Z
 git add all changes and commit them with suitable message
 ---
+
+## 2026-10-29T23:48:06Z
+when I give a Claude code ask something interactively is there an ability to active some hook?
+---
+
+## 2026-10-29T23:49:44Z
+yes
+---
+
+## 2026-10-29T23:53:06Z
+iterative questions
+---
+
+## 2026-10-29T23:53:24Z
+ask me two interactive questions.
+---
+
+## 2026-10-29T23:55:16Z
+ask me two interactive questions.
+---
+
+## 2026-10-29T23:55:38Z
+time in Warsaw now
+---
+
+## 2026-10-29T23:55:50Z
+git add all changes and commit them with suitable message
+---
