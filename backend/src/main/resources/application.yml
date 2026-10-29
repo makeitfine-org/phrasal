@@ -94,6 +94,12 @@ phrasal:
     verify-per-ip:
       limit: ${RATE_LIMIT_VERIFY_PER_IP:30}
       window: 5m
+    forgot-per-ip:
+      limit: ${RATE_LIMIT_FORGOT_PER_IP:10}
+      window: 1h
+    forgot-per-email:
+      limit: ${RATE_LIMIT_FORGOT_PER_EMAIL:3}
+      window: 1h
   quiz-progress:
     max-state-bytes: 65536
   app:

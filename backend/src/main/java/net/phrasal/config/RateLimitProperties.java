@@ -15,10 +15,13 @@ import java.time.Duration;
  * @param resendPerIp     verification email resends per client IP
  * @param resendPerEmail  verification email resends per normalized email
  * @param verifyPerIp     verification link redemptions per client IP
+ * @param forgotPerIp     password reset requests per client IP
+ * @param forgotPerEmail  password reset requests per normalized email
  */
 @ConfigurationProperties("phrasal.rate-limit")
 public record RateLimitProperties(boolean enabled, Rule registerPerIp, Rule registerPerEmail, Rule loginPerIp,
-                                  Rule loginPerEmail, Rule resendPerIp, Rule resendPerEmail, Rule verifyPerIp) {
+                                  Rule loginPerEmail, Rule resendPerIp, Rule resendPerEmail, Rule verifyPerIp,
+                                  Rule forgotPerIp, Rule forgotPerEmail) {
 
     /**
      * One limit.

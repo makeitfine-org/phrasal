@@ -19,7 +19,8 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
         "phrasal.rate-limit.register-per-email.limit=2",
         "phrasal.rate-limit.login-per-email.limit=3",
         "phrasal.rate-limit.login-per-ip.limit=1000",
-        "phrasal.rate-limit.resend-per-email.limit=2"
+        "phrasal.rate-limit.resend-per-email.limit=2",
+        "phrasal.rate-limit.forgot-per-email.limit=2"
 })
 @DisplayName("Rate limit integration")
 class RateLimitIntegrationTest extends AbstractIntegrationTest {
@@ -95,6 +96,22 @@ class RateLimitIntegrationTest extends AbstractIntegrationTest {
                 .andExpect(status().isTooManyRequests())
                 .andExpect(header().exists("Retry-After"));
         mockMvc.perform(authPost("/api/v1/auth/resend-verification", uniqueEmail(), "10.3.0.9"))
+                .andExpect(status().isAccepted());
+    }
+
+    @Test
+    @DisplayName("third forgot-password for one email returns 429, also for an unknown address")
+    void forgotPerEmail() throws Exception {
+        String unknown = uniqueEmail();
+        for (int i = 0; i < 2; i++) {
+            mockMvc.perform(authPost("/api/v1/auth/forgot-password", unknown, "10.4.0." + i))
+                    .andExpect(status().isAccepted());
+        }
+
+        mockMvc.perform(authPost("/api/v1/auth/forgot-password", unknown, "10.4.0.9"))
+                .andExpect(status().isTooManyRequests())
+                .andExpect(header().exists("Retry-After"));
+        mockMvc.perform(authPost("/api/v1/auth/forgot-password", uniqueEmail(), "10.4.0.9"))
                 .andExpect(status().isAccepted());
     }
 }

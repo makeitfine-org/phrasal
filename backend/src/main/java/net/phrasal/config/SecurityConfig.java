@@ -102,7 +102,8 @@ public class SecurityConfig {
                         .requestMatchers(HttpMethod.GET, "/api/v1/auth/me").authenticated()
                         .requestMatchers("/api/v1/me/**").authenticated()
                         .requestMatchers(HttpMethod.POST, "/api/v1/auth/register", "/api/v1/auth/login",
-                                "/api/v1/auth/verify-email", "/api/v1/auth/resend-verification").permitAll()
+                                "/api/v1/auth/verify-email", "/api/v1/auth/resend-verification",
+                                "/api/v1/auth/forgot-password").permitAll()
                         .requestMatchers(HttpMethod.POST, CONTENT_PATHS).hasRole(ADMIN)
                         .requestMatchers(HttpMethod.PUT, CONTENT_PATHS).hasRole(ADMIN)
                         .requestMatchers(HttpMethod.DELETE, CONTENT_PATHS).hasRole(ADMIN)

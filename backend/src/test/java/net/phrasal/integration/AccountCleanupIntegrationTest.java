@@ -50,6 +50,19 @@ class AccountCleanupIntegrationTest extends AbstractIntegrationTest {
         assertThat(tokenExists(fresh)).isTrue();
     }
 
+    @Test
+    @DisplayName("purges expired password reset tokens on the same schedule as verification tokens")
+    void purgesExpiredResetTokens() {
+        long owner = insertUser(LocalDateTime.now().minusHours(1), true);
+        String stale = insertToken(owner, "PASSWORD_RESET", LocalDateTime.now().minusDays(8));
+        String fresh = insertToken(owner, "PASSWORD_RESET", LocalDateTime.now().minusDays(1));
+
+        cleanupService.purgeExpiredTokens();
+
+        assertThat(tokenExists(stale)).isFalse();
+        assertThat(tokenExists(fresh)).isTrue();
+    }
+
     private long insertUser(LocalDateTime createdAt, boolean verified) {
         String email = "cleanup-" + UUID.randomUUID() + "@it.test";
         return jdbc.queryForObject("INSERT INTO users (email, password_hash, role, created_at, email_verified_at) "
@@ -58,10 +71,14 @@ class AccountCleanupIntegrationTest extends AbstractIntegrationTest {
     }
 
     private String insertToken(long userId, LocalDateTime expiresAt) {
+        return insertToken(userId, "EMAIL_VERIFICATION", expiresAt);
+    }
+
+    private String insertToken(long userId, String type, LocalDateTime expiresAt) {
         String hash = UUID.randomUUID().toString().replace("-", "")
                 + UUID.randomUUID().toString().replace("-", "");
         jdbc.update("INSERT INTO user_tokens (user_id, type, token_hash, expires_at) "
-                + "VALUES (?, 'EMAIL_VERIFICATION', ?, ?)", userId, hash, expiresAt);
+                + "VALUES (?, ?, ?, ?)", userId, type, hash, expiresAt);
         return hash;
     }
 

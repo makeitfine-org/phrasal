@@ -34,6 +34,8 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 @Import(RecordingEmailSenderConfig.class)
 abstract class AbstractIntegrationTest {
 
+    static final String PASSWORD_RESET_SUBJECT = "Reset your Phrasal password";
+
     static final PostgreSQLContainer POSTGRES = new PostgreSQLContainer("postgres:16-alpine")
             .withDatabaseName("phrasaldb_test")
             .withUsername("test")
@@ -86,6 +88,18 @@ abstract class AbstractIntegrationTest {
         String token = mailbox.awaitVerificationToken(email);
         mockMvc.perform(post("/api/v1/auth/verify-email").contentType(MediaType.APPLICATION_JSON)
                 .content("{\"token\":\"" + token + "\"}").with(csrf())).andExpect(status().isNoContent());
+    }
+
+    /**
+     * Asks for a password reset over HTTP, waits for the new mail and returns the raw token from its link.
+     * Safe to call repeatedly for one address: it waits for a mail beyond those already received.
+     */
+    protected String requestPasswordReset(String email) throws Exception {
+        int before = mailbox.countWithSubject(email, PASSWORD_RESET_SUBJECT);
+        mockMvc.perform(post("/api/v1/auth/forgot-password").contentType(MediaType.APPLICATION_JSON)
+                .content("{\"email\":\"" + email + "\"}").with(csrf())).andExpect(status().isAccepted());
+        mailbox.awaitSubjectCount(email, PASSWORD_RESET_SUBJECT, before + 1);
+        return mailbox.awaitPasswordResetToken(email);
     }
 
     @DynamicPropertySource

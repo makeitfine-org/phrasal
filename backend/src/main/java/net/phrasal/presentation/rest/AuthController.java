@@ -5,6 +5,7 @@ import jakarta.servlet.http.HttpServletResponse;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import net.phrasal.application.dto.AcceptedResponse;
+import net.phrasal.application.dto.ForgotPasswordRequest;
 import net.phrasal.application.dto.LoginRequest;
 import net.phrasal.application.dto.RegisterRequest;
 import net.phrasal.application.dto.ResendVerificationRequest;
@@ -12,6 +13,7 @@ import net.phrasal.application.dto.UserResponse;
 import net.phrasal.application.dto.VerifyEmailRequest;
 import net.phrasal.application.service.AuthService;
 import net.phrasal.application.service.EmailVerificationService;
+import net.phrasal.application.service.PasswordResetService;
 import net.phrasal.config.RateLimitProperties;
 import net.phrasal.infrastructure.security.AuthenticatedUser;
 import net.phrasal.infrastructure.security.EmailNormalizer;
@@ -33,6 +35,7 @@ public class AuthController {
 
     private final AuthService authService;
     private final EmailVerificationService emailVerificationService;
+    private final PasswordResetService passwordResetService;
     private final SessionAuthenticator sessionAuthenticator;
     private final RateLimiter rateLimiter;
     private final RateLimitProperties rateLimits;
@@ -70,6 +73,16 @@ public class AuthController {
         rateLimiter.check("resend-per-email", rateLimits.resendPerEmail(),
                 EmailNormalizer.normalize(request.email()));
         emailVerificationService.resend(request.email());
+        return ResponseEntity.status(HttpStatus.ACCEPTED).body(AcceptedResponse.CHECK_INBOX);
+    }
+
+    @PostMapping("/forgot-password")
+    public ResponseEntity<AcceptedResponse> forgotPassword(@Valid @RequestBody ForgotPasswordRequest request,
+                                                           HttpServletRequest httpRequest) {
+        rateLimiter.check("forgot-per-ip", rateLimits.forgotPerIp(), httpRequest.getRemoteAddr());
+        rateLimiter.check("forgot-per-email", rateLimits.forgotPerEmail(),
+                EmailNormalizer.normalize(request.email()));
+        passwordResetService.requestReset(request.email());
         return ResponseEntity.status(HttpStatus.ACCEPTED).body(AcceptedResponse.CHECK_INBOX);
     }
 

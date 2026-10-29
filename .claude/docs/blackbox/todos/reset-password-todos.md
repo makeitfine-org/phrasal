@@ -331,9 +331,9 @@ newest" would then return that one instead of the async reset email.
 ## Phase 2 — Forgot-password endpoint
 
 ### 2.1 Configuration
-- [ ] **2.1.1** `config/RateLimitProperties.java`: add `Rule forgotPerIp, Rule forgotPerEmail`, with Javadoc `@param`s.
+- [x] **2.1.1** `config/RateLimitProperties.java`: add `Rule forgotPerIp, Rule forgotPerEmail`, with Javadoc `@param`s.
       Update every `new RateLimitProperties(` call site from 0.5.
-- [ ] **2.1.2** `application.yml` under `phrasal.rate-limit` (decision 10):
+- [x] **2.1.2** `application.yml` under `phrasal.rate-limit` (decision 10):
   ```yaml
   forgot-per-ip:
     limit: ${RATE_LIMIT_FORGOT_PER_IP:10}
@@ -342,71 +342,73 @@ newest" would then return that one instead of the async reset email.
     limit: ${RATE_LIMIT_FORGOT_PER_EMAIL:3}
     window: 1h
   ```
-- [ ] **2.1.3** `backend/src/test/resources/application-test.yml`: both rules at `100000`, like the existing ones.
-- [ ] **2.1.4** `docker-compose.yml`, `backend.environment`: `RATE_LIMIT_FORGOT_PER_IP: "1000"` (e2e sends many requests
+- [x] **2.1.3** `backend/src/test/resources/application-test.yml`: both rules at `100000`, like the existing ones.
+- [x] **2.1.4** `docker-compose.yml`, `backend.environment`: `RATE_LIMIT_FORGOT_PER_IP: "1000"` (e2e sends many requests
       from one IP). Keep `RATE_LIMIT_FORGOT_PER_EMAIL` at its default, so e2e can test the `429`.
 
 ### 2.2 Service
-- [ ] **2.2.1** `application/service/PasswordResetService.java` (`@Service @Transactional @RequiredArgsConstructor @Slf4j`),
+- [x] **2.2.1** `application/service/PasswordResetService.java` (`@Service @Transactional @RequiredArgsConstructor @Slf4j`),
       dependencies so far: `UserRepository`, `UserTokenRepository`, `SecureTokenGenerator`, `PasswordResetProperties`,
       `Clock`, `ApplicationEventPublisher`. Phase 3 adds more.
-- [ ] **2.2.2** `void requestReset(String rawEmail)`:
+- [x] **2.2.2** `void requestReset(String rawEmail)`:
   1. `email = EmailNormalizer.normalize(rawEmail)`
   2. `userRepository.findByEmail(email).ifPresent(this::issueFor)`. Verified **and** unverified accounts get a link
      (decision 4); unknown addresses return silently.
-- [ ] **2.2.3** `private void issueFor(User user)`, the same shape as `EmailVerificationService.issueFor`:
+- [x] **2.2.3** `private void issueFor(User user)`, the same shape as `EmailVerificationService.issueFor`:
   1. `now = LocalDateTime.now(clock)`
   2. `userTokenRepository.invalidateActive(user.getId(), PASSWORD_RESET, now)` (only the newest link works)
   3. `IssuedToken t = tokenGenerator.generate()`; save
      `new UserToken(userId, PASSWORD_RESET, t.hash(), now.plus(properties.tokenTtl()))`
   4. `eventPublisher.publishEvent(new PasswordResetEmailRequested(userId, user.getEmail(), t.rawToken()))`
   5. `log.debug("Password reset requested userId={}", userId)`
-- [ ] **2.2.4** `PasswordResetServiceTest` (Mockito, fixed `Clock`), request part:
-  - [ ] existing verified user: `invalidateActive(…, PASSWORD_RESET, now)` runs **before** `save` (Mockito `inOrder`);
+- [x] **2.2.4** `PasswordResetServiceTest` (Mockito, fixed `Clock`), request part:
+  - [x] existing verified user: `invalidateActive(…, PASSWORD_RESET, now)` runs **before** `save` (Mockito `inOrder`);
         saved hash = `SecureTokenGenerator.hash(raw)`; `expiresAt = now + ttl`; the event carries the raw token
-  - [ ] existing unverified user → also gets a token and an event
-  - [ ] unknown email → no `save`, no `invalidateActive`, no event
-  - [ ] the email is normalized before the lookup (`"  Bob@X.com "` → `"bob@x.com"`)
-  - [ ] negative: verification tokens are never invalidated by a reset request (`invalidateActive` is never called
+  - [x] existing unverified user → also gets a token and an event
+  - [x] unknown email → no `save`, no `invalidateActive`, no event
+  - [x] the email is normalized before the lookup (`"  Bob@X.com "` → `"bob@x.com"`)
+  - [x] negative: verification tokens are never invalidated by a reset request (`invalidateActive` is never called
         with `EMAIL_VERIFICATION`)
 
 ### 2.3 DTO and controller
-- [ ] **2.3.1** `application/dto/ForgotPasswordRequest.java`:
+- [x] **2.3.1** `application/dto/ForgotPasswordRequest.java`:
       `record ForgotPasswordRequest(@NotBlank @Size(max = 254) String email)`. No `@Email`, for the same reason as
       `ResendVerificationRequest`: normalize first. `@Size` keeps the rate-limiter key bounded.
-- [ ] **2.3.2** `AuthController`: `@PostMapping("/forgot-password")`:
+- [x] **2.3.2** `AuthController`: `@PostMapping("/forgot-password")`:
   1. `rateLimiter.check("forgot-per-ip", rateLimits.forgotPerIp(), httpRequest.getRemoteAddr())`
   2. `rateLimiter.check("forgot-per-email", rateLimits.forgotPerEmail(), EmailNormalizer.normalize(request.email()))`
   3. `passwordResetService.requestReset(request.email())`
   4. `ResponseEntity.status(HttpStatus.ACCEPTED).body(AcceptedResponse.CHECK_INBOX)`
-- [ ] **2.3.3** `SecurityConfig`: add `/api/v1/auth/forgot-password` to the `POST … permitAll()` matcher. CSRF stays on.
+- [x] **2.3.3** `SecurityConfig`: add `/api/v1/auth/forgot-password` to the `POST … permitAll()` matcher. CSRF stays on.
 
 ### 2.4 Integration tests: `integration/PasswordResetIntegrationTest` (forgot part)
-- [ ] **2.4.1** Add a helper to `AbstractIntegrationTest`: `protected String requestPasswordReset(String email)`.
+- [x] **2.4.1** Add a helper to `AbstractIntegrationTest`: `protected String requestPasswordReset(String email)`.
       It sends `POST /forgot-password` with CSRF, expects `202`, and returns `mailbox.awaitPasswordResetToken(email)`.
-- [ ] **2.4.2** A verified user (`registerAndLogin`) → `202`, and the body equals `AcceptedResponse.CHECK_INBOX`.
+- [x] **2.4.2** A verified user (`registerAndLogin`) → `202`, and the body equals `AcceptedResponse.CHECK_INBOX`.
       Exactly one email with subject `Reset your Phrasal password` arrives. Its link starts with the configured
       `phrasal.app.base-url` + `/reset-password?token=`.
-- [ ] **2.4.3** An unknown email → `202` with a **byte-identical** body, and nothing is sent
+- [x] **2.4.3** An unknown email → `202` with a **byte-identical** body, and nothing is sent
       (`assertNothingSentTo`, 1 s).
-- [ ] **2.4.4** An unverified user (register only) → `202`, and a reset email arrives.
-- [ ] **2.4.5** Padded, upper-case input (`"  USER@x.com "`) reaches the right account.
-- [ ] **2.4.6** The DB holds only the hash: `SELECT count(*) FROM user_tokens WHERE token_hash = ?` with the raw token
+- [x] **2.4.4** An unverified user (register only) → `202`, and a reset email arrives.
+- [x] **2.4.5** Padded, upper-case input (`"  USER@x.com "`) reaches the right account.
+- [x] **2.4.6** The DB holds only the hash: `SELECT count(*) FROM user_tokens WHERE token_hash = ?` with the raw token
       → `0`; with `hash(raw)` → `1`; `type = 'PASSWORD_RESET'`; `expires_at` ≈ now + 1 h.
-- [ ] **2.4.7** A second request → the first token row has `used_at` set (only the newest link works). The user's
+- [x] **2.4.7** A second request → the first token row has `used_at` set (only the newest link works). The user's
       verification token rows are unchanged.
-- [ ] **2.4.8** Negative: without CSRF → `403` csrf; blank email → `400 Validation Error`; a 255-char email → `400`.
-- [ ] **2.4.9** `RateLimitIntegrationTest` (it already lowers limits with `@TestPropertySource`): add
+- [x] **2.4.8** Negative: without CSRF → `403` csrf; blank email → `400 Validation Error`; a 255-char email → `400`.
+- [x] **2.4.9** `RateLimitIntegrationTest` (it already lowers limits with `@TestPropertySource`): add
       `phrasal.rate-limit.forgot-per-email.limit=2` → the 3rd request for one email → `429` + `Retry-After`, for an
       **unknown** email too (no enumeration through the 429).
-- [ ] **2.4.10** `AccountCleanupIntegrationTest`: a `PASSWORD_RESET` token that expired 8 days ago is purged; one that
+- [x] **2.4.10** `AccountCleanupIntegrationTest`: a `PASSWORD_RESET` token that expired 8 days ago is purged; one that
       expired 1 day ago is kept. `purgeExpiredTokens` already ignores the type; this proves it.
 
 ### 2.5 Review, verify, commit
-- [ ] **2.5.1** Run the `api-contract-review` skill on `forgot-password`: versioned path, `202/400/403/429`
+- [x] **2.5.1** Run the `api-contract-review` skill on `forgot-password`: versioned path, `202/400/403/429`
       problem+json, no body echo, identical body for every address. Fix the findings or note them here.
-- [ ] **2.5.2** `cd backend && mvn clean verify` → green.
-- [ ] **2.5.3** `make clean build` → green. Ask for commit approval →
+      Reviewed: versioned path, POST action like its siblings, 202 generic body for every address, `@Valid` + size cap,
+      DTO in/out, problem+json for 400/403/429 (tested), no body echo. No findings.
+- [x] **2.5.2** `cd backend && mvn clean verify` → green.
+- [x] **2.5.3** `make clean build` → green. Ask for commit approval →
       `feat(backend): add forgot-password endpoint that emails a reset link`
 
 ---

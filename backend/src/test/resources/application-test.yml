@@ -24,5 +24,9 @@ phrasal:
       limit: 100000
     verify-per-ip:
       limit: 100000
+    forgot-per-ip:
+      limit: 100000
+    forgot-per-email:
+      limit: 100000
   cleanup:
     enabled: false

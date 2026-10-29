@@ -247,3 +247,8 @@ While sign-up when user create a password, give a tip which symbols should passw
 Covered that with reasonable tests, including e2e
 On phase completion `make clean build` must pass successfully.
 
+---
+-- // prompt
+
+you just implemented @docs/diagrams/email-verification-flow.md phases from 0 to 9.
+how can I check it all locally with Docker Compose? Write me the steps and I'll check it all.

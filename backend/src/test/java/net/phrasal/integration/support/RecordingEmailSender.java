@@ -79,6 +79,25 @@ public class RecordingEmailSender implements EmailSender {
     }
 
     /**
+     * Waits until at least {@code count} messages with the given subject reached the recipient.
+     *
+     * @param to      recipient address
+     * @param subject exact subject line
+     * @param count   minimum number of messages
+     */
+    public void awaitSubjectCount(String to, String subject, int count) {
+        long deadline = System.nanoTime() + AWAIT_TIMEOUT.toNanos();
+        while (System.nanoTime() < deadline) {
+            if (withSubject(to, subject).size() >= count) {
+                return;
+            }
+            sleep(POLL_MILLIS);
+        }
+        throw new AssertionError("Expected " + count + " email(s) to " + to + " with subject '" + subject
+                + "' within " + AWAIT_TIMEOUT);
+    }
+
+    /**
      * Counts the messages with the given subject that reached the recipient so far.
      *
      * @param to      recipient address
