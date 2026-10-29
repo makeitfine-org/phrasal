@@ -2029,3 +2029,12 @@
 - backlog/tasks/task-101 - Add-authenticator-app-2FA-TOTP-with-recovery-codes-mandatory-for-admins.md
 - backlog/tasks/task-103 - Add-sign-up-login-2FA-and-account-screens-to-the-frontend-and-sync-quiz-progress-for-logged-in-users.md
 <!-- end-snapshot -->
+
+<!-- git-snapshot 2026-10-29T23:22:18Z -->
+- .claude/docs/blackbox/audit.md
+- .claude/docs/blackbox/todos/2FA-todos.md
+- backend/src/main/java/net/phrasal/domain/entity/User.java
+- backend/src/main/java/net/phrasal/domain/repository/UserRepository.java
+- backend/src/test/java/net/phrasal/domain/entity/UserEntityTest.java
+- backend/src/test/java/net/phrasal/integration/UserRepositoryIntegrationTest.java
+<!-- end-snapshot -->

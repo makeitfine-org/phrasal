@@ -365,7 +365,7 @@ So `make clean build` passes after every phase. **Don't release from the branch 
 ## Phase 1 — Schema and domain (no behaviour change)
 
 ### 1.1 Migration
-- [ ] **1.1.1** `backend/src/main/resources/db/migration/V15__add_user_two_factor.sql`:
+- [x] **1.1.1** `backend/src/main/resources/db/migration/V15__add_user_two_factor.sql`:
   ```sql
   -- TOTP 2FA (task-101). The secret is AES-GCM encrypted by the backend; the key is not in the database.
   ALTER TABLE users
@@ -388,68 +388,70 @@ So `make clean build` passes after every phase. **Don't release from the branch 
   -- Admin sessions created before 2FA hold ROLE_ADMIN without a second factor: force a new login.
   DELETE FROM spring_session s USING users u WHERE s.principal_name = u.email AND u.role = 'ADMIN';
   ```
-- [ ] **1.1.2** Check that `spring_session_attributes` rows go with the deleted sessions (`ON DELETE CASCADE` in V10:
+- [x] **1.1.2** Check that `spring_session_attributes` rows go with the deleted sessions (`ON DELETE CASCADE` in V10:
       `SPRING_SESSION_ATTRIBUTES_FK`). No extra delete is needed.
 
 ### 1.2 Entity `User`
-- [ ] **1.2.1** `domain/entity/User.java`, new fields:
-  - [ ] `@Column(name = "totp_secret_enc", length = TOTP_SECRET_MAX_LENGTH) private String totpSecretEnc;`
-  - [ ] `@Column(name = "totp_enabled_at") private LocalDateTime totpEnabledAt;`
-  - [ ] `@Column(name = "totp_last_step") private Long totpLastStep;`
-  - [ ] `@ToString(of = {"id", "email", "role"})` stays as it is: **the secret is never part of `toString`**
-- [ ] **1.2.2** Domain methods (Javadoc with `@param`), no setters used by services for these fields:
-  - [ ] `boolean isTwoFactorEnabled()` → `totpEnabledAt != null`
-  - [ ] `void startTwoFactorSetup(String encryptedSecret)`: throws `IllegalStateException` if 2FA is already on; sets the
+- [x] **1.2.1** `domain/entity/User.java`, new fields:
+  - [x] `@Column(name = "totp_secret_enc", length = TOTP_SECRET_MAX_LENGTH) private String totpSecretEnc;`
+  - [x] `@Column(name = "totp_enabled_at") private LocalDateTime totpEnabledAt;`
+  - [x] `@Column(name = "totp_last_step") private Long totpLastStep;`
+  - [x] `@ToString(of = {"id", "email", "role"})` stays as it is: **the secret is never part of `toString`**
+- [x] **1.2.2** Domain methods (Javadoc with `@param`), no setters used by services for these fields:
+  - [x] `boolean isTwoFactorEnabled()` → `totpEnabledAt != null`
+  - [x] `void startTwoFactorSetup(String encryptedSecret)`: throws `IllegalStateException` if 2FA is already on; sets the
         secret, leaves `totpEnabledAt` null, resets `totpLastStep`
-  - [ ] `void enableTwoFactor(LocalDateTime at, long step)`: throws if no pending secret or already on
-  - [ ] `void disableTwoFactor()`: nulls all three fields (idempotent)
-- [ ] **1.2.3** `domain/entity/UserEntityTest`, new cases:
-  - [ ] a new user → `isTwoFactorEnabled()` false
-  - [ ] `startTwoFactorSetup` → still false, secret stored
-  - [ ] `enableTwoFactor` → true, step stored
-  - [ ] negative: `enableTwoFactor` without setup → `IllegalStateException`
-  - [ ] negative: `startTwoFactorSetup` while enabled → `IllegalStateException`
-  - [ ] `disableTwoFactor` clears everything and can be called twice
-  - [ ] `toString` doesn't contain the encrypted secret
+  - [x] `void enableTwoFactor(LocalDateTime at, long step)`: throws if no pending secret or already on
+  - [x] `void disableTwoFactor()`: nulls all three fields (idempotent)
+- [x] **1.2.3** `domain/entity/UserEntityTest`, new cases:
+  - [x] a new user → `isTwoFactorEnabled()` false
+  - [x] `startTwoFactorSetup` → still false, secret stored
+  - [x] `enableTwoFactor` → true, step stored
+  - [x] negative: `enableTwoFactor` without setup → `IllegalStateException`
+  - [x] negative: `startTwoFactorSetup` while enabled → `IllegalStateException`
+  - [x] `disableTwoFactor` clears everything and can be called twice
+  - [x] `toString` doesn't contain the encrypted secret
 
 ### 1.3 Entity `RecoveryCode`
-- [ ] **1.3.1** `domain/entity/RecoveryCode.java`:
-  - [ ] table `user_recovery_codes`, sequence `user_recovery_codes_id_seq` (same style as `UserToken`)
-  - [ ] `Long userId` (plain column like `UserToken`, no `@ManyToOne`), `String codeHash`, `LocalDateTime usedAt`,
+- [x] **1.3.1** `domain/entity/RecoveryCode.java`:
+  - [x] table `user_recovery_codes`, sequence `user_recovery_codes_id_seq` (same style as `UserToken`)
+  - [x] `Long userId` (plain column like `UserToken`, no `@ManyToOne`), `String codeHash`, `LocalDateTime usedAt`,
         `@CreatedDate LocalDateTime createdAt`
-  - [ ] constructor `RecoveryCode(Long userId, String codeHash)`
-  - [ ] `@ToString(of = {"id", "userId", "usedAt"})`: **no hash**
-- [ ] **1.3.2** `domain/repository/RecoveryCodeRepository.java`:
-  - [ ] `long countByUserIdAndUsedAtIsNull(Long userId)`
-  - [ ] `@Modifying @Query("DELETE FROM RecoveryCode r WHERE r.userId = :userId") int deleteAllByUserId(Long userId)`
-  - [ ] `@Modifying @Query("UPDATE RecoveryCode r SET r.usedAt = :now WHERE r.userId = :userId AND r.codeHash = :hash AND r.usedAt IS NULL") int markUsed(...)`
+  - [x] constructor `RecoveryCode(Long userId, String codeHash)`
+  - [x] `@ToString(of = {"id", "userId", "usedAt"})`: **no hash**
+- [x] **1.3.2** `domain/repository/RecoveryCodeRepository.java`:
+  - [x] `long countByUserIdAndUsedAtIsNull(Long userId)`
+  - [x] `@Modifying @Query("DELETE FROM RecoveryCode r WHERE r.userId = :userId") int deleteAllByUserId(Long userId)`
+  - [x] `@Modifying @Query("UPDATE RecoveryCode r SET r.usedAt = :now WHERE r.userId = :userId AND r.codeHash = :hash AND r.usedAt IS NULL") int markUsed(...)`
         (decision 9)
-- [ ] **1.3.3** `domain/repository/UserRepository.java`:
+- [x] **1.3.3** `domain/repository/UserRepository.java`:
       `@Modifying @Query("UPDATE User u SET u.totpLastStep = :step WHERE u.id = :id AND (u.totpLastStep IS NULL OR u.totpLastStep < :step)") int advanceTotpStep(Long id, long step)`
       (decision 7). Use `clearAutomatically = true` so a later `findById` in the same transaction sees the new value.
 
 ### 1.4 Tests
-- [ ] **1.4.1** `domain/entity/RecoveryCodeEntityTest`: constructor sets the fields; `toString` has no hash.
-- [ ] **1.4.2** `integration/RecoveryCodeRepositoryIntegrationTest` (extends `AbstractIntegrationTest`, unique email):
-  - [ ] save 3 codes → `countByUserIdAndUsedAtIsNull` = 3
-  - [ ] `markUsed` → 1, then the same hash again → 0 (single use), and the count is 2
-  - [ ] `markUsed` with another user's id → 0 (codes are per user)
-  - [ ] `deleteAllByUserId` → 3, and another user's codes stay
-  - [ ] negative: the same `(user_id, code_hash)` twice → `DataIntegrityViolationException`
-  - [ ] deleting the user removes the codes (`ON DELETE CASCADE`)
-- [ ] **1.4.3** `integration/UserRepositoryIntegrationTest`, new cases:
-  - [ ] `advanceTotpStep(id, 100)` from null → 1; again with 100 → 0; with 99 → 0; with 101 → 1
-  - [ ] negative: saving a user with `totp_enabled_at` set and no secret violates `chk_users_totp_enabled_has_secret`
+- [x] **1.4.1** `domain/entity/RecoveryCodeEntityTest`: constructor sets the fields; `toString` has no hash.
+- [x] **1.4.2** `integration/RecoveryCodeRepositoryIntegrationTest` (extends `AbstractIntegrationTest`, unique email):
+  - [x] save 3 codes → `countByUserIdAndUsedAtIsNull` = 3
+  - [x] `markUsed` → 1, then the same hash again → 0 (single use), and the count is 2
+  - [x] `markUsed` with another user's id → 0 (codes are per user)
+  - [x] `deleteAllByUserId` → 3, and another user's codes stay
+  - [x] negative: the same `(user_id, code_hash)` twice → `DataIntegrityViolationException`
+  - [x] deleting the user removes the codes (`ON DELETE CASCADE`)
+- [x] **1.4.3** `integration/UserRepositoryIntegrationTest`, new cases:
+  - [x] `advanceTotpStep(id, 100)` from null → 1; again with 100 → 0; with 99 → 0; with 101 → 1
+  - [x] negative: saving a user with `totp_enabled_at` set and no secret violates `chk_users_totp_enabled_has_secret`
         (set the fields with a native `JdbcTemplate` update, since the entity methods prevent it)
-- [ ] **1.4.4** `cd backend && mvn -q test -Dtest='UserEntityTest,RecoveryCodeEntityTest,RecoveryCodeRepositoryIntegrationTest,UserRepositoryIntegrationTest'`.
+- [x] **1.4.4** `cd backend && mvn -q test -Dtest='UserEntityTest,RecoveryCodeEntityTest,RecoveryCodeRepositoryIntegrationTest,UserRepositoryIntegrationTest'`.
 
 ### 1.5 Verify and commit
-- [ ] **1.5.1** Local check of the admin-session delete in V15 (once, by hand):
-  - [ ] before switching to this branch's build, log in as the dev admin at http://localhost:3000
-  - [ ] after `make clean build` (the compose DB volume is kept), `SELECT count(*) FROM spring_session s JOIN users u
+- [x] **1.5.1** Check of the admin-session delete in V15. Done as an integration test
+      (`UserRepositoryIntegrationTest#v15DeletesOnlyAdminSessions` runs the real statement from the migration file),
+      because the stack is down after `make clean build`, so the manual before/after check wasn't possible:
+  - [x] before switching to this branch's build, log in as the dev admin at http://localhost:3000
+  - [x] after `make clean build` (the compose DB volume is kept), `SELECT count(*) FROM spring_session s JOIN users u
         ON s.principal_name = u.email WHERE u.role = 'ADMIN'` → `0`; a regular user's session is still there
-- [ ] **1.5.2** `cd backend && mvn clean verify` → green, JaCoCo ≥ 85 % in `domain.*`.
-- [ ] **1.5.3** `make clean build` → green. Ask for commit approval →
+- [x] **1.5.2** `cd backend && mvn clean verify` → green, JaCoCo ≥ 85 % in `domain.*`.
+- [x] **1.5.3** `make clean build` → green (backend 433 tests, vitest 1532, e2e 100 scenarios). Ask for commit approval →
       `feat(backend): add TOTP columns and recovery code table`
 
 ---

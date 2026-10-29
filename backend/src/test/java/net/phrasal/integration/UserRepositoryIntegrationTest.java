@@ -6,10 +6,13 @@ import net.phrasal.domain.repository.UserRepository;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.core.io.ClassPathResource;
 import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.transaction.support.TransactionTemplate;
 
+import java.io.IOException;
+import java.nio.charset.StandardCharsets;
 import java.time.LocalDateTime;
 import java.util.UUID;
 
@@ -135,5 +138,79 @@ class UserRepositoryIntegrationTest extends AbstractIntegrationTest {
         assertThat(repository.findById(oldUnverified.getId())).isEmpty();
         assertThat(repository.findById(oldVerified.getId())).isPresent();
         assertThat(repository.findById(recentUnverified.getId())).isPresent();
+    }
+
+    @Test
+    @DisplayName("advanceTotpStep accepts only a step newer than the stored one")
+    void advanceTotpStep() {
+        User user = repository.saveAndFlush(new User(uniqueEmail(), HASH, Role.USER));
+        Long id = user.getId();
+
+        int fromNull = transactionTemplate.execute(status -> repository.advanceTotpStep(id, 100));
+        int same = transactionTemplate.execute(status -> repository.advanceTotpStep(id, 100));
+        int older = transactionTemplate.execute(status -> repository.advanceTotpStep(id, 99));
+        int newer = transactionTemplate.execute(status -> repository.advanceTotpStep(id, 101));
+
+        assertThat(fromNull).isEqualTo(1);
+        assertThat(same).isZero();
+        assertThat(older).isZero();
+        assertThat(newer).isEqualTo(1);
+        assertThat(repository.findById(id).orElseThrow().getTotpLastStep()).isEqualTo(101L);
+    }
+
+    @Test
+    @DisplayName("two-factor enabled without a secret violates the check constraint")
+    void enabledWithoutSecretRejected() {
+        User user = repository.saveAndFlush(new User(uniqueEmail(), HASH, Role.USER));
+
+        assertThatThrownBy(() -> jdbcTemplate.update(
+                "UPDATE users SET totp_enabled_at = ? WHERE id = ?", LocalDateTime.now(), user.getId()))
+                .isInstanceOf(DataIntegrityViolationException.class);
+    }
+
+    @Test
+    @DisplayName("two-factor fields round-trip through the entity")
+    void twoFactorRoundTrip() {
+        User user = new User(uniqueEmail(), HASH, Role.USER);
+        user.startTwoFactorSetup("v1:secret");
+        user.enableTwoFactor(LocalDateTime.now(), 42L);
+
+        User found = repository.findById(repository.saveAndFlush(user).getId()).orElseThrow();
+
+        assertThat(found.isTwoFactorEnabled()).isTrue();
+        assertThat(found.getTotpSecretEnc()).isEqualTo("v1:secret");
+        assertThat(found.getTotpLastStep()).isEqualTo(42L);
+    }
+
+    @Test
+    @DisplayName("the V15 session cleanup deletes admin sessions and keeps other users' sessions")
+    void v15DeletesOnlyAdminSessions() throws IOException {
+        User admin = repository.saveAndFlush(new User(uniqueEmail(), HASH, Role.ADMIN));
+        User reader = repository.saveAndFlush(new User(uniqueEmail(), HASH, Role.USER));
+        String adminSession = insertSession(admin.getEmail());
+        String readerSession = insertSession(reader.getEmail());
+        String migration = new ClassPathResource("db/migration/V15__add_user_two_factor.sql")
+                .getContentAsString(StandardCharsets.UTF_8);
+        String cleanup = migration.lines().filter(line -> line.startsWith("DELETE FROM spring_session"))
+                .findFirst().orElseThrow();
+
+        jdbcTemplate.update(cleanup);
+
+        assertThat(sessionExists(adminSession)).isFalse();
+        assertThat(sessionExists(readerSession)).isTrue();
+    }
+
+    private String insertSession(String principalName) {
+        String id = UUID.randomUUID().toString();
+        jdbcTemplate.update("INSERT INTO spring_session (primary_id, session_id, creation_time, last_access_time, "
+                        + "max_inactive_interval, expiry_time, principal_name) VALUES (?, ?, 0, 0, 1800, ?, ?)",
+                id, UUID.randomUUID().toString(), Long.MAX_VALUE, principalName);
+        return id;
+    }
+
+    private boolean sessionExists(String primaryId) {
+        Integer count = jdbcTemplate.queryForObject(
+                "SELECT COUNT(*) FROM spring_session WHERE primary_id = ?", Integer.class, primaryId);
+        return count != null && count > 0;
     }
 }

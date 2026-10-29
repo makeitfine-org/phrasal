@@ -6,12 +6,15 @@ import org.junit.jupiter.api.Test;
 import java.time.LocalDateTime;
 
 import static org.assertj.core.api.Assertions.assertThat;
+import static org.assertj.core.api.Assertions.assertThatThrownBy;
 
 @DisplayName("User Entity")
 class UserEntityTest {
 
     private static final String EMAIL = "reader@example.com";
     private static final String HASH = "{bcrypt}$2a$10$secrethashvalue";
+    private static final String ENCRYPTED_SECRET = "v1:encryptedsecretvalue";
+    private static final long STEP = 56_000_000L;
 
     @Test
     @DisplayName("constructor sets email, hash and role")
@@ -90,5 +93,108 @@ class UserEntityTest {
 
         assertThat(user.isEmailVerified()).isTrue();
         assertThat(user.getEmailVerifiedAt()).isEqualTo(first);
+    }
+
+    @Test
+    @DisplayName("a new user has two-factor authentication off")
+    void newUserHasNoTwoFactor() {
+        User user = new User(EMAIL, HASH, Role.USER);
+
+        assertThat(user.isTwoFactorEnabled()).isFalse();
+        assertThat(user.getTotpSecretEnc()).isNull();
+        assertThat(user.getTotpLastStep()).isNull();
+    }
+
+    @Test
+    @DisplayName("startTwoFactorSetup stores the secret but keeps two-factor off")
+    void startSetupKeepsTwoFactorOff() {
+        User user = new User(EMAIL, HASH, Role.USER);
+
+        user.startTwoFactorSetup(ENCRYPTED_SECRET);
+
+        assertThat(user.isTwoFactorEnabled()).isFalse();
+        assertThat(user.getTotpSecretEnc()).isEqualTo(ENCRYPTED_SECRET);
+    }
+
+    @Test
+    @DisplayName("startTwoFactorSetup replaces a pending secret")
+    void startSetupReplacesPendingSecret() {
+        User user = new User(EMAIL, HASH, Role.USER);
+        user.startTwoFactorSetup(ENCRYPTED_SECRET);
+
+        user.startTwoFactorSetup("v1:other");
+
+        assertThat(user.getTotpSecretEnc()).isEqualTo("v1:other");
+    }
+
+    @Test
+    @DisplayName("enableTwoFactor turns two-factor on and stores the time and step")
+    void enableTwoFactor() {
+        User user = new User(EMAIL, HASH, Role.USER);
+        LocalDateTime at = LocalDateTime.of(2026, 10, 30, 12, 0);
+        user.startTwoFactorSetup(ENCRYPTED_SECRET);
+
+        user.enableTwoFactor(at, STEP);
+
+        assertThat(user.isTwoFactorEnabled()).isTrue();
+        assertThat(user.getTotpEnabledAt()).isEqualTo(at);
+        assertThat(user.getTotpLastStep()).isEqualTo(STEP);
+    }
+
+    @Test
+    @DisplayName("enableTwoFactor without a started setup throws")
+    void enableWithoutSetupThrows() {
+        User user = new User(EMAIL, HASH, Role.USER);
+        LocalDateTime at = LocalDateTime.now();
+
+        assertThatThrownBy(() -> user.enableTwoFactor(at, STEP)).isInstanceOf(IllegalStateException.class);
+        assertThat(user.isTwoFactorEnabled()).isFalse();
+    }
+
+    @Test
+    @DisplayName("enableTwoFactor twice throws")
+    void enableTwiceThrows() {
+        User user = new User(EMAIL, HASH, Role.USER);
+        LocalDateTime at = LocalDateTime.now();
+        user.startTwoFactorSetup(ENCRYPTED_SECRET);
+        user.enableTwoFactor(at, STEP);
+
+        assertThatThrownBy(() -> user.enableTwoFactor(at, STEP)).isInstanceOf(IllegalStateException.class);
+    }
+
+    @Test
+    @DisplayName("startTwoFactorSetup while two-factor is on throws and keeps the secret")
+    void startSetupWhileEnabledThrows() {
+        User user = new User(EMAIL, HASH, Role.USER);
+        user.startTwoFactorSetup(ENCRYPTED_SECRET);
+        user.enableTwoFactor(LocalDateTime.now(), STEP);
+
+        assertThatThrownBy(() -> user.startTwoFactorSetup("v1:other")).isInstanceOf(IllegalStateException.class);
+        assertThat(user.getTotpSecretEnc()).isEqualTo(ENCRYPTED_SECRET);
+    }
+
+    @Test
+    @DisplayName("disableTwoFactor clears everything and can be called twice")
+    void disableTwoFactor() {
+        User user = new User(EMAIL, HASH, Role.USER);
+        user.startTwoFactorSetup(ENCRYPTED_SECRET);
+        user.enableTwoFactor(LocalDateTime.now(), STEP);
+
+        user.disableTwoFactor();
+        user.disableTwoFactor();
+
+        assertThat(user.isTwoFactorEnabled()).isFalse();
+        assertThat(user.getTotpSecretEnc()).isNull();
+        assertThat(user.getTotpEnabledAt()).isNull();
+        assertThat(user.getTotpLastStep()).isNull();
+    }
+
+    @Test
+    @DisplayName("toString never contains the encrypted secret")
+    void toStringHidesSecret() {
+        User user = new User(EMAIL, HASH, Role.USER);
+        user.startTwoFactorSetup(ENCRYPTED_SECRET);
+
+        assertThat(user.toString()).doesNotContain(ENCRYPTED_SECRET).contains(EMAIL);
     }
 }
