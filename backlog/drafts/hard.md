@@ -220,12 +220,13 @@ On phase completion `make clean build` must pass successfully.
 -- // Prompt
 -- // Use Opus
 
-Create detailed save-on-server-multiuser-todos.md fils with checkboxes (- [ ]), which describes a step-by-step implementation for such task:
+Create detailed reset-password-todos.md fils with checkboxes (- [ ]), which describes a step-by-step implementation for such task:
 
 - Analyze:
   @".claude/docs/blackbox/plans/2026-10-26 18:10 Multi-user accounts TOTP 2FA and reliable storage for phrasal.md"
-  and @"backlog/tasks/" from task-97 to task-106 md files.
-- I'd like to just implement Store learning progress per user on the server.
+  and @"backlog/tasks/" from task-97 to task-107 md files.
+  Consider that was done in @.claude/docs/blackbox/todos/
+- I'd like to just implement resetting forgotten password.
 - Each step of implementation should be simple, detailed, granular, covered with backend, frontend and if reasonable with e2e tests.
 - Consider as template: @.claude/docs/blackbox/todos/multiuser-todos.md
 

@@ -4646,3 +4646,65 @@ kill
 ## 2026-10-28T23:08:31Z
 git add all changes and commit them with suitable message
 ---
+
+## 2026-10-29T00:15:39Z
+Check what is the last release version now and output without applying or code changing anything for the new one: tag, description and steps for git applying.
+---
+
+## 2026-10-29T00:22:03Z
+execute steps: 3, 4
+---
+
+## 2026-10-29T00:23:13Z
+v0.17.0
+
+vX.X.X
+based on what this naming? and all three numbers?
+---
+
+## 2026-10-29T00:24:45Z
+"MINOR and PATCH go to 0" what does it mean?
+---
+
+## 2026-10-29T00:34:00Z
+when someone register on unexist email like blabl@assdf.sdf the email that sent is saved somewhere, should it be deleted somewhere?
+---
+
+## 2026-10-29T08:53:37Z
+s
+---
+
+## 2026-10-29T08:54:25Z
+/login
+---
+
+## 2026-10-29T08:55:33Z
+change /home/ilaptop/translate_selection_to_en.sh
+it should translate Russian text to English and copy it to buffer.
+---
+
+## 2026-10-29T16:52:33Z
+@todos
+---
+
+## 2026-10-29T16:56:51Z
+
+
+<pasted_content id="d2ac">
+Create detailed reset-password-todos.md fils with checkboxes (- [ ]), which describes a step-by-step implementation for such task:
+
+- Analyze:
+  @".claude/docs/blackbox/plans/2026-10-26 18:10 Multi-user accounts TOTP 2FA and reliable storage for phrasal.md"
+  and @"backlog/tasks/" from task-97 to task-107 md files.
+  Consider that was done in @.claude/docs/blackbox/todos/
+- I'd like to just implement resetting forgotten password.
+- Each step of implementation should be simple, detailed, granular, covered with backend, frontend and if reasonable with e2e tests.
+- Consider as template: @.claude/docs/blackbox/todos/multiuser-todos.md
+
+- Critical: DO NOT start any steps of implement.
+</pasted_content id="d2ac">
+---
+
+## 2026-10-29T17:09:45Z
+git add all changes and commit them with suitable message
+---
