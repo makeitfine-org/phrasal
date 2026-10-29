@@ -3,7 +3,8 @@ import { Link, Navigate } from 'react-router-dom';
 import { useAuth } from '../auth/useAuth';
 import { ApiError } from '../api/client';
 import ResendVerification from '../components/ResendVerification';
-import { MIN_PASSWORD_LENGTH, PASSWORD_TIP, passwordRules, passwordViolation } from '../auth/passwordPolicy';
+import PasswordRequirements from '../components/PasswordRequirements';
+import { MIN_PASSWORD_LENGTH, passwordViolation } from '../auth/passwordPolicy';
 import { alertClass, buttonClass, inputClass, linkClass } from './LoginPage';
 
 /** Keep in sync with the backend `EMAIL_VERIFICATION_TOKEN_TTL`. */
@@ -102,20 +103,7 @@ export default function RegisterPage() {
             onChange={e => setPassword(e.target.value)}
             data-testid="register-password" className={`${inputClass} mt-1`}
           />
-          <div
-            id="password-requirements" data-testid="password-requirements"
-            className="mt-2 rounded-xl border-2 border-yellow-400 bg-yellow-50 px-3 py-2 text-xs text-yellow-900 dark:border-yellow-500 dark:bg-yellow-950/40 dark:text-yellow-100"
-          >
-            <ul>
-              {passwordRules(password, email).map(rule => (
-                <li key={rule.id} data-testid={`password-rule-${rule.id}`} data-met={rule.met}
-                  className={rule.met ? 'font-medium text-green-700 dark:text-green-400' : undefined}>
-                  <span aria-hidden="true">{rule.met ? '✓' : '○'}</span> {rule.label}
-                </li>
-              ))}
-            </ul>
-            <p data-testid="password-tip" className="mt-1">{PASSWORD_TIP}</p>
-          </div>
+          <PasswordRequirements id="password-requirements" password={password} email={email} />
           {fieldError('password')}
         </label>
         <label className="block text-sm text-gray-700 dark:text-gray-300">

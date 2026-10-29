@@ -594,64 +594,64 @@ newest" would then return that one instead of the async reset email.
 ## Phase 5 — Frontend: API, shared password box, forgot page, login link
 
 ### 5.1 API
-- [ ] **5.1.1** `src/api/authApi.ts`:
-  - [ ] `forgotPassword(email: string): Promise<void>` → `POST /auth/forgot-password` (body ignored)
-  - [ ] `resetPassword(token: string, password: string): Promise<void>` → `POST /auth/reset-password`
-- [ ] **5.1.2** `src/api/problemTypes.ts`: `RESET_LINK_INVALID = 'reset-link-invalid'`,
+- [x] **5.1.1** `src/api/authApi.ts`:
+  - [x] `forgotPassword(email: string): Promise<void>` → `POST /auth/forgot-password` (body ignored)
+  - [x] `resetPassword(token: string, password: string): Promise<void>` → `POST /auth/reset-password`
+- [x] **5.1.2** `src/api/problemTypes.ts`: `RESET_LINK_INVALID = 'reset-link-invalid'`,
       `RESET_LINK_EXPIRED = 'reset-link-expired'`.
-- [ ] **5.1.3** `src/__tests__/api/authApi.test.ts`: the path, method and body of both calls; a `202` resolves; a `400`
+- [x] **5.1.3** `src/__tests__/api/authApi.test.ts`: the path, method and body of both calls; a `202` resolves; a `400`
       problem rejects with an `ApiError` that carries the problem.
       `src/__tests__/api/problemTypes.test.ts`: the two new constants match their problem types, and a
       `verification-link-invalid` problem does **not** match `RESET_LINK_INVALID`.
 
 ### 5.2 Extract the password requirements box (refactor, no visible change)
-- [ ] **5.2.1** `src/auth/passwordPolicy.ts`: `passwordRules(password, email?)`. When `email` is `undefined`, the
+- [x] **5.2.1** `src/auth/passwordPolicy.ts`: `passwordRules(password, email?)`. When `email` is `undefined`, the
       `no-email` rule is left out; any string (also `''`) keeps today's behaviour.
-- [ ] **5.2.2** `src/components/PasswordRequirements.tsx`, props `{ id: string; password: string; email?: string }`:
+- [x] **5.2.2** `src/components/PasswordRequirements.tsx`, props `{ id: string; password: string; email?: string }`:
       the yellow box from `RegisterPage` (rules list with ✓/○, `PASSWORD_TIP`). Keep the `data-testid`s
       `password-requirements`, `password-rule-<id>` and `password-tip`, so the existing Vitest and e2e checks still pass.
-- [ ] **5.2.3** `RegisterPage.tsx` uses `<PasswordRequirements id="password-requirements" password={password} email={email} />`.
-- [ ] **5.2.4** Tests:
-  - [ ] `src/__tests__/PasswordRequirements.test.tsx`: the rules are rendered and marked met/unmet as you type; without
+- [x] **5.2.3** `RegisterPage.tsx` uses `<PasswordRequirements id="password-requirements" password={password} email={email} />`.
+- [x] **5.2.4** Tests:
+  - [x] `src/__tests__/PasswordRequirements.test.tsx`: the rules are rendered and marked met/unmet as you type; without
         `email` there is no `password-rule-no-email`; with `email` it is there
-  - [ ] the `passwordPolicy` tests (in `src/__tests__/auth/` or `utils/`, wherever they are): `passwordRules` without an
+  - [x] the `passwordPolicy` tests (in `src/__tests__/auth/` or `utils/`, wherever they are): `passwordRules` without an
         email has 2 rules, with one it has 3
-  - [ ] `RegisterPage.test.tsx` passes **unchanged** (it proves the refactor)
+  - [x] `RegisterPage.test.tsx` passes **unchanged** (it proves the refactor)
 
 ### 5.3 Forgot-password page
-- [ ] **5.3.1** `src/pages/ForgotPasswordPage.tsx` (route `/forgot-password`):
-  - [ ] an authenticated visitor → `<Navigate to="/" replace />` (same as Login/Register)
-  - [ ] an email field (`type="email"`, `autoComplete="email"`, `required`, `data-testid="forgot-email"`), prefilled
+- [x] **5.3.1** `src/pages/ForgotPasswordPage.tsx` (route `/forgot-password`):
+  - [x] an authenticated visitor → `<Navigate to="/" replace />` (same as Login/Register)
+  - [x] an email field (`type="email"`, `autoComplete="email"`, `required`, `data-testid="forgot-email"`), prefilled
         from `location.state?.email` (sent by the login page link)
-  - [ ] the submit button "Send reset link" (`forgot-submit`), disabled with "Sending…" while pending
-  - [ ] success → replace the form with a panel (`data-testid="forgot-check-email"`): "If an account exists for
+  - [x] the submit button "Send reset link" (`forgot-submit`), disabled with "Sending…" while pending
+  - [x] success → replace the form with a panel (`data-testid="forgot-check-email"`): "If an account exists for
         **{email}**, we sent a link to reset the password. It expires in 1 hour." (from a `RESET_LINK_TTL_HOURS = 1`
         constant, documented as "keep in sync with `PASSWORD_RESET_TOKEN_TTL`") + "Didn't get it? Check spam, or try
         again in a few minutes." + a link "Back to log in" (`forgot-login-link`)
-  - [ ] `429` → the server detail in a `role="alert"` box (`auth-error`); `400` field error → under the field; other
+  - [x] `429` → the server detail in a `role="alert"` box (`auth-error`); `400` field error → under the field; other
         errors → "Something went wrong. Please try again."
-  - [ ] reuse `inputClass`, `buttonClass`, `alertClass` and `linkClass` from `LoginPage`; `dark:` variants; 375 px
-- [ ] **5.3.2** `src/main.tsx`: `<Route path="/forgot-password" element={<ForgotPasswordPage />} />` before `*`.
+  - [x] reuse `inputClass`, `buttonClass`, `alertClass` and `linkClass` from `LoginPage`; `dark:` variants; 375 px
+- [x] **5.3.2** `src/main.tsx`: `<Route path="/forgot-password" element={<ForgotPasswordPage />} />` before `*`.
 
 ### 5.4 Login page
-- [ ] **5.4.1** `LoginPage.tsx`: a link "Forgot password?" under the password field (`data-testid="forgot-password-link"`)
+- [x] **5.4.1** `LoginPage.tsx`: a link "Forgot password?" under the password field (`data-testid="forgot-password-link"`)
       → `<Link to="/forgot-password" state={{ email }}>`.
-- [ ] **5.4.2** Keep the `401` text as it is ("Invalid email or password"). The link is always visible, so no extra
+- [x] **5.4.2** Keep the `401` text as it is ("Invalid email or password"). The link is always visible, so no extra
       branch is needed.
 
 ### 5.5 Tests
-- [ ] **5.5.1** `src/__tests__/ForgotPasswordPage.test.tsx` (mocked `authApi`, `MemoryRouter`):
-  - [ ] the field is prefilled from `location.state.email`; empty without state
-  - [ ] submit calls `forgotPassword` with the typed email; pending disables the button
-  - [ ] success shows `forgot-check-email` with the email and "1 hour"; the form is gone
-  - [ ] `429` shows the server detail; a network error shows the generic message; no panel in either case
-  - [ ] an authenticated user is redirected to `/`
-- [ ] **5.5.2** `LoginPage.test.tsx`: the forgot link is there and carries the typed email in its state (navigate and
+- [x] **5.5.1** `src/__tests__/ForgotPasswordPage.test.tsx` (mocked `authApi`, `MemoryRouter`):
+  - [x] the field is prefilled from `location.state.email`; empty without state
+  - [x] submit calls `forgotPassword` with the typed email; pending disables the button
+  - [x] success shows `forgot-check-email` with the email and "1 hour"; the form is gone
+  - [x] `429` shows the server detail; a network error shows the generic message; no panel in either case
+  - [x] an authenticated user is redirected to `/`
+- [x] **5.5.2** `LoginPage.test.tsx`: the forgot link is there and carries the typed email in its state (navigate and
       assert the prefilled field).
-- [ ] **5.5.3** `routeReload.test.tsx`: `/forgot-password` renders inside the shell.
-- [ ] **5.5.4** `npm --prefix frontend run test:run && npm --prefix frontend run build` → green.
+- [x] **5.5.3** `routeReload.test.tsx`: `/forgot-password` renders inside the shell.
+- [x] **5.5.4** `npm --prefix frontend run test:run && npm --prefix frontend run build` → green.
       `cd frontend && npx tsc --noEmit` → no new errors.
-- [ ] **5.5.5** `make clean build` → green. Ask for commit approval →
+- [x] **5.5.5** `make clean build` → green. Ask for commit approval →
       `feat(frontend): add forgot-password page and login link`
 
 ---
@@ -659,12 +659,12 @@ newest" would then return that one instead of the async reset email.
 ## Phase 6 — Frontend: reset-password page + browser e2e
 
 ### 6.1 Reset page
-- [ ] **6.1.1** `src/pages/ResetPasswordPage.tsx` (route `/reset-password`). It **never** redirects an authenticated
+- [x] **6.1.1** `src/pages/ResetPasswordPage.tsx` (route `/reset-password`). It **never** redirects an authenticated
       visitor: the link may be opened in a logged-in browser.
-  - [ ] read `token` with `useSearchParams`, keep it in a ref, and immediately
+  - [x] read `token` with `useSearchParams`, keep it in a ref, and immediately
         `navigate('/reset-password', { replace: true })`, so it leaves the address bar and history (same pattern as
         `VerifyEmailPage`)
-  - [ ] states (`data-testid="reset-status"` with `data-state`):
+  - [x] states (`data-testid="reset-status"` with `data-state`):
     - `incomplete` (no token): "This link is incomplete." + a link "Request a new link" → `/forgot-password`
       (`reset-request-new-link`)
     - `form`: new password (`reset-password`, `autoComplete="new-password"`) with
@@ -675,46 +675,46 @@ newest" would then return that one instead of the async reset email.
       `/login` (`reset-login-link`)
     - `expired`: "This link has expired." + "Request a new link"
     - `invalid`: "This link is invalid or was already used." + "Request a new link"
-  - [ ] client checks before the request: `passwordViolation(password)` (no email), and the two passwords match →
+  - [x] client checks before the request: `passwordViolation(password)` (no email), and the two passwords match →
         a field error, no request
-  - [ ] the submit button is also disabled while `useAuth().status === 'loading'`: the auth check on load sets the
+  - [x] the submit button is also disabled while `useAuth().status === 'loading'`: the auth check on load sets the
         CSRF cookie that the POST needs (the same reason as in `VerifyEmailPage`)
-  - [ ] server errors:
+  - [x] server errors:
     - `isProblemType(e, RESET_LINK_EXPIRED)` → `expired`
     - `isProblemType(e, RESET_LINK_INVALID)` → `invalid`
     - `problem.errors.password` → under the password field (`field-error-password`); the state stays `form`, so the
       same link can be used again
     - `429` → the server detail in `auth-error`; network or other → "Something went wrong. Please try again." The
       state stays `form` in both cases.
-  - [ ] on success: `await refresh()` from `useAuth()`. A browser that was logged in as this user just lost its
+  - [x] on success: `await refresh()` from `useAuth()`. A browser that was logged in as this user just lost its
         session (decision 8), and the menu must show "Log in".
-  - [ ] Tailwind + `dark:` like `LoginPage`; works at 375 px
-- [ ] **6.1.2** `src/main.tsx`: `<Route path="/reset-password" element={<ResetPasswordPage />} />` before `*`.
+  - [x] Tailwind + `dark:` like `LoginPage`; works at 375 px
+- [x] **6.1.2** `src/main.tsx`: `<Route path="/reset-password" element={<ResetPasswordPage />} />` before `*`.
 
 ### 6.2 Tests
-- [ ] **6.2.1** `src/__tests__/ResetPasswordPage.test.tsx` (mocked `authApi`, `MemoryRouter` with
+- [x] **6.2.1** `src/__tests__/ResetPasswordPage.test.tsx` (mocked `authApi`, `MemoryRouter` with
       `initialEntries={['/reset-password?token=abc']}`, a test `AuthContext` value):
-  - [ ] the token leaves the location after mount; no API call happens before submit
-  - [ ] no token → `incomplete` with the "Request a new link" link
-  - [ ] mismatched passwords, or a 9-char password → a field error and no API call
-  - [ ] a valid submit calls `resetPassword('abc', password)` once; pending disables the button
-  - [ ] success → `success` state, the login link, and `refresh` was called
-  - [ ] the expired and invalid problems → the matching states
-  - [ ] a `400` with `errors.password` → the field error, the form is still there, and a second submit calls the API
+  - [x] the token leaves the location after mount; no API call happens before submit
+  - [x] no token → `incomplete` with the "Request a new link" link
+  - [x] mismatched passwords, or a 9-char password → a field error and no API call
+  - [x] a valid submit calls `resetPassword('abc', password)` once; pending disables the button
+  - [x] success → `success` state, the login link, and `refresh` was called
+  - [x] the expired and invalid problems → the matching states
+  - [x] a `400` with `errors.password` → the field error, the form is still there, and a second submit calls the API
         again with the same token
-  - [ ] `429` → the alert; the form stays
-  - [ ] the requirements box has no "does not contain your email" rule
-  - [ ] the submit is disabled while the auth status is `loading`
-- [ ] **6.2.2** `routeReload.test.tsx`: `/reset-password` renders inside the shell.
+  - [x] `429` → the alert; the form stays
+  - [x] the requirements box has no "does not contain your email" rule
+  - [x] the submit is disabled while the auth status is `loading`
+- [x] **6.2.2** `routeReload.test.tsx`: `/reset-password` renders inside the shell.
 
 ### 6.3 nginx / Vite
-- [ ] **6.3.1** `frontend/nginx.conf`: no change. `Referrer-Policy` is already set (task-107 5.7.1), and the SPA
+- [x] **6.3.1** `frontend/nginx.conf`: no change. `Referrer-Policy` is already set (task-107 5.7.1), and the SPA
       fallback serves `/reset-password`. Check both with
       `curl -sI http://localhost:3000/reset-password?token=x | grep -i -e referrer -e "200 OK"` on the compose stack.
-- [ ] **6.3.2** `frontend/vite.config.ts`: no change (history fallback is on by default).
+- [x] **6.3.2** `frontend/vite.config.ts`: no change (history fallback is on by default).
 
 ### 6.4 E2E browser: steps
-- [ ] **6.4.1** `e2e/src/steps/password-reset-ui.steps.ts` (`data-testid`s from 5.3 and 6.1, `FRONTEND_URL` as in
+- [x] **6.4.1** `e2e/src/steps/password-reset-ui.steps.ts` (`data-testid`s from 5.3 and 6.1, `FRONTEND_URL` as in
       `auth-ui.steps.ts`):
   - `When I click the forgot-password link on the login page`
   - `Then the forgot-password email field should contain my email`
@@ -728,25 +728,25 @@ newest" would then return that one instead of the async reset email.
   - `Then I should see the reset state {string}`
   - `Then I should see the reset password field error mentioning {string}`
   - `Then I should see the request-a-new-link option`
-- [ ] **6.4.2** Reuse:
+- [x] **6.4.2** Reuse:
   - `Given a registered user exists`, `When I open the {string} page`
   - `When I log in through the form with password {string}`, `Then the user menu should show my email`
   - `When I sign up through the form with a new email` (it ends logged in)
   - `Then I should see the {string} link in the navigation`
 
 ### 6.5 E2E browser: `e2e/features/frontend/password-reset.feature` (`@frontend`)
-- [ ] **6.5.1** Full flow: a registered user → open the login page → type the email → click "Forgot password?" → the
+- [x] **6.5.1** Full flow: a registered user → open the login page → type the email → click "Forgot password?" → the
       field holds my email → request the reset → check-your-inbox message → open the link from Mailpit → set a new
       password → state `success` → log in with the new password → the user menu shows my email.
-- [ ] **6.5.2** An invented token → set a valid password → state `invalid` + the request-a-new-link option.
-- [ ] **6.5.3** The page without a token → state `incomplete` + the request-a-new-link option.
-- [ ] **6.5.4** Mismatched confirmation → a field error; the state stays `form`.
-- [ ] **6.5.5** A password containing my email is rejected **by the server**, shown under the field. The same link
+- [x] **6.5.2** An invented token → set a valid password → state `invalid` + the request-a-new-link option.
+- [x] **6.5.3** The page without a token → state `incomplete` + the request-a-new-link option.
+- [x] **6.5.4** Mismatched confirmation → a field error; the state stays `form`.
+- [x] **6.5.5** A password containing my email is rejected **by the server**, shown under the field. The same link
       then works with a valid password → `success`.
-- [ ] **6.5.6** Logged-in browser: sign up through the form (logged in) → open my reset link in the same tab → set a new
+- [x] **6.5.6** Logged-in browser: sign up through the form (logged in) → open my reset link in the same tab → set a new
       password → `success` → the navigation shows "Log in" again.
-- [ ] **6.5.7** `make acceptanceTest` → all features green, including the old ones.
-- [ ] **6.5.8** `npm --prefix frontend run test:run && npm --prefix frontend run build` → green. `make clean build` →
+- [x] **6.5.7** `make acceptanceTest` → all features green, including the old ones.
+- [x] **6.5.8** `npm --prefix frontend run test:run && npm --prefix frontend run build` → green. `make clean build` →
       green. Ask for commit approval → `feat(frontend): add reset-password page`
 
 ---

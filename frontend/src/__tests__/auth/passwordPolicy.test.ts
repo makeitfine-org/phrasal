@@ -21,9 +21,15 @@ describe('passwordPolicy', () => {
   });
 
   it('reports each rule as met or not', () => {
-    expect(passwordRules('').map(r => r.met)).toEqual([false, true, true]);
-    expect(passwordRules('a'.repeat(80)).map(r => r.met)).toEqual([true, false, true]);
+    expect(passwordRules('', '').map(r => r.met)).toEqual([false, true, true]);
+    expect(passwordRules('a'.repeat(80), '').map(r => r.met)).toEqual([true, false, true]);
     expect(passwordRules('my-janedoe-pass', 'janedoe@x.org').map(r => r.met)).toEqual([true, true, false]);
+  });
+
+  it('has 2 rules without an email and 3 with one', () => {
+    expect(passwordRules('x').map(r => r.id)).toEqual(['min-length', 'max-bytes']);
+    expect(passwordRules('x', '').map(r => r.id)).toEqual(['min-length', 'max-bytes', 'no-email']);
+    expect(passwordRules('x', 'a@b.co')).toHaveLength(3);
   });
 
   it('rejects a single repeated character', () => {

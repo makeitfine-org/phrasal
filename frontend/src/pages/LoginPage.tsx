@@ -78,6 +78,11 @@ export default function LoginPage() {
             data-testid="login-password" className={`${inputClass} mt-1`}
           />
         </label>
+        <p className="text-sm">
+          <Link to="/forgot-password" state={{ email }} data-testid="forgot-password-link" className={linkClass}>
+            Forgot password?
+          </Link>
+        </p>
         <button type="submit" disabled={pending} data-testid="login-submit" className={buttonClass}>
           {pending ? 'Logging in…' : 'Log in'}
         </button>

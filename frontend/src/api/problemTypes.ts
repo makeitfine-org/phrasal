@@ -3,6 +3,8 @@ import { ApiError } from './client';
 export const EMAIL_NOT_VERIFIED = 'email-not-verified';
 export const VERIFICATION_LINK_EXPIRED = 'verification-link-expired';
 export const VERIFICATION_LINK_INVALID = 'verification-link-invalid';
+export const RESET_LINK_INVALID = 'reset-link-invalid';
+export const RESET_LINK_EXPIRED = 'reset-link-expired';
 
 /** True when the error is an API problem whose `type` URI ends with `/{type}`. */
 export function isProblemType(error: unknown, type: string): boolean {

@@ -1934,3 +1934,24 @@
 - e2e/src/support/mailpit-client.ts
 - e2e/src/world.ts
 <!-- end-snapshot -->
+
+<!-- git-snapshot 2026-10-29T19:07:58Z -->
+- .claude/docs/blackbox/audit.md
+- .claude/docs/blackbox/todos/reset-password-todos.md
+- frontend/src/__tests__/LoginPage.test.tsx
+- frontend/src/__tests__/api/authApi.test.ts
+- frontend/src/__tests__/api/problemTypes.test.ts
+- frontend/src/__tests__/auth/passwordPolicy.test.ts
+- frontend/src/__tests__/routeReload.test.tsx
+- frontend/src/api/authApi.ts
+- frontend/src/api/problemTypes.ts
+- frontend/src/auth/passwordPolicy.ts
+- frontend/src/main.tsx
+- frontend/src/pages/LoginPage.tsx
+- frontend/src/pages/RegisterPage.tsx
+<!-- end-snapshot -->
+
+<!-- diagram-staleness 2026-10-29T19:07:58Z -->
+⚠️  Diagrams that may need updating:
+  - docs/diagrams/auth-flow.md (auth/ was modified)
+<!-- end-diagram-staleness -->

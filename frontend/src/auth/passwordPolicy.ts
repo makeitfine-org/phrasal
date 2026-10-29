@@ -26,8 +26,9 @@ export function containsEmail(password: string, email: string): boolean {
   return localPart.length >= MIN_EMAIL_PART_LENGTH && lowerPassword.includes(localPart);
 }
 
-export function passwordRules(password: string, email = ''): PasswordRule[] {
-  return [
+/** The no-email rule is left out when `email` is undefined (the reset page does not know the account email). */
+export function passwordRules(password: string, email?: string): PasswordRule[] {
+  const rules: PasswordRule[] = [
     {
       id: 'min-length',
       label: `At least ${MIN_PASSWORD_LENGTH} characters`,
@@ -38,12 +39,15 @@ export function passwordRules(password: string, email = ''): PasswordRule[] {
       label: `At most ${MAX_PASSWORD_BYTES} bytes (about ${MAX_PASSWORD_BYTES} letters or digits)`,
       met: utf8Bytes(password) <= MAX_PASSWORD_BYTES,
     },
-    {
+  ];
+  if (email !== undefined) {
+    rules.push({
       id: 'no-email',
       label: 'Does not contain your email address',
       met: !containsEmail(password, email),
-    },
-  ];
+    });
+  }
+  return rules;
 }
 
 /** First broken rule message, or null when the password is acceptable. */

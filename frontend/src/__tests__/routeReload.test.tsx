@@ -7,6 +7,8 @@ import NotFoundPage from '../pages/NotFoundPage';
 import LoginPage from '../pages/LoginPage';
 import RegisterPage from '../pages/RegisterPage';
 import VerifyEmailPage from '../pages/VerifyEmailPage';
+import ForgotPasswordPage from '../pages/ForgotPasswordPage';
+import ResetPasswordPage from '../pages/ResetPasswordPage';
 import PageShell from '../components/PageShell';
 
 vi.mock('../hooks/usePhrasalVerbs', () => ({
@@ -36,6 +38,8 @@ function renderApp(initialPath: string) {
           <Route path="/login" element={<LoginPage />} />
           <Route path="/register" element={<RegisterPage />} />
           <Route path="/verify-email" element={<VerifyEmailPage />} />
+          <Route path="/forgot-password" element={<ForgotPasswordPage />} />
+          <Route path="/reset-password" element={<ResetPasswordPage />} />
           <Route path="*" element={<NotFoundPage />} />
         </Route>
       </Routes>
@@ -72,6 +76,18 @@ describe('Page reload — router renders correct page, no console errors', () =>
   it('reload /verify-email renders the verification page inside the shell', () => {
     renderApp('/verify-email');
     expect(screen.getByRole('heading', { name: 'Confirm your email' })).toBeInTheDocument();
+    expect(screen.getByTestId('nav-menu')).toBeInTheDocument();
+  });
+
+  it('reload /forgot-password renders the forgot-password page inside the shell', () => {
+    renderApp('/forgot-password');
+    expect(screen.getByRole('heading', { name: 'Reset your password' })).toBeInTheDocument();
+    expect(screen.getByTestId('nav-menu')).toBeInTheDocument();
+  });
+
+  it('reload /reset-password renders the reset page inside the shell', () => {
+    renderApp('/reset-password');
+    expect(screen.getByRole('heading', { name: 'Set a new password' })).toBeInTheDocument();
     expect(screen.getByTestId('nav-menu')).toBeInTheDocument();
   });
 

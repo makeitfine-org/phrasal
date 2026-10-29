@@ -16,6 +16,15 @@ export function resendVerification(email: string): Promise<void> {
   return post<void>('/auth/resend-verification', { email });
 }
 
+/** Resolves for any 2xx; the answer is the same whether or not the address has an account. */
+export async function forgotPassword(email: string): Promise<void> {
+  await post<unknown>('/auth/forgot-password', { email });
+}
+
+export function resetPassword(token: string, password: string): Promise<void> {
+  return post<void>('/auth/reset-password', { token, password });
+}
+
 export function login(email: string, password: string): Promise<CurrentUser> {
   return post<CurrentUser>('/auth/login', { email, password });
 }

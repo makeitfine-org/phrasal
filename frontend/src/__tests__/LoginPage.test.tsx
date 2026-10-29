@@ -1,12 +1,17 @@
 import React from 'react';
 import { render, screen, fireEvent, waitFor } from '@testing-library/react';
-import { MemoryRouter, Routes, Route } from 'react-router-dom';
+import { MemoryRouter, Routes, Route, useLocation } from 'react-router-dom';
 import LoginPage from '../pages/LoginPage';
 import { AuthContext, type AuthContextValue } from '../auth/AuthContext';
 import { ApiError } from '../api/client';
 import * as authApi from '../api/authApi';
 
 vi.mock('../api/authApi', () => ({ resendVerification: vi.fn() }));
+
+function ForgotEmail() {
+  const state = useLocation().state as { email?: string } | null;
+  return <div data-testid="forgot-stub">{state?.email}</div>;
+}
 
 function ctx(overrides: Partial<AuthContextValue> = {}): AuthContextValue {
   return {
@@ -25,6 +30,7 @@ function renderPage(value: AuthContextValue, entry: string | { pathname: string;
           <Route path="/" element={<div>home</div>} />
           <Route path="/grammar" element={<div>grammar</div>} />
           <Route path="/register" element={<div>register</div>} />
+          <Route path="/forgot-password" element={<ForgotEmail />} />
         </Routes>
       </MemoryRouter>
     </AuthContext.Provider>
@@ -95,6 +101,13 @@ describe('LoginPage', () => {
     fillAndSubmit();
     expect(await screen.findByRole('alert')).toHaveTextContent('Invalid email or password');
     expect(screen.queryByTestId('resend-verification')).not.toBeInTheDocument();
+  });
+
+  it('links to forgot-password and carries the typed email', () => {
+    renderPage(ctx());
+    fireEvent.change(screen.getByTestId('login-email'), { target: { value: 'a@b.co' } });
+    fireEvent.click(screen.getByTestId('forgot-password-link'));
+    expect(screen.getByTestId('forgot-stub')).toHaveTextContent('a@b.co');
   });
 
   it('redirects an authenticated user', () => {

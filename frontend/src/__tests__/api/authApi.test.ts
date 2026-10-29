@@ -1,4 +1,4 @@
-import { register, login, logout, fetchCurrentUser, verifyEmail, resendVerification } from '../../api/authApi';
+import { register, login, logout, fetchCurrentUser, verifyEmail, resendVerification, forgotPassword, resetPassword } from '../../api/authApi';
 import { get, post, ApiError } from '../../api/client';
 
 vi.mock('../../api/client', async () => {
@@ -35,6 +35,29 @@ describe('authApi', () => {
     vi.mocked(post).mockResolvedValue(undefined);
     await resendVerification('a@b.co');
     expect(post).toHaveBeenCalledWith('/auth/resend-verification', { email: 'a@b.co' });
+  });
+
+  it('forgotPassword posts the email and resolves for a 202 body', async () => {
+    vi.mocked(post).mockResolvedValue({ message: 'If this address can be used, we have sent a link to it.' });
+    await expect(forgotPassword('a@b.co')).resolves.toBeUndefined();
+    expect(post).toHaveBeenCalledWith('/auth/forgot-password', { email: 'a@b.co' });
+  });
+
+  it('forgotPassword rejects with the ApiError of a 429', async () => {
+    vi.mocked(post).mockRejectedValue(new ApiError(429, 'Too many requests'));
+    await expect(forgotPassword('a@b.co')).rejects.toMatchObject({ status: 429 });
+  });
+
+  it('resetPassword posts the token and the password', async () => {
+    vi.mocked(post).mockResolvedValue(undefined);
+    await expect(resetPassword('tok', 'new-secret-pass')).resolves.toBeUndefined();
+    expect(post).toHaveBeenCalledWith('/auth/reset-password', { token: 'tok', password: 'new-secret-pass' });
+  });
+
+  it('resetPassword rejects with an ApiError that carries the problem', async () => {
+    const problem = { type: 'https://phrasal.net/problems/reset-link-invalid' };
+    vi.mocked(post).mockRejectedValue(new ApiError(400, 'x', problem));
+    await expect(resetPassword('tok', 'new-secret-pass')).rejects.toMatchObject({ status: 400, problem });
   });
 
   it('login posts credentials', async () => {
