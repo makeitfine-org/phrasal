@@ -4824,3 +4824,42 @@ On phase completion `make clean build` must pass successfully.
 ## 2026-10-29T19:58:31Z
 git add all changes and commit them with suitable message
 ---
+
+## 2026-10-29T19:59:37Z
+Implement functionality from @.claude/docs/blackbox/todos/reset-password-todos.md Phase 9.               
+Don't forget to check off implemented boxes.
+On phase completion `make clean build` must pass successfully.
+---
+
+## 2026-10-29T20:14:39Z
+if frontend on localhost:3100 how to run docker compose?
+---
+
+## 2026-10-29T20:15:35Z
+with correct approval and reset link?
+---
+
+## 2026-10-29T20:17:10Z
+'APP_BASE_URL=http://localhost:3100 docker compose up' good?
+---
+
+## 2026-10-29T21:28:07Z
+Add to README to use together with hot reload on local development:
+
+
+<pasted_content id="8d41">
+export POSTGRES_PORT=5632                                                                                                                                                                     
+export FRONTEND_PORT=3000                                                                                                                                                                     
+export BACKEND_PORT=8080
+export PHRASAL_ADMIN_PASSWORD=admin-dev-password
+export PHRASAL_ADMIN_EMAIL=admin@phrasal.test
+</pasted_content id="8d41">
+---
+
+## 2026-10-29T21:28:38Z
+and frontend port export PORT=3000
+---
+
+## 2026-10-29T21:30:28Z
+git add all changes and commit them with suitable message
+---

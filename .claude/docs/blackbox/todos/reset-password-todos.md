@@ -834,7 +834,7 @@ the commit body (or in this file, if no commit is needed).
 
 ## Phase 9 — Final verification
 
-- [ ] **9.1** `make clean build` → green: backend verify (JaCoCo 85 %/package, Checkstyle), frontend build + tests,
+- [x] **9.1** `make clean build` → green: backend verify (JaCoCo 85 %/package, Checkstyle), frontend build + tests,
       docker rebuild, e2e.
 - [ ] **9.2** Manual run with `make dockerAll`, at http://localhost:3000, with the Mailpit UI at http://localhost:8025:
   - [ ] log in page → "Forgot password?" → the email is prefilled → send → "check your inbox" → the mail is in Mailpit

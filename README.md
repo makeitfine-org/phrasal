@@ -149,6 +149,14 @@ make help
 Fastest loop, no Kubernetes: Postgres in Docker, backend and frontend run directly.
 
 ```bash
+# 0. Environment (same shell for every step below)
+export POSTGRES_PORT=5632
+export FRONTEND_PORT=3000
+export PORT=3000
+export BACKEND_PORT=8080
+export PHRASAL_ADMIN_PASSWORD=admin-dev-password
+export PHRASAL_ADMIN_EMAIL=admin@phrasal.test
+
 # 1. Database (once, leave running)
 docker compose up -d postgres
 
@@ -161,6 +169,7 @@ cd backend && SPRING_PROFILES_ACTIVE=dev \
 cd frontend && npm install && npm run dev
 ```
 
+- The `PHRASAL_ADMIN_*` values are local-dev credentials only; never reuse them outside a dev machine.
 - Frontend edits reload instantly (Vite HMR).
 - Backend auto-restart comes from `spring-boot-devtools`, enabled only by the opt-in Maven profile `devtools` (`-Pdevtools`, not active by default): run `mvn compile` (or build in the IDE) after a change and the app restarts. Regular builds and the production jar never include it.
 

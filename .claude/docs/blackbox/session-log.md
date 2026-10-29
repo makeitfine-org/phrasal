@@ -1969,3 +1969,40 @@
 - e2e/CLAUDE.md
 - frontend/CLAUDE.md
 <!-- end-snapshot -->
+
+<!-- git-snapshot 2026-10-29T20:02:39Z -->
+- .claude/docs/blackbox/audit.md
+- .claude/docs/blackbox/todos/reset-password-todos.md
+<!-- end-snapshot -->
+
+<!-- git-snapshot 2026-10-29T20:14:44Z -->
+- .claude/docs/blackbox/audit.md
+- .claude/docs/blackbox/session-log.md
+- .claude/docs/blackbox/todos/reset-password-todos.md
+<!-- end-snapshot -->
+
+<!-- git-snapshot 2026-10-29T20:16:06Z -->
+- .claude/docs/blackbox/audit.md
+- .claude/docs/blackbox/session-log.md
+- .claude/docs/blackbox/todos/reset-password-todos.md
+<!-- end-snapshot -->
+
+<!-- git-snapshot 2026-10-29T20:17:15Z -->
+- .claude/docs/blackbox/audit.md
+- .claude/docs/blackbox/session-log.md
+- .claude/docs/blackbox/todos/reset-password-todos.md
+<!-- end-snapshot -->
+
+<!-- git-snapshot 2026-10-29T21:28:19Z -->
+- .claude/docs/blackbox/audit.md
+- .claude/docs/blackbox/session-log.md
+- .claude/docs/blackbox/todos/reset-password-todos.md
+- README.md
+<!-- end-snapshot -->
+
+<!-- git-snapshot 2026-10-29T21:28:43Z -->
+- .claude/docs/blackbox/audit.md
+- .claude/docs/blackbox/session-log.md
+- .claude/docs/blackbox/todos/reset-password-todos.md
+- README.md
+<!-- end-snapshot -->
