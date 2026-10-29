@@ -9,6 +9,7 @@ import net.phrasal.application.dto.ForgotPasswordRequest;
 import net.phrasal.application.dto.LoginRequest;
 import net.phrasal.application.dto.RegisterRequest;
 import net.phrasal.application.dto.ResendVerificationRequest;
+import net.phrasal.application.dto.ResetPasswordRequest;
 import net.phrasal.application.dto.UserResponse;
 import net.phrasal.application.dto.VerifyEmailRequest;
 import net.phrasal.application.service.AuthService;
@@ -84,6 +85,14 @@ public class AuthController {
                 EmailNormalizer.normalize(request.email()));
         passwordResetService.requestReset(request.email());
         return ResponseEntity.status(HttpStatus.ACCEPTED).body(AcceptedResponse.CHECK_INBOX);
+    }
+
+    @PostMapping("/reset-password")
+    public ResponseEntity<Void> resetPassword(@Valid @RequestBody ResetPasswordRequest request,
+                                              HttpServletRequest httpRequest) {
+        rateLimiter.check("reset-per-ip", rateLimits.resetPerIp(), httpRequest.getRemoteAddr());
+        passwordResetService.reset(request.token(), request.password());
+        return ResponseEntity.noContent().build();
     }
 
     @GetMapping("/me")

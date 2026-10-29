@@ -416,40 +416,40 @@ newest" would then return that one instead of the async reset email.
 ## Phase 3 — Reset-password endpoint, session revocation, changed notice
 
 ### 3.1 Configuration
-- [ ] **3.1.1** `RateLimitProperties`: add `Rule resetPerIp` (Javadoc `@param`); update the call sites again.
-- [ ] **3.1.2** `application.yml`: `reset-per-ip: { limit: ${RATE_LIMIT_RESET_PER_IP:30}, window: 5m }` (multi-line
+- [x] **3.1.1** `RateLimitProperties`: add `Rule resetPerIp` (Javadoc `@param`); update the call sites again.
+- [x] **3.1.2** `application.yml`: `reset-per-ip: { limit: ${RATE_LIMIT_RESET_PER_IP:30}, window: 5m }` (multi-line
       style, like the other rules). `application-test.yml`: `100000`.
-- [ ] **3.1.3** `docker-compose.yml`: `RATE_LIMIT_RESET_PER_IP: "1000"`.
+- [x] **3.1.3** `docker-compose.yml`: `RATE_LIMIT_RESET_PER_IP: "1000"`.
 
 ### 3.2 Exceptions and handler
-- [ ] **3.2.1** `infrastructure/exception/ResetLinkInvalidException` (message
+- [x] **3.2.1** `infrastructure/exception/ResetLinkInvalidException` (message
       `This password reset link is invalid or has already been used`) and `ResetLinkExpiredException` (message
       `This password reset link has expired`). Both `RuntimeException`, like the verification ones.
-- [ ] **3.2.2** `infrastructure/exception/PasswordPolicyViolationException(String message)`, for the server-only
+- [x] **3.2.2** `infrastructure/exception/PasswordPolicyViolationException(String message)`, for the server-only
       "contains your email" rule (decision 5, step 3).
-- [ ] **3.2.3** `GlobalExceptionHandler`, before the catch-all:
-  - [ ] invalid → `400`, title `Reset Link Invalid`, type `reset-link-invalid`
-  - [ ] expired → `400`, title `Reset Link Expired`, type `reset-link-expired`
-  - [ ] policy violation → `400`, title `Validation Error`, type `validation-error`,
+- [x] **3.2.3** `GlobalExceptionHandler`, before the catch-all:
+  - [x] invalid → `400`, title `Reset Link Invalid`, type `reset-link-invalid`
+  - [x] expired → `400`, title `Reset Link Expired`, type `reset-link-expired`
+  - [x] policy violation → `400`, title `Validation Error`, type `validation-error`,
         `errors = {"password": message}`. It is the **same shape** as `handleValidation`, so the frontend's field-error
         code works unchanged. Build it through the same private helper, not a copy.
-- [ ] **3.2.4** `GlobalExceptionHandlerTest`: the three mappings (status, title, type, `errors.password`, no internal
+- [x] **3.2.4** `GlobalExceptionHandlerTest`: the three mappings (status, title, type, `errors.password`, no internal
       detail).
 
 ### 3.3 Session revocation (decision 8)
-- [ ] **3.3.1** `infrastructure/security/SessionRevoker.java` (`@Component @RequiredArgsConstructor @Slf4j`), with the
+- [x] **3.3.1** `infrastructure/security/SessionRevoker.java` (`@Component @RequiredArgsConstructor @Slf4j`), with the
       dependency `FindByIndexNameSessionRepository<? extends Session>` (injection form from 0.4):
-  - [ ] `int revokeAll(String email)`: `findByPrincipalName(email).keySet()` → `deleteById` each → return the count
-  - [ ] class Javadoc: the principal name is the email (`AuthenticatedUser#getName`); keep it that way, or this
+  - [x] `int revokeAll(String email)`: `findByPrincipalName(email).keySet()` → `deleteById` each → return the count
+  - [x] class Javadoc: the principal name is the email (`AuthenticatedUser#getName`); keep it that way, or this
         class silently finds nothing
-- [ ] **3.3.2** `SessionRevokerTest` (Mockito):
-  - [ ] two sessions → both ids deleted, returns 2
-  - [ ] none → no `deleteById`, returns 0
-  - [ ] negative: only the ids returned for that email are deleted (another user's ids are never passed in)
+- [x] **3.3.2** `SessionRevokerTest` (Mockito):
+  - [x] two sessions → both ids deleted, returns 2
+  - [x] none → no `deleteById`, returns 0
+  - [x] negative: only the ids returned for that email are deleted (another user's ids are never passed in)
 
 ### 3.4 Service: `reset`
-- [ ] **3.4.1** `PasswordResetService`: add the dependencies `PasswordEncoder` and `SessionRevoker`.
-- [ ] **3.4.2** `void reset(String rawToken, String newPassword)` (decisions 5 and 6):
+- [x] **3.4.1** `PasswordResetService`: add the dependencies `PasswordEncoder` and `SessionRevoker`.
+- [x] **3.4.2** `void reset(String rawToken, String newPassword)` (decisions 5 and 6):
   1. `token = userTokenRepository.findByTokenHashAndType(SecureTokenGenerator.hash(rawToken), PASSWORD_RESET)`;
      missing → `ResetLinkInvalidException`
   2. load the user; missing → invalid (defensive)
@@ -463,67 +463,69 @@ newest" would then return that one instead of the async reset email.
   9. `int revoked = sessionRevoker.revokeAll(user.getEmail())`
   10. `eventPublisher.publishEvent(new PasswordChangedNoticeRequested(userId, user.getEmail()))`
   11. `log.info("Password reset completed userId={} sessionsRevoked={}", userId, revoked)`
-- [ ] **3.4.3** `PasswordResetServiceTest`, reset part (fixed `Clock`):
-  - [ ] happy path: the token is used at `now`; the encoder is called with the new password; the hash is set; other
+- [x] **3.4.3** `PasswordResetServiceTest`, reset part (fixed `Clock`):
+  - [x] happy path: the token is used at `now`; the encoder is called with the new password; the hash is set; other
         reset tokens are invalidated; `revokeAll(email)`; the notice event is published
-  - [ ] an unverified user → verified at `now`, and `invalidateActive(…, EMAIL_VERIFICATION, now)` is called
-  - [ ] a verified user → `emailVerifiedAt` unchanged, and verification tokens are not touched
-  - [ ] unknown token → `ResetLinkInvalidException`
-  - [ ] used token → invalid
-  - [ ] expired (now = `expiresAt`) → `ResetLinkExpiredException`
-  - [ ] a password containing the email → `PasswordPolicyViolationException`
-  - [ ] for every failure: the password is unchanged, the token stays unused, `revokeAll` and the event never happen
+  - [x] an unverified user → verified at `now`, and `invalidateActive(…, EMAIL_VERIFICATION, now)` is called
+  - [x] a verified user → `emailVerifiedAt` unchanged, and verification tokens are not touched
+  - [x] unknown token → `ResetLinkInvalidException`
+  - [x] used token → invalid
+  - [x] expired (now = `expiresAt`) → `ResetLinkExpiredException`
+  - [x] a password containing the email → `PasswordPolicyViolationException`
+  - [x] for every failure: the password is unchanged, the token stays unused, `revokeAll` and the event never happen
 
 ### 3.5 DTO and controller
-- [ ] **3.5.1** `application/dto/ResetPasswordRequest.java`:
+- [x] **3.5.1** `application/dto/ResetPasswordRequest.java`:
       `record ResetPasswordRequest(@NotBlank @Size(max = 100) String token, @NotBlank @ValidPassword String password)`.
       Javadoc `@param`s. `toString()` masks **both** values.
-- [ ] **3.5.2** `CredentialRequestTest`: `ResetPasswordRequest.toString()` has neither the token nor the password.
-- [ ] **3.5.3** `AuthController`: `@PostMapping("/reset-password")`: `reset-per-ip` limit →
+- [x] **3.5.2** `CredentialRequestTest`: `ResetPasswordRequest.toString()` has neither the token nor the password.
+- [x] **3.5.3** `AuthController`: `@PostMapping("/reset-password")`: `reset-per-ip` limit →
       `passwordResetService.reset(token, password)` → `ResponseEntity.noContent().build()`.
-- [ ] **3.5.4** `SecurityConfig`: add `/api/v1/auth/reset-password` to the `POST … permitAll()` matcher. Update the
+- [x] **3.5.4** `SecurityConfig`: add `/api/v1/auth/reset-password` to the `POST … permitAll()` matcher. Update the
       class Javadoc if it lists the public auth endpoints.
 
 ### 3.6 Integration tests: `PasswordResetIntegrationTest` (reset part)
-- [ ] **3.6.1** Helper in `AbstractIntegrationTest`: `protected ResultActions resetPassword(String token, String password)`
+- [x] **3.6.1** Helper in `AbstractIntegrationTest`: `protected ResultActions resetPassword(String token, String password)`
       (`POST /reset-password` with CSRF; the caller asserts the status).
-- [ ] **3.6.2** Happy path: `registerAndLogin` → `requestPasswordReset` → reset with a new password → `204`. Then:
-  - [ ] login with the old password → `401`; with the new one → `200`
-  - [ ] the DB hash changed and starts with `{bcrypt}`; the token row has `used_at` set
-  - [ ] the response sets no `SESSION` cookie (reset doesn't log in, decision 7)
-- [ ] **3.6.3** The same token again → `400`, `$.title == "Reset Link Invalid"` (single use).
-- [ ] **3.6.4** Expired: move `expires_at` into the past with `JdbcTemplate` → `400 Reset Link Expired`; the old
+- [x] **3.6.2** Happy path: `registerAndLogin` → `requestPasswordReset` → reset with a new password → `204`. Then:
+  - [x] login with the old password → `401`; with the new one → `200`
+  - [x] the DB hash changed and starts with `{bcrypt}`; the token row has `used_at` set
+  - [x] the response sets no `SESSION` cookie (reset doesn't log in, decision 7)
+- [x] **3.6.3** The same token again → `400`, `$.title == "Reset Link Invalid"` (single use).
+- [x] **3.6.4** Expired: move `expires_at` into the past with `JdbcTemplate` → `400 Reset Link Expired`; the old
       password still logs in.
-- [ ] **3.6.5** A random 43-char token → `400 Invalid`; a blank or missing token → `400 Validation Error`; a 101-char
+- [x] **3.6.5** A random 43-char token → `400 Invalid`; a blank or missing token → `400 Validation Error`; a 101-char
       token → `400`.
-- [ ] **3.6.6** Types are kept apart: a **verification** token sent to `/reset-password` → `400 Invalid`, and a reset
+- [x] **3.6.6** Types are kept apart: a **verification** token sent to `/reset-password` → `400 Invalid`, and a reset
       token sent to `/verify-email` → `400 Verification Link Invalid`.
-- [ ] **3.6.7** Weak password (9 chars, or `password123` from the blocklist) → `400`, `$.errors.password` names the
+- [x] **3.6.7** Weak password (9 chars, or `password123` from the blocklist) → `400`, `$.errors.password` names the
       rule; the token is still unused, and a valid reset with the **same** token afterwards → `204`.
-- [ ] **3.6.8** A password containing the email → `400`, `$.errors.password` contains `must not contain your email`;
+- [x] **3.6.8** A password containing the email → `400`, `$.errors.password` contains `must not contain your email`;
       the same token still works afterwards.
-- [ ] **3.6.9** Newest link only: two forgot requests → the first token → `400 Invalid`, the second → `204`.
-- [ ] **3.6.10** Sessions (task-100 AC #3):
-  - [ ] log in twice (two `SESSION` cookies), then reset → `GET /me` with either cookie → `401`
-  - [ ] `SELECT count(*) FROM spring_session WHERE principal_name = ?` → `0`
-  - [ ] the reset request itself carries one of those cookies → `204`, and that cookie is dead afterwards too
-  - [ ] another user's session survives (`/me` → `200`)
-- [ ] **3.6.11** An unverified account: register (no verify) → forgot → reset → login with the new password → `200`;
+- [x] **3.6.9** Newest link only: two forgot requests → the first token → `400 Invalid`, the second → `204`.
+- [x] **3.6.10** Sessions (task-100 AC #3):
+  - [x] log in twice (two `SESSION` cookies), then reset → `GET /me` with either cookie → `401`
+  - [x] `SELECT count(*) FROM spring_session WHERE principal_name = ?` → `0`
+  - [x] the reset request itself carries one of those cookies → `204`, and that cookie is dead afterwards too
+  - [x] another user's session survives (`/me` → `200`)
+- [x] **3.6.11** An unverified account: register (no verify) → forgot → reset → login with the new password → `200`;
+      _Done, with one deviation: the old verification link returns `204` (idempotent no-op, `verify` unchanged), not `400`; the token is used and the account is verified either way._
       `email_verified_at` is set; the old verification link → `400 Verification Link Invalid`.
-- [ ] **3.6.12** The "password changed" notice arrives (`awaitSubject`): it contains `/forgot-password` and no
+- [x] **3.6.12** The "password changed" notice arrives (`awaitSubject`): it contains `/forgot-password` and no
       `token=`.
-- [ ] **3.6.13** Without CSRF → `403` csrf.
-- [ ] **3.6.14** `RateLimitIntegrationTest`: `phrasal.rate-limit.reset-per-ip.limit=2` → the 3rd reset attempt (even
+- [x] **3.6.13** Without CSRF → `403` csrf.
+- [x] **3.6.14** `RateLimitIntegrationTest`: `phrasal.rate-limit.reset-per-ip.limit=2` → the 3rd reset attempt (even
       with invented tokens) → `429` + `Retry-After`.
-- [ ] **3.6.15** The admin (`AdminBootstrapIntegrationTest`, which already has the admin context): a reset works, and
+- [x] **3.6.15** The admin (`AdminBootstrapIntegrationTest`, which already has the admin context): a reset works, and
       running the initializer again restores the configured password (decision 12). Skip this if it needs a new
       context; the README note covers it.
 
 ### 3.7 Review, verify, commit
-- [ ] **3.7.1** `api-contract-review` skill on `reset-password` (`204/400/403/429`, both problem types, no body echo).
-- [ ] **3.7.2** `cd backend && mvn clean verify` → green, JaCoCo ≥ 85 % (`infrastructure.security`,
+- [x] **3.7.1** `api-contract-review` skill on `reset-password` (`204/400/403/429`, both problem types, no body echo).
+      _Note: versioned path, POST action like its siblings, `204` with no body, `@Valid` + size cap on token, DTO with masked `toString`, problem+json for 400 (invalid/expired/validation, same `errors` shape) / 403 / 429, no echo of token or password. No findings._
+- [x] **3.7.2** `cd backend && mvn clean verify` → green, JaCoCo ≥ 85 % (`infrastructure.security`,
       `infrastructure.exception`, `application.service`).
-- [ ] **3.7.3** `make clean build` → green. Ask for commit approval →
+- [x] **3.7.3** `make clean build` → green. Ask for commit approval →
       `feat(backend): reset passwords via emailed link and revoke all sessions`
 
 ---

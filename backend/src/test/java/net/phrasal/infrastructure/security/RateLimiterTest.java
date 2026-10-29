@@ -23,8 +23,8 @@ class RateLimiterTest {
     private final Ticker ticker = nanos::get;
 
     private RateLimiter limiter(boolean enabled) {
-        return new RateLimiter(new RateLimitProperties(enabled, RULE, RULE, RULE, RULE, RULE, RULE, RULE, RULE, RULE),
-                ticker);
+        return new RateLimiter(new RateLimitProperties(enabled, RULE, RULE, RULE, RULE, RULE, RULE, RULE, RULE, RULE,
+                RULE), ticker);
     }
 
     @Test

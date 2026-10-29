@@ -42,7 +42,16 @@ public class GlobalExceptionHandler {
             String errorMessage = error.getDefaultMessage();
             errors.put(fieldName, errorMessage);
         });
+        return buildValidationProblem(errors);
+    }
 
+    @ExceptionHandler(PasswordPolicyViolationException.class)
+    public ProblemDetail handlePasswordPolicyViolation(PasswordPolicyViolationException ex) {
+        log.warn("Password rejected: policy violation");
+        return buildValidationProblem(Map.of("password", ex.getMessage()));
+    }
+
+    private ProblemDetail buildValidationProblem(Map<String, String> errors) {
         ProblemDetail problem = buildProblem(HttpStatus.BAD_REQUEST, "Validation Error",
                 "validation-error", "Validation failed for one or more fields");
         problem.setProperty("errors", errors);
@@ -96,6 +105,20 @@ public class GlobalExceptionHandler {
         log.warn("Verification rejected: link expired");
         return buildProblem(HttpStatus.BAD_REQUEST, "Verification Link Expired",
                 "verification-link-expired", ex.getMessage());
+    }
+
+    @ExceptionHandler(ResetLinkInvalidException.class)
+    public ProblemDetail handleResetLinkInvalid(ResetLinkInvalidException ex) {
+        log.warn("Password reset rejected: link invalid");
+        return buildProblem(HttpStatus.BAD_REQUEST, "Reset Link Invalid",
+                "reset-link-invalid", ex.getMessage());
+    }
+
+    @ExceptionHandler(ResetLinkExpiredException.class)
+    public ProblemDetail handleResetLinkExpired(ResetLinkExpiredException ex) {
+        log.warn("Password reset rejected: link expired");
+        return buildProblem(HttpStatus.BAD_REQUEST, "Reset Link Expired",
+                "reset-link-expired", ex.getMessage());
     }
 
     @ExceptionHandler(RateLimitExceededException.class)

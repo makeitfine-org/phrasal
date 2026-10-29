@@ -28,5 +28,7 @@ phrasal:
       limit: 100000
     forgot-per-email:
       limit: 100000
+    reset-per-ip:
+      limit: 100000
   cleanup:
     enabled: false

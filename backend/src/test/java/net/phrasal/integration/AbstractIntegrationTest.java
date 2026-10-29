@@ -16,6 +16,7 @@ import org.springframework.http.MediaType;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.test.context.TestSecurityContextHolder;
 import org.springframework.test.web.servlet.MockMvc;
+import org.springframework.test.web.servlet.ResultActions;
 import org.springframework.test.web.servlet.request.RequestPostProcessor;
 import org.testcontainers.postgresql.PostgreSQLContainer;
 
@@ -100,6 +101,12 @@ abstract class AbstractIntegrationTest {
                 .content("{\"email\":\"" + email + "\"}").with(csrf())).andExpect(status().isAccepted());
         mailbox.awaitSubjectCount(email, PASSWORD_RESET_SUBJECT, before + 1);
         return mailbox.awaitPasswordResetToken(email);
+    }
+
+    /** Submits a new password with a reset token and CSRF; the caller asserts the status. */
+    protected ResultActions resetPassword(String token, String password) throws Exception {
+        return mockMvc.perform(post("/api/v1/auth/reset-password").contentType(MediaType.APPLICATION_JSON)
+                .content("{\"token\":\"" + token + "\",\"password\":\"" + password + "\"}").with(csrf()));
     }
 
     @DynamicPropertySource

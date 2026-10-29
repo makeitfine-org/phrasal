@@ -3,6 +3,8 @@ package net.phrasal.integration;
 import jakarta.servlet.http.Cookie;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
+import net.phrasal.application.service.AdminAccountInitializer;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
 import org.springframework.test.context.TestPropertySource;
 
@@ -20,6 +22,9 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 })
 @DisplayName("Admin bootstrap integration")
 class AdminBootstrapIntegrationTest extends AbstractIntegrationTest {
+
+    @Autowired
+    private AdminAccountInitializer initializer;
 
     private static final String BODY = "{\"email\":\"admin@it.test\",\"password\":\"bootstrap-admin-pass\"}";
 
@@ -69,6 +74,19 @@ class AdminBootstrapIntegrationTest extends AbstractIntegrationTest {
                 .andExpect(status().isAccepted());
 
         assertThat(mailbox.awaitLatest("admin@it.test").subject()).isEqualTo("You already have a Phrasal account");
+        login(BODY, null);
+    }
+
+    @Test
+    @DisplayName("an admin can reset the password by email, and the next start restores the configured one")
+    void adminResetThenRestart() throws Exception {
+        String token = requestPasswordReset("admin@it.test");
+        resetPassword(token, "an entirely different passphrase").andExpect(status().isNoContent());
+        mockMvc.perform(post("/api/v1/auth/login").contentType(MediaType.APPLICATION_JSON).with(csrf())
+                .content(BODY)).andExpect(status().isUnauthorized());
+
+        initializer.run(null);
+
         login(BODY, null);
     }
 }

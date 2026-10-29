@@ -32,4 +32,16 @@ class CredentialRequestTest {
                 .contains("password=*****")
                 .doesNotContain(PASSWORD);
     }
+
+    @Test
+    @DisplayName("ResetPasswordRequest toString masks the token and the password")
+    void resetPasswordRequestMasksSecrets() {
+        ResetPasswordRequest request = new ResetPasswordRequest("raw-reset-token", PASSWORD);
+
+        assertThat(request.toString())
+                .contains("token=*****")
+                .contains("password=*****")
+                .doesNotContain("raw-reset-token")
+                .doesNotContain(PASSWORD);
+    }
 }

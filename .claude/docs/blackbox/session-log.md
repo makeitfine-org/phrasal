@@ -1905,3 +1905,24 @@
 - backlog/drafts/hard.md
 - docker-compose.yml
 <!-- end-snapshot -->
+
+<!-- git-snapshot 2026-10-29T18:21:50Z -->
+- .claude/docs/blackbox/audit.md
+- .claude/docs/blackbox/todos/reset-password-todos.md
+- backend/src/main/java/net/phrasal/application/service/PasswordResetService.java
+- backend/src/main/java/net/phrasal/config/RateLimitProperties.java
+- backend/src/main/java/net/phrasal/config/SecurityConfig.java
+- backend/src/main/java/net/phrasal/infrastructure/exception/GlobalExceptionHandler.java
+- backend/src/main/java/net/phrasal/presentation/rest/AuthController.java
+- backend/src/main/resources/application.yml
+- backend/src/test/java/net/phrasal/application/dto/CredentialRequestTest.java
+- backend/src/test/java/net/phrasal/application/service/PasswordResetServiceTest.java
+- backend/src/test/java/net/phrasal/infrastructure/exception/GlobalExceptionHandlerTest.java
+- backend/src/test/java/net/phrasal/infrastructure/security/RateLimiterTest.java
+- backend/src/test/java/net/phrasal/integration/AbstractIntegrationTest.java
+- backend/src/test/java/net/phrasal/integration/AdminBootstrapIntegrationTest.java
+- backend/src/test/java/net/phrasal/integration/PasswordResetIntegrationTest.java
+- backend/src/test/java/net/phrasal/integration/RateLimitIntegrationTest.java
+- backend/src/test/resources/application-test.yml
+- docker-compose.yml
+<!-- end-snapshot -->

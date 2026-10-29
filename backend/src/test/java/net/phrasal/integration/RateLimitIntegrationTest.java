@@ -20,7 +20,8 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
         "phrasal.rate-limit.login-per-email.limit=3",
         "phrasal.rate-limit.login-per-ip.limit=1000",
         "phrasal.rate-limit.resend-per-email.limit=2",
-        "phrasal.rate-limit.forgot-per-email.limit=2"
+        "phrasal.rate-limit.forgot-per-email.limit=2",
+        "phrasal.rate-limit.reset-per-ip.limit=2"
 })
 @DisplayName("Rate limit integration")
 class RateLimitIntegrationTest extends AbstractIntegrationTest {
@@ -113,5 +114,27 @@ class RateLimitIntegrationTest extends AbstractIntegrationTest {
                 .andExpect(header().exists("Retry-After"));
         mockMvc.perform(authPost("/api/v1/auth/forgot-password", uniqueEmail(), "10.4.0.9"))
                 .andExpect(status().isAccepted());
+    }
+
+    @Test
+    @DisplayName("third reset-password from one IP returns 429, even with invented tokens")
+    void resetPerIp() throws Exception {
+        for (int i = 0; i < 2; i++) {
+            mockMvc.perform(resetFrom("10.5.0.1", "A".repeat(43))).andExpect(status().isBadRequest());
+        }
+
+        mockMvc.perform(resetFrom("10.5.0.1", "B".repeat(43)))
+                .andExpect(status().isTooManyRequests())
+                .andExpect(header().exists("Retry-After"));
+        mockMvc.perform(resetFrom("10.5.0.2", "B".repeat(43))).andExpect(status().isBadRequest());
+    }
+
+    private static MockHttpServletRequestBuilder resetFrom(String ip, String token) {
+        return post("/api/v1/auth/reset-password").contentType(MediaType.APPLICATION_JSON).with(csrf())
+                .with(request -> {
+                    request.setRemoteAddr(ip);
+                    return request;
+                })
+                .content("{\"token\":\"" + token + "\",\"password\":\"" + PASSWORD + "\"}");
     }
 }

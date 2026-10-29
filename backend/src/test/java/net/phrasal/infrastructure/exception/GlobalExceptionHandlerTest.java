@@ -11,6 +11,8 @@ import org.springframework.security.authentication.BadCredentialsException;
 import org.springframework.security.authentication.DisabledException;
 import org.springframework.security.authentication.InsufficientAuthenticationException;
 
+import java.util.Map;
+
 import static org.assertj.core.api.Assertions.assertThat;
 
 @DisplayName("GlobalExceptionHandler")
@@ -132,6 +134,42 @@ class GlobalExceptionHandlerTest {
         assertThat(detail.getTitle()).isEqualTo("Verification Link Expired");
         assertThat(detail.getType().toString()).endsWith("/errors/verification-link-expired");
         assertThat(detail.getDetail()).isEqualTo("This verification link has expired");
+    }
+
+    @Test
+    @DisplayName("returns 400 reset-link-invalid without internal detail")
+    void handleResetLinkInvalid() {
+        ProblemDetail detail = handler.handleResetLinkInvalid(new ResetLinkInvalidException());
+
+        assertThat(detail.getStatus()).isEqualTo(HttpStatus.BAD_REQUEST.value());
+        assertThat(detail.getTitle()).isEqualTo("Reset Link Invalid");
+        assertThat(detail.getType().toString()).endsWith("/errors/reset-link-invalid");
+        assertThat(detail.getDetail()).isEqualTo("This password reset link is invalid or has already been used");
+    }
+
+    @Test
+    @DisplayName("returns 400 reset-link-expired without internal detail")
+    void handleResetLinkExpired() {
+        ProblemDetail detail = handler.handleResetLinkExpired(new ResetLinkExpiredException());
+
+        assertThat(detail.getStatus()).isEqualTo(HttpStatus.BAD_REQUEST.value());
+        assertThat(detail.getTitle()).isEqualTo("Reset Link Expired");
+        assertThat(detail.getType().toString()).endsWith("/errors/reset-link-expired");
+        assertThat(detail.getDetail()).isEqualTo("This password reset link has expired");
+    }
+
+    @Test
+    @DisplayName("returns 400 validation-error with errors.password for a policy violation")
+    void handlePasswordPolicyViolation() {
+        ProblemDetail detail = handler.handlePasswordPolicyViolation(
+                new PasswordPolicyViolationException("Password must not contain your email address"));
+
+        assertThat(detail.getStatus()).isEqualTo(HttpStatus.BAD_REQUEST.value());
+        assertThat(detail.getTitle()).isEqualTo("Validation Error");
+        assertThat(detail.getType().toString()).endsWith("/errors/validation-error");
+        assertThat(detail.getDetail()).isEqualTo("Validation failed for one or more fields");
+        assertThat(detail.getProperties()).containsEntry("errors",
+                Map.of("password", "Password must not contain your email address"));
     }
 
     @Test
