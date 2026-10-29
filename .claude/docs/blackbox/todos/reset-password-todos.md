@@ -177,33 +177,51 @@ Templates: `multiuser-todos.md` and `email-verification-on-server-multiuser-todo
 
 ## Phase 0 — Preparation (no code)
 
-- [ ] **0.1** Branch: create `password-reset` from `develop`. Check first that `develop` contains the task-107 work
+- [x] **0.1** Branch: create `password-reset` from `develop`. Check first that `develop` contains the task-107 work
       (`git log --oneline develop | grep -i "require email verification"`). The working tree must be clean apart from
       blackbox files.
-- [ ] **0.2** Run `make clean build` once on the untouched branch. Note the baseline here: backend test count, Vitest
+      - Done 2026-10-29: `4eea4dc feat(backend)!: require email verification and hide existing emails` is on develop;
+        only `audit.md` was modified; branch `password-reset` created.
+- [x] **0.2** Run `make clean build` once on the untouched branch. Note the baseline here: backend test count, Vitest
       files/tests, e2e scenarios/steps.
-- [ ] **0.3** Backlog (MCP). **Ask the user** which option to take:
-  - [ ] (a, recommended) create a new task "Let users reset a forgotten password", split from task-100, depending on
+      - Baseline: backend 356 tests, Vitest 68 files / 1498 tests, e2e 84 scenarios / 592 steps; all green.
+- [x] **0.3** Backlog (MCP). **Ask the user** which option to take:
+  - [x] (a, recommended) create a new task "Let users reset a forgotten password", split from task-100, depending on
         task-107. Move task-100 AC #1, #2, #3, #10 there, plus the forgot-password parts of #5, #9 and #11, and add
         "`make clean build` passes". task-100 keeps HIBP, honeypot, deletion, the 2FA limit and the Traefik item.
-  - [ ] (b) work under task-100 and leave its other AC unchecked.
-  - [ ] move the chosen task to `In Progress` **before** any code; add the note "implementation plan:
+        - User chose (a). Created **TASK-108**; task-100 got a note about the split (its AC text is left as is).
+  - [ ] (b) work under task-100 and leave its other AC unchecked. (not chosen)
+  - [x] move the chosen task to `In Progress` **before** any code; add the note "implementation plan:
         `reset-password-todos.md` (branch `password-reset`)"
-  - [ ] task-103: note that the Forgot/Reset pages are planned here (part of AC #1, #6, #13)
-- [ ] **0.4** Look up with Context7 and note the results here:
-  - [ ] Spring Session (the version in the Boot 4.1 BOM): `FindByIndexNameSessionRepository#findByPrincipalName`,
+  - [x] task-103: note that the Forgot/Reset pages are planned here (part of AC #1, #6, #13)
+- [x] **0.4** Look up with Context7 and note the results here:
+  - [x] Spring Session (the version in the Boot 4.1 BOM): `FindByIndexNameSessionRepository#findByPrincipalName`,
         `#deleteById`, the bean Boot registers for JDBC (`JdbcIndexedSessionRepository`) and how to inject it
         (`FindByIndexNameSessionRepository<? extends Session>`). Check whether its `TransactionTemplate` uses
         `PROPAGATION_REQUIRES_NEW` (decision 8 works either way; write down which one).
-  - [ ] confirm that `spring_session.principal_name` holds the normalized email for a logged-in user (dev DB:
+        - `findByPrincipalName(name)` returns `Map<String, S>` (session id → session); `deleteById(id)` is a plain SQL
+          DELETE and publishes no event.
+        - JDBC operations use `REQUIRES_NEW` (customizable via a `springSessionTransactionOperations` bean). So the
+          revocation commits independently of the reset transaction; decision 8 still holds.
+  - [x] confirm that `spring_session.principal_name` holds the normalized email for a logged-in user (dev DB:
         `SELECT principal_name FROM spring_session LIMIT 5`)
-  - [ ] Mailpit search: combining `to:"…"` with `subject:"…"` in one `query`
-  - [ ] React Router 7: `useLocation().state` to pass the typed email from the login page to `/forgot-password`
+        - The dev DB was down after `make clean build`, so not queried. `AuthenticatedUser#getName()` returns the
+          email, which Spring Session indexes. Phase 3 integration tests (login, reset, old cookie gets 401) confirm it.
+  - [x] Mailpit search: combining `to:"…"` with `subject:"…"` in one `query`
+        - Space-separated terms are ANDed (`to:"x@y" subject:"Reset your Phrasal password"`); `subject:` is a
+          LIKE %…% match, quoted phrases are kept together.
+  - [x] React Router 7: `useLocation().state` to pass the typed email from the login page to `/forgot-password`
         (the rest is the same as `VerifyEmailPage`)
-- [ ] **0.5** `grep -rn "new RateLimitProperties(" backend/src` and note the call sites. Phases 2 and 3 add record
+        - `<Link to="/forgot-password" state={{ email }} />` and `useLocation().state` on the target page.
+- [x] **0.5** `grep -rn "new RateLimitProperties(" backend/src` and note the call sites. Phases 2 and 3 add record
       components, and these call sites must be updated.
-- [ ] **0.6** `grep -rn "VerificationEmailComposer\|VerificationEmailListener" backend docs README.md` and note the hits
+      - One call site: `backend/src/test/java/net/phrasal/infrastructure/security/RateLimiterTest.java:26`.
+- [x] **0.6** `grep -rn "VerificationEmailComposer\|VerificationEmailListener" backend docs README.md` and note the hits
       for the rename in 1.2.
+      - Main: `VerificationEmailComposer.java`, `VerificationEmailListener.java` (service package).
+      - Tests: `VerificationEmailComposerTest.java`, `VerificationEmailListenerTest.java`.
+      - Docs: `backend/CLAUDE.md:47`. No hits in `README.md` or `docs/`.
+
 
 ---
 

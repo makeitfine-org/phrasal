@@ -1858,3 +1858,17 @@
 - .claude/docs/blackbox/session-log.md
 - backlog/drafts/hard.md
 <!-- end-snapshot -->
+
+<!-- git-snapshot 2026-10-29T17:17:41Z -->
+- .claude/docs/blackbox/audit.md
+- backlog/tasks/task-100 - Let-users-reset-forgotten-passwords-delete-their-account-and-protect-auth-endpoints-from-abuse.md
+- backlog/tasks/task-103 - Add-sign-up-login-2FA-and-account-screens-to-the-frontend-and-sync-quiz-progress-for-logged-in-users.md
+<!-- end-snapshot -->
+
+<!-- git-snapshot 2026-10-29T17:20:25Z -->
+- .claude/docs/blackbox/audit.md
+- .claude/docs/blackbox/session-log.md
+- .claude/docs/blackbox/todos/reset-password-todos.md
+- backlog/tasks/task-100 - Let-users-reset-forgotten-passwords-delete-their-account-and-protect-auth-endpoints-from-abuse.md
+- backlog/tasks/task-103 - Add-sign-up-login-2FA-and-account-screens-to-the-frontend-and-sync-quiz-progress-for-logged-in-users.md
+<!-- end-snapshot -->
