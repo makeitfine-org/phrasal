@@ -3,6 +3,8 @@ package net.phrasal.application.service;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import net.phrasal.application.event.AccountExistsNoticeRequested;
+import net.phrasal.application.event.PasswordChangedNoticeRequested;
+import net.phrasal.application.event.PasswordResetEmailRequested;
 import net.phrasal.application.event.VerificationEmailRequested;
 import net.phrasal.infrastructure.mail.EmailMessage;
 import net.phrasal.infrastructure.mail.EmailSender;
@@ -18,9 +20,9 @@ import org.springframework.transaction.event.TransactionalEventListener;
 @Slf4j
 @Component
 @RequiredArgsConstructor
-public class VerificationEmailListener {
+public class AccountEmailListener {
 
-    private final VerificationEmailComposer composer;
+    private final AccountEmailComposer composer;
     private final EmailSender emailSender;
 
     @Async
@@ -35,12 +37,24 @@ public class VerificationEmailListener {
         deliver(event.userId(), composer.accountExists(event.email()));
     }
 
+    @Async
+    @TransactionalEventListener(phase = TransactionPhase.AFTER_COMMIT)
+    public void onPasswordResetEmailRequested(PasswordResetEmailRequested event) {
+        deliver(event.userId(), composer.passwordReset(event.email(), event.rawToken()));
+    }
+
+    @Async
+    @TransactionalEventListener(phase = TransactionPhase.AFTER_COMMIT)
+    public void onPasswordChangedNoticeRequested(PasswordChangedNoticeRequested event) {
+        deliver(event.userId(), composer.passwordChanged(event.email()));
+    }
+
     private void deliver(Long userId, EmailMessage message) {
         try {
             emailSender.send(message);
-            log.info("Verification email sent userId={}", userId);
+            log.info("Account email sent userId={}", userId);
         } catch (RuntimeException ex) {
-            log.warn("Verification email failed userId={}: {}", userId, ex.getClass().getSimpleName());
+            log.warn("Account email failed userId={}: {}", userId, ex.getClass().getSimpleName());
         }
     }
 }

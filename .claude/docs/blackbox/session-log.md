@@ -1872,3 +1872,19 @@
 - backlog/tasks/task-100 - Let-users-reset-forgotten-passwords-delete-their-account-and-protect-auth-endpoints-from-abuse.md
 - backlog/tasks/task-103 - Add-sign-up-login-2FA-and-account-screens-to-the-frontend-and-sync-quiz-progress-for-logged-in-users.md
 <!-- end-snapshot -->
+
+<!-- git-snapshot 2026-10-29T17:56:15Z -->
+- .claude/docs/blackbox/audit.md
+- .claude/docs/blackbox/todos/reset-password-todos.md
+- backend/CLAUDE.md
+- backend/src/main/java/net/phrasal/application/service/AccountEmailComposer.java
+- backend/src/main/java/net/phrasal/application/service/AccountEmailListener.java
+- backend/src/main/java/net/phrasal/domain/entity/TokenType.java
+- backend/src/main/resources/application.yml
+- backend/src/test/java/net/phrasal/application/service/AccountEmailComposerTest.java
+- backend/src/test/java/net/phrasal/application/service/AccountEmailListenerTest.java
+- backend/src/test/java/net/phrasal/application/service/VerificationEmailComposerTest.java
+- backend/src/test/java/net/phrasal/domain/entity/UserTokenEntityTest.java
+- backend/src/test/java/net/phrasal/integration/UserTokenRepositoryIntegrationTest.java
+- backend/src/test/java/net/phrasal/integration/support/RecordingEmailSender.java
+<!-- end-snapshot -->

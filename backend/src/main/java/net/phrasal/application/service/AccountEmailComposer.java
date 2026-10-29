@@ -3,24 +3,31 @@ package net.phrasal.application.service;
 import lombok.RequiredArgsConstructor;
 import net.phrasal.config.AppProperties;
 import net.phrasal.config.EmailVerificationProperties;
+import net.phrasal.config.PasswordResetProperties;
 import net.phrasal.infrastructure.mail.EmailMessage;
 import org.springframework.stereotype.Component;
 import org.springframework.web.util.HtmlUtils;
 
 import java.time.Duration;
 
-/** Builds the account emails as plain Java text blocks; no template engine. */
+/**
+ * Builds the account emails (verification, account exists, password reset, password changed) as plain Java text
+ * blocks; no template engine.
+ */
 @Component
 @RequiredArgsConstructor
-public class VerificationEmailComposer {
+public class AccountEmailComposer {
 
     static final String VERIFICATION_SUBJECT = "Confirm your Phrasal account";
     static final String ACCOUNT_EXISTS_SUBJECT = "You already have a Phrasal account";
+    static final String PASSWORD_RESET_SUBJECT = "Reset your Phrasal password";
+    static final String PASSWORD_CHANGED_SUBJECT = "Your Phrasal password was changed";
 
     private static final long MINUTES_PER_HOUR = 60;
 
     private final AppProperties appProperties;
     private final EmailVerificationProperties verificationProperties;
+    private final PasswordResetProperties resetProperties;
 
     /**
      * Email with the link that confirms the address.
@@ -78,6 +85,63 @@ public class VerificationEmailComposer {
                 <p>If this wasn't you, you can ignore this email.</p>
                 """.formatted(safeLink);
         return new EmailMessage(to, ACCOUNT_EXISTS_SUBJECT, text, html);
+    }
+
+    /**
+     * Email with the link that lets the owner choose a new password.
+     *
+     * @param to       recipient address
+     * @param rawToken secret token; base64url, so it needs no URL encoding
+     * @return multipart message
+     */
+    public EmailMessage passwordReset(String to, String rawToken) {
+        String link = appProperties.baseUrl() + "/reset-password?token=" + rawToken;
+        String lifetime = describe(resetProperties.tokenTtl());
+        String text = """
+                Someone asked to reset the password of your Phrasal account.
+
+                Choose a new password here:
+                %s
+
+                This link expires in %s and works once.
+
+                If you didn't ask for this, ignore this email; your password stays the same.
+                """.formatted(link, lifetime);
+        String safeLink = HtmlUtils.htmlEscape(link);
+        String html = """
+                <p>Someone asked to reset the password of your Phrasal account.</p>
+                <p><a href="%1$s">Choose a new password</a></p>
+                <p>Or copy this link into your browser:<br>%1$s</p>
+                <p>This link expires in %2$s and works once.</p>
+                <p>If you didn't ask for this, ignore this email; your password stays the same.</p>
+                """.formatted(safeLink, HtmlUtils.htmlEscape(lifetime));
+        return new EmailMessage(to, PASSWORD_RESET_SUBJECT, text, html);
+    }
+
+    /**
+     * Notice that the password was just changed.
+     *
+     * @param to recipient address
+     * @return multipart message with a link to the forgot-password page and no token
+     */
+    public EmailMessage passwordChanged(String to) {
+        String link = appProperties.baseUrl() + "/forgot-password";
+        String text = """
+                The password of your Phrasal account was just changed, and every device was logged out.
+
+                If this was you, there is nothing to do.
+
+                If it wasn't, reset your password now:
+                %s
+                """.formatted(link);
+        String safeLink = HtmlUtils.htmlEscape(link);
+        String html = """
+                <p>The password of your Phrasal account was just changed, and every device was logged out.</p>
+                <p>If this was you, there is nothing to do.</p>
+                <p>If it wasn't, <a href="%1$s">reset your password now</a>.</p>
+                <p>Or copy this link into your browser:<br>%1$s</p>
+                """.formatted(safeLink);
+        return new EmailMessage(to, PASSWORD_CHANGED_SUBJECT, text, html);
     }
 
     private static String describe(Duration ttl) {

@@ -48,7 +48,11 @@ class UserTokenRepositoryIntegrationTest extends AbstractIntegrationTest {
     }
 
     private UserToken save(Long userId, LocalDateTime expiresAt) {
-        return repository.saveAndFlush(new UserToken(userId, TokenType.EMAIL_VERIFICATION, uniqueHash(), expiresAt));
+        return save(userId, TokenType.EMAIL_VERIFICATION, expiresAt);
+    }
+
+    private UserToken save(Long userId, TokenType type, LocalDateTime expiresAt) {
+        return repository.saveAndFlush(new UserToken(userId, type, uniqueHash(), expiresAt));
     }
 
     @Test
@@ -64,6 +68,35 @@ class UserTokenRepositoryIntegrationTest extends AbstractIntegrationTest {
         assertThat(found.getUserId()).isEqualTo(user.getId());
         assertThat(found.getCreatedAt()).isNotNull();
         assertThat(found.isUsed()).isFalse();
+    }
+
+    @Test
+    @DisplayName("a password reset token round-trips and is found only with its own type")
+    void passwordResetRoundTrip() {
+        User user = newUser();
+        UserToken saved = save(user.getId(), TokenType.PASSWORD_RESET, NOW.plusHours(1));
+
+        UserToken found = repository.findByTokenHashAndType(saved.getTokenHash(), TokenType.PASSWORD_RESET)
+                .orElseThrow();
+
+        assertThat(found.getId()).isEqualTo(saved.getId());
+        assertThat(found.getType()).isEqualTo(TokenType.PASSWORD_RESET);
+        assertThat(repository.findByTokenHashAndType(saved.getTokenHash(), TokenType.EMAIL_VERIFICATION)).isEmpty();
+    }
+
+    @Test
+    @DisplayName("invalidating reset tokens leaves the user's open verification token untouched")
+    void invalidateActiveKeepsOtherType() {
+        User user = newUser();
+        UserToken verification = save(user.getId(), TokenType.EMAIL_VERIFICATION, NOW.plusDays(1));
+        UserToken reset = save(user.getId(), TokenType.PASSWORD_RESET, NOW.plusHours(1));
+
+        int count = transactionTemplate.execute(status ->
+                repository.invalidateActive(user.getId(), TokenType.PASSWORD_RESET, NOW));
+
+        assertThat(count).isEqualTo(1);
+        assertThat(repository.findById(reset.getId()).orElseThrow().getUsedAt()).isEqualTo(NOW);
+        assertThat(repository.findById(verification.getId()).orElseThrow().isUsed()).isFalse();
     }
 
     @Test

@@ -17,6 +17,8 @@ public class RecordingEmailSender implements EmailSender {
     private static final Duration AWAIT_TIMEOUT = Duration.ofSeconds(5);
     private static final long POLL_MILLIS = 20;
     private static final Pattern TOKEN_LINK = Pattern.compile("/verify-email\\?token=([A-Za-z0-9_-]{43})");
+    private static final Pattern RESET_LINK = Pattern.compile("/reset-password\\?token=([A-Za-z0-9_-]{43})");
+    private static final String RESET_SUBJECT = "Reset your Phrasal password";
 
     private final Map<String, List<EmailMessage>> sent = new ConcurrentHashMap<>();
 
@@ -57,6 +59,47 @@ public class RecordingEmailSender implements EmailSender {
     }
 
     /**
+     * Waits for a message with the given subject and returns the newest such message.
+     *
+     * @param to      recipient address
+     * @param subject exact subject line
+     * @return the most recent message with that subject
+     */
+    public EmailMessage awaitSubject(String to, String subject) {
+        long deadline = System.nanoTime() + AWAIT_TIMEOUT.toNanos();
+        while (System.nanoTime() < deadline) {
+            List<EmailMessage> matching = withSubject(to, subject);
+            if (!matching.isEmpty()) {
+                return matching.get(matching.size() - 1);
+            }
+            sleep(POLL_MILLIS);
+        }
+        throw new AssertionError("Expected an email to " + to + " with subject '" + subject + "' within "
+                + AWAIT_TIMEOUT);
+    }
+
+    /**
+     * Counts the messages with the given subject that reached the recipient so far.
+     *
+     * @param to      recipient address
+     * @param subject exact subject line
+     * @return number of messages
+     */
+    public int countWithSubject(String to, String subject) {
+        return withSubject(to, subject).size();
+    }
+
+    /**
+     * Extracts the reset token from the newest password reset message to the recipient.
+     *
+     * @param to recipient address
+     * @return the raw token
+     */
+    public String awaitPasswordResetToken(String to) {
+        return extractToken(awaitSubject(to, RESET_SUBJECT), RESET_LINK);
+    }
+
+    /**
      * Extracts the verification token from the newest message to the recipient.
      *
      * @param to recipient address
@@ -73,9 +116,20 @@ public class RecordingEmailSender implements EmailSender {
      * @return the raw token
      */
     public static String extractToken(EmailMessage message) {
-        Matcher matcher = TOKEN_LINK.matcher(message.text());
+        return extractToken(message, TOKEN_LINK);
+    }
+
+    /**
+     * Extracts a token from a message.
+     *
+     * @param message     message holding a link
+     * @param linkPattern pattern whose first group is the raw token
+     * @return the raw token
+     */
+    public static String extractToken(EmailMessage message, Pattern linkPattern) {
+        Matcher matcher = linkPattern.matcher(message.text());
         if (!matcher.find()) {
-            throw new AssertionError("No verification link in the email to " + message.to());
+            throw new AssertionError("No matching link in the email to " + message.to());
         }
         return matcher.group(1);
     }
@@ -92,6 +146,12 @@ public class RecordingEmailSender implements EmailSender {
         if (!messages.isEmpty()) {
             throw new AssertionError("Expected no email to " + to + " but found " + messages.size());
         }
+    }
+
+    private List<EmailMessage> withSubject(String to, String subject) {
+        return sent.getOrDefault(to, List.of()).stream()
+                .filter(message -> subject.equals(message.subject()))
+                .toList();
     }
 
     private static void sleep(long millis) {

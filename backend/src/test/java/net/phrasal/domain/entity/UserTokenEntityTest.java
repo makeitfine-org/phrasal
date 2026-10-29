@@ -36,6 +36,15 @@ class UserTokenEntityTest {
     }
 
     @Test
+    @DisplayName("a password reset token shows its type and still hides the hash")
+    void passwordResetToStringHidesHash() {
+        UserToken reset = new UserToken(5L, TokenType.PASSWORD_RESET, HASH, EXPIRES);
+
+        assertThat(reset.getType()).isEqualTo(TokenType.PASSWORD_RESET);
+        assertThat(reset.toString()).contains("PASSWORD_RESET").doesNotContain(HASH);
+    }
+
+    @Test
     @DisplayName("isExpired is false before expiry and true at and after expiry")
     void isExpired() {
         UserToken token = token();

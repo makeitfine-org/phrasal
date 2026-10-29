@@ -4,9 +4,12 @@ import ch.qos.logback.classic.Logger;
 import ch.qos.logback.classic.spi.ILoggingEvent;
 import ch.qos.logback.core.read.ListAppender;
 import net.phrasal.application.event.AccountExistsNoticeRequested;
+import net.phrasal.application.event.PasswordChangedNoticeRequested;
+import net.phrasal.application.event.PasswordResetEmailRequested;
 import net.phrasal.application.event.VerificationEmailRequested;
 import net.phrasal.config.AppProperties;
 import net.phrasal.config.EmailVerificationProperties;
+import net.phrasal.config.PasswordResetProperties;
 import net.phrasal.infrastructure.mail.EmailMessage;
 import net.phrasal.infrastructure.mail.EmailSender;
 import org.junit.jupiter.api.AfterEach;
@@ -27,17 +30,18 @@ import static org.mockito.Mockito.doThrow;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.verify;
 
-@DisplayName("VerificationEmailListener")
-class VerificationEmailListenerTest {
+@DisplayName("AccountEmailListener")
+class AccountEmailListenerTest {
 
     private static final String TOKEN = "secret-token-value";
 
     private final EmailSender sender = mock(EmailSender.class);
-    private final VerificationEmailListener listener = new VerificationEmailListener(
-            new VerificationEmailComposer(new AppProperties(URI.create("https://phrasalbox.com")),
-                    new EmailVerificationProperties(Duration.ofHours(24), Duration.ofDays(7))),
+    private final AccountEmailListener listener = new AccountEmailListener(
+            new AccountEmailComposer(new AppProperties(URI.create("https://phrasalbox.com")),
+                    new EmailVerificationProperties(Duration.ofHours(24), Duration.ofDays(7)),
+                    new PasswordResetProperties(Duration.ofHours(1))),
             sender);
-    private final Logger logger = (Logger) LoggerFactory.getLogger(VerificationEmailListener.class);
+    private final Logger logger = (Logger) LoggerFactory.getLogger(AccountEmailListener.class);
     private ListAppender<ILoggingEvent> appender;
 
     @BeforeEach
@@ -62,7 +66,7 @@ class VerificationEmailListenerTest {
         assertThat(captor.getValue().to()).isEqualTo("a@b.com");
         assertThat(captor.getValue().text()).contains("verify-email?token=" + TOKEN);
         assertThat(appender.list).extracting(ILoggingEvent::getFormattedMessage)
-                .containsExactly("Verification email sent userId=7");
+                .containsExactly("Account email sent userId=7");
     }
 
     @Test
@@ -77,6 +81,47 @@ class VerificationEmailListenerTest {
     }
 
     @Test
+    @DisplayName("sends the password reset email with the link to the event's address")
+    void sendsPasswordReset() {
+        listener.onPasswordResetEmailRequested(new PasswordResetEmailRequested(7L, "a@b.com", TOKEN));
+
+        ArgumentCaptor<EmailMessage> captor = ArgumentCaptor.forClass(EmailMessage.class);
+        verify(sender).send(captor.capture());
+        assertThat(captor.getValue().to()).isEqualTo("a@b.com");
+        assertThat(captor.getValue().subject()).isEqualTo("Reset your Phrasal password");
+        assertThat(captor.getValue().text()).contains("reset-password?token=" + TOKEN);
+        assertThat(appender.list).extracting(ILoggingEvent::getFormattedMessage)
+                .containsExactly("Account email sent userId=7");
+    }
+
+    @Test
+    @DisplayName("sends the password-changed notice without a token")
+    void sendsPasswordChanged() {
+        listener.onPasswordChangedNoticeRequested(new PasswordChangedNoticeRequested(7L, "a@b.com"));
+
+        ArgumentCaptor<EmailMessage> captor = ArgumentCaptor.forClass(EmailMessage.class);
+        verify(sender).send(captor.capture());
+        assertThat(captor.getValue().to()).isEqualTo("a@b.com");
+        assertThat(captor.getValue().subject()).isEqualTo("Your Phrasal password was changed");
+        assertThat(captor.getValue().text()).contains("/forgot-password").doesNotContain("token=");
+    }
+
+    @Test
+    @DisplayName("a failure while sending a reset or changed mail is swallowed and the WARN has no token")
+    void swallowsResetFailures() {
+        doThrow(new MailSendException("relay down for a@b.com " + TOKEN)).when(sender).send(any());
+
+        assertThatCode(() -> {
+            listener.onPasswordResetEmailRequested(new PasswordResetEmailRequested(7L, "a@b.com", TOKEN));
+            listener.onPasswordChangedNoticeRequested(new PasswordChangedNoticeRequested(7L, "a@b.com"));
+        }).doesNotThrowAnyException();
+
+        assertThat(appender.list).hasSize(2)
+                .allSatisfy(event -> assertThat(event.getFormattedMessage())
+                        .isEqualTo("Account email failed userId=7: MailSendException"));
+    }
+
+    @Test
     @DisplayName("a sender failure is swallowed and logged without the token or the address")
     void swallowsFailure() {
         doThrow(new MailSendException("relay down for a@b.com " + TOKEN)).when(sender).send(any());
@@ -86,7 +131,7 @@ class VerificationEmailListenerTest {
 
         assertThat(appender.list).hasSize(1);
         String line = appender.list.get(0).getFormattedMessage();
-        assertThat(line).isEqualTo("Verification email failed userId=7: MailSendException");
+        assertThat(line).isEqualTo("Account email failed userId=7: MailSendException");
         assertThat(line).doesNotContain(TOKEN, "a@b.com");
     }
 
@@ -96,5 +141,9 @@ class VerificationEmailListenerTest {
         assertThat(new VerificationEmailRequested(7L, "a@b.com", TOKEN).toString())
                 .contains("7").doesNotContain(TOKEN, "a@b.com");
         assertThat(new AccountExistsNoticeRequested(7L, "a@b.com").toString()).doesNotContain("a@b.com");
+        assertThat(new PasswordResetEmailRequested(7L, "a@b.com", TOKEN).toString())
+                .contains("7").doesNotContain(TOKEN, "a@b.com");
+        assertThat(new PasswordChangedNoticeRequested(7L, "a@b.com").toString())
+                .contains("7").doesNotContain("a@b.com");
     }
 }

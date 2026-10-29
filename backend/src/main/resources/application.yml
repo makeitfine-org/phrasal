@@ -104,6 +104,8 @@ phrasal:
   email-verification:
     token-ttl: ${EMAIL_VERIFICATION_TOKEN_TTL:24h}
     unverified-account-retention: ${UNVERIFIED_ACCOUNT_RETENTION:7d}
+  password-reset:
+    token-ttl: ${PASSWORD_RESET_TOKEN_TTL:1h}
 
 management:
   health:

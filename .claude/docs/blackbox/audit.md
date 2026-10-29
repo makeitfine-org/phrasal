@@ -4760,3 +4760,17 @@ If this event is something the user would act on now, send a PushNotification. R
 ## 2026-10-29T17:25:01Z
 git add all changes and commit them with suitable message
 ---
+
+## 2026-10-29T17:49:46Z
+Implement functionality from @.claude/docs/blackbox/todos/reset-password-todos.md Phase 1.               
+Don't forget to check off implemented boxes.
+On phase completion `make clean build` must pass successfully.
+---
+
+## 2026-10-29T17:53:02Z
+continue
+---
+
+## 2026-10-29T17:59:25Z
+git add all changes and commit them with suitable message
+---

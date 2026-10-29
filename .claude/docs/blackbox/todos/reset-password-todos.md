@@ -237,93 +237,93 @@ reset endpoint. Phase 4 covers both over the API in e2e. Phases 5–6 add the pa
 ## Phase 1 — Building blocks: token type, settings, mail texts (no behaviour change)
 
 ### 1.1 Token type and settings
-- [ ] **1.1.1** `backend/src/main/java/net/phrasal/domain/entity/TokenType.java`: add `PASSWORD_RESET`. Update the
+- [x] **1.1.1** `backend/src/main/java/net/phrasal/domain/entity/TokenType.java`: add `PASSWORD_RESET`. Update the
       Javadoc: remove "password reset (task-100) adds…", and list both purposes.
-- [ ] **1.1.2** `config/PasswordResetProperties.java`:
+- [x] **1.1.2** `config/PasswordResetProperties.java`:
       `@ConfigurationProperties("phrasal.password-reset") record PasswordResetProperties(Duration tokenTtl)`, with a
       Javadoc `@param`. Register it the same way as `EmailVerificationProperties` (check how that one is enabled:
       `@ConfigurationPropertiesScan` or `@EnableConfigurationProperties`).
-- [ ] **1.1.3** `application.yml`:
+- [x] **1.1.3** `application.yml`:
   ```yaml
   phrasal:
     password-reset:
       token-ttl: ${PASSWORD_RESET_TOKEN_TTL:1h}
   ```
-- [ ] **1.1.4** No migration: `git diff --stat backend/src/main/resources/db/migration` is empty.
-- [ ] **1.1.5** `integration/UserTokenRepositoryIntegrationTest`, new cases:
-  - [ ] a `PASSWORD_RESET` token round trip through `findByTokenHashAndType`
-  - [ ] negative: looking up a reset token's hash with type `EMAIL_VERIFICATION` → empty (the purposes are kept apart)
-  - [ ] `invalidateActive(userId, PASSWORD_RESET, now)` leaves the user's open `EMAIL_VERIFICATION` token untouched
-- [ ] **1.1.6** `domain/entity/UserTokenEntityTest`: a `PASSWORD_RESET` token's `toString` has the type and no hash.
+- [x] **1.1.4** No migration: `git diff --stat backend/src/main/resources/db/migration` is empty.
+- [x] **1.1.5** `integration/UserTokenRepositoryIntegrationTest`, new cases:
+  - [x] a `PASSWORD_RESET` token round trip through `findByTokenHashAndType`
+  - [x] negative: looking up a reset token's hash with type `EMAIL_VERIFICATION` → empty (the purposes are kept apart)
+  - [x] `invalidateActive(userId, PASSWORD_RESET, now)` leaves the user's open `EMAIL_VERIFICATION` token untouched
+- [x] **1.1.6** `domain/entity/UserTokenEntityTest`: a `PASSWORD_RESET` token's `toString` has the type and no hash.
 
 ### 1.2 Rename the mail classes (refactor only, decision 11)
-- [ ] **1.2.1** `git mv` (so history follows):
+- [x] **1.2.1** `git mv` (so history follows):
   - `application/service/VerificationEmailComposer.java` → `AccountEmailComposer.java`
   - `application/service/VerificationEmailListener.java` → `AccountEmailListener.java`
   - the two test classes the same way
   - update every reference found in 0.6 (constructor injection, tests)
-- [ ] **1.2.2** Class Javadoc: "Builds/sends the account emails (verification, account exists, password reset,
+- [x] **1.2.2** Class Javadoc: "Builds/sends the account emails (verification, account exists, password reset,
       password changed)".
-- [ ] **1.2.3** Log messages in the listener: `Account email sent userId={}` and
+- [x] **1.2.3** Log messages in the listener: `Account email sent userId={}` and
       `Account email failed userId={}: {}`. Update the Logback `ListAppender` assertions in the listener test.
-- [ ] **1.2.4** `cd backend && mvn -q test -Dtest='AccountEmailComposerTest,AccountEmailListenerTest'` → green, with
+- [x] **1.2.4** `cd backend && mvn -q test -Dtest='AccountEmailComposerTest,AccountEmailListenerTest'` → green, with
       the same test count as before the rename.
 
 ### 1.3 Mail texts (`AccountEmailComposer`)
-- [ ] **1.3.1** Inject `PasswordResetProperties` next to the existing properties.
-- [ ] **1.3.2** Constants, package-private like the existing ones:
+- [x] **1.3.1** Inject `PasswordResetProperties` next to the existing properties.
+- [x] **1.3.2** Constants, package-private like the existing ones:
       `PASSWORD_RESET_SUBJECT = "Reset your Phrasal password"`,
       `PASSWORD_CHANGED_SUBJECT = "Your Phrasal password was changed"`.
-- [ ] **1.3.3** `EmailMessage passwordReset(String to, String rawToken)`:
-  - [ ] link = `baseUrl + "/reset-password?token=" + rawToken` (base64url, no URL-encoding needed)
-  - [ ] text: "Someone asked to reset the password of your Phrasal account. Choose a new password here: <link>.
+- [x] **1.3.3** `EmailMessage passwordReset(String to, String rawToken)`:
+  - [x] link = `baseUrl + "/reset-password?token=" + rawToken` (base64url, no URL-encoding needed)
+  - [x] text: "Someone asked to reset the password of your Phrasal account. Choose a new password here: <link>.
         This link expires in 1 hour and works once. If you didn't ask for this, ignore this email; your password stays
         the same."
-  - [ ] the lifetime comes from the existing private `describe(Duration)` helper (reused, not copied)
-  - [ ] HTML: one `<a href>` ("Choose a new password") and the same link as plain text; every dynamic value goes
+  - [x] the lifetime comes from the existing private `describe(Duration)` helper (reused, not copied)
+  - [x] HTML: one `<a href>` ("Choose a new password") and the same link as plain text; every dynamic value goes
         through `HtmlUtils.htmlEscape`
-- [ ] **1.3.4** `EmailMessage passwordChanged(String to)`:
-  - [ ] link = `baseUrl + "/forgot-password"`
-  - [ ] text: "The password of your Phrasal account was just changed, and every device was logged out. If this was
+- [x] **1.3.4** `EmailMessage passwordChanged(String to)`:
+  - [x] link = `baseUrl + "/forgot-password"`
+  - [x] text: "The password of your Phrasal account was just changed, and every device was logged out. If this was
         you, there is nothing to do. If it wasn't, reset your password now: <link>"
-  - [ ] no token in the text or the HTML
-- [ ] **1.3.5** `AccountEmailComposerTest`, new cases:
-  - [ ] the reset link has the configured base URL, `/reset-password?token=` and the raw token
-  - [ ] a `1h` TTL → "1 hour"; a `30m` TTL → "30 minutes"
-  - [ ] the HTML escapes a base URL containing `&`
-  - [ ] `passwordChanged` contains `/forgot-password` and matches no `token=` pattern
-  - [ ] negative: the reset mail doesn't contain `/verify-email`, and the verification mail doesn't contain
+  - [x] no token in the text or the HTML
+- [x] **1.3.5** `AccountEmailComposerTest`, new cases:
+  - [x] the reset link has the configured base URL, `/reset-password?token=` and the raw token
+  - [x] a `1h` TTL → "1 hour"; a `30m` TTL → "30 minutes"
+  - [x] the HTML escapes a base URL containing `&`
+  - [x] `passwordChanged` contains `/forgot-password` and matches no `token=` pattern
+  - [x] negative: the reset mail doesn't contain `/verify-email`, and the verification mail doesn't contain
         `/reset-password`
 
 ### 1.4 Events and listener
-- [ ] **1.4.1** `application/event/PasswordResetEmailRequested.java`:
+- [x] **1.4.1** `application/event/PasswordResetEmailRequested.java`:
       `record PasswordResetEmailRequested(Long userId, String email, String rawToken)`. Javadoc `@param`s.
       `toString()` shows only the user id.
-- [ ] **1.4.2** `application/event/PasswordChangedNoticeRequested.java`:
+- [x] **1.4.2** `application/event/PasswordChangedNoticeRequested.java`:
       `record PasswordChangedNoticeRequested(Long userId, String email)`, with a masking `toString()` (user id only).
-- [ ] **1.4.3** `AccountEmailListener`: two more `@Async @TransactionalEventListener(phase = AFTER_COMMIT)` methods,
+- [x] **1.4.3** `AccountEmailListener`: two more `@Async @TransactionalEventListener(phase = AFTER_COMMIT)` methods,
       `onPasswordResetEmailRequested` → `composer.passwordReset(...)` and `onPasswordChangedNoticeRequested` →
       `composer.passwordChanged(...)`. Both go through the existing private `deliver(...)`.
-- [ ] **1.4.4** Tests:
-  - [ ] `AccountEmailListenerTest`: each new event → composer + sender called with the right recipient; the sender
+- [x] **1.4.4** Tests:
+  - [x] `AccountEmailListenerTest`: each new event → composer + sender called with the right recipient; the sender
         throws → no exception escapes, and the `WARN` has no token
-  - [ ] an event `toString` test (next to the existing event tests, or a new `application/event/AccountEventsTest`):
+  - [x] an event `toString` test (next to the existing event tests, or a new `application/event/AccountEventsTest`):
         neither event's `toString` contains the email or the token
 
 ### 1.5 Test mailbox (`integration/support/RecordingEmailSender`)
 Why: after `registerAndLogin` the inbox already holds the verification email. "Wait for the first message, return the
 newest" would then return that one instead of the async reset email.
-- [ ] **1.5.1** `EmailMessage awaitSubject(String to, String subject)`: polls (same timeout as `awaitCount`) until a
+- [x] **1.5.1** `EmailMessage awaitSubject(String to, String subject)`: polls (same timeout as `awaitCount`) until a
       message with that subject exists, and returns the newest such message.
-- [ ] **1.5.2** `int countWithSubject(String to, String subject)`, for "a second reset email arrived".
-- [ ] **1.5.3** `static String extractToken(EmailMessage message, Pattern linkPattern)`. The existing
+- [x] **1.5.2** `int countWithSubject(String to, String subject)`, for "a second reset email arrived".
+- [x] **1.5.3** `static String extractToken(EmailMessage message, Pattern linkPattern)`. The existing
       `extractToken(message)` delegates to it with the verification pattern.
-- [ ] **1.5.4** `String awaitPasswordResetToken(String to)`: `awaitSubject(to, "Reset your Phrasal password")` plus the
+- [x] **1.5.4** `String awaitPasswordResetToken(String to)`: `awaitSubject(to, "Reset your Phrasal password")` plus the
       pattern `/reset-password\?token=([A-Za-z0-9_-]{43})`.
 
 ### 1.6 Verify and commit
-- [ ] **1.6.1** `cd backend && mvn clean verify` → green, JaCoCo ≥ 85 % in every touched package.
-- [ ] **1.6.2** `make clean build` → green. Ask for commit approval →
+- [x] **1.6.1** `cd backend && mvn clean verify` → green, JaCoCo ≥ 85 % in every touched package.
+- [x] **1.6.2** `make clean build` → green. Ask for commit approval →
       `feat(backend): add password reset token type and account emails`
 
 ---
