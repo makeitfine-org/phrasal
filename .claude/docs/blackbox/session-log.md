@@ -1926,3 +1926,11 @@
 - backend/src/test/resources/application-test.yml
 - docker-compose.yml
 <!-- end-snapshot -->
+
+<!-- git-snapshot 2026-10-29T18:30:14Z -->
+- .claude/docs/blackbox/audit.md
+- .claude/docs/blackbox/todos/reset-password-todos.md
+- e2e/src/hooks.ts
+- e2e/src/support/mailpit-client.ts
+- e2e/src/world.ts
+<!-- end-snapshot -->

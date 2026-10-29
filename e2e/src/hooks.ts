@@ -44,6 +44,7 @@ Before(function () {
     this.page = null;
     this.currentEmail = null;
     this.verificationTokens = [];
+    this.resetTokens = [];
     this.firstRegistrationResponse = null;
 });
 

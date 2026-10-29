@@ -10,5 +10,6 @@ export interface PhrasalWorld extends World {
     page: Page | null;
     currentEmail: string | null;
     verificationTokens: string[];
+    resetTokens: string[];
     firstRegistrationResponse: AxiosResponse | null;
 }

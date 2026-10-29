@@ -533,24 +533,24 @@ newest" would then return that one instead of the async reset email.
 ## Phase 4 — E2E: password reset over the API, mail from Mailpit
 
 ### 4.1 Support code
-- [ ] **4.1.1** `e2e/src/support/mailpit-client.ts`:
-  - [ ] `search(address, subject?)`: the query becomes `to:"<address>" subject:"<subject>"` when a subject is given
+- [x] **4.1.1** `e2e/src/support/mailpit-client.ts`:
+  - [x] `search(address, subject?)`: the query becomes `to:"<address>" subject:"<subject>"` when a subject is given
         (syntax from 0.4)
-  - [ ] `latestMessageTo(address, { timeoutMs, subject })`: polls until a message **with that subject** exists
-  - [ ] constants `VERIFICATION_SUBJECT = 'Confirm your Phrasal account'`,
+  - [x] `latestMessageTo(address, { timeoutMs, subject })`: polls until a message **with that subject** exists
+  - [x] constants `VERIFICATION_SUBJECT = 'Confirm your Phrasal account'`,
         `PASSWORD_RESET_SUBJECT = 'Reset your Phrasal password'`,
         `PASSWORD_CHANGED_SUBJECT = 'Your Phrasal password was changed'`
-  - [ ] `verificationLink` passes `VERIFICATION_SUBJECT`. That makes the existing steps robust once other mails reach
+  - [x] `verificationLink` passes `VERIFICATION_SUBJECT`. That makes the existing steps robust once other mails reach
         the same inbox; their behaviour is otherwise unchanged.
-  - [ ] new `passwordResetLink(address)` (pattern `/https?:\/\/[^\s"<]+\/reset-password\?token=[A-Za-z0-9_-]{43}/`)
+  - [x] new `passwordResetLink(address)` (pattern `/https?:\/\/[^\s"<]+\/reset-password\?token=[A-Za-z0-9_-]{43}/`)
         and `passwordResetToken(address)`
-  - [ ] `countMessagesTo(address, subject?)`
-- [ ] **4.1.2** `e2e/src/world.ts`: `resetTokens: string[]`. Reset it in the `Before` hook in `hooks.ts`.
-- [ ] **4.1.3** `hooks.ts` `AfterAll`: no change. Tokens go with the users (FK cascade); Mailpit messages to
+  - [x] `countMessagesTo(address, subject?)`
+- [x] **4.1.2** `e2e/src/world.ts`: `resetTokens: string[]`. Reset it in the `Before` hook in `hooks.ts`.
+- [x] **4.1.3** `hooks.ts` `AfterAll`: no change. Tokens go with the users (FK cascade); Mailpit messages to
       `e2e-*@phrasal.test` are already deleted. Check it once.
 
 ### 4.2 Steps: `e2e/src/steps/password-reset-api.steps.ts`
-- [ ] **4.2.1** Steps:
+- [x] **4.2.1** Steps:
   - `When I request a password reset` (for `currentEmail`)
   - `When I request a password reset for an unknown address`
   - `When I request a password reset {int} times`
@@ -565,29 +565,29 @@ newest" would then return that one instead of the async reset email.
   - `Then the previous password reset link should no longer work`
   - `Then I should receive a password changed notice`
   - `Then the response should be the check-your-inbox message` (asserts the exact `CHECK_INBOX` body)
-- [ ] **4.2.2** Reuse:
+- [x] **4.2.2** Reuse:
   - `Given a registered user exists`, `Given an unverified user exists`, `Given I am logged in as a new user`
   - `When I log in with the current email and password {string}`, `When I request my profile`
   - `Then the response status should be {int}`
 
 ### 4.3 Feature: `e2e/features/auth-api/password-reset.feature` (`@api`)
-- [ ] **4.3.1** Forgot-password for a registered user → `202` + the check-inbox body; a reset email arrives.
-- [ ] **4.3.2** Forgot-password for an unknown address → `202` + the **same** check-inbox body; no email is sent.
-- [ ] **4.3.3** Reset with the emailed link → `204`; log in with the old password → `401`; with the new one → `200`;
+- [x] **4.3.1** Forgot-password for a registered user → `202` + the check-inbox body; a reset email arrives.
+- [x] **4.3.2** Forgot-password for an unknown address → `202` + the **same** check-inbox body; no email is sent.
+- [x] **4.3.3** Reset with the emailed link → `204`; log in with the old password → `401`; with the new one → `200`;
       a "password changed" notice arrives.
-- [ ] **4.3.4** The link works once: using it again → `400`.
-- [ ] **4.3.5** An invented token → `400`.
-- [ ] **4.3.6** A too-short new password → `400`, and the same link still works with a valid password → `204`.
-- [ ] **4.3.7** A new request kills the old link: two requests → two emails; the previous link → `400`; the newest →
+- [x] **4.3.4** The link works once: using it again → `400`.
+- [x] **4.3.5** An invented token → `400`.
+- [x] **4.3.6** A too-short new password → `400`, and the same link still works with a valid password → `204`.
+- [x] **4.3.7** A new request kills the old link: two requests → two emails; the previous link → `400`; the newest →
       `204`.
-- [ ] **4.3.8** Reset logs out other sessions: `Given I am logged in as a new user` → reset from another device →
+- [x] **4.3.8** Reset logs out other sessions: `Given I am logged in as a new user` → reset from another device →
       `When I request my profile` → `401`.
-- [ ] **4.3.9** An unverified user can reset: `Given an unverified user exists` → reset → log in with the new password
+- [x] **4.3.9** An unverified user can reset: `Given an unverified user exists` → reset → log in with the new password
       → `200`.
-- [ ] **4.3.10** Rate limit: `When I request a password reset 4 times` for one email → the last response is `429`
+- [x] **4.3.10** Rate limit: `When I request a password reset 4 times` for one email → the last response is `429`
       (default `forgot-per-email` = 3 per hour; compose raises only the per-IP limit).
-- [ ] **4.3.11** `npm --prefix e2e run test:api` against the running stack → green, including the old features.
-- [ ] **4.3.12** `make clean build` → green. Ask for commit approval → `test(e2e): cover password reset through Mailpit`
+- [x] **4.3.11** `npm --prefix e2e run test:api` against the running stack → green, including the old features.
+- [x] **4.3.12** `make clean build` → green. Ask for commit approval → `test(e2e): cover password reset through Mailpit`
 
 ---
 
