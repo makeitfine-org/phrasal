@@ -260,7 +260,9 @@ jobs:
           PHRASAL_ADMIN_PASSWORD: ${{ secrets.PHRASAL_ADMIN_PASSWORD }}
           MAIL_USERNAME: ${{ secrets.MAIL_USERNAME }}
           MAIL_PASSWORD: ${{ secrets.MAIL_PASSWORD }}
+          TOTP_ENCRYPTION_KEY: ${{ secrets.TOTP_ENCRYPTION_KEY }}
         run: |
+          test -n "$TOTP_ENCRYPTION_KEY" || { echo "::error::TOTP_ENCRYPTION_KEY secret is missing"; exit 1; }
           printf '%s\n' \
             "apiVersion: v1" \
             "kind: Secret" \
@@ -274,6 +276,7 @@ jobs:
             "  admin.password: ${PHRASAL_ADMIN_PASSWORD}" \
             "  mail.username: \"${MAIL_USERNAME}\"" \
             "  mail.password: \"${MAIL_PASSWORD}\"" \
+            "  totp.encryption-key: \"${TOTP_ENCRYPTION_KEY}\"" \
             > k8s/overlays/prod/patches/secret.yaml
 
       - name: Set image tags

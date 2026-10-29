@@ -50,6 +50,8 @@ services:
       # Dev-only admin account, created at startup. Override via .env; never use these in production.
       PHRASAL_ADMIN_EMAIL: ${PHRASAL_ADMIN_EMAIL:-admin@phrasal.test}
       PHRASAL_ADMIN_PASSWORD: ${PHRASAL_ADMIN_PASSWORD:-admin-dev-password}
+      # DEV ONLY: base64 of 32 bytes; production uses the TOTP_ENCRYPTION_KEY GitHub Secret
+      TOTP_ENCRYPTION_KEY: ${TOTP_ENCRYPTION_KEY:-PmFzMN5xUKzq7Tmm5uLwwIUBV6CDsU/ugcghKiDh3/E=}
       SESSION_COOKIE_SECURE: "false"
       MAIL_ENABLED: "true"
       MAIL_HOST: mailpit

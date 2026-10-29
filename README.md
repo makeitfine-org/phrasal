@@ -156,6 +156,8 @@ export PORT=3000
 export BACKEND_PORT=8080
 export PHRASAL_ADMIN_PASSWORD=admin-dev-password
 export PHRASAL_ADMIN_EMAIL=admin@phrasal.test
+# dev-only key for the TOTP secrets (same as docker-compose.yml); the backend does not start without one
+export TOTP_ENCRYPTION_KEY=PmFzMN5xUKzq7Tmm5uLwwIUBV6CDsU/ugcghKiDh3/E=
 
 # 1. Database (once, leave running)
 docker compose up -d postgres

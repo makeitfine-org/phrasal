@@ -459,19 +459,19 @@ So `make clean build` passes after every phase. **Don't release from the branch 
 ## Phase 2 — Building blocks: encryption, TOTP, recovery codes, key wiring
 
 ### 2.1 Dependencies
-- [ ] **2.1.1** `backend/pom.xml`:
-  - [ ] `com.eatthepath:java-otp` with a `<java-otp.version>1.0.0</java-otp.version>` property (or nothing, if 0.4 (a)
+- [x] **2.1.1** `backend/pom.xml`:
+  - [x] `com.eatthepath:java-otp` with a `<java-otp.version>1.0.0</java-otp.version>` property (or nothing, if 0.4 (a)
         chose the hand-written version)
-  - [ ] `commons-codec:commons-codec` without a version (BOM)
-- [ ] **2.1.2** `cd backend && mvn -q dependency:tree -Dincludes=com.eatthepath,commons-codec` shows both, and java-otp
+  - [x] `commons-codec:commons-codec` without a version (BOM)
+- [x] **2.1.2** `cd backend && mvn -q dependency:tree -Dincludes=com.eatthepath,commons-codec` shows both, and java-otp
       pulls in nothing else.
 
 ### 2.2 Configuration
-- [ ] **2.2.1** `config/TwoFactorProperties.java`:
+- [x] **2.2.1** `config/TwoFactorProperties.java`:
       `@ConfigurationProperties("phrasal.two-factor") record TwoFactorProperties(String encryptionKey, String issuer, Duration loginTimeout)`,
       with Javadoc `@param`s. Override `toString()` to mask the key (`encryptionKey=*****`). Register it like
       `PasswordResetProperties`.
-- [ ] **2.2.2** `application.yml`:
+- [x] **2.2.2** `application.yml`:
   ```yaml
   phrasal:
     two-factor:
@@ -479,95 +479,95 @@ So `make clean build` passes after every phase. **Don't release from the branch 
       issuer: ${TWO_FACTOR_ISSUER:Phrasal}
       login-timeout: ${TWO_FACTOR_LOGIN_TIMEOUT:5m}
   ```
-- [ ] **2.2.3** `src/test/resources/application-test.yml`: `phrasal.two-factor.encryption-key: <a fixed test-only
+- [x] **2.2.3** `src/test/resources/application-test.yml`: `phrasal.two-factor.encryption-key: <a fixed test-only
       base64 key>`. Generate it with `openssl rand -base64 32`. Comment: `# test only, never used outside tests`.
-- [ ] **2.2.4** `config/TwoFactorPropertiesTest`: `toString` doesn't contain the key.
+- [x] **2.2.4** `config/TwoFactorPropertiesTest`: `toString` doesn't contain the key.
 
 ### 2.3 `infrastructure/security/AesGcmEncryptor` (decision 8)
-- [ ] **2.3.1** `@Component`. The constructor takes `TwoFactorProperties`:
-  - [ ] blank key → `IllegalStateException("TOTP_ENCRYPTION_KEY is not set")`, so startup fails
-  - [ ] not valid base64, or not exactly 32 bytes → `IllegalStateException("TOTP_ENCRYPTION_KEY must be 32 bytes, base64")`
-  - [ ] the messages never contain the key value
-- [ ] **2.3.2** `String encrypt(byte[] plaintext, String aad)`:
-  - [ ] `AES/GCM/NoPadding`, 12-byte IV from one shared `SecureRandom`, 128-bit tag, `updateAAD(aad UTF-8)`
-  - [ ] result `"v1:" + base64(iv ‖ ciphertext‖tag)`
-- [ ] **2.3.3** `byte[] decrypt(String stored, String aad)`:
-  - [ ] the prefix isn't `v1:` → `SecretDecryptionException`
-  - [ ] wrong key, wrong AAD or a changed byte (`AEADBadTagException`) → `SecretDecryptionException`
-- [ ] **2.3.4** `infrastructure/security/SecretDecryptionException` (`RuntimeException`), whose message has no secret.
-- [ ] **2.3.5** `AesGcmEncryptorTest`:
-  - [ ] round trip returns the same bytes
-  - [ ] two encryptions of the same plaintext differ (fresh IV) and both decrypt
-  - [ ] the output starts with `v1:` and doesn't contain the plaintext's Base32 or hex form
-  - [ ] negative: wrong AAD (another user id) → exception
-  - [ ] negative: one flipped ciphertext byte → exception
-  - [ ] negative: decrypting with another key → exception
-  - [ ] negative: an unknown prefix `v2:` → exception
-  - [ ] negative: a blank, short (16-byte) or non-base64 key → `IllegalStateException`, message without the key
+- [x] **2.3.1** `@Component`. The constructor takes `TwoFactorProperties`:
+  - [x] blank key → `IllegalStateException("TOTP_ENCRYPTION_KEY is not set")`, so startup fails
+  - [x] not valid base64, or not exactly 32 bytes → `IllegalStateException("TOTP_ENCRYPTION_KEY must be 32 bytes, base64")`
+  - [x] the messages never contain the key value
+- [x] **2.3.2** `String encrypt(byte[] plaintext, String aad)`:
+  - [x] `AES/GCM/NoPadding`, 12-byte IV from one shared `SecureRandom`, 128-bit tag, `updateAAD(aad UTF-8)`
+  - [x] result `"v1:" + base64(iv ‖ ciphertext‖tag)`
+- [x] **2.3.3** `byte[] decrypt(String stored, String aad)`:
+  - [x] the prefix isn't `v1:` → `SecretDecryptionException`
+  - [x] wrong key, wrong AAD or a changed byte (`AEADBadTagException`) → `SecretDecryptionException`
+- [x] **2.3.4** `infrastructure/security/SecretDecryptionException` (`RuntimeException`), whose message has no secret.
+- [x] **2.3.5** `AesGcmEncryptorTest`:
+  - [x] round trip returns the same bytes
+  - [x] two encryptions of the same plaintext differ (fresh IV) and both decrypt
+  - [x] the output starts with `v1:` and doesn't contain the plaintext's Base32 or hex form
+  - [x] negative: wrong AAD (another user id) → exception
+  - [x] negative: one flipped ciphertext byte → exception
+  - [x] negative: decrypting with another key → exception
+  - [x] negative: an unknown prefix `v2:` → exception
+  - [x] negative: a blank, short (16-byte) or non-base64 key → `IllegalStateException`, message without the key
 
 ### 2.4 `infrastructure/security/TotpVerifier` (decision 7)
-- [ ] **2.4.1** `@Component`, constants `TIME_STEP = Duration.ofSeconds(30)`, `CODE_DIGITS = 6`, `ALLOWED_DRIFT_STEPS = 1`.
-- [ ] **2.4.2** `long stepAt(Instant now)` → `now.getEpochSecond() / 30`.
-- [ ] **2.4.3** `String codeAt(byte[] secret, long step)`: java-otp (`HmacSHA1`), zero-padded to 6 digits
+- [x] **2.4.1** `@Component`, constants `TIME_STEP = Duration.ofSeconds(30)`, `CODE_DIGITS = 6`, `ALLOWED_DRIFT_STEPS = 1`.
+- [x] **2.4.2** `long stepAt(Instant now)` → `now.getEpochSecond() / 30`.
+- [x] **2.4.3** `String codeAt(byte[] secret, long step)`: java-otp (`HmacSHA1`), zero-padded to 6 digits
       (`generateOneTimePasswordString(SecretKey, Instant)` pads already; 1.0.0 API).
-- [ ] **2.4.4** `OptionalLong matchingStep(byte[] secret, String code, Instant now)`:
-  - [ ] the code isn't exactly 6 ASCII digits → empty, with no HMAC computed
-  - [ ] tries steps `now − 1`, `now`, `now + 1`; compares with `MessageDigest.isEqual`; returns the matching step
-  - [ ] doesn't know about replay: `TotpService` applies `advanceTotpStep` (decision 7)
-- [ ] **2.4.5** `TotpVerifierTest`:
-  - [ ] the 6 RFC 6238 vectors from 0.8 (secret = ASCII `12345678901234567890`), including the leading zeros
+- [x] **2.4.4** `OptionalLong matchingStep(byte[] secret, String code, Instant now)`:
+  - [x] the code isn't exactly 6 ASCII digits → empty, with no HMAC computed
+  - [x] tries steps `now − 1`, `now`, `now + 1`; compares with `MessageDigest.isEqual`; returns the matching step
+  - [x] doesn't know about replay: `TotpService` applies `advanceTotpStep` (decision 7)
+- [x] **2.4.5** `TotpVerifierTest`:
+  - [x] the 6 RFC 6238 vectors from 0.8 (secret = ASCII `12345678901234567890`), including the leading zeros
         `081804` and `005924`
-  - [ ] drift: the code of step `s − 1` and of `s + 1` is accepted at step `s`; `s − 2` and `s + 2` are rejected
-  - [ ] the returned step is the step that matched (not always "now")
-  - [ ] negative: `"12345"`, `"1234567"`, `"12a456"`, `" 123456"`, `null` → empty
-  - [ ] negative: a code from another secret → empty
+  - [x] drift: the code of step `s − 1` and of `s + 1` is accepted at step `s`; `s − 2` and `s + 2` are rejected
+  - [x] the returned step is the step that matched (not always "now")
+  - [x] negative: `"12345"`, `"1234567"`, `"12a456"`, `" 123456"`, `null` → empty
+  - [x] negative: a code from another secret → empty
 
 ### 2.5 Secret and recovery-code generators
-- [ ] **2.5.1** `infrastructure/security/TwoFactorSecrets.java` (`@Component`, one shared `SecureRandom`):
-  - [ ] `byte[] newSecret()` → 20 random bytes
-  - [ ] `static String toBase32(byte[])` → commons-codec `Base32`, no padding, upper case
-  - [ ] `String otpauthUri(String issuer, String email, String base32Secret)` →
+- [x] **2.5.1** `infrastructure/security/TwoFactorSecrets.java` (`@Component`, one shared `SecureRandom`):
+  - [x] `byte[] newSecret()` → 20 random bytes
+  - [x] `static String toBase32(byte[])` → commons-codec `Base32`, no padding, upper case
+  - [x] `String otpauthUri(String issuer, String email, String base32Secret)` →
         `otpauth://totp/{issuer}:{email}?secret=…&issuer=…&algorithm=SHA1&digits=6&period=30`. URL-encode the issuer
         and the email, with spaces as `%20`, not `+`.
-- [ ] **2.5.2** `infrastructure/security/RecoveryCodes.java` (`@Component`):
-  - [ ] constants `CODE_COUNT = 10`, `CODE_BYTES = 10`, `GROUP_LENGTH = 4`
-  - [ ] `List<String> generate()` → 10 distinct codes `XXXX-XXXX-XXXX-XXXX`
-  - [ ] `static String normalize(String input)` → strips everything except `A–Z`/`2–7` after upper-casing; `null` → `""`
-  - [ ] `static String hash(String code)` → `SecureTokenGenerator.hash(normalize(code))` (reused, not copied)
-  - [ ] `static boolean looksLikeTotp(String code)` → `code` matches `\d{6}` (decision 3)
-- [ ] **2.5.3** Tests:
-  - [ ] `TwoFactorSecretsTest`:
+- [x] **2.5.2** `infrastructure/security/RecoveryCodes.java` (`@Component`):
+  - [x] constants `CODE_COUNT = 10`, `CODE_BYTES = 10`, `GROUP_LENGTH = 4`
+  - [x] `List<String> generate()` → 10 distinct codes `XXXX-XXXX-XXXX-XXXX`
+  - [x] `static String normalize(String input)` → strips everything except `A–Z`/`2–7` after upper-casing; `null` → `""`
+  - [x] `static String hash(String code)` → `SecureTokenGenerator.hash(normalize(code))` (reused, not copied)
+  - [x] `static boolean looksLikeTotp(String code)` → `code` matches `\d{6}` (decision 3)
+- [x] **2.5.3** Tests:
+  - [x] `TwoFactorSecretsTest`:
     - 20 bytes, and two calls differ
     - the Base32 is 32 characters `[A-Z2-7]`
     - the URI for `a b+c@x.test` encodes the space and `+`, contains `issuer=Phrasal`, `digits=6`, `period=30`
     - the URI's `secret` decodes back to the same bytes
-  - [ ] `RecoveryCodesTest`:
+  - [x] `RecoveryCodesTest`:
     - 10 codes, all distinct, matching the format
     - `normalize(" abcd-efgh ijkl mnop ")` = `ABCDEFGHIJKLMNOP`
     - `hash` of a code equals `hash` of its lower-case, dash-free form
     - `looksLikeTotp`: `"123456"` true; `"12345"`, a recovery code and `null` false
 
 ### 2.6 Key wiring (needed now: the app doesn't start without the key)
-- [ ] **2.6.1** `docker-compose.yml` → `backend.environment`:
+- [x] **2.6.1** `docker-compose.yml` → `backend.environment`:
       `TOTP_ENCRYPTION_KEY: ${TOTP_ENCRYPTION_KEY:-<dev-only base64 key>}`, with the comment `# DEV ONLY`.
       Use another `openssl rand -base64 32` value, not the test key.
-- [ ] **2.6.2** `k8s/base/backend-secret.yaml`: `totp.encryption-key: <the same dev-only key>` (keep the DEV-ONLY
+- [x] **2.6.2** `k8s/base/backend-secret.yaml`: `totp.encryption-key: <the same dev-only key>` (keep the DEV-ONLY
       comment).
-- [ ] **2.6.3** `k8s/base/backend-deployment.yaml`: env `TOTP_ENCRYPTION_KEY` from `secretKeyRef app-secrets / totp.encryption-key`.
-- [ ] **2.6.4** `k8s/overlays/prod/patches/secret.yaml.example`: `totp.encryption-key: CHANGE_ME`.
-- [ ] **2.6.5** `.github/workflows/ci_cd.yml` → "Generate prod secret patch":
-  - [ ] add `TOTP_ENCRYPTION_KEY: ${{ secrets.TOTP_ENCRYPTION_KEY }}` to `env` and
+- [x] **2.6.3** `k8s/base/backend-deployment.yaml`: env `TOTP_ENCRYPTION_KEY` from `secretKeyRef app-secrets / totp.encryption-key`.
+- [x] **2.6.4** `k8s/overlays/prod/patches/secret.yaml.example`: `totp.encryption-key: CHANGE_ME`.
+- [x] **2.6.5** `.github/workflows/ci_cd.yml` → "Generate prod secret patch":
+  - [x] add `TOTP_ENCRYPTION_KEY: ${{ secrets.TOTP_ENCRYPTION_KEY }}` to `env` and
         `"  totp.encryption-key: \"${TOTP_ENCRYPTION_KEY}\""` to the `printf`
-  - [ ] a guard before the `printf`: `test -n "$TOTP_ENCRYPTION_KEY" || { echo "::error::TOTP_ENCRYPTION_KEY secret is missing"; exit 1; }`,
+  - [x] a guard before the `printf`: `test -n "$TOTP_ENCRYPTION_KEY" || { echo "::error::TOTP_ENCRYPTION_KEY secret is missing"; exit 1; }`,
         so a deploy without the secret fails in CI and not as a crash-looping pod
-- [ ] **2.6.6** `kubectl kustomize k8s/overlays/dev`, and `k8s/overlays/prod` with the example patch copied to
+- [x] **2.6.6** `kubectl kustomize k8s/overlays/dev`, and `k8s/overlays/prod` with the example patch copied to
       `secret.yaml` locally (then deleted), both render.
 - [ ] **2.6.7** User action, written in the README in Phase 12: create the GitHub Secret `TOTP_ENCRYPTION_KEY` **before**
       the next tagged deploy and keep a copy in the password manager.
 
 ### 2.7 Verify and commit
-- [ ] **2.7.1** `cd backend && mvn clean verify` → green.
-- [ ] **2.7.2** `make clean build` → green (the compose backend starts with the dev key). Ask for commit approval →
+- [x] **2.7.1** `cd backend && mvn clean verify` → green.
+- [x] **2.7.2** `make clean build` → green (the compose backend starts with the dev key). Ask for commit approval →
       `feat(backend): add TOTP verifier, AES-GCM secret encryption and key config`
 
 ---

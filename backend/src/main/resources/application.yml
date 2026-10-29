@@ -115,6 +115,11 @@ phrasal:
     unverified-account-retention: ${UNVERIFIED_ACCOUNT_RETENTION:7d}
   password-reset:
     token-ttl: ${PASSWORD_RESET_TOKEN_TTL:1h}
+  two-factor:
+    # base64 of 32 random bytes (openssl rand -base64 32); the app does not start without it
+    encryption-key: ${TOTP_ENCRYPTION_KEY:}
+    issuer: ${TWO_FACTOR_ISSUER:Phrasal}
+    login-timeout: ${TWO_FACTOR_LOGIN_TIMEOUT:5m}
 
 management:
   health:

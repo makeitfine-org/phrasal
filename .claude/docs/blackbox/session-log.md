@@ -2038,3 +2038,17 @@
 - backend/src/test/java/net/phrasal/domain/entity/UserEntityTest.java
 - backend/src/test/java/net/phrasal/integration/UserRepositoryIntegrationTest.java
 <!-- end-snapshot -->
+
+<!-- git-snapshot 2026-10-29T23:36:24Z -->
+- .claude/docs/blackbox/audit.md
+- .claude/docs/blackbox/todos/2FA-todos.md
+- .github/workflows/ci_cd.yml
+- README.md
+- backend/pom.xml
+- backend/src/main/resources/application.yml
+- backend/src/test/resources/application-test.yml
+- docker-compose.yml
+- k8s/base/backend-deployment.yaml
+- k8s/base/backend-secret.yaml
+- k8s/overlays/prod/patches/secret.yaml.example
+<!-- end-snapshot -->

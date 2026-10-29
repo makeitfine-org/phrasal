@@ -96,6 +96,11 @@ spec:
             secretKeyRef:
               name: app-secrets
               key: mail.password
+        - name: TOTP_ENCRYPTION_KEY
+          valueFrom:
+            secretKeyRef:
+              name: app-secrets
+              key: totp.encryption-key
         livenessProbe:
           httpGet:
             path: /actuator/health/liveness
