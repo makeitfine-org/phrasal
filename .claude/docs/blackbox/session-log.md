@@ -1955,3 +1955,17 @@
 ⚠️  Diagrams that may need updating:
   - docs/diagrams/auth-flow.md (auth/ was modified)
 <!-- end-diagram-staleness -->
+
+<!-- git-snapshot 2026-10-29T19:26:35Z -->
+- .claude/docs/blackbox/audit.md
+- .claude/docs/blackbox/plans/2026-10-26 18:10 Multi-user accounts TOTP 2FA and reliable storage for phrasal.md
+- .claude/docs/blackbox/todos/reset-password-todos.md
+- README.md
+- backend/CLAUDE.md
+- backlog/tasks/task-100 - Let-users-reset-forgotten-passwords-delete-their-account-and-protect-auth-endpoints-from-abuse.md
+- backlog/tasks/task-103 - Add-sign-up-login-2FA-and-account-screens-to-the-frontend-and-sync-quiz-progress-for-logged-in-users.md
+- backlog/tasks/task-108 - Let-users-reset-a-forgotten-password.md
+- docs/diagrams/auth-flow.md
+- e2e/CLAUDE.md
+- frontend/CLAUDE.md
+<!-- end-snapshot -->

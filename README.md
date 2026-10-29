@@ -445,6 +445,8 @@ Visitors can sign up with an email and password. Content stays public to read; o
 | `POST /api/v1/auth/register` `{email, password}` | `202` + `{"message": ...}` (always the same body, see below) | `400` invalid email or password (see policy below), `429` rate limited |
 | `POST /api/v1/auth/verify-email` `{token}` | `204`, the address is confirmed | `400` `verification-link-invalid` or `verification-link-expired`, `403` CSRF, `429` rate limited |
 | `POST /api/v1/auth/resend-verification` `{email}` | `202` (always, even for unknown or verified addresses) | `400` invalid body, `403` CSRF, `429` rate limited |
+| `POST /api/v1/auth/forgot-password` `{email}` | `202` + `{"message": ...}` (always, even for unknown addresses) | `400` invalid body, `403` CSRF, `429` rate limited |
+| `POST /api/v1/auth/reset-password` `{token, password}` | `204`, the password is changed and every session is closed | `400` `reset-link-invalid`, `reset-link-expired` or a password-policy error, `403` CSRF, `429` rate limited |
 | `POST /api/v1/auth/login` `{email, password}` | `200` + `{id, email, role}`, sets the `SESSION` cookie | `400` invalid body, `401` wrong email or password, `403` `email-not-verified` (right password, unconfirmed address), `429` rate limited |
 | `GET /api/v1/auth/me` | `200` + `{id, email, role}` | `401` anonymous |
 | `POST /api/v1/auth/logout` | `204`, session invalidated | - |
@@ -456,7 +458,7 @@ repeated character, not in the common-password blocklist (`backend/src/main/reso
 case-insensitively), and not containing the account email or its local part (4+ characters). No symbol/digit/case
 requirement. The sign-up form shows these as a live checklist plus a tip; the blocklist is enforced by the backend only
 (its error is shown under the field). The client-side rules live in `frontend/src/auth/passwordPolicy.ts` and must stay in
-sync with the backend `PasswordPolicy`.
+sync with the backend `PasswordPolicy`. Register and password reset apply the same rules.
 
 **Roles.** `USER` (default for sign-ups) and `ADMIN`. Anyone can `GET /api/**`. `POST`/`PUT`/`DELETE` on phrasal-verbs,
 grammar-entries and verb-details need `ADMIN` (anonymous gets `401`, a `USER` gets `403`). `/actuator/health/**` is public,
@@ -520,6 +522,7 @@ verified, so it cannot be used to find out who has an account (**breaking change
 | `APP_BASE_URL` | origin used in emailed links | `http://localhost:3000` |
 | `EMAIL_VERIFICATION_TOKEN_TTL` | link lifetime | `24h` |
 | `UNVERIFIED_ACCOUNT_RETENTION` | age after which an unverified account is deleted | `7d` |
+| `PASSWORD_RESET_TOKEN_TTL` | password reset link lifetime | `1h` |
 
 **Rate limits** (in memory, per backend instance; exceeding them returns `429` with `Retry-After`):
 
@@ -532,6 +535,9 @@ verified, so it cannot be used to find out who has an account (**breaking change
 | resend per IP | `RATE_LIMIT_RESEND_PER_IP` (per hour) | 10 |
 | resend per email | `RATE_LIMIT_RESEND_PER_EMAIL` (per hour) | 3 |
 | verify per IP | `RATE_LIMIT_VERIFY_PER_IP` (per 5 min) | 30 |
+| forgot-password per IP | `RATE_LIMIT_FORGOT_PER_IP` (per hour) | 10 |
+| forgot-password per email | `RATE_LIMIT_FORGOT_PER_EMAIL` (per hour) | 3 |
+| reset-password per IP | `RATE_LIMIT_RESET_PER_IP` (per 5 min) | 30 |
 | master switch | `RATE_LIMIT_ENABLED` | `true` |
 
 docker-compose raises the per-IP limits so the e2e suite can register many users.
@@ -539,9 +545,29 @@ docker-compose raises the per-IP limits so the e2e suite can register many users
 **GitHub Secrets to create before the next tagged deploy:** `PHRASAL_ADMIN_EMAIL`, `PHRASAL_ADMIN_PASSWORD`,
 `MAIL_USERNAME` and `MAIL_PASSWORD` (see [Production Deployment](#production-deployment-k3s)).
 
-**Not yet:** password reset, 2FA and Google sign-in.
+**Not yet:** 2FA and Google sign-in.
 Flow diagrams: [`docs/diagrams/auth-flow.md`](docs/diagrams/auth-flow.md),
-[`docs/diagrams/email-verification-flow.md`](docs/diagrams/email-verification-flow.md).
+[`docs/diagrams/email-verification-flow.md`](docs/diagrams/email-verification-flow.md),
+[`docs/diagrams/password-reset-flow.md`](docs/diagrams/password-reset-flow.md).
+
+### Password reset
+
+"Forgot password?" on the login page opens `/forgot-password`; the emailed link opens `/reset-password?token=...`.
+
+- `forgot-password` answers `202` with the same body for every address, so it cannot be used to find out who has an
+  account. A verified or still unverified account gets a link; an unknown address gets nothing.
+- The link expires after `PASSWORD_RESET_TOKEN_TTL` (default 1 h) and works once; only the newest link works, so asking
+  again invalidates older ones. An expired or unknown link answers `400` `reset-link-expired` / `reset-link-invalid`.
+  A password the policy rejects answers `400` and keeps the link usable.
+- A reset closes every session of the account (all devices) and does not log anyone in; the user logs in with the new password.
+- A reset also confirms a still-unverified email, because only the owner of the inbox can use the link.
+- After the change the account gets a "your password was changed" notice mail.
+- The SPA removes the token from the address bar as soon as the page loads (`Referrer-Policy` is also set by nginx).
+- **Admin caveat:** the admin password is re-applied from `PHRASAL_ADMIN_PASSWORD` on every backend start, so a reset of
+  the admin account lasts only until the next restart. Change the secret instead.
+
+**Local.** The reset mail shows up in Mailpit (http://localhost:8025); with `MAIL_ENABLED=false` the link is written to
+the backend log.
 
 ### Learning progress
 

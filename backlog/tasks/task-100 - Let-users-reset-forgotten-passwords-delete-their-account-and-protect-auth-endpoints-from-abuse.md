@@ -6,7 +6,7 @@ title: >-
 status: To Do
 assignee: []
 created_date: '2026-10-26T17:37:00Z'
-updated_date: '2026-10-29T17:17:00Z'
+updated_date: '2026-10-29T19:23:00Z'
 labels:
   - multi-user
   - security
@@ -92,4 +92,6 @@ Account deletion requires re-entering the password and removes all of the user's
 Ready from task-107 for password reset: user_tokens table + TokenType (add PASSWORD_RESET), SecureTokenGenerator, EmailSender port with SMTP/logging adapters, VerificationEmailComposer pattern, after-commit async mail events, and the resend/verify rate-limit setup.
 
 2026-10-29: password reset split out to TASK-108 (AC #1, #2, #3, #10 and the forgot/reset parts of #5, #9, #11 move there). This task keeps HIBP, honeypot, account deletion, the 2FA step limit, the Traefik client-IP item and the remaining rate-limit/docs parts.
+
+2026-10-29: password reset is implemented in TASK-108 (branch `password-reset`; docs in README 'Password reset' and docs/diagrams/password-reset-flow.md). The AC above that cover reset (#1, #2, #3, #10 and the forgot/reset parts of #5, #9, #11) stay unchecked here and are tracked in TASK-108; the other AC are still open.
 <!-- SECTION:NOTES:END -->

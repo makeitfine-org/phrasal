@@ -23,7 +23,7 @@ Multi-page SPA. State is component-local + localStorage; the only context is `au
 
 **Quiz-shared:** `Header`, `QuizCard`, `Feedback`, `NavigationControls`, `ExcludedModal`, `SearchModal`.
 
-**Auth:** `pages/LoginPage`, `pages/RegisterPage`, `pages/VerifyEmailPage` (routes `/login`, `/register`, `/verify-email`), `components/ResendVerification` (email field + "send a new link", used on the register, login and verify pages), `components/UserMenu`, `auth/AuthContext` + `auth/useAuth`, `hooks/useClickOutside`.
+**Auth:** `pages/LoginPage`, `pages/RegisterPage`, `pages/VerifyEmailPage`, `pages/ForgotPasswordPage`, `pages/ResetPasswordPage` (routes `/login`, `/register`, `/verify-email`, `/forgot-password`, `/reset-password`), `components/PasswordRequirements` (live password checklist + tip, shared by the register and reset pages), `components/ResendVerification` (email field + "send a new link", used on the register, login and verify pages), `components/UserMenu`, `auth/AuthContext` + `auth/useAuth`, `hooks/useClickOutside`.
 
 **Other:** `AllVerbsModal`, `TutorialModal`, `ListSearchModal`, `Icons`, `UserMenu` (login/signup links or email dropdown with logout, rendered by `NavigationMenu`).
 
@@ -34,8 +34,8 @@ Native `fetch` wrapper, no external dependencies. Base URL `/api/v1`.
 | File | Purpose |
 |---|---|
 | `client.ts` | `get<T>`, `post<T>`, `put<T>`, `del<T>`; sends `credentials: 'same-origin'` and the `X-XSRF-TOKEN` header (from the `XSRF-TOKEN` cookie, via `utils/cookies.ts`) on non-GET. `ApiError(status, message, problem?)` carries the parsed `ProblemDetail` |
-| `authApi.ts` | `register` (returns nothing: `202`, no login), `verifyEmail(token)`, `resendVerification(email)`, `login`, `logout`, `fetchCurrentUser` (401 → `null`) |
-| `problemTypes.ts` | `EMAIL_NOT_VERIFIED`, `VERIFICATION_LINK_EXPIRED`, `VERIFICATION_LINK_INVALID` and `isProblemType(error, type)` to branch on the `ProblemDetail` type suffix |
+| `authApi.ts` | `register` (returns nothing: `202`, no login), `verifyEmail(token)`, `resendVerification(email)`, `forgotPassword(email)`, `resetPassword(token, password)`, `login`, `logout`, `fetchCurrentUser` (401 → `null`) |
+| `problemTypes.ts` | `EMAIL_NOT_VERIFIED`, `VERIFICATION_LINK_EXPIRED`, `VERIFICATION_LINK_INVALID`, `RESET_LINK_EXPIRED`, `RESET_LINK_INVALID` and `isProblemType(error, type)` to branch on the `ProblemDetail` type suffix |
 | `quizProgressApi.ts` | `fetchQuizProgress(key)` (404 → `null`), `saveQuizProgress(key, doc, { keepalive })`; `QuizKey` = `phrasal-verbs` \| `grammar-i-wish-if-only`. `client.put` accepts `{ keepalive }` for saves while the page unloads |
 | `phrasalVerbsApi.ts` | Fetches phrasal verbs → `VerbEntry[]` + `BrowseVerbEntry[]` |
 | `grammarEntriesApi.ts` | Fetches grammar entries by category → `GrammarEntry[]` |
@@ -44,6 +44,10 @@ Native `fetch` wrapper, no external dependencies. Base URL `/api/v1`.
 ### Email verification
 
 Register no longer logs the user in: `RegisterPage` shows a check-your-inbox panel (`register-check-email`) after `202`. The emailed link opens `/verify-email?token=...`; `VerifyEmailPage` moves the token out of the address bar into a ref, waits for the auth check (it sets the CSRF cookie), then posts it and shows `verify-status` with `data-state` `verifying|success|expired|invalid|incomplete|error`. `LoginPage` shows `ResendVerification` on `email-not-verified`. `RegisterPage` has a `VERIFICATION_LINK_TTL_HOURS = 24` constant: keep it in sync with the backend `EMAIL_VERIFICATION_TOKEN_TTL`.
+
+### Password reset
+
+`LoginPage` has a "Forgot password?" link (`forgot-password-link`) to `/forgot-password`, passing the typed email in router state. `ForgotPasswordPage` prefills it, always shows the check-your-inbox panel after `202` (`forgot-check-email`), and redirects an authenticated visitor to `/`. The emailed link opens `/reset-password?token=...`; `ResetPasswordPage` moves the token into a ref and out of the address bar, then shows `reset-status` with `data-state` `incomplete|form|submitting|success|expired|invalid`. It checks the password with `passwordViolation` (no email rule; the backend enforces it) and the confirmation field, keeps the form (and the link) on field errors and `429`, and calls `refresh()` after success because the backend closes every session. It never redirects a logged-in visitor. `ForgotPasswordPage` has `RESET_LINK_TTL_HOURS = 1`: keep it in sync with the backend `PASSWORD_RESET_TOKEN_TTL`. `passwordRules(password, email?)` omits the `no-email` rule when `email` is `undefined`.
 
 ### Data-fetching Hooks (`src/hooks/`)
 

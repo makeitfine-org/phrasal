@@ -755,41 +755,41 @@ newest" would then return that one instead of the async reset email.
 
 New settings have safe defaults in `application.yml`, so most of this is a check. Write "no change" for each item in
 the commit body (or in this file, if no commit is needed).
-- [ ] **7.1** `docker-compose.yml`: `RATE_LIMIT_FORGOT_PER_IP` and `RATE_LIMIT_RESET_PER_IP` are `"1000"` (2.1.4,
+- [x] **7.1** `docker-compose.yml`: `RATE_LIMIT_FORGOT_PER_IP` and `RATE_LIMIT_RESET_PER_IP` are `"1000"` (2.1.4,
       3.1.3); `RATE_LIMIT_FORGOT_PER_EMAIL` is **not** set (e2e tests the `429`); `MAIL_ENABLED`, `MAIL_HOST: mailpit` and
       `APP_BASE_URL` are already there from task-107.
-- [ ] **7.2** `k8s/base` and `k8s/overlays/prod`: no change. Mail, `APP_BASE_URL` and the SMTP secrets are wired since
+- [x] **7.2** `k8s/base` and `k8s/overlays/prod`: no change. Mail, `APP_BASE_URL` and the SMTP secrets are wired since
       task-107; `PASSWORD_RESET_TOKEN_TTL` and the new rate limits use their defaults.
       `kubectl kustomize k8s/overlays/dev` and `kubectl kustomize k8s/overlays/prod` (with the example patch copied to
       `secret.yaml` locally, then deleted) both still render.
-- [ ] **7.3** `.github/workflows/ci_cd.yml`: no new secrets or env. The e2e job already has `MAILPIT_URL`.
-- [ ] **7.4** `skaffold.yaml`: no change (mail is disabled in the dev overlay; the reset link appears in the backend
+- [x] **7.3** `.github/workflows/ci_cd.yml`: no new secrets or env. The e2e job already has `MAILPIT_URL`.
+- [x] **7.4** `skaffold.yaml`: no change (mail is disabled in the dev overlay; the reset link appears in the backend
       log through `LoggingEmailSender`).
-- [ ] **7.5** Only if something above did change: `make clean build` → green, and ask for commit approval →
+- [x] **7.5** Only if something above did change: `make clean build` → green, and ask for commit approval →
       `build: wire password reset settings`
 
 ---
 
 ## Phase 8 — Docs, diagrams, backlog
 
-- [ ] **8.1** `README.md` → "Accounts & security":
-  - [ ] the endpoint table gains `forgot-password` (`202/400/403/429`) and `reset-password` (`204/400/403/429`)
-  - [ ] a "Password reset" subsection:
+- [x] **8.1** `README.md` → "Accounts & security":
+  - [x] the endpoint table gains `forgot-password` (`202/400/403/429`) and `reset-password` (`204/400/403/429`)
+  - [x] a "Password reset" subsection:
     - the link expires after `PASSWORD_RESET_TOKEN_TTL` (1 h), works once, and only the newest link works
     - the same `202` for every address
     - a reset logs the user out everywhere and doesn't log in
     - it also confirms a still-unverified email
     - the "password changed" notice
     - the admin caveat (decision 12)
-  - [ ] the env table: `PASSWORD_RESET_TOKEN_TTL`, `RATE_LIMIT_FORGOT_PER_IP`, `RATE_LIMIT_FORGOT_PER_EMAIL`,
+  - [x] the env table: `PASSWORD_RESET_TOKEN_TTL`, `RATE_LIMIT_FORGOT_PER_IP`, `RATE_LIMIT_FORGOT_PER_EMAIL`,
         `RATE_LIMIT_RESET_PER_IP`
-  - [ ] the password policy (task-100 AC #11): length 10–72 bytes, blocklist, no repeated single character, no email;
+  - [x] the password policy (task-100 AC #11): length 10–72 bytes, blocklist, no repeated single character, no email;
         the same rules on register and reset
-  - [ ] local: the reset mail shows up in Mailpit (http://localhost:8025)
-- [ ] **8.2** `backend/CLAUDE.md`:
-  - [ ] the `SecurityConfig` rule-order line gains `forgot-password|reset-password`
-  - [ ] rate limits: add forgot per IP / per email and reset per IP
-  - [ ] a new "Password Reset" section:
+  - [x] local: the reset mail shows up in Mailpit (http://localhost:8025)
+- [x] **8.2** `backend/CLAUDE.md`:
+  - [x] the `SecurityConfig` rule-order line gains `forgot-password|reset-password`
+  - [x] rate limits: add forgot per IP / per email and reset per IP
+  - [x] a new "Password Reset" section:
     - `PasswordResetService`, `TokenType.PASSWORD_RESET` (no migration)
     - not idempotent; validation order (decision 5); `PasswordPolicyViolationException` → the same `errors.password`
       shape
@@ -797,35 +797,35 @@ the commit body (or in this file, if no commit is needed).
     - reset verifies an unverified email
     - test helpers `requestPasswordReset`, `resetPassword`, `RecordingEmailSender.awaitSubject` /
       `awaitPasswordResetToken`
-  - [ ] the Email Verification section: `AccountEmailComposer` / `AccountEmailListener` (renamed)
-- [ ] **8.3** `frontend/CLAUDE.md`:
-  - [ ] Auth components: `ForgotPasswordPage`, `ResetPasswordPage` (routes `/forgot-password`, `/reset-password`),
+  - [x] the Email Verification section: `AccountEmailComposer` / `AccountEmailListener` (renamed)
+- [x] **8.3** `frontend/CLAUDE.md`:
+  - [x] Auth components: `ForgotPasswordPage`, `ResetPasswordPage` (routes `/forgot-password`, `/reset-password`),
         `PasswordRequirements`, the login page link
-  - [ ] `authApi.ts` (`forgotPassword`, `resetPassword`) and `problemTypes.ts` (`RESET_LINK_*`)
-  - [ ] the `RESET_LINK_TTL_HOURS` sync note; the reset page calls `refresh()` after success
-- [ ] **8.4** `e2e/CLAUDE.md`: `password-reset.feature` (API and frontend), the two new step files, the `subject` option
+  - [x] `authApi.ts` (`forgotPassword`, `resetPassword`) and `problemTypes.ts` (`RESET_LINK_*`)
+  - [x] the `RESET_LINK_TTL_HOURS` sync note; the reset page calls `refresh()` after success
+- [x] **8.4** `e2e/CLAUDE.md`: `password-reset.feature` (API and frontend), the two new step files, the `subject` option
       in `mailpit-client.ts`, and `resetTokens` in the world.
-- [ ] **8.5** `docs/diagrams/password-reset-flow.md` (blackbox policy, new flow), in Mermaid:
-  - [ ] sequence: forgot → `202` → after-commit event → SMTP → inbox → `/reset-password?token` (SPA) → submit →
+- [x] **8.5** `docs/diagrams/password-reset-flow.md` (blackbox policy, new flow), in Mermaid:
+  - [x] sequence: forgot → `202` → after-commit event → SMTP → inbox → `/reset-password?token` (SPA) → submit →
         `POST reset-password` → `204` → sessions revoked → notice mail → login
-  - [ ] flowchart: forgot outcomes (unknown → nothing / verified or unverified → token + mail), with the rate limits
+  - [x] flowchart: forgot outcomes (unknown → nothing / verified or unverified → token + mail), with the rate limits
         before the lookup
-  - [ ] flowchart: reset checks in order (DTO validation → token unknown/used → expired → email rule → apply), and
+  - [x] flowchart: reset checks in order (DTO validation → token unknown/used → expired → email rule → apply), and
         which failures keep the token usable
-- [ ] **8.6** `docs/diagrams/auth-flow.md`: the authorization flowchart gains the two `permitAll` endpoints; the
+- [x] **8.6** `docs/diagrams/auth-flow.md`: the authorization flowchart gains the two `permitAll` endpoints; the
       "Deferred" note strikes "Password reset" and links the new diagram. `docs/diagrams/email-verification-flow.md`:
       if it mentions the "re-register before the victim clicks" residual risk, add "closed by password reset
       (verifies the address)".
-- [ ] **8.7** Plan file `.claude/docs/blackbox/plans/2026-10-26 18:10 Multi-user …md`: append a `## Mutations Log` row:
+- [x] **8.7** Plan file `.claude/docs/blackbox/plans/2026-10-26 18:10 Multi-user …md`: append a `## Mutations Log` row:
       "P3 split: password reset done alone (reuses user_tokens, no migration; reset verifies unverified accounts; 1 h
       TTL); HIBP, honeypot, deletion stay in task-100". Add only; don't delete anything in that folder.
-- [ ] **8.8** Backlog (MCP), following the 0.3 choice:
-  - [ ] the reset task (new task or task-100): check off the AC that are done, add implementation notes and a final
+- [x] **8.8** Backlog (MCP), following the 0.3 choice:
+  - [x] the reset task (new task or task-100): check off the AC that are done, add implementation notes and a final
         summary
-  - [ ] task-100: a note that password reset is done (and where), and that its remaining AC are open
-  - [ ] task-103: a note that the Forgot/Reset pages are done (part of AC #1, #6, #13)
-  - [ ] **ask the user** before moving any task to `Done`
-- [ ] **8.9** Ask for commit approval → `docs: document password reset flow`
+  - [x] task-100: a note that password reset is done (and where), and that its remaining AC are open
+  - [x] task-103: a note that the Forgot/Reset pages are done (part of AC #1, #6, #13)
+  - [x] **ask the user** before moving any task to `Done`
+- [x] **8.9** Ask for commit approval → `docs: document password reset flow`
 - [ ] **8.10** On the user's exit signal: append the blackbox `session-log.md` entry (format in
       `.claude/rules/blackbox-policy.md`, **no secrets**). Mention the plan mutation (8.7) and the new/updated diagrams
       (8.5, 8.6).

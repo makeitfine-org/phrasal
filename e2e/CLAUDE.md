@@ -31,14 +31,16 @@ Or step by step:
 ```
 features/
   phrasal-verbs-api/    → REST contract scenarios (@api)
-  auth-api/             → register/login/logout/rate-limit contract + email-verification.feature (@api)
+  auth-api/             → register/login/logout/rate-limit contract + email-verification.feature + password-reset.feature (@api)
   progress-api/         → per-user quiz progress contract (@api, quiz-progress.feature)
-  frontend/             → browser-driven SPA scenarios (incl. auth.feature, email-verification.feature, progress-sync.feature)
+  frontend/             → browser-driven SPA scenarios (incl. auth.feature, email-verification.feature, password-reset.feature, progress-sync.feature)
 src/
   world.ts              → CustomWorld — shared state per scenario
   hooks.ts              → Before/After lifecycle
-  steps/                → Step definitions (auth-api.steps.ts: register/login/logout/rate limit; auth-ui.steps.ts: forms + user menu; quiz-progress-api.steps.ts: progress API; email-verification-api.steps.ts: verification mail/link/resend API; progress-sync.steps.ts: browser sync, uses the test ids `excluded-count` and `exclude-toggle`)
-  support/              → api-client.ts (cookie jar), db-client.ts, test-users.ts, mailpit-client.ts (latestMessageTo, verificationLink/Token, countMessagesTo, deleteMessagesTo)
+  steps/                → Step definitions (auth-api.steps.ts: register/login/logout/rate limit; auth-ui.steps.ts: forms + user menu; quiz-progress-api.steps.ts: progress API; email-verification-api.steps.ts: verification mail/link/resend API; password-reset-api.steps.ts: forgot/reset API, reset mail and notice, rate limit; password-reset-ui.steps.ts: forgot and reset pages, opens the reset link from Mailpit; progress-sync.steps.ts: browser sync, uses the test ids `excluded-count` and `exclude-toggle`)
+  support/              → api-client.ts (cookie jar), db-client.ts, test-users.ts, mailpit-client.ts (latestMessageTo, verificationLink/Token, passwordResetLink/Token, countMessagesTo, deleteMessagesTo; `latestMessageTo` and `countMessagesTo` take an optional `subject` to tell the reset mail from the notice)
 ```
 
 "Sign up through the form" steps now open the emailed link from Mailpit to verify before logging in.
+
+The world keeps `resetTokens` (every reset token requested in the scenario, newest last) so a scenario can replay an old link. `docker-compose.yml` leaves `RATE_LIMIT_FORGOT_PER_EMAIL` at its default so the `429` scenario works; use a fresh email per scenario.

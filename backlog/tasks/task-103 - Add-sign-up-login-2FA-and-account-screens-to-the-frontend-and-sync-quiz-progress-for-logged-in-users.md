@@ -6,7 +6,7 @@ title: >-
 status: To Do
 assignee: []
 created_date: '2026-10-26T17:38:00Z'
-updated_date: '2026-10-29T17:17:00Z'
+updated_date: '2026-10-29T19:23:00Z'
 labels:
   - multi-user
   - frontend
@@ -101,4 +101,6 @@ Sync part done 2026-10-28: useQuizProgressSync, id mapping, logout flush/clear, 
 Done in task-107: the /verify-email page (VerifyEmailPage), the resend action (ResendVerification), check-your-inbox panel after register, and readable errors for email-not-verified and the verification-link problems (part of AC #1 and #6).
 
 2026-10-29: the Forgot password and Reset password pages (part of AC #1, #6, #13) are planned in TASK-108 (`.claude/docs/blackbox/todos/reset-password-todos.md`, branch `password-reset`).
+
+2026-10-29: the Forgot password and Reset password pages, the login-page link, the shared PasswordRequirements component, Vitest tests and the browser e2e (features/frontend/password-reset.feature) are done in TASK-108 (part of AC #1, #6, #13). Still open: 2FA and account screens, AC #12 rest and #15.
 <!-- SECTION:NOTES:END -->

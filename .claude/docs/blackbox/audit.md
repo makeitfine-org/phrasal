@@ -4814,3 +4814,13 @@ On phase completion `make clean build` must pass successfully.
 ## 2026-10-29T19:20:35Z
 git add all changes and commit them with suitable message
 ---
+
+## 2026-10-29T19:21:19Z
+Implement functionality from @.claude/docs/blackbox/todos/reset-password-todos.md Phase 7, 8.               
+Don't forget to check off implemented boxes.
+On phase completion `make clean build` must pass successfully.
+---
+
+## 2026-10-29T19:58:31Z
+git add all changes and commit them with suitable message
+---

@@ -4,7 +4,7 @@ title: Let users reset a forgotten password
 status: In Progress
 assignee: []
 created_date: '2026-10-29T17:16:00Z'
-updated_date: '2026-10-29T17:17:00Z'
+updated_date: '2026-10-29T19:23:00Z'
 labels:
   - multi-user
   - security
@@ -42,14 +42,14 @@ task-100 keeps HIBP, honeypot, account deletion, the 2FA step limit and the Trae
 
 ## Acceptance Criteria
 <!-- AC:BEGIN -->
-- [ ] #1 A user can request a password-reset email and set a new password via the link. The link works once only and expires.
-- [ ] #2 Forgot-password returns identical responses for existing and non-existing emails.
-- [ ] #3 After a successful password reset, all of the user's sessions are invalidated and a 'password changed' notice is emailed.
-- [ ] #4 Forgot and reset requests beyond the configured limits return 429 ProblemDetail, per client IP and per email (forgot only).
-- [ ] #5 Unit and integration tests cover token single-use and expiry, session invalidation, weak-password rejection that keeps the token, and the 429 limits.
-- [ ] #6 E2E: a forgot-password scenario receives the email via Mailpit, resets the password and logs in with the new one (API and browser).
-- [ ] #7 Frontend has Forgot password and Reset password pages and a login-page link, with Vitest tests.
-- [ ] #8 README.md, backend/CLAUDE.md, frontend/CLAUDE.md and e2e/CLAUDE.md document the flow and rate limits.
+- [x] #1 A user can request a password-reset email and set a new password via the link. The link works once only and expires.
+- [x] #2 Forgot-password returns identical responses for existing and non-existing emails.
+- [x] #3 After a successful password reset, all of the user's sessions are invalidated and a 'password changed' notice is emailed.
+- [x] #4 Forgot and reset requests beyond the configured limits return 429 ProblemDetail, per client IP and per email (forgot only).
+- [x] #5 Unit and integration tests cover token single-use and expiry, session invalidation, weak-password rejection that keeps the token, and the 429 limits.
+- [x] #6 E2E: a forgot-password scenario receives the email via Mailpit, resets the password and logs in with the new one (API and browser).
+- [x] #7 Frontend has Forgot password and Reset password pages and a login-page link, with Vitest tests.
+- [x] #8 README.md, backend/CLAUDE.md, frontend/CLAUDE.md and e2e/CLAUDE.md document the flow and rate limits.
 - [ ] #9 `make clean build` passes
 <!-- AC:END -->
 
@@ -57,4 +57,6 @@ task-100 keeps HIBP, honeypot, account deletion, the 2FA step limit and the Trae
 
 <!-- SECTION:NOTES:BEGIN -->
 Implementation plan: `reset-password-todos.md` (branch `password-reset`).
+
+2026-10-29: Phases 0-8 done on branch `password-reset`: backend (forgot/reset endpoints, SessionRevoker, notice mail, rate limits), API e2e (10 scenarios), frontend pages + browser e2e (6 scenarios), config check (no change needed in compose, k8s, CI, skaffold), docs and diagrams (`docs/diagrams/password-reset-flow.md`). Deviation: an old verification link after resetting an unverified account returns 204 (idempotent no-op). Open: AC #9 final `make clean build`, PR, release, prod smoke test.
 <!-- SECTION:NOTES:END -->

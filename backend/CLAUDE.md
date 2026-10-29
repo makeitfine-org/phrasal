@@ -20,14 +20,14 @@ config/         → Spring @Configuration classes (SecurityConfig = access rules
 
 ## Security
 
-- `SecurityConfig` rule order matters (first match wins): `/error` and `/actuator/health/**` public → other `/actuator/**` ADMIN → `GET /api/v1/auth/me` authenticated → `/api/v1/me/**` authenticated (per-user data, e.g. quiz progress) → `POST register|login|verify-email|resend-verification` public → `POST/PUT/DELETE` content paths ADMIN → `GET /api/**` public → everything else denied.
+- `SecurityConfig` rule order matters (first match wins): `/error` and `/actuator/health/**` public → other `/actuator/**` ADMIN → `GET /api/v1/auth/me` authenticated → `/api/v1/me/**` authenticated (per-user data, e.g. quiz progress) → `POST register|login|verify-email|resend-verification|forgot-password|reset-password` public → `POST/PUT/DELETE` content paths ADMIN → `GET /api/**` public → everything else denied.
 - Public `GET /api/**`; `POST/PUT/DELETE` on phrasal-verbs, grammar-entries, verb-details need role `ADMIN`; `/actuator/health/**` public, other actuator endpoints ADMIN.
 - CSRF is cookie-based (`XSRF-TOKEN`, readable by the SPA, echoed in `X-XSRF-TOKEN`); `presentation/security/CsrfCookieFilter` forces the deferred token to be sent.
 - 401/403 are written as `application/problem+json` by `presentation/security` handlers; build bodies with `ProblemDetailFactory`.
 - No CORS mapping: the SPA is same-origin (Vite proxy / nginx / ingress).
 - Sessions: Spring Session JDBC, `SESSION` cookie flags come from `server.servlet.session.cookie.*` via the `cookieSerializer` bean in `SecurityConfig` (Spring Session ignores them otherwise). Session principal is the `AuthenticatedUser` record, never the entity.
 - Admin account: `AdminAccountInitializer` creates/repairs it from `PHRASAL_ADMIN_EMAIL` / `PHRASAL_ADMIN_PASSWORD` at every start (takeover is intentional; a weak password fails startup).
-- Rate limits (`phrasal.rate-limit.*`, `RateLimiter`, in-memory per instance): register per IP and per email, login per IP and per email, resend per IP and per email, verify per IP; 429 problem+json with `Retry-After`. `application-test.yml` raises the limits; override in a test with `@TestPropertySource`.
+- Rate limits (`phrasal.rate-limit.*`, `RateLimiter`, in-memory per instance): register per IP and per email, login per IP and per email, resend per IP and per email, verify per IP, forgot-password per IP and per email, reset-password per IP; 429 problem+json with `Retry-After`. `application-test.yml` raises the limits; override in a test with `@TestPropertySource`.
 - 401 comes from `ProblemDetailAuthenticationEntryPoint`, 403 from `ProblemDetailAccessDeniedHandler` (CSRF failures get type `/csrf`); both live in `presentation/security`.
 - Security packages: `infrastructure/security` (`AuthenticatedUser`, `AppUserDetails`, `JpaUserDetailsService`, `RateLimiter`, `EmailNormalizer`), `presentation/security` (filters, handlers, `SessionAuthenticator`), `application/validation` (`@ValidPassword`, `PasswordPolicy`).
 - Integration tests extend `AbstractIntegrationTest`, which clears the security context before/after each test. Mutating MockMvc calls need `.with(user(...).roles("ADMIN")).with(csrf())`, or `adminWithCsrf()`; use `registerAndLogin()` for a real session.
@@ -44,12 +44,21 @@ config/         → Spring @Configuration classes (SecurityConfig = access rules
 
 - `register` always returns `202` with the same `AcceptedResponse` (never `409`): new → user + token + mail; unverified → new password + fresh token; verified → "account exists" notice. Hashing runs on every path so timing does not leak.
 - `infrastructure/mail`: `EmailSender` port with `SmtpEmailSender` (`phrasal.mail.enabled=true`) and `LoggingEmailSender` (otherwise, logs the link); chosen with `@ConditionalOnProperty`. `management.health.mail.enabled: false` so a slow relay never marks the backend DOWN.
-- Mail goes out through after-commit events (`VerificationEmailRequested`, `AccountExistsNoticeRequested`) handled by `AccountEmailListener` with `@Async` + `@TransactionalEventListener(AFTER_COMMIT)`; never send mail inside the request transaction. `AccountEmailComposer` builds the text.
-- Tokens live in the generic `user_tokens` table (V14) with `TokenType` (`EMAIL_VERIFICATION`; task-100 adds `PASSWORD_RESET`). `SecureTokenGenerator` makes 32 random bytes (base64url) and stores only the SHA-256 hex. Single use, newest token only (`invalidateActive`), TTL `phrasal.email-verification.token-ttl`. `users.email_verified_at` comes from V13.
+- Mail goes out through after-commit events (`VerificationEmailRequested`, `AccountExistsNoticeRequested`) handled by `AccountEmailListener` (both renamed from `Verification*`; they also serve password reset) with `@Async` + `@TransactionalEventListener(AFTER_COMMIT)`; never send mail inside the request transaction. `AccountEmailComposer` builds the text.
+- Tokens live in the generic `user_tokens` table (V14) with `TokenType` (`EMAIL_VERIFICATION`, `PASSWORD_RESET`). `SecureTokenGenerator` makes 32 random bytes (base64url) and stores only the SHA-256 hex. Single use, newest token only (`invalidateActive`), TTL `phrasal.email-verification.token-ttl`. `users.email_verified_at` comes from V13.
 - Verify: unknown or replaced token → `400` `verification-link-invalid`; expired → `400` `verification-link-expired`; repeating a used link of a verified user → `204`. Login of an unverified account → `403` `email-not-verified`.
 - `SecurityConfig`: `setPreAuthenticationChecks` is a no-op and `AccountStatusUserDetailsChecker` runs post-authentication, so the password is checked first; a wrong password stays `401` and the `403` does not reveal which addresses exist. `AppUserDetails.isEnabled()` = email verified.
 - `AccountCleanupService` (`@Scheduled`, `phrasal.cleanup.cron`, `phrasal.cleanup.enabled`, `UNVERIFIED_ACCOUNT_RETENTION`) deletes old tokens and stale unverified accounts. Time comes from an injected `Clock` (`ClockConfig`), never `LocalDateTime.now()`.
 - Tests: `RecordingEmailSender` (+ `RecordingEmailSenderConfig`, imported by `AbstractIntegrationTest`, field `mailbox`) captures mail; `verifyEmail(email)` in `AbstractIntegrationTest` redeems the emailed link and `registerAndLogin` calls it.
+
+## Password Reset
+
+- `PasswordResetService` (`requestReset`, `reset`) reuses `user_tokens` with `TokenType.PASSWORD_RESET`; no migration. TTL `phrasal.password-reset.token-ttl` (`PASSWORD_RESET_TOKEN_TTL`, default 1h).
+- `POST forgot-password` always returns `202` (`AcceptedResponse`); unknown address → nothing, verified or unverified → new token (older ones invalidated) + `PasswordResetEmailRequested`. Rate limits run before the user lookup.
+- `POST reset-password` is **not idempotent** (`204` once; a repeat is `400`). Validation order: DTO validation → token unknown, used or replaced → `reset-link-invalid`; expired → `reset-link-expired`; password contains the account email → `PasswordPolicyViolationException`, answered with the same `errors.password` shape as `register` (the token stays usable); then apply.
+- Applying: new password hash, token consumed, an unverified email becomes verified, `SessionRevoker.revokeAll` closes every session (Spring Session principal name = the email, so the email at the time of the reset must be used), then `PasswordChangedNoticeRequested` sends the "password changed" mail after commit. The reset does not log anyone in.
+- Deviation: opening an old verification link after resetting an unverified account is a `204` no-op.
+- Tests: `AbstractIntegrationTest.requestPasswordReset(email)` / `resetPassword(token, password)`, `RecordingEmailSender.awaitSubject(...)` / `awaitPasswordResetToken(...)`.
 
 ## Quiz Progress API
 
