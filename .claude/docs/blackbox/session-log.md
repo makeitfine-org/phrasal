@@ -2052,3 +2052,8 @@
 - k8s/base/backend-secret.yaml
 - k8s/overlays/prod/patches/secret.yaml.example
 <!-- end-snapshot -->
+
+<!-- git-snapshot 2026-10-29T23:41:53Z -->
+- .claude/docs/blackbox/audit.md
+- .claude/settings.local.json
+<!-- end-snapshot -->

@@ -4924,3 +4924,11 @@ On phase completion `make clean build` must pass successfully.
 ## 2026-10-29T23:38:14Z
 git add all changes and commit them with suitable message
 ---
+
+## 2026-10-29T23:41:38Z
+Add Claude code hook on Stop "curl -X POST \"https://api.telegram.org/bot$NOTIFICATION_TELEGRAM_BOT_TOKEN/sendMessage\" -H \"Content-Type: application/json\" -d \"{\\\"chat_id\\\": \\\"$NOTIFICATION_TELEGRAM_CHAT_ID\\\", \\\"text\\\": \\\"🔔 Job finished 🔔\\\"}\"" create sh file for this in hooks dir
+---
+
+## 2026-10-29T23:46:33Z
+git add all changes and commit them with suitable message
+---

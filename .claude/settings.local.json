@@ -171,6 +171,11 @@
             "type": "command",
             "command": "$CLAUDE_PROJECT_DIR/.claude/hooks/stop-blackbox-log.sh",
             "timeout": 10
+          },
+          {
+            "type": "command",
+            "command": "$CLAUDE_PROJECT_DIR/.claude/hooks/stop-telegram-notify.sh",
+            "timeout": 10
           }
         ]
       }
