@@ -1,12 +1,25 @@
 import React from 'react';
-import { render, screen, fireEvent, waitFor } from '@testing-library/react';
+import { act, render, screen, fireEvent, waitFor } from '@testing-library/react';
 import { MemoryRouter, Routes, Route } from 'react-router-dom';
 import RegisterPage from '../pages/RegisterPage';
 import { AuthContext, type AuthContextValue } from '../auth/AuthContext';
 import { ApiError } from '../api/client';
 import * as authApi from '../api/authApi';
+import { resetAuthProvidersCache } from '../auth/useAuthProviders';
 
-vi.mock('../api/authApi', () => ({ resendVerification: vi.fn() }));
+vi.mock('../api/authApi', () => ({
+  resendVerification: vi.fn(),
+  fetchAuthProviders: vi.fn(),
+  GOOGLE_SIGN_IN_URL: '/api/v1/auth/oauth2/authorization/google',
+}));
+
+beforeEach(() => {
+  vi.mocked(authApi.fetchAuthProviders).mockResolvedValue({ google: false });
+});
+
+afterEach(() => {
+  resetAuthProvidersCache();
+});
 
 function ctx(register = vi.fn().mockResolvedValue(undefined)): AuthContextValue {
   return { status: 'anonymous', user: null, login: vi.fn(), register, logout: vi.fn(), refresh: vi.fn() };
@@ -163,5 +176,22 @@ describe('RegisterPage', () => {
     renderPage(ctx(vi.fn().mockRejectedValue(new ApiError(429, 'Too many attempts'))));
     fill('long-enough-pw', 'long-enough-pw');
     expect(await screen.findByTestId('auth-error')).toHaveTextContent('Too many attempts');
+  });
+
+  it('shows Continue with Google above the form when Google sign-in is on', async () => {
+    vi.mocked(authApi.fetchAuthProviders).mockResolvedValue({ google: true });
+    renderPage(ctx());
+    const link = await screen.findByTestId('google-sign-in');
+    expect(link).toHaveAttribute('href', authApi.GOOGLE_SIGN_IN_URL);
+    expect(link.compareDocumentPosition(screen.getByTestId('register-email')) & Node.DOCUMENT_POSITION_FOLLOWING)
+      .toBeTruthy();
+    expect(screen.getByTestId('register-website')).toBeInTheDocument();
+  });
+
+  it('hides Continue with Google when Google sign-in is off', async () => {
+    renderPage(ctx());
+    await act(() => new Promise(resolve => setTimeout(resolve, 0)));
+    expect(screen.queryByTestId('google-sign-in')).toBeNull();
+    expect(screen.queryByTestId('auth-divider')).toBeNull();
   });
 });

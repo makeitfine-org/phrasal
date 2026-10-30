@@ -1,4 +1,4 @@
-import { register, login, verifyTwoFactorLogin, logout, fetchCurrentUser, verifyEmail, resendVerification, forgotPassword, resetPassword } from '../../api/authApi';
+import { register, login, verifyTwoFactorLogin, logout, fetchCurrentUser, verifyEmail, resendVerification, forgotPassword, resetPassword, fetchAuthProviders, GOOGLE_SIGN_IN_URL } from '../../api/authApi';
 import { get, post, ApiError } from '../../api/client';
 
 vi.mock('../../api/client', async () => {
@@ -6,7 +6,7 @@ vi.mock('../../api/client', async () => {
   return { ...actual, get: vi.fn(), post: vi.fn() };
 });
 
-const user = { id: 1, email: 'a@b.co', role: 'USER' as const, twoFactorEnabled: false, twoFactorEnrollmentRequired: false };
+const user = { id: 1, email: 'a@b.co', role: 'USER' as const, twoFactorEnabled: false, twoFactorEnrollmentRequired: false, hasPassword: true };
 
 afterEach(() => {
   vi.mocked(get).mockReset();
@@ -103,5 +103,20 @@ describe('authApi', () => {
   it('fetchCurrentUser rethrows other errors', async () => {
     vi.mocked(get).mockRejectedValue(new ApiError(500, 'boom'));
     await expect(fetchCurrentUser()).rejects.toMatchObject({ status: 500 });
+  });
+
+  it('fetchAuthProviders gets the enabled providers', async () => {
+    vi.mocked(get).mockResolvedValue({ google: true });
+    expect(await fetchAuthProviders()).toEqual({ google: true });
+    expect(get).toHaveBeenCalledWith('/auth/providers');
+  });
+
+  it('fetchAuthProviders rejects with the ApiError of a failed request', async () => {
+    vi.mocked(get).mockRejectedValue(new ApiError(503, 'Service unavailable'));
+    await expect(fetchAuthProviders()).rejects.toMatchObject({ status: 503 });
+  });
+
+  it('GOOGLE_SIGN_IN_URL is the full path of the backend start endpoint', () => {
+    expect(GOOGLE_SIGN_IN_URL).toBe('/api/v1/auth/oauth2/authorization/google');
   });
 });

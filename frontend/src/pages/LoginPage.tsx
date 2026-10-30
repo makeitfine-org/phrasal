@@ -1,9 +1,12 @@
-import React, { useState } from 'react';
-import { Link, Navigate, useLocation, useNavigate } from 'react-router-dom';
+import React, { useEffect, useState } from 'react';
+import { Link, Navigate, useLocation, useNavigate, useSearchParams } from 'react-router-dom';
 import { useAuth } from '../auth/useAuth';
+import { useAuthProviders } from '../auth/useAuthProviders';
+import { googleErrorMessage } from '../auth/googleErrors';
 import { ApiError } from '../api/client';
 import { EMAIL_NOT_VERIFIED, isProblemType } from '../api/problemTypes';
 import ResendVerification from '../components/ResendVerification';
+import GoogleSignInButton from '../components/GoogleSignInButton';
 
 export const inputClass =
   'w-full px-3 py-2 rounded-lg border border-gray-300 dark:border-gray-700 bg-white dark:bg-gray-900 ' +
@@ -19,11 +22,24 @@ export default function LoginPage() {
   const { status, login } = useAuth();
   const navigate = useNavigate();
   const location = useLocation();
+  const [searchParams, setSearchParams] = useSearchParams();
+  const providers = useAuthProviders();
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [pending, setPending] = useState(false);
-  const [error, setError] = useState<string | null>(null);
+  // A failed Google sign-in lands here as /login?error=<code>; only the mapped text is shown, never the raw value.
+  const [error, setError] = useState<string | null>(() => googleErrorMessage(searchParams.get('error')));
   const [unverified, setUnverified] = useState(false);
+
+  // Drop the code from the address bar, so a reload or a shared link doesn't repeat the message.
+  useEffect(() => {
+    if (searchParams.has('error')) {
+      setSearchParams(params => {
+        params.delete('error');
+        return params;
+      }, { replace: true, state: location.state });
+    }
+  }, [searchParams, setSearchParams, location.state]);
 
   if (status === 'authenticated') {
     return <Navigate to="/" replace />;
@@ -72,6 +88,7 @@ export default function LoginPage() {
           <ResendVerification initialEmail={email} compact />
         </div>
       )}
+      <GoogleSignInButton />
       <form onSubmit={handleSubmit} className="space-y-4">
         <label className="block text-sm text-gray-700 dark:text-gray-300">
           Email
@@ -89,6 +106,11 @@ export default function LoginPage() {
             data-testid="login-password" className={`${inputClass} mt-1`}
           />
         </label>
+        {providers?.google && (
+          <p data-testid="login-google-hint" className="text-sm text-gray-600 dark:text-gray-400">
+            Signed up with Google? Use Continue with Google.
+          </p>
+        )}
         <p className="text-sm">
           <Link to="/forgot-password" state={{ email }} data-testid="forgot-password-link" className={linkClass}>
             Forgot password?

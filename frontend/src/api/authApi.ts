@@ -1,7 +1,14 @@
 import { get, post, ApiError } from './client';
-import type { CurrentUser } from '../types';
+import type { AuthProviders, CurrentUser } from '../types';
 
 const HTTP_UNAUTHORIZED = 401;
+
+/** A full path for an `href`: the browser navigates there and the backend redirects to Google. */
+export const GOOGLE_SIGN_IN_URL = '/api/v1/auth/oauth2/authorization/google';
+
+export function fetchAuthProviders(): Promise<AuthProviders> {
+  return get<AuthProviders>('/auth/providers');
+}
 
 /** Resolves for any 2xx; the body is ignored (the account only exists after the email is verified). */
 export async function register(email: string, password: string, website = ''): Promise<void> {

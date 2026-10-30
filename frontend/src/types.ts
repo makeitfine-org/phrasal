@@ -53,6 +53,12 @@ export interface CurrentUser {
   role: Role;
   twoFactorEnabled: boolean;
   twoFactorEnrollmentRequired: boolean;
+  /** `false` for an account created by Google sign-in until a password is set by email. */
+  hasPassword: boolean;
+}
+
+export interface AuthProviders {
+  google: boolean;
 }
 
 export interface TwoFactorStatus {

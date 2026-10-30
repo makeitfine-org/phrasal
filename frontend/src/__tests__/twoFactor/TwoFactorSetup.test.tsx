@@ -18,7 +18,7 @@ function renderSetup() {
   const onCancel = vi.fn();
   const value = {
     status: 'authenticated', refresh,
-    user: { id: 1, email: 'a@b.co', role: 'ADMIN', twoFactorEnabled: false, twoFactorEnrollmentRequired: true },
+    user: { id: 1, email: 'a@b.co', role: 'ADMIN', twoFactorEnabled: false, twoFactorEnrollmentRequired: true, hasPassword: true },
   } as unknown as AuthContextValue;
   render(<AuthContext.Provider value={value}><TwoFactorSetup onEnabled={onEnabled} onCancel={onCancel} /></AuthContext.Provider>);
   return { refresh, onEnabled, onCancel };

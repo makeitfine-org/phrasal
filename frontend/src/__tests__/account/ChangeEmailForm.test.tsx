@@ -7,7 +7,7 @@ import * as api from '../../api/accountApi';
 
 vi.mock('../../api/accountApi');
 
-const user = { id: 2, email: 'user@x.co', role: 'USER' as const, twoFactorEnabled: false, twoFactorEnrollmentRequired: false };
+const user = { id: 2, email: 'user@x.co', role: 'USER' as const, twoFactorEnabled: false, twoFactorEnrollmentRequired: false, hasPassword: true };
 
 function renderForm() {
   const value = { status: 'authenticated', user, refresh: vi.fn() } as unknown as AuthContextValue;

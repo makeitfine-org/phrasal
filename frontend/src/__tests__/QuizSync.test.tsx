@@ -12,7 +12,7 @@ const base: AuthContextValue = {
   status: 'anonymous', user: null,
   login: async () => {}, register: async () => {}, logout: async () => {}, refresh: async () => {},
 };
-const authed: AuthContextValue = { ...base, status: 'authenticated', user: { id: 1, email: 'a@b.co', role: 'USER', twoFactorEnabled: false, twoFactorEnrollmentRequired: false } };
+const authed: AuthContextValue = { ...base, status: 'authenticated', user: { id: 1, email: 'a@b.co', role: 'USER', twoFactorEnabled: false, twoFactorEnrollmentRequired: false, hasPassword: true } };
 
 const verbs: VerbEntry[] = [10, 20, 30].map((id, i) => ({
   id, verb: `Verb ${i}`, definition: `Def ${i}`, sentences: [`Sentence ${i}`], wordsToHide: [],
@@ -58,6 +58,28 @@ describe('quiz sync wiring', () => {
     withAuth(authed, <GrammarQuiz entries={entries} />);
     await waitFor(() => expect(screen.getByTestId('excluded-count')).toHaveTextContent('1'));
     expect(api.fetchQuizProgress).toHaveBeenCalledWith('grammar-i-wish-if-only');
+  });
+
+  // A Google sign-in ends in a full page load of /: the user appears through the auth check, not AuthContext.login,
+  // so stashAllAnonymousProgress never runs and the sync hook has to keep the visitor's progress on its own.
+  it('a user who appears on page load: the anonymous progress is stashed and the server copy loads', async () => {
+    const anonymous = { mastered: [2], excluded: [2], history: [], currentIndex: -1 };
+    localStorage.setItem('phrasalQuizState', JSON.stringify(anonymous));
+    vi.mocked(api.fetchQuizProgress).mockResolvedValue(progress({
+      mastered: [10, 20], excluded: [10, 20],
+      history: [{ id: 30, inputValue: '', status: 'idle' }], currentIndex: 0,
+    }));
+    const ui = <PhrasalVerbQuiz allVerbs={verbs} verbsForBrowse={browse} />;
+    const { rerender } = withAuth({ ...base, status: 'loading' }, ui);
+    expect(await screen.findByTestId('exclude-toggle')).toBeInTheDocument();
+    expect(api.fetchQuizProgress).not.toHaveBeenCalled();
+
+    rerender(<AuthContext.Provider value={authed}>{ui}</AuthContext.Provider>);
+    await waitFor(() => expect(screen.getByTestId('excluded-count')).toHaveTextContent('2'));
+    expect(api.fetchQuizProgress).toHaveBeenCalledWith('phrasal-verbs');
+    const stash = JSON.parse(localStorage.getItem('quizProgressAnonymous') ?? '{}');
+    expect(stash['phrasal-verbs']).toMatchObject({ mastered: [2], excluded: [2] });
+    expect(api.saveQuizProgress).not.toHaveBeenCalled();
   });
 
   it('logged in with a failing server: the quiz still works locally', async () => {

@@ -4,6 +4,7 @@ import { useAuth } from '../auth/useAuth';
 import { ApiError } from '../api/client';
 import ResendVerification from '../components/ResendVerification';
 import PasswordRequirements from '../components/PasswordRequirements';
+import GoogleSignInButton from '../components/GoogleSignInButton';
 import { MIN_PASSWORD_LENGTH, passwordViolation } from '../auth/passwordPolicy';
 import { alertClass, buttonClass, inputClass, linkClass } from './LoginPage';
 
@@ -86,6 +87,7 @@ export default function RegisterPage() {
       {error && (
         <div role="alert" data-testid="auth-error" className={alertClass}>{error}</div>
       )}
+      <GoogleSignInButton />
       <form onSubmit={handleSubmit} className="space-y-4" noValidate>
         <label className="block text-sm text-gray-700 dark:text-gray-300">
           Email

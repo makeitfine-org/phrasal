@@ -251,7 +251,7 @@ describe('PageShell — two-factor enrollment banner', () => {
   it('shows the banner for an unenrolled admin', () => {
     const value = {
       status: 'authenticated',
-      user: { id: 1, email: 'a@x.co', role: 'ADMIN', twoFactorEnabled: false, twoFactorEnrollmentRequired: true },
+      user: { id: 1, email: 'a@x.co', role: 'ADMIN', twoFactorEnabled: false, twoFactorEnrollmentRequired: true, hasPassword: true },
     } as unknown as AuthContextValue;
     render(
       <AuthContext.Provider value={value}>

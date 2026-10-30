@@ -2600,3 +2600,32 @@
 - k8s/overlays/prod/patches/backend-configmap.yaml
 - k8s/overlays/prod/patches/secret.yaml.example
 <!-- end-snapshot -->
+
+<!-- git-snapshot 2026-10-30T19:01:10Z -->
+- .claude/docs/blackbox/audit.md
+- .claude/docs/blackbox/todos/google-account-todos.md
+- frontend/CLAUDE.md
+- frontend/src/__tests__/AccountSecurityPage.test.tsx
+- frontend/src/__tests__/ForgotPasswordPage.test.tsx
+- frontend/src/__tests__/LoginPage.test.tsx
+- frontend/src/__tests__/PageShell.test.tsx
+- frontend/src/__tests__/QuizSync.test.tsx
+- frontend/src/__tests__/RegisterPage.test.tsx
+- frontend/src/__tests__/ResetPasswordPage.test.tsx
+- frontend/src/__tests__/TwoFactorEnrollmentBanner.test.tsx
+- frontend/src/__tests__/UserMenu.test.tsx
+- frontend/src/__tests__/VerifyEmailPage.test.tsx
+- frontend/src/__tests__/account/ChangeEmailForm.test.tsx
+- frontend/src/__tests__/account/ChangePasswordForm.test.tsx
+- frontend/src/__tests__/account/DeleteAccountSection.test.tsx
+- frontend/src/__tests__/api/authApi.test.ts
+- frontend/src/__tests__/auth/AuthContext.test.tsx
+- frontend/src/__tests__/hooks/useQuizProgressSync.test.tsx
+- frontend/src/__tests__/twoFactor/RecoveryCodesPanel.test.tsx
+<!-- end-snapshot -->
+
+<!-- diagram-staleness 2026-10-30T19:01:10Z -->
+⚠️  Diagrams that may need updating:
+  - docs/diagrams/account-management-flow.md (account/ was modified)
+  - docs/diagrams/auth-flow.md (auth/ was modified)
+<!-- end-diagram-staleness -->

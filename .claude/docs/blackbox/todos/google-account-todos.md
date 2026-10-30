@@ -4,8 +4,8 @@ Source plan: `.claude/docs/blackbox/plans/2026-10-26 18:10 Multi-user accounts T
 (section P5). Backlog: **task-104**. It needs the Google OAuth client from **task-106** (AC #4, #5); publishing the
 consent screen stays in **task-105** (AC #6).
 
-> Status (2026-10-30): Phases 0–8 done on branch `google-sign-in`, except 0.7 (user actions in Google Cloud).
-> Phases 9–13 not started.
+> Status (2026-10-30): Phases 0–9 done on branch `google-sign-in`, except 0.7 (user actions in Google Cloud);
+> 11.3 done early with Phase 9. Phases 10–13 not started.
 
 Builds on what is already in `develop` (`cb933cc`):
 - password login with a pending 2FA step (`SessionAuthenticator`, `PendingTwoFactorLogin`, `POST /auth/login/2fa`)
@@ -873,34 +873,37 @@ No new endpoint (decision 9). This phase proves the existing endpoints behave an
 ## Phase 9 — Frontend
 
 ### 9.1 Types, API, providers hook
-- [ ] **9.1.1** `src/types.ts`: `CurrentUser` gets `hasPassword: boolean`; new `interface AuthProviders { google: boolean }`.
-  - [ ] fix every test fixture that builds a `CurrentUser` (grep `twoFactorEnrollmentRequired:` in `src/__tests__`)
-- [ ] **9.1.2** `src/api/authApi.ts`:
-  - [ ] `export const GOOGLE_SIGN_IN_URL = '/api/v1/auth/oauth2/authorization/google'` (a full URL path, not under the
+- [x] **9.1.1** `src/types.ts`: `CurrentUser` gets `hasPassword: boolean`; new `interface AuthProviders { google: boolean }`.
+  - [x] fix every test fixture that builds a `CurrentUser` (grep `twoFactorEnrollmentRequired:` in `src/__tests__`)
+        — 19 base fixtures in 18 files get `hasPassword: true`; the spread variants inherit it.
+- [x] **9.1.2** `src/api/authApi.ts`:
+  - [x] `export const GOOGLE_SIGN_IN_URL = '/api/v1/auth/oauth2/authorization/google'` (a full URL path, not under the
         client's `/api/v1` base, because it is used as an `href`)
-  - [ ] `fetchAuthProviders(): Promise<AuthProviders>` → `GET /auth/providers`
-- [ ] **9.1.3** `src/auth/useAuthProviders.ts`: returns `AuthProviders | null` (`null` while loading). One request per
+  - [x] `fetchAuthProviders(): Promise<AuthProviders>` → `GET /auth/providers`
+- [x] **9.1.3** `src/auth/useAuthProviders.ts`: returns `AuthProviders | null` (`null` while loading). One request per
       page load (module-level promise cache); a failed request → `{ google: false }`. Export a `resetAuthProvidersCache()`
-      for tests.
-- [ ] **9.1.4** Tests:
-  - [ ] `src/__tests__/api/authApi.test.ts`: `fetchAuthProviders` hits `GET /api/v1/auth/providers`
-  - [ ] `src/__tests__/auth/useAuthProviders.test.ts`: `null` → `{google: true}`; two components → one fetch; a
-        rejected fetch → `{google: false}`
+      for tests. — the cached promise already carries the fallback, so a failed request is not retried on that page.
+- [x] **9.1.4** Tests:
+  - [x] `src/__tests__/api/authApi.test.ts`: `fetchAuthProviders` hits `GET /api/v1/auth/providers` (+3: the call, a
+        rejected request, the `GOOGLE_SIGN_IN_URL` value)
+  - [x] `src/__tests__/auth/useAuthProviders.test.ts`: `null` → `{google: true}`; two components → one fetch; a
+        rejected fetch → `{google: false}` (6 tests, also `google: false`, a reset cache, an answer after unmount)
 
 ### 9.2 Google button
-- [ ] **9.2.1** `src/components/GoogleSignInButton.tsx`:
-  - [ ] renders nothing until `useAuthProviders()` says `google: true`
-  - [ ] a plain `<a href={GOOGLE_SIGN_IN_URL}>` (full page load, **not** a router `Link`), `data-testid="google-sign-in"`
-  - [ ] the standard four-colour Google "G" as inline SVG (`aria-hidden`) + text "Continue with Google"
-  - [ ] Google's button colours: light `#FFFFFF` background, `#747775` border, `#1F1F1F` text; dark (`dark:`) `#131314`
+- [x] **9.2.1** `src/components/GoogleSignInButton.tsx`:
+  - [x] renders nothing until `useAuthProviders()` says `google: true`
+  - [x] a plain `<a href={GOOGLE_SIGN_IN_URL}>` (full page load, **not** a router `Link`), `data-testid="google-sign-in"`
+  - [x] the standard four-colour Google "G" as inline SVG (`aria-hidden`) + text "Continue with Google"
+  - [x] Google's button colours: light `#FFFFFF` background, `#747775` border, `#1F1F1F` text; dark (`dark:`) `#131314`
         background, `#8E918F` border, `#E3E3E3` text; full width, works at 375 px
-  - [ ] below it a divider "or" (`data-testid="auth-divider"`), rendered only with the button
-- [ ] **9.2.2** `src/__tests__/GoogleSignInButton.test.tsx` (mock `authApi`):
-  - [ ] loading → nothing; `google: false` → nothing; fetch error → nothing
-  - [ ] `google: true` → a link with exactly that `href`, the text, and the divider
+  - [x] below it a divider "or" (`data-testid="auth-divider"`), rendered only with the button
+- [x] **9.2.2** `src/__tests__/GoogleSignInButton.test.tsx` (mock `authApi`):
+  - [x] loading → nothing; `google: false` → nothing; fetch error → nothing (the last two wait for the request to
+        settle, so they don't pass just because the answer hasn't arrived yet)
+  - [x] `google: true` → a link with exactly that `href`, the text, and the divider
 
 ### 9.3 Login and Register pages
-- [ ] **9.3.1** `src/auth/googleErrors.ts`: `googleErrorMessage(code: string | null): string | null`:
+- [x] **9.3.1** `src/auth/googleErrors.ts`: `googleErrorMessage(code: string | null): string | null`:
   - `google` → "Google sign-in didn't finish. Please try again."
   - `google-email-unverified` → "Google hasn't confirmed this email address, so it can't be used here. Sign up with
     email and password instead."
@@ -908,44 +911,61 @@ No new endpoint (decision 9). This phase proves the existing endpoints behave an
     in with your password instead."
   - `google-admin-account` → "Admin accounts sign in with email and password."
   - any other non-empty code → the `google` text; `null`/empty → `null`
-- [ ] **9.3.2** `src/pages/LoginPage.tsx`:
-  - [ ] `<GoogleSignInButton />` above the form
-  - [ ] read `?error=` with `useSearchParams`, keep the mapped message in state, show it in the existing `auth-error`
+  - a `Map`, not an object lookup: `constructor` or `__proto__` must not hit `Object.prototype` (and `Object.hasOwn`
+    is not in the ES2020 lib).
+- [x] **9.3.2** `src/pages/LoginPage.tsx`:
+  - [x] `<GoogleSignInButton />` above the form
+  - [x] read `?error=` with `useSearchParams`, keep the mapped message in state, show it in the existing `auth-error`
         alert, then remove the parameter with `setSearchParams(…, { replace: true })` so a reload doesn't repeat it
-  - [ ] a static hint under the password field: "Signed up with Google? Use Continue with Google."
+        — the navigation also passes `state: location.state` (a navigation replaces router state); other parameters
+        stay; submitting the form clears the message like any other error.
+  - [x] a static hint under the password field: "Signed up with Google? Use Continue with Google."
         (`data-testid="login-google-hint"`); shown only when the button is
-- [ ] **9.3.3** `src/pages/RegisterPage.tsx`: `<GoogleSignInButton />` above the form; nothing else changes (the
+- [x] **9.3.3** `src/pages/RegisterPage.tsx`: `<GoogleSignInButton />` above the form; nothing else changes (the
       honeypot stays).
-- [ ] **9.3.4** Tests:
-  - [ ] `src/__tests__/auth/googleErrors.test.ts`: every code, an unknown code, `null`, and `<script>` → generic text
-  - [ ] `LoginPage.test.tsx`: the button and hint show when enabled; `?error=google-email-unverified` → that message in
+- [x] **9.3.4** Tests:
+  - [x] `src/__tests__/auth/googleErrors.test.ts`: every code, an unknown code, `null`, and `<script>` → generic text
+        (11 tests; also `constructor`, `__proto__`, `GOOGLE`, `access_denied`, empty string)
+  - [x] `LoginPage.test.tsx`: the button and hint show when enabled; `?error=google-email-unverified` → that message in
         `auth-error`; `?error=whatever` → the generic message, never the raw value; the parameter is gone from the URL
-        after render; existing tests still pass
-  - [ ] `RegisterPage.test.tsx`: the button shows when enabled and hides when disabled
-- [ ] **9.3.5** Check `useQuizProgressSync` with a user that appears on page load (a Google sign-in ends in a full reload
+        after render; existing tests still pass (+7: also hidden when off, other parameters and the router state kept,
+        an empty code, the message cleared on submit)
+  - [x] `RegisterPage.test.tsx`: the button shows when enabled and hides when disabled (+2; the honeypot is still there)
+- [x] **9.3.5** Check `useQuizProgressSync` with a user that appears on page load (a Google sign-in ends in a full reload
       of `/`, not in `AuthContext.login`): the anonymous progress is stashed and the server copy loads, as after a
       reload of a password session. If a test for that case is missing, add one to `QuizSync.test.tsx`.
+      — the hook skips `loading` and reruns on `[status, userId]`, and it stashes per quiz when the cache has no owner,
+      so it works without `stashAllAnonymousProgress`. There was no component test for `loading` → `authenticated`;
+      added one (anonymous progress stashed, server excluded count shown, no upload). It fails when the hook's stash
+      line is removed.
 
 ### 9.4 Account security page for accounts without a password
-- [ ] **9.4.1** `src/components/account/SetPasswordPanel.tsx` (`data-testid="set-password-panel"`):
-  - [ ] text: "You sign in with Google. Set a password to change your email address, turn on two-factor
+- [x] **9.4.1** `src/components/account/SetPasswordPanel.tsx` (`data-testid="set-password-panel"`):
+  - [x] text: "You sign in with Google. Set a password to change your email address, turn on two-factor
         authentication, or delete your account. You will be signed out everywhere after you set it."
-  - [ ] button "Email me a link to set a password" (`set-password-request`) → `forgotPassword(user.email)`
-  - [ ] success → "Check your inbox for a link. It expires in 1 hour." (`set-password-sent`; reuse
+  - [x] button "Email me a link to set a password" (`set-password-request`) → `forgotPassword(user.email)`
+  - [x] success → "Check your inbox for a link. It expires in 1 hour." (`set-password-sent`; reuse
         `RESET_LINK_TTL_HOURS` from `ForgotPasswordPage`, move it to a shared module if needed)
-  - [ ] `ApiError` (e.g. `429`) → `error.message` in an alert; the button is disabled while pending
-- [ ] **9.4.2** `src/pages/AccountSecurityPage.tsx`, when `user.hasPassword === false` (and not admin):
-  - [ ] show `SetPasswordPanel` at the top
-  - [ ] hide `ChangePasswordForm`, `ChangeEmailForm` and `DeleteAccountSection`
-  - [ ] in the 2FA status view, replace the "Turn on" button with "Set a password first to turn on two-factor
+        — imported from `ForgotPasswordPage` as is (components already import from `LoginPage` the same way).
+  - [x] `ApiError` (e.g. `429`) → `error.message` in an alert; the button is disabled while pending
+        (`set-password-error`; anything else → the generic text)
+- [x] **9.4.2** `src/pages/AccountSecurityPage.tsx`, when `user.hasPassword === false` (and not admin):
+  - [x] show `SetPasswordPanel` at the top
+  - [x] hide `ChangePasswordForm`, `ChangeEmailForm` and `DeleteAccountSection`
+  - [x] in the 2FA status view, replace the "Turn on" button with "Set a password first to turn on two-factor
         authentication." (`two-factor-needs-password`)
-- [ ] **9.4.3** Tests:
-  - [ ] `src/__tests__/account/SetPasswordPanel.test.tsx`: request called with the user's email; success text; `429`
-        message; pending state
-  - [ ] `AccountSecurityPage.test.tsx`: a passwordless user sees the panel and the 2FA hint, and none of the three
-        forms; a user with a password sees no panel (existing tests unchanged); the admin note is unchanged
-- [ ] **9.4.4** `npm --prefix frontend run test:run && npm --prefix frontend run build` → green.
-- [ ] **9.4.5** Ask for commit approval → `feat(frontend): add Continue with Google and a set-password panel`
+- [x] **9.4.3** Tests:
+  - [x] `src/__tests__/account/SetPasswordPanel.test.tsx`: request called with the user's email; success text; `429`
+        message; pending state (7 tests; also a network error, a retry clearing the error, no user)
+  - [x] `AccountSecurityPage.test.tsx`: a passwordless user sees the panel and the 2FA hint, and none of the three
+        forms; a user with a password sees no panel (existing tests unchanged); the admin note is unchanged (+5; also
+        the panel above the 2FA section, and a missing `hasPassword` keeping the forms)
+- [x] **9.4.4** `npm --prefix frontend run test:run && npm --prefix frontend run build` → green.
+      — 2026-10-30: 90 files, 1700 tests (+46); build green. `npx tsc --noEmit` shows no new errors (the existing
+      ones, mostly jest-dom matcher types, are the same as on the base commit; `npm run build` doesn't type-check).
+- [x] **9.4.5** Ask for commit approval → `feat(frontend): add Continue with Google and a set-password panel`
+      — approved and committed while the final `make clean build` was in its e2e stage (backend and frontend green).
+- [ ] **9.4.6** End of phase: `make clean build` green.
 
 ---
 
@@ -1041,9 +1061,11 @@ No new endpoint (decision 9). This phase proves the existing endpoints behave an
   - [ ] never-log list (decision 12)
   - [ ] update the Security rule order and the `startTwoFactorChallenge` sentence (5.1.1)
   - [ ] V17 in the schema notes
-- [ ] **11.3** `../../../../frontend/CLAUDE.md`: `GoogleSignInButton`, `useAuthProviders`, `googleErrors`, the
+- [x] **11.3** `../../../../frontend/CLAUDE.md`: `GoogleSignInButton`, `useAuthProviders`, `googleErrors`, the
       `?error=` handling on `LoginPage`, `SetPasswordPanel`, `CurrentUser.hasPassword`, `authApi.fetchAuthProviders`
       and `GOOGLE_SIGN_IN_URL`.
+      — *moved forward*: done in Phase 9 with the code (new "Sign in with Google" section, the `authApi` row, the
+      Auth component list, the account settings paragraph).
 - [ ] **11.4** `../../../../e2e/CLAUDE.md`: the `mock-oauth2` service, `MOCK_OAUTH2_URL`, `mock-oauth2.ts`, the new
       features and steps files, `world.googleSubject`, `getWithoutRedirect`.
 - [ ] **11.5** Diagrams (blackbox policy):
@@ -1060,7 +1082,7 @@ No new endpoint (decision 9). This phase proves the existing endpoints behave an
       (`PendingTwoFactorLogin.start` empties and re-keys the session instead of invalidate + new session); inserted
       fix 8.2.1a (`server.tomcat.use-relative-redirects: true`, so the Google redirects back into the SPA ignore
       nginx's forwarded port and scheme); 8.1.2 changed (compose derives `APP_BASE_URL` from `FRONTEND_PORT` instead
-      of a local `.env`).
+      of a local `.env`); 11.3 moved forward into Phase 9.
 - [ ] **11.7** Backlog (MCP):
   - [ ] task-104: check off the done AC (prod ones wait for Phase 13), implementation notes, final summary
   - [ ] task-106: note that AC #4/#5 are needed for 12.3 and Phase 13; check them only after the user confirms

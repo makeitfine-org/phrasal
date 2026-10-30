@@ -7,10 +7,12 @@ import QRCode from 'qrcode';
 import * as api from '../api/twoFactorApi';
 
 vi.mock('../api/twoFactorApi');
+vi.mock('../api/authApi', () => ({ forgotPassword: vi.fn() }));
 vi.mock('qrcode', () => ({ default: { toDataURL: vi.fn().mockResolvedValue('data:image/png;base64,AAA') } }));
 
-const plain = { id: 2, email: 'user@x.co', role: 'USER' as const, twoFactorEnabled: false, twoFactorEnrollmentRequired: false };
+const plain = { id: 2, email: 'user@x.co', role: 'USER' as const, twoFactorEnabled: false, twoFactorEnrollmentRequired: false, hasPassword: true };
 const admin = { ...plain, id: 1, email: 'admin@x.co', role: 'ADMIN' as const, twoFactorEnrollmentRequired: true };
+const googleOnly = { ...plain, id: 3, email: 'google@x.co', hasPassword: false };
 const off = { enabled: false, enabledAt: null, recoveryCodesRemaining: 0 };
 const on = { enabled: true, enabledAt: '2026-10-01T10:00:00Z', recoveryCodesRemaining: 8 };
 
@@ -156,5 +158,54 @@ describe('AccountSecurityPage', () => {
     expect(await screen.findByTestId('two-factor-load-error')).toBeInTheDocument();
     fireEvent.click(screen.getByTestId('two-factor-retry'));
     expect(await screen.findByTestId('two-factor-enable')).toBeInTheDocument();
+  });
+
+  describe('an account without a password', () => {
+    it('shows the set-password panel and the 2FA hint instead of the password forms', async () => {
+      vi.mocked(api.fetchTwoFactorStatus).mockResolvedValue(off);
+      renderPage({ user: googleOnly });
+      expect(await screen.findByTestId('two-factor-needs-password'))
+        .toHaveTextContent('Set a password first to turn on two-factor authentication.');
+      expect(screen.getByTestId('set-password-panel')).toBeInTheDocument();
+      expect(screen.getByTestId('two-factor-status')).toHaveTextContent('Two-factor authentication is off');
+      expect(screen.queryByTestId('two-factor-enable')).toBeNull();
+      expect(screen.queryByTestId('change-password-submit')).toBeNull();
+      expect(screen.queryByTestId('change-email-submit')).toBeNull();
+      expect(screen.queryByTestId('delete-account-open')).toBeNull();
+      expect(screen.queryByTestId('admin-managed-note')).toBeNull();
+    });
+
+    it('puts the panel above the two-factor section', async () => {
+      vi.mocked(api.fetchTwoFactorStatus).mockResolvedValue(off);
+      renderPage({ user: googleOnly });
+      const panel = await screen.findByTestId('set-password-panel');
+      const heading = screen.getByRole('heading', { name: 'Two-factor authentication' });
+      expect(panel.compareDocumentPosition(heading) & Node.DOCUMENT_POSITION_FOLLOWING).toBeTruthy();
+    });
+
+    it('a user with a password sees no panel and no hint', async () => {
+      vi.mocked(api.fetchTwoFactorStatus).mockResolvedValue(off);
+      renderPage();
+      expect(await screen.findByTestId('two-factor-enable')).toBeInTheDocument();
+      expect(screen.queryByTestId('set-password-panel')).toBeNull();
+      expect(screen.queryByTestId('two-factor-needs-password')).toBeNull();
+    });
+
+    it('the admin note is unchanged, whatever hasPassword says', async () => {
+      vi.mocked(api.fetchTwoFactorStatus).mockResolvedValue(off);
+      renderPage({ user: { ...admin, hasPassword: false } });
+      expect(await screen.findByTestId('admin-managed-note')).toBeInTheDocument();
+      expect(screen.getByTestId('two-factor-enable')).toBeInTheDocument();
+      expect(screen.queryByTestId('set-password-panel')).toBeNull();
+      expect(screen.queryByTestId('two-factor-needs-password')).toBeNull();
+    });
+
+    it('a missing hasPassword (an older backend) keeps the password forms', async () => {
+      vi.mocked(api.fetchTwoFactorStatus).mockResolvedValue(off);
+      const { hasPassword: _omitted, ...withoutFlag } = plain;
+      renderPage({ user: withoutFlag as typeof plain });
+      expect(await screen.findByTestId('change-password-submit')).toBeInTheDocument();
+      expect(screen.queryByTestId('set-password-panel')).toBeNull();
+    });
   });
 });

@@ -6,6 +6,7 @@ import type { TwoFactorStatus } from '../types';
 import ChangeEmailForm from '../components/account/ChangeEmailForm';
 import ChangePasswordForm from '../components/account/ChangePasswordForm';
 import DeleteAccountSection, { DELETED_NOTICE } from '../components/account/DeleteAccountSection';
+import SetPasswordPanel from '../components/account/SetPasswordPanel';
 import CodeForm from '../components/twoFactor/CodeForm';
 import RecoveryCodesPanel from '../components/twoFactor/RecoveryCodesPanel';
 import TwoFactorSetup from '../components/twoFactor/TwoFactorSetup';
@@ -70,6 +71,8 @@ export default function AccountSecurityPage() {
   };
 
   const isAdmin = user.role === 'ADMIN';
+  // A Google-only account: every action below that asks for the current password waits until one is set by email.
+  const passwordless = !isAdmin && user.hasPassword === false;
 
   const renderBody = () => {
     if (loadFailed) {
@@ -131,9 +134,15 @@ export default function AccountSecurityPage() {
               Required for administrators: content editing stays locked until you turn this on.
             </p>
           )}
-          <button type="button" data-testid="two-factor-enable" onClick={() => setView('setup')} className={actionButtonClass}>
-            Turn on
-          </button>
+          {passwordless ? (
+            <p data-testid="two-factor-needs-password" className="text-sm text-gray-700 dark:text-gray-300">
+              Set a password first to turn on two-factor authentication.
+            </p>
+          ) : (
+            <button type="button" data-testid="two-factor-enable" onClick={() => setView('setup')} className={actionButtonClass}>
+              Turn on
+            </button>
+          )}
         </div>
       );
     }
@@ -171,6 +180,8 @@ export default function AccountSecurityPage() {
         <p data-testid="admin-managed-note" className="mb-6 text-sm text-gray-700 dark:text-gray-300">
           The admin account&apos;s password and email are managed through server configuration.
         </p>
+      ) : passwordless ? (
+        <SetPasswordPanel />
       ) : (
         <>
           <ChangePasswordForm />
@@ -179,7 +190,7 @@ export default function AccountSecurityPage() {
       )}
       <h2 className="text-lg font-semibold text-gray-900 dark:text-gray-100 mb-3">Two-factor authentication</h2>
       {renderBody()}
-      {!isAdmin && <DeleteAccountSection onDeletingChange={setDeleting} />}
+      {!isAdmin && !passwordless && <DeleteAccountSection onDeletingChange={setDeleting} />}
     </main>
   );
 }

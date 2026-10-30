@@ -61,7 +61,7 @@ describe('VerifyEmailPage', () => {
   });
 
   it('offers the quiz to an authenticated visitor', async () => {
-    renderPage('/verify-email?token=abc', { ...anonymous, status: 'authenticated', user: { id: 1, email: 'a@b.co', role: 'USER', twoFactorEnabled: false, twoFactorEnrollmentRequired: false } });
+    renderPage('/verify-email?token=abc', { ...anonymous, status: 'authenticated', user: { id: 1, email: 'a@b.co', role: 'USER', twoFactorEnabled: false, twoFactorEnrollmentRequired: false, hasPassword: true } });
     expect(await screen.findByText('Your email is confirmed.')).toBeInTheDocument();
     expect(screen.getByRole('link', { name: 'Go to the quiz' })).toHaveAttribute('href', '/');
   });

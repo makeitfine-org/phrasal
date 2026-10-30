@@ -99,7 +99,7 @@ describe('ForgotPasswordPage', () => {
   });
 
   it('redirects an authenticated user', () => {
-    renderPage({ ...anonymous, status: 'authenticated', user: { id: 1, email: 'a@b.co', role: 'USER', twoFactorEnabled: false, twoFactorEnrollmentRequired: false } });
+    renderPage({ ...anonymous, status: 'authenticated', user: { id: 1, email: 'a@b.co', role: 'USER', twoFactorEnabled: false, twoFactorEnrollmentRequired: false, hasPassword: true } });
     expect(screen.getByText('home')).toBeInTheDocument();
   });
 });

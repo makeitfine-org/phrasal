@@ -6,7 +6,7 @@ import * as file from '../../utils/recoveryCodesFile';
 
 const codes = Array.from({ length: 10 }, (_, i) => `CODE-000${i}`);
 const value = {
-  status: 'authenticated', user: { id: 1, email: 'a@b.co', role: 'USER', twoFactorEnabled: true, twoFactorEnrollmentRequired: false },
+  status: 'authenticated', user: { id: 1, email: 'a@b.co', role: 'USER', twoFactorEnabled: true, twoFactorEnrollmentRequired: false, hasPassword: true },
 } as unknown as AuthContextValue;
 
 function renderPanel(onDone = vi.fn()) {

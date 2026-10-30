@@ -16,7 +16,7 @@ vi.mock('../../utils/quizProgressStorage', () => ({
   stashAllAnonymousProgress: vi.fn(),
 }));
 
-const user = { id: 1, email: 'a@b.co', role: 'USER' as const, twoFactorEnabled: false, twoFactorEnrollmentRequired: false };
+const user = { id: 1, email: 'a@b.co', role: 'USER' as const, twoFactorEnabled: false, twoFactorEnrollmentRequired: false, hasPassword: true };
 let auth: ReturnType<typeof useAuth>;
 
 function Probe() {

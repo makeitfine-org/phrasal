@@ -5,7 +5,7 @@ import DeleteAccountSection from '../../components/account/DeleteAccountSection'
 import { AuthContext, type AuthContextValue } from '../../auth/AuthContext';
 import { ApiError } from '../../api/client';
 
-const plain = { id: 2, email: 'user@x.co', role: 'USER' as const, twoFactorEnabled: false, twoFactorEnrollmentRequired: false };
+const plain = { id: 2, email: 'user@x.co', role: 'USER' as const, twoFactorEnabled: false, twoFactorEnrollmentRequired: false, hasPassword: true };
 const withTwoFactor = { ...plain, twoFactorEnabled: true };
 
 function LoginStub() {

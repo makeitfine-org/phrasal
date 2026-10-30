@@ -4,7 +4,7 @@ import { MemoryRouter } from 'react-router-dom';
 import TwoFactorEnrollmentBanner from '../components/TwoFactorEnrollmentBanner';
 import { AuthContext, type AuthContextValue } from '../auth/AuthContext';
 
-const base = { id: 1, email: 'a@x.co', role: 'ADMIN' as const, twoFactorEnabled: false, twoFactorEnrollmentRequired: true };
+const base = { id: 1, email: 'a@x.co', role: 'ADMIN' as const, twoFactorEnabled: false, twoFactorEnrollmentRequired: true, hasPassword: true };
 
 function renderBanner(user: typeof base | null, path = '/') {
   const value = { status: user ? 'authenticated' : 'anonymous', user } as unknown as AuthContextValue;
