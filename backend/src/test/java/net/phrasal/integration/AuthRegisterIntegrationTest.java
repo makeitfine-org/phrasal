@@ -176,4 +176,43 @@ class AuthRegisterIntegrationTest extends AbstractIntegrationTest {
         mockMvc.perform(register(uniqueEmail(), PASSWORD))
                 .andExpect(status().isForbidden());
     }
+
+    private static MockHttpServletRequestBuilder registerWithWebsite(String email, String website) {
+        return post(URL).contentType(MediaType.APPLICATION_JSON)
+                .content("{\"email\":\"" + email + "\",\"password\":\"" + PASSWORD + "\",\"website\":\""
+                        + website + "\"}");
+    }
+
+    @Test
+    @DisplayName("filled honeypot returns the normal 202 body and stores nothing")
+    void honeypotFilled() throws Exception {
+        String email = uniqueEmail();
+        MvcResult normal = mockMvc.perform(register(uniqueEmail(), PASSWORD).with(csrf())).andReturn();
+
+        MvcResult trapped = mockMvc.perform(registerWithWebsite(email, "http://spam").with(csrf()))
+                .andExpect(status().isAccepted())
+                .andReturn();
+
+        assertThat(trapped.getResponse().getContentAsString()).isEqualTo(normal.getResponse().getContentAsString());
+        assertThat(userRepository.findByEmail(email.toLowerCase())).isEmpty();
+    }
+
+    @Test
+    @DisplayName("empty website field registers normally")
+    void honeypotEmpty() throws Exception {
+        String email = uniqueEmail();
+
+        mockMvc.perform(registerWithWebsite(email, "").with(csrf()))
+                .andExpect(status().isAccepted());
+
+        assertThat(userRepository.findByEmail(email.toLowerCase())).isPresent();
+    }
+
+    @Test
+    @DisplayName("website longer than 200 characters returns 400")
+    void honeypotTooLong() throws Exception {
+        mockMvc.perform(registerWithWebsite(uniqueEmail(), "x".repeat(201)).with(csrf()))
+                .andExpect(status().isBadRequest())
+                .andExpect(jsonPath("$.errors.website").exists());
+    }
 }

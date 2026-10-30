@@ -15,6 +15,7 @@ export default function RegisterPage() {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [confirm, setConfirm] = useState('');
+  const [website, setWebsite] = useState('');
   const [pending, setPending] = useState(false);
   const [error, setError] = useState<string | null>(null);
   const [sentTo, setSentTo] = useState<string | null>(null);
@@ -41,7 +42,7 @@ export default function RegisterPage() {
 
     setPending(true);
     try {
-      await register(email, password);
+      await register(email, password, website);
       setSentTo(email);
     } catch (e) {
       if (e instanceof ApiError && e.problem?.errors && Object.keys(e.problem.errors).length > 0) {
@@ -115,6 +116,14 @@ export default function RegisterPage() {
           />
           {fieldError('confirm')}
         </label>
+        {/* Honeypot: off-screen rather than display:none, so bots that skip hidden fields still fill it. */}
+        <div aria-hidden="true" className="absolute -left-[10000px] top-auto h-px w-px overflow-hidden">
+          <label htmlFor="register-website">Website</label>
+          <input
+            id="register-website" name="website" type="text" tabIndex={-1} autoComplete="off"
+            data-testid="register-website" value={website} onChange={e => setWebsite(e.target.value)}
+          />
+        </div>
         <button type="submit" disabled={pending} data-testid="register-submit" className={buttonClass}>
           {pending ? 'Creating account…' : 'Sign up'}
         </button>

@@ -24,8 +24,7 @@ This builds on:
   already ignores a `401`
 
 > Status: Phase 0 done (2026-10-30, branch `account-settings`, backlog task-100 + new TASK-109). Phase 1 done
-> (2026-10-30, shared backend groundwork). Phase 2 done and committed (`f9957e2`). Phase 3 done and committed (`594a57c`). Phase 4 done (delete account) and Phase 5 done (breached-password check);
-> both `make clean build` green, awaiting commit approval. Phase 6 onwards is not implemented yet.
+> (2026-10-30, shared backend groundwork). Phase 2 done and committed (`f9957e2`). Phase 3 done and committed (`594a57c`). Phases 4 and 5 done and committed together (`96903e9`). Phases 6 (honeypot) and 7 (429 logging, limits review, client-IP proof) done; `make clean build` green, awaiting commit approval. Phase 8 onwards is not implemented yet.
 
 ---
 
@@ -967,7 +966,7 @@ bucket. Doing these once keeps the feature phases small.
 - [x] **4.7.1** `make clean build` → green. Backend 668 tests, e2e 138 scenarios.
       Note: `AccountSecurityPage` redirects an anonymous visitor to `/login` on its own, which dropped the notice; the page
       now gets `onDeletingChange` from `DeleteAccountSection` and passes the notice in that redirect.
-- [ ] **4.7.2** Ask for commit approval → `feat: let users delete their account`
+- [x] **4.7.2** Ask for commit approval → `feat: let users delete their account`
 
 ---
 
@@ -1051,35 +1050,35 @@ bucket. Doing these once keeps the feature phases small.
       Notes: `BreachedPasswordChecker` needed `@Autowired` on its public constructor (it has a second, package-private one).
       The 5.4.2 stub server works, because `setRestClient` accepts a client with another base URL; `forRangeUrl` is the
       test factory. 5.5.2 is a plain line, not a rule, because only the server can know the answer.
-- [ ] **5.7.2** Ask for commit approval → `feat(backend): reject passwords found in known data breaches`
+- [x] **5.7.2** Ask for commit approval → `feat(backend): reject passwords found in known data breaches`
 
 ---
 
 ## Phase 6 — Abuse protection: honeypot on register
 
 ### 6.1 Backend
-- [ ] **6.1.1** `RegisterRequest`:
+- [x] **6.1.1** `RegisterRequest`:
   - add the component `@Size(max = 200) String website`, with Javadoc "honeypot; people never see or fill it"
   - add a 2-argument constructor `(email, password)` → `this(email, password, null)`, so existing callers and tests
     don't change
   - `boolean honeypotFilled()` → `website != null && !website.isBlank()`
   - `toString()` → `website=<filled|empty>`, never the value
-- [ ] **6.1.2** `AuthService#register`: as the **first** statement, `if (request.honeypotFilled())`:
+- [x] **6.1.2** `AuthService#register`: as the **first** statement, `if (request.honeypotFilled())`:
   - `log.info("Registration ignored: honeypot field filled")` (no email)
   - return without touching the DB, the encoder or mail
   - The controller's rate limits still run before it, unchanged.
-- [ ] **6.1.3** Tests:
-  - [ ] `AuthServiceTest`: honeypot filled → no repository, encoder or event calls; blank `website` → the normal path
-  - [ ] `AuthRegisterIntegrationTest`:
+- [x] **6.1.3** Tests:
+  - [x] `AuthServiceTest`: honeypot filled → no repository, encoder or event calls; blank `website` → the normal path
+  - [x] `AuthRegisterIntegrationTest`:
     - `website: "http://spam"` → `202` with the **same** body as a normal register; no `users` row; no mail
     - `website: ""` → a normal registration
     - `website` longer than 200 characters → `400`
-  - [ ] a unit test for the 2-argument constructor and `toString()`
+  - [x] a unit test for the 2-argument constructor and `toString()`
 
 ### 6.2 Frontend
-- [ ] **6.2.1** `authApi.register(email, password, website = '')`: send `website` in the body.
+- [x] **6.2.1** `authApi.register(email, password, website = '')`: send `website` in the body.
       `AuthContext.register` passes it through.
-- [ ] **6.2.2** `RegisterPage.tsx`: a honeypot block:
+- [x] **6.2.2** `RegisterPage.tsx`: a honeypot block:
   ```tsx
   <div aria-hidden="true" className="absolute -left-[10000px] top-auto h-px w-px overflow-hidden">
     <label htmlFor="register-website">Website</label>
@@ -1088,23 +1087,23 @@ bucket. Doing these once keeps the feature phases small.
   </div>
   ```
   The value goes to `register()`. Keep `display:none` and the `hidden` class out of it.
-- [ ] **6.2.3** Tests:
-  - [ ] `RegisterPage.test.tsx`:
+- [x] **6.2.3** Tests:
+  - [x] `RegisterPage.test.tsx`:
     - the field has `tabIndex=-1`, `autoComplete="off"` and an `aria-hidden` wrapper
     - a normal submit sends `website: ''`
     - filling it sends the value
-  - [ ] `authApi.test.ts` / `AuthContext.test.tsx`: `website` is passed through
+  - [x] `authApi.test.ts` / `AuthContext.test.tsx`: `website` is passed through
 
 ### 6.3 E2E
-- [ ] **6.3.1** `auth-api.steps.ts`: `When I register with a new email and the honeypot field filled`.
-- [ ] **6.3.2** `e2e/features/auth-api/abuse-protection.feature` (`@api`):
-  - [ ] honeypot → 202 with the check-inbox message; no verification email arrives for that address; logging in with
+- [x] **6.3.1** `auth-api.steps.ts`: `When I register with a new email and the honeypot field filled`.
+- [x] **6.3.2** `e2e/features/auth-api/abuse-protection.feature` (`@api`):
+  - [x] honeypot → 202 with the check-inbox message; no verification email arrives for that address; logging in with
         those credentials → 401
-- [ ] **6.3.3** No browser scenario: Playwright counts an off-screen 1 px element as visible, so the Vitest checks in
+- [x] **6.3.3** No browser scenario: Playwright counts an off-screen 1 px element as visible, so the Vitest checks in
       6.2.3 cover the UI part.
 
 ### 6.4 Verify and commit
-- [ ] **6.4.1** `make clean build` → green.
+- [x] **6.4.1** `make clean build` → green.
 - [ ] **6.4.2** Ask for commit approval → `feat: add a honeypot field to registration`
 
 ---
@@ -1112,17 +1111,17 @@ bucket. Doing these once keeps the feature phases small.
 ## Phase 7 — Abuse protection: rate-limit logging, client IP, limits review
 
 ### 7.1 Log every 429
-- [ ] **7.1.1** `RateLimiter#check`: right before throwing `RateLimitExceededException`:
+- [x] **7.1.1** `RateLimiter#check`: right before throwing `RateLimitExceededException`:
   - `*-per-ip` rules → `log.warn("Rate limit exceeded rule={} clientIp={}", ruleName, key)`
   - every other rule → `log.warn("Rate limit exceeded rule={}", ruleName)`. Never the email or the user id.
   - Put the suffix in a constant: `private static final String PER_IP_SUFFIX = "-per-ip";`
-- [ ] **7.1.2** `RateLimiterTest`, using a Logback `ListAppender` or the pattern existing tests already use:
+- [x] **7.1.2** `RateLimiterTest`, using a Logback `ListAppender` or the pattern existing tests already use:
   - an IP rule logs the IP
   - an email rule doesn't log the email
   - no log line while under the limit
 
 ### 7.2 Review the limits
-- [ ] **7.2.1** Make a table of every endpoint that checks a secret or sends mail, and confirm each one has a limit.
+- [x] **7.2.1** Make a table of every endpoint that checks a secret or sends mail, and confirm each one has a limit.
       Fix any gap you find in this phase.
 
   | Endpoint | Rules |
@@ -1140,20 +1139,20 @@ bucket. Doing these once keeps the feature phases small.
   | `POST /me/password`, `/me/email`, `/me/delete` | `reauth-per-user` (new) |
   | `POST /me/email` | + `email-change-per-email` (new) |
 
-- [ ] **7.2.2** Check that the docker-compose overrides (`RATE_LIMIT_LOGIN_PER_EMAIL=10`, `RATE_LIMIT_TWO_FACTOR_PER_IP`
+- [x] **7.2.2** Check that the docker-compose overrides (`RATE_LIMIT_LOGIN_PER_EMAIL=10`, `RATE_LIMIT_TWO_FACTOR_PER_IP`
       and the other `1000` values) don't hide the new e2e `429` scenario. `RATE_LIMIT_REAUTH_PER_USER` keeps its
       default of 5 in compose.
 
 ### 7.3 E2E
-- [ ] **7.3.1** `account-api.steps.ts`: `When I try to change my password with a wrong current password {int} times`.
-- [ ] **7.3.2** `abuse-protection.feature`: a new user makes 6 wrong attempts → the 6th answers 429. The bucket is keyed
+- [x] **7.3.1** `account-api.steps.ts`: `When I try to change my password with a wrong current password {int} times`.
+- [x] **7.3.2** `abuse-protection.feature`: a new user makes 6 wrong attempts → the 6th answers 429. The bucket is keyed
       by the user id, so runs don't collide.
-- [ ] **7.3.3** `npm --prefix e2e run test:api` → green.
+- [x] **7.3.3** `npm --prefix e2e run test:api` → green.
 
 ### 7.4 Client IP behind Traefik (task-100 AC #8)
-- [ ] **7.4.1** Check that `ansible/roles/k3s/templates/traefik-config.yaml.j2` (`externalTrafficPolicy: Local`) and the
+- [x] **7.4.1** Check that `ansible/roles/k3s/templates/traefik-config.yaml.j2` (`externalTrafficPolicy: Local`) and the
       `ansible/README.md` check command are still correct. No change is expected.
-- [ ] **7.4.2** `ansible/README.md`: add how to **prove** it after a deploy. Run it from your own machine, with the
+- [x] **7.4.2** `ansible/README.md`: add how to **prove** it after a deploy. Run it from your own machine, with the
       user's approval for prod:
   ```bash
   for i in $(seq 1 7); do curl -s -o /dev/null -w '%{http_code}\n' -X POST https://phrasalbox.com/api/v1/auth/forgot-password \
@@ -1164,7 +1163,7 @@ bucket. Doing these once keeps the feature phases small.
 - [ ] **7.4.3** The real prod check is a Phase 11 item.
 
 ### 7.5 Verify and commit
-- [ ] **7.5.1** `make clean build` → green.
+- [x] **7.5.1** `make clean build` → green.
 - [ ] **7.5.2** Ask for commit approval → `feat(backend): log rate-limit hits with the client IP`
 
 ---

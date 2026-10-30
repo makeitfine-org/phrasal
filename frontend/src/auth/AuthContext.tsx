@@ -14,7 +14,7 @@ export interface AuthContextValue {
   login: (email: string, password: string) => Promise<authApi.LoginResult>;
   completeTwoFactorLogin: (code: string) => Promise<void>;
   /** Creates the account only; it cannot log in until the emailed link is opened, so no session starts here. */
-  register: (email: string, password: string) => Promise<void>;
+  register: (email: string, password: string, website?: string) => Promise<void>;
   logout: () => Promise<void>;
   /** Deletes the account; on failure it throws and nothing changes. `code` is needed only when 2FA is on. */
   deleteAccount: (password: string, code?: string) => Promise<void>;
@@ -70,8 +70,8 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
     await refresh();
   }, [refresh]);
 
-  const register = useCallback(async (email: string, password: string) => {
-    await authApi.register(email, password);
+  const register = useCallback(async (email: string, password: string, website = '') => {
+    await authApi.register(email, password, website);
   }, []);
 
   const logout = useCallback(async () => {

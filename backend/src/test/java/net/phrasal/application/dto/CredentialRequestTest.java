@@ -44,4 +44,24 @@ class CredentialRequestTest {
                 .doesNotContain("raw-reset-token")
                 .doesNotContain(PASSWORD);
     }
+
+    @Test
+    @DisplayName("RegisterRequest without a website has an empty honeypot")
+    void registerRequestTwoArgumentConstructor() {
+        RegisterRequest request = new RegisterRequest(EMAIL, PASSWORD);
+
+        assertThat(request.website()).isNull();
+        assertThat(request.honeypotFilled()).isFalse();
+        assertThat(new RegisterRequest(EMAIL, PASSWORD, "  ").honeypotFilled()).isFalse();
+    }
+
+    @Test
+    @DisplayName("RegisterRequest toString shows whether the honeypot is filled, never its value")
+    void registerRequestMasksWebsite() {
+        RegisterRequest request = new RegisterRequest(EMAIL, PASSWORD, "http://spam.example");
+
+        assertThat(request.honeypotFilled()).isTrue();
+        assertThat(request.toString()).contains("website=filled").doesNotContain("spam.example");
+        assertThat(new RegisterRequest(EMAIL, PASSWORD).toString()).contains("website=empty");
+    }
 }

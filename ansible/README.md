@@ -70,6 +70,16 @@ ansible-playbook playbooks/k3s.yml --tags traefik-client-ip
 kubectl get svc traefik -n kube-system -o jsonpath='{.spec.externalTrafficPolicy}'
 ```
 
+To **prove** the backend sees the real client IP after a deploy, send a few requests from your own machine to a per-IP
+limited endpoint and read the backend log. Use an address you own; the per-email limit (3/h) is reached first, and
+that is fine. The backend logs every `429` with the rule name, and the client IP for `*-per-ip` rules only.
+
+```bash
+for i in $(seq 1 7); do curl -s -o /dev/null -w '%{http_code}\n' -X POST https://phrasalbox.com/api/v1/auth/forgot-password \
+  -H 'Content-Type: application/json' -H "X-XSRF-TOKEN: <token>" -b "XSRF-TOKEN=<token>" -d '{"email":"<test address>"}'; done
+kubectl logs deploy/backend | grep "Rate limit exceeded rule=forgot-per-ip"   # clientIp must be your public IP
+```
+
 ### Ingress + TLS
 
 ```bash

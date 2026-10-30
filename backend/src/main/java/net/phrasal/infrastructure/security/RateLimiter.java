@@ -3,6 +3,7 @@ package net.phrasal.infrastructure.security;
 import com.github.benmanes.caffeine.cache.Cache;
 import com.github.benmanes.caffeine.cache.Caffeine;
 import com.github.benmanes.caffeine.cache.Ticker;
+import lombok.extern.slf4j.Slf4j;
 import net.phrasal.config.RateLimitProperties;
 import net.phrasal.config.RateLimitProperties.Rule;
 import net.phrasal.infrastructure.exception.RateLimitExceededException;
@@ -17,9 +18,11 @@ import java.util.concurrent.atomic.AtomicInteger;
  * In-memory fixed-window limiter. The window starts at the first request for a key and the counter is
  * dropped when it ends. State is per instance, which is enough for a single backend replica.
  */
+@Slf4j
 @Component
 public class RateLimiter {
 
+    private static final String PER_IP_SUFFIX = "-per-ip";
     private static final long MAX_KEYS = 100_000;
 
     private final boolean enabled;
@@ -46,6 +49,11 @@ public class RateLimiter {
         Cache<String, AtomicInteger> cache = caches.computeIfAbsent(ruleName, name -> newCache(rule.window()));
         int count = cache.get(key, k -> new AtomicInteger()).incrementAndGet();
         if (count > rule.limit()) {
+            if (ruleName.endsWith(PER_IP_SUFFIX)) {
+                log.warn("Rate limit exceeded rule={} clientIp={}", ruleName, key);
+            } else {
+                log.warn("Rate limit exceeded rule={}", ruleName);
+            }
             throw new RateLimitExceededException(ruleName, retryAfterSeconds(cache, key, rule.window()));
         }
     }

@@ -2408,3 +2408,29 @@
 - e2e/features/frontend/account-settings.feature
 - e2e/src/steps/account-api.steps.ts
 <!-- end-snapshot -->
+
+<!-- git-snapshot 2026-10-30T13:45:25Z -->
+- .claude/docs/blackbox/audit.md
+- .claude/docs/blackbox/todos/account-funcs-todos.md
+- ansible/README.md
+- backend/src/main/java/net/phrasal/application/dto/RegisterRequest.java
+- backend/src/main/java/net/phrasal/application/service/AuthService.java
+- backend/src/main/java/net/phrasal/infrastructure/security/RateLimiter.java
+- backend/src/test/java/net/phrasal/application/dto/CredentialRequestTest.java
+- backend/src/test/java/net/phrasal/application/service/AuthServiceTest.java
+- backend/src/test/java/net/phrasal/infrastructure/security/RateLimiterTest.java
+- backend/src/test/java/net/phrasal/integration/AuthRegisterIntegrationTest.java
+- e2e/src/steps/account-api.steps.ts
+- e2e/src/steps/auth-api.steps.ts
+- frontend/src/__tests__/RegisterPage.test.tsx
+- frontend/src/__tests__/api/authApi.test.ts
+- frontend/src/__tests__/auth/AuthContext.test.tsx
+- frontend/src/api/authApi.ts
+- frontend/src/auth/AuthContext.tsx
+- frontend/src/pages/RegisterPage.tsx
+<!-- end-snapshot -->
+
+<!-- diagram-staleness 2026-10-30T13:45:25Z -->
+⚠️  Diagrams that may need updating:
+  - docs/diagrams/auth-flow.md (auth/ was modified)
+<!-- end-diagram-staleness -->

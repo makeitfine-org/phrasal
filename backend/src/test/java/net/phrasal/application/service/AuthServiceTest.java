@@ -26,6 +26,7 @@ import static org.assertj.core.api.Assertions.assertThatThrownBy;
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.Mockito.never;
 import static org.mockito.Mockito.times;
+import static org.mockito.Mockito.verifyNoInteractions;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
 
@@ -64,6 +65,31 @@ class AuthServiceTest {
             user.markEmailVerified(LocalDateTime.of(2026, 1, 1, 0, 0));
         }
         return user;
+    }
+
+    @Test
+    @DisplayName("filled honeypot returns without touching the repository, encoder, breach check or events")
+    void honeypotFilled() {
+        service().register(new RegisterRequest("a@b.com", PASSWORD, "http://spam"));
+
+        verifyNoInteractions(userRepository, passwordEncoder, emailVerificationService, eventPublisher,
+                breachedPasswordChecker);
+    }
+
+    @Test
+    @DisplayName("blank website takes the normal path")
+    void honeypotBlank() {
+        when(passwordEncoder.encode(PASSWORD)).thenReturn(HASH);
+        when(userRepository.findByEmail("a@b.com")).thenReturn(Optional.empty());
+        when(userRepository.saveAndFlush(any(User.class))).thenAnswer(inv -> {
+            User saved = inv.getArgument(0);
+            saved.setId(1L);
+            return saved;
+        });
+
+        service().register(new RegisterRequest("a@b.com", PASSWORD, "  "));
+
+        verify(userRepository).saveAndFlush(any(User.class));
     }
 
     @Test

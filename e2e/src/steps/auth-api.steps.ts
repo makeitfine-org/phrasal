@@ -92,6 +92,16 @@ When('I register with a new email and password {string}', async function (this: 
     await register(this, uniqueEmail(), password);
 });
 
+When('I register with a new email and the honeypot field filled', async function (this: PhrasalWorld) {
+    const email = uniqueEmail();
+    this.currentEmail = email;
+    this.lastResponse = await this.apiClient.post(`${AUTH}/register`, {
+        email,
+        password: TEST_PASSWORD,
+        website: 'http://spam.example',
+    });
+});
+
 When('I register with a password containing my own email', async function (this: PhrasalWorld) {
     const email = uniqueEmail();
     await register(this, email, `pw-${email.split('@')[0]}-x`);

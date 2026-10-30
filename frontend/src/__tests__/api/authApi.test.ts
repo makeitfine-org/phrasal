@@ -17,7 +17,13 @@ describe('authApi', () => {
   it('register posts credentials and resolves for a 201 body', async () => {
     vi.mocked(post).mockResolvedValue(user);
     await expect(register('a@b.co', 'secret-pass-1')).resolves.toBeUndefined();
-    expect(post).toHaveBeenCalledWith('/auth/register', { email: 'a@b.co', password: 'secret-pass-1' });
+    expect(post).toHaveBeenCalledWith('/auth/register', { email: 'a@b.co', password: 'secret-pass-1', website: '' });
+  });
+
+  it('register passes the honeypot value through', async () => {
+    vi.mocked(post).mockResolvedValue(undefined);
+    await register('a@b.co', 'secret-pass-1', 'http://spam');
+    expect(post).toHaveBeenCalledWith('/auth/register', { email: 'a@b.co', password: 'secret-pass-1', website: 'http://spam' });
   });
 
   it('register resolves for a 202 message body', async () => {

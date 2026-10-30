@@ -5207,3 +5207,13 @@ Implement functionality from @.claude/docs/blackbox/todos/account-funcs-todos.md
 ## 2026-10-30T13:37:36Z
 git add all changes and commit them with suitable message
 ---
+
+## 2026-10-30T13:38:42Z
+Implement functionality from @.claude/docs/blackbox/todos/account-funcs-todos.md  Phases: 6, 7.               
+Don't forget to check off implemented boxes.
+On phase completion `make clean build` must pass successfully.
+---
+
+## 2026-10-30T13:48:20Z
+git add all changes and commit them with suitable message
+---

@@ -129,10 +129,19 @@ describe('AuthProvider', () => {
     renderProvider();
     await waitFor(() => expect(screen.getByTestId('state')).toHaveTextContent('anonymous'));
     await act(() => auth.register('a@b.co', 'pw'));
-    expect(authApi.register).toHaveBeenCalledWith('a@b.co', 'pw');
+    expect(authApi.register).toHaveBeenCalledWith('a@b.co', 'pw', '');
     expect(authApi.login).not.toHaveBeenCalled();
     expect(stashAllAnonymousProgress).not.toHaveBeenCalled();
     expect(screen.getByTestId('state')).toHaveTextContent('anonymous:-');
+  });
+
+  it('register passes the honeypot value through', async () => {
+    vi.mocked(authApi.fetchCurrentUser).mockResolvedValue(null);
+    vi.mocked(authApi.register).mockResolvedValue(undefined);
+    renderProvider();
+    await waitFor(() => expect(screen.getByTestId('state')).toHaveTextContent('anonymous'));
+    await act(() => auth.register('a@b.co', 'pw', 'http://spam'));
+    expect(authApi.register).toHaveBeenCalledWith('a@b.co', 'pw', 'http://spam');
   });
 
   it('logout returns to anonymous and re-fetches /me', async () => {

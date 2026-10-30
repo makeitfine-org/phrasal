@@ -39,6 +39,12 @@ When('I change my password with the wrong current password', async function (thi
     await changePassword(this, 'definitely-not-my-password', 'e2e-brand-new-password-1');
 });
 
+When('I try to change my password with a wrong current password {int} times', async function (this: PhrasalWorld, attempts: number) {
+    for (let attempt = 0; attempt < attempts; attempt++) {
+        await changePassword(this, 'definitely-not-my-password', 'e2e-brand-new-password-1');
+    }
+});
+
 When('I request the profile on the other device', async function (this: PhrasalWorld) {
     const device = otherDevices.get(this);
     assert.ok(device, 'No other device: log in on another device first');

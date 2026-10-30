@@ -118,12 +118,29 @@ describe('RegisterPage', () => {
     renderPage(value);
     fill('long-enough-pw', 'long-enough-pw');
     const panel = await screen.findByTestId('register-check-email');
-    expect(value.register).toHaveBeenCalledWith('a@b.co', 'long-enough-pw');
+    expect(value.register).toHaveBeenCalledWith('a@b.co', 'long-enough-pw', '');
     expect(panel).toHaveTextContent('We sent a link to a@b.co. It expires in 24 hours.');
     expect(screen.queryByText('home')).not.toBeInTheDocument();
     expect(value.login).not.toHaveBeenCalled();
     expect(screen.queryByTestId('register-submit')).not.toBeInTheDocument();
     expect(screen.getByRole('link', { name: 'Back to log in' })).toHaveAttribute('href', '/login');
+  });
+
+  it('has a honeypot field that people cannot reach or see', () => {
+    renderPage(ctx());
+    const field = screen.getByTestId('register-website');
+    expect(field).toHaveAttribute('tabindex', '-1');
+    expect(field).toHaveAttribute('autocomplete', 'off');
+    expect(field.parentElement).toHaveAttribute('aria-hidden', 'true');
+  });
+
+  it('sends a filled honeypot value to register', async () => {
+    const value = ctx();
+    renderPage(value);
+    fireEvent.change(screen.getByTestId('register-website'), { target: { value: 'http://spam' } });
+    fill('long-enough-pw', 'long-enough-pw');
+    await screen.findByTestId('register-check-email');
+    expect(value.register).toHaveBeenCalledWith('a@b.co', 'long-enough-pw', 'http://spam');
   });
 
   it('offers to resend to the entered email', async () => {
