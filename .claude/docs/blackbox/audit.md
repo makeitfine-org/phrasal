@@ -5068,3 +5068,16 @@ On phase completion `make clean build` must pass successfully.
 ## 2026-10-30T08:18:13Z
 git add all changes and commit them with suitable message
 ---
+
+## 2026-10-30T08:39:05Z
+you just implemented @docs/diagrams/two-factor-flow.md  phases from 0 to 12.
+how can I check it all locally, for example, with docker compose? Write me the steps and I'll check it all.
+---
+
+## 2026-10-30T09:27:05Z
+how to reset 2FA code if "Too many requests. Try again in 726 seconds" without waiting? maybe change something in database?
+---
+
+## 2026-10-30T09:31:43Z
+how to reset without restarting backend?
+---

@@ -69,7 +69,7 @@ build:
 		docker compose up -d --wait && \
 		$(MAKE) acceptanceTest && \
 		docker compose down,\
-		"✅ BUILD SUCCESSFUL (phrasal) ✅",\
+		"✅ BUILD SUCCESSFUL (phrasal) ✅ 🏁",\
 		"❌ BUILD FAILED (phrasal) ❌")
 
 ciCheck:
