@@ -3,10 +3,10 @@ id: TASK-100
 title: >-
   Let users reset forgotten passwords, delete their account, and protect auth
   endpoints from abuse
-status: To Do
+status: In Progress
 assignee: []
 created_date: '2026-10-26T17:37:00Z'
-updated_date: '2026-10-30T08:05:00Z'
+updated_date: '2026-10-30T11:35:00Z'
 labels:
   - multi-user
   - security
@@ -98,4 +98,8 @@ Ready from task-107 for password reset: user_tokens table + TokenType (add PASSW
 2026-10-29: the 2FA-step part of AC #5 (rate limits two-factor-per-ip / two-factor-per-user) is planned in TASK-101's `.claude/docs/blackbox/todos/2FA-todos.md` (branch `two-factor`).
 
 2026-10-30: the 2FA-step rate limit (part of AC #5) is done in task-101: `two-factor-per-user` (5 / 15 min, shared by confirm, login/2fa, disable, recovery-codes) and `two-factor-per-ip` (20 / 5 min).
+
+2026-10-30: the remaining AC (#4 HIBP, rest of #5, #6 honeypot, #7 deletion, #8 client-IP proof, #9, #11, #12) are planned in `.claude/docs/blackbox/todos/account-funcs-todos.md` (branch `account-settings`). Phase 0 decisions: all accepted as planned (POST endpoints, delete needs password + 2FA code when on, admins get 403, HIBP fails open and is on by default but off in test/compose, silent honeypot).
+
+2026-10-30: change password and change email are a separate task, TASK-109; it shares the `reauth-per-user` limit with account deletion.
 <!-- SECTION:NOTES:END -->

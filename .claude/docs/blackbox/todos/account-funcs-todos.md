@@ -5,7 +5,7 @@ Source plan: `.claude/docs/blackbox/plans/2026-10-26 18:10 Multi-user accounts T
 Backlog:
 - **task-100**: AC #4 (breached passwords), the rest of #5 (rate limits), #6 (honeypot), #7 (account deletion),
   #8 (real client IP, proved in logs), #9, #11 and #12. AC #1–#3 and #10 are done in task-108.
-- a **new task** "Let signed-in users change their password and email", created in Phase 0. No backlog task covers it yet.
+- **TASK-109** "Let signed-in users change their password and email", created in Phase 0.
 - **task-103**: the account-deletion part of AC #4, plus #6 and #13 for the new screens.
 
 Templates: `multiuser-todos.md`, `reset-password-todos.md` and `2FA-todos.md` (same folder).
@@ -23,7 +23,8 @@ This builds on:
 - task-102: `user_quiz_progress` (`ON DELETE CASCADE`), `clearAccountQuizProgress()`, `useQuizProgressSync`, which
   already ignores a `401`
 
-> Status: plan only. Nothing below is implemented yet.
+> Status: Phase 0 done (2026-10-30, branch `account-settings`, backlog task-100 + new TASK-109). Phase 1 onwards is
+> not implemented yet.
 
 ---
 
@@ -75,9 +76,9 @@ This builds on:
 
 ---
 
-## Design decisions (Phase 0 asks the user to confirm the ones marked ❓)
+## Design decisions (the ones marked ✅ were open questions; the user confirmed them as written in Phase 0, see 0.3)
 
-1. ❓ **Endpoints.** Every one needs CSRF. `/api/v1/me/**` is already "any signed-in user" in `SecurityConfig`, so only
+1. ✅ **Endpoints.** Every one needs CSRF. `/api/v1/me/**` is already "any signed-in user" in `SecurityConfig`, so only
    the confirm endpoint needs a new rule. All endpoints use `POST`, following the 2FA decision (b): proxies and clients
    often drop `DELETE` bodies.
 
@@ -88,7 +89,7 @@ This builds on:
    | `POST /api/v1/auth/confirm-email-change` | public (token) | `{token}` | `204`, every session closed | `400 email-change-link-invalid`, `400 email-change-link-expired`, `409 email-change-conflict`, `429` |
    | `POST /api/v1/me/delete` | signed in | `{password, code?}` | `204`, session ended, `SESSION` cookie cleared | `400 wrong-password`, `400 invalid-two-factor-code` (2FA on and code missing or wrong), `403 admin-account-managed`, `429` |
 
-2. ❓ **Proving it's the owner.**
+2. ✅ **Proving it's the owner.**
    - Every account change needs the current password.
    - Change password and change email need nothing more. The session already passed 2FA at login.
    - Delete also needs a TOTP or recovery code when 2FA is on. That's the same bar as turning 2FA off, which needs a
@@ -114,7 +115,7 @@ This builds on:
        `TwoFactorController#confirm`)
      - the existing `PasswordChangedNoticeRequested` mail is sent. Its text is reworded so it fits a change *and* a
        reset: "…you were logged out on your other devices".
-5. ❓ **Change email, confirmed by a link sent to the new address.**
+5. ✅ **Change email, confirmed by a link sent to the new address.**
    - Storage:
      - new `TokenType.EMAIL_CHANGE` in `user_tokens`
      - Flyway **V16** adds `user_tokens.new_email`, which holds the pending address
@@ -148,7 +149,7 @@ This builds on:
    - An `AccountDeletedNoticeRequested` mail goes out after commit.
    - Logs carry the user id only.
    - The frontend clears its local copy of the account's quiz progress (`clearAccountQuizProgress()`).
-7. ❓ **ADMIN accounts can't use the three endpoints** → `403 admin-account-managed`. The UI hides the three sections for
+7. ✅ **ADMIN accounts can't use the three endpoints** → `403 admin-account-managed`. The UI hides the three sections for
    admins and shows a note instead.
    - Why: `AdminAccountInitializer` runs at every start.
      - It would reset a changed password back to `PHRASAL_ADMIN_PASSWORD`.
@@ -156,7 +157,7 @@ This builds on:
      - It would re-create a deleted admin.
    - The rule is `role == ADMIN`. It's simpler than comparing with the configured email, and an admin should not delete
      itself by accident.
-8. ❓ **Breached-password check.**
+8. ✅ **Breached-password check.**
    - Implementation: Spring Security's `HaveIBeenPwnedRestApiPasswordChecker` (`CompromisedPasswordChecker`).
      - It uses k-anonymity: only the first 5 hex characters of the SHA-1 hash leave the server.
      - It is wrapped in our own bean, `infrastructure/security/BreachedPasswordChecker`.
@@ -173,7 +174,7 @@ This builds on:
    - `phrasal.password.breach-check.enabled`:
      - `${PASSWORD_BREACH_CHECK_ENABLED:true}`, so prod gets it without extra wiring
      - **off** in `application-test.yml` and in docker-compose, so e2e and CI never depend on an outside service
-9. ❓ **Honeypot on register.**
+9. ✅ **Honeypot on register.**
    - `RegisterRequest` gets an optional `website` field. A person never sees it; bots fill it.
    - If it's filled:
      - the same `202` body comes back
@@ -241,29 +242,47 @@ This builds on:
 
 ## Phase 0 — Preparation (no code)
 
-- [ ] **0.1** Branch. Ask the user which one to use; the proposal is a new branch `account-settings` from `develop`, which
+- [x] **0.1** Branch. Ask the user which one to use; the proposal is a new branch `account-settings` from `develop`, which
       already contains the 2FA commits. The working tree must be clean apart from the blackbox files.
-- [ ] **0.2** Run `make clean build` once on the untouched branch and note the baseline: backend tests, frontend tests
+      → `account-settings` from `develop` at `71129e3`. Only `audit.md` was modified.
+- [x] **0.2** Run `make clean build` once on the untouched branch and note the baseline: backend tests, frontend tests
       and files, e2e scenarios and steps.
-- [ ] **0.3** Ask the user to confirm the ❓ decisions 1, 2, 5, 7, 8 and 9. Write the answers here as
+      → Baseline 2026-10-30, `EXIT=0`: backend **575** tests (JaCoCo met), frontend **1592** tests in **81** files,
+      e2e **119** scenarios / **916** steps.
+- [x] **0.3** Ask the user to confirm the ❓ decisions 1, 2, 5, 7, 8 and 9. Write the answers here as
       "Phase 0 decisions (a)–(f)".
-- [ ] **0.4** Backlog (MCP tools are deferred, so load them with ToolSearch `select:` first):
-  - [ ] move **task-100** to `In Progress`
-  - [ ] create the task **"Let signed-in users change their password and email"**:
+
+      **Phase 0 decisions (2026-10-30): the user accepted every one as planned.**
+      - (a) Decision 1, endpoints: all `POST`, with the paths, bodies and status codes from the table.
+      - (b) Decision 2, proving ownership: the current password for all three. Delete also needs a TOTP or recovery
+        code when 2FA is on, and the password is checked first.
+      - (c) Decision 5, change email: a link to the **new** address. A taken address gets the "account exists" notice,
+        still with a `202`. The old address is notified only when the change happens.
+      - (d) Decision 7, admins: `403 admin-account-managed` on all three endpoints; the UI hides the sections.
+      - (e) Decision 8, HIBP:
+        - library checker wrapped in `BreachedPasswordChecker`, never a `CompromisedPasswordChecker` bean
+        - fails open with a 2 s timeout
+        - on by default; off in `application-test.yml` and docker-compose
+      - (f) Decision 9, honeypot: a silent `202` and nothing stored. The field is an off-screen input, not
+        `display:none`.
+      - Branch: `account-settings`, created from `develop` at `71129e3`.
+- [x] **0.4** Backlog (MCP tools are deferred, so load them with ToolSearch `select:` first):
+  - [x] move **task-100** to `In Progress`
+  - [x] create the task **"Let signed-in users change their password and email"**, now **TASK-109**:
     - labels `multi-user`, `security`, `backend`, `frontend`, `e2e`; milestone `m-0`; dependencies TASK-99, TASK-107
     - description: why, plus decisions 1–5 and 7
-    - AC:
-      - [ ] change password with the current password; other sessions are closed; a notice mail is sent
-      - [ ] change email through a link sent to the new address; nobody can find out which addresses have accounts;
-            every session is closed and the old address gets a notice
-      - [ ] the three account endpoints share a per-user rate limit (429 ProblemDetail)
-      - [ ] admin accounts are refused with 403
-      - [ ] unit, integration, Vitest and e2e tests
-      - [ ] README and CLAUDE.md files are updated
-      - [ ] `make clean build` passes
-  - [ ] move the new task to `In Progress`
-  - [ ] task-100 and task-103: add the note "planned in `.claude/docs/blackbox/todos/account-funcs-todos.md`"
-- [ ] **0.5** Look up with Context7 and write the notes below:
+    - AC, added as TASK-109 AC #1–#7. They are ticked in the backlog when the work ships (Phase 9), not here.
+      - change password with the current password; other sessions are closed; a notice mail is sent
+      - change email through a link sent to the new address; nobody can find out which addresses have accounts;
+        every session is closed and the old address gets a notice
+      - the three account endpoints share a per-user rate limit (429 ProblemDetail)
+      - admin accounts are refused with 403
+      - unit, integration, Vitest and e2e tests
+      - README and CLAUDE.md files are updated
+      - `make clean build` passes
+  - [x] move the new task to `In Progress`
+  - [x] task-100 and task-103: add the note "planned in `.claude/docs/blackbox/todos/account-funcs-todos.md`"
+- [x] **0.5** Look up with Context7 and write the notes below:
   - Spring Security 7.1:
     - `CompromisedPasswordChecker`, `CompromisedPasswordDecision`
     - the `HaveIBeenPwnedRestApiPasswordChecker` constructors (default and `RestClient`)
@@ -274,7 +293,54 @@ This builds on:
     `SESSION` cookie
   - Boot 4.1 / Framework 7: `RestClient.Builder` with connect/read timeouts (`ClientHttpRequestFactorySettings` or
     `ClientHttpRequestFactoryBuilder`)
-  - Notes from Context7: *(fill in)*
+  - Notes from Context7, checked against the source jars that Boot 4.1.2 resolves (spring-security-web/config 7.1.2,
+    spring-session-core 4.1.1, spring-web 7.0.10):
+    - **`HaveIBeenPwnedRestApiPasswordChecker`** (`org.springframework.security.web.authentication.password`, `final`):
+      - It has only a no-arg constructor; the HTTP client is swapped with `setRestClient(RestClient)`.
+      - The default client uses base URL `https://api.pwnedpasswords.com/range/`, and `check` calls `uri(prefix)`
+        relative to it, so **our client must keep that base URL**.
+      - `check(null)` returns "not compromised". Otherwise it takes the SHA-1, sends the 5-character prefix and
+        matches the suffix line by line.
+      - `CompromisedPasswordDecision(boolean)#isCompromised()` is in spring-security-core,
+        `...authentication.password`.
+    - **On HTTP failure it does not throw.** It catches `RestClientException`, logs ERROR "Request for leaked
+      passwords failed" with the stack trace, and returns **not compromised**.
+      - That covers timeouts (`ResourceAccessException`) and 4xx/5xx, so the check already fails open.
+      - Consequence for 5.2: the caller can't see an HTTP failure, so `BreachedPasswordChecker` can't add its own
+        WARN for it. Keep the library's ERROR line; it holds no password, only the 5-character prefix in the URL.
+      - The wrapper still catches any other `RuntimeException` (fail open + WARN) and handles the enabled flag.
+    - **A checker bean gets picked up automatically.** `InitializeUserDetailsBeanManagerConfigurer`
+      (spring-security-config) builds a `DaoAuthenticationProvider` from the single `UserDetailsService` bean, which
+      for us is `JpaUserDetailsService`. It calls `setCompromisedPasswordChecker` with any `CompromisedPasswordChecker`
+      bean, and login would then throw `CompromisedPasswordException`.
+      - Our login uses its own `ProviderManager` (`SecurityConfig#authenticationManager`), but don't rely on that.
+      - The checker stays a private field of `BreachedPasswordChecker`. A Phase 5 test asserts the context has no
+        `CompromisedPasswordChecker` bean.
+    - **Logout handlers:**
+      - `SecurityContextLogoutHandler#logout(request, response, auth)`:
+        - invalidates the `HttpSession` (`invalidateHttpSession` defaults to true)
+        - clears the `SecurityContextHolder`
+        - saves an empty context to its `SecurityContextRepository`
+      - `CookieClearingLogoutHandler(String... names)` adds a `Max-Age=0` cookie on path `contextPath + "/"`, **without**
+        the Secure, HttpOnly or SameSite flags. Our logout's `.deleteCookies("SESSION")` uses it.
+    - **Spring Session expires the cookie itself.**
+      - `invalidate()` on the wrapped session sets `requestedSessionInvalidated`.
+      - On commit, with no new session, `SessionRepositoryFilter` calls `httpSessionIdResolver.expireSession(...)`.
+      - Our `DefaultCookieSerializer` bean (`SecurityConfig#cookieSerializer`) then writes `SESSION=` with
+        `Max-Age=0` and the configured flags.
+      - So for delete (4.2/4.3), `SecurityContextLogoutHandler` alone clears the cookie. `CookieClearingLogoutHandler`
+        is optional and would add a second, flagless `Set-Cookie`. The integration test asserts `Max-Age=0` on
+        `SESSION`.
+    - **RestClient timeouts:**
+      - The backend has **no** `spring-boot-starter-restclient` (no `spring-boot-restclient`/`spring-boot-http-client`
+        module). So Boot auto-configures no `RestClient.Builder` bean, and `ClientHttpRequestFactorySettings` /
+        `ClientHttpRequestFactoryBuilder` are not available.
+      - Use the plain Framework API instead, with no new dependency:
+        - `SimpleClientHttpRequestFactory` with `setConnectTimeout(Duration)` and `setReadTimeout(Duration)`
+        - then `RestClient.builder().baseUrl(HIBP_RANGE_URL).requestFactory(factory).build()`
+      - `JdkClientHttpRequestFactory(HttpClient)` plus `setReadTimeout(Duration)` works too.
+    - Optional for 5.2: HIBP accepts the request header `Add-Padding: true` (via `defaultHeader`), which hides the
+      response size.
 
 ---
 
@@ -1179,7 +1245,7 @@ Most wiring happened inside the feature phases. This phase confirms that nothing
 - [ ] **9.8** Backlog (MCP):
   - [ ] task-100: check off AC #4, #5, #6, #7, #8 (code side; the prod proof follows in Phase 11), #9, #11 and #12 as
         they get done. Add implementation notes and a final summary. AC #1–#3 and #10 stay tracked in task-108.
-  - [ ] the new task: check off its AC and add notes
+  - [ ] TASK-109 (the new task): check off its AC and add notes
   - [ ] task-103: note that account deletion (the rest of AC #4) is done; check AC #6 and #13 for the new screens
   - [ ] **ask the user** before moving any task to `Done`
 - [ ] **9.9** Commit approval → `docs: document account settings and abuse protection`
@@ -1253,7 +1319,7 @@ Most wiring happened inside the feature phases. This phase confirms that nothing
 | #11 docs (rate limits, password policy, Traefik) | 9.1, 9.2, 9.5 |
 | #12 `make clean build` | every phase; 10.1 |
 
-### New task "change password and email" AC → where it's covered
+### TASK-109 "change password and email" AC → where it's covered
 
 | AC | Covered by |
 |---|---|

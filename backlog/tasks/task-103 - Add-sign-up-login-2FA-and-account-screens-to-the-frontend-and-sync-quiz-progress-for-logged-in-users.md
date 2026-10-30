@@ -6,7 +6,7 @@ title: >-
 status: To Do
 assignee: []
 created_date: '2026-10-26T17:38:00Z'
-updated_date: '2026-10-30T08:05:00Z'
+updated_date: '2026-10-30T11:35:00Z'
 labels:
   - multi-user
   - frontend
@@ -107,4 +107,6 @@ Done in task-107: the /verify-email page (VerifyEmailPage), the resend action (R
 2026-10-29: the 2FA screens (AC #2, #4 without account deletion, #5) are planned in TASK-101's `.claude/docs/blackbox/todos/2FA-todos.md` (branch `two-factor`, Phases 8-10).
 
 2026-10-30: 2FA screens done in task-101 (branch `two-factor`, Phases 8-10): login code step (AC #2, accepts TOTP or recovery code), enrollment banner (AC #5), Account security page with QR code, recovery codes, regenerate and disable, user menu link (part of AC #3, #4, #6, #13, #14). Still open here: account deletion (rest of AC #4), AC #12 rest, #15.
+
+2026-10-30: the account-deletion screen (rest of AC #4), plus AC #6 and #13 for the new Change password / Change email / Delete account sections and the /confirm-email-change page, are planned in `.claude/docs/blackbox/todos/account-funcs-todos.md` (branch `account-settings`, Phases 2-4). Change password and email are tracked in TASK-109.
 <!-- SECTION:NOTES:END -->

@@ -2309,3 +2309,10 @@
 - .claude/docs/blackbox/session-log.md
 - README.md
 <!-- end-snapshot -->
+
+<!-- git-snapshot 2026-10-30T11:38:58Z -->
+- .claude/docs/blackbox/audit.md
+- .claude/docs/blackbox/todos/account-funcs-todos.md
+- backlog/tasks/task-100 - Let-users-reset-forgotten-passwords-delete-their-account-and-protect-auth-endpoints-from-abuse.md
+- backlog/tasks/task-103 - Add-sign-up-login-2FA-and-account-screens-to-the-frontend-and-sync-quiz-progress-for-logged-in-users.md
+<!-- end-snapshot -->
