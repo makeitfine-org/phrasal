@@ -2450,3 +2450,18 @@
 - e2e/CLAUDE.md
 - frontend/CLAUDE.md
 <!-- end-snapshot -->
+
+<!-- git-snapshot 2026-10-30T15:44:58Z -->
+- .claude/docs/blackbox/audit.md
+<!-- end-snapshot -->
+
+<!-- git-snapshot 2026-10-30T15:45:20Z -->
+- .claude/docs/blackbox/audit.md
+- .claude/docs/blackbox/session-log.md
+<!-- end-snapshot -->
+
+<!-- git-snapshot 2026-10-30T16:41:57Z -->
+- .claude/docs/blackbox/audit.md
+- .claude/docs/blackbox/session-log.md
+- backlog/drafts/hard.md
+<!-- end-snapshot -->

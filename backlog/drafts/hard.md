@@ -220,13 +220,13 @@ On phase completion `make clean build` must pass successfully.
 -- // Prompt
 -- // Use Opus
 
-Create detailed 2FA-todos.md fils with checkboxes (- [ ]), which describes a step-by-step implementation for such task:
+Create detailed google-account-todos.md fils with checkboxes (- [ ]), which describes a step-by-step implementation for such task:
 
 - Analyze:
   @".claude/docs/blackbox/plans/2026-10-26 18:10 Multi-user accounts TOTP 2FA and reliable storage for phrasal.md"
-  and @"backlog/tasks/" from task-97 to task-108 md files.
+  and @"backlog/tasks/" from task-97 to task-109 md files.
   Consider that was done in @.claude/docs/blackbox/todos/.
-- I'd like to just implement 2FA.
+- I'd like to just let user sign-up/in with their google account.
 - Each step of implementation should be simple, detailed, granular, covered with backend, frontend and if reasonable with e2e tests.
 - Consider as template: @.claude/docs/blackbox/todos/multiuser-todos.md
 

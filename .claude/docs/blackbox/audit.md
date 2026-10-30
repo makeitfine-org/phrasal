@@ -5227,3 +5227,33 @@ On phase completion `make clean build` must pass successfully.
 ## 2026-10-30T13:58:27Z
 git add all changes and commit them with suitable message
 ---
+
+## 2026-10-30T15:44:40Z
+Check what is the last release version now and output without applying or code changing anything for the new one: tag, description and steps for git applying.
+---
+
+## 2026-10-30T15:45:08Z
+execute steps: 2, 3
+---
+
+## 2026-10-30T16:28:52Z
+
+
+<pasted_content id="d2ac">
+Create detailed google-account-todos.md fils with checkboxes (- [ ]), which describes a step-by-step implementation for such task:
+
+- Analyze:
+  @".claude/docs/blackbox/plans/2026-10-26 18:10 Multi-user accounts TOTP 2FA and reliable storage for phrasal.md"
+  and @"backlog/tasks/" from task-97 to task-109 md files.
+  Consider that was done in @.claude/docs/blackbox/todos/.
+- I'd like to just let user sign-up/in with their google account.
+- Each step of implementation should be simple, detailed, granular, covered with backend, frontend and if reasonable with e2e tests.
+- Consider as template: @.claude/docs/blackbox/todos/multiuser-todos.md
+
+- Critical: DO NOT start any steps of implement.
+</pasted_content id="d2ac">
+---
+
+## 2026-10-30T16:42:15Z
+git add all changes and commit them with suitable message
+---
