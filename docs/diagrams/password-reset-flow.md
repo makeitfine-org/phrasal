@@ -65,10 +65,12 @@ flowchart TD
     X -- yes --> EXP[400 reset-link-expired]
     X -- no --> E{password contains the account email?}
     E -- yes --> POL[400 errors.password: token still usable]
-    E -- no --> APPLY[set hash, use token, verify email, delete sessions]
+    E -- no --> BR{password in a known breach?}
+    BR -- yes --> POL2[400 errors.password: token still usable]
+    BR -- "no, or the check failed open" --> APPLY[set hash, use token, verify email, delete sessions]
     APPLY --> OK[204 + notice mail after commit]
 ```
 
-The rate limits run after body validation and before any lookup. Failures that keep the token usable: DTO validation, rate limit and the email rule. Invalid and expired links end the flow;
+The rate limits run after body validation and before any lookup. Failures that keep the token usable: DTO validation, rate limit, the email rule and the breach check (Have I Been Pwned, k-anonymity; it fails open when the service is unreachable). Invalid and expired links end the flow;
 the user asks for a new link. A reset does not log anyone in; the admin password is re-applied from
 `PHRASAL_ADMIN_PASSWORD` at the next backend start.

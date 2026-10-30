@@ -6,7 +6,7 @@ title: >-
 status: In Progress
 assignee: []
 created_date: '2026-10-26T17:37:00Z'
-updated_date: '2026-10-30T11:35:00Z'
+updated_date: '2026-10-30T13:56:00Z'
 labels:
   - multi-user
   - security
@@ -75,15 +75,15 @@ Account deletion requires re-entering the password and removes all of the user's
 - [ ] #1 A user can request a password-reset email and set a new password via the link. The link works once only and expires.
 - [ ] #2 Forgot-password returns identical responses for existing and non-existing emails.
 - [ ] #3 After a successful password reset, all of the user's other sessions are invalidated.
-- [ ] #4 Register and reset reject passwords found in the breached-password check. If the check service is unreachable, the request is allowed.
-- [ ] #5 Repeated attempts on register, login, forgot-password and the 2FA step beyond the configured limits return 429 ProblemDetail, per client IP and per email.
-- [ ] #6 A registration that fills the honeypot field is silently ignored and does not create an account.
-- [ ] #7 A logged-in user can delete their account after confirming their password. Their user row and all dependent data are removed.
-- [ ] #8 Behind Traefik in K3s, the backend sees the real client IP, verified in backend logs. The change is codified in the Ansible k3s role.
-- [ ] #9 Unit and integration tests cover: token single-use and expiry, session invalidation on reset, the 429 limits, the breached-password rejection (checker mocked) and account deletion.
+- [x] #4 Register and reset reject passwords found in the breached-password check. If the check service is unreachable, the request is allowed.
+- [x] #5 Repeated attempts on register, login, forgot-password and the 2FA step beyond the configured limits return 429 ProblemDetail, per client IP and per email.
+- [x] #6 A registration that fills the honeypot field is silently ignored and does not create an account.
+- [x] #7 A logged-in user can delete their account after confirming their password. Their user row and all dependent data are removed.
+- [x] #8 Behind Traefik in K3s, the backend sees the real client IP, verified in backend logs. The change is codified in the Ansible k3s role.
+- [x] #9 Unit and integration tests cover: token single-use and expiry, session invalidation on reset, the 429 limits, the breached-password rejection (checker mocked) and account deletion.
 - [ ] #10 E2E: a forgot-password scenario receives the email via Mailpit, resets the password and logs in with the new one.
-- [ ] #11 README.md and backend/CLAUDE.md document the rate limits and password policy. ansible/README.md documents the Traefik change.
-- [ ] #12 `make clean build` passes
+- [x] #11 README.md and backend/CLAUDE.md document the rate limits and password policy. ansible/README.md documents the Traefik change.
+- [x] #12 `make clean build` passes
 <!-- AC:END -->
 
 ## Implementation Notes
@@ -102,4 +102,6 @@ Ready from task-107 for password reset: user_tokens table + TokenType (add PASSW
 2026-10-30: the remaining AC (#4 HIBP, rest of #5, #6 honeypot, #7 deletion, #8 client-IP proof, #9, #11, #12) are planned in `.claude/docs/blackbox/todos/account-funcs-todos.md` (branch `account-settings`). Phase 0 decisions: all accepted as planned (POST endpoints, delete needs password + 2FA code when on, admins get 403, HIBP fails open and is on by default but off in test/compose, silent honeypot).
 
 2026-10-30: change password and change email are a separate task, TASK-109; it shares the `reauth-per-user` limit with account deletion.
+
+2026-10-30: implemented on branch `account-settings` (commits 96903e9, 98b9568 plus the docs commit): HIBP `BreachedPasswordChecker` + `PasswordBreachGuard` (fails open, 2s timeout, off in test/compose); honeypot `RegisterRequest.website`; `POST /api/v1/me/delete` (password + 2FA code when on; ADMIN gets 403); `RateLimiter` logs every 429 (rule name, client IP only for *-per-ip rules); limits reviewed, no gaps; `reauth-per-user` and `email-change-per-email` added. AC #8: code and ansible/README proof instructions done; the real prod proof is Phase 11 of account-funcs-todos.md. Docs: README 'Account settings', backend/frontend/e2e CLAUDE.md, docs/diagrams/account-management-flow.md. AC #12 is checked after the Phase 10 build.
 <!-- SECTION:NOTES:END -->

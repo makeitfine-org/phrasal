@@ -5217,3 +5217,13 @@ On phase completion `make clean build` must pass successfully.
 ## 2026-10-30T13:48:20Z
 git add all changes and commit them with suitable message
 ---
+
+## 2026-10-30T13:49:10Z
+Implement functionality from @.claude/docs/blackbox/todos/account-funcs-todos.md  Phases: 8, 9, 10.               
+Don't forget to check off implemented boxes.
+On phase completion `make clean build` must pass successfully.
+---
+
+## 2026-10-30T13:58:27Z
+git add all changes and commit them with suitable message
+---

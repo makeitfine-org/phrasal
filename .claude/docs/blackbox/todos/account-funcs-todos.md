@@ -24,7 +24,7 @@ This builds on:
   already ignores a `401`
 
 > Status: Phase 0 done (2026-10-30, branch `account-settings`, backlog task-100 + new TASK-109). Phase 1 done
-> (2026-10-30, shared backend groundwork). Phase 2 done and committed (`f9957e2`). Phase 3 done and committed (`594a57c`). Phases 4 and 5 done and committed together (`96903e9`). Phases 6 (honeypot) and 7 (429 logging, limits review, client-IP proof) done; `make clean build` green, awaiting commit approval. Phase 8 onwards is not implemented yet.
+> (2026-10-30, shared backend groundwork). Phase 2 done and committed (`f9957e2`). Phase 3 done and committed (`594a57c`). Phases 4 and 5 done and committed together (`96903e9`). Phases 6 (honeypot) and 7 (429 logging, limits review, client-IP proof) done and committed together (`98b9568`). Phase 8 done (no config changes needed), Phase 9 docs done, Phase 10.1 green; the manual run 10.2 is the user's. Awaiting commit approval for Phases 8-10.
 
 ---
 
@@ -1104,7 +1104,7 @@ bucket. Doing these once keeps the feature phases small.
 
 ### 6.4 Verify and commit
 - [x] **6.4.1** `make clean build` → green.
-- [ ] **6.4.2** Ask for commit approval → `feat: add a honeypot field to registration`
+- [x] **6.4.2** Ask for commit approval → `feat: add a honeypot field to registration`
 
 ---
 
@@ -1164,7 +1164,7 @@ bucket. Doing these once keeps the feature phases small.
 
 ### 7.5 Verify and commit
 - [x] **7.5.1** `make clean build` → green.
-- [ ] **7.5.2** Ask for commit approval → `feat(backend): log rate-limit hits with the client IP`
+- [x] **7.5.2** Ask for commit approval → `feat(backend): log rate-limit hits with the client IP`
 
 ---
 
@@ -1173,28 +1173,28 @@ bucket. Doing these once keeps the feature phases small.
 Most wiring happened inside the feature phases. This phase confirms that nothing was missed (delivery checklist items
 1 and 3).
 
-- [ ] **8.1** `docker-compose.yml` has `PASSWORD_BREACH_CHECK_ENABLED: "false"` (5.1.3). No other new variable is needed:
+- [x] **8.1** `docker-compose.yml` has `PASSWORD_BREACH_CHECK_ENABLED: "false"` (5.1.3). No other new variable is needed:
       `RATE_LIMIT_REAUTH_PER_USER`, `RATE_LIMIT_EMAIL_CHANGE_PER_EMAIL` and `EMAIL_CHANGE_TOKEN_TTL` keep their
       `application.yml` defaults.
-- [ ] **8.2** `k8s/base` and `k8s/overlays/prod`: nothing is needed. The defaults are the prod values, the same as
+- [x] **8.2** `k8s/base` and `k8s/overlays/prod`: nothing is needed. The defaults are the prod values, the same as
       `PASSWORD_RESET_TOKEN_TTL` and the other rate limits, which aren't in k8s either. Confirm with
       `grep -rn "RATE_LIMIT\|TOKEN_TTL\|BREACH" k8s`.
-  - [ ] if a NetworkPolicy ever restricts egress, `api.pwnedpasswords.com:443` must be allowed. Today there is none;
+  - [x] if a NetworkPolicy ever restricts egress, `api.pwnedpasswords.com:443` must be allowed. Today there is none;
         confirm with `grep -rn "kind: NetworkPolicy" k8s`.
-- [ ] **8.3** `kubectl kustomize k8s/overlays/dev` and `kubectl kustomize k8s/overlays/prod` both still render. For prod,
+- [x] **8.3** `kubectl kustomize k8s/overlays/dev` and `kubectl kustomize k8s/overlays/prod` both still render. For prod,
       copy the example secret patch to `secret.yaml` locally, then delete the copy.
-- [ ] **8.4** `.github/workflows/ci_cd.yml`: no new secrets and no new e2e env. The e2e job uses compose, so the breach
+- [x] **8.4** `.github/workflows/ci_cd.yml`: no new secrets and no new e2e env. The e2e job uses compose, so the breach
       check is off there. Write this conclusion in the commit body or in the task notes, not in code.
-- [ ] **8.5** `skaffold.yaml`, `frontend/nginx.conf`, `vite.config.ts`: no change; `/api` is still proxied same-origin.
-- [ ] **8.6** If anything changed in 8.1–8.5: `make clean build`, then ask for commit approval →
+- [x] **8.5** `skaffold.yaml`, `frontend/nginx.conf`, `vite.config.ts`: no change; `/api` is still proxied same-origin.
+- [x] **8.6** If anything changed in 8.1–8.5: `make clean build`, then ask for commit approval →
       `build: wire account settings config`. If nothing changed, skip the commit.
 
 ---
 
 ## Phase 9 — Docs, diagrams, backlog
 
-- [ ] **9.1** `../../../../README.md`:
-  - [ ] a new section "Account settings":
+- [x] **9.1** `../../../../README.md`:
+  - [x] a new section "Account settings":
     - the endpoint table from decision 1, with status codes
     - which actions need the password, and which also need a 2FA code
     - what happens to sessions after each action
@@ -1202,20 +1202,20 @@ Most wiring happened inside the feature phases. This phase confirms that nothing
     - the email-change flow: link to the new address, the `202` that doesn't reveal accounts, everyone logged out,
       the authenticator label stays the old email
     - the admin restriction and why
-  - [ ] the rate-limit table: new rows `RATE_LIMIT_REAUTH_PER_USER` (5 / 15 min) and
+  - [x] the rate-limit table: new rows `RATE_LIMIT_REAUTH_PER_USER` (5 / 15 min) and
         `RATE_LIMIT_EMAIL_CHANGE_PER_EMAIL` (3 / h); a note that `confirm-email-change` uses `verify-per-ip`
-  - [ ] the config table: `EMAIL_CHANGE_TOKEN_TTL` (1h), `PASSWORD_BREACH_CHECK_ENABLED` (true; false in compose),
+  - [x] the config table: `EMAIL_CHANGE_TOKEN_TTL` (1h), `PASSWORD_BREACH_CHECK_ENABLED` (true; false in compose),
         `PASSWORD_BREACH_CHECK_TIMEOUT` (2s)
-  - [ ] the password policy: the breach check runs only on register, reset and change; it fails open; the k-anonymity
+  - [x] the password policy: the breach check runs only on register, reset and change; it fails open; the k-anonymity
         privacy note
-  - [ ] the honeypot (one line)
-  - [ ] GDPR: what deletion removes, plus the backup-retention warning from the top of this file
-  - [ ] "Production monitoring": add `kubectl logs deploy/backend | grep "Rate limit exceeded"` and
+  - [x] the honeypot (one line)
+  - [x] GDPR: what deletion removes, plus the backup-retention warning from the top of this file
+  - [x] "Production monitoring": add `kubectl logs deploy/backend | grep "Rate limit exceeded"` and
         `grep "Breached-password check unavailable"`
-- [ ] **9.2** `../../../../backend/CLAUDE.md`:
-  - [ ] Security rule order: add `confirm-email-change` to the public `POST` list
-  - [ ] the rate-limit list: `reauth-per-user`, `email-change-per-email`
-  - [ ] a new section "Account Management":
+- [x] **9.2** `../../../../backend/CLAUDE.md`:
+  - [x] Security rule order: add `confirm-email-change` to the public `POST` list
+  - [x] the rate-limit list: `reauth-per-user`, `email-change-per-email`
+  - [x] a new section "Account Management":
     - `AccountController` (`/api/v1/me/password|email|delete`), `AccountService`, `EmailChangeService`, `AccountChecks`
     - `FieldValidationException`
     - the ADMIN rule
@@ -1223,12 +1223,12 @@ Most wiring happened inside the feature phases. This phase confirms that nothing
       `revokeAll(oldEmail)`; delete → `revokeAll` + logout handler
     - `TokenType.EMAIL_CHANGE` + V16 `new_email`
     - never log the new address at INFO
-  - [ ] a new section "Password breach check": `BreachedPasswordChecker`, the "no `CompromisedPasswordChecker` bean"
+  - [x] a new section "Password breach check": `BreachedPasswordChecker`, the "no `CompromisedPasswordChecker` bean"
         rule, fail-open, test profile off, `@MockitoBean` in `BreachedPasswordIntegrationTest`
-  - [ ] the honeypot (`RegisterRequest.website`, `honeypotFilled()`)
-  - [ ] test helpers: `requestEmailChange`, `confirmEmailChange`, `awaitEmailChangeToken`,
+  - [x] the honeypot (`RegisterRequest.website`, `honeypotFilled()`)
+  - [x] test helpers: `requestEmailChange`, `confirmEmailChange`, `awaitEmailChangeToken`,
         `AccountRateLimitIntegrationTest`
-- [ ] **9.3** `../../../../frontend/CLAUDE.md`:
+- [x] **9.3** `../../../../frontend/CLAUDE.md`:
   - `accountApi.ts`
   - `AuthContext.deleteAccount`
   - `components/account/*`
@@ -1236,15 +1236,15 @@ Most wiring happened inside the feature phases. This phase confirms that nothing
   - the honeypot input on Register
   - the new problem types
   - the `LoginPage` notice through `location.state`
-- [ ] **9.4** `../../../../e2e/CLAUDE.md`:
+- [x] **9.4** `../../../../e2e/CLAUDE.md`:
   - `features/account-api/*`, `frontend/account-settings.feature`, `auth-api/abuse-protection.feature`
   - `account-api.steps.ts`, `account-ui.steps.ts`
   - the new Mailpit helpers and subjects
   - `world.newEmail`
   - "a changed address must come from `uniqueEmail()`"
-- [ ] **9.5** `../../../../ansible/README.md`: the client-IP proof from 7.4.2.
-- [ ] **9.6** Diagrams (blackbox policy):
-  - [ ] create `../../../../docs/diagrams/account-management-flow.md` with Mermaid diagrams:
+- [x] **9.5** `../../../../ansible/README.md`: the client-IP proof from 7.4.2.
+- [x] **9.6** Diagrams (blackbox policy):
+  - [x] create `../../../../docs/diagrams/account-management-flow.md` with Mermaid diagrams:
     - a sequence diagram: change password (rate limit → password → policy + breach → hash → rotate the session id →
       `revokeOthers` → notice)
     - a sequence diagram: change email (request → token with `new_email` → link to the new address → confirm → switch
@@ -1252,17 +1252,17 @@ Most wiring happened inside the feature phases. This phase confirms that nothing
     - a sequence diagram: delete account (password → code if 2FA → delete + cascade → `revokeAll` → logout handler →
       goodbye mail)
     - a flowchart: what is refused, and with which status
-  - [ ] update `auth-flow.md`: endpoint list, links to the new diagram, the honeypot and breach check on register
-  - [ ] update `password-reset-flow.md`: the breach-check step
-  - [ ] update `email-verification-flow.md`: the honeypot branch on register, and the reworded "account exists" notice
-- [ ] **9.7** Plan file `.claude/docs/blackbox/plans/2026-10-26 18:10 Multi-user …md`: append a `## Mutations Log` row
+  - [x] update `auth-flow.md`: endpoint list, links to the new diagram, the honeypot and breach check on register
+  - [x] update `password-reset-flow.md`: the breach-check step
+  - [x] update `email-verification-flow.md`: the honeypot branch on register, and the reworded "account exists" notice
+- [x] **9.7** Plan file `.claude/docs/blackbox/plans/2026-10-26 18:10 Multi-user …md`: append a `## Mutations Log` row
       (add only; never delete anything in that folder):
       `| <date> | split | P3 rest + account screens of P7 done as task-100 + new task: change password/email added (not in the plan); POST /me/delete instead of DELETE /account; email change via link to the new address (V16 user_tokens.new_email); admin accounts excluded; HIBP fails open, off in compose | Complete account self-service before public launch |`
-- [ ] **9.8** Backlog (MCP):
-  - [ ] task-100: check off AC #4, #5, #6, #7, #8 (code side; the prod proof follows in Phase 11), #9, #11 and #12 as
+- [x] **9.8** Backlog (MCP):
+  - [x] task-100: check off AC #4, #5, #6, #7, #8 (code side; the prod proof follows in Phase 11), #9, #11 and #12 as
         they get done. Add implementation notes and a final summary. AC #1–#3 and #10 stay tracked in task-108.
-  - [ ] TASK-109 (the new task): check off its AC and add notes
-  - [ ] task-103: note that account deletion (the rest of AC #4) is done; check AC #6 and #13 for the new screens
+  - [x] TASK-109 (the new task): check off its AC and add notes
+  - [x] task-103: note that account deletion (the rest of AC #4) is done; check AC #6 and #13 for the new screens
   - [ ] **ask the user** before moving any task to `Done`
 - [ ] **9.9** Commit approval → `docs: document account settings and abuse protection`
 - [ ] **9.10** On the session's exit signal: append the blackbox `session-log.md` entry (format in
@@ -1272,7 +1272,7 @@ Most wiring happened inside the feature phases. This phase confirms that nothing
 
 ## Phase 10 — Final verification
 
-- [ ] **10.1** `make clean build` → green. Note the counts: backend tests, frontend tests/files, e2e scenarios/steps.
+- [x] **10.1** `make clean build` → green. Counts (2026-10-30): backend 696 tests, frontend 1654 tests in 86 files, e2e 140 scenarios / 1101 steps.
 - [ ] **10.2** Manual run with `docker compose up -d --build --wait`, at http://localhost:3100 (Mailpit
       http://localhost:8025):
   - [ ] register + verify a test user; open Account security → three new sections are visible

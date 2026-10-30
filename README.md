@@ -373,6 +373,8 @@ kubectl logs deploy/backend --previous                    # logs from the crashe
 kubectl logs deploy/backend | grep -iE "ERROR|WARN|Exception" | tail -30
 kubectl logs deploy/backend | grep -i flyway              # migrations applied
 kubectl logs deploy/backend | grep -c " 429 "             # rate-limit hits
+kubectl logs deploy/backend | grep "Rate limit exceeded"   # which rule fired; clientIp only for per-IP rules
+kubectl logs deploy/backend | grep "Breached-password check unavailable"   # HIBP unreachable (fails open); expect none
 kubectl logs deploy/backend | grep -ciE "otpauth|secret=|recoveryCodes=\["   # must print 0
 kubectl logs deploy/backend | grep -iE "MailSendException|AuthenticationFailed"   # mail problems
 ```
@@ -556,6 +558,7 @@ Visitors can sign up with an email and password. Content stays public to read; o
 | `POST /api/v1/auth/resend-verification` `{email}` | `202` (always, even for unknown or verified addresses) | `400` invalid body, `403` CSRF, `429` rate limited |
 | `POST /api/v1/auth/forgot-password` `{email}` | `202` + `{"message": ...}` (always, even for unknown addresses) | `400` invalid body, `403` CSRF, `429` rate limited |
 | `POST /api/v1/auth/reset-password` `{token, password}` | `204`, the password is changed and every session is closed | `400` `reset-link-invalid`, `reset-link-expired` or a password-policy error, `403` CSRF, `429` rate limited |
+| `POST /api/v1/auth/confirm-email-change` `{token}` | `204`, the account moves to the new address and every session is closed | `400` `email-change-link-invalid` or `email-change-link-expired`, `409` `email-change-conflict`, `403` CSRF, `429` rate limited |
 | `POST /api/v1/auth/login` `{email, password}` | `200` + `{id, email, role, twoFactorEnabled, twoFactorEnrollmentRequired}`, sets the `SESSION` cookie; `202` + `{"twoFactorRequired": true}` when the account has 2FA (see [Two-factor authentication](#two-factor-authentication-2fa)) | `400` invalid body, `401` wrong email or password, `403` `email-not-verified` (right password, unconfirmed address), `429` rate limited |
 | `POST /api/v1/auth/login/2fa` `{code}` | `200` + the user, sets a new `SESSION` cookie | `400` invalid body or `invalid-two-factor-code`, `401` `two-factor-login-expired` (or no pending login), `403` CSRF, `429` rate limited |
 | `GET /api/v1/auth/me` | `200` + `{id, email, role, twoFactorEnabled, twoFactorEnrollmentRequired}` | `401` anonymous |
@@ -568,7 +571,18 @@ repeated character, not in the common-password blocklist (`backend/src/main/reso
 case-insensitively), and not containing the account email or its local part (4+ characters). No symbol/digit/case
 requirement. The sign-up form shows these as a live checklist plus a tip; the blocklist is enforced by the backend only
 (its error is shown under the field). The client-side rules live in `frontend/src/auth/passwordPolicy.ts` and must stay in
-sync with the backend `PasswordPolicy`. Register and password reset apply the same rules.
+sync with the backend `PasswordPolicy`. Register, password reset and password change apply the same rules.
+
+**Breached passwords.** Register, password reset and password change also ask the Have I Been Pwned range API
+(`https://api.pwnedpasswords.com/range/<first 5 hex of the SHA-1>`) whether the password appears in known breaches; a hit is
+rejected with a `400` "data breach" error under the password field. It is k-anonymity: only the first five characters of the
+hash leave the server, never the password or the full hash. The check **fails open**: on a timeout or an error the password is
+accepted and `Breached-password check unavailable` is logged at WARN. Login is never checked. Configure it with
+`PASSWORD_BREACH_CHECK_ENABLED` and `PASSWORD_BREACH_CHECK_TIMEOUT` (table below); docker-compose turns it off so the e2e suite
+needs no internet.
+
+**Honeypot.** The register form has a hidden `website` field that people never see. A request that fills it gets the normal
+`202` body, but no account is created and no mail is sent; the backend logs `Registration ignored: honeypot field filled`.
 
 **Roles.** `USER` (default for sign-ups) and `ADMIN`. Anyone can `GET /api/**`. `POST`/`PUT`/`DELETE` on phrasal-verbs,
 grammar-entries and verb-details need `ADMIN` (anonymous gets `401`, a `USER` gets `403`). `/actuator/health/**` is public,
@@ -633,6 +647,9 @@ verified, so it cannot be used to find out who has an account (**breaking change
 | `EMAIL_VERIFICATION_TOKEN_TTL` | link lifetime | `24h` |
 | `UNVERIFIED_ACCOUNT_RETENTION` | age after which an unverified account is deleted | `7d` |
 | `PASSWORD_RESET_TOKEN_TTL` | password reset link lifetime | `1h` |
+| `EMAIL_CHANGE_TOKEN_TTL` | email-change link lifetime | `1h` |
+| `PASSWORD_BREACH_CHECK_ENABLED` | ask Have I Been Pwned about new passwords | `true` (`false` in docker-compose) |
+| `PASSWORD_BREACH_CHECK_TIMEOUT` | how long to wait for it before failing open | `2s` |
 
 **Rate limits** (in memory, per backend instance; exceeding them returns `429` with `Retry-After`):
 
@@ -650,9 +667,13 @@ verified, so it cannot be used to find out who has an account (**breaking change
 | reset-password per IP | `RATE_LIMIT_RESET_PER_IP` (per 5 min) | 30 |
 | 2FA code attempts per IP | `RATE_LIMIT_TWO_FACTOR_PER_IP` (per 5 min) | 20 |
 | 2FA code attempts per account | `RATE_LIMIT_TWO_FACTOR_PER_USER` (per 15 min) | 5 |
+| password, email and delete actions per account | `RATE_LIMIT_REAUTH_PER_USER` (per 15 min) | 5 |
+| email-change requests per new address | `RATE_LIMIT_EMAIL_CHANGE_PER_EMAIL` (per hour) | 3 |
 | master switch | `RATE_LIMIT_ENABLED` | `true` |
 
-docker-compose raises the per-IP limits so the e2e suite can register many users.
+docker-compose raises the per-IP limits so the e2e suite can register many users. `confirm-email-change` shares the
+`verify-per-ip` bucket. Every exceeded limit is logged at WARN as `Rate limit exceeded rule=<name>`, with `clientIp=<ip>` for
+the per-IP rules and never an email address.
 
 **GitHub Secrets to create before the next tagged deploy:** `PHRASAL_ADMIN_EMAIL`, `PHRASAL_ADMIN_PASSWORD`,
 `MAIL_USERNAME`, `MAIL_PASSWORD` and `TOTP_ENCRYPTION_KEY` (see [Production Deployment](#production-deployment-k3s) and
@@ -665,7 +686,8 @@ keeps the default of 5.
 Flow diagrams: [`docs/diagrams/auth-flow.md`](docs/diagrams/auth-flow.md),
 [`docs/diagrams/email-verification-flow.md`](docs/diagrams/email-verification-flow.md),
 [`docs/diagrams/password-reset-flow.md`](docs/diagrams/password-reset-flow.md),
-[`docs/diagrams/two-factor-flow.md`](docs/diagrams/two-factor-flow.md).
+[`docs/diagrams/two-factor-flow.md`](docs/diagrams/two-factor-flow.md),
+[`docs/diagrams/account-management-flow.md`](docs/diagrams/account-management-flow.md).
 
 ### Password reset
 
@@ -748,6 +770,48 @@ above. `TWO_FACTOR_ISSUER` (default `Phrasal`) is the name shown in the authenti
 a password, so Google-only accounts need another proof) and encryption key rotation.
 
 Flow diagram: [`docs/diagrams/two-factor-flow.md`](docs/diagrams/two-factor-flow.md).
+
+### Account settings
+
+Signed-in users manage their own account on `/account/security` (page name: Account security). All three actions are `POST`
+and need the `SESSION` cookie and the CSRF header.
+
+| Endpoint | Needs | Success | Errors |
+|---|---|---|---|
+| `POST /api/v1/me/password` `{currentPassword, newPassword}` | current password | `204` + a new `SESSION` cookie | `400` `wrong-password` or a password-policy / breach error, `403` `admin-account-managed`, `429` |
+| `POST /api/v1/me/email` `{newEmail, currentPassword}` | current password | `202` + the check-your-inbox message | `400` `wrong-password` or invalid email, `403` `admin-account-managed`, `429` |
+| `POST /api/v1/auth/confirm-email-change` `{token}` (public) | the emailed link | `204` | `400` `email-change-link-invalid` / `-expired`, `409` `email-change-conflict`, `429` |
+| `POST /api/v1/me/delete` `{password, code?}` | current password, plus a TOTP or recovery code when 2FA is on | `204`, the cookie is cleared | `400` `wrong-password` or `invalid-two-factor-code`, `403` `admin-account-managed`, `429` |
+
+The password is checked first, so a wrong password never reveals whether a code was needed. The three actions share the
+`reauth-per-user` limit (5 per 15 minutes per account).
+
+**Sessions.** Changing the password gives the current browser a new session id and closes every other session of the account.
+Changing the email and deleting the account close every session, including this one.
+
+**Emails.**
+
+| Action | Mail |
+|---|---|
+| change password | "Your Phrasal password was changed" to the account address, with a reset link |
+| request an email change | a confirmation link to the **new** address; if that address already has a verified account, its owner gets the "you already have an account" notice instead |
+| confirm an email change | "Your Phrasal email address was changed" to the **old** address |
+| delete account | "Your Phrasal account was deleted" |
+
+**Email change.** `POST /me/email` always answers `202` with the same body, so it cannot be used to find out which addresses
+have accounts. The link in the mail (`/confirm-email-change?token=...`, valid for `EMAIL_CHANGE_TOKEN_TTL`, works once, only
+the newest link works) moves the account to the new address, which counts as verified because its owner opened the link. The
+`409` is returned if somebody else took the address in the meantime. Everyone is logged out and must sign in with the new
+address. The authenticator-app label keeps the old email until 2FA is set up again.
+
+**Admin accounts** answer `403` `admin-account-managed` for all of these: the admin email and password are re-applied from
+`PHRASAL_ADMIN_EMAIL` / `PHRASAL_ADMIN_PASSWORD` at every start, so a change made in the app would be overwritten. The
+security page shows a "managed through configuration" note instead of the forms.
+
+**Deleting an account (GDPR).** Deletion removes the user row and, through `ON DELETE CASCADE`, the saved quiz progress,
+recovery codes and tokens; sessions are removed too. It touches the live database only: once off-site backups exist, a
+deleted account can still be inside a backup for the retention period (planned: 30 days). Tell users that if you are asked
+about erasure.
 
 ### Learning progress
 

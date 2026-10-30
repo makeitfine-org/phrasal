@@ -4,6 +4,7 @@ title: Let signed-in users change their password and email
 status: In Progress
 assignee: []
 created_date: '2026-10-30T11:34:00Z'
+updated_date: '2026-10-30T13:56:00Z'
 labels:
   - multi-user
   - security
@@ -62,11 +63,17 @@ Plan decision 6 (account deletion) and the abuse protection are tracked in task-
 
 ## Acceptance Criteria
 <!-- AC:BEGIN -->
-- [ ] #1 A signed-in user can change their password by confirming the current one. Their other sessions are closed and a notice mail is sent.
-- [ ] #2 A signed-in user can change their email through a link sent to the new address. Nobody can find out which addresses have accounts. On confirmation every session is closed and the old address gets a notice.
-- [ ] #3 The three account endpoints (/me/password, /me/email, /me/delete) share a per-user rate limit that returns 429 ProblemDetail.
-- [ ] #4 Admin accounts are refused with 403 admin-account-managed.
-- [ ] #5 Unit, integration, Vitest and e2e tests cover the new endpoints and screens.
-- [ ] #6 README.md and the CLAUDE.md files are updated.
-- [ ] #7 `make clean build` passes
+- [x] #1 A signed-in user can change their password by confirming the current one. Their other sessions are closed and a notice mail is sent.
+- [x] #2 A signed-in user can change their email through a link sent to the new address. Nobody can find out which addresses have accounts. On confirmation every session is closed and the old address gets a notice.
+- [x] #3 The three account endpoints (/me/password, /me/email, /me/delete) share a per-user rate limit that returns 429 ProblemDetail.
+- [x] #4 Admin accounts are refused with 403 admin-account-managed.
+- [x] #5 Unit, integration, Vitest and e2e tests cover the new endpoints and screens.
+- [x] #6 README.md and the CLAUDE.md files are updated.
+- [x] #7 `make clean build` passes
 <!-- AC:END -->
+
+## Implementation Notes
+
+<!-- SECTION:NOTES:BEGIN -->
+2026-10-30: implemented on branch `account-settings` (commits f9957e2, 594a57c, 96903e9). AccountController (/me/password|email|delete), AccountService, EmailChangeService, AccountChecks, V16 user_tokens.new_email, ChangePasswordForm/ChangeEmailForm/ConfirmEmailChangePage, e2e features account-api/* and frontend/account-settings.feature. Docs in README 'Account settings' and docs/diagrams/account-management-flow.md. AC #7 is checked after the Phase 10 build.
+<!-- SECTION:NOTES:END -->

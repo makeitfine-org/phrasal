@@ -11,7 +11,7 @@ sequenceDiagram
     participant DB as Postgres
 
     U->>B: POST /api/v1/auth/register {email, password}
-    B->>B: rate limit, validate password, hash
+    B->>B: rate limit, honeypot check (website filled: stop here, same 202), validate password, breach check, hash
     B->>DB: INSERT users (role USER, email unverified)
     B-->>U: 202 {message} (same body for every address)
     Note over U,B: verify-email and login: see email-verification-flow.md
@@ -64,7 +64,7 @@ flowchart TD
     ME -- yes --> AUTH[Require login: 401 if anonymous]
     ME -- no --> MEP{/api/v1/me/** ?}
     MEP -- yes --> AUTH
-    MEP -- no --> RL{POST register, login, verify-email, resend-verification, forgot-password or reset-password?}
+    MEP -- no --> RL{POST register, login, verify-email, resend-verification, forgot-password, reset-password or confirm-email-change?}
     RL -- yes --> PUB
     RL -- no --> W{POST / PUT / DELETE on phrasal-verbs, grammar-entries, verb-details?}
     W -- yes --> ADM
@@ -79,6 +79,12 @@ flowchart TD
     TF -- no --> F403
     TF -- yes --> OK[Allow]
 ```
+
+## Account settings
+
+Signed-in users change their password, change their email or delete their account through `/api/v1/me/password|email|delete`
+(rules, sessions and mails: [account-management-flow.md](account-management-flow.md)). The only public endpoint of that
+feature is `POST /api/v1/auth/confirm-email-change`, which opens from the link mailed to the new address.
 
 ## Deferred
 

@@ -20,14 +20,14 @@ config/         → Spring @Configuration classes (SecurityConfig = access rules
 
 ## Security
 
-- `SecurityConfig` rule order matters (first match wins): `/error` and `/actuator/health/**` public → other `/actuator/**` ADMIN → `GET /api/v1/auth/me` authenticated → `/api/v1/me/**` authenticated (per-user data, e.g. quiz progress) → `POST register|login|verify-email|resend-verification|forgot-password|reset-password` public → `POST/PUT/DELETE` content paths ADMIN → `GET /api/**` public → everything else denied.
+- `SecurityConfig` rule order matters (first match wins): `/error` and `/actuator/health/**` public → other `/actuator/**` ADMIN → `GET /api/v1/auth/me` authenticated → `/api/v1/me/**` authenticated (per-user data, e.g. quiz progress) → `POST register|login|verify-email|resend-verification|forgot-password|reset-password|confirm-email-change` public → `POST/PUT/DELETE` content paths ADMIN → `GET /api/**` public → everything else denied.
 - Public `GET /api/**`; `POST/PUT/DELETE` on phrasal-verbs, grammar-entries, verb-details need role `ADMIN`; `/actuator/health/**` public, other actuator endpoints ADMIN.
 - CSRF is cookie-based (`XSRF-TOKEN`, readable by the SPA, echoed in `X-XSRF-TOKEN`); `presentation/security/CsrfCookieFilter` forces the deferred token to be sent.
 - 401/403 are written as `application/problem+json` by `presentation/security` handlers; build bodies with `ProblemDetailFactory`.
 - No CORS mapping: the SPA is same-origin (Vite proxy / nginx / ingress).
 - Sessions: Spring Session JDBC, `SESSION` cookie flags come from `server.servlet.session.cookie.*` via the `cookieSerializer` bean in `SecurityConfig` (Spring Session ignores them otherwise). Session principal is the `AuthenticatedUser` record, never the entity.
 - Admin account: `AdminAccountInitializer` creates/repairs it from `PHRASAL_ADMIN_EMAIL` / `PHRASAL_ADMIN_PASSWORD` at every start (takeover is intentional; a weak password fails startup).
-- Rate limits (`phrasal.rate-limit.*`, `RateLimiter`, in-memory per instance): register per IP and per email, login per IP and per email, resend per IP and per email, verify per IP, forgot-password per IP and per email, reset-password per IP, 2FA code attempts per IP and per account; 429 problem+json with `Retry-After`. `application-test.yml` raises the limits; override in a test with `@TestPropertySource`.
+- Rate limits (`phrasal.rate-limit.*`, `RateLimiter`, in-memory per instance): register per IP and per email, login per IP and per email, resend per IP and per email, verify per IP, forgot-password per IP and per email, reset-password per IP, 2FA code attempts per IP and per account, `reauth-per-user` (password, email and delete actions), `email-change-per-email` (`confirm-email-change` uses `verify-per-ip`); every 429 is logged at WARN by `RateLimiter` (`rule=`, plus `clientIp=` for `*-per-ip` rules, never an email); 429 problem+json with `Retry-After`. `application-test.yml` raises the limits; override in a test with `@TestPropertySource`.
 - 401 comes from `ProblemDetailAuthenticationEntryPoint`, 403 from `ProblemDetailAccessDeniedHandler` (CSRF failures get type `/csrf`); both live in `presentation/security`.
 - Security packages: `infrastructure/security` (`AuthenticatedUser`, `AppUserDetails`, `JpaUserDetailsService`, `RateLimiter`, `EmailNormalizer`, `TotpVerifier`, `AesGcmEncryptor`, `RecoveryCodes`, `TwoFactorSecrets`), `presentation/security` (filters, handlers, `SessionAuthenticator`, `PendingTwoFactorLogin`), `application/validation` (`@ValidPassword`, `PasswordPolicy`).
 - Integration tests extend `AbstractIntegrationTest`, which clears the security context before/after each test. Mutating MockMvc calls need `.with(user(...).roles("ADMIN")).with(csrf())`, or `adminWithCsrf()`; use `registerAndLogin()` for a real session.
@@ -79,6 +79,24 @@ config/         → Spring @Configuration classes (SecurityConfig = access rules
 - **Never log:** the TOTP secret (plain or encrypted), the `otpauth` URI, submitted codes, recovery codes or their hashes, the encryption key. Log only the user id (`log.info("Two-factor enabled userId={}", id)`).
 - **Schema:** V15 adds `users.totp_secret_enc`, `totp_enabled_at`, `totp_last_step`, the table `user_recovery_codes` and deletes admin sessions once.
 - **Tests:** `AbstractIntegrationTest` has `enableTwoFactor(session, password)` (returns `TwoFactorTestAccount(secret, recoveryCodes, session)`), `loginExpectingTwoFactor(body)` and `submitTwoFactorCode(pending, code)`; `integration/support/TotpTestCodes` makes valid codes for a secret and step. A rate-limit or timeout scenario goes in its own class (`TwoFactorRateLimitIntegrationTest`, `TwoFactorLoginTimeoutIntegrationTest`) because it needs other properties.
+
+## Account Management
+
+- **Classes:** `AccountController` (`/api/v1/me/password|email|delete`), `AccountService` (change password, delete), `EmailChangeService` (request and confirm), `AccountChecks` (`load`, `requirePassword`, admin guard), `FieldValidationException` (a service-side field error, rendered as `errors.<field>` in the problem body like a bean-validation failure). `confirm-email-change` lives in `AuthController` (public).
+- **ADMIN rule:** ADMIN accounts get `403 admin-account-managed` on all three actions (their email and password come from config at every start).
+- **Re-auth:** every action checks the current password first (`WrongPasswordException`, `400 wrong-password`); delete then checks a TOTP or recovery code when 2FA is on. All share `reauth-per-user`; `/me/email` also uses `email-change-per-email`.
+- **Sessions:** change password keeps the pre-refresh session id, rotates, then `revokeOthers(email, thatId)`; email change confirm calls `revokeAll(oldEmail)`; delete calls `revokeAll` and the logout handler clears the cookie.
+- **Email change:** `TokenType.EMAIL_CHANGE` and the V16 column `user_tokens.new_email`; the token goes to the new address; `202` is identical whether or not the address is taken (taken and verified → "account exists" notice instead); confirm re-checks the address (`409 email-change-conflict`) and notifies the old address. Never log the new address at INFO.
+- **Mails:** `AccountEmailComposer` (`emailChangeConfirmation`, `emailChanged`, `passwordChanged`, `accountDeleted`), sent by `AccountEmailListener` after commit from events.
+- **Honeypot:** `RegisterRequest.website` (optional, max 200); `honeypotFilled()` makes `AuthService#register` return at once, before any breach check, DB or mail work, so the answer is the normal `202`.
+- **Tests:** `AbstractIntegrationTest` has `requestEmailChange`, `confirmEmailChange` and `mailbox.awaitLatest/awaitSubject`; `ChangeEmailIntegrationTest` reads the token with `awaitEmailChangeToken`; `AccountRateLimitIntegrationTest` has its own class because it needs other limits.
+
+## Password Breach Check
+
+- `infrastructure/security/BreachedPasswordChecker` calls the HIBP range API (k-anonymity: only the first five SHA-1 hex characters are sent) and `PasswordBreachGuard` applies it on register, reset and change (never login).
+- Do **not** register a Spring Security `CompromisedPasswordChecker` bean: it would also run on login.
+- It **fails open**: a timeout (`PASSWORD_BREACH_CHECK_TIMEOUT`, 2s) or error accepts the password and logs `Breached-password check unavailable` at WARN.
+- `PASSWORD_BREACH_CHECK_ENABLED` is `true` by default, `false` in `application-test.yml` and docker-compose. `BreachedPasswordIntegrationTest` mocks the checker with `@MockitoBean`.
 
 ## Coding Rules
 

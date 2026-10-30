@@ -33,7 +33,11 @@ sequenceDiagram
 flowchart TD
     R[POST register] --> RL{rate limit ok?}
     RL -- no --> T429[429]
-    RL -- yes --> H[hash password on every path]
+    RL -- yes --> HP{honeypot field website filled?}
+    HP -- yes --> A
+    HP -- no --> BR{password in a known breach?}
+    BR -- yes --> B400[400 errors.password]
+    BR -- "no, or the check failed open" --> H[hash password on every path]
     H --> K{address known?}
     K -- no --> N[create user, issue token, send link]
     K -- "yes, unverified" --> P[take new password, replace token, send link]
@@ -77,3 +81,7 @@ sequenceDiagram
     U->>B: POST /api/v1/auth/resend-verification {email}
     B-->>U: 202 (always; mail only for unverified accounts)
 ```
+
+A filled honeypot gets the same `202` as everything else but creates nothing and sends nothing, so a bot cannot tell it
+was caught. The "account exists" notice also answers an email-change request to an address that already has a verified
+account: it says someone tried to use the address for a Phrasal account, and links to the login page.
