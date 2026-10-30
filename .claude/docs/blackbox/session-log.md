@@ -2465,3 +2465,26 @@
 - .claude/docs/blackbox/session-log.md
 - backlog/drafts/hard.md
 <!-- end-snapshot -->
+
+<!-- git-snapshot 2026-10-30T16:52:20Z -->
+- .claude/docs/blackbox/audit.md
+- .claude/docs/blackbox/todos/google-account-todos.md
+- backend/pom.xml
+- backend/src/main/java/net/phrasal/domain/entity/User.java
+- backend/src/main/java/net/phrasal/domain/repository/UserRepository.java
+- backend/src/test/java/net/phrasal/domain/entity/UserEntityTest.java
+- backend/src/test/java/net/phrasal/integration/UserRepositoryIntegrationTest.java
+- backlog/tasks/task-104 - Let-users-sign-in-with-their-Google-account.md
+<!-- end-snapshot -->
+
+<!-- git-snapshot 2026-10-30T16:56:58Z -->
+- .claude/docs/blackbox/audit.md
+- .claude/docs/blackbox/session-log.md
+- .claude/docs/blackbox/todos/google-account-todos.md
+- backend/pom.xml
+- backend/src/main/java/net/phrasal/domain/entity/User.java
+- backend/src/main/java/net/phrasal/domain/repository/UserRepository.java
+- backend/src/test/java/net/phrasal/domain/entity/UserEntityTest.java
+- backend/src/test/java/net/phrasal/integration/UserRepositoryIntegrationTest.java
+- backlog/tasks/task-104 - Let-users-sign-in-with-their-Google-account.md
+<!-- end-snapshot -->

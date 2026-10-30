@@ -37,6 +37,10 @@ class UserRepositoryIntegrationTest extends AbstractIntegrationTest {
         return "user-" + UUID.randomUUID() + "@example.com";
     }
 
+    private static String uniqueSubject() {
+        return "google-" + UUID.randomUUID();
+    }
+
     @Test
     @DisplayName("save then findByEmail returns the user with audit fields and default version")
     void saveAndFindByEmail() {
@@ -180,6 +184,62 @@ class UserRepositoryIntegrationTest extends AbstractIntegrationTest {
         assertThat(found.isTwoFactorEnabled()).isTrue();
         assertThat(found.getTotpSecretEnc()).isEqualTo("v1:secret");
         assertThat(found.getTotpLastStep()).isEqualTo(42L);
+    }
+
+    @Test
+    @DisplayName("a Google account round-trips and findByGoogleSubject finds it")
+    void findByGoogleSubject() {
+        String email = uniqueEmail();
+        String subject = uniqueSubject();
+
+        User saved = repository.saveAndFlush(User.fromGoogle(email, subject, LocalDateTime.now()));
+
+        User found = repository.findByGoogleSubject(subject).orElseThrow();
+        assertThat(found.getId()).isEqualTo(saved.getId());
+        assertThat(found.getEmail()).isEqualTo(email);
+        assertThat(found.getGoogleSubject()).isEqualTo(subject);
+        assertThat(found.hasPassword()).isFalse();
+        assertThat(found.isEmailVerified()).isTrue();
+    }
+
+    @Test
+    @DisplayName("findByGoogleSubject returns empty for an unknown subject")
+    void findByGoogleSubjectUnknown() {
+        repository.saveAndFlush(User.fromGoogle(uniqueEmail(), uniqueSubject(), LocalDateTime.now()));
+
+        assertThat(repository.findByGoogleSubject(uniqueSubject())).isEmpty();
+    }
+
+    @Test
+    @DisplayName("linking an existing account stores the subject")
+    void linkGooglePersists() {
+        User user = repository.saveAndFlush(new User(uniqueEmail(), HASH, Role.USER));
+        String subject = uniqueSubject();
+
+        user.linkGoogle(subject);
+        repository.saveAndFlush(user);
+
+        assertThat(repository.findByGoogleSubject(subject).orElseThrow().getId()).isEqualTo(user.getId());
+    }
+
+    @Test
+    @DisplayName("a second user with the same Google subject violates the unique index")
+    void duplicateGoogleSubjectRejected() {
+        String subject = uniqueSubject();
+        repository.saveAndFlush(User.fromGoogle(uniqueEmail(), subject, LocalDateTime.now()));
+
+        assertThatThrownBy(() -> repository.saveAndFlush(User.fromGoogle(uniqueEmail(), subject, LocalDateTime.now())))
+                .isInstanceOf(DataIntegrityViolationException.class);
+    }
+
+    @Test
+    @DisplayName("several users without a Google subject can coexist")
+    void usersWithoutSubjectCoexist() {
+        User first = repository.saveAndFlush(new User(uniqueEmail(), HASH, Role.USER));
+        User second = repository.saveAndFlush(new User(uniqueEmail(), HASH, Role.USER));
+
+        assertThat(repository.findById(first.getId()).orElseThrow().getGoogleSubject()).isNull();
+        assertThat(repository.findById(second.getId()).orElseThrow().getGoogleSubject()).isNull();
     }
 
     @Test

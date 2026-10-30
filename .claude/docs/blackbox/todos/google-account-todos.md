@@ -4,7 +4,8 @@ Source plan: `.claude/docs/blackbox/plans/2026-10-26 18:10 Multi-user accounts T
 (section P5). Backlog: **task-104**. It needs the Google OAuth client from **task-106** (AC #4, #5); publishing the
 consent screen stays in **task-105** (AC #6).
 
-> Status: plan only. Nothing below is implemented yet.
+> Status (2026-10-30): Phases 0 and 1 done on branch `google-sign-in`, except 0.7 (user actions in Google Cloud).
+> Phases 2–13 not started.
 
 Builds on what is already in `develop` (`cb933cc`):
 - password login with a pending 2FA step (`SessionAuthenticator`, `PendingTwoFactorLogin`, `POST /auth/login/2fa`)
@@ -144,36 +145,123 @@ Builds on what is already in `develop` (`cb933cc`):
 
 ## Phase 0 — Preparation (no code)
 
-- [ ] **0.1** Create branch `google-sign-in` from `develop` (contains `cb933cc`). Working tree clean apart from
+- [x] **0.1** Create branch `google-sign-in` from `develop` (contains `cb933cc`). Working tree clean apart from
       blackbox files.
-- [ ] **0.2** Run `make clean build` once on the untouched branch and note the baseline here.
+- [x] **0.2** Run `make clean build` once on the untouched branch and note the baseline here.
   - Last known green (`cb933cc`): backend 696 tests, frontend 1654 tests in 86 files, e2e 140 scenarios / 1101 steps.
-- [ ] **0.3** Move **task-104** to `In Progress` (Backlog.md MCP `task_edit`).
-- [ ] **0.4** Update task-104 (MCP `task_edit`):
-  - [ ] implementation note with decisions 2, 3, 5, 6, 9 and 10 above
-  - [ ] AC #9: say that compose wires the mock provider and that k8s dev keeps Google off
-  - [ ] add AC: "`GET /api/v1/auth/providers` reports whether Google sign-in is on; the button is hidden when it is off"
-  - [ ] add AC: "Google sign-in to an ADMIN account is refused with a readable error"
-  - [ ] add AC: "An account without a password can set one through the emailed reset link from the account security page"
-- [ ] **0.5** Look up with Context7 and write the notes under this step:
-  - [ ] Boot 4.1: the OAuth2 client starter name (expected `spring-boot-starter-security-oauth2-client`) and whether its
+  - **Baseline 2026-10-30 (`google-sign-in` at `5d6cad5`): green**, same counts: backend 696, frontend 1654 in 86 files,
+    e2e 140 scenarios / 1101 steps. It also serves as the Phase 0 end-of-phase build (Phase 0 changed no code).
+- [x] **0.3** Move **task-104** to `In Progress` (Backlog.md MCP `task_edit`).
+- [x] **0.4** Update task-104 (MCP `task_edit`):
+  - [x] implementation note with decisions 2, 3, 5, 6, 9 and 10 above
+  - [x] AC #9: say that compose wires the mock provider and that k8s dev keeps Google off
+  - [x] add AC: "`GET /api/v1/auth/providers` reports whether Google sign-in is on; the button is hidden when it is off"
+        (AC #13)
+  - [x] add AC: "Google sign-in to an ADMIN account is refused with a readable error" (AC #14)
+  - [x] add AC: "An account without a password can set one through the emailed reset link from the account security page"
+        (AC #15)
+- [x] **0.5** Look up with Context7 and write the notes under this step:
+  - [x] Boot 4.1: the OAuth2 client starter name (expected `spring-boot-starter-security-oauth2-client`) and whether its
         auto-configuration backs off when we declare our own `ClientRegistrationRepository`
-  - [ ] Boot 4.1: `@ConditionalOnBooleanProperty`
-  - [ ] Security 7.1 `oauth2Login` DSL: `loginPage`, `authorizationEndpoint().baseUri`, `redirectionEndpoint().baseUri`,
+  - [x] Boot 4.1: `@ConditionalOnBooleanProperty`
+  - [x] Security 7.1 `oauth2Login` DSL: `loginPage`, `authorizationEndpoint().baseUri`, `redirectionEndpoint().baseUri`,
         `userInfoEndpoint().oidcUserService`, `successHandler`, `failureHandler`, `authorizedClientRepository`, and
         `securityContextRepository` (on `AbstractAuthenticationFilterConfigurer`)
-  - [ ] `CommonOAuth2Provider.GOOGLE` defaults: scopes, URIs, `issuerUri`, `userNameAttributeName`, client auth method
-  - [ ] `OidcUserService#setRetrieveUserInfo` (decision 6)
-  - [ ] how the `nonce` is sent (hashed in the authorization URL) and checked against the ID token; needed by the fake
+  - [x] `CommonOAuth2Provider.GOOGLE` defaults: scopes, URIs, `issuerUri`, `userNameAttributeName`, client auth method
+  - [x] `OidcUserService#setRetrieveUserInfo` (decision 6)
+  - [x] how the `nonce` is sent (hashed in the authorization URL) and checked against the ID token; needed by the fake
         provider in Phase 6
-  - [ ] the `OAuth2Error` codes for a user cancel (`access_denied`) and a missing authorization request
+  - [x] the `OAuth2Error` codes for a user cancel (`access_denied`) and a missing authorization request
         (`authorization_request_not_found`)
-  - [ ] whether `loginPage("/login")` stops `DefaultLoginPageGeneratingFilter`, and that an explicit
+  - [x] whether `loginPage("/login")` stops `DefaultLoginPageGeneratingFilter`, and that an explicit
         `exceptionHandling().authenticationEntryPoint` still wins over the `LoginUrlAuthenticationEntryPoint` default
-  - [ ] Nimbus (`RSAKeyGenerator`, `SignedJWT`, `JWKSet`) on the test classpath via `spring-security-oauth2-jose`
-- [ ] **0.6** Read the `mock-oauth2-server` README (GitHub) and note: the current release tag, `JSON_CONFIG` with
+  - [x] Nimbus (`RSAKeyGenerator`, `SignedJWT`, `JWKSet`) on the test classpath via `spring-security-oauth2-jose`
+
+  **Notes (2026-10-30; Context7 plus the 7.1.2 / 4.1.2 sources jars).** Boot 4.1.2 manages Security **7.1.2**.
+  - **Starter:** `org.springframework.boot:spring-boot-starter-security-oauth2-client`. The old
+    `spring-boot-starter-oauth2-client` is still in the BOM, as a deprecated alias. The auto-config module is
+    `spring-boot-security-oauth2-client` (package `org.springframework.boot.security.oauth2.client.autoconfigure`).
+  - **Back-off** (`OAuth2ClientConfigurations`, `servlet/OAuth2ClientWebSecurityAutoConfiguration`):
+    - Boot builds a `ClientRegistrationRepository` only when `spring.security.oauth2.client.registration.*` is set and
+      no such bean exists. We never set those properties, so with Google off there are no OAuth2 beans at all.
+    - With our own repository bean, Boot adds an `InMemoryOAuth2AuthorizedClientService`
+      (`@ConditionalOnBean(ClientRegistrationRepository)` + `@ConditionalOnMissingBean`) and an
+      `OAuth2AuthorizedClientRepository` (`@ConditionalOnMissingBean`). Declaring our no-op repository as a bean makes
+      the second one back off. The first one stays, unused.
+    - Boot's own `oauth2Login` `SecurityFilterChain` is `@ConditionalOnDefaultServletWebSecurity`, so it backs off
+      because we declare `SecurityConfig#filterChain`. No second chain.
+  - **`@ConditionalOnBooleanProperty`** exists (Boot 3.5+): `name`, `havingValue` (default `true`), `matchIfMissing`.
+    Use `@ConditionalOnBooleanProperty("phrasal.google.enabled")`.
+  - **`oauth2Login` DSL** (`OAuth2LoginConfigurer`) has `clientRegistrationRepository`, `authorizedClientRepository`,
+    `authorizedClientService`, `loginPage`, `loginProcessingUrl`, `securityContextRepository` (its own method; set on
+    the `OAuth2LoginAuthenticationFilter`), `authorizationEndpoint(c -> c.baseUri(..))`,
+    `redirectionEndpoint(c -> c.baseUri(..))` and `userInfoEndpoint(c -> c.oidcUserService(..))`. `successHandler`,
+    `failureHandler` and `permitAll` come from `AbstractAuthenticationFilterConfigurer`. Planned values:
+    authorization base URI `/api/v1/auth/oauth2/authorization`, redirection base URI `/api/v1/auth/oauth2/code/*`. The
+    redirection base URI must match the registration's `redirectUri`.
+  - **`CommonOAuth2Provider.GOOGLE`:** `CLIENT_SECRET_BASIC`, the default redirect `{baseUrl}/{action}/oauth2/code/
+    {registrationId}` (we override it, decision 3), scopes `openid profile email`, the authorization URI
+    `https://accounts.google.com/o/oauth2/v2/auth`, token URI `https://www.googleapis.com/oauth2/v4/token`, JWK set URI
+    `https://www.googleapis.com/oauth2/v3/certs`, issuer URI `https://accounts.google.com`, user-info URI
+    `https://www.googleapis.com/oauth2/v3/userinfo`, user-name attribute `sub` and client name `Google`.
+  - **`OidcUserService#setRetrieveUserInfo(Predicate<OidcUserRequest>)`** exists (`public final`). Use
+    `setRetrieveUserInfo(request -> false)`; the ID token already carries `sub`, `email` and `email_verified`.
+  - **Nonce:** `DefaultOAuth2AuthorizationRequestResolver` keeps the raw nonce in the authorization request
+    attributes. The authorization URL gets `nonce=` plus base64url-no-padding(SHA-256(raw nonce)).
+    `OidcAuthorizationCodeAuthenticationProvider` requires the ID token's `nonce` claim to **equal that hash**;
+    otherwise the error is `invalid_nonce`. So the fake provider copies the `nonce` query parameter into the ID token
+    unchanged.
+  - **ID token checks** (`OidcIdTokenValidator`, `OidcIdTokenDecoderFactory`):
+    - signed with RS256, verified against the registration's JWK set URI
+    - `iss` must equal the registration's `issuerUri`
+    - `aud` must contain the client id, and `azp` (if present) must equal it
+    - `sub`, `exp` and `iat` are required; the clock skew is 60 s
+    - any failure → `invalid_id_token`
+  - **Error codes:** a user cancel arrives as `error=access_denied` (`OAuth2ErrorCodes.ACCESS_DENIED`). A callback
+    with no saved authorization request gives `authorization_request_not_found` (`OAuth2LoginAuthenticationFilter`).
+    A state that doesn't match gives `invalid_state_parameter`. Others: `invalid_nonce`, `invalid_id_token`. They all
+    reach the failure handler as an `OAuth2AuthenticationException` and map to `google` (decision 8).
+  - **Login page:**
+    - `loginPage("/login")` sets `customLoginPage`, and then `initDefaultLoginFilter` does not configure
+      `DefaultLoginPageGeneratingFilter`.
+    - The configurer registers its `LoginUrlAuthenticationEntryPoint` only through
+      `exceptionHandling.defaultAuthenticationEntryPointFor(..)` (for `text/html` requests).
+    - `ExceptionHandlingConfigurer#getAuthenticationEntryPoint` uses an explicitly set `authenticationEntryPoint`
+      first and only falls back to the defaults when none is set. Our JSON 401 entry point therefore still wins; Phase
+      5 tests prove it.
+    - Without `loginPage`, one registration makes it auto-redirect every unauthenticated request to Google. That is
+      another reason to set it.
+  - **Nimbus:** `nimbus-jose-jwt` comes in at compile scope through `spring-security-oauth2-jose`, so `RSAKeyGenerator`,
+    `SignedJWT` and `JWKSet` are on the test classpath with no extra dependency (checked in 1.1.2).
+- [x] **0.6** Read the `mock-oauth2-server` README (GitHub) and note: the current release tag, `JSON_CONFIG` with
       `interactiveLogin`, the login form field names (expected `username` → `sub`, `claims` = JSON), how the `iss`
       claim is derived (from the request host), and whether the image has a shell for a compose healthcheck.
+
+  **Notes (2026-10-30; README plus the 6.1.4 sources).**
+  - **Releases:** the latest is `6.1.4` (2026-10-28); earlier ones are `6.1.3` (10-23), `6.1.2` (10-18) and `6.1.1`
+    (10-16). Choose the exact tag in Phase 8. Prefer one that is at least two weeks old, so `6.1.1` or older.
+  - **Config:** `JSON_CONFIG` holds the full `OAuth2Config` JSON and wins over `JSON_CONFIG_PATH`. `interactiveLogin`
+    is already `true` in standalone (Docker) mode; set it explicitly anyway. `tokenCallbacks` take `issuerId`,
+    `tokenExpiry` and `requestMappings` (`requestParam`, `match`, `claims`). Env vars: `SERVER_PORT`/`PORT` (default
+    `8080`), `SERVER_HOSTNAME` and `LOG_LEVEL`.
+  - **Login form:** `GET /{issuerId}/authorize` shows a form that POSTs `username` (required) and `claims` (optional,
+    a JSON object in a textarea).
+    - `username` becomes `sub`, unless a request mapping sets `sub`.
+    - `claims` are added to the token. They can't overwrite claims set by a mapping; JSON that doesn't parse is logged
+      and ignored.
+    - So e2e sets `email` and `email_verified` through `claims`.
+  - **Nonce:** the mock copies the authorization request's `nonce` parameter (already the hash) into the ID token, which
+    is what Spring checks.
+  - **Endpoints:** the first path segment is the `issuerId`. With `default` that gives `/default/authorize`,
+    `/default/token`, `/default/jwks`, `/default/userinfo` and `/default/.well-known/openid-configuration`.
+  - **`iss`:** taken from the host that calls the endpoint, e.g. `http://localhost:8080/default`. The ID token comes
+    from the **token** call, which the backend makes over the compose network, so `iss` is
+    `http://mock-oauth2:8080/default`. Therefore:
+    - the issuer and token/JWK URIs use the in-network host `mock-oauth2:8080`
+    - only the authorization URI uses the browser host `localhost:${MOCK_OAUTH2_PORT}`
+  - **Health:** `GET /isalive` returns 200 when the server is ready. The image (jib on `cgr.dev/chainguard/jre:latest-dev`)
+    has `sh` and `/usr/bin/wget`, checked with `docker run --entrypoint sh` on 6.1.4. Compose healthcheck:
+    `wget -q --spider http://localhost:8080/isalive`.
 - [ ] **0.7** User actions (task-106 AC #4, #5). Needed for the manual real-Google check (12.3) and prod (Phase 13),
       **not** for local dev or e2e, which use the mock:
   - [ ] Google Cloud project, OAuth consent screen: app name, support email, authorized domain `phrasalbox.com`, scopes
@@ -191,15 +279,19 @@ Builds on what is already in `develop` (`cb933cc`):
 ## Phase 1 — Dependency, migration, entity, repository
 
 ### 1.1 Dependency
-- [ ] **1.1.1** `../../../../backend/pom.xml`: add the OAuth2 client starter from 0.5 (version from the Boot BOM, not
-      pinned).
-- [ ] **1.1.2** `mvn -q -o dependency:tree | grep -E "oauth2|nimbus"` (online once if the offline repo lacks it):
+- [x] **1.1.1** `../../../../backend/pom.xml`: add the OAuth2 client starter from 0.5 (version from the Boot BOM, not
+      pinned). Added `spring-boot-starter-security-oauth2-client`.
+- [x] **1.1.2** `mvn -q -o dependency:tree | grep -E "oauth2|nimbus"` (online once if the offline repo lacks it):
       `spring-security-oauth2-client`, `spring-security-oauth2-jose` and `nimbus-jose-jwt` are present.
-- [ ] **1.1.3** Run the whole backend suite: nothing changes yet. With no `ClientRegistrationRepository` bean, Boot
+      Result: `spring-boot-security-oauth2-client` 4.1.2, `spring-security-oauth2-client`/`-jose`/`-core` 7.1.2,
+      `nimbus-jose-jwt` 10.9.1 and `oauth2-oidc-sdk` 11.38.2, all compile scope.
+- [x] **1.1.3** Run the whole backend suite: nothing changes yet. With no `ClientRegistrationRepository` bean, Boot
       must not add a login page or a second filter chain. If it does, note it and handle it in Phase 2.
+      Result: 696/696 green. The log shows no `OAuth2LoginAuthenticationFilter`, no `DefaultLoginPageGeneratingFilter`
+      and no generated password. Nothing to handle in Phase 2.
 
 ### 1.2 Migration
-- [ ] **1.2.1** `../../../../backend/src/main/resources/db/migration/V17__add_users_google_subject.sql`:
+- [x] **1.2.1** `../../../../backend/src/main/resources/db/migration/V17__add_users_google_subject.sql`:
   ```sql
   -- Google's stable account id ("sub" claim). NULL = never signed in with Google.
   ALTER TABLE users ADD COLUMN google_subject VARCHAR(255);
@@ -208,28 +300,33 @@ Builds on what is already in `develop` (`cb933cc`):
   (Postgres allows many NULLs in a unique index, so no partial index is needed.)
 
 ### 1.3 Domain
-- [ ] **1.3.1** `domain/entity/User.java`:
-  - [ ] field `googleSubject` (`@Column(name = "google_subject", length = GOOGLE_SUBJECT_MAX_LENGTH)`,
+- [x] **1.3.1** `domain/entity/User.java`:
+  - [x] field `googleSubject` (`@Column(name = "google_subject", length = GOOGLE_SUBJECT_MAX_LENGTH)`,
         `@Setter(AccessLevel.NONE)`), constant `GOOGLE_SUBJECT_MAX_LENGTH = 255`
-  - [ ] keep `@ToString(of = {"id", "email", "role"})`: the subject stays out of `toString`
-  - [ ] `public static User fromGoogle(String email, String subject, LocalDateTime verifiedAt)`: role `USER`, no password
+  - [x] keep `@ToString(of = {"id", "email", "role"})`: the subject stays out of `toString`
+  - [x] `public static User fromGoogle(String email, String subject, LocalDateTime verifiedAt)`: role `USER`, no password
         hash, verified at `verifiedAt`
-  - [ ] `public void linkGoogle(String subject)`: throws `IllegalStateException` if another subject is already set;
+  - [x] `public void linkGoogle(String subject)`: throws `IllegalStateException` if another subject is already set;
         the same subject again is a no-op
-  - [ ] `public void removePassword()`: nulls `passwordHash` (used only when linking an unverified account)
-  - [ ] `public boolean hasPassword()`
-- [ ] **1.3.2** `domain/repository/UserRepository.java`: `Optional<User> findByGoogleSubject(String googleSubject)`.
+  - [x] `public void removePassword()`: nulls `passwordHash` (used only when linking an unverified account)
+  - [x] `public boolean hasPassword()`
+- [x] **1.3.2** `domain/repository/UserRepository.java`: `Optional<User> findByGoogleSubject(String googleSubject)`.
 
 ### 1.4 Tests
-- [ ] **1.4.1** `UserEntityTest`:
-  - [ ] `fromGoogle` sets email, subject, role `USER`, verified, no password; `hasPassword()` false
-  - [ ] `linkGoogle` on an empty subject sets it; the same subject again is fine; another subject → exception
-  - [ ] `removePassword` nulls the hash; `toString` contains neither the hash nor the subject
-- [ ] **1.4.2** `UserRepositoryIntegrationTest`:
-  - [ ] save with a subject → `findByGoogleSubject` finds it; an unknown subject → empty
-  - [ ] negative: a second user with the same subject → `DataIntegrityViolationException`
-  - [ ] two users without a subject can coexist
-- [ ] **1.4.3** `mvn -q -o test -Dtest='UserEntityTest,UserRepositoryIntegrationTest'` → green.
+- [x] **1.4.1** `UserEntityTest`:
+  - [x] `fromGoogle` sets email, subject, role `USER`, verified, no password; `hasPassword()` false
+  - [x] `linkGoogle` on an empty subject sets it; the same subject again is fine; another subject → exception
+  - [x] `removePassword` nulls the hash; `toString` contains neither the hash nor the subject
+  - plus: a password user has `hasPassword()` true and no subject. 6 new tests, 22 in total.
+- [x] **1.4.2** `UserRepositoryIntegrationTest`:
+  - [x] save with a subject → `findByGoogleSubject` finds it; an unknown subject → empty
+  - [x] negative: a second user with the same subject → `DataIntegrityViolationException`
+  - [x] two users without a subject can coexist
+  - plus: `linkGoogle` on a saved account persists the subject. 5 new tests, 18 in total.
+- [x] **1.4.3** `mvn -q -o test -Dtest='UserEntityTest,UserRepositoryIntegrationTest'` → green (40 tests). Checkstyle
+      clean.
+- [x] **1.5** End of phase: `make clean build` green (2026-10-30). Backend 707 tests (+11), JaCoCo met; frontend 1654 in
+      86 files; e2e 140 scenarios / 1101 steps.
 
 ---
 

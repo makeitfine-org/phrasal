@@ -16,6 +16,8 @@ public interface UserRepository extends JpaRepository<User, Long> {
 
     boolean existsByEmail(String email);
 
+    Optional<User> findByGoogleSubject(String googleSubject);
+
     /**
      * Deletes accounts that never verified their email. The FK cascade removes tokens and progress.
      *

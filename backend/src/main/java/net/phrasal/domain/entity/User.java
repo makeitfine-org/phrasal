@@ -37,6 +37,7 @@ public class User {
     private static final int PASSWORD_HASH_MAX_LENGTH = 100;
     private static final int ROLE_MAX_LENGTH = 20;
     private static final int TOTP_SECRET_MAX_LENGTH = 255;
+    private static final int GOOGLE_SUBJECT_MAX_LENGTH = 255;
 
     @Id
     @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "user_seq")
@@ -80,6 +81,10 @@ public class User {
     @Column(name = "totp_last_step")
     private Long totpLastStep;
 
+    @Setter(AccessLevel.NONE)
+    @Column(name = "google_subject", length = GOOGLE_SUBJECT_MAX_LENGTH)
+    private String googleSubject;
+
     @Version
     private Long version;
 
@@ -87,6 +92,46 @@ public class User {
         this.email = email;
         this.passwordHash = passwordHash;
         this.role = role;
+    }
+
+    /**
+     * Creates a {@code USER} account for a first Google sign-in: verified, linked, without a password.
+     *
+     * @param email      normalized email that Google reported as verified
+     * @param subject    Google's stable account id (the {@code sub} claim)
+     * @param verifiedAt moment of the sign-in, recorded as the email verification time
+     * @return the new, unsaved account
+     */
+    public static User fromGoogle(String email, String subject, LocalDateTime verifiedAt) {
+        User user = new User(email, null, Role.USER);
+        user.googleSubject = subject;
+        user.emailVerifiedAt = verifiedAt;
+        return user;
+    }
+
+    public boolean hasPassword() {
+        return passwordHash != null;
+    }
+
+    /**
+     * Drops the password. Used only when a Google sign-in takes over an unverified account, so whoever registered the
+     * address without proving it loses access.
+     */
+    public void removePassword() {
+        this.passwordHash = null;
+    }
+
+    /**
+     * Links the account to a Google account; linking the same subject again changes nothing.
+     *
+     * @param subject Google's stable account id (the {@code sub} claim)
+     * @throws IllegalStateException if the account is already linked to another Google account
+     */
+    public void linkGoogle(String subject) {
+        if (googleSubject != null && !googleSubject.equals(subject)) {
+            throw new IllegalStateException("Account is already linked to another Google account");
+        }
+        this.googleSubject = subject;
     }
 
     public boolean isEmailVerified() {

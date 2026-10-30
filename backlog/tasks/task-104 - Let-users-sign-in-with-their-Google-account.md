@@ -1,10 +1,10 @@
 ---
 id: TASK-104
 title: Let users sign in with their Google account
-status: To Do
+status: In Progress
 assignee: []
 created_date: '2026-10-26T17:38:00Z'
-updated_date: '2026-10-30T08:05:00Z'
+updated_date: '2026-10-30T16:56:00Z'
 labels:
   - multi-user
   - security
@@ -64,15 +64,26 @@ Many visitors would rather not create yet another password. Google sign-in gives
 - [ ] #5 A Google login to an account with 2FA enabled requires the TOTP or recovery code step before a session is created.
 - [ ] #6 A cancelled or failed Google login returns the user to the login page with a readable error.
 - [ ] #7 In production the OAuth redirect URI uses https and the real domain.
-- [ ] #8 A new Flyway migration stores the Google subject per user. Existing migrations are not edited.
-- [ ] #9 Google client id and secret env vars are wired into docker-compose (optional locally), k8s base/prod and CI. No secrets are committed.
+- [x] #8 A new Flyway migration stores the Google subject per user. Existing migrations are not edited.
+- [ ] #9 Google client id and secret env vars are wired into docker-compose (optional locally), k8s base/prod and CI. docker-compose wires a mock-oauth2-server stand-in provider for local dev and e2e; the k8s dev overlay keeps Google sign-in off. No secrets are committed.
 - [ ] #10 Integration tests cover the new-user, link-by-verified-email, unverified-email refusal and 2FA-pending branches. Vitest covers the button.
 - [ ] #11 README.md documents the Google setup (OAuth client, redirect URIs, env vars). backend/CLAUDE.md documents the account-linking rules.
 - [ ] #12 `make clean build` passes
+- [ ] #13 `GET /api/v1/auth/providers` reports whether Google sign-in is on; the button is hidden when it is off
+- [ ] #14 Google sign-in to an ADMIN account is refused with a readable error
+- [ ] #15 An account without a password can set one through the emailed reset link from the account security page
 <!-- AC:END -->
 
 ## Implementation Notes
 
 <!-- SECTION:NOTES:BEGIN -->
 2026-10-30: task-101 left the seam `SessionAuthenticator#startTwoFactorChallenge` for a 2FA challenge after Google sign-in. `POST /me/2fa/setup` asks for the current password, so Google-only accounts (no password) need another proof before they can enroll.
+
+2026-10-30: Implementation plan: `.claude/docs/blackbox/todos/google-account-todos.md`. Decisions that differ from or add to plan P5:
+- **Switch + own client registration:** `phrasal.google.enabled` (`GOOGLE_LOGIN_ENABLED`, default false). Our `GoogleLoginConfig` builds the `ClientRegistrationRepository` from `CommonOAuth2Provider.GOOGLE` with optional URI overrides (for the stand-in provider); Boot's `spring.security.oauth2.client.registration.*` is not used. Enabled with a blank client id/secret fails startup. Public `GET /api/v1/auth/providers` → `{"google": bool}`.
+- **Redirect URI from `APP_BASE_URL`:** `${APP_BASE_URL}/api/v1/auth/oauth2/code/{registrationId}`, not `{baseUrl}`, because `frontend/nginx.conf` hard-codes `X-Forwarded-Port 3000`. Success/failure redirects are relative.
+- **ADMIN accounts refused** (`google-admin-account`).
+- **Principal stays `AuthenticatedUser`:** request-attribute `SecurityContextRepository` on `oauth2Login`, no-op authorized-client repository (Google tokens never kept), userinfo call off when supported.
+- **Accounts without a password:** password login keeps the generic 401; change password/email, delete and 2FA setup keep requiring the password; such users set one through forgot-password → reset-password (no new endpoint). `AuthenticatedUser.passwordless`, `UserResponse.hasPassword`.
+- **Local dev/e2e:** `mock-oauth2-server` in docker-compose (like Mailpit for Brevo). k8s dev overlay keeps Google off.
 <!-- SECTION:NOTES:END -->

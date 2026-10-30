@@ -15,6 +15,8 @@ class UserEntityTest {
     private static final String HASH = "{bcrypt}$2a$10$secrethashvalue";
     private static final String ENCRYPTED_SECRET = "v1:encryptedsecretvalue";
     private static final long STEP = 56_000_000L;
+    private static final String SUBJECT = "109876543210987654321";
+    private static final LocalDateTime SIGNED_IN_AT = LocalDateTime.of(2026, 10, 30, 9, 15);
 
     @Test
     @DisplayName("constructor sets email, hash and role")
@@ -196,5 +198,71 @@ class UserEntityTest {
         user.startTwoFactorSetup(ENCRYPTED_SECRET);
 
         assertThat(user.toString()).doesNotContain(ENCRYPTED_SECRET).contains(EMAIL);
+    }
+
+    @Test
+    @DisplayName("fromGoogle creates a verified USER linked to the subject, without a password")
+    void fromGoogle() {
+        User user = User.fromGoogle(EMAIL, SUBJECT, SIGNED_IN_AT);
+
+        assertThat(user.getEmail()).isEqualTo(EMAIL);
+        assertThat(user.getGoogleSubject()).isEqualTo(SUBJECT);
+        assertThat(user.getRole()).isEqualTo(Role.USER);
+        assertThat(user.isEmailVerified()).isTrue();
+        assertThat(user.getEmailVerifiedAt()).isEqualTo(SIGNED_IN_AT);
+        assertThat(user.getPasswordHash()).isNull();
+        assertThat(user.hasPassword()).isFalse();
+        assertThat(user.isTwoFactorEnabled()).isFalse();
+    }
+
+    @Test
+    @DisplayName("a user created with a hash has a password and no Google link")
+    void passwordUserHasPasswordAndNoGoogleLink() {
+        User user = new User(EMAIL, HASH, Role.USER);
+
+        assertThat(user.hasPassword()).isTrue();
+        assertThat(user.getGoogleSubject()).isNull();
+    }
+
+    @Test
+    @DisplayName("linkGoogle sets the subject, and linking the same subject again changes nothing")
+    void linkGoogleIsIdempotentForSameSubject() {
+        User user = new User(EMAIL, HASH, Role.USER);
+
+        user.linkGoogle(SUBJECT);
+        user.linkGoogle(SUBJECT);
+
+        assertThat(user.getGoogleSubject()).isEqualTo(SUBJECT);
+        assertThat(user.hasPassword()).isTrue();
+    }
+
+    @Test
+    @DisplayName("linkGoogle with another subject throws and keeps the first one")
+    void linkGoogleToAnotherSubjectThrows() {
+        User user = User.fromGoogle(EMAIL, SUBJECT, SIGNED_IN_AT);
+
+        assertThatThrownBy(() -> user.linkGoogle("another-subject")).isInstanceOf(IllegalStateException.class);
+        assertThat(user.getGoogleSubject()).isEqualTo(SUBJECT);
+    }
+
+    @Test
+    @DisplayName("removePassword drops the hash")
+    void removePassword() {
+        User user = new User(EMAIL, HASH, Role.USER);
+
+        user.removePassword();
+
+        assertThat(user.getPasswordHash()).isNull();
+        assertThat(user.hasPassword()).isFalse();
+    }
+
+    @Test
+    @DisplayName("toString contains neither the password hash nor the Google subject")
+    void toStringHidesHashAndSubject() {
+        User user = new User(EMAIL, HASH, Role.USER);
+        user.linkGoogle(SUBJECT);
+
+        assertThat(user.toString()).contains(EMAIL).doesNotContain(HASH).doesNotContain(SUBJECT)
+                .doesNotContain("googleSubject");
     }
 }
