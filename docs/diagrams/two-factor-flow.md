@@ -58,7 +58,9 @@ stateDiagram-v2
     Pending --> Authenticated: valid code (200)
     Pending --> Pending: wrong code (400, rate limited)
     Pending --> Anonymous: 5 min timeout (TWO_FACTOR_LOGIN_TIMEOUT) or logout
+    Anonymous --> Pending: Google sign-in succeeds, account has 2FA (redirect /login/2fa)
     Anonymous --> Authenticated: password correct, no 2FA (200)
+    Anonymous --> Authenticated: Google sign-in succeeds, no 2FA (redirect /)
     Authenticated --> Anonymous: logout, idle timeout, password reset
 ```
 
@@ -74,9 +76,17 @@ flowchart TD
     D --> W[content writes and /actuator answer 403 until the admin enrolls]
 ```
 
+## Google sign-in
+
+A Google callback goes through the same step: `SessionAuthenticator#signInVerified` opens the pending login for an
+account with 2FA and the success handler redirects to `/login/2fa` (otherwise to `/`). Google proves only the first factor.
+Both entries re-key the session instead of invalidating it: after the session-fixation id change in the callback, an
+`invalidate()` plus a new session would find the old row again.
+See [google-sign-in-flow.md](google-sign-in-flow.md).
+
 ## Deferred
 
-- 2FA for Google sign-in (task-104): `SessionAuthenticator#startTwoFactorChallenge` is the seam; `setup` asks for the
-  password, so Google-only accounts need another proof.
+- 2FA setup for Google-only accounts: `setup` asks for the password, so the account first sets one by email
+  (Account security → "Set a password"); until then the SPA shows that instead of the enable button.
 - Encryption key rotation: changing `TOTP_ENCRYPTION_KEY` invalidates every stored secret, so every 2FA user needs a
   recovery code and must enroll again.

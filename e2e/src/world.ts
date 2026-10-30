@@ -17,4 +17,5 @@ export interface PhrasalWorld extends World {
     recoveryCodes: string[];
     previousRecoveryCodes: string[];
     lastTotpStep: number | null;
+    googleSubject: string | null;
 }

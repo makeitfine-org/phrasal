@@ -121,3 +121,10 @@ flowchart TD
     TF -- yes --> R400c[400 invalid-two-factor-code]
     TF -- no --> OKD[204]
 ```
+
+## Accounts created by Google sign-in
+
+An account without a password (`hasPassword: false`) answers `400 wrong-password` to all three actions and to 2FA setup,
+because there is no current password to check. The SPA hides those forms and shows "Set a password": it posts
+`forgot-password` for the account's own address, the emailed link sets the password and closes every session, and the
+account then behaves like any other. See [google-sign-in-flow.md](google-sign-in-flow.md).

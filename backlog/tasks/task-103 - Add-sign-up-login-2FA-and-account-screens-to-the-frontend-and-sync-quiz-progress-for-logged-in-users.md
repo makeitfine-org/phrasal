@@ -6,7 +6,7 @@ title: >-
 status: To Do
 assignee: []
 created_date: '2026-10-26T17:38:00Z'
-updated_date: '2026-10-30T13:52:00Z'
+updated_date: '2026-10-30T19:13:00Z'
 labels:
   - multi-user
   - frontend
@@ -111,4 +111,6 @@ Done in task-107: the /verify-email page (VerifyEmailPage), the resend action (R
 2026-10-30: the account-deletion screen (rest of AC #4), plus AC #6 and #13 for the new Change password / Change email / Delete account sections and the /confirm-email-change page, are planned in `.claude/docs/blackbox/todos/account-funcs-todos.md` (branch `account-settings`, Phases 2-4). Change password and email are tracked in TASK-109.
 
 2026-10-30: account deletion screen (DeleteAccountSection, rest of AC #4), Change password / Change email sections and /confirm-email-change page are done on branch `account-settings` with Vitest tests and e2e (AC #4, #6, #13 checked). Still open here: AC #1, #3, #12, #14, #15.
+
+2026-10-30: the Continue with Google button, error texts and the set-password panel (outside this task's scope) shipped with task-104 on branch google-sign-in.
 <!-- SECTION:NOTES:END -->

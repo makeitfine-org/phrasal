@@ -92,6 +92,19 @@ config/         → Spring @Configuration classes (SecurityConfig = access rules
 - **Honeypot:** `RegisterRequest.website` (optional, max 200); `honeypotFilled()` makes `AuthService#register` return at once, before any breach check, DB or mail work, so the answer is the normal `202`.
 - **Tests:** `AbstractIntegrationTest` has `requestEmailChange`, `confirmEmailChange` and `mailbox.awaitLatest/awaitSubject`; `ChangeEmailIntegrationTest` reads the token with `awaitEmailChangeToken`; `AccountRateLimitIntegrationTest` has its own class because it needs other limits.
 
+## Google Sign-In
+
+The wiring and the `SecurityConfig` rule order are in **Security** above; this section is the map of the feature.
+
+- **Classes:** `config/GoogleLoginProperties` (`phrasal.google.*`), `config/GoogleLoginConfig` (the `ClientRegistrationRepository`, only when enabled; `GET /api/v1/auth/providers` is served by `AuthController`), `application/service/GoogleSignInService`, `presentation/security/GoogleOidcUserService` and `GoogleOidcUser` (wrap the verified ID token claims), `GoogleLoginSuccessHandler`, `GoogleLoginFailureHandler`, `NoOpAuthorizedClientRepository`.
+- **Linking rules** (`GoogleSignInService#signIn`): 1) the `google_subject` matches → that account (`signed-in`); 2) else `email_verified=false` → refused; 3) else an account with the same normalized email → link it (`linked`), and if that account was unverified also mark it verified, remove its password and invalidate its open verification and reset tokens; 4) else create a verified `USER` with no password (`created`). Google never changes the account email; a phrasal email change keeps the link.
+- **Refusal codes** (`GoogleSignInRefusedException.Reason`): `google-email-unverified`, `google-account-conflict` (the email belongs to an account linked to another subject), `google-admin-account` (ADMIN accounts use the password and 2FA). Every refusal comes before the first change. Any other OAuth2 failure (`access_denied`, missing or replayed `state`, bad token, a concurrent first sign-in) maps to `google`. The code goes to `/login?error=<code>`; the SPA turns it into text.
+- **Principal rule:** the session holds the `AuthenticatedUser` only. The OIDC token stays in the request, Google's access token is dropped (`NoOpAuthorizedClientRepository`), userinfo is not called. `AuthenticatedUser.passwordless` (`!user.hasPassword()`) feeds `hasPassword` in `/auth/me`; such an account answers `400 wrong-password` to the actions that need the current password and sets a password through `forgot-password` → `reset-password`.
+- **2FA:** the success handler calls `SessionAuthenticator#signInVerified`, so an account with 2FA gets the pending login and `/login/2fa`, exactly like password login.
+- **Never log:** the ID token, access token, authorization code, `state`, `nonce`, the Google subject, or the email at INFO. Log `userId` plus `outcome=` (`CREATED`, `LINKED`, `SIGNED_IN`) or the refusal `reason=`; `grep "Google sign-in"` counts them in production.
+- **Schema:** V17 adds `users.google_subject` (nullable `VARCHAR(255)`, unique index).
+- **Tests:** `GoogleSignInServiceIntegrationTest` (rules and refusals), `GoogleLoginIntegrationTest` (redirect → callback → session, with `FakeGoogle`: a JDK `HttpServer` serving `/token` and `/jwks`), `PasswordlessAccountIntegrationTest`, `GoogleLoginDisabledIntegrationTest` (no OAuth2 beans, `providers` says `false`), `GoogleRedirectOverHttpIntegrationTest` (real HTTP, forwarded headers). `AbstractIntegrationTest` has `startGoogleSignIn()`, `finishGoogleSignIn(redirect, sub, email, verified)` and `googleSignIn(sub, email)`.
+
 ## Password Breach Check
 
 - `infrastructure/security/BreachedPasswordChecker` calls the HIBP range API (k-anonymity: only the first five SHA-1 hex characters are sent) and `PasswordBreachGuard` applies it on register, reset and change (never login).

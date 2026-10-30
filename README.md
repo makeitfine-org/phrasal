@@ -49,6 +49,7 @@ Then open **http://localhost:3000** in your browser.
 | `postgres` | 5432 | `POSTGRES_PORT` | PostgreSQL 16 database (`phrasaldb`) |
 | `backend` | 8080 | `BACKEND_PORT` | Spring Boot REST API |
 | `frontend` | 3000 | `FRONTEND_PORT` | React SPA served by Nginx |
+| `mock-oauth2` | 8090 | `MOCK_OAUTH2_PORT` | Stand-in for Google sign-in (local and e2e only, see [Sign in with Google](#sign-in-with-google)) |
 
 Override a port if it's already in use on your machine:
 
@@ -416,7 +417,7 @@ kubectl logs -n kube-system deploy/traefik --tail=50      # ingress errors (K3s 
 
 ```bash
 kubectl get secret
-kubectl get deploy backend -o jsonpath='{.spec.template.spec.containers[0].env[*].name}' | tr ' ' '\n' | grep -E "TOTP|MAIL|DB_"
+kubectl get deploy backend -o jsonpath='{.spec.template.spec.containers[0].env[*].name}' | tr ' ' '\n' | grep -E "TOTP|MAIL|DB_|GOOGLE"
 gh secret list
 ```
 
@@ -559,9 +560,9 @@ Visitors can sign up with an email and password. Content stays public to read; o
 | `POST /api/v1/auth/forgot-password` `{email}` | `202` + `{"message": ...}` (always, even for unknown addresses) | `400` invalid body, `403` CSRF, `429` rate limited |
 | `POST /api/v1/auth/reset-password` `{token, password}` | `204`, the password is changed and every session is closed | `400` `reset-link-invalid`, `reset-link-expired` or a password-policy error, `403` CSRF, `429` rate limited |
 | `POST /api/v1/auth/confirm-email-change` `{token}` | `204`, the account moves to the new address and every session is closed | `400` `email-change-link-invalid` or `email-change-link-expired`, `409` `email-change-conflict`, `403` CSRF, `429` rate limited |
-| `POST /api/v1/auth/login` `{email, password}` | `200` + `{id, email, role, twoFactorEnabled, twoFactorEnrollmentRequired}`, sets the `SESSION` cookie; `202` + `{"twoFactorRequired": true}` when the account has 2FA (see [Two-factor authentication](#two-factor-authentication-2fa)) | `400` invalid body, `401` wrong email or password, `403` `email-not-verified` (right password, unconfirmed address), `429` rate limited |
+| `POST /api/v1/auth/login` `{email, password}` | `200` + `{id, email, role, twoFactorEnabled, twoFactorEnrollmentRequired, hasPassword}`, sets the `SESSION` cookie; `202` + `{"twoFactorRequired": true}` when the account has 2FA (see [Two-factor authentication](#two-factor-authentication-2fa)) | `400` invalid body, `401` wrong email or password, `403` `email-not-verified` (right password, unconfirmed address), `429` rate limited |
 | `POST /api/v1/auth/login/2fa` `{code}` | `200` + the user, sets a new `SESSION` cookie | `400` invalid body or `invalid-two-factor-code`, `401` `two-factor-login-expired` (or no pending login), `403` CSRF, `429` rate limited |
-| `GET /api/v1/auth/me` | `200` + `{id, email, role, twoFactorEnabled, twoFactorEnrollmentRequired}` | `401` anonymous |
+| `GET /api/v1/auth/me` | `200` + `{id, email, role, twoFactorEnabled, twoFactorEnrollmentRequired, hasPassword}` | `401` anonymous |
 | `POST /api/v1/auth/logout` | `204`, session invalidated | - |
 
 Errors are `application/problem+json` (RFC 7807).
@@ -770,6 +771,65 @@ above. `TWO_FACTOR_ISSUER` (default `Phrasal`) is the name shown in the authenti
 a password, so Google-only accounts need another proof) and encryption key rotation.
 
 Flow diagram: [`docs/diagrams/two-factor-flow.md`](docs/diagrams/two-factor-flow.md).
+
+### Sign in with Google
+
+"Continue with Google" is on the Login and Sign up pages when `GOOGLE_LOGIN_ENABLED=true`. It is OpenID Connect through
+Spring Security; the app keeps its own session, so everything after sign-in (2FA, logout, account actions) works as before.
+Flow diagram: `docs/diagrams/google-sign-in-flow.md`.
+
+| Endpoint | What it does |
+|---|---|
+| `GET /api/v1/auth/providers` | public, `{"google": true\|false}`; the SPA shows the button only for `true` |
+| `GET /api/v1/auth/oauth2/authorization/google` | starts the sign-in: `302` to Google |
+| `GET /api/v1/auth/oauth2/code/google` | Google's callback. Success: `302 /` (or `302 /login/2fa` when the account has 2FA). Failure: `302 /login?error=<code>` |
+
+Error codes on `/login`: `google-email-unverified` (Google has not confirmed the address), `google-account-conflict` (the
+address belongs to an account linked to another Google account), `google-admin-account` (admin accounts use email and
+password), and `google` for everything else (cancel, expired or replayed `state`, bad token). The SPA shows a fixed text
+for each and removes the code from the URL; it never prints the raw value.
+
+**Matching rules.** 1) An account already linked to this Google account (`sub`) signs in. 2) Otherwise Google must say the
+email is verified, or the sign-in is refused. 3) An account with that email is linked; if it was never verified, it
+becomes verified, **its password is removed** and its open verification and reset links stop working (whoever registered
+the address without proving it loses access). 4) With no such account a new verified account is created. Google never
+changes the account email, and an ADMIN account is always refused.
+
+**Accounts without a password.** A Google-created account has no password, so password login answers the usual `401`.
+Account security shows "Set a password" for it: the button emails the reset link to the account address (the same
+`forgot-password` flow), and the link sets the password and signs everyone out. Until then the change-password,
+change-email, delete and 2FA-enable forms are hidden (their endpoints answer `400 wrong-password`).
+
+**Google Cloud setup** (task-106; once per environment): a project with the OAuth consent screen (app name, support email,
+authorized domain `phrasalbox.com`, scopes `openid`, `email`, `profile`), in *Testing* mode with your Google account as a
+test user, and an OAuth client of type *Web application* with these redirect URIs: `https://phrasalbox.com/api/v1/auth/oauth2/code/google`,
+and the same path on `http://localhost:3000`, `http://localhost:3100` and `http://localhost:5173`. Publishing the consent
+screen is task-105. Keep the client id and secret in the password manager and in GitHub Secrets; never commit them or paste
+them into a chat.
+
+| Variable | Default | Meaning |
+|---|---|---|
+| `GOOGLE_LOGIN_ENABLED` | `false` (compose: `true`) | turns the feature on; with `true`, a blank id or secret fails startup |
+| `GOOGLE_CLIENT_ID`, `GOOGLE_CLIENT_SECRET` | empty (compose: mock values) | the OAuth client; GitHub Secrets of the same names feed production |
+| `GOOGLE_AUTHORIZATION_URI`, `GOOGLE_TOKEN_URI`, `GOOGLE_JWK_SET_URI`, `GOOGLE_ISSUER_URI`, `GOOGLE_USER_INFO_URI` | empty = Google | endpoint overrides for a stand-in provider |
+| `APP_BASE_URL` | compose: `http://localhost:${FRONTEND_PORT}` | the redirect URI is `APP_BASE_URL` + `/api/v1/auth/oauth2/code/google`, so it must be an origin registered on the OAuth client |
+
+**Local development.** `docker compose up` starts `mock-oauth2` (http://localhost:8090), and the backend uses it, so no Google
+account is needed. On its login page type any username (it becomes the Google `sub`) and, in the claims box, JSON such as
+`{"email": "me@example.test", "email_verified": true}`. For real Google, put the real `GOOGLE_CLIENT_ID` and
+`GOOGLE_CLIENT_SECRET` in `.env` and set `GOOGLE_AUTHORIZATION_URI=`, `GOOGLE_TOKEN_URI=`, `GOOGLE_JWK_SET_URI=` and
+`GOOGLE_ISSUER_URI=` to empty values. With the Vite dev server (hot reload) set `APP_BASE_URL=http://localhost:5173`. The k8s
+dev overlay keeps Google off.
+
+**Before the next tagged deploy:** add `GOOGLE_CLIENT_ID` and `GOOGLE_CLIENT_SECRET` to GitHub Secrets. The deploy step
+fails without them (like `TOTP_ENCRYPTION_KEY`).
+
+**Production monitoring.** The backend logs one line per sign-in, with the user id and no email, token or code:
+
+```bash
+kubectl logs deploy/backend | grep "Google sign-in"        # outcome=CREATED|LINKED|SIGNED_IN, or refused reason=…
+kubectl logs deploy/backend | grep -ciE "id_token|access_token|code=|state=|nonce="   # leak check: must print 0
+```
 
 ### Account settings
 

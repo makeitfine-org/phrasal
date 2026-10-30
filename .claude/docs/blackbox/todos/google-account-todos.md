@@ -5,7 +5,7 @@ Source plan: `.claude/docs/blackbox/plans/2026-10-26 18:10 Multi-user accounts T
 consent screen stays in **task-105** (AC #6).
 
 > Status (2026-10-30): Phases 0–9 done on branch `google-sign-in`, except 0.7 (user actions in Google Cloud);
-> 11.3 done early with Phase 9. Phases 10–13 not started.
+> 11.3 done early with Phase 9. Phases 10–11 done (uncommitted until approved); 12–13 not started.
 
 Builds on what is already in `develop` (`cb933cc`):
 - password login with a pending 2FA step (`SessionAuthenticator`, `PendingTwoFactorLogin`, `POST /auth/login/2fa`)
@@ -965,44 +965,45 @@ No new endpoint (decision 9). This phase proves the existing endpoints behave an
       ones, mostly jest-dom matcher types, are the same as on the base commit; `npm run build` doesn't type-check).
 - [x] **9.4.5** Ask for commit approval → `feat(frontend): add Continue with Google and a set-password panel`
       — approved and committed while the final `make clean build` was in its e2e stage (backend and frontend green).
-- [ ] **9.4.6** End of phase: `make clean build` green.
+- [x] **9.4.6** End of phase: `make clean build` green.
+  - Done: backend 819 tests, frontend 1700 tests (90 files), e2e 140 scenarios / 1101 steps.
 
 ---
 
 ## Phase 10 — E2E (Cucumber + Playwright, against the mock provider)
 
 ### 10.1 Support code
-- [ ] **10.1.1** `../../../../e2e/src/support/mock-oauth2.ts`:
-  - [ ] `MOCK_OAUTH2_URL` from `process.env` (default `http://localhost:8090`)
-  - [ ] `uniqueGoogleSubject()` → `` `e2e-google-${Date.now()}-${random}` ``
-  - [ ] `signInAtMock(page, { sub, email, emailVerified })`: waits for the mock's login page, fills `username` with
+- [x] **10.1.1** `../../../../e2e/src/support/mock-oauth2.ts`:
+  - [x] `MOCK_OAUTH2_URL` from `process.env` (default `http://localhost:8090`)
+  - [x] `uniqueGoogleSubject()` → `` `e2e-google-${Date.now()}-${random}` ``
+  - [x] `signInAtMock(page, { sub, email, emailVerified })`: waits for the mock's login page, fills `username` with
         `sub` and `claims` with `JSON.stringify({ email, email_verified })`, submits (field names from 0.6)
-  - [ ] `waitForMockProvider()`: polls `/default/.well-known/openid-configuration` for up to 30 s
-- [ ] **10.1.2** `../../../../e2e/src/world.ts`: `googleSubject: string | null`, reset in `hooks.ts` `Before`.
-- [ ] **10.1.3** `../../../../e2e/src/hooks.ts`: call `waitForMockProvider()` in `BeforeAll` (cheap when it is up). The
+  - [x] `waitForMockProvider()`: polls `/default/.well-known/openid-configuration` for up to 30 s
+- [x] **10.1.2** `../../../../e2e/src/world.ts`: `googleSubject: string | null`, reset in `hooks.ts` `Before`.
+- [x] **10.1.3** `../../../../e2e/src/hooks.ts`: call `waitForMockProvider()` in `BeforeAll` (cheap when it is up). The
       cleanup already deletes `e2e-%@phrasal.test` users; Google users use `uniqueEmail()`, so nothing new to delete.
-- [ ] **10.1.4** `../../../../e2e/src/support/api-client.ts`: `getWithoutRedirect(path)` (`maxRedirects: 0`), for the
+- [x] **10.1.4** `../../../../e2e/src/support/api-client.ts`: `getWithoutRedirect(path)` (`maxRedirects: 0`), for the
       `302` checks.
-- [ ] **10.1.5** `../../../../e2e/src/support/db-client.ts` (or a helper next to it): `googleAccountState(email)` →
+- [x] **10.1.5** `../../../../e2e/src/support/db-client.ts` (or a helper next to it): `googleAccountState(email)` →
       `{ googleSubject, hasPassword, verified }`.
-- [ ] **10.1.6** `../../../../e2e/.env.example`: `MOCK_OAUTH2_URL=http://localhost:8090`.
+- [x] **10.1.6** `../../../../e2e/.env.example`: `MOCK_OAUTH2_URL=http://localhost:8090`.
 
 ### 10.2 API feature: `e2e/features/auth-api/google-sign-in.feature` (`@api`)
-- [ ] **10.2.1** Steps in `e2e/src/steps/google-api.steps.ts`:
+- [x] **10.2.1** Steps in `e2e/src/steps/google-api.steps.ts`:
   - `When I request the sign-in providers`
   - `Then Google sign-in should be enabled`
   - `When I start a Google sign-in`
   - `Then I should be redirected to the Google stand-in with the app's callback URL`
   - `When I open the Google callback without starting a sign-in`
   - `Then I should be redirected to the login page with the error {string}`
-- [ ] **10.2.2** Scenarios:
-  - [ ] providers → `200`, `google: true`
-  - [ ] start → `302` to `<MOCK_OAUTH2_URL>/default/authorize` with `client_id`, `scope` (`openid email profile`),
+- [x] **10.2.2** Scenarios:
+  - [x] providers → `200`, `google: true`
+  - [x] start → `302` to `<MOCK_OAUTH2_URL>/default/authorize` with `client_id`, `scope` (`openid email profile`),
         `state`, `nonce`, and `redirect_uri` = `<APP_BASE_URL>/api/v1/auth/oauth2/code/google`
-  - [ ] callback with `code=x&state=y` and no started sign-in → `302 /login?error=google`
+  - [x] callback with `code=x&state=y` and no started sign-in → `302 /login?error=google`
 
 ### 10.3 Browser feature: `e2e/features/frontend/google-sign-in.feature` (`@frontend`)
-- [ ] **10.3.1** Steps in `e2e/src/steps/google-ui.steps.ts`. Reuse what exists: `I open the {string} page`,
+- [x] **10.3.1** Steps in `e2e/src/steps/google-ui.steps.ts`. Reuse what exists: `I open the {string} page`,
       `a registered user exists`, `an unverified user exists`, `I have two-factor authentication enabled`,
       `I should be on the two-factor code page`, `I enter a valid two-factor code`, `the user menu should show my email`,
       `I log in through the form with password {string}`, `I should see an auth error`,
@@ -1017,65 +1018,68 @@ No new endpoint (decision 9). This phase proves the existing endpoints behave an
   - `Then my account should be linked to Google without a password`
   - `When I ask for a link to set a password`
   - `Then I should see the set-password check-your-inbox message`
-- [ ] **10.3.2** Scenarios:
-  - [ ] the Login and Register pages show "Continue with Google"
-  - [ ] a new Google user is signed in on `/`, the user menu shows the email, the DB row has a subject and no password
-  - [ ] the same Google user signs in again → the same account (same email in the menu, one DB row)
-  - [ ] a registered user links Google with the same email → signed in; after logout, the password login still works
-  - [ ] an unverified registration with password "e2e-password-123", then Google with that email → signed in; after
+- [x] **10.3.2** Scenarios:
+  - [x] the Login and Register pages show "Continue with Google"
+  - [x] a new Google user is signed in on `/`, the user menu shows the email, the DB row has a subject and no password
+  - [x] the same Google user signs in again → the same account (same email in the menu, one DB row)
+  - [x] a registered user links Google with the same email → signed in; after logout, the password login still works
+  - [x] an unverified registration with password "e2e-password-123", then Google with that email → signed in; after
         logout, the password login fails with an auth error
-  - [ ] an unverified Google email → back on `/login` with the `google-email-unverified` text
-  - [ ] the admin email → back on `/login` with the admin text
-  - [ ] a user with 2FA continues with Google → the two-factor code page → a valid code → the user menu shows the email
-  - [ ] a Google-only user opens Account security → the set-password panel → asks for a link → opens the reset link
+  - [x] an unverified Google email → back on `/login` with the `google-email-unverified` text
+  - [x] the admin email → back on `/login` with the admin text
+  - [x] a user with 2FA continues with Google → the two-factor code page → a valid code → the user menu shows the email
+  - [x] a Google-only user opens Account security → the set-password panel → asks for a link → opens the reset link
         from Mailpit → sets a password → logs in through the form with it
-  - [ ] cancel-like failure: open `/api/v1/auth/oauth2/code/google?error=access_denied&state=x` in the browser →
+  - [x] cancel-like failure: open `/api/v1/auth/oauth2/code/google?error=access_denied&state=x` in the browser →
         `/login` with the generic Google text
-- [ ] **10.3.3** `npx cucumber-js --name "Google"` then `make acceptanceTest` → all features green, old ones included.
+- [x] **10.3.3** `npx cucumber-js --name "Google"` then `make acceptanceTest` → all features green, old ones included.
+      Done: 153 scenarios / 1188 steps green (13 new). Extra steps beyond the list: `there should be one account for my Google user`
+      (`countUsersWithGoogleSubject` in `db-client.ts`), `I open the Google callback with an access-denied error in the browser`,
+      `I log in through the form with the password I just set`. `MOCK_OAUTH2_URL` defaults to `http://localhost:${MOCK_OAUTH2_PORT:-8090}`.
 - [ ] **10.3.4** Ask for commit approval → `test(e2e): cover Google sign-in against a stand-in provider`
 
 ---
 
 ## Phase 11 — Docs, diagrams, plan, backlog
 
-- [ ] **11.1** `../../../../README.md`, new section "### Sign in with Google" (next to "Accounts & security"):
-  - [ ] the two endpoints, `GET /auth/providers`, and where each redirect lands (`/`, `/login/2fa`, `/login?error=…`)
+- [x] **11.1** `../../../../README.md`, new section "### Sign in with Google" (next to "Accounts & security"):
+  - [x] the two endpoints, `GET /auth/providers`, and where each redirect lands (`/`, `/login/2fa`, `/login?error=…`)
         with the error codes
-  - [ ] the matching rules (subject → verified email → new account), the unverified-account rule, the admin refusal,
+  - [x] the matching rules (subject → verified email → new account), the unverified-account rule, the admin refusal,
         and that Google never changes the account email
-  - [ ] Google-only accounts: no password login; "Set a password" on Account security sends the reset link
-  - [ ] Google Cloud setup (task-106): consent screen, Testing mode and test users, the OAuth client, the four redirect
+  - [x] Google-only accounts: no password login; "Set a password" on Account security sends the reset link
+  - [x] Google Cloud setup (task-106): consent screen, Testing mode and test users, the OAuth client, the four redirect
         URIs; publishing is task-105
-  - [ ] env table: `GOOGLE_LOGIN_ENABLED`, `GOOGLE_CLIENT_ID`, `GOOGLE_CLIENT_SECRET`, the five `GOOGLE_*_URI`
+  - [x] env table: `GOOGLE_LOGIN_ENABLED`, `GOOGLE_CLIENT_ID`, `GOOGLE_CLIENT_SECRET`, the five `GOOGLE_*_URI`
         overrides, and that the redirect URI is built from `APP_BASE_URL`
-  - [ ] local dev: the `mock-oauth2` service (http://localhost:8090), what to type in its form, how to switch to real
+  - [x] local dev: the `mock-oauth2` service (http://localhost:8090), what to type in its form, how to switch to real
         Google in `.env`, and `APP_BASE_URL=http://localhost:5173` for Vite (compose defaults it to
         `http://localhost:${FRONTEND_PORT}`, 8.1.2)
-  - [ ] GitHub Secrets `GOOGLE_CLIENT_ID` / `GOOGLE_CLIENT_SECRET` before the next tagged deploy
-  - [ ] "Production monitoring": `kubectl logs … | grep "Google sign-in"` (outcome counts) and the leak check from 13.6
-- [ ] **11.2** `../../../../backend/CLAUDE.md`, new section "Google Sign-In":
-  - [ ] classes: `GoogleLoginProperties`, `GoogleLoginConfig`, `GoogleSignInService`, `GoogleOidcUserService`,
+  - [x] GitHub Secrets `GOOGLE_CLIENT_ID` / `GOOGLE_CLIENT_SECRET` before the next tagged deploy
+  - [x] "Production monitoring": `kubectl logs … | grep "Google sign-in"` (outcome counts) and the leak check from 13.6
+- [x] **11.2** `../../../../backend/CLAUDE.md`, new section "Google Sign-In":
+  - [x] classes: `GoogleLoginProperties`, `GoogleLoginConfig`, `GoogleSignInService`, `GoogleOidcUserService`,
         `GoogleOidcUser`, `GoogleLoginSuccessHandler`, `GoogleLoginFailureHandler`, `NoOpAuthorizedClientRepository`
-  - [ ] the linking rules, the refusal codes, the principal rule (no OIDC token in the session), `passwordless`
-  - [ ] tests: `FakeGoogle`, `startGoogleSignIn` / `finishGoogleSignIn` / `googleSignIn`, `GoogleLoginDisabledIntegrationTest`
-  - [ ] never-log list (decision 12)
-  - [ ] update the Security rule order and the `startTwoFactorChallenge` sentence (5.1.1)
-  - [ ] V17 in the schema notes
+  - [x] the linking rules, the refusal codes, the principal rule (no OIDC token in the session), `passwordless`
+  - [x] tests: `FakeGoogle`, `startGoogleSignIn` / `finishGoogleSignIn` / `googleSignIn`, `GoogleLoginDisabledIntegrationTest`
+  - [x] never-log list (decision 12)
+  - [x] update the Security rule order and the `startTwoFactorChallenge` sentence (5.1.1)
+  - [x] V17 in the schema notes
 - [x] **11.3** `../../../../frontend/CLAUDE.md`: `GoogleSignInButton`, `useAuthProviders`, `googleErrors`, the
       `?error=` handling on `LoginPage`, `SetPasswordPanel`, `CurrentUser.hasPassword`, `authApi.fetchAuthProviders`
       and `GOOGLE_SIGN_IN_URL`.
       — *moved forward*: done in Phase 9 with the code (new "Sign in with Google" section, the `authApi` row, the
       Auth component list, the account settings paragraph).
-- [ ] **11.4** `../../../../e2e/CLAUDE.md`: the `mock-oauth2` service, `MOCK_OAUTH2_URL`, `mock-oauth2.ts`, the new
+- [x] **11.4** `../../../../e2e/CLAUDE.md`: the `mock-oauth2` service, `MOCK_OAUTH2_URL`, `mock-oauth2.ts`, the new
       features and steps files, `world.googleSubject`, `getWithoutRedirect`.
-- [ ] **11.5** Diagrams (blackbox policy):
-  - [ ] new `../../../../docs/diagrams/google-sign-in-flow.md`: a sequence diagram (browser → backend → Google →
+- [x] **11.5** Diagrams (blackbox policy):
+  - [x] new `../../../../docs/diagrams/google-sign-in-flow.md`: a sequence diagram (browser → backend → Google →
         callback → `GoogleOidcUserService` → `GoogleSignInService` → success handler → `/` or `/login/2fa`), a flowchart
         of the matching rules and refusals, and a note on the mock provider
-  - [ ] `auth-flow.md`: Google as a second entry into the session, the providers endpoint, the rule list
-  - [ ] `two-factor-flow.md`: the Google entry into the pending 2FA step
-  - [ ] `account-management-flow.md`: the Google-only path (set a password by email first)
-- [ ] **11.6** Plan file `.claude/docs/blackbox/plans/2026-10-26 18:10 Multi-user …md`: append one `## Mutations Log`
+  - [x] `auth-flow.md`: Google as a second entry into the session, the providers endpoint, the rule list
+  - [x] `two-factor-flow.md`: the Google entry into the pending 2FA step
+  - [x] `account-management-flow.md`: the Google-only path (set a password by email first)
+- [x] **11.6** Plan file `.claude/docs/blackbox/plans/2026-10-26 18:10 Multi-user …md`: append one `## Mutations Log`
       row (append only, delete nothing in that folder):
       `| <date> | split | P5 done as task-104: own ClientRegistrationRepository behind GOOGLE_LOGIN_ENABLED + GET /auth/providers; redirect URI from APP_BASE_URL; ADMIN accounts refused; Google-only accounts set a password via reset link; mock-oauth2-server in compose; V17 instead of V13 | Works without Google creds locally/CI; no forwarded-header dependency |`
       Also mention the todo-level mutations: test-profile yml moved from 6.1.2 to 5.4.2; inserted fix in 6.2.7
@@ -1083,12 +1087,12 @@ No new endpoint (decision 9). This phase proves the existing endpoints behave an
       fix 8.2.1a (`server.tomcat.use-relative-redirects: true`, so the Google redirects back into the SPA ignore
       nginx's forwarded port and scheme); 8.1.2 changed (compose derives `APP_BASE_URL` from `FRONTEND_PORT` instead
       of a local `.env`); 11.3 moved forward into Phase 9.
-- [ ] **11.7** Backlog (MCP):
-  - [ ] task-104: check off the done AC (prod ones wait for Phase 13), implementation notes, final summary
-  - [ ] task-106: note that AC #4/#5 are needed for 12.3 and Phase 13; check them only after the user confirms
-  - [ ] task-103: note that the Google button (out of its scope) shipped here
+- [x] **11.7** Backlog (MCP):
+  - [x] task-104: check off the done AC (prod ones wait for Phase 13), implementation notes, final summary
+  - [x] task-106: note that AC #4/#5 are needed for 12.3 and Phase 13; check them only after the user confirms
+  - [x] task-103: note that the Google button (out of its scope) shipped here
   - [ ] **ask the user** before moving task-104 to `Done`
-- [ ] **11.8** Ask for commit approval → `docs: document Google sign-in`
+- [ ] **11.8** (`make clean build` for Phases 10–11: green, backend BUILD SUCCESS, frontend 1700 tests, e2e 153 scenarios / 1188 steps.) Ask for commit approval → `docs: document Google sign-in`
 - [ ] **11.9** On the user's exit signal, append the blackbox `session-log.md` entry (format in
       `../../../rules/blackbox-policy.md`, under 20 lines, no secrets: no client id/secret, tokens or codes), including
       the plan mutation line and the new diagram.

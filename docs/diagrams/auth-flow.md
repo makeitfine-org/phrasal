@@ -66,7 +66,9 @@ flowchart TD
     MEP -- yes --> AUTH
     MEP -- no --> RL{POST register, login, verify-email, resend-verification, forgot-password, reset-password or confirm-email-change?}
     RL -- yes --> PUB
-    RL -- no --> W{POST / PUT / DELETE on phrasal-verbs, grammar-entries, verb-details?}
+    RL -- no --> OA{GET /api/v1/auth/oauth2/** ?}
+    OA -- yes --> PUB
+    OA -- no --> W{POST / PUT / DELETE on phrasal-verbs, grammar-entries, verb-details?}
     W -- yes --> ADM
     W -- no --> G{GET /api/** ?}
     G -- yes --> PUB
@@ -80,6 +82,13 @@ flowchart TD
     TF -- yes --> OK[Allow]
 ```
 
+## Google as a second entry
+
+Besides the password login, a visitor can start `GET /api/v1/auth/oauth2/authorization/google`. The callback ends in the
+same session as password login (`SessionAuthenticator#signInVerified`), or in the pending 2FA step. The SPA asks
+`GET /api/v1/auth/providers` (public, `{"google": bool}`) before it shows the button. `/auth/me` and `login` answers carry
+`hasPassword`. Rules, refusals and the mock provider: [google-sign-in-flow.md](google-sign-in-flow.md).
+
 ## Account settings
 
 Signed-in users change their password, change their email or delete their account through `/api/v1/me/password|email|delete`
@@ -88,4 +97,4 @@ feature is `POST /api/v1/auth/confirm-email-change`, which opens from the link m
 
 ## Deferred
 
-~~TOTP 2FA~~ (done, see [two-factor-flow.md](two-factor-flow.md)), Google sign-in, ~~password reset~~ (done, see [password-reset-flow.md](password-reset-flow.md)), ~~email verification~~ (done, see [email-verification-flow.md](email-verification-flow.md)), ~~server-side quiz progress~~ (done, see [quiz-progress-flow.md](quiz-progress-flow.md)).
+~~TOTP 2FA~~ (done, see [two-factor-flow.md](two-factor-flow.md)), ~~Google sign-in~~ (done, see [google-sign-in-flow.md](google-sign-in-flow.md)), ~~password reset~~ (done, see [password-reset-flow.md](password-reset-flow.md)), ~~email verification~~ (done, see [email-verification-flow.md](email-verification-flow.md)), ~~server-side quiz progress~~ (done, see [quiz-progress-flow.md](quiz-progress-flow.md)).

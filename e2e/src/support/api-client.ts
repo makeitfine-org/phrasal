@@ -44,6 +44,11 @@ export class ApiClient {
         return this.client.get(path);
     }
 
+    /** For the `302` checks: the redirect itself is the answer, so it is not followed. */
+    async getWithoutRedirect(path: string): Promise<AxiosResponse> {
+        return this.client.get(path, { maxRedirects: 0 });
+    }
+
     async post(path: string, data?: unknown, options: WriteOptions = {}): Promise<AxiosResponse> {
         return this.client.post(path, data, await this.writeConfig(options, data !== undefined));
     }

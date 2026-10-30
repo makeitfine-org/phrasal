@@ -2629,3 +2629,50 @@
   - docs/diagrams/account-management-flow.md (account/ was modified)
   - docs/diagrams/auth-flow.md (auth/ was modified)
 <!-- end-diagram-staleness -->
+
+<!-- git-snapshot 2026-10-30T19:04:26Z -->
+- .claude/docs/blackbox/audit.md
+- .claude/docs/blackbox/todos/google-account-todos.md
+<!-- end-snapshot -->
+
+<!-- git-snapshot 2026-10-30T19:13:42Z -->
+- .claude/docs/blackbox/audit.md
+- .claude/docs/blackbox/plans/2026-10-26 18:10 Multi-user accounts TOTP 2FA and reliable storage for phrasal.md
+- .claude/docs/blackbox/session-log.md
+- .claude/docs/blackbox/todos/google-account-todos.md
+- README.md
+- backend/CLAUDE.md
+- backlog/tasks/task-103 - Add-sign-up-login-2FA-and-account-screens-to-the-frontend-and-sync-quiz-progress-for-logged-in-users.md
+- backlog/tasks/task-104 - Let-users-sign-in-with-their-Google-account.md
+- backlog/tasks/task-106 - Set-up-a-real-domain-transactional-email-and-Google-OAuth-for-production.md
+- docs/diagrams/account-management-flow.md
+- docs/diagrams/auth-flow.md
+- docs/diagrams/two-factor-flow.md
+- e2e/.env.example
+- e2e/CLAUDE.md
+- e2e/src/hooks.ts
+- e2e/src/support/api-client.ts
+- e2e/src/support/db-client.ts
+- e2e/src/world.ts
+<!-- end-snapshot -->
+
+<!-- git-snapshot 2026-10-30T19:17:42Z -->
+- .claude/docs/blackbox/audit.md
+- .claude/docs/blackbox/plans/2026-10-26 18:10 Multi-user accounts TOTP 2FA and reliable storage for phrasal.md
+- .claude/docs/blackbox/session-log.md
+- .claude/docs/blackbox/todos/google-account-todos.md
+- README.md
+- backend/CLAUDE.md
+- backlog/tasks/task-103 - Add-sign-up-login-2FA-and-account-screens-to-the-frontend-and-sync-quiz-progress-for-logged-in-users.md
+- backlog/tasks/task-104 - Let-users-sign-in-with-their-Google-account.md
+- backlog/tasks/task-106 - Set-up-a-real-domain-transactional-email-and-Google-OAuth-for-production.md
+- docs/diagrams/account-management-flow.md
+- docs/diagrams/auth-flow.md
+- docs/diagrams/two-factor-flow.md
+- e2e/.env.example
+- e2e/CLAUDE.md
+- e2e/src/hooks.ts
+- e2e/src/support/api-client.ts
+- e2e/src/support/db-client.ts
+- e2e/src/world.ts
+<!-- end-snapshot -->

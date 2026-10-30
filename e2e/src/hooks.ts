@@ -5,6 +5,7 @@ import { createDbClient } from './support/db-client';
 import { deleteMessagesTo } from './support/mailpit-client';
 import { TEST_EMAIL_PATTERN } from './support/test-users';
 import { resetAdminTwoFactor } from './support/admin-two-factor';
+import { waitForMockProvider } from './support/mock-oauth2';
 import dotenv from 'dotenv';
 
 dotenv.config();
@@ -16,6 +17,7 @@ setDefaultTimeout(30_000);
 let browser: Browser | null = null;
 
 BeforeAll(async function () {
+    await waitForMockProvider();
     await resetAdminTwoFactor();
     browser = await chromium.launch({ headless: true });
 });
@@ -54,6 +56,7 @@ Before(function () {
     this.recoveryCodes = [];
     this.previousRecoveryCodes = [];
     this.lastTotpStep = null;
+    this.googleSubject = null;
 });
 
 After(async function () {

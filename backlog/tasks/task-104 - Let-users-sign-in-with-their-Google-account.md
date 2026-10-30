@@ -4,7 +4,7 @@ title: Let users sign in with their Google account
 status: In Progress
 assignee: []
 created_date: '2026-10-26T17:38:00Z'
-updated_date: '2026-10-30T16:56:00Z'
+updated_date: '2026-10-30T19:13:00Z'
 labels:
   - multi-user
   - security
@@ -57,21 +57,21 @@ Many visitors would rather not create yet another password. Google sign-in gives
 
 ## Acceptance Criteria
 <!-- AC:BEGIN -->
-- [ ] #1 A 'Sign in with Google' button on the Login and Register pages starts the Google flow. On success the user lands back in the app logged in.
-- [ ] #2 A first-time Google user gets a new verified USER account. A returning Google user is matched by their Google subject.
-- [ ] #3 A Google login whose verified email matches an existing account links to that account. An unverified Google email never links.
-- [ ] #4 When a Google login links to an existing unverified local account, that account's password is removed.
-- [ ] #5 A Google login to an account with 2FA enabled requires the TOTP or recovery code step before a session is created.
-- [ ] #6 A cancelled or failed Google login returns the user to the login page with a readable error.
+- [x] #1 A 'Sign in with Google' button on the Login and Register pages starts the Google flow. On success the user lands back in the app logged in.
+- [x] #2 A first-time Google user gets a new verified USER account. A returning Google user is matched by their Google subject.
+- [x] #3 A Google login whose verified email matches an existing account links to that account. An unverified Google email never links.
+- [x] #4 When a Google login links to an existing unverified local account, that account's password is removed.
+- [x] #5 A Google login to an account with 2FA enabled requires the TOTP or recovery code step before a session is created.
+- [x] #6 A cancelled or failed Google login returns the user to the login page with a readable error.
 - [ ] #7 In production the OAuth redirect URI uses https and the real domain.
 - [x] #8 A new Flyway migration stores the Google subject per user. Existing migrations are not edited.
-- [ ] #9 Google client id and secret env vars are wired into docker-compose (optional locally), k8s base/prod and CI. docker-compose wires a mock-oauth2-server stand-in provider for local dev and e2e; the k8s dev overlay keeps Google sign-in off. No secrets are committed.
-- [ ] #10 Integration tests cover the new-user, link-by-verified-email, unverified-email refusal and 2FA-pending branches. Vitest covers the button.
-- [ ] #11 README.md documents the Google setup (OAuth client, redirect URIs, env vars). backend/CLAUDE.md documents the account-linking rules.
+- [x] #9 Google client id and secret env vars are wired into docker-compose (optional locally), k8s base/prod and CI. docker-compose wires a mock-oauth2-server stand-in provider for local dev and e2e; the k8s dev overlay keeps Google sign-in off. No secrets are committed.
+- [x] #10 Integration tests cover the new-user, link-by-verified-email, unverified-email refusal and 2FA-pending branches. Vitest covers the button.
+- [x] #11 README.md documents the Google setup (OAuth client, redirect URIs, env vars). backend/CLAUDE.md documents the account-linking rules.
 - [ ] #12 `make clean build` passes
-- [ ] #13 `GET /api/v1/auth/providers` reports whether Google sign-in is on; the button is hidden when it is off
-- [ ] #14 Google sign-in to an ADMIN account is refused with a readable error
-- [ ] #15 An account without a password can set one through the emailed reset link from the account security page
+- [x] #13 `GET /api/v1/auth/providers` reports whether Google sign-in is on; the button is hidden when it is off
+- [x] #14 Google sign-in to an ADMIN account is refused with a readable error
+- [x] #15 An account without a password can set one through the emailed reset link from the account security page
 <!-- AC:END -->
 
 ## Implementation Notes
@@ -86,4 +86,6 @@ Many visitors would rather not create yet another password. Google sign-in gives
 - **Principal stays `AuthenticatedUser`:** request-attribute `SecurityContextRepository` on `oauth2Login`, no-op authorized-client repository (Google tokens never kept), userinfo call off when supported.
 - **Accounts without a password:** password login keeps the generic 401; change password/email, delete and 2FA setup keep requiring the password; such users set one through forgot-password → reset-password (no new endpoint). `AuthenticatedUser.passwordless`, `UserResponse.hasPassword`.
 - **Local dev/e2e:** `mock-oauth2-server` in docker-compose (like Mailpit for Brevo). k8s dev overlay keeps Google off.
+
+2026-10-30: Implemented on branch google-sign-in (Phases 0-11 of .claude/docs/blackbox/todos/google-account-todos.md). Tests: backend integration (FakeGoogle), Vitest for the button, error texts and set-password panel, and 13 e2e scenarios against mock-oauth2. Docs: README 'Sign in with Google', backend/CLAUDE.md, e2e/CLAUDE.md, docs/diagrams/google-sign-in-flow.md. AC #7 (prod https redirect URI), #12 (final make clean build) and the real-Google check wait for Phase 12/13 and task-106 AC #4/#5.
 <!-- SECTION:NOTES:END -->
