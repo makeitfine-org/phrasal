@@ -15,6 +15,7 @@ import RegisterPage from './pages/RegisterPage';
 import VerifyEmailPage from './pages/VerifyEmailPage';
 import ForgotPasswordPage from './pages/ForgotPasswordPage';
 import ResetPasswordPage from './pages/ResetPasswordPage';
+import AccountSecurityPage from './pages/AccountSecurityPage';
 import NotFoundPage from './pages/NotFoundPage';
 import ErrorBoundary from './components/ErrorBoundary';
 import PageShell from './components/PageShell';
@@ -42,6 +43,7 @@ ReactDOM.createRoot(document.getElementById('root')!).render(
             <Route path="/verify-email" element={<VerifyEmailPage />} />
             <Route path="/forgot-password" element={<ForgotPasswordPage />} />
             <Route path="/reset-password" element={<ResetPasswordPage />} />
+            <Route path="/account/security" element={<AccountSecurityPage />} />
             <Route path="*" element={<NotFoundPage />} />
           </Route>
         </Routes>

@@ -5014,3 +5014,17 @@ I'd like to exectue few separate prompt one by one in claude code in singe sessi
 ## 2026-10-30T01:03:49Z
 git add all changes and commit them with suitable message
 ---
+
+## 2026-10-30T01:05:10Z
+I'd like to exectue few separate prompts one by one in claude code in singe session with same context, including a few "/compact" commands. how's better to do that? Maybe with some sh script or recommend somethin?
+---
+
+## 2026-10-30T01:09:05Z
+Implement functionality from @.claude/docs/blackbox/todos/2FA-todos.md Phases: 9.               
+Don't forget to check off implemented boxes.
+On phase completion `make clean build` must pass successfully.
+---
+
+## 2026-10-30T01:16:56Z
+git add all changes and commit them with suitable message
+---

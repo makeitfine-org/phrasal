@@ -3,6 +3,7 @@ import { render, screen } from '@testing-library/react';
 import { MemoryRouter, Routes, Route, Outlet } from 'react-router-dom';
 import App from '../App';
 import HomePage from '../pages/HomePage';
+import AccountSecurityPage from '../pages/AccountSecurityPage';
 import NotFoundPage from '../pages/NotFoundPage';
 import LoginTwoFactorPage from '../pages/LoginTwoFactorPage';
 import LoginPage from '../pages/LoginPage';
@@ -42,6 +43,7 @@ function renderApp(initialPath: string) {
           <Route path="/verify-email" element={<VerifyEmailPage />} />
           <Route path="/forgot-password" element={<ForgotPasswordPage />} />
           <Route path="/reset-password" element={<ResetPasswordPage />} />
+          <Route path="/account/security" element={<AccountSecurityPage />} />
           <Route path="*" element={<NotFoundPage />} />
         </Route>
       </Routes>
@@ -74,6 +76,12 @@ describe('Page reload — router renders correct page, no console errors', () =>
     renderApp('/login/2fa');
     expect(screen.getByRole('heading', { name: 'Two-factor authentication' })).toBeInTheDocument();
     expect(screen.getByTestId('nav-menu')).toBeInTheDocument();
+  });
+
+  it('reload /account/security renders inside the shell (anonymous goes to login)', () => {
+    renderApp('/account/security');
+    expect(screen.getByTestId('nav-menu')).toBeInTheDocument();
+    expect(screen.getByRole('heading', { name: 'Log in' })).toBeInTheDocument();
   });
 
   it('reload /register renders the register page inside the shell', () => {

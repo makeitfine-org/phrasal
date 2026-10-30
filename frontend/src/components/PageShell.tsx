@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import NavigationMenu from './NavigationMenu';
+import TwoFactorEnrollmentBanner from './TwoFactorEnrollmentBanner';
 
 const STORAGE_KEY = 'phrasalQuizState';
 const DARK_SCHEME_QUERY = '(prefers-color-scheme: dark)';
@@ -31,6 +32,7 @@ export default function PageShell({ children }: { children: React.ReactNode }) {
         Skip to content
       </a>
       <NavigationMenu darkMode={darkMode} onToggleDarkMode={() => setDarkMode(d => !d)} />
+      <TwoFactorEnrollmentBanner />
       <main id="main-content">
         {children}
       </main>

@@ -1114,42 +1114,42 @@ So `make clean build` passes after every phase. **Don't release from the branch 
 ## Phase 9 — Frontend: account security page, user menu entry, admin banner
 
 ### 9.1 Dependency and building blocks
-- [ ] **9.1.1** `cd frontend && npm install qrcode && npm install --save-dev @types/qrcode` (versions from 0.5).
-- [ ] **9.1.2** `src/components/twoFactor/QrCode.tsx`:
-  - [ ] `useEffect` → `QRCode.toDataURL(value, { errorCorrectionLevel: 'M', margin: 1, width: 200 })` → `<img>` with
+- [x] **9.1.1** `cd frontend && npm install qrcode && npm install --save-dev @types/qrcode` (versions from 0.5).
+- [x] **9.1.2** `src/components/twoFactor/QrCode.tsx`:
+  - [x] `useEffect` → `QRCode.toDataURL(value, { errorCorrectionLevel: 'M', margin: 1, width: 200 })` → `<img>` with
         `alt="QR code for your authenticator app"`, `data-testid="two-factor-qr"`, and a white background in dark mode
         too (scanners need contrast)
-  - [ ] on error → render nothing (the manual key below is the fallback)
-  - [ ] ignore a late result after unmount (an `active` flag)
-- [ ] **9.1.3** `src/utils/recoveryCodesFile.ts`:
-  - [ ] `recoveryCodesText(email, codes, now)` → a header ("Phrasal recovery codes for …, created …; each code works
+  - [x] on error → render nothing (the manual key below is the fallback)
+  - [x] ignore a late result after unmount (an `active` flag)
+- [x] **9.1.3** `src/utils/recoveryCodesFile.ts`:
+  - [x] `recoveryCodesText(email, codes, now)` → a header ("Phrasal recovery codes for …, created …; each code works
         once"), then one code per line
-  - [ ] `downloadRecoveryCodes(text)` → Blob + `URL.createObjectURL` + a temporary `<a download="phrasal-recovery-codes.txt">`,
+  - [x] `downloadRecoveryCodes(text)` → Blob + `URL.createObjectURL` + a temporary `<a download="phrasal-recovery-codes.txt">`,
         then `revokeObjectURL`
-- [ ] **9.1.4** `src/utils/formatSecret.ts`: `formatSecret('ABCDEFGH…')` → `'ABCD EFGH …'` (groups of 4, for manual
+- [x] **9.1.4** `src/utils/formatSecret.ts`: `formatSecret('ABCDEFGH…')` → `'ABCD EFGH …'` (groups of 4, for manual
       entry).
-- [ ] **9.1.5** `src/components/twoFactor/RecoveryCodesPanel.tsx`:
-  - [ ] a warning "Save these codes now. They are shown only once. Each works once."
-  - [ ] the codes in a monospace grid (`data-testid="recovery-code"` per code)
-  - [ ] buttons "Download" (`recovery-codes-download`), "Copy" (`recovery-codes-copy`; `navigator.clipboard.writeText`,
+- [x] **9.1.5** `src/components/twoFactor/RecoveryCodesPanel.tsx`:
+  - [x] a warning "Save these codes now. They are shown only once. Each works once."
+  - [x] the codes in a monospace grid (`data-testid="recovery-code"` per code)
+  - [x] buttons "Download" (`recovery-codes-download`), "Copy" (`recovery-codes-copy`; `navigator.clipboard.writeText`,
         then "Copied" for 2 s) and "I have saved my codes" (`recovery-codes-done`, calls `onDone`)
-- [ ] **9.1.6** `src/components/twoFactor/CodeForm.tsx`: one reusable form "code + submit". It accepts a TOTP or a
+- [x] **9.1.6** `src/components/twoFactor/CodeForm.tsx`: one reusable form "code + submit". It accepts a TOTP or a
       recovery code (text input, `autoComplete="one-time-code"`), with props `label`, `submitLabel`, `onSubmit(code)`,
       `testIdPrefix`. It shows the `invalid-two-factor-code` field error and other errors in an alert. Used by confirm,
       regenerate and disable.
-- [ ] **9.1.7** Tests:
-  - [ ] `src/__tests__/twoFactor/QrCode.test.tsx` (`vi.mock('qrcode')`): renders the `<img>` with the data URL; an error
+- [x] **9.1.7** Tests:
+  - [x] `src/__tests__/twoFactor/QrCode.test.tsx` (`vi.mock('qrcode')`): renders the `<img>` with the data URL; an error
         → nothing; no state update after unmount
-  - [ ] `src/__tests__/utils/recoveryCodesFile.test.ts`: the text has every code on its own line; download creates and
+  - [x] `src/__tests__/utils/recoveryCodesFile.test.ts`: the text has every code on its own line; download creates and
         revokes the object URL and clicks the anchor (mocked)
-  - [ ] `src/__tests__/utils/formatSecret.test.ts`: groups of 4; empty string
-  - [ ] `src/__tests__/twoFactor/RecoveryCodesPanel.test.tsx`: shows 10 codes; Copy calls the clipboard and shows
+  - [x] `src/__tests__/utils/formatSecret.test.ts`: groups of 4; empty string
+  - [x] `src/__tests__/twoFactor/RecoveryCodesPanel.test.tsx`: shows 10 codes; Copy calls the clipboard and shows
         "Copied"; Download calls the util; Done calls `onDone`
-  - [ ] `src/__tests__/twoFactor/CodeForm.test.tsx`: submits the trimmed code; field error for invalid code; alert for
+  - [x] `src/__tests__/twoFactor/CodeForm.test.tsx`: submits the trimmed code; field error for invalid code; alert for
         other errors; pending disables
 
 ### 9.2 Setup wizard: `src/components/twoFactor/TwoFactorSetup.tsx`
-- [ ] **9.2.1** Steps, kept in local state `'password' | 'scan' | 'codes'`:
+- [x] **9.2.1** Steps, kept in local state `'password' | 'scan' | 'codes'`:
   1. **password**: "Confirm your password to turn on two-factor authentication" → `startTwoFactorSetup(password)`;
      `wrong-password` → field error under the password (`two-factor-password`, `two-factor-password-submit`)
   2. **scan**:
@@ -1157,64 +1157,64 @@ So `make clean build` passes after every phase. **Don't release from the branch 
        (`data-testid="two-factor-secret"`, `select-all`)
      - then `<CodeForm>` "Enter the 6-digit code from the app" → `confirmTwoFactorSetup(code)` (`two-factor-confirm-*`)
   3. **codes**: `<RecoveryCodesPanel>`. On Done → `refresh()` (the admin gets elevated rights, decision 10) → `onEnabled()`.
-- [ ] **9.2.2** "Cancel" in step 2 → back to the status view. The pending secret stays unused on the server, and a new
+- [x] **9.2.2** "Cancel" in step 2 → back to the status view. The pending secret stays unused on the server, and a new
       setup replaces it.
-- [ ] **9.2.3** `src/__tests__/twoFactor/TwoFactorSetup.test.tsx` (mock `twoFactorApi` and `qrcode`):
-  - [ ] wrong password → field error, still on the password step
-  - [ ] right password → QR + grouped secret shown
-  - [ ] wrong code → field error, still on scan
-  - [ ] right code → 10 recovery codes shown
-  - [ ] Done → `refresh` + `onEnabled` called
-  - [ ] Cancel → `onCancel`
+- [x] **9.2.3** `src/__tests__/twoFactor/TwoFactorSetup.test.tsx` (mock `twoFactorApi` and `qrcode`):
+  - [x] wrong password → field error, still on the password step
+  - [x] right password → QR + grouped secret shown
+  - [x] wrong code → field error, still on scan
+  - [x] right code → 10 recovery codes shown
+  - [x] Done → `refresh` + `onEnabled` called
+  - [x] Cancel → `onCancel`
 
 ### 9.3 Page: `src/pages/AccountSecurityPage.tsx` (route `/account/security`)
-- [ ] **9.3.1** Access:
-  - [ ] `status === 'loading'` → nothing (or a small skeleton)
-  - [ ] `anonymous` → `<Navigate to="/login" replace state={{ from: '/account/security' }} />`
-- [ ] **9.3.2** Content (heading "Account security", the email shown):
-  - [ ] loads `fetchTwoFactorStatus()`; on error → alert + "Try again"
-  - [ ] **off**: "Two-factor authentication is off" + button "Turn on" (`two-factor-enable`) → `<TwoFactorSetup>`.
+- [x] **9.3.1** Access:
+  - [x] `status === 'loading'` → nothing (or a small skeleton)
+  - [x] `anonymous` → `<Navigate to="/login" replace state={{ from: '/account/security' }} />`
+- [x] **9.3.2** Content (heading "Account security", the email shown):
+  - [x] loads `fetchTwoFactorStatus()`; on error → alert + "Try again"
+  - [x] **off**: "Two-factor authentication is off" + button "Turn on" (`two-factor-enable`) → `<TwoFactorSetup>`.
         For an admin, the text says "Required for administrators: content editing stays locked until you turn this on."
-  - [ ] **on**: "Two-factor authentication is on since <date>" (`two-factor-status`) + "Recovery codes left: N"
+  - [x] **on**: "Two-factor authentication is on since <date>" (`two-factor-status`) + "Recovery codes left: N"
         (`recovery-codes-remaining`). When N ≤ 3, a warning "Generate new codes soon".
-  - [ ] "Generate new recovery codes" (`recovery-codes-regenerate`) → `<CodeForm>` → `<RecoveryCodesPanel>` → reload
+  - [x] "Generate new recovery codes" (`recovery-codes-regenerate`) → `<CodeForm>` → `<RecoveryCodesPanel>` → reload
         the status
-  - [ ] "Turn off" (`two-factor-disable`) → a confirmation text (and for admins "You will lose admin rights until you
+  - [x] "Turn off" (`two-factor-disable`) → a confirmation text (and for admins "You will lose admin rights until you
         turn it on again") → `<CodeForm>` → `disableTwoFactor` → `refresh()` + reload the status
-- [ ] **9.3.3** `src/main.tsx`: `<Route path="/account/security" element={<AccountSecurityPage />} />` before `*`.
-- [ ] **9.3.4** `src/__tests__/AccountSecurityPage.test.tsx`:
-  - [ ] anonymous → redirected to `/login` with `from`
-  - [ ] loading → nothing
-  - [ ] off → "Turn on" visible; admin text only for an admin
-  - [ ] on → date + remaining count; ≤ 3 → warning
-  - [ ] regenerate flow → new codes shown, status reloaded
-  - [ ] disable flow → `disableTwoFactor` + `refresh` called, status reloaded
-  - [ ] status load error → alert + retry works
-- [ ] **9.3.5** `src/__tests__/routeReload.test.tsx`: `/account/security` renders inside the shell.
+- [x] **9.3.3** `src/main.tsx`: `<Route path="/account/security" element={<AccountSecurityPage />} />` before `*`.
+- [x] **9.3.4** `src/__tests__/AccountSecurityPage.test.tsx`:
+  - [x] anonymous → redirected to `/login` with `from`
+  - [x] loading → nothing
+  - [x] off → "Turn on" visible; admin text only for an admin
+  - [x] on → date + remaining count; ≤ 3 → warning
+  - [x] regenerate flow → new codes shown, status reloaded
+  - [x] disable flow → `disableTwoFactor` + `refresh` called, status reloaded
+  - [x] status load error → alert + retry works
+- [x] **9.3.5** `src/__tests__/routeReload.test.tsx`: `/account/security` renders inside the shell.
 
 ### 9.4 User menu and admin banner
-- [ ] **9.4.1** `src/components/UserMenu.tsx`: an "Account security" link (`/account/security`,
+- [x] **9.4.1** `src/components/UserMenu.tsx`: an "Account security" link (`/account/security`,
       `data-testid="nav-account-security"` desktop / `${prefix}-account-security` mobile), between the email and
       "Log out". It closes the menu on click.
-- [ ] **9.4.2** `src/components/TwoFactorEnrollmentBanner.tsx`:
-  - [ ] renders only when `user?.twoFactorEnrollmentRequired` and the path isn't `/account/security`
-  - [ ] text "Administrators must turn on two-factor authentication before editing content." + link "Set it up"
+- [x] **9.4.2** `src/components/TwoFactorEnrollmentBanner.tsx`:
+  - [x] renders only when `user?.twoFactorEnrollmentRequired` and the path isn't `/account/security`
+  - [x] text "Administrators must turn on two-factor authentication before editing content." + link "Set it up"
         → `/account/security`
-  - [ ] `role="status"`, `data-testid="two-factor-enrollment-banner"`, amber colours with `dark:` variants
-- [ ] **9.4.3** `src/components/PageShell.tsx`: render the banner below the navigation.
-- [ ] **9.4.4** Tests:
-  - [ ] `src/__tests__/UserMenu.test.tsx`: the link is visible when authenticated (desktop + mobile), hidden when
+  - [x] `role="status"`, `data-testid="two-factor-enrollment-banner"`, amber colours with `dark:` variants
+- [x] **9.4.3** `src/components/PageShell.tsx`: render the banner below the navigation.
+- [x] **9.4.4** Tests:
+  - [x] `src/__tests__/UserMenu.test.tsx`: the link is visible when authenticated (desktop + mobile), hidden when
         anonymous; clicking it closes the dropdown
-  - [ ] `src/__tests__/TwoFactorEnrollmentBanner.test.tsx`: shown for an unenrolled admin; hidden for a user, for an
+  - [x] `src/__tests__/TwoFactorEnrollmentBanner.test.tsx`: shown for an unenrolled admin; hidden for a user, for an
         enrolled admin, for anonymous visitors, and on `/account/security`
-  - [ ] `src/__tests__/PageShell.test.tsx`: the existing tests still pass (the default context is anonymous); the banner
+  - [x] `src/__tests__/PageShell.test.tsx`: the existing tests still pass (the default context is anonymous); the banner
         appears with an unenrolled-admin context
 
 ### 9.5 Verify and commit
-- [ ] **9.5.1** `npm --prefix frontend run test:run && npm --prefix frontend run build` → green. Check the bundle-size
+- [x] **9.5.1** `npm --prefix frontend run test:run && npm --prefix frontend run build` → green. Check the bundle-size
       line of the build: `qrcode` adds about 25 kB gzip. If the build warns about chunk size, lazy-load
       `AccountSecurityPage` with `React.lazy`.
-- [ ] **9.5.2** `make clean build` → green. Ask for commit approval →
+- [x] **9.5.2** `make clean build` → green. Ask for commit approval →
       `feat(frontend): add account security page with 2FA setup and recovery codes`
 
 ---

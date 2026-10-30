@@ -2208,3 +2208,22 @@
 ⚠️  Diagrams that may need updating:
   - docs/diagrams/auth-flow.md (auth/ was modified)
 <!-- end-diagram-staleness -->
+
+<!-- git-snapshot 2026-10-30T01:05:17Z -->
+- .claude/docs/blackbox/audit.md
+<!-- end-snapshot -->
+
+<!-- git-snapshot 2026-10-30T01:16:42Z -->
+- .claude/docs/blackbox/audit.md
+- .claude/docs/blackbox/session-log.md
+- .claude/docs/blackbox/todos/2FA-todos.md
+- frontend/CLAUDE.md
+- frontend/package-lock.json
+- frontend/package.json
+- frontend/src/__tests__/PageShell.test.tsx
+- frontend/src/__tests__/UserMenu.test.tsx
+- frontend/src/__tests__/routeReload.test.tsx
+- frontend/src/components/PageShell.tsx
+- frontend/src/components/UserMenu.tsx
+- frontend/src/main.tsx
+<!-- end-snapshot -->

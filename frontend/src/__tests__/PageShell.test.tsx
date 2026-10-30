@@ -3,6 +3,7 @@ import { render, screen } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
 import { MemoryRouter, Routes, Route, Outlet } from 'react-router-dom';
 import PageShell from '../components/PageShell';
+import { AuthContext, type AuthContextValue } from '../auth/AuthContext';
 
 function renderWithShell(initialPath: string = '/') {
   return render(
@@ -243,5 +244,25 @@ describe('PageShell — dark mode toggle aria-label', () => {
     renderWithShell('/');
     await user.click(screen.getByTitle('Toggle Dark/Light Mode'));
     expect(screen.getByTitle('Toggle Dark/Light Mode')).toHaveAttribute('aria-label', 'Switch to light mode');
+  });
+});
+
+describe('PageShell — two-factor enrollment banner', () => {
+  it('shows the banner for an unenrolled admin', () => {
+    const value = {
+      status: 'authenticated',
+      user: { id: 1, email: 'a@x.co', role: 'ADMIN', twoFactorEnabled: false, twoFactorEnrollmentRequired: true },
+    } as unknown as AuthContextValue;
+    render(
+      <AuthContext.Provider value={value}>
+        <MemoryRouter><Routes><Route element={<PageShell><Outlet /></PageShell>}><Route path="/" element={<div>Home</div>} /></Route></Routes></MemoryRouter>
+      </AuthContext.Provider>
+    );
+    expect(screen.getByTestId('two-factor-enrollment-banner')).toBeInTheDocument();
+  });
+
+  it('shows no banner for anonymous visitors', () => {
+    renderWithShell('/');
+    expect(screen.queryByTestId('two-factor-enrollment-banner')).toBeNull();
   });
 });

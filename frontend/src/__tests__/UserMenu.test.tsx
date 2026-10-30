@@ -89,4 +89,24 @@ describe('UserMenu', () => {
     await waitFor(() => expect(screen.getByText('home')).toBeInTheDocument());
     expect(value.logout).toHaveBeenCalled();
   });
+
+  it('desktop dropdown has an Account security link that closes the menu', () => {
+    renderMenu(ctx({ status: 'authenticated', user: plain }));
+    fireEvent.click(screen.getByTestId('user-menu'));
+    const link = screen.getByTestId('nav-account-security');
+    expect(link).toHaveAttribute('href', '/account/security');
+    fireEvent.click(link);
+    expect(screen.queryByTestId('user-menu-dropdown')).toBeNull();
+  });
+
+  it('mobile variant has an Account security link', () => {
+    renderMenu(ctx({ status: 'authenticated', user: plain }), 'mobile');
+    expect(screen.getByTestId('nav-mobile-account-security')).toHaveAttribute('href', '/account/security');
+  });
+
+  it('hides the Account security link when anonymous', () => {
+    renderMenu(ctx());
+    expect(screen.queryByTestId('nav-account-security')).toBeNull();
+    expect(screen.queryByTestId('nav-mobile-account-security')).toBeNull();
+  });
 });

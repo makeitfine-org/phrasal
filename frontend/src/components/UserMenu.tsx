@@ -65,6 +65,12 @@ export default function UserMenu({ variant = 'desktop', onNavigate }: UserMenuPr
           <span className="truncate">{user.email}</span>
           {user.role === 'ADMIN' && <AdminBadge />}
         </div>
+        <Link
+          to="/account/security" onClick={onNavigate} data-testid={`${prefix}-account-security`}
+          className={`${linkClass} -ml-3 block`}
+        >
+          Account security
+        </Link>
         <button onClick={handleLogout} data-testid={`${prefix}-logout`} className={`${linkClass} -ml-3`}>
           Log out
         </button>
@@ -92,6 +98,12 @@ export default function UserMenu({ variant = 'desktop', onNavigate }: UserMenuPr
             <span className="truncate">{user.email}</span>
             {user.role === 'ADMIN' && <AdminBadge />}
           </div>
+          <Link
+            to="/account/security" onClick={() => setOpen(false)} data-testid={`${prefix}-account-security`}
+            className="block px-4 py-2 text-sm text-gray-700 dark:text-gray-300 hover:bg-gray-50 dark:hover:bg-gray-800"
+          >
+            Account security
+          </Link>
           <button
             onClick={handleLogout}
             data-testid="nav-logout"

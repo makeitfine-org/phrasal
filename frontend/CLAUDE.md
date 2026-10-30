@@ -54,6 +54,10 @@ Register no longer logs the user in: `RegisterPage` shows a check-your-inbox pan
 
 `AuthContext.login` resolves to `'two-factor-required'` when the password was right but a code is needed; the visitor stays anonymous and `LoginPage` navigates to `/login/2fa` (router state `from` is kept). `LoginTwoFactorPage` calls `completeTwoFactorLogin(code)` (then `refresh()`), takes an authenticator code (`two-factor-code`) or a recovery code (`two-factor-recovery-code`, toggled by `two-factor-use-recovery`), shows `Invalid or already used code` under the field (`two-factor-error`) and an alert with a "Log in again" link when the server answers `two-factor-login-expired`. `CurrentUser` carries `twoFactorEnabled` and `twoFactorEnrollmentRequired`.
 
+### Account security (`/account/security`)
+
+`AccountSecurityPage` (anonymous → `/login` with `from`) loads `fetchTwoFactorStatus()` and switches between views: status (`two-factor-status`, `recovery-codes-remaining`, a warning at 3 codes or fewer), setup, regenerate, new codes and disable. `components/twoFactor/`: `TwoFactorSetup` (password → QR + grouped key → code → recovery codes; Done calls `refresh()` because an admin gains rights on enabling), `CodeForm` (one code field for confirm/regenerate/disable, test ids `<prefix>-code|submit|error|alert`), `RecoveryCodesPanel` (Download/Copy/Done) and `QrCode` (`qrcode` data URL; renders nothing on error, the manual key is the fallback). Utils: `formatSecret`, `recoveryCodesFile`. `UserMenu` has an "Account security" link (`nav-account-security`, `nav-mobile-account-security`); `TwoFactorEnrollmentBanner` (in `PageShell`) shows for an admin with `twoFactorEnrollmentRequired` outside the security page.
+
 ### Data-fetching Hooks (`src/hooks/`)
 
 | Hook | Used by |
