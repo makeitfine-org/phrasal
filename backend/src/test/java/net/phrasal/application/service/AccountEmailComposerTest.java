@@ -82,6 +82,32 @@ class AccountEmailComposerTest {
     }
 
     @Test
+    @DisplayName("account-exists notice tells Google sign-ups how to get in, in text and HTML")
+    void accountExistsMentionsGoogle() {
+        EmailMessage message = composer("https://phrasalbox.com", Duration.ofHours(24)).accountExists("a@b.com");
+
+        assertThat(message.text()).contains("If you signed up with Google, use \"Continue with Google\" on the login "
+                + "page, or reset your password to add one.");
+        assertThat(message.html()).contains("&quot;Continue with Google&quot;").contains("reset\nyour password");
+    }
+
+    @Test
+    @DisplayName("the other mails do not mention Google")
+    void otherMailsDoNotMentionGoogle() {
+        AccountEmailComposer composer = composer("https://phrasalbox.com", Duration.ofHours(24));
+
+        List<EmailMessage> others = List.of(composer.verification("a@b.com", TOKEN),
+                composer.passwordReset("a@b.com", TOKEN), composer.passwordChanged("a@b.com"),
+                composer.twoFactorChanged("a@b.com", true), composer.emailChangeConfirmation("a@b.com", TOKEN),
+                composer.emailChanged("a@b.com", "c@d.com"), composer.accountDeleted("a@b.com"));
+
+        for (EmailMessage message : others) {
+            assertThat(message.text()).doesNotContain("Google");
+            assertThat(message.html()).doesNotContain("Google");
+        }
+    }
+
+    @Test
     @DisplayName("reset link uses the base URL, the reset path and the raw token")
     void resetLinkParts() {
         EmailMessage message = composer("https://phrasalbox.com", Duration.ofHours(24)).passwordReset("a@b.com", TOKEN);

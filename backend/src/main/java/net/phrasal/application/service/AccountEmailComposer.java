@@ -83,6 +83,9 @@ public class AccountEmailComposer {
                 Log in here:
                 %s
 
+                If you signed up with Google, use "Continue with Google" on the login page, or reset your password \
+                to add one.
+
                 If this wasn't you, you can ignore this email.
                 """.formatted(link);
         String safeLink = HtmlUtils.htmlEscape(link);
@@ -91,6 +94,8 @@ public class AccountEmailComposer {
                 account.</p>
                 <p><a href="%1$s">Log in</a></p>
                 <p>Or copy this link into your browser:<br>%1$s</p>
+                <p>If you signed up with Google, use &quot;Continue with Google&quot; on the login page, or reset
+                your password to add one.</p>
                 <p>If this wasn't you, you can ignore this email.</p>
                 """.formatted(safeLink);
         return new EmailMessage(to, ACCOUNT_EXISTS_SUBJECT, text, html);

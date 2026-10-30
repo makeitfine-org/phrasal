@@ -8,11 +8,13 @@ import org.springframework.stereotype.Component;
 
 import java.time.Clock;
 import java.time.Instant;
+import java.util.Collections;
 import java.util.Optional;
 
 /**
- * The half-finished login of an account with 2FA: the password was right, the second factor is still missing. The
- * state lives in a fresh session that holds no security context, so it grants nothing by itself.
+ * The half-finished login of an account with 2FA: the first factor (password or Google) was right, the second factor
+ * is still missing. The state lives in a session with a new id that holds nothing else, no security context either,
+ * so it grants nothing by itself.
  */
 @Component
 @RequiredArgsConstructor
@@ -25,17 +27,27 @@ public class PendingTwoFactorLogin {
     private final TwoFactorProperties properties;
 
     /**
-     * Opens a pending login. Any current session, including a signed-in one, is ended first.
+     * Opens a pending login. Any current session, including a signed-in one, is emptied and gets a new id first, so
+     * the old id grants nothing and the pending state never sits under an id the browser had before.
+     *
+     * <p>Not {@code invalidate()} plus a new session: Spring Session JDBC changes an id only in memory until the
+     * session is saved, and Spring's session-fixation strategy changes it before a Google sign-in reaches us. An
+     * {@code invalidate()} after that deletes by the new id, the old row stays, and {@code getSession(true)} finds it
+     * again through the cookie.
      *
      * @param request the login request
-     * @param userId  the account whose password was verified
+     * @param userId  the account whose first factor was verified
      */
     public void start(HttpServletRequest request, Long userId) {
-        HttpSession current = request.getSession(false);
-        if (current != null) {
-            current.invalidate();
+        HttpSession session = request.getSession(false);
+        if (session == null) {
+            session = request.getSession(true);
+        } else {
+            for (String name : Collections.list(session.getAttributeNames())) {
+                session.removeAttribute(name);
+            }
+            request.changeSessionId();
         }
-        HttpSession session = request.getSession(true);
         session.setAttribute(USER_ID_ATTRIBUTE, userId);
         session.setAttribute(SINCE_ATTRIBUTE, clock.instant());
     }

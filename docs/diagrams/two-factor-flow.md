@@ -35,7 +35,7 @@ sequenceDiagram
 
     U->>B: POST /api/v1/auth/login {email, password}
     B->>B: rate limit, check password
-    B->>B: account has 2FA: end current session, open pending session (user id + start time)
+    B->>B: account has 2FA: empty current session, new session id, store pending login (user id + start time)
     B-->>U: 202 {twoFactorRequired: true} + pending SESSION cookie (no authorities)
     U->>B: POST /api/v1/auth/login/2fa {code}
     B->>B: pending login valid? (else 401 two-factor-login-expired)

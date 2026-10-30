@@ -139,17 +139,17 @@ class SecurityRulesIntegrationTest extends AbstractIntegrationTest {
     }
 
     @Test
-    @DisplayName("GET on the Google start URL redirects to Google")
+    @DisplayName("GET on the Google start URL redirects to the provider (the fake one in tests)")
     void googleStartRedirects() throws Exception {
-        mockMvc.perform(get("/api/v1/auth/oauth2/authorization/google"))
+        mockMvc.perform(get(GOOGLE_START))
                 .andExpect(status().isFound())
-                .andExpect(header().string("Location", startsWith("https://accounts.google.com/o/oauth2/v2/auth?")));
+                .andExpect(header().string("Location", startsWith(GOOGLE.authorizationUri() + "?")));
     }
 
     @Test
     @DisplayName("POST on the Google start URL without a CSRF token is refused, not redirected")
     void googleStartPostWithoutCsrf() throws Exception {
-        mockMvc.perform(MockMvcRequestBuilders.post("/api/v1/auth/oauth2/authorization/google"))
+        mockMvc.perform(MockMvcRequestBuilders.post(GOOGLE_START))
                 .andExpect(status().isForbidden())
                 .andExpect(header().doesNotExist("Location"));
     }

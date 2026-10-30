@@ -2556,3 +2556,16 @@
 - backend/src/test/java/net/phrasal/presentation/security/SessionAuthenticatorTest.java
 - backend/src/test/resources/application-test.yml
 <!-- end-snapshot -->
+
+<!-- git-snapshot 2026-10-30T18:35:50Z -->
+- .claude/docs/blackbox/audit.md
+- .claude/docs/blackbox/todos/google-account-todos.md
+- backend/CLAUDE.md
+- backend/src/main/java/net/phrasal/application/service/AccountEmailComposer.java
+- backend/src/main/java/net/phrasal/presentation/security/PendingTwoFactorLogin.java
+- backend/src/test/java/net/phrasal/application/service/AccountEmailComposerTest.java
+- backend/src/test/java/net/phrasal/integration/AbstractIntegrationTest.java
+- backend/src/test/java/net/phrasal/integration/SecurityRulesIntegrationTest.java
+- backend/src/test/java/net/phrasal/presentation/security/PendingTwoFactorLoginTest.java
+- docs/diagrams/two-factor-flow.md
+<!-- end-snapshot -->

@@ -2,6 +2,7 @@ package net.phrasal.integration;
 
 import com.jayway.jsonpath.JsonPath;
 import jakarta.servlet.http.Cookie;
+import net.phrasal.integration.support.FakeGoogle;
 import net.phrasal.integration.support.TotpTestCodes;
 import net.phrasal.integration.support.RecordingEmailSender;
 import net.phrasal.integration.support.RecordingEmailSenderConfig;
@@ -11,6 +12,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.webmvc.test.autoconfigure.AutoConfigureMockMvc;
 import org.springframework.context.annotation.Import;
+import org.springframework.mock.web.MockHttpServletResponse;
 import org.springframework.test.context.ActiveProfiles;
 import org.springframework.test.context.DynamicPropertyRegistry;
 import org.springframework.test.context.DynamicPropertySource;
@@ -20,19 +22,25 @@ import org.springframework.security.test.context.TestSecurityContextHolder;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.ResultActions;
 import org.springframework.test.web.servlet.request.RequestPostProcessor;
+import org.springframework.web.util.UriComponentsBuilder;
 import org.testcontainers.postgresql.PostgreSQLContainer;
 
+import java.net.URLDecoder;
+import java.nio.charset.StandardCharsets;
 import java.util.List;
 
 import static org.springframework.security.test.web.servlet.request.SecurityMockMvcRequestPostProcessors.csrf;
 import static org.springframework.security.test.web.servlet.request.SecurityMockMvcRequestPostProcessors.user;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.redirectedUrl;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
 /**
  * Base for integration tests: one Postgres container per JVM and one cached Spring context.
  * The container is started in a static block (singleton pattern) and stopped by Ryuk on JVM exit.
+ * Google sign-in talks to {@link FakeGoogle}, also one per JVM.
  */
 @SpringBootTest
 @AutoConfigureMockMvc
@@ -46,6 +54,10 @@ abstract class AbstractIntegrationTest {
             .withDatabaseName("phrasaldb_test")
             .withUsername("test")
             .withPassword("test");
+
+    static final FakeGoogle GOOGLE = FakeGoogle.instance();
+    static final String GOOGLE_START = "/api/v1/auth/oauth2/authorization/google";
+    static final String GOOGLE_CALLBACK = "/api/v1/auth/oauth2/code/google";
 
     static {
         POSTGRES.start();
@@ -68,12 +80,30 @@ abstract class AbstractIntegrationTest {
 
     }
 
+    /**
+     * A started Google sign-in, as the browser holds it while the visitor is at Google.
+     *
+     * @param session     the session cookie that holds the authorization request
+     * @param state       the {@code state} parameter of the redirect
+     * @param nonce       the {@code nonce} parameter of the redirect (already hashed)
+     * @param redirectUri the {@code redirect_uri} parameter of the redirect
+     */
+    protected record GoogleRedirect(Cookie session, String state, String nonce, String redirectUri) {
+
+    }
+
     /** Drops any authentication left on the thread by a previous login so tests stay order-independent. */
     @BeforeEach
     @AfterEach
     void clearSecurityContext() {
         SecurityContextHolder.clearContext();
         TestSecurityContextHolder.clearContext();
+    }
+
+    /** Forgets the claims and failures a previous test set on the fake provider. */
+    @BeforeEach
+    void resetFakeGoogle() {
+        GOOGLE.reset();
     }
 
     /** Authenticates the request as an ADMIN and attaches a valid CSRF token. */
@@ -177,10 +207,49 @@ abstract class AbstractIntegrationTest {
                 .content("{\"token\":\"" + token + "\"}").with(csrf()));
     }
 
+    /** Opens the Google start URL, expects the redirect to the provider and returns what the browser would keep. */
+    protected GoogleRedirect startGoogleSignIn() throws Exception {
+        MockHttpServletResponse response = mockMvc.perform(get(GOOGLE_START)).andExpect(status().isFound())
+                .andReturn().getResponse();
+        var query = UriComponentsBuilder.fromUriString(response.getRedirectedUrl()).build().getQueryParams();
+        return new GoogleRedirect(response.getCookie("SESSION"), decode(query.getFirst("state")),
+                decode(query.getFirst("nonce")), decode(query.getFirst("redirect_uri")));
+    }
+
+    /**
+     * Lets the fake provider issue an ID token for the account, then calls the callback the way Google's redirect
+     * would; the caller asserts the redirect.
+     */
+    protected ResultActions finishGoogleSignIn(GoogleRedirect redirect, String subject, String email,
+                                               boolean emailVerified) throws Exception {
+        GOOGLE.nextIdentity(subject, email, emailVerified);
+        GOOGLE.nextNonce(redirect.nonce());
+        var callback = get(GOOGLE_CALLBACK).param("code", "test-code").param("state", redirect.state());
+        if (redirect.session() != null) {
+            callback.cookie(redirect.session());
+        }
+        return mockMvc.perform(callback);
+    }
+
+    /** Signs in with a verified Google account, expects the redirect home and returns the new session cookie. */
+    protected Cookie googleSignIn(String subject, String email) throws Exception {
+        return finishGoogleSignIn(startGoogleSignIn(), subject, email, true)
+                .andExpect(status().isFound()).andExpect(redirectedUrl("/"))
+                .andReturn().getResponse().getCookie("SESSION");
+    }
+
+    private static String decode(String value) {
+        return value == null ? null : URLDecoder.decode(value, StandardCharsets.UTF_8);
+    }
+
     @DynamicPropertySource
     static void configureProperties(DynamicPropertyRegistry registry) {
         registry.add("spring.datasource.url", POSTGRES::getJdbcUrl);
         registry.add("spring.datasource.username", POSTGRES::getUsername);
         registry.add("spring.datasource.password", POSTGRES::getPassword);
+        registry.add("phrasal.google.authorization-uri", GOOGLE::authorizationUri);
+        registry.add("phrasal.google.token-uri", GOOGLE::tokenUri);
+        registry.add("phrasal.google.jwk-set-uri", GOOGLE::jwkSetUri);
+        registry.add("phrasal.google.issuer-uri", GOOGLE::issuer);
     }
 }

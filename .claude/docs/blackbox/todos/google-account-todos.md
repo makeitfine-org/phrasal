@@ -4,8 +4,8 @@ Source plan: `.claude/docs/blackbox/plans/2026-10-26 18:10 Multi-user accounts T
 (section P5). Backlog: **task-104**. It needs the Google OAuth client from **task-106** (AC #4, #5); publishing the
 consent screen stays in **task-105** (AC #6).
 
-> Status (2026-10-30): Phases 0–5 done on branch `google-sign-in`, except 0.7 (user actions in Google Cloud).
-> Phases 6–13 not started.
+> Status (2026-10-30): Phases 0–7 done on branch `google-sign-in`, except 0.7 (user actions in Google Cloud).
+> Phases 8–13 not started.
 
 Builds on what is already in `develop` (`cb933cc`):
 - password login with a pending 2FA step (`SessionAuthenticator`, `PendingTwoFactorLogin`, `POST /auth/login/2fa`)
@@ -629,18 +629,24 @@ Why: `oidcLogin()` from spring-security-test skips the callback, the success han
 provider lets MockMvc run the real redirect → callback → token → ID token check → session path.
 
 ### 6.1 Fake provider
-- [ ] **6.1.1** `integration/support/FakeGoogle.java`: a JDK `com.sun.net.httpserver.HttpServer` on a random port,
+- [x] **6.1.1** `integration/support/FakeGoogle.java`: a JDK `com.sun.net.httpserver.HttpServer` on a random port,
       started once per JVM (singleton, like the Postgres container). No new dependency.
-  - [ ] an RSA key from Nimbus `RSAKeyGenerator`; `GET /jwks` serves its public `JWKSet`
-  - [ ] `POST /token`: checks HTTP Basic `test-client:test-secret` (otherwise `401`), then returns
+      Bound to the loopback address; `FakeGoogle.instance()`; `authorizationUri()` (`/authorize`, never served: tests
+      stop at the redirect), `tokenUri()`, `jwkSetUri()`, `issuer()`.
+  - [x] an RSA key from Nimbus `RSAKeyGenerator`; `GET /jwks` serves its public `JWKSet`
+  - [x] `POST /token`: checks HTTP Basic `test-client:test-secret` (otherwise `401`), then returns
         `{access_token, token_type: "Bearer", expires_in, scope: "openid email profile", id_token}`
-  - [ ] the ID token is signed RS256 with claims `iss` (`http://localhost:<port>`), `aud` = `test-client`, `sub`,
+        Plus: `400 invalid_grant` without `grant_type=authorization_code`, a `code`, or a `nextIdentity`.
+  - [x] the ID token is signed RS256 with claims `iss` (`http://localhost:<port>`), `aud` = `test-client`, `sub`,
         `email`, `email_verified`, `nonce`, `iat`, `exp` (+5 min)
-  - [ ] `nextIdentity(String sub, String email, boolean verified)` and `nextNonce(String)` set the claims of the next
+  - [x] `nextIdentity(String sub, String email, boolean verified)` and `nextNonce(String)` set the claims of the next
         token; `nextAudience(String)` and `nextSigningKey(RSAKey)` exist only for the negative tests; `reset()` runs
         before each test
-  - [ ] `GET /userinfo` only if userinfo could not be turned off (0.5); it returns the same `sub`/`email`
-- [ ] **6.1.2** `../../../../backend/src/test/resources/application-test.yml`:
+        Plus `failNextTokenRequest()` (6.2.8) and `generateKey()`: a foreign key with the published key id, so only
+        the signature check can reject it. `reset()` runs from a `@BeforeEach` in `AbstractIntegrationTest`.
+  - [x] `GET /userinfo` only if userinfo could not be turned off (0.5); it returns the same `sub`/`email`
+        Not needed: userinfo is off (`setRetrieveUserInfo(request -> false)`, Phase 5), so there is no `/userinfo`.
+- [x] **6.1.2** `../../../../backend/src/test/resources/application-test.yml`:
   ```yaml
   phrasal:
     google:
@@ -651,51 +657,68 @@ provider lets MockMvc run the real redirect → callback → token → ID token 
   (this yml part is already done, moved to 5.4.2) and in `AbstractIntegrationTest`'s `@DynamicPropertySource`:
   `phrasal.google.authorization-uri`, `token-uri`,
   `jwk-set-uri`, `issuer-uri` (and `user-info-uri` if needed) pointing at `FakeGoogle`.
-- [ ] **6.1.3** `AbstractIntegrationTest` helpers (cookie-based, like `registerAndLogin`):
-  - [ ] `GoogleRedirect startGoogleSignIn()` → `GET /api/v1/auth/oauth2/authorization/google`, expects `302`, returns
+  Done: the four overrides (no `user-info-uri`). `SecurityRulesIntegrationTest#googleStartRedirects` now expects the
+  fake authorization URI instead of Google's.
+- [x] **6.1.3** `AbstractIntegrationTest` helpers (cookie-based, like `registerAndLogin`):
+      Plus constants `GOOGLE` (the fake), `GOOGLE_START`, `GOOGLE_CALLBACK`.
+  - [x] `GoogleRedirect startGoogleSignIn()` → `GET /api/v1/auth/oauth2/authorization/google`, expects `302`, returns
         the `SESSION` cookie and the `state`, `nonce` and `redirect_uri` parsed from `Location`
-  - [ ] `ResultActions finishGoogleSignIn(GoogleRedirect redirect, String sub, String email, boolean verified)` → sets
+  - [x] `ResultActions finishGoogleSignIn(GoogleRedirect redirect, String sub, String email, boolean verified)` → sets
         the fake's next identity with `redirect.nonce()`, then `GET /api/v1/auth/oauth2/code/google?code=test-code&state=…`
-        with the cookie
-  - [ ] `Cookie googleSignIn(String sub, String email)` → both steps, expects `302 /`, returns the new `SESSION` cookie
+        with the cookie (none when `redirect.session()` is null, for the "no start" case)
+  - [x] `Cookie googleSignIn(String sub, String email)` → both steps, expects `302 /`, returns the new `SESSION` cookie
 
 ### 6.2 `integration/GoogleLoginIntegrationTest`
-- [ ] **6.2.1** Authorization redirect: `Location` starts with the fake authorization URI and has `response_type=code`,
+20 tests in one flat class (no `@Nested`: no other integration test uses it).
+- [x] **6.2.1** Authorization redirect: `Location` starts with the fake authorization URI and has `response_type=code`,
       `client_id=test-client`, `scope` with `openid`, `email` and `profile`, `state`, `nonce`, and
       `redirect_uri=http://localhost:3000/api/v1/auth/oauth2/code/google` (the test `APP_BASE_URL`).
-- [ ] **6.2.2** New user (task-104 AC #2):
-  - [ ] callback → `302 /`; `GET /auth/me` with the new cookie → `200`, the email, `role USER`, `hasPassword false`
-  - [ ] DB row: `google_subject` set, `password_hash` NULL, `email_verified_at` set
-  - [ ] `spring_session.principal_name` = the email (so `SessionRevoker` can find it)
-  - [ ] the session id changed between start and callback (fixation)
-  - [ ] the stored principal is the `AuthenticatedUser` record: `/me` works, which it wouldn't with an `OidcUser`
-- [ ] **6.2.3** Returning user: the same `sub` with a different `email` claim → the same account; its email unchanged.
-- [ ] **6.2.4** Link by verified email (AC #3): `registerAndLogin` an account, log out, Google with that email →
+      Plus: the start session signs nobody in; each start gets its own `state` and `nonce`.
+- [x] **6.2.2** New user (task-104 AC #2):
+  - [x] callback → `302 /`; `GET /auth/me` with the new cookie → `200`, the email, `role USER`, `hasPassword false`
+  - [x] DB row: `google_subject` set, `password_hash` NULL, `email_verified_at` set
+  - [x] `spring_session.principal_name` = the email (so `SessionRevoker` can find it)
+  - [x] the session id changed between start and callback (fixation); plus the start session's row is gone
+  - [x] the stored principal is the `AuthenticatedUser` record: `/me` works, which it wouldn't with an `OidcUser`
+- [x] **6.2.3** Returning user: the same `sub` with a different `email` claim → the same account; its email unchanged.
+- [x] **6.2.4** Link by verified email (AC #3): `registerAndLogin` an account, log out, Google with that email →
       `302 /`, same user id; the password login still works afterwards.
-- [ ] **6.2.5** Unverified local account (AC #4): `register` without verifying, Google with that email → `302 /`;
+- [x] **6.2.5** Unverified local account (AC #4): `register` without verifying, Google with that email → `302 /`;
       the old password now gets `401`; the account is verified.
-- [ ] **6.2.6** Refusals (AC #3, decision 4–5), each → `302 /login?error=<code>` and no session principal:
-  - [ ] `email_verified=false`, unknown address → `google-email-unverified`, no row created
-  - [ ] `email_verified=false`, existing address → `google-email-unverified`, the account untouched
-  - [ ] an account already linked to another `sub` → `google-account-conflict`
-  - [ ] an ADMIN account (saved directly through `UserRepository` with a unique email; the admin bootstrap has its
+- [x] **6.2.6** Refusals (AC #3, decision 4–5), each → `302 /login?error=<code>` and no session principal:
+  - [x] `email_verified=false`, unknown address → `google-email-unverified`, no row created
+  - [x] `email_verified=false`, existing address → `google-email-unverified`, the account untouched
+  - [x] an account already linked to another `sub` → `google-account-conflict`
+  - [x] an ADMIN account (saved directly through `UserRepository` with a unique email; the admin bootstrap has its
         own context in `AdminBootstrapIntegrationTest`) → `google-admin-account`, `google_subject` stays NULL
-- [ ] **6.2.7** 2FA (AC #5): an account with 2FA (`enableTwoFactor`) signs in with Google → `302 /login/2fa`;
+- [x] **6.2.7** 2FA (AC #5): an account with 2FA (`enableTwoFactor`) signs in with Google → `302 /login/2fa`;
       `/auth/me` with that cookie → `401`; `submitTwoFactorCode(cookie, validCode)` → `200`; `/me` → `200`,
-      `twoFactorEnabled true`.
-- [ ] **6.2.8** Failures (AC #6), each → `302 /login?error=google`:
-  - [ ] callback with `error=access_denied&state=<state>` (the user pressed Cancel at Google)
-  - [ ] callback with a `state` that doesn't match the session
-  - [ ] callback without a prior start (new session)
-  - [ ] ID token with the wrong `nonce`
-  - [ ] ID token with the wrong audience
-  - [ ] ID token signed by another key
-  - [ ] the token endpoint refuses the client (`FakeGoogle.failNextTokenRequest()` answers `401` once; cheaper than a
+      `twoFactorEnabled true`. Plus: a wrong code → `400`, still pending.
+      **Bug found and fixed here** (plan mutation: inserted step). The callback answered `302 /login/2fa` with no
+      `SESSION` cookie: the pending state was written into the start session under its old id. Cause: Spring's
+      `ChangeSessionIdAuthenticationStrategy` runs in the OAuth2 login filter before our success handler; Spring
+      Session JDBC changes the id only in memory; `PendingTwoFactorLogin.start` then called `invalidate()`, which
+      deletes by the new id (nothing), and `getSession(true)` found the old row again through the cookie (session
+      fixation of the pending login, and a stale row). Password login never rotated the id first, so it was not hit.
+      Fix: `start` now empties the current session and calls `changeSessionId()` instead of invalidate + new session.
+      `PendingTwoFactorLoginTest` covers it (+1 test); the 2FA test here asserts a new cookie and that the start
+      session's row is gone. `backend/CLAUDE.md` updated.
+- [x] **6.2.8** Failures (AC #6), each → `302 /login?error=google`:
+  - [x] callback with `error=access_denied&state=<state>` (the user pressed Cancel at Google)
+  - [x] callback with a `state` that doesn't match the session
+  - [x] callback without a prior start (new session)
+  - [x] ID token with the wrong `nonce`
+  - [x] ID token with the wrong audience
+  - [x] ID token signed by another key
+  - [x] the token endpoint refuses the client (`FakeGoogle.failNextTokenRequest()` answers `401` once; cheaper than a
         second context with another secret)
-- [ ] **6.2.9** `GoogleLoginDisabledIntegrationTest` (Phase 2) still passes with Google on everywhere else.
-- [ ] **6.2.10** `cd backend && mvn clean verify` → green, JaCoCo ≥ 85 % in `presentation.security`,
+  - [x] plus: the callback replayed after a successful sign-in (the authorization request is spent)
+- [x] **6.2.9** `GoogleLoginDisabledIntegrationTest` (Phase 2) still passes with Google on everywhere else.
+- [x] **6.2.10** `cd backend && mvn clean verify` → green, JaCoCo ≥ 85 % in `presentation.security`,
       `application.service` and `config`.
-- [ ] **6.2.11** Ask for commit approval → `feat(backend): let users sign in with their Google account`
+      2026-10-30, inside `make clean build`: 817 tests (+30: 21 in Phase 6, 9 in Phase 7), JaCoCo met.
+- [x] **6.2.11** Ask for commit approval → `feat(backend): let users sign in with their Google account`
+      Approved as one commit for Phases 6 and 7.
 
 ---
 
@@ -703,21 +726,28 @@ provider lets MockMvc run the real redirect → callback → token → ID token 
 
 No new endpoint (decision 9). This phase proves the existing endpoints behave and fixes one email text.
 
-- [ ] **7.1** `integration/PasswordlessAccountIntegrationTest` (uses `googleSignIn` from 6.1.3):
-  - [ ] `POST /auth/login` with the Google account's email and any password → `401 Invalid email or password`, the same
-        body as an unknown email
-  - [ ] `POST /me/password`, `/me/email`, `/me/delete` and `/me/2fa/setup` → `400 wrong-password`; nothing changed
-  - [ ] set a password: `requestPasswordReset(email)` → token mailed → `resetPassword(token, newPassword)` → `204`;
+- [x] **7.1** `integration/PasswordlessAccountIntegrationTest` (uses `googleSignIn` from 6.1.3), 7 tests:
+  - [x] `POST /auth/login` with the Google account's email and any password → `401 Invalid email or password`, the same
+        body as an unknown email (compared without the timestamp)
+  - [x] `POST /me/password`, `/me/email`, `/me/delete` and `/me/2fa/setup` → `400 wrong-password`; nothing changed
+        (parameterized; no password hash, no TOTP secret, same email, `hasPassword false`, no mail to the new address)
+  - [x] set a password: `requestPasswordReset(email)` → token mailed → `resetPassword(token, newPassword)` → `204`;
         then the password login works, `/me` says `hasPassword true`, the Google login still finds the account by
         subject, and the old Google session is closed (`revokeAll`)
-  - [ ] after that, change email, delete and 2FA setup work with the new password (one of them is enough; delete is
-        the simplest)
-- [ ] **7.2** `AccountEmailComposer.accountExists(...)`: add one static line to text and HTML: "If you signed up with
+  - [x] after that, change email, delete and 2FA setup work with the new password (one of them is enough; delete is
+        the simplest) — delete → `204`, the row is gone
+- [x] **7.2** `AccountEmailComposer.accountExists(...)`: add one static line to text and HTML: "If you signed up with
       Google, use "Continue with Google" on the login page, or reset your password to add one." It goes to every
       "account exists" notice, so it reveals nothing about this account.
-- [ ] **7.3** `AccountEmailComposerTest`: the account-exists mail mentions Google in both parts; the other mails don't.
-- [ ] **7.4** `mvn -q -o test -Dtest='PasswordlessAccountIntegrationTest,AccountEmailComposerTest'` → green.
-- [ ] **7.5** Ask for commit approval → `feat(backend): let Google-only accounts set a password by email`
+- [x] **7.3** `AccountEmailComposerTest`: the account-exists mail mentions Google in both parts; the other mails don't.
+      (+2 tests; the other seven mails checked in both parts.)
+- [x] **7.4** `mvn -q -o test -Dtest='PasswordlessAccountIntegrationTest,AccountEmailComposerTest'` → green.
+      2026-10-30: 7 + 17, plus `AuthRegisterIntegrationTest` 15 and `EmailVerificationIntegrationTest` 10. Checkstyle
+      clean.
+- [x] **7.5** Ask for commit approval → `feat(backend): let Google-only accounts set a password by email`
+      Folded into the Phase 6 commit (the user approved one commit for both).
+- [x] **7.6** End of phase: `make clean build` green (2026-10-30, Phases 6 and 7 in one run). Backend 817 tests
+      (+30), JaCoCo met; frontend 1654 in 86 files; e2e 140 scenarios / 1101 steps.
       (or fold into the Phase 6 commit if it is small; ask the user).
 
 ---
@@ -979,6 +1009,8 @@ No new endpoint (decision 9). This phase proves the existing endpoints behave an
 - [ ] **11.6** Plan file `.claude/docs/blackbox/plans/2026-10-26 18:10 Multi-user …md`: append one `## Mutations Log`
       row (append only, delete nothing in that folder):
       `| <date> | split | P5 done as task-104: own ClientRegistrationRepository behind GOOGLE_LOGIN_ENABLED + GET /auth/providers; redirect URI from APP_BASE_URL; ADMIN accounts refused; Google-only accounts set a password via reset link; mock-oauth2-server in compose; V17 instead of V13 | Works without Google creds locally/CI; no forwarded-header dependency |`
+      Also mention the todo-level mutations: test-profile yml moved from 6.1.2 to 5.4.2; inserted fix in 6.2.7
+      (`PendingTwoFactorLogin.start` empties and re-keys the session instead of invalidate + new session).
 - [ ] **11.7** Backlog (MCP):
   - [ ] task-104: check off the done AC (prod ones wait for Phase 13), implementation notes, final summary
   - [ ] task-106: note that AC #4/#5 are needed for 12.3 and Phase 13; check them only after the user confirms

@@ -10,6 +10,7 @@ import java.time.Clock;
 import java.time.Duration;
 import java.time.Instant;
 import java.time.ZoneId;
+import java.util.Collections;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
@@ -24,14 +25,31 @@ class PendingTwoFactorLoginTest {
             new TwoFactorProperties("key", "Phrasal", Duration.ofMinutes(5)));
 
     @Test
-    @DisplayName("start stores the user and ends the previous session")
-    void startInvalidatesOldSession() {
+    @DisplayName("start empties the previous session, gives it a new id and stores the user")
+    void startEmptiesAndRekeysOldSession() {
         MockHttpServletRequest request = new MockHttpServletRequest();
         MockHttpSession old = (MockHttpSession) request.getSession();
+        old.setAttribute("SPRING_SECURITY_CONTEXT", "signed-in context");
+        old.setAttribute("other", "value");
+        String oldId = old.getId();
 
         pending.start(request, USER_ID);
 
-        assertThat(old.isInvalid()).isTrue();
+        assertThat(request.getSession().getId()).isNotEqualTo(oldId);
+        assertThat(Collections.list(request.getSession().getAttributeNames()))
+                .containsExactlyInAnyOrder(PendingTwoFactorLogin.USER_ID_ATTRIBUTE,
+                        PendingTwoFactorLogin.SINCE_ATTRIBUTE);
+        assertThat(pending.userId(request)).contains(USER_ID);
+    }
+
+    @Test
+    @DisplayName("start without a session opens one")
+    void startWithoutSession() {
+        MockHttpServletRequest request = new MockHttpServletRequest();
+
+        pending.start(request, USER_ID);
+
+        assertThat(request.getSession(false)).isNotNull();
         assertThat(pending.userId(request)).contains(USER_ID);
     }
 
