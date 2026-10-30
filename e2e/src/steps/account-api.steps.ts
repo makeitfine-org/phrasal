@@ -2,7 +2,11 @@ import { Given, Then, When } from '@cucumber/cucumber';
 import { strict as assert } from 'assert';
 import { PhrasalWorld } from '../world';
 import { ApiClient } from '../support/api-client';
-import { TEST_PASSWORD } from '../support/test-users';
+import {
+    ACCOUNT_EXISTS_SUBJECT, EMAIL_CHANGED_SUBJECT, EMAIL_CHANGE_SUBJECT, countMessagesTo, emailChangeToken,
+    latestMessageTo,
+} from '../support/mailpit-client';
+import { TEST_PASSWORD, uniqueEmail } from '../support/test-users';
 
 const AUTH = '/api/v1/auth';
 const ME = '/api/v1/me';
@@ -44,4 +48,63 @@ Then('the new password error should mention {string}', function (this: PhrasalWo
     assert.ok(this.lastResponse, 'No response recorded');
     const message: string | undefined = this.lastResponse!.data?.errors?.newPassword;
     assert.ok(message?.includes(text), `Expected new password error to mention "${text}", got: ${message}`);
+});
+
+async function requestEmailChange(world: PhrasalWorld, newEmail: string, password: string) {
+    world.newEmail = newEmail;
+    world.lastResponse = await world.apiClient.post(`${ME}/email`, { newEmail, currentPassword: password });
+}
+
+function newEmailOf(world: PhrasalWorld): string {
+    assert.ok(world.newEmail, 'No new email: request an email change first');
+    return world.newEmail!;
+}
+
+When('I request an email change to a new address with password {string}', async function (this: PhrasalWorld, password: string) {
+    await requestEmailChange(this, uniqueEmail(), password);
+});
+
+When('I request an email change to the address of another registered user', async function (this: PhrasalWorld) {
+    const other = new ApiClient(`http://localhost:${process.env.BACKEND_PORT || '8080'}`);
+    const email = uniqueEmail();
+    const response = await other.post(`${AUTH}/register`, { email, password: TEST_PASSWORD });
+    assert.equal(response.status, 202, 'Registering the other user failed');
+    await requestEmailChange(this, email, TEST_PASSWORD);
+});
+
+When('I request an email change to my current address', async function (this: PhrasalWorld) {
+    await requestEmailChange(this, currentEmail(this), TEST_PASSWORD);
+});
+
+Then('I should receive an email change link at the new address', async function (this: PhrasalWorld) {
+    const message = await latestMessageTo(newEmailOf(this), { subject: EMAIL_CHANGE_SUBJECT });
+    assert.equal(message.subject, EMAIL_CHANGE_SUBJECT);
+});
+
+Then('no email change link should be sent to the new address', async function (this: PhrasalWorld) {
+    assert.equal(await countMessagesTo(newEmailOf(this), EMAIL_CHANGE_SUBJECT), 0);
+});
+
+Then('the other user\'s address should receive an account exists notice', async function (this: PhrasalWorld) {
+    const message = await latestMessageTo(newEmailOf(this), { subject: ACCOUNT_EXISTS_SUBJECT });
+    assert.equal(message.subject, ACCOUNT_EXISTS_SUBJECT);
+});
+
+When('I confirm the email change with the link from my email', async function (this: PhrasalWorld) {
+    const token = await emailChangeToken(newEmailOf(this));
+    this.lastResponse = await this.apiClient.post(`${AUTH}/confirm-email-change`, { token });
+});
+
+Then('the old address should receive an email changed notice', async function (this: PhrasalWorld) {
+    const message = await latestMessageTo(currentEmail(this), { subject: EMAIL_CHANGED_SUBJECT });
+    assert.ok(message.text.includes(newEmailOf(this)), 'Expected the notice to name the new address');
+});
+
+When('I confirm the email change with the link from my email again', async function (this: PhrasalWorld) {
+    const token = await emailChangeToken(newEmailOf(this));
+    this.lastResponse = await this.apiClient.post(`${AUTH}/confirm-email-change`, { token });
+});
+
+When('I log in with the new email and password {string}', async function (this: PhrasalWorld, password: string) {
+    this.lastResponse = await this.apiClient.post(`${AUTH}/login`, { email: newEmailOf(this), password });
 });

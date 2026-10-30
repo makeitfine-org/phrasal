@@ -48,6 +48,7 @@ describe('AccountSecurityPage', () => {
     vi.mocked(api.fetchTwoFactorStatus).mockResolvedValue(off);
     renderPage();
     expect(await screen.findByTestId('change-password-submit')).toBeInTheDocument();
+    expect(screen.getByTestId('change-email-submit')).toBeInTheDocument();
     expect(screen.queryByTestId('admin-managed-note')).toBeNull();
   });
 
@@ -56,6 +57,7 @@ describe('AccountSecurityPage', () => {
     renderPage({ user: admin });
     expect(await screen.findByTestId('admin-managed-note')).toHaveTextContent('managed through server configuration');
     expect(screen.queryByTestId('change-password-submit')).toBeNull();
+    expect(screen.queryByTestId('change-email-submit')).toBeNull();
   });
 
   it('renders nothing while loading', () => {

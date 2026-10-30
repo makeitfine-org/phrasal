@@ -24,8 +24,8 @@ This builds on:
   already ignores a `401`
 
 > Status: Phase 0 done (2026-10-30, branch `account-settings`, backlog task-100 + new TASK-109). Phase 1 done
-> (2026-10-30, shared backend groundwork). Phase 2 done (2026-10-30, change password; `make clean build` green,
-> awaiting commit approval). Phase 3 onwards is not implemented yet.
+> (2026-10-30, shared backend groundwork). Phase 2 done and committed (`f9957e2`). Phase 3 done (2026-10-30, change email; `make clean build` green,
+> awaiting commit approval). Phase 4 onwards is not implemented yet.
 
 ---
 
@@ -554,7 +554,7 @@ bucket. Doing these once keeps the feature phases small.
 
 ### 2.6 Verify and commit
 - [x] **2.6.1** `make clean build` → green. Backend 604 tests, frontend 1605 tests, e2e 126 scenarios.
-- [ ] **2.6.2** Ask for commit approval → `feat: let signed-in users change their password`. If the user wants it split:
+- [x] **2.6.2** Committed as `f9957e2`: `feat: let signed-in users change their password`. If the user wants it split:
       `feat(backend): …`, `feat(frontend): …`, `test(e2e): …`.
 
 ---
@@ -562,7 +562,7 @@ bucket. Doing these once keeps the feature phases small.
 ## Phase 3 — Change email (confirmed through the new address)
 
 ### 3.1 Schema and domain
-- [ ] **3.1.1** `V16__add_user_tokens_new_email.sql`:
+- [x] **3.1.1** `V16__add_user_tokens_new_email.sql`:
   ```sql
   -- Email change: the pending new address travels with its one-time token.
   ALTER TABLE user_tokens
@@ -573,59 +573,59 @@ bucket. Doing these once keeps the feature phases small.
           CHECK (new_email = LOWER(new_email));
   ```
   - Existing rows are not `EMAIL_CHANGE` and have `new_email = NULL`, so both checks hold.
-- [ ] **3.1.2** `TokenType`: add `EMAIL_CHANGE` and extend the Javadoc ("authorises moving the account to the address
+- [x] **3.1.2** `TokenType`: add `EMAIL_CHANGE` and extend the Javadoc ("authorises moving the account to the address
       stored with the token").
-- [ ] **3.1.3** `UserToken`:
+- [x] **3.1.3** `UserToken`:
   - field `@Column(name = "new_email", length = EMAIL_MAX_LENGTH) String newEmail`
   - a static factory `UserToken.emailChange(Long userId, String tokenHash, LocalDateTime expiresAt, String newEmail)`
   - keep the existing constructor for the other types
-- [ ] **3.1.4** `AccountCleanupService`: check that the expired-token cleanup deletes by expiry for **every** type. If
+- [x] **3.1.4** `AccountCleanupService`: check that the expired-token cleanup deletes by expiry for **every** type. If
       it filters by type, add `EMAIL_CHANGE` and extend `AccountCleanupServiceTest`.
-- [ ] **3.1.5** `config/EmailChangeProperties.java`: `@ConfigurationProperties("phrasal.email-change")`,
+- [x] **3.1.5** `config/EmailChangeProperties.java`: `@ConfigurationProperties("phrasal.email-change")`,
       `record EmailChangeProperties(Duration tokenTtl)`. In `application.yml`:
       `phrasal.email-change.token-ttl: ${EMAIL_CHANGE_TOKEN_TTL:1h}`. Register it the same way as
       `PasswordResetProperties`.
-- [ ] **3.1.6** Tests:
+- [x] **3.1.6** Tests:
   - `UserTokenRepository` integration (extend the existing class, or `UserTokenRepositoryIntegrationTest`):
-    - [ ] save + find an `EMAIL_CHANGE` token, with `newEmail` stored
-    - [ ] an `EMAIL_CHANGE` row without `new_email` → `DataIntegrityViolationException`
-    - [ ] a `PASSWORD_RESET` row **with** `new_email` → `DataIntegrityViolationException`
-    - [ ] an upper-case `new_email` → `DataIntegrityViolationException`
+    - [x] save + find an `EMAIL_CHANGE` token, with `newEmail` stored
+    - [x] an `EMAIL_CHANGE` row without `new_email` → `DataIntegrityViolationException`
+    - [x] a `PASSWORD_RESET` row **with** `new_email` → `DataIntegrityViolationException`
+    - [x] an upper-case `new_email` → `DataIntegrityViolationException`
   - `UserTokenTest` (or the existing entity test): the factory sets every field
 
 ### 3.2 Exceptions and mails
-- [ ] **3.2.1** New exceptions in `infrastructure/exception`, each with a `GlobalExceptionHandler` method and a
+- [x] **3.2.1** New exceptions in `infrastructure/exception`, each with a `GlobalExceptionHandler` method and a
       `GlobalExceptionHandlerTest` case:
   - `EmailChangeLinkInvalidException` → `400`, type `email-change-link-invalid`, detail
     "This email change link is invalid or was already used"
   - `EmailChangeLinkExpiredException` → `400`, type `email-change-link-expired`, detail "This email change link has expired"
   - `EmailChangeConflictException` → `409`, type `email-change-conflict`, detail
     "This address is already used by another account"
-- [ ] **3.2.2** Events in `application/event`. Each `toString()` shows the user id only:
+- [x] **3.2.2** Events in `application/event`. Each `toString()` shows the user id only:
   - `EmailChangeConfirmationRequested(Long userId, String newEmail, String rawToken)`
   - `EmailChangedNoticeRequested(Long userId, String oldEmail, String newEmail)`
-- [ ] **3.2.3** `AccountEmailComposer`:
-  - [ ] `emailChangeConfirmation(String to, String rawToken)`:
+- [x] **3.2.3** `AccountEmailComposer`:
+  - [x] `emailChangeConfirmation(String to, String rawToken)`:
     - subject `Confirm your new Phrasal email address`
     - link `{baseUrl}/confirm-email-change?token=…`
     - the lifetime comes from `EmailChangeProperties`
     - text: "If you didn't ask for this, ignore this email; nothing changes."
-  - [ ] `emailChanged(String to, String newEmail)`:
+  - [x] `emailChanged(String to, String newEmail)`:
     - subject `Your Phrasal email address was changed`
     - text: "The email address of your Phrasal account was changed to {newEmail}, and every device was logged out.
       If this wasn't you, contact the site administrator."
     - HTML-escape `newEmail`
-  - [ ] reword `accountExists` so it fits register **and** email change:
+  - [x] reword `accountExists` so it fits register **and** email change:
     "Someone tried to use this email address for a Phrasal account, but it already belongs to your account."
     Keep its subject.
-- [ ] **3.2.4** `AccountEmailListener`: two `@Async @TransactionalEventListener(AFTER_COMMIT)` methods for the new
+- [x] **3.2.4** `AccountEmailListener`: two `@Async @TransactionalEventListener(AFTER_COMMIT)` methods for the new
       events. The confirmation goes to `newEmail`, the notice to `oldEmail`.
-- [ ] **3.2.5** Tests: `AccountEmailComposerTest` (subjects, link, lifetime, escaping, the new `accountExists`
+- [x] **3.2.5** Tests: `AccountEmailComposerTest` (subjects, link, lifetime, escaping, the new `accountExists`
       wording) and `AccountEmailListenerTest` (each event → `send` with the right recipient; a send failure is
       swallowed).
 
 ### 3.3 Service
-- [ ] **3.3.1** `application/service/EmailChangeService.java` (`@Slf4j @Service @Transactional @RequiredArgsConstructor`).
+- [x] **3.3.1** `application/service/EmailChangeService.java` (`@Slf4j @Service @Transactional @RequiredArgsConstructor`).
       `void requestChange(Long userId, String rawNewEmail, String currentPassword)`:
   1. `user = accountChecks.load(userId)`, then `requireSelfManaged(user)`
   2. `newEmail = EmailNormalizer.normalize(rawNewEmail)`; equals `user.getEmail()` →
@@ -635,7 +635,7 @@ bucket. Doing these once keeps the feature phases small.
      `Email change requested for a taken address userId={}`, and **return**. The caller still answers `202`.
   5. `invalidateActive(userId, EMAIL_CHANGE, now)`, generate a token, save `UserToken.emailChange(…, now + ttl, newEmail)`
   6. publish `EmailChangeConfirmationRequested(userId, newEmail, rawToken)`; `log.info("Email change requested userId={}", …)`
-- [ ] **3.3.2** `void confirmChange(String rawToken)`:
+- [x] **3.3.2** `void confirmChange(String rawToken)`:
   1. find by `hash(rawToken)` + `EMAIL_CHANGE`, otherwise `EmailChangeLinkInvalidException`. Then the user by id,
      otherwise invalid.
   2. `token.isUsed()` → invalid; `token.isExpired(now)` → expired
@@ -648,7 +648,7 @@ bucket. Doing these once keeps the feature phases small.
   7. `revoked = sessionRevoker.revokeAll(oldEmail)`. It **must** be the old email.
   8. publish `EmailChangedNoticeRequested(userId, oldEmail, newEmail)`;
      `log.info("Email changed userId={} sessionsRevoked={}", …)`
-- [ ] **3.3.3** `EmailChangeServiceTest` (Mockito, fixed `Clock`):
+- [x] **3.3.3** `EmailChangeServiceTest` (Mockito, fixed `Clock`):
   - request:
     - success: old tokens invalidated, the token is saved with `newEmail` lower-cased, the event carries the raw token
       (the saved hash ≠ the raw token)
@@ -666,88 +666,88 @@ bucket. Doing these once keeps the feature phases small.
     - `saveAndFlush` throws `DataIntegrityViolationException` → conflict
 
 ### 3.4 Controller and security
-- [ ] **3.4.1** `application/dto/ChangeEmailRequest.java`:
+- [x] **3.4.1** `application/dto/ChangeEmailRequest.java`:
   - `@NotBlank @Email @Size(max = 254) String newEmail`
   - `@NotBlank @Size(max = 200) String currentPassword`
   - `toString()` masks the password
-- [ ] **3.4.2** `application/dto/ConfirmEmailChangeRequest.java`: `@NotBlank @Size(max = 100) String token`, with the
+- [x] **3.4.2** `application/dto/ConfirmEmailChangeRequest.java`: `@NotBlank @Size(max = 100) String token`, with the
       token masked in `toString()`.
-- [ ] **3.4.3** `AccountController`: `@PostMapping("/email")`:
+- [x] **3.4.3** `AccountController`: `@PostMapping("/email")`:
   1. check `reauth-per-user` (user id)
   2. check `email-change-per-email` (normalized new email)
   3. call the service
   4. answer `202` with `AcceptedResponse.CHECK_INBOX`
-- [ ] **3.4.4** `AuthController`: `@PostMapping("/confirm-email-change")`:
+- [x] **3.4.4** `AuthController`: `@PostMapping("/confirm-email-change")`:
   1. check `verify-per-ip` (`getRemoteAddr()`)
   2. `emailChangeService.confirmChange(token)`
   3. answer `204`
-- [ ] **3.4.5** `SecurityConfig`: add `/api/v1/auth/confirm-email-change` to the public `POST` list, next to
+- [x] **3.4.5** `SecurityConfig`: add `/api/v1/auth/confirm-email-change` to the public `POST` list, next to
       `verify-email`.
 
 ### 3.5 Backend integration tests
-- [ ] **3.5.1** `AbstractIntegrationTest` helpers:
+- [x] **3.5.1** `AbstractIntegrationTest` helpers:
   - `requestEmailChange(Cookie session, String newEmail, String password)` → `ResultActions`
   - `confirmEmailChange(String token)` → `ResultActions`
   - `RecordingEmailSender`: an `awaitEmailChangeToken(address)` helper, the same as `awaitPasswordResetToken`
-- [ ] **3.5.2** `integration/ChangeEmailIntegrationTest`:
-  - [ ] request → `202` with the check-inbox message; the confirmation mail goes to the **new** address; `/auth/me`
+- [x] **3.5.2** `integration/ChangeEmailIntegrationTest`:
+  - [x] request → `202` with the check-inbox message; the confirmation mail goes to the **new** address; `/auth/me`
         still shows the old email
-  - [ ] confirm → `204`; then:
+  - [x] confirm → `204`; then:
     - the old session's `/auth/me` → `401`
     - login with the new email → `200`, `$.email` = new
     - login with the old email → `401`
     - the old address gets `Your Phrasal email address was changed`
-  - [ ] after the change, `SELECT count(*) FROM spring_session WHERE principal_name = ?` returns 0 for both the old and
+  - [x] after the change, `SELECT count(*) FROM spring_session WHERE principal_name = ?` returns 0 for both the old and
         the new email
-  - [ ] the same link a second time → `400 email-change-link-invalid`
-  - [ ] a second request replaces the first: the first link → `400 email-change-link-invalid`, the second → `204`
-  - [ ] an expired link → `400 email-change-link-expired`. Move the row's `expires_at` back with `JdbcTemplate`; don't
+  - [x] the same link a second time → `400 email-change-link-invalid`
+  - [x] a second request replaces the first: the first link → `400 email-change-link-invalid`, the second → `204`
+  - [x] an expired link → `400 email-change-link-expired`. Move the row's `expires_at` back with `JdbcTemplate`; don't
         sleep.
-  - [ ] taken address: another registered user's email → `202`, no confirmation mail, and that address receives the
+  - [x] taken address: another registered user's email → `202`, no confirmation mail, and that address receives the
         "account exists" notice
-  - [ ] the address was taken between request and confirm → confirm `409 email-change-conflict`
-  - [ ] the same address in other letter case → `400`, `$.errors.newEmail`
-  - [ ] invalid email / blank fields → `400`
-  - [ ] wrong password → `400 wrong-password`, no mail
-  - [ ] a 2FA account changes its email → login with the new email asks for the code (`202`), and a TOTP from the
+  - [x] the address was taken between request and confirm → confirm `409 email-change-conflict`
+  - [x] the same address in other letter case → `400`, `$.errors.newEmail`
+  - [x] invalid email / blank fields → `400`
+  - [x] wrong password → `400 wrong-password`, no mail
+  - [x] a 2FA account changes its email → login with the new email asks for the code (`202`), and a TOTP from the
         **same** secret works (the AAD doesn't depend on the email)
-  - [ ] an outstanding password-reset link from before the change → `400 reset-link-invalid` afterwards
-  - [ ] anonymous request → `401`; without CSRF → `403`; anonymous confirm with CSRF → allowed (public)
-- [ ] **3.5.3** `AdminBootstrapIntegrationTest`: admin + `POST /me/email` → `403 admin-account-managed`.
-- [ ] **3.5.4** `AccountRateLimitIntegrationTest`:
+  - [x] an outstanding password-reset link from before the change → `400 reset-link-invalid` afterwards
+  - [x] anonymous request → `401`; without CSRF → `403`; anonymous confirm with CSRF → allowed (public)
+- [x] **3.5.3** `AdminBootstrapIntegrationTest`: admin + `POST /me/email` → `403 admin-account-managed`.
+- [x] **3.5.4** `AccountRateLimitIntegrationTest`:
   - shared bucket: 1 wrong change-password attempt + 1 wrong change-email attempt → the next attempt on either
     endpoint is `429`
   - with `email-change-per-email.limit=2` in the same `@TestPropertySource`: 2 users ask for the same new address →
     the 3rd request for that address → `429`
-- [ ] **3.5.5** `cd backend && mvn clean verify` → green.
+- [x] **3.5.5** `cd backend && mvn clean verify` → green.
 
 ### 3.6 Frontend
-- [ ] **3.6.1** `src/api/accountApi.ts`:
+- [x] **3.6.1** `src/api/accountApi.ts`:
   - `requestEmailChange(newEmail, currentPassword): Promise<void>` → `POST /me/email`; the body is ignored, like
     `forgotPassword`
   - `confirmEmailChange(token): Promise<void>` → `POST /auth/confirm-email-change`
-- [ ] **3.6.2** `src/api/problemTypes.ts`: `EMAIL_CHANGE_LINK_INVALID`, `EMAIL_CHANGE_LINK_EXPIRED`,
+- [x] **3.6.2** `src/api/problemTypes.ts`: `EMAIL_CHANGE_LINK_INVALID`, `EMAIL_CHANGE_LINK_EXPIRED`,
       `EMAIL_CHANGE_CONFLICT`.
-- [ ] **3.6.3** `src/components/account/ChangeEmailForm.tsx`:
-  - [ ] a section with an `<h2>` "Change email", showing "Current: {user.email}"
-  - [ ] fields: new email (`type="email"`, `autoComplete="email"`), current password
-  - [ ] client check: new email ≠ current, compared case-insensitively → field error, no request
-  - [ ] success: clear the password, keep the form, and show `role="status"`:
+- [x] **3.6.3** `src/components/account/ChangeEmailForm.tsx`:
+  - [x] a section with an `<h2>` "Change email", showing "Current: {user.email}"
+  - [x] fields: new email (`type="email"`, `autoComplete="email"`), current password
+  - [x] client check: new email ≠ current, compared case-insensitively → field error, no request
+  - [x] success: clear the password, keep the form, and show `role="status"`:
         "We sent a confirmation link to {newEmail}. Your email stays {current} until you open it. The link expires in
         1 hour."
-  - [ ] errors:
+  - [x] errors:
     - `wrong-password` → under the password field
     - `errors.newEmail` → under the email field
     - `429` / other → alert
-  - [ ] `data-testid`s: `change-email-new`, `change-email-password`, `change-email-submit`, `change-email-success`,
+  - [x] `data-testid`s: `change-email-new`, `change-email-password`, `change-email-submit`, `change-email-success`,
         `change-email-error`, `field-error-newEmail`, `field-error-currentPassword`
-- [ ] **3.6.4** `AccountSecurityPage.tsx`: render `<ChangeEmailForm />` after the password form, hidden for ADMIN (the
+- [x] **3.6.4** `AccountSecurityPage.tsx`: render `<ChangeEmailForm />` after the password form, hidden for ADMIN (the
       note from 2.4.4 covers it).
-- [ ] **3.6.5** `src/pages/ConfirmEmailChangePage.tsx` (route `/confirm-email-change`):
-  - [ ] read `token` from the query; no token → state `invalid`
-  - [ ] POST once on mount. Copy the guard against the doubled StrictMode effect from `VerifyEmailPage.tsx`; don't
+- [x] **3.6.5** `src/pages/ConfirmEmailChangePage.tsx` (route `/confirm-email-change`):
+  - [x] read `token` from the query; no token → state `invalid`
+  - [x] POST once on mount. Copy the guard against the doubled StrictMode effect from `VerifyEmailPage.tsx`; don't
         write a new one.
-  - [ ] states, each with `data-testid="email-change-state-<name>"`:
+  - [x] states, each with `data-testid="email-change-state-<name>"`:
     - `confirming`
     - `done`: "Your email address was changed. Log in with your new address." + a link to `/login`. Call `refresh()`
       first, because the session is gone now.
@@ -755,34 +755,34 @@ bucket. Doing these once keeps the feature phases small.
       page." + a link to `/account/security`
     - `conflict`: "This address is already used by another account."
     - `error`: the server detail, e.g. for a `429`
-  - [ ] dark mode and 375 px width, like `VerifyEmailPage`
-- [ ] **3.6.6** `src/main.tsx`: `<Route path="/confirm-email-change" element={<ConfirmEmailChangePage />} />` before `*`.
-- [ ] **3.6.7** Tests:
-  - [ ] `accountApi.test.ts`: both new functions
-  - [ ] `src/__tests__/account/ChangeEmailForm.test.tsx`:
+  - [x] dark mode and 375 px width, like `VerifyEmailPage`
+- [x] **3.6.6** `src/main.tsx`: `<Route path="/confirm-email-change" element={<ConfirmEmailChangePage />} />` before `*`.
+- [x] **3.6.7** Tests:
+  - [x] `accountApi.test.ts`: both new functions
+  - [x] `src/__tests__/account/ChangeEmailForm.test.tsx`:
     - success message names both addresses
     - same address → no request
     - `wrong-password` → error under the password field
     - `400 errors.newEmail` → error under the email field
     - `429` → alert
     - pending state
-  - [ ] `src/__tests__/ConfirmEmailChangePage.test.tsx`:
+  - [x] `src/__tests__/ConfirmEmailChangePage.test.tsx`:
     - no token → invalid
     - success → `done` and `refresh` is called
     - the invalid, expired and conflict problem types → the matching state
     - other errors → `error`
     - the request is sent exactly once under StrictMode
-  - [ ] `routeReload.test.tsx`: `/confirm-email-change` renders inside the shell
-  - [ ] `AccountSecurityPage.test.tsx`: the email form is shown for USER and hidden for ADMIN
-- [ ] **3.6.8** `npm --prefix frontend run test:run && npm --prefix frontend run build` → green.
+  - [x] `routeReload.test.tsx`: `/confirm-email-change` renders inside the shell
+  - [x] `AccountSecurityPage.test.tsx`: the email form is shown for USER and hidden for ADMIN
+- [x] **3.6.8** `npm --prefix frontend run test:run && npm --prefix frontend run build` → green.
 
 ### 3.7 E2E
-- [ ] **3.7.1** `e2e/src/support/mailpit-client.ts`:
+- [x] **3.7.1** `e2e/src/support/mailpit-client.ts`:
   - `EMAIL_CHANGE_SUBJECT`, `EMAIL_CHANGED_SUBJECT` and `ACCOUNT_EXISTS_SUBJECT` (if it's not there yet)
   - `emailChangeLink(address)` / `emailChangeToken(address)`, built the same way as `passwordResetLink`/`Token`
-- [ ] **3.7.2** `e2e/src/world.ts`: add `newEmail: string | null`, and reset it in `hooks.ts` `Before`. The new address
+- [x] **3.7.2** `e2e/src/world.ts`: add `newEmail: string | null`, and reset it in `hooks.ts` `Before`. The new address
       always comes from `uniqueEmail()`.
-- [ ] **3.7.3** `account-api.steps.ts`:
+- [x] **3.7.3** `account-api.steps.ts`:
   - `When I request an email change to a new address with password {string}`
   - `When I request an email change to the address of another registered user`
   - `When I request an email change to my current address`
@@ -791,26 +791,29 @@ bucket. Doing these once keeps the feature phases small.
   - `When I confirm the email change with the link from my email`
   - `Then the old address should receive an email changed notice`
   - `When I log in with the new email and password {string}`
-- [ ] **3.7.4** `e2e/features/account-api/change-email.feature` (`@api`):
-  - [ ] request → 202; the link arrives at the new address; my profile still shows the old email
-  - [ ] confirm → 204; my profile → 401; log in with the new email → 200; with the old email → 401; the old address
+- [x] **3.7.4** `e2e/features/account-api/change-email.feature` (`@api`):
+  - [x] request → 202; the link arrives at the new address; my profile still shows the old email
+  - [x] confirm → 204; my profile → 401; log in with the new email → 200; with the old email → 401; the old address
         gets the notice
-  - [ ] the link works once (the second confirm → 400)
-  - [ ] taken address → 202, no link mail, an "account exists" notice to that address
-  - [ ] my current address → 400
-  - [ ] wrong password → 400
-- [ ] **3.7.5** `account-ui.steps.ts`:
+  - [x] the link works once (the second confirm → 400)
+  - [x] taken address → 202, no link mail, an "account exists" notice to that address
+  - [x] my current address → 400
+  - [x] wrong password → 400
+- [x] **3.7.5** `account-ui.steps.ts`:
   - `When I request an email change to a new address through the form`
   - `Then I should see the email change check-your-inbox message`
   - `When I open the email change link from my email in the browser`
   - `Then I should see the email change state {string}`
   - `When I log in through the form with the new email`
-- [ ] **3.7.6** `account-settings.feature`: a new user asks for the change through the form → message; opens the link
+- [x] **3.7.6** `account-settings.feature`: a new user asks for the change through the form → message; opens the link
       in the browser → state `done`; logs in with the new email → the user menu shows the **new** email.
-- [ ] **3.7.7** `npm --prefix e2e run test:api` → green.
+- [x] **3.7.7** `npm --prefix e2e run test:api` → green.
 
 ### 3.8 Verify and commit
-- [ ] **3.8.1** `make clean build` → green.
+- [x] **3.8.1** `make clean build` → green. Backend 647 tests, frontend 1626 tests, e2e 133 scenarios.
+      Notes: 3.1.4 needed no change (the cleanup deletes by expiry for every type). The UI e2e step opens the link with
+      only the token on `FRONTEND_PORT`, like the reset step. The "I confirm … again" step and `no email change link
+      should be sent to the new address` were added to the e2e steps.
 - [ ] **3.8.2** Ask for commit approval → `feat: let signed-in users change their email address`
 
 ---

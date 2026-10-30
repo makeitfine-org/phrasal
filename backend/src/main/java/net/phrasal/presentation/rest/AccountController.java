@@ -4,10 +4,14 @@ import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
+import net.phrasal.application.dto.AcceptedResponse;
+import net.phrasal.application.dto.ChangeEmailRequest;
 import net.phrasal.application.dto.ChangePasswordRequest;
 import net.phrasal.application.service.AccountService;
+import net.phrasal.application.service.EmailChangeService;
 import net.phrasal.config.RateLimitProperties;
 import net.phrasal.infrastructure.security.AuthenticatedUser;
+import net.phrasal.infrastructure.security.EmailNormalizer;
 import net.phrasal.infrastructure.security.RateLimiter;
 import net.phrasal.infrastructure.security.SessionRevoker;
 import net.phrasal.presentation.security.SessionAuthenticator;
@@ -25,6 +29,7 @@ import org.springframework.web.bind.annotation.RestController;
 public class AccountController {
 
     private final AccountService accountService;
+    private final EmailChangeService emailChangeService;
     private final SessionAuthenticator sessionAuthenticator;
     private final SessionRevoker sessionRevoker;
     private final RateLimiter rateLimiter;
@@ -42,5 +47,15 @@ public class AccountController {
         sessionAuthenticator.refresh(user, httpRequest, httpResponse);
         sessionRevoker.revokeOthers(user.email(), storedSessionId);
         return ResponseEntity.noContent().build();
+    }
+
+    @PostMapping("/email")
+    public ResponseEntity<AcceptedResponse> changeEmail(@AuthenticationPrincipal AuthenticatedUser user,
+                                                        @Valid @RequestBody ChangeEmailRequest request) {
+        rateLimiter.check("reauth-per-user", rateLimits.reauthPerUser(), user.id().toString());
+        rateLimiter.check("email-change-per-email", rateLimits.emailChangePerEmail(),
+                EmailNormalizer.normalize(request.newEmail()));
+        emailChangeService.requestChange(user.id(), request.newEmail(), request.currentPassword());
+        return ResponseEntity.accepted().body(AcceptedResponse.CHECK_INBOX);
     }
 }

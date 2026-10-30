@@ -128,6 +128,27 @@ public class GlobalExceptionHandler {
                 "reset-link-expired", ex.getMessage());
     }
 
+    @ExceptionHandler(EmailChangeLinkInvalidException.class)
+    public ProblemDetail handleEmailChangeLinkInvalid(EmailChangeLinkInvalidException ex) {
+        log.warn("Email change rejected: link invalid");
+        return buildProblem(HttpStatus.BAD_REQUEST, "Email Change Link Invalid",
+                "email-change-link-invalid", ex.getMessage());
+    }
+
+    @ExceptionHandler(EmailChangeLinkExpiredException.class)
+    public ProblemDetail handleEmailChangeLinkExpired(EmailChangeLinkExpiredException ex) {
+        log.warn("Email change rejected: link expired");
+        return buildProblem(HttpStatus.BAD_REQUEST, "Email Change Link Expired",
+                "email-change-link-expired", ex.getMessage());
+    }
+
+    @ExceptionHandler(EmailChangeConflictException.class)
+    public ProblemDetail handleEmailChangeConflict(EmailChangeConflictException ex) {
+        log.warn("Email change rejected: address taken");
+        return buildProblem(HttpStatus.CONFLICT, "Email Change Conflict",
+                "email-change-conflict", ex.getMessage());
+    }
+
     @ExceptionHandler(InvalidTwoFactorCodeException.class)
     public ProblemDetail handleInvalidTwoFactorCode(InvalidTwoFactorCodeException ex) {
         log.warn("Two-factor code rejected");

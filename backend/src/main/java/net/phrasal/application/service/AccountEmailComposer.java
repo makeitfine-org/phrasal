@@ -2,6 +2,7 @@ package net.phrasal.application.service;
 
 import lombok.RequiredArgsConstructor;
 import net.phrasal.config.AppProperties;
+import net.phrasal.config.EmailChangeProperties;
 import net.phrasal.config.EmailVerificationProperties;
 import net.phrasal.config.PasswordResetProperties;
 import net.phrasal.infrastructure.mail.EmailMessage;
@@ -11,8 +12,8 @@ import org.springframework.web.util.HtmlUtils;
 import java.time.Duration;
 
 /**
- * Builds the account emails (verification, account exists, password reset, password changed, two-factor changed)
- * as plain Java text blocks; no template engine.
+ * Builds the account emails (verification, account exists, password reset, password changed, email change,
+ * two-factor changed) as plain Java text blocks; no template engine.
  */
 @Component
 @RequiredArgsConstructor
@@ -22,6 +23,8 @@ public class AccountEmailComposer {
     static final String ACCOUNT_EXISTS_SUBJECT = "You already have a Phrasal account";
     static final String PASSWORD_RESET_SUBJECT = "Reset your Phrasal password";
     static final String PASSWORD_CHANGED_SUBJECT = "Your Phrasal password was changed";
+    static final String EMAIL_CHANGE_SUBJECT = "Confirm your new Phrasal email address";
+    static final String EMAIL_CHANGED_SUBJECT = "Your Phrasal email address was changed";
     static final String TWO_FACTOR_ENABLED_SUBJECT = "Two-factor authentication is on for your Phrasal account";
     static final String TWO_FACTOR_DISABLED_SUBJECT = "Two-factor authentication is off for your Phrasal account";
 
@@ -30,6 +33,7 @@ public class AccountEmailComposer {
     private final AppProperties appProperties;
     private final EmailVerificationProperties verificationProperties;
     private final PasswordResetProperties resetProperties;
+    private final EmailChangeProperties emailChangeProperties;
 
     /**
      * Email with the link that confirms the address.
@@ -64,7 +68,8 @@ public class AccountEmailComposer {
     }
 
     /**
-     * Notice for someone who registered an address that already has a verified account.
+     * Notice for someone who registered, or asked to move another account to, an address that already has a verified
+     * account.
      *
      * @param to recipient address
      * @return multipart message with a link to the login page and no token
@@ -72,7 +77,7 @@ public class AccountEmailComposer {
     public EmailMessage accountExists(String to) {
         String link = appProperties.baseUrl() + "/login";
         String text = """
-                Someone tried to create a Phrasal account with this email address, but you already have one.
+                Someone tried to use this email address for a Phrasal account, but it already belongs to your account.
 
                 Log in here:
                 %s
@@ -81,7 +86,8 @@ public class AccountEmailComposer {
                 """.formatted(link);
         String safeLink = HtmlUtils.htmlEscape(link);
         String html = """
-                <p>Someone tried to create a Phrasal account with this email address, but you already have one.</p>
+                <p>Someone tried to use this email address for a Phrasal account, but it already belongs to your
+                account.</p>
                 <p><a href="%1$s">Log in</a></p>
                 <p>Or copy this link into your browser:<br>%1$s</p>
                 <p>If this wasn't you, you can ignore this email.</p>
@@ -145,6 +151,58 @@ public class AccountEmailComposer {
                 <p>Or copy this link into your browser:<br>%1$s</p>
                 """.formatted(safeLink);
         return new EmailMessage(to, PASSWORD_CHANGED_SUBJECT, text, html);
+    }
+
+    /**
+     * Email with the link that moves the account to this address.
+     *
+     * @param to       the new address
+     * @param rawToken secret token; base64url, so it needs no URL encoding
+     * @return multipart message
+     */
+    public EmailMessage emailChangeConfirmation(String to, String rawToken) {
+        String link = appProperties.baseUrl() + "/confirm-email-change?token=" + rawToken;
+        String lifetime = describe(emailChangeProperties.tokenTtl());
+        String text = """
+                Someone asked to use this address for a Phrasal account.
+
+                Confirm the new email address here:
+                %s
+
+                This link expires in %s and works once.
+
+                If you didn't ask for this, ignore this email; nothing changes.
+                """.formatted(link, lifetime);
+        String safeLink = HtmlUtils.htmlEscape(link);
+        String html = """
+                <p>Someone asked to use this address for a Phrasal account.</p>
+                <p><a href="%1$s">Confirm the new email address</a></p>
+                <p>Or copy this link into your browser:<br>%1$s</p>
+                <p>This link expires in %2$s and works once.</p>
+                <p>If you didn't ask for this, ignore this email; nothing changes.</p>
+                """.formatted(safeLink, HtmlUtils.htmlEscape(lifetime));
+        return new EmailMessage(to, EMAIL_CHANGE_SUBJECT, text, html);
+    }
+
+    /**
+     * Notice to the old address that the account moved.
+     *
+     * @param to       the old address
+     * @param newEmail the address the account moved to
+     * @return multipart message with no link and no token
+     */
+    public EmailMessage emailChanged(String to, String newEmail) {
+        String text = """
+                The email address of your Phrasal account was changed to %s, and every device was logged out.
+
+                If this wasn't you, contact the site administrator.
+                """.formatted(newEmail);
+        String html = """
+                <p>The email address of your Phrasal account was changed to %s, and every device was logged
+                out.</p>
+                <p>If this wasn't you, contact the site administrator.</p>
+                """.formatted(HtmlUtils.htmlEscape(newEmail));
+        return new EmailMessage(to, EMAIL_CHANGED_SUBJECT, text, html);
     }
 
     /**

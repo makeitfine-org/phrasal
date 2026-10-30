@@ -164,6 +164,19 @@ abstract class AbstractIntegrationTest {
                 .content("{\"token\":\"" + token + "\",\"password\":\"" + password + "\"}").with(csrf()));
     }
 
+    /** Asks, as the signed-in user, to move the account to a new address; the caller asserts the status. */
+    protected ResultActions requestEmailChange(Cookie session, String newEmail, String password) throws Exception {
+        return mockMvc.perform(post("/api/v1/me/email").cookie(session).with(csrf())
+                .contentType(MediaType.APPLICATION_JSON)
+                .content("{\"newEmail\":\"" + newEmail + "\",\"currentPassword\":\"" + password + "\"}"));
+    }
+
+    /** Redeems an email change link; the caller asserts the status. */
+    protected ResultActions confirmEmailChange(String token) throws Exception {
+        return mockMvc.perform(post("/api/v1/auth/confirm-email-change").contentType(MediaType.APPLICATION_JSON)
+                .content("{\"token\":\"" + token + "\"}").with(csrf()));
+    }
+
     @DynamicPropertySource
     static void configureProperties(DynamicPropertyRegistry registry) {
         registry.add("spring.datasource.url", POSTGRES::getJdbcUrl);

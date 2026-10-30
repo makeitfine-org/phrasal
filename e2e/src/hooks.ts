@@ -46,6 +46,7 @@ Before(function () {
     this.browser = browser;
     this.page = null;
     this.currentEmail = null;
+    this.newEmail = null;
     this.verificationTokens = [];
     this.resetTokens = [];
     this.firstRegistrationResponse = null;

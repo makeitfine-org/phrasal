@@ -4,11 +4,14 @@ import ch.qos.logback.classic.Logger;
 import ch.qos.logback.classic.spi.ILoggingEvent;
 import ch.qos.logback.core.read.ListAppender;
 import net.phrasal.application.event.AccountExistsNoticeRequested;
+import net.phrasal.application.event.EmailChangeConfirmationRequested;
+import net.phrasal.application.event.EmailChangedNoticeRequested;
 import net.phrasal.application.event.PasswordChangedNoticeRequested;
 import net.phrasal.application.event.PasswordResetEmailRequested;
 import net.phrasal.application.event.TwoFactorChangedNoticeRequested;
 import net.phrasal.application.event.VerificationEmailRequested;
 import net.phrasal.config.AppProperties;
+import net.phrasal.config.EmailChangeProperties;
 import net.phrasal.config.EmailVerificationProperties;
 import net.phrasal.config.PasswordResetProperties;
 import net.phrasal.infrastructure.mail.EmailMessage;
@@ -41,7 +44,8 @@ class AccountEmailListenerTest {
     private final AccountEmailListener listener = new AccountEmailListener(
             new AccountEmailComposer(new AppProperties(URI.create("https://phrasalbox.com")),
                     new EmailVerificationProperties(Duration.ofHours(24), Duration.ofDays(7)),
-                    new PasswordResetProperties(Duration.ofHours(1))),
+                    new PasswordResetProperties(Duration.ofHours(1)),
+                    new EmailChangeProperties(Duration.ofHours(1))),
             sender);
     private final Logger logger = (Logger) LoggerFactory.getLogger(AccountEmailListener.class);
     private ListAppender<ILoggingEvent> appender;
@@ -106,6 +110,39 @@ class AccountEmailListenerTest {
         assertThat(captor.getValue().to()).isEqualTo("a@b.com");
         assertThat(captor.getValue().subject()).isEqualTo("Your Phrasal password was changed");
         assertThat(captor.getValue().text()).contains("/forgot-password").doesNotContain("token=");
+    }
+
+    @Test
+    @DisplayName("sends the email change link to the new address")
+    void sendsEmailChangeConfirmation() {
+        listener.onEmailChangeConfirmationRequested(new EmailChangeConfirmationRequested(7L, "new@b.com", TOKEN));
+
+        ArgumentCaptor<EmailMessage> captor = ArgumentCaptor.forClass(EmailMessage.class);
+        verify(sender).send(captor.capture());
+        assertThat(captor.getValue().to()).isEqualTo("new@b.com");
+        assertThat(captor.getValue().text()).contains("confirm-email-change?token=" + TOKEN);
+    }
+
+    @Test
+    @DisplayName("sends the email changed notice to the old address")
+    void sendsEmailChanged() {
+        listener.onEmailChangedNoticeRequested(new EmailChangedNoticeRequested(7L, "old@b.com", "new@b.com"));
+
+        ArgumentCaptor<EmailMessage> captor = ArgumentCaptor.forClass(EmailMessage.class);
+        verify(sender).send(captor.capture());
+        assertThat(captor.getValue().to()).isEqualTo("old@b.com");
+        assertThat(captor.getValue().text()).contains("new@b.com");
+    }
+
+    @Test
+    @DisplayName("a failure while sending the email change mails is swallowed")
+    void swallowsEmailChangeFailures() {
+        doThrow(new MailSendException("relay down")).when(sender).send(any());
+
+        assertThatCode(() -> {
+            listener.onEmailChangeConfirmationRequested(new EmailChangeConfirmationRequested(7L, "n@b.com", TOKEN));
+            listener.onEmailChangedNoticeRequested(new EmailChangedNoticeRequested(7L, "o@b.com", "n@b.com"));
+        }).doesNotThrowAnyException();
     }
 
     @Test

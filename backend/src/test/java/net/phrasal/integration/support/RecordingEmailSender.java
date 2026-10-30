@@ -18,6 +18,9 @@ public class RecordingEmailSender implements EmailSender {
     private static final long POLL_MILLIS = 20;
     private static final Pattern TOKEN_LINK = Pattern.compile("/verify-email\\?token=([A-Za-z0-9_-]{43})");
     private static final Pattern RESET_LINK = Pattern.compile("/reset-password\\?token=([A-Za-z0-9_-]{43})");
+    private static final Pattern EMAIL_CHANGE_LINK =
+            Pattern.compile("/confirm-email-change\\?token=([A-Za-z0-9_-]{43})");
+    private static final String EMAIL_CHANGE_SUBJECT = "Confirm your new Phrasal email address";
     private static final String RESET_SUBJECT = "Reset your Phrasal password";
 
     private final Map<String, List<EmailMessage>> sent = new ConcurrentHashMap<>();
@@ -116,6 +119,16 @@ public class RecordingEmailSender implements EmailSender {
      */
     public String awaitPasswordResetToken(String to) {
         return extractToken(awaitSubject(to, RESET_SUBJECT), RESET_LINK);
+    }
+
+    /**
+     * Extracts the token from the newest email change message to the recipient.
+     *
+     * @param to recipient address (the new address)
+     * @return the raw token
+     */
+    public String awaitEmailChangeToken(String to) {
+        return extractToken(awaitSubject(to, EMAIL_CHANGE_SUBJECT), EMAIL_CHANGE_LINK);
     }
 
     /**

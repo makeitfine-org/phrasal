@@ -2362,3 +2362,26 @@
 - frontend/src/api/problemTypes.ts
 - frontend/src/pages/AccountSecurityPage.tsx
 <!-- end-snapshot -->
+
+<!-- git-snapshot 2026-10-30T12:45:39Z -->
+- .claude/docs/blackbox/audit.md
+- .claude/docs/blackbox/todos/account-funcs-todos.md
+- backend/src/main/java/net/phrasal/application/service/AccountEmailComposer.java
+- backend/src/main/java/net/phrasal/application/service/AccountEmailListener.java
+- backend/src/main/java/net/phrasal/config/SecurityConfig.java
+- backend/src/main/java/net/phrasal/domain/entity/TokenType.java
+- backend/src/main/java/net/phrasal/domain/entity/UserToken.java
+- backend/src/main/java/net/phrasal/infrastructure/exception/GlobalExceptionHandler.java
+- backend/src/main/java/net/phrasal/presentation/rest/AccountController.java
+- backend/src/main/java/net/phrasal/presentation/rest/AuthController.java
+- backend/src/main/resources/application.yml
+- backend/src/test/java/net/phrasal/application/service/AccountEmailComposerTest.java
+- backend/src/test/java/net/phrasal/application/service/AccountEmailListenerTest.java
+- backend/src/test/java/net/phrasal/domain/entity/UserTokenEntityTest.java
+- backend/src/test/java/net/phrasal/infrastructure/exception/GlobalExceptionHandlerTest.java
+- backend/src/test/java/net/phrasal/integration/AbstractIntegrationTest.java
+- backend/src/test/java/net/phrasal/integration/AccountRateLimitIntegrationTest.java
+- backend/src/test/java/net/phrasal/integration/AdminBootstrapIntegrationTest.java
+- backend/src/test/java/net/phrasal/integration/UserTokenRepositoryIntegrationTest.java
+- backend/src/test/java/net/phrasal/integration/support/RecordingEmailSender.java
+<!-- end-snapshot -->

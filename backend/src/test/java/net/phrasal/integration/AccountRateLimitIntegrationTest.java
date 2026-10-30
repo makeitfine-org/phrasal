@@ -15,7 +15,8 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
 /** Kept apart from {@link RateLimitIntegrationTest}, whose tight register limit would block creating the users. */
-@TestPropertySource(properties = "phrasal.rate-limit.reauth-per-user.limit=2")
+@TestPropertySource(properties = {"phrasal.rate-limit.reauth-per-user.limit=2",
+        "phrasal.rate-limit.email-change-per-email.limit=2"})
 @DisplayName("Account change rate limit integration")
 class AccountRateLimitIntegrationTest extends AbstractIntegrationTest {
 
@@ -52,5 +53,37 @@ class AccountRateLimitIntegrationTest extends AbstractIntegrationTest {
         wrongPassword(first).andExpect(status().isTooManyRequests());
 
         wrongPassword(second).andExpect(status().isBadRequest());
+    }
+
+    private ResultActions wrongEmailChange(Cookie session, String newEmail) throws Exception {
+        return requestEmailChange(session, newEmail, "not the password");
+    }
+
+    @Test
+    @DisplayName("change password and change email share one per-user bucket")
+    void sharedBucket() throws Exception {
+        Cookie session = newUser();
+
+        wrongPassword(session).andExpect(status().isBadRequest());
+        wrongEmailChange(session, "shared-" + UUID.randomUUID() + "@example.com").andExpect(status().isBadRequest());
+
+        wrongPassword(session).andExpect(status().isTooManyRequests());
+        wrongEmailChange(session, "shared-" + UUID.randomUUID() + "@example.com")
+                .andExpect(status().isTooManyRequests());
+    }
+
+    @Test
+    @DisplayName("the per-address limit counts requests from different users for the same new address")
+    void perNewAddress() throws Exception {
+        String target = "target-" + UUID.randomUUID() + "@example.com";
+        Cookie first = newUser();
+        Cookie second = newUser();
+        Cookie third = newUser();
+
+        wrongEmailChange(first, target).andExpect(status().isBadRequest());
+        wrongEmailChange(second, target).andExpect(status().isBadRequest());
+
+        wrongEmailChange(third, target).andExpect(status().isTooManyRequests())
+                .andExpect(header().exists("Retry-After"));
     }
 }

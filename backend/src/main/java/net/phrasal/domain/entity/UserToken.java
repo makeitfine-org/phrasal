@@ -33,6 +33,7 @@ public class UserToken {
 
     private static final int TYPE_MAX_LENGTH = 30;
     private static final int TOKEN_HASH_LENGTH = 64;
+    private static final int EMAIL_MAX_LENGTH = 254;
 
     @Id
     @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "user_tokens_seq")
@@ -57,6 +58,9 @@ public class UserToken {
     @Column(name = "expires_at", nullable = false, updatable = false)
     private LocalDateTime expiresAt;
 
+    @Column(name = "new_email", updatable = false, length = EMAIL_MAX_LENGTH)
+    private String newEmail;
+
     @Column(name = "used_at")
     private LocalDateTime usedAt;
 
@@ -69,6 +73,21 @@ public class UserToken {
         this.type = type;
         this.tokenHash = tokenHash;
         this.expiresAt = expiresAt;
+    }
+
+    /**
+     * Creates a token that moves the account to a new address when redeemed.
+     *
+     * @param userId    account that asked for the change
+     * @param tokenHash SHA-256 hash of the raw token
+     * @param expiresAt moment the token stops working
+     * @param newEmail  normalized address the account moves to
+     * @return the unsaved token
+     */
+    public static UserToken emailChange(Long userId, String tokenHash, LocalDateTime expiresAt, String newEmail) {
+        UserToken token = new UserToken(userId, TokenType.EMAIL_CHANGE, tokenHash, expiresAt);
+        token.newEmail = newEmail;
+        return token;
     }
 
     public boolean isExpired(LocalDateTime now) {

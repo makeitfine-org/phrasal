@@ -1,6 +1,7 @@
 package net.phrasal.application.service;
 
 import net.phrasal.config.AppProperties;
+import net.phrasal.config.EmailChangeProperties;
 import net.phrasal.config.EmailVerificationProperties;
 import net.phrasal.config.PasswordResetProperties;
 import net.phrasal.infrastructure.mail.EmailMessage;
@@ -25,7 +26,8 @@ class AccountEmailComposerTest {
 
     private static AccountEmailComposer composer(String baseUrl, Duration ttl, Duration resetTtl) {
         return new AccountEmailComposer(new AppProperties(URI.create(baseUrl)),
-                new EmailVerificationProperties(ttl, Duration.ofDays(7)), new PasswordResetProperties(resetTtl));
+                new EmailVerificationProperties(ttl, Duration.ofDays(7)), new PasswordResetProperties(resetTtl),
+                new EmailChangeProperties(Duration.ofHours(1)));
     }
 
     @Test
@@ -74,7 +76,8 @@ class AccountEmailComposerTest {
         EmailMessage message = composer("https://phrasalbox.com", Duration.ofHours(24)).accountExists("a@b.com");
 
         assertThat(message.subject()).isEqualTo("You already have a Phrasal account");
-        assertThat(message.text()).contains("https://phrasalbox.com/login").doesNotContain("token");
+        assertThat(message.text()).contains("https://phrasalbox.com/login").doesNotContain("token")
+                .contains("it already belongs to your account");
         assertThat(message.html()).contains("https://phrasalbox.com/login").doesNotContain("token");
     }
 
@@ -158,5 +161,32 @@ class AccountEmailComposerTest {
 
         assertThat(composer.passwordReset("a@b.com", TOKEN).text()).doesNotContain("/verify-email");
         assertThat(composer.verification("a@b.com", TOKEN).text()).doesNotContain("/reset-password");
+    }
+
+    @Test
+    @DisplayName("email change confirmation has the link, the lifetime and the ignore line")
+    void emailChangeConfirmation() {
+        EmailMessage message = composer("https://phrasalbox.com", Duration.ofHours(24))
+                .emailChangeConfirmation("new@b.com", TOKEN);
+
+        String link = "https://phrasalbox.com/confirm-email-change?token=" + TOKEN;
+        assertThat(message.to()).isEqualTo("new@b.com");
+        assertThat(message.subject()).isEqualTo("Confirm your new Phrasal email address");
+        assertThat(message.text()).contains(link).contains("expires in 1 hour")
+                .contains("If you didn't ask for this, ignore this email; nothing changes.");
+        assertThat(message.html()).contains("<a href=\"" + link + "\">");
+    }
+
+    @Test
+    @DisplayName("email changed notice names the new address, escaped in HTML, and carries no link")
+    void emailChanged() {
+        EmailMessage message = composer("https://phrasalbox.com", Duration.ofHours(24))
+                .emailChanged("old@b.com", "a&b<x>@c.com");
+
+        assertThat(message.to()).isEqualTo("old@b.com");
+        assertThat(message.subject()).isEqualTo("Your Phrasal email address was changed");
+        assertThat(message.text()).contains("was changed to a&b<x>@c.com, and every device was logged out")
+                .contains("contact the site administrator").doesNotContain("http");
+        assertThat(message.html()).contains("a&amp;b&lt;x&gt;@c.com").doesNotContain("<x>");
     }
 }

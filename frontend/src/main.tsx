@@ -13,6 +13,7 @@ import LoginTwoFactorPage from './pages/LoginTwoFactorPage';
 import LoginPage from './pages/LoginPage';
 import RegisterPage from './pages/RegisterPage';
 import VerifyEmailPage from './pages/VerifyEmailPage';
+import ConfirmEmailChangePage from './pages/ConfirmEmailChangePage';
 import ForgotPasswordPage from './pages/ForgotPasswordPage';
 import ResetPasswordPage from './pages/ResetPasswordPage';
 import AccountSecurityPage from './pages/AccountSecurityPage';
@@ -41,6 +42,7 @@ ReactDOM.createRoot(document.getElementById('root')!).render(
             <Route path="/login/2fa" element={<LoginTwoFactorPage />} />
             <Route path="/register" element={<RegisterPage />} />
             <Route path="/verify-email" element={<VerifyEmailPage />} />
+            <Route path="/confirm-email-change" element={<ConfirmEmailChangePage />} />
             <Route path="/forgot-password" element={<ForgotPasswordPage />} />
             <Route path="/reset-password" element={<ResetPasswordPage />} />
             <Route path="/account/security" element={<AccountSecurityPage />} />

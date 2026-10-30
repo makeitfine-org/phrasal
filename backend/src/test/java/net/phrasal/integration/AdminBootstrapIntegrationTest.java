@@ -121,6 +121,18 @@ class AdminBootstrapIntegrationTest extends AbstractIntegrationTest {
     }
 
     @Test
+    @DisplayName("the admin cannot change the email through the account endpoint: 403 admin-account-managed")
+    void adminCannotChangeEmail() throws Exception {
+        Cookie session = login(BODY, null);
+
+        mockMvc.perform(post("/api/v1/me/email").cookie(session).with(csrf())
+                        .contentType(MediaType.APPLICATION_JSON)
+                        .content("{\"newEmail\":\"admin2@it.test\",\"currentPassword\":\"" + PASSWORD + "\"}"))
+                .andExpect(status().isForbidden())
+                .andExpect(jsonPath("$.type").value(endsWith("/admin-account-managed")));
+    }
+
+    @Test
     @DisplayName("the bootstrap re-run keeps the admin's 2FA enrollment")
     void bootstrapKeepsTwoFactor() throws Exception {
         enableTwoFactor(login(BODY, null), PASSWORD);

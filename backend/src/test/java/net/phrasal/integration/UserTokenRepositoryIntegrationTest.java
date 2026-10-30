@@ -100,6 +100,50 @@ class UserTokenRepositoryIntegrationTest extends AbstractIntegrationTest {
     }
 
     @Test
+    @DisplayName("an email change token round-trips with its pending address")
+    void emailChangeRoundTrip() {
+        User user = newUser();
+        UserToken saved = repository.saveAndFlush(
+                UserToken.emailChange(user.getId(), uniqueHash(), NOW.plusHours(1), "new@example.com"));
+
+        UserToken found = repository.findByTokenHashAndType(saved.getTokenHash(), TokenType.EMAIL_CHANGE)
+                .orElseThrow();
+
+        assertThat(found.getNewEmail()).isEqualTo("new@example.com");
+        assertThat(found.getType()).isEqualTo(TokenType.EMAIL_CHANGE);
+    }
+
+    @Test
+    @DisplayName("the schema rejects an email change token without an address")
+    void emailChangeNeedsAddress() {
+        User user = newUser();
+
+        assertThatThrownBy(() -> save(user.getId(), TokenType.EMAIL_CHANGE, NOW.plusHours(1)))
+                .isInstanceOf(DataIntegrityViolationException.class);
+    }
+
+    @Test
+    @DisplayName("the schema rejects a password reset token that carries an address")
+    void otherTypesRejectAddress() {
+        User user = newUser();
+
+        assertThatThrownBy(() -> jdbcTemplate.update("INSERT INTO user_tokens "
+                + "(user_id, type, token_hash, expires_at, new_email) VALUES (?, 'PASSWORD_RESET', ?, ?, ?)",
+                user.getId(), uniqueHash(), NOW.plusHours(1), "new@example.com"))
+                .isInstanceOf(DataIntegrityViolationException.class);
+    }
+
+    @Test
+    @DisplayName("the schema rejects an upper-case pending address")
+    void emailChangeAddressLowerCase() {
+        User user = newUser();
+
+        assertThatThrownBy(() -> repository.saveAndFlush(
+                UserToken.emailChange(user.getId(), uniqueHash(), NOW.plusHours(1), "New@Example.com")))
+                .isInstanceOf(DataIntegrityViolationException.class);
+    }
+
+    @Test
     @DisplayName("an unknown hash finds nothing")
     void unknownHash() {
         assertThat(repository.findByTokenHashAndType(uniqueHash(), TokenType.EMAIL_VERIFICATION)).isEmpty();

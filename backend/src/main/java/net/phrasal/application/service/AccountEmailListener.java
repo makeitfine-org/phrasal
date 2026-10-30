@@ -3,6 +3,8 @@ package net.phrasal.application.service;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import net.phrasal.application.event.AccountExistsNoticeRequested;
+import net.phrasal.application.event.EmailChangeConfirmationRequested;
+import net.phrasal.application.event.EmailChangedNoticeRequested;
 import net.phrasal.application.event.PasswordChangedNoticeRequested;
 import net.phrasal.application.event.PasswordResetEmailRequested;
 import net.phrasal.application.event.TwoFactorChangedNoticeRequested;
@@ -54,6 +56,18 @@ public class AccountEmailListener {
     @TransactionalEventListener(phase = TransactionPhase.AFTER_COMMIT)
     public void onTwoFactorChangedNoticeRequested(TwoFactorChangedNoticeRequested event) {
         deliver(event.userId(), composer.twoFactorChanged(event.email(), event.enabled()));
+    }
+
+    @Async
+    @TransactionalEventListener(phase = TransactionPhase.AFTER_COMMIT)
+    public void onEmailChangeConfirmationRequested(EmailChangeConfirmationRequested event) {
+        deliver(event.userId(), composer.emailChangeConfirmation(event.newEmail(), event.rawToken()));
+    }
+
+    @Async
+    @TransactionalEventListener(phase = TransactionPhase.AFTER_COMMIT)
+    public void onEmailChangedNoticeRequested(EmailChangedNoticeRequested event) {
+        deliver(event.userId(), composer.emailChanged(event.oldEmail(), event.newEmail()));
     }
 
     private void deliver(Long userId, EmailMessage message) {

@@ -3,11 +3,15 @@ import axios from 'axios';
 const POLL_INTERVAL_MS = 250;
 const DEFAULT_TIMEOUT_MS = 10_000;
 const LINK_PATTERN = /https?:\/\/[^\s"<]+\/verify-email\?token=[A-Za-z0-9_-]{43}/;
+const EMAIL_CHANGE_LINK_PATTERN = /https?:\/\/[^\s"<]+\/confirm-email-change\?token=[A-Za-z0-9_-]{43}/;
 const RESET_LINK_PATTERN = /https?:\/\/[^\s"<]+\/reset-password\?token=[A-Za-z0-9_-]{43}/;
 
 export const VERIFICATION_SUBJECT = 'Confirm your Phrasal account';
 export const PASSWORD_RESET_SUBJECT = 'Reset your Phrasal password';
 export const PASSWORD_CHANGED_SUBJECT = 'Your Phrasal password was changed';
+export const EMAIL_CHANGE_SUBJECT = 'Confirm your new Phrasal email address';
+export const EMAIL_CHANGED_SUBJECT = 'Your Phrasal email address was changed';
+export const ACCOUNT_EXISTS_SUBJECT = 'You already have a Phrasal account';
 
 export interface MailMessage {
     subject: string;
@@ -91,6 +95,23 @@ export async function passwordResetToken(address: string): Promise<string> {
     const token = new URL(await passwordResetLink(address)).searchParams.get('token');
     if (!token) {
         throw new Error(`Password reset link for ${address} has no token`);
+    }
+    return token;
+}
+
+export async function emailChangeLink(address: string): Promise<string> {
+    const message = await latestMessageTo(address, { subject: EMAIL_CHANGE_SUBJECT });
+    const match = EMAIL_CHANGE_LINK_PATTERN.exec(message.text) ?? EMAIL_CHANGE_LINK_PATTERN.exec(message.html);
+    if (!match) {
+        throw new Error(`No email change link in the latest email to ${address} (subject: "${message.subject}")`);
+    }
+    return match[0];
+}
+
+export async function emailChangeToken(address: string): Promise<string> {
+    const token = new URL(await emailChangeLink(address)).searchParams.get('token');
+    if (!token) {
+        throw new Error(`Email change link for ${address} has no token`);
     }
     return token;
 }

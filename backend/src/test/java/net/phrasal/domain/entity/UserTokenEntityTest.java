@@ -75,4 +75,22 @@ class UserTokenEntityTest {
         assertThat(first).isEqualTo(first).isNotEqualTo("other");
         assertThat(first.hashCode()).isEqualTo(second.hashCode());
     }
+
+    @Test
+    @DisplayName("emailChange sets every field, including the pending address")
+    void emailChangeFactory() {
+        UserToken token = UserToken.emailChange(7L, "h".repeat(64), EXPIRES, "new@example.com");
+
+        assertThat(token.getUserId()).isEqualTo(7L);
+        assertThat(token.getType()).isEqualTo(TokenType.EMAIL_CHANGE);
+        assertThat(token.getTokenHash()).isEqualTo("h".repeat(64));
+        assertThat(token.getExpiresAt()).isEqualTo(EXPIRES);
+        assertThat(token.getNewEmail()).isEqualTo("new@example.com");
+    }
+
+    @Test
+    @DisplayName("other token types carry no pending address")
+    void otherTypesHaveNoNewEmail() {
+        assertThat(token().getNewEmail()).isNull();
+    }
 }

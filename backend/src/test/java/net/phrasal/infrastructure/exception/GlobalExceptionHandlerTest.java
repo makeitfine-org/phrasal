@@ -161,6 +161,36 @@ class GlobalExceptionHandlerTest {
     }
 
     @Test
+    @DisplayName("returns 400 email-change-link-invalid")
+    void handleEmailChangeLinkInvalid() {
+        ProblemDetail detail = handler.handleEmailChangeLinkInvalid(new EmailChangeLinkInvalidException());
+
+        assertThat(detail.getStatus()).isEqualTo(HttpStatus.BAD_REQUEST.value());
+        assertThat(detail.getType().toString()).endsWith("/errors/email-change-link-invalid");
+        assertThat(detail.getDetail()).isEqualTo("This email change link is invalid or was already used");
+    }
+
+    @Test
+    @DisplayName("returns 400 email-change-link-expired")
+    void handleEmailChangeLinkExpired() {
+        ProblemDetail detail = handler.handleEmailChangeLinkExpired(new EmailChangeLinkExpiredException());
+
+        assertThat(detail.getStatus()).isEqualTo(HttpStatus.BAD_REQUEST.value());
+        assertThat(detail.getType().toString()).endsWith("/errors/email-change-link-expired");
+        assertThat(detail.getDetail()).isEqualTo("This email change link has expired");
+    }
+
+    @Test
+    @DisplayName("returns 409 email-change-conflict")
+    void handleEmailChangeConflict() {
+        ProblemDetail detail = handler.handleEmailChangeConflict(new EmailChangeConflictException());
+
+        assertThat(detail.getStatus()).isEqualTo(HttpStatus.CONFLICT.value());
+        assertThat(detail.getType().toString()).endsWith("/errors/email-change-conflict");
+        assertThat(detail.getDetail()).isEqualTo("This address is already used by another account");
+    }
+
+    @Test
     @DisplayName("returns 400 validation-error with errors.password for a policy violation")
     void handlePasswordPolicyViolation() {
         ProblemDetail detail = handler.handleFieldValidation(

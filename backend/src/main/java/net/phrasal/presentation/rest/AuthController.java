@@ -6,6 +6,7 @@ import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import net.phrasal.application.dto.AcceptedResponse;
+import net.phrasal.application.dto.ConfirmEmailChangeRequest;
 import net.phrasal.application.dto.ForgotPasswordRequest;
 import net.phrasal.application.dto.LoginChallengeResponse;
 import net.phrasal.application.dto.LoginRequest;
@@ -16,6 +17,7 @@ import net.phrasal.application.dto.TwoFactorCodeRequest;
 import net.phrasal.application.dto.UserResponse;
 import net.phrasal.application.dto.VerifyEmailRequest;
 import net.phrasal.application.service.AuthService;
+import net.phrasal.application.service.EmailChangeService;
 import net.phrasal.application.service.EmailVerificationService;
 import net.phrasal.application.service.PasswordResetService;
 import net.phrasal.application.service.TwoFactorService;
@@ -46,6 +48,7 @@ public class AuthController {
     private final AuthService authService;
     private final EmailVerificationService emailVerificationService;
     private final PasswordResetService passwordResetService;
+    private final EmailChangeService emailChangeService;
     private final TwoFactorService twoFactorService;
     private final SessionAuthenticator sessionAuthenticator;
     private final PendingTwoFactorLogin pendingTwoFactorLogin;
@@ -91,6 +94,14 @@ public class AuthController {
                                             HttpServletRequest httpRequest) {
         rateLimiter.check("verify-per-ip", rateLimits.verifyPerIp(), httpRequest.getRemoteAddr());
         emailVerificationService.verify(request.token());
+        return ResponseEntity.noContent().build();
+    }
+
+    @PostMapping("/confirm-email-change")
+    public ResponseEntity<Void> confirmEmailChange(@Valid @RequestBody ConfirmEmailChangeRequest request,
+                                                   HttpServletRequest httpRequest) {
+        rateLimiter.check("verify-per-ip", rateLimits.verifyPerIp(), httpRequest.getRemoteAddr());
+        emailChangeService.confirmChange(request.token());
         return ResponseEntity.noContent().build();
     }
 

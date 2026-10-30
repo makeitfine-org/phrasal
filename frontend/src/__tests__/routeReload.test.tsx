@@ -9,6 +9,7 @@ import LoginTwoFactorPage from '../pages/LoginTwoFactorPage';
 import LoginPage from '../pages/LoginPage';
 import RegisterPage from '../pages/RegisterPage';
 import VerifyEmailPage from '../pages/VerifyEmailPage';
+import ConfirmEmailChangePage from '../pages/ConfirmEmailChangePage';
 import ForgotPasswordPage from '../pages/ForgotPasswordPage';
 import ResetPasswordPage from '../pages/ResetPasswordPage';
 import PageShell from '../components/PageShell';
@@ -41,6 +42,7 @@ function renderApp(initialPath: string) {
           <Route path="/login/2fa" element={<LoginTwoFactorPage />} />
           <Route path="/register" element={<RegisterPage />} />
           <Route path="/verify-email" element={<VerifyEmailPage />} />
+          <Route path="/confirm-email-change" element={<ConfirmEmailChangePage />} />
           <Route path="/forgot-password" element={<ForgotPasswordPage />} />
           <Route path="/reset-password" element={<ResetPasswordPage />} />
           <Route path="/account/security" element={<AccountSecurityPage />} />
@@ -92,6 +94,12 @@ describe('Page reload — router renders correct page, no console errors', () =>
   it('reload /verify-email renders the verification page inside the shell', () => {
     renderApp('/verify-email');
     expect(screen.getByRole('heading', { name: 'Confirm your email' })).toBeInTheDocument();
+    expect(screen.getByTestId('nav-menu')).toBeInTheDocument();
+  });
+
+  it('reload /confirm-email-change renders the confirmation page inside the shell', () => {
+    renderApp('/confirm-email-change');
+    expect(screen.getByRole('heading', { name: 'Confirm your new email' })).toBeInTheDocument();
     expect(screen.getByTestId('nav-menu')).toBeInTheDocument();
   });
 

@@ -17,3 +17,6 @@ export function isProblemType(error: unknown, type: string): boolean {
   return error instanceof ApiError && !!error.problem?.type && error.problem.type.endsWith(`/${type}`);
 }
 export const ADMIN_ACCOUNT_MANAGED = 'admin-account-managed';
+export const EMAIL_CHANGE_LINK_INVALID = 'email-change-link-invalid';
+export const EMAIL_CHANGE_LINK_EXPIRED = 'email-change-link-expired';
+export const EMAIL_CHANGE_CONFLICT = 'email-change-conflict';

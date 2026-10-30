@@ -3,6 +3,7 @@ import { Navigate } from 'react-router-dom';
 import { useAuth } from '../auth/useAuth';
 import { disableTwoFactor, fetchTwoFactorStatus, regenerateRecoveryCodes } from '../api/twoFactorApi';
 import type { TwoFactorStatus } from '../types';
+import ChangeEmailForm from '../components/account/ChangeEmailForm';
 import ChangePasswordForm from '../components/account/ChangePasswordForm';
 import CodeForm from '../components/twoFactor/CodeForm';
 import RecoveryCodesPanel from '../components/twoFactor/RecoveryCodesPanel';
@@ -168,7 +169,10 @@ export default function AccountSecurityPage() {
           The admin account&apos;s password and email are managed through server configuration.
         </p>
       ) : (
-        <ChangePasswordForm />
+        <>
+          <ChangePasswordForm />
+          <ChangeEmailForm />
+        </>
       )}
       <h2 className="text-lg font-semibold text-gray-900 dark:text-gray-100 mb-3">Two-factor authentication</h2>
       {renderBody()}
