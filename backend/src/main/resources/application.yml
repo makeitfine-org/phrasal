@@ -109,6 +109,12 @@ phrasal:
     two-factor-per-user:
       limit: ${RATE_LIMIT_TWO_FACTOR_PER_USER:5}
       window: 15m
+    reauth-per-user:
+      limit: ${RATE_LIMIT_REAUTH_PER_USER:5}
+      window: 15m
+    email-change-per-email:
+      limit: ${RATE_LIMIT_EMAIL_CHANGE_PER_EMAIL:3}
+      window: 1h
   quiz-progress:
     max-state-bytes: 65536
   app:

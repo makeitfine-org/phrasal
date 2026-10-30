@@ -45,10 +45,10 @@ public class GlobalExceptionHandler {
         return buildValidationProblem(errors);
     }
 
-    @ExceptionHandler(PasswordPolicyViolationException.class)
-    public ProblemDetail handlePasswordPolicyViolation(PasswordPolicyViolationException ex) {
-        log.warn("Password rejected: policy violation");
-        return buildValidationProblem(Map.of("password", ex.getMessage()));
+    @ExceptionHandler(FieldValidationException.class)
+    public ProblemDetail handleFieldValidation(FieldValidationException ex) {
+        log.warn("Request rejected: field rule broken, field={}", ex.field());
+        return buildValidationProblem(Map.of(ex.field(), ex.getMessage()));
     }
 
     private ProblemDetail buildValidationProblem(Map<String, String> errors) {
@@ -84,6 +84,13 @@ public class GlobalExceptionHandler {
         String detail = ex instanceof BadCredentialsException
                 ? "Invalid email or password" : "Authentication is required";
         return buildProblem(HttpStatus.UNAUTHORIZED, "Unauthorized", "unauthorized", detail);
+    }
+
+    @ExceptionHandler(AdminAccountManagedException.class)
+    public ProblemDetail handleAdminAccountManaged(AdminAccountManagedException ex) {
+        log.warn("Account change rejected: admin account is managed by configuration");
+        return buildProblem(HttpStatus.FORBIDDEN, "Admin Account Managed", "admin-account-managed",
+                ex.getMessage());
     }
 
     @ExceptionHandler(AccessDeniedException.class)

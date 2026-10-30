@@ -23,8 +23,8 @@ This builds on:
 - task-102: `user_quiz_progress` (`ON DELETE CASCADE`), `clearAccountQuizProgress()`, `useQuizProgressSync`, which
   already ignores a `401`
 
-> Status: Phase 0 done (2026-10-30, branch `account-settings`, backlog task-100 + new TASK-109). Phase 1 onwards is
-> not implemented yet.
+> Status: Phase 0 done (2026-10-30, branch `account-settings`, backlog task-100 + new TASK-109). Phase 1 done
+> (2026-10-30, shared backend groundwork). Phase 2 onwards is not implemented yet.
 
 ---
 
@@ -350,44 +350,46 @@ Why: all three account endpoints need the same password check, the admin rule, f
 bucket. Doing these once keeps the feature phases small.
 
 ### 1.1 Field-level errors from services
-- [ ] **1.1.1** `infrastructure/exception/FieldValidationException.java` (`RuntimeException`):
+- [x] **1.1.1** `infrastructure/exception/FieldValidationException.java` (`RuntimeException`):
   - constructor `(String field, String message)`, getter `field()`
   - Javadoc: "a field broke a rule that needs data Bean Validation doesn't have"
-- [ ] **1.1.2** `PasswordPolicyViolationException` extends `FieldValidationException`:
+- [x] **1.1.2** `PasswordPolicyViolationException` extends `FieldValidationException`:
   - keep the `(String message)` constructor, which uses field `password`
   - add a `(String field, String message)` constructor
-- [ ] **1.1.3** `GlobalExceptionHandler`: replace `handlePasswordPolicyViolation` with
+- [x] **1.1.3** `GlobalExceptionHandler`: replace `handlePasswordPolicyViolation` with
       `handleFieldValidation(FieldValidationException ex)` → `buildValidationProblem(Map.of(ex.field(), ex.getMessage()))`.
   - Keep the `log.warn` without the message, because it could contain user input.
-- [ ] **1.1.4** `GlobalExceptionHandlerTest`:
+- [x] **1.1.4** `GlobalExceptionHandlerTest`:
   - a `PasswordPolicyViolationException` still gives `errors.password`
   - a `FieldValidationException("newEmail", …)` gives `errors.newEmail`
-- [ ] **1.1.5** The existing register/reset integration tests still pass unchanged (`errors.password`).
+- [x] **1.1.5** The existing register/reset integration tests still pass unchanged (`errors.password`).
 
 ### 1.2 Admin rule
-- [ ] **1.2.1** `infrastructure/exception/AdminAccountManagedException.java`, message
+- [x] **1.2.1** `infrastructure/exception/AdminAccountManagedException.java`, message
       `The admin account is managed through server configuration`.
-- [ ] **1.2.2** `GlobalExceptionHandler`: a handler placed **before** the `AccessDeniedException` one →
+- [x] **1.2.2** `GlobalExceptionHandler`: a handler placed **before** the `AccessDeniedException` one →
       `403`, title `Admin Account Managed`, type `.../errors/admin-account-managed`, detail = message.
-- [ ] **1.2.3** `GlobalExceptionHandlerTest`: the 403 mapping, the type and the detail.
+- [x] **1.2.3** `GlobalExceptionHandlerTest`: the 403 mapping, the type and the detail.
 
 ### 1.3 Shared account checks
-- [ ] **1.3.1** `application/service/AccountChecks.java` (`@Component @RequiredArgsConstructor`):
+- [x] **1.3.1** `application/service/AccountChecks.java` (`@Component @RequiredArgsConstructor`):
   - `User load(Long userId)`: missing → `AuthenticationCredentialsNotFoundException("Account no longer exists")`, the
     same behaviour as `TwoFactorService#load`
   - `void requireSelfManaged(User user)`: `role == ADMIN` → `AdminAccountManagedException`
   - `void requirePassword(User user, String raw)`: `passwordHash == null || !matches` → `WrongPasswordException`
-- [ ] **1.3.2** Optional, but it keeps one rule: `TwoFactorService#setup` uses `accountChecks.requirePassword(…)`
+- [x] **1.3.2** Optional, but it keeps one rule: `TwoFactorService#setup` uses `accountChecks.requirePassword(…)`
       instead of its own inline check. `TwoFactorServiceTest` must stay green; adjust its mocks.
-- [ ] **1.3.3** `AccountChecksTest` (Mockito):
+      → Done. `TwoFactorService#load` delegates to `accountChecks.load` too, so "Account no longer exists" lives in one
+      place; `PasswordEncoder` left the service. The test builds a real `AccountChecks` from its existing mocks.
+- [x] **1.3.3** `AccountChecksTest` (Mockito):
   - load: found; missing → exception
   - requireSelfManaged: USER passes; ADMIN → exception
   - requirePassword: right; wrong; null hash → exception
 
 ### 1.4 Rate-limit rules
-- [ ] **1.4.1** `RateLimitProperties`: add `Rule reauthPerUser` and `Rule emailChangePerEmail`, each with an `@param`
+- [x] **1.4.1** `RateLimitProperties`: add `Rule reauthPerUser` and `Rule emailChangePerEmail`, each with an `@param`
       line in the Javadoc.
-- [ ] **1.4.2** `application.yml`, under `phrasal.rate-limit`:
+- [x] **1.4.2** `application.yml`, under `phrasal.rate-limit`:
   ```yaml
       reauth-per-user:
         limit: ${RATE_LIMIT_REAUTH_PER_USER:5}
@@ -396,14 +398,18 @@ bucket. Doing these once keeps the feature phases small.
         limit: ${RATE_LIMIT_EMAIL_CHANGE_PER_EMAIL:3}
         window: 1h
   ```
-- [ ] **1.4.3** `src/test/resources/application-test.yml`: raise both limits like the others (`100000`).
-- [ ] **1.4.4** Check every place that builds `RateLimitProperties` by hand (`RateLimiterTest`, `RateLimitConfig`,
+- [x] **1.4.3** `src/test/resources/application-test.yml`: raise both limits like the others (`100000`).
+- [x] **1.4.4** Check every place that builds `RateLimitProperties` by hand (`RateLimiterTest`, `RateLimitConfig`,
       test fixtures) and add the two new rules there.
-- [ ] **1.4.5** `RateLimiterTest` stays green.
+      → Only `RateLimiterTest` builds it by hand (`RateLimitConfig` holds just the `Ticker` bean). compose, k8s and the
+      README rate-limit table are left for Phases 8 and 9.
+- [x] **1.4.5** `RateLimiterTest` stays green.
 
 ### 1.5 Verify and commit
-- [ ] **1.5.1** `cd backend && mvn -q -o test -Dtest='GlobalExceptionHandlerTest,AccountChecksTest,TwoFactorServiceTest,RateLimiterTest'`.
-- [ ] **1.5.2** `cd backend && mvn clean verify`: JaCoCo and Checkstyle are green.
+- [x] **1.5.1** `cd backend && mvn -q -o test -Dtest='GlobalExceptionHandlerTest,AccountChecksTest,TwoFactorServiceTest,RateLimiterTest'`.
+- [x] **1.5.2** `cd backend && mvn clean verify`: JaCoCo and Checkstyle are green.
+      → Ran as part of `make clean build`, EXIT=0: backend 585 tests (baseline 575), JaCoCo met, 0 Checkstyle
+      violations; frontend 1592 tests in 81 files; e2e 119 scenarios / 916 steps.
 - [ ] **1.5.3** Ask for commit approval → `refactor(backend): add shared account checks and field errors`
 
 ---

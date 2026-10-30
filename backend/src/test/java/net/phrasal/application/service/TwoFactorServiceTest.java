@@ -109,7 +109,7 @@ class TwoFactorServiceTest {
 
     private TwoFactorService service() {
         return new TwoFactorService(userRepository, recoveryCodeRepository, encryptor, totpVerifier, secrets,
-                recoveryCodes, passwordEncoder, properties, clock, publisher);
+                recoveryCodes, new AccountChecks(userRepository, passwordEncoder), properties, clock, publisher);
     }
 
     private String startSetup() {

@@ -15,7 +15,6 @@ import net.phrasal.infrastructure.exception.InvalidTwoFactorCodeException;
 import net.phrasal.infrastructure.exception.TwoFactorLoginExpiredException;
 import net.phrasal.infrastructure.exception.TwoFactorStateException;
 import net.phrasal.infrastructure.exception.TwoFactorStateException.Reason;
-import net.phrasal.infrastructure.exception.WrongPasswordException;
 import net.phrasal.infrastructure.security.AesGcmEncryptor;
 import net.phrasal.infrastructure.security.AuthenticatedUser;
 import net.phrasal.infrastructure.security.RecoveryCodes;
@@ -23,8 +22,6 @@ import net.phrasal.infrastructure.security.SecretDecryptionException;
 import net.phrasal.infrastructure.security.TotpVerifier;
 import net.phrasal.infrastructure.security.TwoFactorSecrets;
 import org.springframework.context.ApplicationEventPublisher;
-import org.springframework.security.authentication.AuthenticationCredentialsNotFoundException;
-import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -47,7 +44,7 @@ public class TwoFactorService {
     private final TotpVerifier totpVerifier;
     private final TwoFactorSecrets twoFactorSecrets;
     private final RecoveryCodes recoveryCodes;
-    private final PasswordEncoder passwordEncoder;
+    private final AccountChecks accountChecks;
     private final TwoFactorProperties properties;
     private final Clock clock;
     private final ApplicationEventPublisher eventPublisher;
@@ -86,9 +83,7 @@ public class TwoFactorService {
         if (user.isTwoFactorEnabled()) {
             throw new TwoFactorStateException(Reason.ALREADY_ENABLED);
         }
-        if (user.getPasswordHash() == null || !passwordEncoder.matches(password, user.getPasswordHash())) {
-            throw new WrongPasswordException();
-        }
+        accountChecks.requirePassword(user, password);
         byte[] secret = twoFactorSecrets.newSecret();
         user.startTwoFactorSetup(encryptor.encrypt(secret, aad(userId)));
         String base32 = TwoFactorSecrets.toBase32(secret);
@@ -223,8 +218,7 @@ public class TwoFactorService {
     }
 
     private User load(Long userId) {
-        return userRepository.findById(userId)
-                .orElseThrow(() -> new AuthenticationCredentialsNotFoundException("Account no longer exists"));
+        return accountChecks.load(userId);
     }
 
     private static String aad(Long userId) {

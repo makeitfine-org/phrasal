@@ -2316,3 +2316,32 @@
 - backlog/tasks/task-100 - Let-users-reset-forgotten-passwords-delete-their-account-and-protect-auth-endpoints-from-abuse.md
 - backlog/tasks/task-103 - Add-sign-up-login-2FA-and-account-screens-to-the-frontend-and-sync-quiz-progress-for-logged-in-users.md
 <!-- end-snapshot -->
+
+<!-- git-snapshot 2026-10-30T11:47:15Z -->
+- .claude/docs/blackbox/audit.md
+- .claude/docs/blackbox/todos/account-funcs-todos.md
+- backend/src/main/java/net/phrasal/application/service/TwoFactorService.java
+- backend/src/main/java/net/phrasal/config/RateLimitProperties.java
+- backend/src/main/java/net/phrasal/infrastructure/exception/GlobalExceptionHandler.java
+- backend/src/main/java/net/phrasal/infrastructure/exception/PasswordPolicyViolationException.java
+- backend/src/main/resources/application.yml
+- backend/src/test/java/net/phrasal/application/service/TwoFactorServiceTest.java
+- backend/src/test/java/net/phrasal/infrastructure/exception/GlobalExceptionHandlerTest.java
+- backend/src/test/java/net/phrasal/infrastructure/security/RateLimiterTest.java
+- backend/src/test/resources/application-test.yml
+<!-- end-snapshot -->
+
+<!-- git-snapshot 2026-10-30T11:51:26Z -->
+- .claude/docs/blackbox/audit.md
+- .claude/docs/blackbox/session-log.md
+- .claude/docs/blackbox/todos/account-funcs-todos.md
+- backend/src/main/java/net/phrasal/application/service/TwoFactorService.java
+- backend/src/main/java/net/phrasal/config/RateLimitProperties.java
+- backend/src/main/java/net/phrasal/infrastructure/exception/GlobalExceptionHandler.java
+- backend/src/main/java/net/phrasal/infrastructure/exception/PasswordPolicyViolationException.java
+- backend/src/main/resources/application.yml
+- backend/src/test/java/net/phrasal/application/service/TwoFactorServiceTest.java
+- backend/src/test/java/net/phrasal/infrastructure/exception/GlobalExceptionHandlerTest.java
+- backend/src/test/java/net/phrasal/infrastructure/security/RateLimiterTest.java
+- backend/src/test/resources/application-test.yml
+<!-- end-snapshot -->

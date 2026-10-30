@@ -163,7 +163,7 @@ class GlobalExceptionHandlerTest {
     @Test
     @DisplayName("returns 400 validation-error with errors.password for a policy violation")
     void handlePasswordPolicyViolation() {
-        ProblemDetail detail = handler.handlePasswordPolicyViolation(
+        ProblemDetail detail = handler.handleFieldValidation(
                 new PasswordPolicyViolationException("Password must not contain your email address"));
 
         assertThat(detail.getStatus()).isEqualTo(HttpStatus.BAD_REQUEST.value());
@@ -172,6 +172,40 @@ class GlobalExceptionHandlerTest {
         assertThat(detail.getDetail()).isEqualTo("Validation failed for one or more fields");
         assertThat(detail.getProperties()).containsEntry("errors",
                 Map.of("password", "Password must not contain your email address"));
+    }
+
+    @Test
+    @DisplayName("returns errors.newPassword for a policy violation on another field")
+    void handlePasswordPolicyViolationOnOtherField() {
+        ProblemDetail detail = handler.handleFieldValidation(
+                new PasswordPolicyViolationException("newPassword", "Choose a different password"));
+
+        assertThat(detail.getProperties()).containsEntry("errors",
+                Map.of("newPassword", "Choose a different password"));
+    }
+
+    @Test
+    @DisplayName("returns 400 validation-error under the field a service names")
+    void handleFieldValidation() {
+        ProblemDetail detail = handler.handleFieldValidation(
+                new FieldValidationException("newEmail", "This is already your email address"));
+
+        assertThat(detail.getStatus()).isEqualTo(HttpStatus.BAD_REQUEST.value());
+        assertThat(detail.getType().toString()).endsWith("/errors/validation-error");
+        assertThat(detail.getProperties()).containsEntry("errors",
+                Map.of("newEmail", "This is already your email address"));
+    }
+
+    @Test
+    @DisplayName("returns 403 admin-account-managed, not the generic forbidden problem")
+    void handleAdminAccountManaged() {
+        ProblemDetail detail = handler.handleAdminAccountManaged(new AdminAccountManagedException());
+
+        assertThat(detail.getStatus()).isEqualTo(HttpStatus.FORBIDDEN.value());
+        assertThat(detail.getTitle()).isEqualTo("Admin Account Managed");
+        assertThat(detail.getType().toString()).endsWith("/errors/admin-account-managed")
+                .doesNotEndWith("/errors/forbidden");
+        assertThat(detail.getDetail()).isEqualTo("The admin account is managed through server configuration");
     }
 
     @Test

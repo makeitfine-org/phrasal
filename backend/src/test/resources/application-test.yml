@@ -37,5 +37,9 @@ phrasal:
       limit: 100000
     two-factor-per-user:
       limit: 100000
+    reauth-per-user:
+      limit: 100000
+    email-change-per-email:
+      limit: 100000
   cleanup:
     enabled: false
