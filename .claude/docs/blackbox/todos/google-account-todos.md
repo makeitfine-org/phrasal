@@ -5,7 +5,7 @@ Source plan: `.claude/docs/blackbox/plans/2026-10-26 18:10 Multi-user accounts T
 consent screen stays in **task-105** (AC #6).
 
 > Status (2026-10-30): Phases 0–9 done on branch `google-sign-in`, except 0.7 (user actions in Google Cloud);
-> 11.3 done early with Phase 9. Phases 10–11 done (uncommitted until approved); 12–13 not started.
+> 11.3 done early with Phase 9. Phases 10–11 committed (bb92228). Phase 12: 12.1 done; 12.2–12.5 wait for the user; 13 not started.
 
 Builds on what is already in `develop` (`cb933cc`):
 - password login with a pending 2FA step (`SessionAuthenticator`, `PendingTwoFactorLogin`, `POST /auth/login/2fa`)
@@ -1036,7 +1036,7 @@ No new endpoint (decision 9). This phase proves the existing endpoints behave an
       Done: 153 scenarios / 1188 steps green (13 new). Extra steps beyond the list: `there should be one account for my Google user`
       (`countUsersWithGoogleSubject` in `db-client.ts`), `I open the Google callback with an access-denied error in the browser`,
       `I log in through the form with the password I just set`. `MOCK_OAUTH2_URL` defaults to `http://localhost:${MOCK_OAUTH2_PORT:-8090}`.
-- [ ] **10.3.4** Ask for commit approval → `test(e2e): cover Google sign-in against a stand-in provider`
+- [x] **10.3.4** Ask for commit approval → `test(e2e): cover Google sign-in against a stand-in provider`
 
 ---
 
@@ -1092,7 +1092,7 @@ No new endpoint (decision 9). This phase proves the existing endpoints behave an
   - [x] task-106: note that AC #4/#5 are needed for 12.3 and Phase 13; check them only after the user confirms
   - [x] task-103: note that the Google button (out of its scope) shipped here
   - [ ] **ask the user** before moving task-104 to `Done`
-- [ ] **11.8** (`make clean build` for Phases 10–11: green, backend BUILD SUCCESS, frontend 1700 tests, e2e 153 scenarios / 1188 steps.) Ask for commit approval → `docs: document Google sign-in`
+- [x] **11.8** (`make clean build` for Phases 10–11: green, backend BUILD SUCCESS, frontend 1700 tests, e2e 153 scenarios / 1188 steps.) Ask for commit approval → `docs: document Google sign-in`
 - [ ] **11.9** On the user's exit signal, append the blackbox `session-log.md` entry (format in
       `../../../rules/blackbox-policy.md`, under 20 lines, no secrets: no client id/secret, tokens or codes), including
       the plan mutation line and the new diagram.
@@ -1101,8 +1101,8 @@ No new endpoint (decision 9). This phase proves the existing endpoints behave an
 
 ## Phase 12 — Final verification
 
-- [ ] **12.1** `make clean build` → green: backend verify (JaCoCo 85 %/package, Checkstyle), frontend build + tests,
-      docker rebuild, e2e. Write the counts here.
+- [x] **12.1** `make clean build` → green: backend verify (JaCoCo 85 %/package, Checkstyle), frontend build + tests,
+      docker rebuild, e2e. Counts (2026-10-31): backend 819 tests, frontend 90 files / 1700 tests, e2e 153 scenarios / 1188 steps.
 - [ ] **12.2** Manual run with the mock (user): `docker compose up -d --build --wait`, http://localhost:3100,
       mock at http://localhost:8090, Mailpit at http://localhost:8025:
   - [ ] Login and Register show "Continue with Google"; dark mode and a 375 px window look right

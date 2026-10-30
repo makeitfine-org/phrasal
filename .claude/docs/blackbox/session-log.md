@@ -2676,3 +2676,23 @@
 - e2e/src/support/db-client.ts
 - e2e/src/world.ts
 <!-- end-snapshot -->
+
+<!-- git-snapshot 2026-10-30T20:59:05Z -->
+- .claude/docs/blackbox/audit.md
+<!-- end-snapshot -->
+
+<!-- git-snapshot 2026-10-30T23:21:24Z -->
+- .claude/docs/blackbox/audit.md
+- .claude/docs/blackbox/session-log.md
+<!-- end-snapshot -->
+
+<!-- git-snapshot 2026-10-30T23:21:34Z -->
+- .claude/docs/blackbox/audit.md
+- .claude/docs/blackbox/session-log.md
+<!-- end-snapshot -->
+
+<!-- git-snapshot 2026-10-30T23:26:16Z -->
+- .claude/docs/blackbox/audit.md
+- .claude/docs/blackbox/session-log.md
+- .claude/docs/blackbox/todos/google-account-todos.md
+<!-- end-snapshot -->
