@@ -1222,7 +1222,7 @@ So `make clean build` passes after every phase. **Don't release from the branch 
 ## Phase 10 — E2E browser: 2FA through the UI
 
 ### 10.1 Steps: `e2e/src/steps/two-factor-ui.steps.ts`
-- [ ] **10.1.1** Use the `data-testid`s from Phases 8–9, `FRONTEND_URL` as in `frontend.steps.ts`, and the
+- [x] **10.1.1** Use the `data-testid`s from Phases 8–9, `FRONTEND_URL` as in `frontend.steps.ts`, and the
       `totp.ts` helpers from Phase 6:
   - `When I turn on two-factor authentication through the account security page` (open the page → Turn on → password
     → read `two-factor-secret` → `normalizeSecret` → code → keep the secret and the shown recovery codes in the World)
@@ -1236,28 +1236,28 @@ So `make clean build` passes after every phase. **Don't release from the branch 
   - `Then the account security page should show two-factor authentication as {string}`
   - `Then I should see the two-factor enrollment banner`
   - `Then I should not see the two-factor enrollment banner`
-- [ ] **10.1.2** Reuse `When I log in through the form`, `When I log out through the user menu`,
+- [x] **10.1.2** Reuse `When I log in through the form`, `When I log out through the user menu`,
       `Then the user menu should show my email` and `Then I should see an auth error` from `auth-ui.steps.ts`.
-- [ ] **10.1.3** New step `Given I am logged in through the form as the admin without two-factor`:
+- [x] **10.1.3** New step `Given I am logged in through the form as the admin without two-factor`:
       `resetAdminTwoFactor()` → log in with `adminCredentials()`.
 
 ### 10.2 Feature: `e2e/features/frontend/two-factor.feature` (`@frontend`)
-- [ ] **10.2.1** Scenarios:
-  - [ ] a registered user turns on 2FA through the account security page → sees 10 recovery codes → the page shows "on"
+- [x] **10.2.1** Scenarios:
+  - [x] a registered user turns on 2FA through the account security page → sees 10 recovery codes → the page shows "on"
         (task-103 AC #4)
-  - [ ] after turning it on and logging out, login goes to the code page; a valid code → the user menu shows my email
+  - [x] after turning it on and logging out, login goes to the code page; a valid code → the user menu shows my email
         (task-103 AC #2)
-  - [ ] a wrong code → an error is shown and I stay on the code page
-  - [ ] login with a recovery code → logged in (task-103 AC #2)
-  - [ ] turning 2FA off with a valid code → the page shows "off"; the next login needs no code
-  - [ ] an admin without 2FA sees the enrollment banner; after turning 2FA on, the banner is gone (task-103 AC #5)
-  - [ ] the account security page as an anonymous visitor → redirected to the login page
-- [ ] **10.2.2** Each scenario that turns 2FA on uses a fresh user (`a registered user exists`), so the scenarios stay
+  - [x] a wrong code → an error is shown and I stay on the code page
+  - [x] login with a recovery code → logged in (task-103 AC #2)
+  - [x] turning 2FA off with a valid code → the page shows "off"; the next login needs no code
+  - [x] an admin without 2FA sees the enrollment banner; after turning 2FA on, the banner is gone (task-103 AC #5)
+  - [x] the account security page as an anonymous visitor → redirected to the login page
+- [x] **10.2.2** Each scenario that turns 2FA on uses a fresh user (`a registered user exists`), so the scenarios stay
       independent. The admin scenario relies on the `AfterAll` reset from Phase 7.
-- [ ] **10.2.3** `make acceptanceTest` → all features green, including the old ones.
+- [x] **10.2.3** `make acceptanceTest` → all features green, including the old ones.
 
 ### 10.3 Verify and commit
-- [ ] **10.3.1** `make clean build` → green (note the new scenario/step counts here). Ask for commit approval →
+- [x] **10.3.1** `make clean build` → green (119 scenarios, 916 steps; 7 new browser scenarios). Ask for commit approval →
       `test(e2e): cover two-factor setup and login in the browser`
 
 ---

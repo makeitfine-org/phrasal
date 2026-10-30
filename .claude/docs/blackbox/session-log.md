@@ -2227,3 +2227,10 @@
 - frontend/src/components/UserMenu.tsx
 - frontend/src/main.tsx
 <!-- end-snapshot -->
+
+<!-- git-snapshot 2026-10-30T01:29:04Z -->
+- .claude/docs/blackbox/audit.md
+- .claude/docs/blackbox/todos/2FA-todos.md
+- backlog/drafts/hard.md
+- e2e/CLAUDE.md
+<!-- end-snapshot -->
