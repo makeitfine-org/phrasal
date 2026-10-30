@@ -2345,3 +2345,20 @@
 - backend/src/test/java/net/phrasal/infrastructure/security/RateLimiterTest.java
 - backend/src/test/resources/application-test.yml
 <!-- end-snapshot -->
+
+<!-- git-snapshot 2026-10-30T11:52:44Z -->
+- .claude/docs/blackbox/todos/account-funcs-todos.md
+<!-- end-snapshot -->
+
+<!-- git-snapshot 2026-10-30T12:09:24Z -->
+- .claude/docs/blackbox/audit.md
+- .claude/docs/blackbox/session-log.md
+- .claude/docs/blackbox/todos/account-funcs-todos.md
+- backend/src/main/java/net/phrasal/application/event/PasswordChangedNoticeRequested.java
+- backend/src/main/java/net/phrasal/application/service/AccountEmailComposer.java
+- backend/src/test/java/net/phrasal/application/service/AccountEmailComposerTest.java
+- backend/src/test/java/net/phrasal/integration/AdminBootstrapIntegrationTest.java
+- frontend/src/__tests__/AccountSecurityPage.test.tsx
+- frontend/src/api/problemTypes.ts
+- frontend/src/pages/AccountSecurityPage.tsx
+<!-- end-snapshot -->

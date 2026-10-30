@@ -129,7 +129,7 @@ public class AccountEmailComposer {
     public EmailMessage passwordChanged(String to) {
         String link = appProperties.baseUrl() + "/forgot-password";
         String text = """
-                The password of your Phrasal account was just changed, and every device was logged out.
+                The password of your Phrasal account was just changed, and you were logged out on your other devices.
 
                 If this was you, there is nothing to do.
 
@@ -138,7 +138,8 @@ public class AccountEmailComposer {
                 """.formatted(link);
         String safeLink = HtmlUtils.htmlEscape(link);
         String html = """
-                <p>The password of your Phrasal account was just changed, and every device was logged out.</p>
+                <p>The password of your Phrasal account was just changed, and you were logged out on your other
+                devices.</p>
                 <p>If this was you, there is nothing to do.</p>
                 <p>If it wasn't, <a href="%1$s">reset your password now</a>.</p>
                 <p>Or copy this link into your browser:<br>%1$s</p>

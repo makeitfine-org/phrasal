@@ -13,6 +13,7 @@ import org.springframework.test.context.TestPropertySource;
 import org.springframework.test.web.servlet.ResultActions;
 
 import static org.assertj.core.api.Assertions.assertThat;
+import static org.hamcrest.Matchers.endsWith;
 import static org.springframework.security.test.web.servlet.request.SecurityMockMvcRequestPostProcessors.csrf;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
@@ -104,6 +105,19 @@ class AdminBootstrapIntegrationTest extends AbstractIntegrationTest {
         createVerb(refreshed).andExpect(status().isForbidden());
         mockMvc.perform(get("/api/v1/auth/me").cookie(refreshed))
                 .andExpect(jsonPath("$.twoFactorEnrollmentRequired").value(true));
+    }
+
+    @Test
+    @DisplayName("the admin cannot change the password through the account endpoint: 403 admin-account-managed")
+    void adminCannotChangePassword() throws Exception {
+        Cookie session = login(BODY, null);
+
+        mockMvc.perform(post("/api/v1/me/password").cookie(session).with(csrf())
+                        .contentType(MediaType.APPLICATION_JSON)
+                        .content("{\"currentPassword\":\"" + PASSWORD + "\",\"newPassword\":\"another-admin-pass\"}"))
+                .andExpect(status().isForbidden())
+                .andExpect(jsonPath("$.type").value(endsWith("/admin-account-managed")));
+        login(BODY, null);
     }
 
     @Test

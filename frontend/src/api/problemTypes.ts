@@ -16,3 +16,4 @@ export const TWO_FACTOR_NOT_ENABLED = 'two-factor-not-enabled';
 export function isProblemType(error: unknown, type: string): boolean {
   return error instanceof ApiError && !!error.problem?.type && error.problem.type.endsWith(`/${type}`);
 }
+export const ADMIN_ACCOUNT_MANAGED = 'admin-account-managed';

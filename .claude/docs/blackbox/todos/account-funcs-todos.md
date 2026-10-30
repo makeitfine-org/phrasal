@@ -24,7 +24,8 @@ This builds on:
   already ignores a `401`
 
 > Status: Phase 0 done (2026-10-30, branch `account-settings`, backlog task-100 + new TASK-109). Phase 1 done
-> (2026-10-30, shared backend groundwork). Phase 2 onwards is not implemented yet.
+> (2026-10-30, shared backend groundwork). Phase 2 done (2026-10-30, change password; `make clean build` green,
+> awaiting commit approval). Phase 3 onwards is not implemented yet.
 
 ---
 
@@ -410,19 +411,20 @@ bucket. Doing these once keeps the feature phases small.
 - [x] **1.5.2** `cd backend && mvn clean verify`: JaCoCo and Checkstyle are green.
       → Ran as part of `make clean build`, EXIT=0: backend 585 tests (baseline 575), JaCoCo met, 0 Checkstyle
       violations; frontend 1592 tests in 81 files; e2e 119 scenarios / 916 steps.
-- [ ] **1.5.3** Ask for commit approval → `refactor(backend): add shared account checks and field errors`
+- [x] **1.5.3** Ask for commit approval → `refactor(backend): add shared account checks and field errors`
+      → Committed as `0ba52ef`.
 
 ---
 
 ## Phase 2 — Change password
 
 ### 2.1 Backend: DTO and service
-- [ ] **2.1.1** `application/dto/ChangePasswordRequest.java`:
+- [x] **2.1.1** `application/dto/ChangePasswordRequest.java`:
   - `@NotBlank(message = "Current password is required") @Size(max = 200) String currentPassword`
   - `@NotBlank(message = "New password is required") @ValidPassword String newPassword`
   - `toString()` masks both values
   - `@param` Javadoc for both components
-- [ ] **2.1.2** `application/service/AccountService.java` (`@Slf4j @Service @Transactional @RequiredArgsConstructor`).
+- [x] **2.1.2** `application/service/AccountService.java` (`@Slf4j @Service @Transactional @RequiredArgsConstructor`).
       `void changePassword(Long userId, String currentPassword, String newPassword)`:
   1. `user = accountChecks.load(userId)`
   2. `accountChecks.requireSelfManaged(user)`
@@ -434,15 +436,15 @@ bucket. Doing these once keeps the feature phases small.
   7. publish `PasswordChangedNoticeRequested(user.getId(), user.getEmail())`
   8. `log.info("Password changed userId={}", userId)`
   - Phase 5 adds the breach check between steps 5 and 6.
-- [ ] **2.1.3** `AccountEmailComposer#passwordChanged`: reword it so it fits a change and a reset:
+- [x] **2.1.3** `AccountEmailComposer#passwordChanged`: reword it so it fits a change and a reset:
       "The password of your Phrasal account was just changed, and you were logged out on your other devices."
   - Change the text block and the HTML variant.
   - Keep the subject `Your Phrasal password was changed`; e2e matches on it.
   - Update the event's Javadoc ("…changed through a reset link **or the account page**").
-- [ ] **2.1.4** `AccountEmailComposerTest`: the new wording, in both the text and the HTML part.
+- [x] **2.1.4** `AccountEmailComposerTest`: the new wording, in both the text and the HTML part.
 
 ### 2.2 Backend: controller
-- [ ] **2.2.1** `presentation/rest/AccountController.java`, `@RequestMapping("/api/v1/me")`.
+- [x] **2.2.1** `presentation/rest/AccountController.java`, `@RequestMapping("/api/v1/me")`.
       `@PostMapping("/password")`:
   1. `rateLimiter.check("reauth-per-user", rateLimits.reauthPerUser(), user.id().toString())`
   2. `String storedSessionId = httpRequest.getSession().getId()`. Add the same comment as in
@@ -451,11 +453,11 @@ bucket. Doing these once keeps the feature phases small.
   4. `sessionAuthenticator.refresh(user, httpRequest, httpResponse)`: same principal, new session id
   5. `sessionRevoker.revokeOthers(user.email(), storedSessionId)`
   6. `204`
-- [ ] **2.2.2** `SecurityConfig`: no change, because `/api/v1/me/**` is already authenticated. Confirm it with the test in
+- [x] **2.2.2** `SecurityConfig`: no change, because `/api/v1/me/**` is already authenticated. Confirm it with the test in
       2.3.2.
 
 ### 2.3 Backend tests
-- [ ] **2.3.1** `AccountServiceTest` (Mockito), change password:
+- [x] **2.3.1** `AccountServiceTest` (Mockito), change password:
   - success: the hash changes, the encoder is called with the new password, and the event is published with the id
     and email
   - wrong current password → `WrongPasswordException`; no save, no event
@@ -463,57 +465,57 @@ bucket. Doing these once keeps the feature phases small.
   - the new password contains the email → `PasswordPolicyViolationException` with `field() == "newPassword"`
   - the new password equals the current one → `PasswordPolicyViolationException`
   - the user is missing → `AuthenticationCredentialsNotFoundException`
-- [ ] **2.3.2** `integration/ChangePasswordIntegrationTest` (real cookies through `registerAndLogin`):
-  - [ ] success → `204`, and the response sets a **new** `SESSION` cookie
-  - [ ] afterwards: login with the old password → `401`; with the new password → `200`
-  - [ ] a second session opened before the change → `GET /auth/me` → `401`; the new cookie → `200`
-  - [ ] `mailbox` receives `Your Phrasal password was changed`
-  - [ ] a 2FA user (`enableTwoFactor`) changes the password → `/auth/me` still shows `twoFactorEnabled: true`
-  - [ ] wrong current password → `400`, `$.type` ends with `/wrong-password`; the old password still works
-  - [ ] a 9-character new password → `400`, `$.errors.newPassword` contains `at least 10`
-  - [ ] a new password containing the email → `400`, `$.errors.newPassword`
-  - [ ] the new password equals the current one → `400`, `$.errors.newPassword`
-  - [ ] blank fields → `400` Validation Error
-  - [ ] anonymous → `401`; without CSRF → `403`
-- [ ] **2.3.3** `integration/AdminBootstrapIntegrationTest` (the class with a real admin): admin session +
+- [x] **2.3.2** `integration/ChangePasswordIntegrationTest` (real cookies through `registerAndLogin`):
+  - [x] success → `204`, and the response sets a **new** `SESSION` cookie
+  - [x] afterwards: login with the old password → `401`; with the new password → `200`
+  - [x] a second session opened before the change → `GET /auth/me` → `401`; the new cookie → `200`
+  - [x] `mailbox` receives `Your Phrasal password was changed`
+  - [x] a 2FA user (`enableTwoFactor`) changes the password → `/auth/me` still shows `twoFactorEnabled: true`
+  - [x] wrong current password → `400`, `$.type` ends with `/wrong-password`; the old password still works
+  - [x] a 9-character new password → `400`, `$.errors.newPassword` contains `at least 10`
+  - [x] a new password containing the email → `400`, `$.errors.newPassword`
+  - [x] the new password equals the current one → `400`, `$.errors.newPassword`
+  - [x] blank fields → `400` Validation Error
+  - [x] anonymous → `401`; without CSRF → `403`
+- [x] **2.3.3** `integration/AdminBootstrapIntegrationTest` (the class with a real admin): admin session +
       `POST /me/password` → `403`, `$.type` ends with `/admin-account-managed`.
-- [ ] **2.3.4** `integration/AccountRateLimitIntegrationTest`, with
+- [x] **2.3.4** `integration/AccountRateLimitIntegrationTest`, with
       `@TestPropertySource(properties = "phrasal.rate-limit.reauth-per-user.limit=2")`:
   - 2 wrong current passwords → `400`, `400`; the 3rd → `429` with a `Retry-After` header
   - another user is not affected
   - Phases 3 and 4 add the "shared bucket" cases to this class.
 
 ### 2.4 Frontend
-- [ ] **2.4.1** `src/api/accountApi.ts`: `changePassword(currentPassword, newPassword): Promise<void>` →
+- [x] **2.4.1** `src/api/accountApi.ts`: `changePassword(currentPassword, newPassword): Promise<void>` →
       `POST /me/password`.
-- [ ] **2.4.2** `src/api/problemTypes.ts`: `ADMIN_ACCOUNT_MANAGED = 'admin-account-managed'`.
-- [ ] **2.4.3** `src/components/account/ChangePasswordForm.tsx`:
-  - [ ] a `<section aria-labelledby="change-password-heading">` with an `<h2>` "Change password"
-  - [ ] fields:
+- [x] **2.4.2** `src/api/problemTypes.ts`: `ADMIN_ACCOUNT_MANAGED = 'admin-account-managed'`.
+- [x] **2.4.3** `src/components/account/ChangePasswordForm.tsx`:
+  - [x] a `<section aria-labelledby="change-password-heading">` with an `<h2>` "Change password"
+  - [x] fields:
     - current password (`autoComplete="current-password"`)
     - new password (`autoComplete="new-password"`, `minLength={10}`)
     - confirm new password
-  - [ ] reuse `PasswordRequirements` and `src/auth/passwordPolicy.ts` for the client checks: length, and the passwords
+  - [x] reuse `PasswordRequirements` and `src/auth/passwordPolicy.ts` for the client checks: length, and the passwords
         match. If they fail, no request is sent.
-  - [ ] the submit button shows "Saving…" and is disabled while pending
-  - [ ] errors:
+  - [x] the submit button shows "Saving…" and is disabled while pending
+  - [x] errors:
     - `wrong-password` → under the current-password field
     - `problem.errors.newPassword` → under the new-password field
     - `429` / other → a `role="alert"` box with the server detail
-  - [ ] success:
+  - [x] success:
     - clear the fields
     - show `role="status"` "Password changed. You were logged out on your other devices."
     - call `refresh()` from `useAuth`
-  - [ ] `data-testid`s: `change-password-current`, `change-password-new`, `change-password-confirm`,
+  - [x] `data-testid`s: `change-password-current`, `change-password-new`, `change-password-confirm`,
         `change-password-submit`, `change-password-success`, `change-password-error`,
         `field-error-currentPassword`, `field-error-newPassword`
-  - [ ] Tailwind matches the 2FA section of the page, including `dark:` variants; the layout works at 375 px
-- [ ] **2.4.4** `AccountSecurityPage.tsx`: render `<ChangePasswordForm />` above the 2FA section.
+  - [x] Tailwind matches the 2FA section of the page, including `dark:` variants; the layout works at 375 px
+- [x] **2.4.4** `AccountSecurityPage.tsx`: render `<ChangePasswordForm />` above the 2FA section.
   - If `user.role === 'ADMIN'`: don't render it. Show one note for the whole page instead (`data-testid="admin-managed-note"`):
     "The admin account's password and email are managed through server configuration." Phases 3 and 4 reuse the note.
-- [ ] **2.4.5** Tests:
-  - [ ] `src/__tests__/api/accountApi.test.ts`: path, method and body for `changePassword`
-  - [ ] `src/__tests__/account/ChangePasswordForm.test.tsx`:
+- [x] **2.4.5** Tests:
+  - [x] `src/__tests__/api/accountApi.test.ts`: path, method and body for `changePassword`
+  - [x] `src/__tests__/account/ChangePasswordForm.test.tsx`:
     - renders the fields
     - mismatch → no request
     - short → no request
@@ -522,35 +524,36 @@ bucket. Doing these once keeps the feature phases small.
     - `400 errors.newPassword` → error under the new field
     - `429` → alert
     - pending state disables the button
-  - [ ] `src/__tests__/AccountSecurityPage.test.tsx`: the form is shown for USER; for ADMIN the form is hidden and the
+  - [x] `src/__tests__/AccountSecurityPage.test.tsx`: the form is shown for USER; for ADMIN the form is hidden and the
         note is shown
-- [ ] **2.4.6** `npm --prefix frontend run test:run && npm --prefix frontend run build` → green.
+- [x] **2.4.6** `npm --prefix frontend run test:run && npm --prefix frontend run build` → green.
 
 ### 2.5 E2E
-- [ ] **2.5.1** `e2e/src/steps/account-api.steps.ts`, new file:
+- [x] **2.5.1** `e2e/src/steps/account-api.steps.ts`, new file:
   - `When I change my password from {string} to {string}`
   - `When I change my password with the wrong current password`
   - reuse `I log in with the current email and password {string}`, `I request my profile`, `I log out`,
     `the response status should be {int}`
   - reuse the "another device" client pattern from `password-reset-api.steps.ts` for a second session
-- [ ] **2.5.2** `e2e/features/account-api/change-password.feature` (`@api`):
-  - [ ] change password → 204; log out; the old password → 401; the new password → 200
-  - [ ] the other device is logged out (its profile → 401); this device still works (profile → 200)
-  - [ ] a "password changed" notice arrives in Mailpit (reuse `I should receive a password changed notice`)
-  - [ ] wrong current password → 400
-  - [ ] new password "short" → 400, and the error mentions "at least 10"
-  - [ ] anonymous → 401
-- [ ] **2.5.3** `e2e/src/steps/account-ui.steps.ts`, new file:
-  - `When I open my account security page`
+- [x] **2.5.2** `e2e/features/account-api/change-password.feature` (`@api`):
+  - [x] change password → 204; log out; the old password → 401; the new password → 200
+  - [x] the other device is logged out (its profile → 401); this device still works (profile → 200)
+  - [x] a "password changed" notice arrives in Mailpit (reuse `I should receive a password changed notice`)
+  - [x] wrong current password → 400
+  - [x] new password "short" → 400, and the error mentions "at least 10"
+  - [x] anonymous → 401
+- [x] **2.5.3** `e2e/src/steps/account-ui.steps.ts`, new file:
+  - `When I open my account security page` → not added: the existing `I visit the account security page` (two-factor-ui steps) is reused
   - `When I change my password to {string} through the form`
   - `Then I should see the password changed message`
-- [ ] **2.5.4** `e2e/features/frontend/account-settings.feature` (`@frontend`): a new user changes the password
+  - `When I log in again through the form with the password {string}` (added: the reset page's login step needs the reset page)
+- [x] **2.5.4** `e2e/features/frontend/account-settings.feature` (`@frontend`): a new user changes the password
       through the form → message; logs out through the user menu; logs in through the form with the new password →
       the user menu shows the email.
-- [ ] **2.5.5** `npm --prefix e2e run test:api` with the stack up (`docker compose up -d --build --wait`) → green.
+- [x] **2.5.5** `npm --prefix e2e run test:api` with the stack up (`docker compose up -d --build --wait`) → green.
 
 ### 2.6 Verify and commit
-- [ ] **2.6.1** `make clean build` → green.
+- [x] **2.6.1** `make clean build` → green. Backend 604 tests, frontend 1605 tests, e2e 126 scenarios.
 - [ ] **2.6.2** Ask for commit approval → `feat: let signed-in users change their password`. If the user wants it split:
       `feat(backend): …`, `feat(frontend): …`, `test(e2e): …`.
 

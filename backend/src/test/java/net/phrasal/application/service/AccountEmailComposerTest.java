@@ -120,6 +120,16 @@ class AccountEmailComposerTest {
     }
 
     @Test
+    @DisplayName("password-changed notice says the other devices were logged out, in text and HTML")
+    void passwordChangedWording() {
+        EmailMessage message = composer("https://phrasalbox.com", Duration.ofHours(24)).passwordChanged("a@b.com");
+
+        assertThat(message.text()).contains("you were logged out on your other devices")
+                .doesNotContain("every device");
+        assertThat(message.html()).contains("you were logged out on your other").doesNotContain("every device");
+    }
+
+    @Test
     @DisplayName("two-factor notices have the right subject, both links and no token or secret")
     void twoFactorChanged() {
         AccountEmailComposer composer = composer("https://phrasalbox.com", Duration.ofHours(24));
