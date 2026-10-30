@@ -18,8 +18,11 @@ import java.util.List;
  * @param twoFactorEnabled whether the account has 2FA on. A session holding this principal has passed every factor
  *                         the account requires: the second factor was checked at login, or 2FA was enabled from this
  *                         very session. Sessions serialized before this component existed read it as false.
+ * @param passwordless     whether the account has no password and signs in only with Google. Sessions serialized
+ *                         before this component existed read it as false, which is right for them: every older
+ *                         account has a password.
  */
-public record AuthenticatedUser(Long id, String email, Role role, boolean twoFactorEnabled)
+public record AuthenticatedUser(Long id, String email, Role role, boolean twoFactorEnabled, boolean passwordless)
         implements AuthenticatedPrincipal, Serializable {
 
     @Serial
@@ -49,7 +52,7 @@ public record AuthenticatedUser(Long id, String email, Role role, boolean twoFac
      * @return the updated principal
      */
     public AuthenticatedUser withTwoFactor(boolean enabled) {
-        return new AuthenticatedUser(id, email, role, enabled);
+        return new AuthenticatedUser(id, email, role, enabled, passwordless);
     }
 
     /**

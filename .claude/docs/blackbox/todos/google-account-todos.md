@@ -4,8 +4,8 @@ Source plan: `.claude/docs/blackbox/plans/2026-10-26 18:10 Multi-user accounts T
 (section P5). Backlog: **task-104**. It needs the Google OAuth client from **task-106** (AC #4, #5); publishing the
 consent screen stays in **task-105** (AC #6).
 
-> Status (2026-10-30): Phases 0 and 1 done on branch `google-sign-in`, except 0.7 (user actions in Google Cloud).
-> Phases 2–13 not started.
+> Status (2026-10-30): Phases 0–3 done on branch `google-sign-in`, except 0.7 (user actions in Google Cloud).
+> Phases 4–13 not started.
 
 Builds on what is already in `develop` (`cb933cc`):
 - password login with a pending 2FA step (`SessionAuthenticator`, `PendingTwoFactorLogin`, `POST /auth/login/2fa`)
@@ -333,14 +333,14 @@ Builds on what is already in `develop` (`cb933cc`):
 ## Phase 2 — Configuration: properties, client registration, providers endpoint
 
 ### 2.1 Properties
-- [ ] **2.1.1** `config/GoogleLoginProperties.java`: `@ConfigurationProperties("phrasal.google")`
+- [x] **2.1.1** `config/GoogleLoginProperties.java`: `@ConfigurationProperties("phrasal.google")`
       `record GoogleLoginProperties(boolean enabled, String clientId, String clientSecret, String authorizationUri,
       String tokenUri, String jwkSetUri, String issuerUri, String userInfoUri)`:
-  - [ ] compact constructor: `enabled` with a blank `clientId` or `clientSecret` → `IllegalStateException` naming the
+  - [x] compact constructor: `enabled` with a blank `clientId` or `clientSecret` → `IllegalStateException` naming the
         env var (`GOOGLE_CLIENT_ID` / `GOOGLE_CLIENT_SECRET`), never its value
-  - [ ] `toString()` masks `clientSecret` (records print every component)
-  - [ ] the URI fields are optional overrides; blank = Google's own endpoint
-- [ ] **2.1.2** `application.yml`:
+  - [x] `toString()` masks `clientSecret` (records print every component)
+  - [x] the URI fields are optional overrides; blank = Google's own endpoint
+- [x] **2.1.2** `application.yml`:
   ```yaml
   phrasal:
     google:
@@ -354,57 +354,83 @@ Builds on what is already in `develop` (`cb933cc`):
       issuer-uri: ${GOOGLE_ISSUER_URI:}
       user-info-uri: ${GOOGLE_USER_INFO_URI:}
   ```
-- [ ] **2.1.3** `GoogleLoginPropertiesTest`: disabled + blank values → fine; enabled + blank id → exception whose message
+- [x] **2.1.3** `GoogleLoginPropertiesTest`: disabled + blank values → fine; enabled + blank id → exception whose message
       names `GOOGLE_CLIENT_ID`; enabled + blank secret → names `GOOGLE_CLIENT_SECRET`; `toString` doesn't contain the
       secret.
 
 ### 2.2 Client registration
-- [ ] **2.2.1** `config/GoogleLoginConfig.java`, `@Configuration`, active only when `phrasal.google.enabled=true`
+- [x] **2.2.1** `config/GoogleLoginConfig.java`, `@Configuration`, active only when `phrasal.google.enabled=true`
       (`@ConditionalOnBooleanProperty`, checked in 0.5):
-  - [ ] `@Bean ClientRegistrationRepository` = `new InMemoryClientRegistrationRepository(registration)`
-  - [ ] `registration` = `CommonOAuth2Provider.GOOGLE.getBuilder("google")` + client id + secret +
+  - [x] `@Bean ClientRegistrationRepository` = `new InMemoryClientRegistrationRepository(registration)`
+  - [x] `registration` = `CommonOAuth2Provider.GOOGLE.getBuilder("google")` + client id + secret +
         `redirectUri(appProperties.baseUrl() + "/api/v1/auth/oauth2/code/{registrationId}")` + `scope("openid",
         "email", "profile")`, then each non-blank override from `GoogleLoginProperties`
-  - [ ] put the URI building in a package-private static method `registration(GoogleLoginProperties, String baseUrl)`,
+  - [x] put the URI building in a package-private static method `registration(GoogleLoginProperties, String baseUrl)`,
         so a unit test can check it without a context
-- [ ] **2.2.2** `GoogleLoginConfigTest` (unit):
-  - [ ] no overrides → Google's authorization, token and JWK URIs and issuer; scopes `openid email profile`; redirect
+- [x] **2.2.2** `GoogleLoginConfigTest` (unit):
+  - [x] no overrides → Google's authorization, token and JWK URIs and issuer; scopes `openid email profile`; redirect
         `https://phrasalbox.com/api/v1/auth/oauth2/code/{registrationId}` for base URL `https://phrasalbox.com`
-  - [ ] overrides → every overridden URI is used, the others keep Google's
-  - [ ] a trailing `/` in the base URL doesn't produce `//api` (strip it, or document that `APP_BASE_URL` has none)
+  - [x] overrides → every overridden URI is used, the others keep Google's
+  - [x] a trailing `/` in the base URL doesn't produce `//api` (strip it, or document that `APP_BASE_URL` has none)
+        Documented: `AppProperties` already fails startup for a base URL with a trailing slash
+        (`AppPropertiesTest.trailingSlash`); the Javadoc of `registration(...)` says so. It takes the `URI` from
+        `AppProperties`.
+  - plus: a partial override keeps Google's other endpoints (blank and `null` ignored); an
+    `ApplicationContextRunner` shows the repository exists with `enabled=true` and is absent with `false` or unset.
+    5 tests.
 
 ### 2.3 Providers endpoint
-- [ ] **2.3.1** `application/dto/AuthProvidersResponse.java`: `record AuthProvidersResponse(boolean google)`.
-- [ ] **2.3.2** `AuthController`: `@GetMapping("/providers")` → `new AuthProvidersResponse(googleLoginProperties.enabled())`.
+- [x] **2.3.1** `application/dto/AuthProvidersResponse.java`: `record AuthProvidersResponse(boolean google)`.
+- [x] **2.3.2** `AuthController`: `@GetMapping("/providers")` → `new AuthProvidersResponse(googleLoginProperties.enabled())`.
       Public through the existing `GET /api/**` rule; no rate limit (a constant answer).
-- [ ] **2.3.3** Integration tests:
-  - [ ] the default test profile → `{"google": false}` for now; Phase 6 turns Google on in `application-test.yml` and
+- [x] **2.3.3** Integration tests:
+  - [x] the default test profile → `{"google": false}` for now; Phase 6 turns Google on in `application-test.yml` and
         flips this assertion to `true`
-  - [ ] `GoogleLoginDisabledIntegrationTest` (`@TestPropertySource(properties = "phrasal.google.enabled=false")`):
+  - [x] `GoogleLoginDisabledIntegrationTest` (`@TestPropertySource(properties = "phrasal.google.enabled=false")`):
         providers → `{"google": false}`; `GET /api/v1/auth/oauth2/authorization/google` → not a redirect (expect
         `404`; write the actual status in the test)
-- [ ] **2.3.4** `mvn -q -o test -Dtest='GoogleLogin*Test,AuthController*'` → green.
+        Result: `404` with no `Location` for both the authorization endpoint and the callback; no
+        `ClientRegistrationRepository` bean. 4 tests. The default-profile check is the new
+        `AuthProvidersIntegrationTest` (anonymous and signed-in `GET` → `{"google":false}`; an anonymous `POST` → `401`).
+- [x] **2.3.4** `mvn -q -o test -Dtest='GoogleLogin*Test,AuthController*'` → green.
+      (There is no `AuthController*` test class; ran `GoogleLogin*Test,AuthProvidersIntegrationTest`: 17 tests green.)
+      `GoogleLoginPropertiesTest` has 5 tests. Checkstyle clean. `backend/CLAUDE.md` Security section notes the switch,
+      `GoogleLoginConfig` and the providers endpoint.
+- [x] **2.4** End of phase: `make clean build` green (2026-10-30, together with Phase 3; see 3.6).
 
 ---
 
 ## Phase 3 — Principal: does the account have a password?
 
-- [ ] **3.1** `infrastructure/security/AuthenticatedUser.java`: add the component `boolean passwordless` (last).
-  - [ ] Javadoc: true for an account that signs in only with Google; sessions serialized before it existed read
+- [x] **3.1** `infrastructure/security/AuthenticatedUser.java`: add the component `boolean passwordless` (last).
+  - [x] Javadoc: true for an account that signs in only with Google; sessions serialized before it existed read
         `false`, which is right for them (every older account has a password). Keep `serialVersionUID = 1L`.
-  - [ ] `withTwoFactor(boolean)` copies `passwordless`
-- [ ] **3.2** Every place that builds the record passes the right value:
-  - [ ] `AppUserDetails.toAuthenticatedUser()` → `false` (a password login proves there is one)
-  - [ ] `TwoFactorService.loadPrincipal(userId)` → `!user.hasPassword()` (the 2FA step after Google uses it)
-  - [ ] grep `new AuthenticatedUser(` in `src/main` and `src/test` and fix each call
-- [ ] **3.3** `application/dto/UserResponse.java`: add `boolean hasPassword` (= `!user.passwordless()`), with `@param`.
-- [ ] **3.4** Tests:
-  - [ ] `AuthenticatedUserTest`: `withTwoFactor` keeps `passwordless`; serialization round trip keeps it; the existing
+  - [x] `withTwoFactor(boolean)` copies `passwordless`
+- [x] **3.2** Every place that builds the record passes the right value:
+  - [x] `AppUserDetails.toAuthenticatedUser()` → `false` (a password login proves there is one)
+        Done as `!user.hasPassword()`: always `false` on the password path (`JpaUserDetailsService` refuses a null
+        hash), and still right if the class is ever built for another account.
+  - [x] `TwoFactorService.loadPrincipal(userId)` → `!user.hasPassword()` (the 2FA step after Google uses it)
+  - [x] grep `new AuthenticatedUser(` in `src/main` and `src/test` and fix each call
+        Main: `AppUserDetails`, `TwoFactorService`, `withTwoFactor`. Tests: `AuthenticatedUserTest`,
+        `AppUserDetailsTest`, `SessionAuthenticatorTest`, `TwoFactorServiceTest`.
+  - [x] plus: `UserMapper` (MapStruct, test-only use) maps `hasPassword` from `User#hasPassword()`.
+- [x] **3.3** `application/dto/UserResponse.java`: add `boolean hasPassword` (= `!user.passwordless()`), with `@param`.
+- [x] **3.4** Tests:
+  - [x] `AuthenticatedUserTest`: `withTwoFactor` keeps `passwordless`; serialization round trip keeps it; the existing
         "older session" test (or a new one) shows a record serialized without the component reads `false`
-  - [ ] `UserResponseTest` (or the existing mapper/DTO test): `hasPassword` is the negation
-  - [ ] `TwoFactorServiceTest.loadPrincipal`: an account without a hash → `passwordless = true`
-  - [ ] `AuthSessionIntegrationTest`: `/me` after a password login has `hasPassword: true`
-- [ ] **3.5** `mvn -q -o test -Dtest='AuthenticatedUserTest,TwoFactorServiceTest,AuthSessionIntegrationTest'` → green.
+  - [x] `UserResponseTest` (or the existing mapper/DTO test): `hasPassword` is the negation
+        Covered in `SessionAuthenticatorTest` (responses built by `UserResponse.from` now expect `hasPassword=true`)
+        and `UserMapperTest` (new case: a Google account → `hasPassword=false`).
+  - [x] `TwoFactorServiceTest.loadPrincipal`: an account without a hash → `passwordless = true`
+  - [x] `AuthSessionIntegrationTest`: `/me` after a password login has `hasPassword: true`
+- [x] **3.5** `mvn -q -o test -Dtest='AuthenticatedUserTest,TwoFactorServiceTest,AuthSessionIntegrationTest'` → green.
+      Ran those plus `AppUserDetailsTest`, `SessionAuthenticatorTest`, `UserMapperTest`, `AuthLoginIntegrationTest`,
+      `TwoFactorLoginIntegrationTest`: 83 tests green. Checkstyle clean. `AuthenticatedUserTest` has a new
+      `PRE_PASSWORDLESS_STREAM` (bytes written by the 4-component record before the change) that reads
+      `passwordless=false`. `backend/CLAUDE.md` principal invariant updated.
+- [x] **3.6** End of phase: `make clean build` green (2026-10-30, Phases 2 and 3 in one run). Backend 729 tests
+      (+22: 17 in Phase 2, 5 in Phase 3), JaCoCo met; frontend 1654 in 86 files; e2e 140 scenarios / 1101 steps.
 
 ---
 

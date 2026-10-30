@@ -11,5 +11,6 @@ public interface UserMapper {
     @Mapping(target = "twoFactorEnrollmentRequired",
             expression = "java(entity.getRole() == net.phrasal.domain.entity.Role.ADMIN "
                     + "&& !entity.isTwoFactorEnabled())")
+    @Mapping(target = "hasPassword", expression = "java(entity.hasPassword())")
     UserResponse toResponse(User entity);
 }

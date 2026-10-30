@@ -29,7 +29,7 @@ class AuthSessionIntegrationTest extends AbstractIntegrationTest {
     }
 
     @Test
-    @DisplayName("register, login, then /me with the cookie returns the same user")
+    @DisplayName("register, login, then /me with the cookie returns the same user, with a password")
     void meAfterLogin() throws Exception {
         String email = uniqueEmail();
         Cookie session = registerAndLogin(email, PASSWORD);
@@ -37,7 +37,8 @@ class AuthSessionIntegrationTest extends AbstractIntegrationTest {
         mockMvc.perform(get(ME).cookie(session))
                 .andExpect(status().isOk())
                 .andExpect(jsonPath("$.email").value(email))
-                .andExpect(jsonPath("$.role").value("USER"));
+                .andExpect(jsonPath("$.role").value("USER"))
+                .andExpect(jsonPath("$.hasPassword").value(true));
     }
 
     @Test

@@ -2488,3 +2488,42 @@
 - backend/src/test/java/net/phrasal/integration/UserRepositoryIntegrationTest.java
 - backlog/tasks/task-104 - Let-users-sign-in-with-their-Google-account.md
 <!-- end-snapshot -->
+
+<!-- git-snapshot 2026-10-30T17:09:13Z -->
+- .claude/docs/blackbox/audit.md
+- .claude/docs/blackbox/todos/google-account-todos.md
+- backend/CLAUDE.md
+- backend/src/main/java/net/phrasal/application/dto/UserResponse.java
+- backend/src/main/java/net/phrasal/application/mapper/UserMapper.java
+- backend/src/main/java/net/phrasal/application/service/TwoFactorService.java
+- backend/src/main/java/net/phrasal/infrastructure/security/AppUserDetails.java
+- backend/src/main/java/net/phrasal/infrastructure/security/AuthenticatedUser.java
+- backend/src/main/java/net/phrasal/presentation/rest/AuthController.java
+- backend/src/main/resources/application.yml
+- backend/src/test/java/net/phrasal/application/mapper/UserMapperTest.java
+- backend/src/test/java/net/phrasal/application/service/TwoFactorServiceTest.java
+- backend/src/test/java/net/phrasal/infrastructure/security/AppUserDetailsTest.java
+- backend/src/test/java/net/phrasal/infrastructure/security/AuthenticatedUserTest.java
+- backend/src/test/java/net/phrasal/integration/AuthSessionIntegrationTest.java
+- backend/src/test/java/net/phrasal/presentation/security/SessionAuthenticatorTest.java
+<!-- end-snapshot -->
+
+<!-- git-snapshot 2026-10-30T17:13:08Z -->
+- .claude/docs/blackbox/audit.md
+- .claude/docs/blackbox/session-log.md
+- .claude/docs/blackbox/todos/google-account-todos.md
+- backend/CLAUDE.md
+- backend/src/main/java/net/phrasal/application/dto/UserResponse.java
+- backend/src/main/java/net/phrasal/application/mapper/UserMapper.java
+- backend/src/main/java/net/phrasal/application/service/TwoFactorService.java
+- backend/src/main/java/net/phrasal/infrastructure/security/AppUserDetails.java
+- backend/src/main/java/net/phrasal/infrastructure/security/AuthenticatedUser.java
+- backend/src/main/java/net/phrasal/presentation/rest/AuthController.java
+- backend/src/main/resources/application.yml
+- backend/src/test/java/net/phrasal/application/mapper/UserMapperTest.java
+- backend/src/test/java/net/phrasal/application/service/TwoFactorServiceTest.java
+- backend/src/test/java/net/phrasal/infrastructure/security/AppUserDetailsTest.java
+- backend/src/test/java/net/phrasal/infrastructure/security/AuthenticatedUserTest.java
+- backend/src/test/java/net/phrasal/integration/AuthSessionIntegrationTest.java
+- backend/src/test/java/net/phrasal/presentation/security/SessionAuthenticatorTest.java
+<!-- end-snapshot -->

@@ -71,12 +71,12 @@ class SessionAuthenticatorTest {
         LoginOutcome result = authenticator().login(new LoginRequest("  USER@Example.com ", "pw"), request, response);
 
         assertThat(result).isEqualTo(new LoginOutcome.Authenticated(
-                new UserResponse(USER_ID, EMAIL, "USER", false, false)));
+                new UserResponse(USER_ID, EMAIL, "USER", false, false, true)));
         verify(pendingLogin, never()).start(any(), any());
         ArgumentCaptor<SecurityContext> captor = ArgumentCaptor.forClass(SecurityContext.class);
         verify(securityContextRepository).saveContext(captor.capture(), any(), any());
         var saved = captor.getValue().getAuthentication();
-        assertThat(saved.getPrincipal()).isEqualTo(new AuthenticatedUser(USER_ID, EMAIL, Role.USER, false));
+        assertThat(saved.getPrincipal()).isEqualTo(new AuthenticatedUser(USER_ID, EMAIL, Role.USER, false, false));
         assertThat(saved.getCredentials()).isNull();
         assertThat(saved.isAuthenticated()).isTrue();
     }
@@ -123,12 +123,12 @@ class SessionAuthenticatorTest {
     void refreshReplacesPrincipal() {
         MockHttpServletRequest request = new MockHttpServletRequest();
         String before = request.getSession().getId();
-        AuthenticatedUser principal = new AuthenticatedUser(USER_ID, EMAIL, Role.ADMIN, true);
+        AuthenticatedUser principal = new AuthenticatedUser(USER_ID, EMAIL, Role.ADMIN, true, false);
 
         UserResponse result = authenticator().refresh(principal, request, new MockHttpServletResponse());
 
         assertThat(request.getSession(false).getId()).isNotEqualTo(before);
-        assertThat(result).isEqualTo(new UserResponse(USER_ID, EMAIL, "ADMIN", true, false));
+        assertThat(result).isEqualTo(new UserResponse(USER_ID, EMAIL, "ADMIN", true, false, true));
         ArgumentCaptor<SecurityContext> captor = ArgumentCaptor.forClass(SecurityContext.class);
         verify(securityContextRepository).saveContext(captor.capture(), any(), any());
         assertThat(captor.getValue().getAuthentication().getPrincipal()).isEqualTo(principal);
@@ -153,7 +153,7 @@ class SessionAuthenticatorTest {
     void completeTwoFactorLogin() {
         MockHttpServletRequest request = new MockHttpServletRequest();
         String before = request.getSession().getId();
-        AuthenticatedUser principal = new AuthenticatedUser(USER_ID, EMAIL, Role.USER, false);
+        AuthenticatedUser principal = new AuthenticatedUser(USER_ID, EMAIL, Role.USER, false, false);
 
         UserResponse result = authenticator().completeTwoFactorLogin(principal, request,
                 new MockHttpServletResponse());
@@ -164,7 +164,7 @@ class SessionAuthenticatorTest {
         ArgumentCaptor<SecurityContext> captor = ArgumentCaptor.forClass(SecurityContext.class);
         verify(securityContextRepository).saveContext(captor.capture(), any(), any());
         assertThat(captor.getValue().getAuthentication().getPrincipal())
-                .isEqualTo(new AuthenticatedUser(USER_ID, EMAIL, Role.USER, true));
+                .isEqualTo(new AuthenticatedUser(USER_ID, EMAIL, Role.USER, true, false));
     }
 
     @Test

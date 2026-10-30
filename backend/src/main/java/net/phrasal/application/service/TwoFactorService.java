@@ -197,7 +197,7 @@ public class TwoFactorService {
     public AuthenticatedUser loadPrincipal(Long userId) {
         User user = userRepository.findById(userId).filter(User::isTwoFactorEnabled)
                 .orElseThrow(TwoFactorLoginExpiredException::new);
-        return new AuthenticatedUser(user.getId(), user.getEmail(), user.getRole(), true);
+        return new AuthenticatedUser(user.getId(), user.getEmail(), user.getRole(), true, !user.hasPassword());
     }
 
     private List<String> issueRecoveryCodes(Long userId) {

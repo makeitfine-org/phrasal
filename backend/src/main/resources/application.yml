@@ -138,6 +138,17 @@ phrasal:
     encryption-key: ${TOTP_ENCRYPTION_KEY:}
     issuer: ${TWO_FACTOR_ISSUER:Phrasal}
     login-timeout: ${TWO_FACTOR_LOGIN_TIMEOUT:5m}
+  google:
+    # "Sign in with Google"; with true, a blank client id or secret fails startup
+    enabled: ${GOOGLE_LOGIN_ENABLED:false}
+    client-id: ${GOOGLE_CLIENT_ID:}
+    client-secret: ${GOOGLE_CLIENT_SECRET:}
+    # Overrides for a stand-in provider (docker-compose mock). Empty = Google's own endpoints.
+    authorization-uri: ${GOOGLE_AUTHORIZATION_URI:}
+    token-uri: ${GOOGLE_TOKEN_URI:}
+    jwk-set-uri: ${GOOGLE_JWK_SET_URI:}
+    issuer-uri: ${GOOGLE_ISSUER_URI:}
+    user-info-uri: ${GOOGLE_USER_INFO_URI:}
 
 management:
   health:

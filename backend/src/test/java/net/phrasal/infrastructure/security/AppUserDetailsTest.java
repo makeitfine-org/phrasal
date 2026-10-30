@@ -29,7 +29,15 @@ class AppUserDetailsTest {
     void toAuthenticatedUser_returnsRecordWithoutHash() {
         AuthenticatedUser principal = new AppUserDetails(user(Role.USER, true)).toAuthenticatedUser();
 
-        assertThat(principal).isEqualTo(new AuthenticatedUser(7L, "a@b.com", Role.USER, false));
+        assertThat(principal).isEqualTo(new AuthenticatedUser(7L, "a@b.com", Role.USER, false, false));
+    }
+
+    @Test
+    void toAuthenticatedUser_accountWithoutHash_isPasswordless() {
+        User user = user(Role.USER, true);
+        user.removePassword();
+
+        assertThat(new AppUserDetails(user).toAuthenticatedUser().passwordless()).isTrue();
     }
 
     @Test

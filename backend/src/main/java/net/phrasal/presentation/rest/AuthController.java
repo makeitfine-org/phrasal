@@ -6,6 +6,7 @@ import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import net.phrasal.application.dto.AcceptedResponse;
+import net.phrasal.application.dto.AuthProvidersResponse;
 import net.phrasal.application.dto.ConfirmEmailChangeRequest;
 import net.phrasal.application.dto.ForgotPasswordRequest;
 import net.phrasal.application.dto.LoginChallengeResponse;
@@ -22,6 +23,7 @@ import net.phrasal.application.service.EmailVerificationService;
 import net.phrasal.application.service.PasswordResetService;
 import net.phrasal.application.service.TwoFactorService;
 import net.phrasal.application.service.TwoFactorService.SecondFactor;
+import net.phrasal.config.GoogleLoginProperties;
 import net.phrasal.config.RateLimitProperties;
 import net.phrasal.infrastructure.exception.TwoFactorLoginExpiredException;
 import net.phrasal.infrastructure.security.AuthenticatedUser;
@@ -54,6 +56,17 @@ public class AuthController {
     private final PendingTwoFactorLogin pendingTwoFactorLogin;
     private final RateLimiter rateLimiter;
     private final RateLimitProperties rateLimits;
+    private final GoogleLoginProperties googleLogin;
+
+    /**
+     * Lists the sign-in methods besides email and password. Public and not rate limited: the answer is constant.
+     *
+     * @return which providers are enabled
+     */
+    @GetMapping("/providers")
+    public AuthProvidersResponse providers() {
+        return new AuthProvidersResponse(googleLogin.enabled());
+    }
 
     @PostMapping("/register")
     public ResponseEntity<AcceptedResponse> register(@Valid @RequestBody RegisterRequest request,

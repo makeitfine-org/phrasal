@@ -387,7 +387,16 @@ class TwoFactorServiceTest {
         enabledUser();
 
         assertThat(service().loadPrincipal(USER_ID))
-                .isEqualTo(new AuthenticatedUser(USER_ID, EMAIL, Role.USER, true));
+                .isEqualTo(new AuthenticatedUser(USER_ID, EMAIL, Role.USER, true, false));
+    }
+
+    @Test
+    @DisplayName("loadPrincipal marks an account without a password as passwordless")
+    void loadPrincipalPasswordless() {
+        enabledUser();
+        user.removePassword();
+
+        assertThat(service().loadPrincipal(USER_ID).passwordless()).isTrue();
     }
 
     @Test
