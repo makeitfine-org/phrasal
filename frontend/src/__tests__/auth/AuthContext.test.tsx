@@ -2,12 +2,14 @@ import React from 'react';
 import { render, screen, act, waitFor } from '@testing-library/react';
 import { AuthProvider } from '../../auth/AuthContext';
 import { useAuth } from '../../auth/useAuth';
+import * as accountApi from '../../api/accountApi';
 import * as authApi from '../../api/authApi';
 import { ApiError } from '../../api/client';
 import { flushQuizProgress } from '../../hooks/useQuizProgressSync';
 import { clearAccountQuizProgress, stashAllAnonymousProgress } from '../../utils/quizProgressStorage';
 
 vi.mock('../../api/authApi');
+vi.mock('../../api/accountApi');
 vi.mock('../../hooks/useQuizProgressSync', () => ({ flushQuizProgress: vi.fn() }));
 vi.mock('../../utils/quizProgressStorage', () => ({
   clearAccountQuizProgress: vi.fn(),
@@ -31,6 +33,7 @@ beforeEach(() => {
   vi.mocked(authApi.login).mockReset();
   vi.mocked(authApi.register).mockReset();
   vi.mocked(authApi.logout).mockReset();
+  vi.mocked(accountApi.deleteAccount).mockReset();
   vi.mocked(flushQuizProgress).mockReset().mockResolvedValue(undefined);
   vi.mocked(clearAccountQuizProgress).mockReset();
   vi.mocked(stashAllAnonymousProgress).mockReset();
@@ -189,9 +192,43 @@ describe('AuthProvider', () => {
   });
 });
 
+describe('AuthProvider deleteAccount', () => {
+  it('runs api delete → clear local progress → /me, without flushing progress', async () => {
+    const order: string[] = [];
+    vi.mocked(authApi.fetchCurrentUser)
+      .mockResolvedValueOnce(user)
+      .mockImplementation(async () => { order.push('me'); return null; });
+    vi.mocked(accountApi.deleteAccount).mockImplementation(async () => { order.push('delete'); });
+    vi.mocked(clearAccountQuizProgress).mockImplementation(() => { order.push('clear'); });
+    renderProvider();
+    await waitFor(() => expect(screen.getByTestId('state')).toHaveTextContent('authenticated'));
+    await act(() => auth.deleteAccount('pw', '123456'));
+    expect(accountApi.deleteAccount).toHaveBeenCalledWith('pw', '123456');
+    expect(order).toEqual(['delete', 'clear', 'me']);
+    expect(flushQuizProgress).not.toHaveBeenCalled();
+    expect(screen.getByTestId('state')).toHaveTextContent('anonymous:-');
+  });
+
+  it('a failing delete rethrows, keeps the user and keeps the local progress', async () => {
+    vi.mocked(authApi.fetchCurrentUser).mockResolvedValue(user);
+    vi.mocked(accountApi.deleteAccount).mockRejectedValue(new ApiError(400, 'Wrong password'));
+    renderProvider();
+    await waitFor(() => expect(screen.getByTestId('state')).toHaveTextContent('authenticated'));
+    await expect(act(() => auth.deleteAccount('bad'))).rejects.toMatchObject({ status: 400 });
+    expect(clearAccountQuizProgress).not.toHaveBeenCalled();
+    expect(authApi.fetchCurrentUser).toHaveBeenCalledTimes(1);
+    expect(screen.getByTestId('state')).toHaveTextContent('authenticated:a@b.co');
+  });
+});
+
 describe('useAuth without provider', () => {
   it('returns the anonymous default', () => {
     render(<Probe />);
     expect(screen.getByTestId('state')).toHaveTextContent('anonymous:-');
+  });
+
+  it('has a no-op deleteAccount', async () => {
+    render(<Probe />);
+    await expect(auth.deleteAccount('pw')).resolves.toBeUndefined();
   });
 });

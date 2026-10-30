@@ -83,6 +83,13 @@ describe('RegisterPage', () => {
     expect(value.register).not.toHaveBeenCalled();
   });
 
+  it('shows the breached-password error under the password field', async () => {
+    const problem = { type: 't', title: 'Bad', status: 400, errors: { password: 'This password has appeared in a data breach. Choose a different one.' } };
+    renderPage(ctx(vi.fn().mockRejectedValue(new ApiError(400, 'Bad', problem))));
+    fill('password-from-a-leak', 'password-from-a-leak');
+    expect(await screen.findByTestId('field-error-password')).toHaveTextContent('appeared in a data breach');
+  });
+
   it('shows the server blocklist error under the password field', async () => {
     const problem = { type: 't', title: 'Bad', status: 400, errors: { password: 'Password is too common, choose a less predictable one' } };
     renderPage(ctx(vi.fn().mockRejectedValue(new ApiError(400, 'Bad', problem))));

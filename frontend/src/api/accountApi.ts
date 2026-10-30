@@ -16,3 +16,8 @@ export async function requestEmailChange(newEmail: string, currentPassword: stri
 export function confirmEmailChange(token: string): Promise<void> {
   return post<void>('/auth/confirm-email-change', { token });
 }
+
+/** Deletes the account for good; the server ends the session. `code` is needed only when 2FA is on. */
+export function deleteAccount(password: string, code?: string): Promise<void> {
+  return post<void>(`${BASE}/delete`, code ? { password, code } : { password });
+}

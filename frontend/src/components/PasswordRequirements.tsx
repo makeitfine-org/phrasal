@@ -21,6 +21,10 @@ export default function PasswordRequirements({ id, password, email }: PasswordRe
             <span aria-hidden="true">{rule.met ? '✓' : '○'}</span> {rule.label}
           </li>
         ))}
+        {/* Only the server can know this, so it is a plain line rather than a rule that turns green. */}
+        <li data-testid="password-breach-note">
+          <span aria-hidden="true">○</span> Not found in known data breaches (checked when you save)
+        </li>
       </ul>
       <p data-testid="password-tip" className="mt-1">{PASSWORD_TIP}</p>
     </div>

@@ -3,6 +3,7 @@ package net.phrasal.application.service;
 import ch.qos.logback.classic.Logger;
 import ch.qos.logback.classic.spi.ILoggingEvent;
 import ch.qos.logback.core.read.ListAppender;
+import net.phrasal.application.event.AccountDeletedNoticeRequested;
 import net.phrasal.application.event.AccountExistsNoticeRequested;
 import net.phrasal.application.event.EmailChangeConfirmationRequested;
 import net.phrasal.application.event.EmailChangedNoticeRequested;
@@ -215,5 +216,18 @@ class AccountEmailListenerTest {
 
         assertThat(appender.list).extracting(ILoggingEvent::getFormattedMessage)
                 .containsExactly("Account email failed userId=7: MailSendException");
+    }
+
+    @Test
+    @DisplayName("sends the account-deleted notice to the old address; the event does not print the address")
+    void sendsAccountDeleted() {
+        listener.onAccountDeletedNoticeRequested(new AccountDeletedNoticeRequested(7L, "a@b.com"));
+
+        ArgumentCaptor<EmailMessage> captor = ArgumentCaptor.forClass(EmailMessage.class);
+        verify(sender).send(captor.capture());
+        assertThat(captor.getValue().to()).isEqualTo("a@b.com");
+        assertThat(captor.getValue().subject()).isEqualTo("Your Phrasal account was deleted");
+        assertThat(new AccountDeletedNoticeRequested(7L, "a@b.com").toString())
+                .contains("7").doesNotContain("a@b.com");
     }
 }

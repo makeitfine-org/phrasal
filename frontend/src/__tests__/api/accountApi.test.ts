@@ -1,4 +1,4 @@
-import { changePassword, confirmEmailChange, requestEmailChange } from '../../api/accountApi';
+import { changePassword, confirmEmailChange, deleteAccount, requestEmailChange } from '../../api/accountApi';
 import { post } from '../../api/client';
 
 vi.mock('../../api/client', async () => {
@@ -45,5 +45,23 @@ describe('accountApi', () => {
     const error = new Error('boom');
     vi.mocked(post).mockRejectedValue(error);
     await expect(confirmEmailChange('t')).rejects.toBe(error);
+  });
+
+  it('deleteAccount posts only the password when there is no code', async () => {
+    vi.mocked(post).mockResolvedValue(undefined);
+    await deleteAccount('pw');
+    expect(post).toHaveBeenCalledWith('/me/delete', { password: 'pw' });
+  });
+
+  it('deleteAccount adds the code when given', async () => {
+    vi.mocked(post).mockResolvedValue(undefined);
+    await deleteAccount('pw', '123456');
+    expect(post).toHaveBeenCalledWith('/me/delete', { password: 'pw', code: '123456' });
+  });
+
+  it('deleteAccount passes the API error on', async () => {
+    const error = new Error('boom');
+    vi.mocked(post).mockRejectedValue(error);
+    await expect(deleteAccount('a')).rejects.toBe(error);
   });
 });

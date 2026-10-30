@@ -10,6 +10,7 @@ import net.phrasal.domain.entity.UserToken;
 import net.phrasal.domain.repository.UserRepository;
 import net.phrasal.domain.repository.UserTokenRepository;
 import net.phrasal.infrastructure.exception.PasswordPolicyViolationException;
+import net.phrasal.infrastructure.security.BreachedPasswordChecker;
 import net.phrasal.infrastructure.exception.ResetLinkExpiredException;
 import net.phrasal.infrastructure.exception.ResetLinkInvalidException;
 import net.phrasal.infrastructure.security.SecureTokenGenerator;
@@ -69,10 +70,13 @@ class PasswordResetServiceTest {
     @Mock
     private SessionRevoker sessionRevoker;
 
+    @Mock
+    private BreachedPasswordChecker breachedPasswordChecker;
+
     private PasswordResetService service() {
         return new PasswordResetService(userRepository, userTokenRepository, tokenGenerator,
                 new PasswordResetProperties(TTL), Clock.fixed(INSTANT, ZoneOffset.UTC), publisher,
-                passwordEncoder, sessionRevoker);
+                passwordEncoder, sessionRevoker, new PasswordBreachGuard(breachedPasswordChecker));
     }
 
     private static final String NEW_PASSWORD = "a-brand-new-passphrase";
@@ -284,6 +288,22 @@ class PasswordResetServiceTest {
         assertThatThrownBy(() -> service().reset(RAW, "my-a@b.com-passphrase"))
                 .isInstanceOf(PasswordPolicyViolationException.class)
                 .hasMessageContaining("must not contain your email");
+
+        assertNothingChanged(token, user);
+        verify(userTokenRepository, never()).invalidateActive(any(), any(), any());
+    }
+
+    @Test
+    @DisplayName("reset rejects a breached password and keeps the token usable")
+    void resetBreachedPassword() {
+        User user = user(true);
+        UserToken token = token(NOW.plusMinutes(10));
+        givenToken(token, user);
+        when(breachedPasswordChecker.isBreached(NEW_PASSWORD)).thenReturn(true);
+
+        assertThatThrownBy(() -> service().reset(RAW, NEW_PASSWORD))
+                .isInstanceOfSatisfying(PasswordPolicyViolationException.class,
+                        ex -> assertThat(ex.getMessage()).contains("data breach"));
 
         assertNothingChanged(token, user);
         verify(userTokenRepository, never()).invalidateActive(any(), any(), any());

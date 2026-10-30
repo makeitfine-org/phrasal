@@ -2385,3 +2385,26 @@
 - backend/src/test/java/net/phrasal/integration/UserTokenRepositoryIntegrationTest.java
 - backend/src/test/java/net/phrasal/integration/support/RecordingEmailSender.java
 <!-- end-snapshot -->
+
+<!-- git-snapshot 2026-10-30T13:33:28Z -->
+- .claude/docs/blackbox/audit.md
+- .claude/docs/blackbox/todos/account-funcs-todos.md
+- backend/src/main/java/net/phrasal/application/service/AccountEmailComposer.java
+- backend/src/main/java/net/phrasal/application/service/AccountEmailListener.java
+- backend/src/main/java/net/phrasal/application/service/AccountService.java
+- backend/src/main/java/net/phrasal/application/service/AuthService.java
+- backend/src/main/java/net/phrasal/application/service/PasswordResetService.java
+- backend/src/main/java/net/phrasal/presentation/rest/AccountController.java
+- backend/src/main/resources/application.yml
+- backend/src/test/java/net/phrasal/application/service/AccountEmailComposerTest.java
+- backend/src/test/java/net/phrasal/application/service/AccountEmailListenerTest.java
+- backend/src/test/java/net/phrasal/application/service/AccountServiceTest.java
+- backend/src/test/java/net/phrasal/application/service/AuthServiceTest.java
+- backend/src/test/java/net/phrasal/application/service/PasswordResetServiceTest.java
+- backend/src/test/java/net/phrasal/integration/AccountRateLimitIntegrationTest.java
+- backend/src/test/java/net/phrasal/integration/AdminBootstrapIntegrationTest.java
+- backend/src/test/resources/application-test.yml
+- docker-compose.yml
+- e2e/features/frontend/account-settings.feature
+- e2e/src/steps/account-api.steps.ts
+<!-- end-snapshot -->

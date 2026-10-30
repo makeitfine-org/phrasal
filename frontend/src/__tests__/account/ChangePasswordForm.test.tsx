@@ -85,6 +85,15 @@ describe('ChangePasswordForm', () => {
     expect(screen.getByTestId('change-password-new')).toHaveValue(NEW);
   });
 
+  it('a breached new password shows under the new field', async () => {
+    vi.mocked(api.changePassword).mockRejectedValue(
+      new ApiError(400, 'Validation Error', { errors: { newPassword: 'This password has appeared in a data breach. Choose a different one.' } }));
+    renderForm();
+    fill(OLD, NEW, NEW);
+    submit();
+    expect(await screen.findByTestId('field-error-newPassword')).toHaveTextContent('appeared in a data breach');
+  });
+
   it('a server error on newPassword shows under the new field', async () => {
     vi.mocked(api.changePassword).mockRejectedValue(
       new ApiError(400, 'Validation Error', { errors: { newPassword: 'New password must be different from your current one' } }));

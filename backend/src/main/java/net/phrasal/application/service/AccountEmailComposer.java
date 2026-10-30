@@ -13,7 +13,7 @@ import java.time.Duration;
 
 /**
  * Builds the account emails (verification, account exists, password reset, password changed, email change,
- * two-factor changed) as plain Java text blocks; no template engine.
+ * account deleted, two-factor changed) as plain Java text blocks; no template engine.
  */
 @Component
 @RequiredArgsConstructor
@@ -25,6 +25,7 @@ public class AccountEmailComposer {
     static final String PASSWORD_CHANGED_SUBJECT = "Your Phrasal password was changed";
     static final String EMAIL_CHANGE_SUBJECT = "Confirm your new Phrasal email address";
     static final String EMAIL_CHANGED_SUBJECT = "Your Phrasal email address was changed";
+    static final String ACCOUNT_DELETED_SUBJECT = "Your Phrasal account was deleted";
     static final String TWO_FACTOR_ENABLED_SUBJECT = "Two-factor authentication is on for your Phrasal account";
     static final String TWO_FACTOR_DISABLED_SUBJECT = "Two-factor authentication is off for your Phrasal account";
 
@@ -203,6 +204,25 @@ public class AccountEmailComposer {
                 <p>If this wasn't you, contact the site administrator.</p>
                 """.formatted(HtmlUtils.htmlEscape(newEmail));
         return new EmailMessage(to, EMAIL_CHANGED_SUBJECT, text, html);
+    }
+
+    /**
+     * Notice that the account was deleted.
+     *
+     * @param to recipient address
+     * @return multipart message with no link and no token
+     */
+    public EmailMessage accountDeleted(String to) {
+        String text = """
+                Your Phrasal account and its saved progress were deleted.
+
+                If this wasn't you, contact the site administrator.
+                """;
+        String html = """
+                <p>Your Phrasal account and its saved progress were deleted.</p>
+                <p>If this wasn't you, contact the site administrator.</p>
+                """;
+        return new EmailMessage(to, ACCOUNT_DELETED_SUBJECT, text, html);
     }
 
     /**

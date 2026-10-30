@@ -21,7 +21,7 @@ function TwoFactorStub() {
 function ctx(overrides: Partial<AuthContextValue> = {}): AuthContextValue {
   return {
     status: 'anonymous', user: null,
-    login: vi.fn().mockResolvedValue('authenticated'), completeTwoFactorLogin: vi.fn(), register: vi.fn(), logout: vi.fn(), refresh: vi.fn(),
+    login: vi.fn().mockResolvedValue('authenticated'), completeTwoFactorLogin: vi.fn(), register: vi.fn(), logout: vi.fn(), deleteAccount: vi.fn(), refresh: vi.fn(),
     ...overrides,
   };
 }
@@ -126,5 +126,15 @@ describe('LoginPage', () => {
   it('redirects an authenticated user', () => {
     renderPage(ctx({ status: 'authenticated', user: { id: 1, email: 'a@b.co', role: 'USER', twoFactorEnabled: false, twoFactorEnrollmentRequired: false } }));
     expect(screen.getByText('home')).toBeInTheDocument();
+  });
+
+  it('shows a notice passed in the navigation state', () => {
+    renderPage(ctx(), { pathname: '/login', state: { notice: 'Your account was deleted.' } });
+    expect(screen.getByTestId('login-notice')).toHaveTextContent('Your account was deleted.');
+  });
+
+  it('shows no notice by default', () => {
+    renderPage(ctx());
+    expect(screen.queryByTestId('login-notice')).toBeNull();
   });
 });

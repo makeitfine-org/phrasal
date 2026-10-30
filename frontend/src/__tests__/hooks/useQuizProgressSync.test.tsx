@@ -22,7 +22,7 @@ const EMPTY_DOC = { schemaVersion: 1, mastered: [], excluded: [], history: [], c
 
 const base: AuthContextValue = {
   status: 'anonymous', user: null,
-  login: async () => {}, register: async () => {}, logout: async () => {}, refresh: async () => {},
+  login: async () => {}, register: async () => {}, logout: async () => {}, deleteAccount: async () => {}, refresh: async () => {},
 };
 const asUser = (id: number): AuthContextValue => ({
   ...base, status: 'authenticated', user: { id, email: `u${id}@x.co`, role: 'USER', twoFactorEnabled: false, twoFactorEnrollmentRequired: false },
@@ -196,6 +196,15 @@ describe('useQuizProgressSync — saving', () => {
     expect(api.saveQuizProgress).toHaveBeenCalledTimes(1);
     expect(vi.mocked(api.saveQuizProgress).mock.calls[0][1]).toMatchObject({ mastered: [10, 20], excluded: [30] });
     expect(readSyncMeta(KEY).dirty).toBe(false);
+  });
+
+  it('the session ending before the debounce fires cancels the pending save', async () => {
+    const { rerender } = await syncedMount();
+    rerender({ snapshot: LOCAL });
+    auth = base;
+    rerender({ snapshot: LOCAL });
+    await advance(SAVE_DEBOUNCE_MS * 2);
+    expect(api.saveQuizProgress).not.toHaveBeenCalled();
   });
 
   it('a PUT failing with 401 turns sync off and keeps dirty', async () => {

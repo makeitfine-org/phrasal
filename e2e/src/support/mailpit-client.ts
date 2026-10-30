@@ -11,6 +11,7 @@ export const PASSWORD_RESET_SUBJECT = 'Reset your Phrasal password';
 export const PASSWORD_CHANGED_SUBJECT = 'Your Phrasal password was changed';
 export const EMAIL_CHANGE_SUBJECT = 'Confirm your new Phrasal email address';
 export const EMAIL_CHANGED_SUBJECT = 'Your Phrasal email address was changed';
+export const ACCOUNT_DELETED_SUBJECT = 'Your Phrasal account was deleted';
 export const ACCOUNT_EXISTS_SUBJECT = 'You already have a Phrasal account';
 
 export interface MailMessage {

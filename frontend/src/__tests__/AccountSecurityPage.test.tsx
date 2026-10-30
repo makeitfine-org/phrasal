@@ -1,6 +1,6 @@
 import React from 'react';
 import { render, screen, fireEvent, waitFor } from '@testing-library/react';
-import { MemoryRouter, Routes, Route } from 'react-router-dom';
+import { MemoryRouter, Routes, Route, useLocation } from 'react-router-dom';
 import AccountSecurityPage from '../pages/AccountSecurityPage';
 import { AuthContext, type AuthContextValue } from '../auth/AuthContext';
 import QRCode from 'qrcode';
@@ -50,6 +50,7 @@ describe('AccountSecurityPage', () => {
     expect(await screen.findByTestId('change-password-submit')).toBeInTheDocument();
     expect(screen.getByTestId('change-email-submit')).toBeInTheDocument();
     expect(screen.queryByTestId('admin-managed-note')).toBeNull();
+    expect(screen.getByTestId('delete-account-open')).toBeInTheDocument();
   });
 
   it('hides the change-password form for an admin and shows the managed note', async () => {
@@ -58,6 +59,37 @@ describe('AccountSecurityPage', () => {
     expect(await screen.findByTestId('admin-managed-note')).toHaveTextContent('managed through server configuration');
     expect(screen.queryByTestId('change-password-submit')).toBeNull();
     expect(screen.queryByTestId('change-email-submit')).toBeNull();
+    expect(screen.queryByTestId('delete-account-open')).toBeNull();
+  });
+
+  it('after a deletion the anonymous redirect carries the notice, not the return path', async () => {
+    vi.mocked(api.fetchTwoFactorStatus).mockResolvedValue(off);
+    const deleteAccount = vi.fn();
+    const value = { status: 'authenticated', user: plain, refresh: vi.fn(), deleteAccount } as unknown as AuthContextValue;
+    function LoginProbe() {
+      const state = useLocation().state as { notice?: string; from?: string } | null;
+      return <div data-testid="login-probe">{state?.notice ?? 'no-notice'}|{state?.from ?? 'no-from'}</div>;
+    }
+    function Harness() {
+      const [current, setCurrent] = React.useState(value);
+      deleteAccount.mockImplementation(async () => { setCurrent({ ...value, status: 'anonymous', user: null }); });
+      return (
+        <AuthContext.Provider value={current}>
+          <MemoryRouter initialEntries={['/account/security']}>
+            <Routes>
+              <Route path="/account/security" element={<AccountSecurityPage />} />
+              <Route path="/login" element={<LoginProbe />} />
+            </Routes>
+          </MemoryRouter>
+        </AuthContext.Provider>
+      );
+    }
+    render(<Harness />);
+    fireEvent.click(await screen.findByTestId('delete-account-open'));
+    fireEvent.change(screen.getByTestId('delete-account-password'), { target: { value: 'pw' } });
+    fireEvent.click(screen.getByTestId('delete-account-confirm'));
+    fireEvent.click(screen.getByTestId('delete-account-submit'));
+    expect(await screen.findByTestId('login-probe')).toHaveTextContent('Your account was deleted.|no-from');
   });
 
   it('renders nothing while loading', () => {

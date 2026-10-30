@@ -189,4 +189,15 @@ class AccountEmailComposerTest {
                 .contains("contact the site administrator").doesNotContain("http");
         assertThat(message.html()).contains("a&amp;b&lt;x&gt;@c.com").doesNotContain("<x>");
     }
+
+    @Test
+    @DisplayName("account-deleted notice has no link and no token")
+    void accountDeleted() {
+        EmailMessage message = composer("https://phrasalbox.com", Duration.ofHours(24)).accountDeleted("a@b.com");
+
+        assertThat(message.to()).isEqualTo("a@b.com");
+        assertThat(message.subject()).isEqualTo("Your Phrasal account was deleted");
+        assertThat(message.text()).contains("saved progress were deleted").doesNotContain("http", "token=");
+        assertThat(message.html()).contains("saved progress were deleted").doesNotContain("http", "token=");
+    }
 }

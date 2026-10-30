@@ -29,6 +29,8 @@ export default function LoginPage() {
     return <Navigate to="/" replace />;
   }
 
+  const notice = (location.state as { notice?: string } | null)?.notice;
+
   const handleSubmit = async (event: React.FormEvent) => {
     event.preventDefault();
     setPending(true);
@@ -56,6 +58,11 @@ export default function LoginPage() {
   return (
     <main id="main-content" className="max-w-sm mx-auto pt-16 px-4 pb-20">
       <h1 className="text-2xl font-bold text-gray-900 dark:text-gray-100 mb-6">Log in</h1>
+      {notice && (
+        <p role="status" data-testid="login-notice" className="mb-4 text-sm text-green-700 dark:text-green-400">
+          {notice}
+        </p>
+      )}
       {error && (
         <div role="alert" data-testid="auth-error" className={alertClass}>{error}</div>
       )}

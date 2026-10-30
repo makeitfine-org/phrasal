@@ -86,4 +86,18 @@ class AccountRateLimitIntegrationTest extends AbstractIntegrationTest {
         wrongEmailChange(third, target).andExpect(status().isTooManyRequests())
                 .andExpect(header().exists("Retry-After"));
     }
+
+    @Test
+    @DisplayName("account deletion shares the per-user bucket with the other account changes")
+    void deleteSharesBucket() throws Exception {
+        Cookie session = newUser();
+        String wrong = "{\"password\":\"not the password\"}";
+
+        for (int i = 0; i < 2; i++) {
+            mockMvc.perform(post("/api/v1/me/delete").cookie(session).with(csrf())
+                    .contentType(MediaType.APPLICATION_JSON).content(wrong)).andExpect(status().isBadRequest());
+        }
+
+        wrongPassword(session).andExpect(status().isTooManyRequests());
+    }
 }

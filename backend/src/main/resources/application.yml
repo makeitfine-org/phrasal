@@ -129,6 +129,10 @@ phrasal:
     token-ttl: ${PASSWORD_RESET_TOKEN_TTL:1h}
   email-change:
     token-ttl: ${EMAIL_CHANGE_TOKEN_TTL:1h}
+  password:
+    breach-check:
+      enabled: ${PASSWORD_BREACH_CHECK_ENABLED:true}
+      timeout: ${PASSWORD_BREACH_CHECK_TIMEOUT:2s}
   two-factor:
     # base64 of 32 random bytes (openssl rand -base64 32); the app does not start without it
     encryption-key: ${TOTP_ENCRYPTION_KEY:}

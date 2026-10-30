@@ -2,6 +2,7 @@ package net.phrasal.application.service;
 
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import net.phrasal.application.event.AccountDeletedNoticeRequested;
 import net.phrasal.application.event.AccountExistsNoticeRequested;
 import net.phrasal.application.event.EmailChangeConfirmationRequested;
 import net.phrasal.application.event.EmailChangedNoticeRequested;
@@ -68,6 +69,12 @@ public class AccountEmailListener {
     @TransactionalEventListener(phase = TransactionPhase.AFTER_COMMIT)
     public void onEmailChangedNoticeRequested(EmailChangedNoticeRequested event) {
         deliver(event.userId(), composer.emailChanged(event.oldEmail(), event.newEmail()));
+    }
+
+    @Async
+    @TransactionalEventListener(phase = TransactionPhase.AFTER_COMMIT)
+    public void onAccountDeletedNoticeRequested(AccountDeletedNoticeRequested event) {
+        deliver(event.userId(), composer.accountDeleted(event.email()));
     }
 
     private void deliver(Long userId, EmailMessage message) {

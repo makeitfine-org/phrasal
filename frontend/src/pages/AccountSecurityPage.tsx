@@ -5,6 +5,7 @@ import { disableTwoFactor, fetchTwoFactorStatus, regenerateRecoveryCodes } from 
 import type { TwoFactorStatus } from '../types';
 import ChangeEmailForm from '../components/account/ChangeEmailForm';
 import ChangePasswordForm from '../components/account/ChangePasswordForm';
+import DeleteAccountSection, { DELETED_NOTICE } from '../components/account/DeleteAccountSection';
 import CodeForm from '../components/twoFactor/CodeForm';
 import RecoveryCodesPanel from '../components/twoFactor/RecoveryCodesPanel';
 import TwoFactorSetup from '../components/twoFactor/TwoFactorSetup';
@@ -30,6 +31,7 @@ export default function AccountSecurityPage() {
   const [loadFailed, setLoadFailed] = useState(false);
   const [view, setView] = useState<View>('status');
   const [newCodes, setNewCodes] = useState<string[]>([]);
+  const [deleting, setDeleting] = useState(false);
 
   const load = useCallback(async () => {
     setLoadFailed(false);
@@ -46,7 +48,8 @@ export default function AccountSecurityPage() {
 
   if (status === 'loading') return null;
   if (status === 'anonymous' || !user) {
-    return <Navigate to="/login" replace state={{ from: '/account/security' }} />;
+    // After a deletion the visitor is anonymous because the account is gone, not because the session expired.
+    return <Navigate to="/login" replace state={deleting ? { notice: DELETED_NOTICE } : { from: '/account/security' }} />;
   }
 
   const backToStatus = () => {
@@ -176,6 +179,7 @@ export default function AccountSecurityPage() {
       )}
       <h2 className="text-lg font-semibold text-gray-900 dark:text-gray-100 mb-3">Two-factor authentication</h2>
       {renderBody()}
+      {!isAdmin && <DeleteAccountSection onDeletingChange={setDeleting} />}
     </main>
   );
 }

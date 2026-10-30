@@ -3,9 +3,10 @@ import { strict as assert } from 'assert';
 import { PhrasalWorld } from '../world';
 import { ApiClient } from '../support/api-client';
 import {
-    ACCOUNT_EXISTS_SUBJECT, EMAIL_CHANGED_SUBJECT, EMAIL_CHANGE_SUBJECT, countMessagesTo, emailChangeToken,
+    ACCOUNT_DELETED_SUBJECT, ACCOUNT_EXISTS_SUBJECT, EMAIL_CHANGED_SUBJECT, EMAIL_CHANGE_SUBJECT, countMessagesTo, emailChangeToken,
     latestMessageTo,
 } from '../support/mailpit-client';
+import { nextAcceptedCode } from '../support/totp';
 import { TEST_PASSWORD, uniqueEmail } from '../support/test-users';
 
 const AUTH = '/api/v1/auth';
@@ -107,4 +108,28 @@ When('I confirm the email change with the link from my email again', async funct
 
 When('I log in with the new email and password {string}', async function (this: PhrasalWorld, password: string) {
     this.lastResponse = await this.apiClient.post(`${AUTH}/login`, { email: newEmailOf(this), password });
+});
+
+When('I delete my account with password {string}', async function (this: PhrasalWorld, password: string) {
+    this.lastResponse = await this.apiClient.post(`${ME}/delete`, { password });
+});
+
+When(
+    'I delete my account with password {string} and a valid two-factor code',
+    { timeout: 65_000 },
+    async function (this: PhrasalWorld, password: string) {
+        assert.ok(this.twoFactorSecret, 'No two-factor secret: enable two-factor first');
+        const { code, step } = await nextAcceptedCode(this.twoFactorSecret!, this.lastTotpStep);
+        this.lastTotpStep = step;
+        this.lastResponse = await this.apiClient.post(`${ME}/delete`, { password, code });
+    },
+);
+
+Then('I should receive an account deleted notice', async function (this: PhrasalWorld) {
+    const message = await latestMessageTo(currentEmail(this), { subject: ACCOUNT_DELETED_SUBJECT });
+    assert.equal(message.subject, ACCOUNT_DELETED_SUBJECT);
+});
+
+When('I register again with my old email', async function (this: PhrasalWorld) {
+    this.lastResponse = await this.apiClient.post(`${AUTH}/register`, { email: currentEmail(this), password: TEST_PASSWORD });
 });

@@ -65,3 +65,18 @@ When('I log in through the form with the new email', async function (this: Phras
     await page.getByTestId('user-menu').waitFor({ timeout: PAGE_TIMEOUT });
     this.currentEmail = this.newEmail;
 });
+
+When('I delete my account through the form with password {string}', async function (this: PhrasalWorld, password: string) {
+    const page = this.page!;
+    await page.getByTestId('delete-account-open').click();
+    await page.getByTestId('delete-account-password').fill(password);
+    await page.getByTestId('delete-account-confirm').check();
+    await page.getByTestId('delete-account-submit').click();
+});
+
+Then('I should see the account deleted notice', async function (this: PhrasalWorld) {
+    const notice = this.page!.getByTestId('login-notice');
+    await notice.waitFor({ timeout: PAGE_TIMEOUT });
+    assert.ok((await notice.textContent())?.includes('Your account was deleted'), 'Expected the account deleted notice');
+    await this.page!.getByTestId('nav-login').waitFor({ timeout: PAGE_TIMEOUT });
+});

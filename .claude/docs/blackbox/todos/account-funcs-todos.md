@@ -24,8 +24,8 @@ This builds on:
   already ignores a `401`
 
 > Status: Phase 0 done (2026-10-30, branch `account-settings`, backlog task-100 + new TASK-109). Phase 1 done
-> (2026-10-30, shared backend groundwork). Phase 2 done and committed (`f9957e2`). Phase 3 done (2026-10-30, change email; `make clean build` green,
-> awaiting commit approval). Phase 4 onwards is not implemented yet.
+> (2026-10-30, shared backend groundwork). Phase 2 done and committed (`f9957e2`). Phase 3 done and committed (`594a57c`). Phase 4 done (delete account) and Phase 5 done (breached-password check);
+> both `make clean build` green, awaiting commit approval. Phase 6 onwards is not implemented yet.
 
 ---
 
@@ -814,29 +814,29 @@ bucket. Doing these once keeps the feature phases small.
       Notes: 3.1.4 needed no change (the cleanup deletes by expiry for every type). The UI e2e step opens the link with
       only the token on `FRONTEND_PORT`, like the reset step. The "I confirm … again" step and `no email change link
       should be sent to the new address` were added to the e2e steps.
-- [ ] **3.8.2** Ask for commit approval → `feat: let signed-in users change their email address`
+- [x] **3.8.2** Ask for commit approval → `feat: let signed-in users change their email address` (`594a57c`)
 
 ---
 
 ## Phase 4 — Delete account
 
 ### 4.1 Backend: DTO, event, mail
-- [ ] **4.1.1** `application/dto/DeleteAccountRequest.java`:
+- [x] **4.1.1** `application/dto/DeleteAccountRequest.java`:
   - `@NotBlank @Size(max = 200) String password`
   - `@Size(max = 50) String code`: optional, needed only when 2FA is on
   - `toString()` masks both values
-- [ ] **4.1.2** `application/event/AccountDeletedNoticeRequested(Long userId, String email)`. `toString()` shows the user
+- [x] **4.1.2** `application/event/AccountDeletedNoticeRequested(Long userId, String email)`. `toString()` shows the user
       id only.
-- [ ] **4.1.3** `AccountEmailComposer#accountDeleted(String to)`:
+- [x] **4.1.3** `AccountEmailComposer#accountDeleted(String to)`:
   - subject `Your Phrasal account was deleted`
   - text: "Your Phrasal account and its saved progress were deleted. If this wasn't you, contact the site
     administrator."
   - no links with tokens
-- [ ] **4.1.4** `AccountEmailListener`: an after-commit `@Async` handler for it. Tests in `AccountEmailComposerTest` and
+- [x] **4.1.4** `AccountEmailListener`: an after-commit `@Async` handler for it. Tests in `AccountEmailComposerTest` and
       `AccountEmailListenerTest`.
 
 ### 4.2 Backend: service
-- [ ] **4.2.1** `AccountService#deleteAccount(Long userId, String password, String code)`:
+- [x] **4.2.1** `AccountService#deleteAccount(Long userId, String password, String code)`:
   1. `user = accountChecks.load(userId)`, then `requireSelfManaged(user)`
   2. `accountChecks.requirePassword(user, password)`. The password is checked before the code.
   3. if `user.isTwoFactorEnabled()`:
@@ -848,7 +848,7 @@ bucket. Doing these once keeps the feature phases small.
      recovery codes.
   6. `revoked = sessionRevoker.revokeAll(email)`
   7. `log.info("Account deleted userId={} sessionsRevoked={}", userId, revoked)`
-- [ ] **4.2.2** `AccountServiceTest`, delete:
+- [x] **4.2.2** `AccountServiceTest`, delete:
   - success without 2FA: `deleteById`, `revokeAll(email)` and the event are called in that order (Mockito `InOrder`)
   - success with 2FA + code: `verifyCode` is called
   - 2FA on + blank code → `InvalidTwoFactorCodeException`; nothing deleted
@@ -858,7 +858,7 @@ bucket. Doing these once keeps the feature phases small.
   - missing user → exception
 
 ### 4.3 Backend: controller
-- [ ] **4.3.1** `AccountController`: `@PostMapping("/delete")`:
+- [x] **4.3.1** `AccountController`: `@PostMapping("/delete")`:
   1. check `reauth-per-user`
   2. `accountService.deleteAccount(user.id(), request.password(), request.code())`
   3. end the current request's session, using the APIs noted in 0.5:
@@ -866,51 +866,51 @@ bucket. Doing these once keeps the feature phases small.
        and invalidates the `HttpSession`
      - expire the `SESSION` cookie, unless 0.5 showed that Spring Session already does it on invalidation
   4. answer `204`
-- [ ] **4.3.2** Make sure an anonymous follow-up GET gets a fresh `XSRF-TOKEN`; the frontend calls `refresh()` anyway.
+- [x] **4.3.2** Make sure an anonymous follow-up GET gets a fresh `XSRF-TOKEN`; the frontend calls `refresh()` anyway.
       Write it down in a comment only if the code relies on it.
 
 ### 4.4 Backend integration tests
-- [ ] **4.4.1** `integration/DeleteAccountIntegrationTest`:
-  - [ ] success → `204`, and the response expires the `SESSION` cookie (`Max-Age=0`)
-  - [ ] afterwards:
+- [x] **4.4.1** `integration/DeleteAccountIntegrationTest`:
+  - [x] success → `204`, and the response expires the `SESSION` cookie (`Max-Age=0`)
+  - [x] afterwards:
     - the old cookie's `/auth/me` → `401`
     - a second session's `/auth/me` → `401`
     - login → `401`
-  - [ ] data is gone. Seed it first:
+  - [x] data is gone. Seed it first:
     - `PUT /me/quiz-progress/phrasal-verbs`
     - `enableTwoFactor`, which makes recovery codes
     - `requestPasswordReset`, which makes a token
 
     Then, by `JdbcTemplate`, `users`, `user_tokens`, `user_quiz_progress`, `user_recovery_codes` and
     `spring_session` (by principal name) all count 0 for that user.
-  - [ ] the goodbye mail `Your Phrasal account was deleted` arrives
-  - [ ] the address is free again: register it → `202` and a **verification** mail, not an "account exists" notice
-  - [ ] wrong password → `400 wrong-password`; the account still works
-  - [ ] 2FA account:
+  - [x] the goodbye mail `Your Phrasal account was deleted` arrives
+  - [x] the address is free again: register it → `202` and a **verification** mail, not an "account exists" notice
+  - [x] wrong password → `400 wrong-password`; the account still works
+  - [x] 2FA account:
     - no code → `400 invalid-two-factor-code`
     - wrong code → `400`
     - a valid TOTP (`TotpTestCodes`) → `204`
     - a recovery code, in a separate test → `204`
-  - [ ] anonymous → `401`; without CSRF → `403`
-- [ ] **4.4.2** `AdminBootstrapIntegrationTest`: admin + `POST /me/delete` → `403 admin-account-managed`, and the admin
+  - [x] anonymous → `401`; without CSRF → `403`
+- [x] **4.4.2** `AdminBootstrapIntegrationTest`: admin + `POST /me/delete` → `403 admin-account-managed`, and the admin
       can still log in.
-- [ ] **4.4.3** `AccountRateLimitIntegrationTest`: the shared bucket also covers `/me/delete`: 2 wrong passwords on
+- [x] **4.4.3** `AccountRateLimitIntegrationTest`: the shared bucket also covers `/me/delete`: 2 wrong passwords on
       delete → the next change-password attempt → `429`.
-- [ ] **4.4.4** `cd backend && mvn clean verify` → green.
+- [x] **4.4.4** `cd backend && mvn clean verify` → green.
 
 ### 4.5 Frontend
-- [ ] **4.5.1** `accountApi.ts`: `deleteAccount(password, code?)` → `POST /me/delete`. Send `code` only when it's given.
-- [ ] **4.5.2** `AuthContext.tsx`: a new action `deleteAccount(password: string, code?: string): Promise<void>`:
+- [x] **4.5.1** `accountApi.ts`: `deleteAccount(password, code?)` → `POST /me/delete`. Send `code` only when it's given.
+- [x] **4.5.2** `AuthContext.tsx`: a new action `deleteAccount(password: string, code?: string): Promise<void>`:
   1. `await accountApi.deleteAccount(password, code)`. On error, rethrow; the state doesn't change.
   2. `clearAccountQuizProgress()`, for privacy, the same as logout. Don't flush progress; the account is gone.
   3. `await refresh()` → anonymous, and a fresh XSRF cookie
   - Add it to the `AuthContextValue` interface and to the no-op default value.
-- [ ] **4.5.3** Check `useQuizProgressSync`: when the status turns `anonymous`, a pending debounced PUT is cancelled or
+- [x] **4.5.3** Check `useQuizProgressSync`: when the status turns `anonymous`, a pending debounced PUT is cancelled or
       ends in a silent `401` (line ~86). Add a test if neither is covered yet.
-- [ ] **4.5.4** `src/components/account/DeleteAccountSection.tsx`:
-  - [ ] a section with an `<h2>` "Delete account" and a red outline button "Delete my account…"
+- [x] **4.5.4** `src/components/account/DeleteAccountSection.tsx`:
+  - [x] a section with an `<h2>` "Delete account" and a red outline button "Delete my account…"
         (`data-testid="delete-account-open"`)
-  - [ ] clicking it opens an inline confirm form:
+  - [x] clicking it opens an inline confirm form:
     - the warning: "This permanently deletes your account, your saved quiz progress and your two-factor settings. It
       can't be undone."
     - a password field (`delete-account-password`)
@@ -918,53 +918,55 @@ bucket. Doing these once keeps the feature phases small.
     - a required checkbox "I understand" (`delete-account-confirm`)
     - submit "Delete account" (`delete-account-submit`), red, disabled until the checkbox is ticked and while pending
     - "Cancel"
-  - [ ] success: `navigate('/login', { replace: true, state: { notice: 'Your account was deleted.' } })`.
+  - [x] success: `navigate('/login', { replace: true, state: { notice: 'Your account was deleted.' } })`.
         If `LoginPage` already shows a `location.state` notice (check the reset-password flow), reuse it. Otherwise add
         a small `role="status"` notice there (`data-testid="login-notice"`).
-  - [ ] errors:
+  - [x] errors:
     - `wrong-password` → under the password field
     - `invalid-two-factor-code` → under the code field
     - `429` / other → alert (`delete-account-error`)
-- [ ] **4.5.5** `AccountSecurityPage.tsx`: render `<DeleteAccountSection />` last, hidden for ADMIN.
-- [ ] **4.5.6** Tests:
-  - [ ] `accountApi.test.ts`: `deleteAccount` with and without a code
-  - [ ] `AuthContext.test.tsx`:
+- [x] **4.5.5** `AccountSecurityPage.tsx`: render `<DeleteAccountSection />` last, hidden for ADMIN.
+- [x] **4.5.6** Tests:
+  - [x] `accountApi.test.ts`: `deleteAccount` with and without a code
+  - [x] `AuthContext.test.tsx`:
     - `deleteAccount` calls the API, then `clearAccountQuizProgress`, then `/me` → anonymous
     - a failing delete rethrows, keeps the user and doesn't clear progress
     - the default context value has a no-op `deleteAccount`
-  - [ ] `src/__tests__/account/DeleteAccountSection.test.tsx`:
+  - [x] `src/__tests__/account/DeleteAccountSection.test.tsx`:
     - the confirm form is hidden until opened
     - submit is disabled until the box is ticked
     - the code field is shown only with 2FA
     - success navigates to `/login` with the notice
     - `wrong-password` and `invalid-two-factor-code` errors land under their fields
     - Cancel closes the form
-  - [ ] `LoginPage.test.tsx`: a notice in `location.state` is shown
-  - [ ] `AccountSecurityPage.test.tsx`: the section is shown for USER and hidden for ADMIN
-- [ ] **4.5.7** `npm --prefix frontend run test:run && npm --prefix frontend run build` → green.
+  - [x] `LoginPage.test.tsx`: a notice in `location.state` is shown
+  - [x] `AccountSecurityPage.test.tsx`: the section is shown for USER and hidden for ADMIN
+- [x] **4.5.7** `npm --prefix frontend run test:run && npm --prefix frontend run build` → green.
 
 ### 4.6 E2E
-- [ ] **4.6.1** `mailpit-client.ts`: `ACCOUNT_DELETED_SUBJECT`.
-- [ ] **4.6.2** `account-api.steps.ts`:
+- [x] **4.6.1** `mailpit-client.ts`: `ACCOUNT_DELETED_SUBJECT`.
+- [x] **4.6.2** `account-api.steps.ts`:
   - `When I delete my account with password {string}`
   - `When I delete my account with password {string} and a valid two-factor code`, using `e2e/src/support/totp.ts`
   - `Then I should receive an account deleted notice`
   - `When I register again with my old email`
-- [ ] **4.6.3** `e2e/features/account-api/delete-account.feature` (`@api`):
-  - [ ] delete → 204; my profile → 401; logging in → 401; the notice arrives; registering the same email again → 202
-  - [ ] wrong password → 400; my profile still → 200
-  - [ ] a 2FA user without a code → 400; with a valid code → 204. Reuse the 2FA steps from `two-factor-api.steps.ts`
+- [x] **4.6.3** `e2e/features/account-api/delete-account.feature` (`@api`):
+  - [x] delete → 204; my profile → 401; logging in → 401; the notice arrives; registering the same email again → 202
+  - [x] wrong password → 400; my profile still → 200
+  - [x] a 2FA user without a code → 400; with a valid code → 204. Reuse the 2FA steps from `two-factor-api.steps.ts`
         to turn 2FA on.
-  - [ ] the admin → 403 (`Given I am logged in as the admin`)
-- [ ] **4.6.4** `account-ui.steps.ts`:
+  - [x] the admin → 403 (`Given I am logged in as the admin`)
+- [x] **4.6.4** `account-ui.steps.ts`:
   - `When I delete my account through the form with password {string}`
   - `Then I should see the account deleted notice`
-- [ ] **4.6.5** `account-settings.feature`: a new user deletes the account through the form → lands on `/login` with the
+- [x] **4.6.5** `account-settings.feature`: a new user deletes the account through the form → lands on `/login` with the
       notice; the navigation shows "Log in"; logging in through the form with the old credentials shows an auth error.
-- [ ] **4.6.6** `npm --prefix e2e run test:api` → green.
+- [x] **4.6.6** `npm --prefix e2e run test:api` → green.
 
 ### 4.7 Verify and commit
-- [ ] **4.7.1** `make clean build` → green.
+- [x] **4.7.1** `make clean build` → green. Backend 668 tests, e2e 138 scenarios.
+      Note: `AccountSecurityPage` redirects an anonymous visitor to `/login` on its own, which dropped the notice; the page
+      now gets `onDeletingChange` from `DeleteAccountSection` and passes the notice in that redirect.
 - [ ] **4.7.2** Ask for commit approval → `feat: let users delete their account`
 
 ---
@@ -972,7 +974,7 @@ bucket. Doing these once keeps the feature phases small.
 ## Phase 5 — Abuse protection: breached-password check (HIBP)
 
 ### 5.1 Config
-- [ ] **5.1.1** `config/PasswordBreachCheckProperties.java`: `@ConfigurationProperties("phrasal.password.breach-check")`,
+- [x] **5.1.1** `config/PasswordBreachCheckProperties.java`: `@ConfigurationProperties("phrasal.password.breach-check")`,
       `record PasswordBreachCheckProperties(boolean enabled, Duration timeout)`. In `application.yml`:
   ```yaml
   phrasal:
@@ -981,71 +983,74 @@ bucket. Doing these once keeps the feature phases small.
         enabled: ${PASSWORD_BREACH_CHECK_ENABLED:true}
         timeout: ${PASSWORD_BREACH_CHECK_TIMEOUT:2s}
   ```
-- [ ] **5.1.2** `application-test.yml`: `phrasal.password.breach-check.enabled: false`.
-- [ ] **5.1.3** `docker-compose.yml` → `backend.environment`: `PASSWORD_BREACH_CHECK_ENABLED: "false"`, with the comment
+- [x] **5.1.2** `application-test.yml`: `phrasal.password.breach-check.enabled: false`.
+- [x] **5.1.3** `docker-compose.yml` → `backend.environment`: `PASSWORD_BREACH_CHECK_ENABLED: "false"`, with the comment
       `# e2e must not depend on api.pwnedpasswords.com`.
 
 ### 5.2 Checker
-- [ ] **5.2.1** `infrastructure/security/BreachedPasswordChecker.java` (`@Component @Slf4j`):
-  - [ ] the constructor takes `PasswordBreachCheckProperties` and a `RestClient.Builder`. It builds a **private**
+- [x] **5.2.1** `infrastructure/security/BreachedPasswordChecker.java` (`@Component @Slf4j`):
+  - [x] the constructor takes `PasswordBreachCheckProperties` and a `RestClient.Builder`. It builds a **private**
         `HaveIBeenPwnedRestApiPasswordChecker` on a `RestClient` with connect and read timeouts = `timeout`, using the
         API from 0.5.
-  - [ ] a package-private constructor that takes a `CompromisedPasswordChecker`, for unit tests
-  - [ ] `boolean isBreached(String password)`:
+  - [x] a package-private constructor that takes a `CompromisedPasswordChecker`, for unit tests
+  - [x] `boolean isBreached(String password)`:
     - `enabled == false` → `false`, with no HTTP call
     - otherwise `delegate.check(password).isCompromised()`
     - any `RuntimeException` → `log.warn("Breached-password check unavailable: {}", ex.getClass().getSimpleName())`
       and `false` (fail open; never log the password)
-  - [ ] Javadoc:
+  - [x] Javadoc:
     - only 5 characters of the SHA-1 prefix leave the server
     - **never** register a `CompromisedPasswordChecker` bean, because Spring Security would check every login
-- [ ] **5.2.2** `application/validation/PasswordPolicy`, or a small `application/service/PasswordBreachGuard`
+- [x] **5.2.2** `application/validation/PasswordPolicy`, or a small `application/service/PasswordBreachGuard`
       (`@Component`): `void requireNotBreached(String password, String field)` → throws
       `PasswordPolicyViolationException(field, BREACHED)`, where
       `BREACHED = "This password has appeared in a data breach. Choose a different one."`.
       Keep `PasswordPolicy` free of Spring.
-- [ ] **5.2.3** `grep -rn "CompromisedPasswordChecker" backend/src/main` → only inside `BreachedPasswordChecker`.
+- [x] **5.2.3** `grep -rn "CompromisedPasswordChecker" backend/src/main` → only inside `BreachedPasswordChecker`.
 
 ### 5.3 Call sites
-- [ ] **5.3.1** `AuthService#register`: call `requireNotBreached(request.password(), "password")` **first**, before
+- [x] **5.3.1** `AuthService#register`: call `requireNotBreached(request.password(), "password")` **first**, before
       looking up the email. All three branches (new, unverified, verified) then answer the same way.
-- [ ] **5.3.2** `PasswordResetService#reset`: right after `PasswordPolicy.violation(…)`. The token stays unused if the
+- [x] **5.3.2** `PasswordResetService#reset`: right after `PasswordPolicy.violation(…)`. The token stays unused if the
       check rejects the password.
-- [ ] **5.3.3** `AccountService#changePassword`: after the "same as current" check, with field `newPassword`.
+- [x] **5.3.3** `AccountService#changePassword`: after the "same as current" check, with field `newPassword`.
 
 ### 5.4 Tests
-- [ ] **5.4.1** `BreachedPasswordCheckerTest` (a Mockito `CompromisedPasswordChecker`):
+- [x] **5.4.1** `BreachedPasswordCheckerTest` (a Mockito `CompromisedPasswordChecker`):
   - compromised → `true`
   - clean → `false`
   - the delegate throws `RestClientException` → `false`, and nothing propagates
   - disabled → `false`, and the delegate is never called
-- [ ] **5.4.2** `BreachedPasswordCheckerTimeoutTest`: a local stub server (JDK `HttpServer` on port 0) that answers after
+- [x] **5.4.2** `BreachedPasswordCheckerTimeoutTest`: a local stub server (JDK `HttpServer` on port 0) that answers after
       `timeout + 1s`. Point the checker at it, if the delegate allows a custom base URL; otherwise skip this test and
       write down why. It must return `false` within ~timeout.
-- [ ] **5.4.3** Service unit tests: `AuthServiceTest`, `PasswordResetServiceTest` and `AccountServiceTest` each get a
+- [x] **5.4.3** Service unit tests: `AuthServiceTest`, `PasswordResetServiceTest` and `AccountServiceTest` each get a
       "breached → `PasswordPolicyViolationException`, nothing saved" case. Register: also check that the verified-account
       branch rejects a breached password the same way.
-- [ ] **5.4.4** `integration/BreachedPasswordIntegrationTest` with `@MockitoBean BreachedPasswordChecker`. This is one
+- [x] **5.4.4** `integration/BreachedPasswordIntegrationTest` with `@MockitoBean BreachedPasswordChecker`. This is one
       extra context, and it keeps every breach scenario in this class.
-  - [ ] register with a "breached" password → `400`, `$.errors.password` contains `data breach`, no mail
-  - [ ] reset with a "breached" password → `400`; the same link then works with a clean password → `204`
-  - [ ] change password with a "breached" new password → `400`, `$.errors.newPassword`
-  - [ ] the checker answers "clean" → register `202` (positive control)
-- [ ] **5.4.5** `cd backend && mvn clean verify` → green.
+  - [x] register with a "breached" password → `400`, `$.errors.password` contains `data breach`, no mail
+  - [x] reset with a "breached" password → `400`; the same link then works with a clean password → `204`
+  - [x] change password with a "breached" new password → `400`, `$.errors.newPassword`
+  - [x] the checker answers "clean" → register `202` (positive control)
+- [x] **5.4.5** `cd backend && mvn clean verify` → green.
 
 ### 5.5 Frontend
-- [ ] **5.5.1** No new code is expected: `RegisterPage`, `ResetPasswordPage` and `ChangePasswordForm` already show
+- [x] **5.5.1** No new code is expected: `RegisterPage`, `ResetPasswordPage` and `ChangePasswordForm` already show
       `errors.password` / `errors.newPassword` under the field. Check it with one test per form: a `400` with
       `errors.password: "This password has appeared in a data breach…"` is shown under the field.
-- [ ] **5.5.2** `PasswordRequirements`: add a line "Not found in known data breaches (checked when you save)", and
+- [x] **5.5.2** `PasswordRequirements`: add a line "Not found in known data breaches (checked when you save)", and
       update `PasswordRequirements.test.tsx`.
 
 ### 5.6 E2E
-- [ ] **5.6.1** None: compose turns the check off on purpose (decision 8). Integration tests with a mocked checker cover
+- [x] **5.6.1** None: compose turns the check off on purpose (decision 8). Integration tests with a mocked checker cover
       task-100 AC #4. The prod smoke check in Phase 11 covers the real service.
 
 ### 5.7 Verify and commit
-- [ ] **5.7.1** `make clean build` → green.
+- [x] **5.7.1** `make clean build` → green. Backend 687 tests, frontend 1650 tests, e2e 138 scenarios.
+      Notes: `BreachedPasswordChecker` needed `@Autowired` on its public constructor (it has a second, package-private one).
+      The 5.4.2 stub server works, because `setRestClient` accepts a client with another base URL; `forRangeUrl` is the
+      test factory. 5.5.2 is a plain line, not a rule, because only the server can know the answer.
 - [ ] **5.7.2** Ask for commit approval → `feat(backend): reject passwords found in known data breaches`
 
 ---

@@ -30,6 +30,7 @@ public class AuthService {
     private final EmailVerificationService emailVerificationService;
     private final ApplicationEventPublisher eventPublisher;
     private final TransactionOperations transactions;
+    private final PasswordBreachGuard breachGuard;
 
     /**
      * Registers an address. New and unverified addresses get a verification link (an unverified account takes the
@@ -39,6 +40,8 @@ public class AuthService {
      * @param request address and chosen password
      */
     public void register(RegisterRequest request) {
+        // Before any lookup, so a breached password is rejected the same way for every kind of address.
+        breachGuard.requireNotBreached(request.password(), "password");
         String email = EmailNormalizer.normalize(request.email());
         // Hashed on every path so response time does not depend on whether the address is known.
         String hash = passwordEncoder.encode(request.password());

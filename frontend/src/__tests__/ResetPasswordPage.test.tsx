@@ -123,6 +123,17 @@ describe('ResetPasswordPage', () => {
     expect(screen.getByTestId('reset-request-new-link')).toBeInTheDocument();
   });
 
+  it('shows the breached-password error under the password field', async () => {
+    vi.mocked(authApi.resetPassword).mockRejectedValueOnce(
+      new ApiError(400, 'Validation Error', { errors: { password: 'This password has appeared in a data breach. Choose a different one.' } }),
+    );
+    renderPage();
+    fill();
+    submit();
+    expect(await screen.findByTestId('field-error-password')).toHaveTextContent('appeared in a data breach');
+    expect(state()).toBe('form');
+  });
+
   it('keeps the form after a server password error and lets the same link be used again', async () => {
     vi.mocked(authApi.resetPassword).mockRejectedValueOnce(
       new ApiError(400, 'Validation Error', { errors: { password: 'Password must not contain your email address' } }),

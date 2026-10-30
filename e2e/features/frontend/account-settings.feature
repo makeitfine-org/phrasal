@@ -24,3 +24,12 @@ Feature: Account settings in the browser
     Then I should see the email change state "done"
     When I log in through the form with the new email
     Then the user menu should show my email
+
+  Scenario: A user deletes the account through the form and can no longer log in
+    Given a registered user exists
+    When I log in through the form
+    And I visit the account security page
+    And I delete my account through the form with password "e2e-password-123"
+    Then I should see the account deleted notice
+    When I log in through the form with password "e2e-password-123"
+    Then I should see an auth error

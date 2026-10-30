@@ -5,6 +5,8 @@ import net.phrasal.application.event.AccountExistsNoticeRequested;
 import net.phrasal.domain.entity.Role;
 import net.phrasal.domain.entity.User;
 import net.phrasal.domain.repository.UserRepository;
+import net.phrasal.infrastructure.exception.PasswordPolicyViolationException;
+import net.phrasal.infrastructure.security.BreachedPasswordChecker;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
@@ -20,6 +22,7 @@ import java.time.LocalDateTime;
 import java.util.Optional;
 
 import static org.assertj.core.api.Assertions.assertThat;
+import static org.assertj.core.api.Assertions.assertThatThrownBy;
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.Mockito.never;
 import static org.mockito.Mockito.times;
@@ -46,9 +49,12 @@ class AuthServiceTest {
     @Mock
     private ApplicationEventPublisher eventPublisher;
 
+    @Mock
+    private BreachedPasswordChecker breachedPasswordChecker;
+
     private AuthService service() {
         return new AuthService(userRepository, passwordEncoder, emailVerificationService, eventPublisher,
-                TransactionOperations.withoutTransaction());
+                TransactionOperations.withoutTransaction(), new PasswordBreachGuard(breachedPasswordChecker));
     }
 
     private static User existing(boolean verified) {
@@ -127,5 +133,33 @@ class AuthServiceTest {
 
         verify(eventPublisher).publishEvent(new AccountExistsNoticeRequested(5L, "a@b.com"));
         verify(emailVerificationService, never()).issueFor(any());
+    }
+
+    @Test
+    @DisplayName("a breached password is rejected before the address is looked up, for a new address")
+    void registerBreachedNew() {
+        when(breachedPasswordChecker.isBreached(PASSWORD)).thenReturn(true);
+
+        assertThatThrownBy(() -> service().register(new RegisterRequest("a@b.com", PASSWORD)))
+                .isInstanceOfSatisfying(PasswordPolicyViolationException.class, ex -> {
+                    assertThat(ex.field()).isEqualTo("password");
+                    assertThat(ex.getMessage()).contains("data breach");
+                });
+
+        verify(userRepository, never()).findByEmail(any());
+        verify(userRepository, never()).saveAndFlush(any());
+        verify(emailVerificationService, never()).issueFor(any());
+    }
+
+    @Test
+    @DisplayName("a breached password is rejected the same way for a verified address, with no notice")
+    void registerBreachedVerified() {
+        when(breachedPasswordChecker.isBreached(PASSWORD)).thenReturn(true);
+
+        assertThatThrownBy(() -> service().register(new RegisterRequest("a@b.com", PASSWORD)))
+                .isInstanceOf(PasswordPolicyViolationException.class);
+
+        verify(userRepository, never()).findByEmail(any());
+        verify(eventPublisher, never()).publishEvent(any(Object.class));
     }
 }

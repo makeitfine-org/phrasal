@@ -12,6 +12,9 @@ phrasal:
     encryption-key: KxAh196RIcnXmJtirn64B/L2d2BUL5d094kq67pJRuY=
   mail:
     enabled: false
+  password:
+    breach-check:
+      enabled: false
   rate-limit:
     register-per-ip:
       limit: 100000

@@ -133,6 +133,19 @@ class AdminBootstrapIntegrationTest extends AbstractIntegrationTest {
     }
 
     @Test
+    @DisplayName("the admin cannot delete the account: 403 admin-account-managed, and can still log in")
+    void adminCannotDeleteAccount() throws Exception {
+        Cookie session = login(BODY, null);
+
+        mockMvc.perform(post("/api/v1/me/delete").cookie(session).with(csrf())
+                        .contentType(MediaType.APPLICATION_JSON).content("{\"password\":\"" + PASSWORD + "\"}"))
+                .andExpect(status().isForbidden())
+                .andExpect(jsonPath("$.type").value(endsWith("/admin-account-managed")));
+
+        login(BODY, null);
+    }
+
+    @Test
     @DisplayName("the bootstrap re-run keeps the admin's 2FA enrollment")
     void bootstrapKeepsTwoFactor() throws Exception {
         enableTwoFactor(login(BODY, null), PASSWORD);

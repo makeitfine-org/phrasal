@@ -41,6 +41,7 @@ public class PasswordResetService {
     private final ApplicationEventPublisher eventPublisher;
     private final PasswordEncoder passwordEncoder;
     private final SessionRevoker sessionRevoker;
+    private final PasswordBreachGuard breachGuard;
 
     /**
      * Sends a reset link to an existing account, verified or not. Unknown addresses are ignored silently, so the
@@ -71,7 +72,8 @@ public class PasswordResetService {
      * @param newPassword new raw password
      * @throws ResetLinkInvalidException         if the token is unknown, already used or replaced by a newer one
      * @throws ResetLinkExpiredException         if the token is past its expiry
-     * @throws PasswordPolicyViolationException  if the password contains the account email
+     * @throws PasswordPolicyViolationException  if the password contains the account email, or is in a known
+     *                                          breach
      */
     public void reset(String rawToken, String newPassword) {
         UserToken token = userTokenRepository
@@ -88,6 +90,8 @@ public class PasswordResetService {
         PasswordPolicy.violation(newPassword, user.getEmail()).ifPresent(message -> {
             throw new PasswordPolicyViolationException(message);
         });
+        // Rejecting here leaves the link unused, so the owner can try again with another password.
+        breachGuard.requireNotBreached(newPassword, "password");
         token.markUsed(now);
         userTokenRepository.invalidateActive(user.getId(), TokenType.PASSWORD_RESET, now);
         user.setPasswordHash(passwordEncoder.encode(newPassword));

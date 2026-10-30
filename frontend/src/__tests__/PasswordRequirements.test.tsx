@@ -31,4 +31,11 @@ describe('PasswordRequirements', () => {
     render(<PasswordRequirements id="box" password="my-janedoe-password" email="janedoe@x.org" />);
     expect(met('no-email')).toBe('false');
   });
+
+  it('says the breach check happens on save, and never marks it as met', () => {
+    render(<PasswordRequirements id="box" password="long-enough-password" email="a@b.co" />);
+    const note = screen.getByTestId('password-breach-note');
+    expect(note).toHaveTextContent('Not found in known data breaches (checked when you save)');
+    expect(note).not.toHaveAttribute('data-met');
+  });
 });

@@ -1,4 +1,5 @@
 import React, { createContext, useCallback, useEffect, useMemo, useState } from 'react';
+import * as accountApi from '../api/accountApi';
 import * as authApi from '../api/authApi';
 import { flushQuizProgress } from '../hooks/useQuizProgressSync';
 import { clearAccountQuizProgress, stashAllAnonymousProgress } from '../utils/quizProgressStorage';
@@ -15,6 +16,8 @@ export interface AuthContextValue {
   /** Creates the account only; it cannot log in until the emailed link is opened, so no session starts here. */
   register: (email: string, password: string) => Promise<void>;
   logout: () => Promise<void>;
+  /** Deletes the account; on failure it throws and nothing changes. `code` is needed only when 2FA is on. */
+  deleteAccount: (password: string, code?: string) => Promise<void>;
   refresh: () => Promise<void>;
 }
 
@@ -28,6 +31,7 @@ export const AuthContext = createContext<AuthContextValue>({
   completeTwoFactorLogin: noop,
   register: noop,
   logout: noop,
+  deleteAccount: noop,
   refresh: noop,
 });
 
@@ -80,9 +84,17 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
     await refresh();
   }, [refresh]);
 
+  const deleteAccount = useCallback(async (password: string, code?: string) => {
+    await accountApi.deleteAccount(password, code);
+    // Privacy, as on logout; nothing is flushed because the account is gone.
+    clearAccountQuizProgress();
+    // The server ended the session; the follow-up GET reports anonymous and sets a fresh XSRF cookie.
+    await refresh();
+  }, [refresh]);
+
   const value = useMemo(
-    () => ({ status, user, login, completeTwoFactorLogin, register, logout, refresh }),
-    [status, user, login, completeTwoFactorLogin, register, logout, refresh],
+    () => ({ status, user, login, completeTwoFactorLogin, register, logout, deleteAccount, refresh }),
+    [status, user, login, completeTwoFactorLogin, register, logout, deleteAccount, refresh],
   );
 
   return <AuthContext.Provider value={value}>{children}</AuthContext.Provider>;
