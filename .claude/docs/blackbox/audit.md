@@ -5081,3 +5081,55 @@ how to reset 2FA code if "Too many requests. Try again in 726 seconds" without w
 ## 2026-10-30T09:31:43Z
 how to reset without restarting backend?
 ---
+
+## 2026-10-30T10:28:59Z
+Check what is the last release version now and output without applying or code changing anything for the new one: tag, description and steps for git applying.
+---
+
+## 2026-10-30T10:29:28Z
+execute steps: 2, 3
+---
+
+## 2026-10-30T10:31:56Z
+Too many requests. Try again in 683 seconds. Is it possible to set that time to 300 seconds?
+---
+
+## 2026-10-30T10:33:56Z
+Or is it better to leave as is, more standard ?
+---
+
+## 2026-10-30T10:38:01Z
+Implement functionality from @.claude/docs/blackbox/todos/2FA-todos.md Phases: 14.               
+Don't forget to check off implemented boxes.
+On phase completion `make clean build` must pass successfully.
+---
+
+## 2026-10-30T10:49:21Z
+List popular and usefull for production commands for check releasing / monitor health and work
+---
+
+## 2026-10-30T10:50:13Z
+Add that to READMe but instead of $K use just kubectl
+---
+
+## 2026-10-30T11:14:47Z
+
+
+<pasted_content id="d2ac">
+Create detailed account-funcs-todos.md fils with checkboxes (- [ ]), which describes a step-by-step implementation for such task:
+
+- Analyze:
+  @".claude/docs/blackbox/plans/2026-10-26 18:10 Multi-user accounts TOTP 2FA and reliable storage for phrasal.md"
+  and @"backlog/tasks/" from task-97 to task-108 md files.
+  Consider that was done in @.claude/docs/blackbox/todos/.
+- I'd like to just implement such functionality:
+  1) user can change its password
+  2) user can change its email
+  3) user can delete its account and 
+  4) protect auth endpoints from abouse
+- Each step of implementation should be simple, detailed, granular, covered with backend, frontend and if reasonable with e2e tests.
+- Consider as template: @.claude/docs/blackbox/todos/multiuser-todos.md
+
+- Critical: DO NOT start any steps of implement.
+</pasted_content id="d2ac">
+---

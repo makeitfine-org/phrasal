@@ -332,6 +332,104 @@ psql -h localhost -p 5433 -U <username> phrasaldb
 - `k8s/base/backend-secret.yaml` has a TODO noting that prod may still be on the dev defaults `postgres` / `postgres`. Check the decoded Secret; if it matches, rotate the credentials.
 - Changing `POSTGRES_PASSWORD` on an existing volume does not change the stored password. Also run `ALTER USER` inside Postgres.
 
+### Production monitoring
+
+Useful commands to check a release and watch health. They are read-only unless marked. They need your prod kubeconfig
+(`kubectl config use-context hetzner` if you have several); add `-n <namespace>` if the app isn't in the default one.
+
+**Release / rollout**
+
+```bash
+kubectl get deploy,sts,pods -o wide                       # what runs, on which node
+kubectl rollout status deploy/backend --timeout=180s      # blocks until rolled out or fails
+kubectl rollout history deploy/backend                    # revisions
+kubectl get deploy backend -o jsonpath='{.spec.template.spec.containers[*].image}'  # deployed image tag
+kubectl get events --sort-by=.lastTimestamp | tail -20    # recent cluster events
+git describe --tags --abbrev=0                            # compare with the deployed tag
+gh run list --limit 5                                     # CI/CD runs
+gh run watch                                              # follow the current run
+```
+
+Rolling back changes production, see [Rollback a release](#rollback-a-release).
+
+**Health**
+
+```bash
+curl -sI https://phrasalbox.com | head -5
+curl -s -o /dev/null -w "%{http_code} %{time_total}s\n" https://phrasalbox.com/
+kubectl exec deploy/backend -- wget -qO- localhost:8080/actuator/health   # from inside the pod
+kubectl get pods -o jsonpath='{range .items[*]}{.metadata.name}{"\t"}{.status.containerStatuses[*].restartCount}{"\n"}{end}'
+kubectl describe pod <pod> | grep -A8 -i "last state"     # why it restarted (OOMKilled?)
+```
+
+`/actuator` returns 403 from outside for an admin without 2FA, so use the in-pod check above when in doubt.
+
+**Logs**
+
+```bash
+kubectl logs deploy/backend --tail=100
+kubectl logs deploy/backend -f --since=10m
+kubectl logs deploy/backend --previous                    # logs from the crashed container
+kubectl logs deploy/backend | grep -iE "ERROR|WARN|Exception" | tail -30
+kubectl logs deploy/backend | grep -i flyway              # migrations applied
+kubectl logs deploy/backend | grep -c " 429 "             # rate-limit hits
+kubectl logs deploy/backend | grep -ciE "otpauth|secret=|recoveryCodes=\["   # must print 0
+kubectl logs deploy/backend | grep -iE "MailSendException|AuthenticationFailed"   # mail problems
+```
+
+**Resources**
+
+```bash
+kubectl top nodes
+kubectl top pods                                          # needs metrics-server (K3s ships it)
+kubectl describe node | grep -A8 "Allocated resources"
+ssh <server> 'df -h /; free -h; uptime'                   # disk, memory, load
+ssh <server> 'sudo journalctl -u k3s --since "1 hour ago" | tail -30'
+```
+
+**Database** (run `SELECT`s only; never print the secret columns of `users`)
+
+```bash
+kubectl exec postgres-0 -- pg_isready
+kubectl exec postgres-0 -- psql -U <username> -d phrasaldb -c "SELECT version, description, success FROM flyway_schema_history ORDER BY installed_rank DESC LIMIT 5"
+kubectl exec postgres-0 -- psql -U <username> -d phrasaldb -c "SELECT count(*) FROM spring_session"
+kubectl exec postgres-0 -- psql -U <username> -d phrasaldb -c "SELECT pg_size_pretty(pg_database_size('phrasaldb'))"
+kubectl exec postgres-0 -- psql -U <username> -d phrasaldb -c "SELECT state, count(*) FROM pg_stat_activity GROUP BY 1"
+
+# backup before a risky deploy
+kubectl exec postgres-0 -- pg_dump -U <username> phrasaldb | gzip > phrasal-$(date +%F).sql.gz
+```
+
+**TLS / ingress / DNS**
+
+```bash
+kubectl get ingress,certificate,certificaterequest        # cert-manager state
+kubectl describe certificate <name> | tail -15
+echo | openssl s_client -connect phrasalbox.com:443 -servername phrasalbox.com 2>/dev/null | openssl x509 -noout -dates -issuer
+dig +short phrasalbox.com
+kubectl logs -n kube-system deploy/traefik --tail=50      # ingress errors (K3s default)
+```
+
+**Secrets / config** (names only, never print values)
+
+```bash
+kubectl get secret
+kubectl get deploy backend -o jsonpath='{.spec.template.spec.containers[0].env[*].name}' | tr ' ' '\n' | grep -E "TOTP|MAIL|DB_"
+gh secret list
+```
+
+**One-shot smoke check**
+
+```bash
+kubectl rollout status deploy/backend --timeout=120s \
+ && curl -fsS -o /dev/null -w "front %{http_code}\n" https://phrasalbox.com/ \
+ && curl -fsS -o /dev/null -w "api   %{http_code}\n" https://phrasalbox.com/api/v1/phrasal-verbs \
+ && echo "leak-grep: $(kubectl logs deploy/backend | grep -ciE 'otpauth|secret=|recoveryCodes=\[')" \
+ && kubectl get pods
+```
+
+Replace `/api/v1/phrasal-verbs` with any public GET endpoint if that path is not public.
+
 ---
 
 ## Releasing
