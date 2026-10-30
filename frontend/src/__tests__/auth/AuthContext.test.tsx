@@ -14,7 +14,7 @@ vi.mock('../../utils/quizProgressStorage', () => ({
   stashAllAnonymousProgress: vi.fn(),
 }));
 
-const user = { id: 1, email: 'a@b.co', role: 'USER' as const };
+const user = { id: 1, email: 'a@b.co', role: 'USER' as const, twoFactorEnabled: false, twoFactorEnrollmentRequired: false };
 let auth: ReturnType<typeof useAuth>;
 
 function Probe() {
@@ -58,7 +58,7 @@ describe('AuthProvider', () => {
 
   it('login updates the user', async () => {
     vi.mocked(authApi.fetchCurrentUser).mockResolvedValueOnce(null).mockResolvedValue(user);
-    vi.mocked(authApi.login).mockResolvedValue(user);
+    vi.mocked(authApi.login).mockResolvedValue('authenticated');
     renderProvider();
     await waitFor(() => expect(screen.getByTestId('state')).toHaveTextContent('anonymous'));
     await act(() => auth.login('a@b.co', 'pw'));
@@ -66,11 +66,45 @@ describe('AuthProvider', () => {
     expect(screen.getByTestId('state')).toHaveTextContent('authenticated:a@b.co');
   });
 
+  it('login asking for a second factor stays anonymous and does not re-fetch /me', async () => {
+    vi.mocked(authApi.fetchCurrentUser).mockResolvedValue(null);
+    vi.mocked(authApi.login).mockResolvedValue('two-factor-required');
+    renderProvider();
+    await waitFor(() => expect(screen.getByTestId('state')).toHaveTextContent('anonymous'));
+    let result: string | undefined;
+    await act(async () => { result = await auth.login('a@b.co', 'pw'); });
+    expect(result).toBe('two-factor-required');
+    expect(authApi.fetchCurrentUser).toHaveBeenCalledTimes(1);
+    expect(screen.getByTestId('state')).toHaveTextContent('anonymous:-');
+  });
+
+  it('completeTwoFactorLogin authenticates', async () => {
+    vi.mocked(authApi.fetchCurrentUser).mockResolvedValueOnce(null).mockResolvedValue(user);
+    vi.mocked(authApi.verifyTwoFactorLogin).mockResolvedValue(user);
+    renderProvider();
+    await waitFor(() => expect(screen.getByTestId('state')).toHaveTextContent('anonymous'));
+    await act(() => auth.completeTwoFactorLogin('123456'));
+    expect(authApi.verifyTwoFactorLogin).toHaveBeenCalledWith('123456');
+    expect(screen.getByTestId('state')).toHaveTextContent('authenticated:a@b.co');
+  });
+
+  it('a failing completeTwoFactorLogin rethrows and stays anonymous', async () => {
+    vi.mocked(authApi.fetchCurrentUser).mockResolvedValue(null);
+    vi.mocked(authApi.verifyTwoFactorLogin).mockRejectedValue(new ApiError(401, 'bad'));
+    renderProvider();
+    await waitFor(() => expect(screen.getByTestId('state')).toHaveTextContent('anonymous'));
+    await act(async () => {
+      await expect(auth.completeTwoFactorLogin('000000')).rejects.toMatchObject({ status: 401 });
+    });
+    expect(authApi.fetchCurrentUser).toHaveBeenCalledTimes(1);
+    expect(screen.getByTestId('state')).toHaveTextContent('anonymous:-');
+  });
+
   it('login backs up the anonymous progress before calling the API', async () => {
     const order: string[] = [];
     vi.mocked(authApi.fetchCurrentUser).mockResolvedValueOnce(null).mockResolvedValue(user);
     vi.mocked(stashAllAnonymousProgress).mockImplementation(() => { order.push('stash'); });
-    vi.mocked(authApi.login).mockImplementation(async () => { order.push('login'); return user; });
+    vi.mocked(authApi.login).mockImplementation(async () => { order.push('login'); return 'authenticated' as const; });
     renderProvider();
     await waitFor(() => expect(screen.getByTestId('state')).toHaveTextContent('anonymous'));
     await act(() => auth.login('a@b.co', 'pw'));

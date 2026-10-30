@@ -35,9 +35,13 @@ export default function LoginPage() {
     setError(null);
     setUnverified(false);
     try {
-      await login(email, password);
-      const from = (location.state as { from?: string } | null)?.from ?? '/';
-      navigate(from, { replace: true });
+      const result = await login(email, password);
+      const from = (location.state as { from?: string } | null)?.from;
+      if (result === 'two-factor-required') {
+        navigate('/login/2fa', { replace: true, state: { from } });
+        return;
+      }
+      navigate(from ?? '/', { replace: true });
     } catch (e) {
       if (isProblemType(e, EMAIL_NOT_VERIFIED)) {
         setUnverified(true);

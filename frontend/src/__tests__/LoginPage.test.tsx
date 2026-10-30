@@ -13,10 +13,15 @@ function ForgotEmail() {
   return <div data-testid="forgot-stub">{state?.email}</div>;
 }
 
+function TwoFactorStub() {
+  const state = useLocation().state as { from?: string } | null;
+  return <div data-testid="two-factor-stub">{state?.from ?? 'no-from'}</div>;
+}
+
 function ctx(overrides: Partial<AuthContextValue> = {}): AuthContextValue {
   return {
     status: 'anonymous', user: null,
-    login: vi.fn().mockResolvedValue(undefined), register: vi.fn(), logout: vi.fn(), refresh: vi.fn(),
+    login: vi.fn().mockResolvedValue('authenticated'), completeTwoFactorLogin: vi.fn(), register: vi.fn(), logout: vi.fn(), refresh: vi.fn(),
     ...overrides,
   };
 }
@@ -29,6 +34,7 @@ function renderPage(value: AuthContextValue, entry: string | { pathname: string;
           <Route path="/login" element={<LoginPage />} />
           <Route path="/" element={<div>home</div>} />
           <Route path="/grammar" element={<div>grammar</div>} />
+          <Route path="/login/2fa" element={<TwoFactorStub />} />
           <Route path="/register" element={<div>register</div>} />
           <Route path="/forgot-password" element={<ForgotEmail />} />
         </Routes>
@@ -49,6 +55,13 @@ describe('LoginPage', () => {
     expect(screen.getByTestId('login-email')).toHaveAttribute('type', 'email');
     expect(screen.getByTestId('login-password')).toHaveAttribute('autocomplete', 'current-password');
     expect(screen.getByRole('link', { name: 'Sign up' })).toHaveAttribute('href', '/register');
+  });
+
+  it('navigates to the code step and passes from along', async () => {
+    const value = ctx({ login: vi.fn().mockResolvedValue('two-factor-required') });
+    renderPage(value, { pathname: '/login', state: { from: '/grammar' } });
+    fillAndSubmit();
+    await waitFor(() => expect(screen.getByTestId('two-factor-stub')).toHaveTextContent('/grammar'));
   });
 
   it('submits typed values and navigates home', async () => {
@@ -111,7 +124,7 @@ describe('LoginPage', () => {
   });
 
   it('redirects an authenticated user', () => {
-    renderPage(ctx({ status: 'authenticated', user: { id: 1, email: 'a@b.co', role: 'USER' } }));
+    renderPage(ctx({ status: 'authenticated', user: { id: 1, email: 'a@b.co', role: 'USER', twoFactorEnabled: false, twoFactorEnrollmentRequired: false } }));
     expect(screen.getByText('home')).toBeInTheDocument();
   });
 });

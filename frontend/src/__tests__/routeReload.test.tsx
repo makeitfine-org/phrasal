@@ -4,6 +4,7 @@ import { MemoryRouter, Routes, Route, Outlet } from 'react-router-dom';
 import App from '../App';
 import HomePage from '../pages/HomePage';
 import NotFoundPage from '../pages/NotFoundPage';
+import LoginTwoFactorPage from '../pages/LoginTwoFactorPage';
 import LoginPage from '../pages/LoginPage';
 import RegisterPage from '../pages/RegisterPage';
 import VerifyEmailPage from '../pages/VerifyEmailPage';
@@ -36,6 +37,7 @@ function renderApp(initialPath: string) {
           <Route path="/" element={<HomePage />} />
           <Route path="/phrasal-verbs" element={<App />} />
           <Route path="/login" element={<LoginPage />} />
+          <Route path="/login/2fa" element={<LoginTwoFactorPage />} />
           <Route path="/register" element={<RegisterPage />} />
           <Route path="/verify-email" element={<VerifyEmailPage />} />
           <Route path="/forgot-password" element={<ForgotPasswordPage />} />
@@ -66,6 +68,12 @@ describe('Page reload — router renders correct page, no console errors', () =>
   it('reload /login renders the login page inside the shell', () => {
     renderApp('/login');
     expect(screen.getByRole('heading', { name: 'Log in' })).toBeInTheDocument();
+  });
+
+  it('reload /login/2fa renders the code step inside the shell', () => {
+    renderApp('/login/2fa');
+    expect(screen.getByRole('heading', { name: 'Two-factor authentication' })).toBeInTheDocument();
+    expect(screen.getByTestId('nav-menu')).toBeInTheDocument();
   });
 
   it('reload /register renders the register page inside the shell', () => {

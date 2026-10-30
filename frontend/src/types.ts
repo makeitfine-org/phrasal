@@ -51,4 +51,21 @@ export interface CurrentUser {
   id: number;
   email: string;
   role: Role;
+  twoFactorEnabled: boolean;
+  twoFactorEnrollmentRequired: boolean;
+}
+
+export interface TwoFactorStatus {
+  enabled: boolean;
+  enabledAt: string | null;
+  recoveryCodesRemaining: number;
+}
+
+export interface TwoFactorSetup {
+  secret: string;
+  otpauthUri: string;
+}
+
+export interface RecoveryCodes {
+  recoveryCodes: string[];
 }

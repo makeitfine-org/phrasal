@@ -12,8 +12,8 @@ function ctx(overrides: Partial<AuthContextValue> = {}): AuthContextValue {
   };
 }
 
-const admin = { id: 1, email: 'admin@x.co', role: 'ADMIN' as const };
-const plain = { id: 2, email: 'user@x.co', role: 'USER' as const };
+const admin = { id: 1, email: 'admin@x.co', role: 'ADMIN' as const, twoFactorEnabled: false, twoFactorEnrollmentRequired: false };
+const plain = { id: 2, email: 'user@x.co', role: 'USER' as const, twoFactorEnabled: false, twoFactorEnrollmentRequired: false };
 
 function renderMenu(value: AuthContextValue, variant?: 'desktop' | 'mobile') {
   return render(

@@ -25,7 +25,7 @@ const base: AuthContextValue = {
   login: async () => {}, register: async () => {}, logout: async () => {}, refresh: async () => {},
 };
 const asUser = (id: number): AuthContextValue => ({
-  ...base, status: 'authenticated', user: { id, email: `u${id}@x.co`, role: 'USER' },
+  ...base, status: 'authenticated', user: { id, email: `u${id}@x.co`, role: 'USER', twoFactorEnabled: false, twoFactorEnrollmentRequired: false },
 });
 
 let auth: AuthContextValue = base;

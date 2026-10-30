@@ -99,7 +99,7 @@ describe('ResetPasswordPage', () => {
 
   it('does not redirect an authenticated visitor', () => {
     renderPage('/reset-password?token=abc', ctx({
-      status: 'authenticated', user: { id: 1, email: 'a@b.co', role: 'USER' },
+      status: 'authenticated', user: { id: 1, email: 'a@b.co', role: 'USER', twoFactorEnabled: false, twoFactorEnrollmentRequired: false },
     }));
     expect(state()).toBe('form');
   });

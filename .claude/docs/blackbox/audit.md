@@ -5000,3 +5000,17 @@ I'd like to exectue few separate prompt one by one to claude, include few "/comp
 ## 2026-10-30T00:55:43Z
 git add all changes and commit them with suitable message
 ---
+
+## 2026-10-30T00:56:33Z
+Implement functionality from @.claude/docs/blackbox/todos/2FA-todos.md Phases: 8.               
+Don't forget to check off implemented boxes.
+On phase completion `make clean build` must pass successfully.
+---
+
+## 2026-10-30T01:02:13Z
+I'd like to exectue few separate prompt one by one in claude code in singe session, including a few "/compact" commands. how's better to do that? Maybe with some sh script or recommend somethin?
+---
+
+## 2026-10-30T01:03:49Z
+git add all changes and commit them with suitable message
+---

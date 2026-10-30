@@ -1,4 +1,4 @@
-import { register, login, logout, fetchCurrentUser, verifyEmail, resendVerification, forgotPassword, resetPassword } from '../../api/authApi';
+import { register, login, verifyTwoFactorLogin, logout, fetchCurrentUser, verifyEmail, resendVerification, forgotPassword, resetPassword } from '../../api/authApi';
 import { get, post, ApiError } from '../../api/client';
 
 vi.mock('../../api/client', async () => {
@@ -6,7 +6,7 @@ vi.mock('../../api/client', async () => {
   return { ...actual, get: vi.fn(), post: vi.fn() };
 });
 
-const user = { id: 1, email: 'a@b.co', role: 'USER' as const };
+const user = { id: 1, email: 'a@b.co', role: 'USER' as const, twoFactorEnabled: false, twoFactorEnrollmentRequired: false };
 
 afterEach(() => {
   vi.mocked(get).mockReset();
@@ -60,10 +60,21 @@ describe('authApi', () => {
     await expect(resetPassword('tok', 'new-secret-pass')).rejects.toMatchObject({ status: 400, problem });
   });
 
-  it('login posts credentials', async () => {
+  it('login posts credentials and reports authenticated for a user body', async () => {
     vi.mocked(post).mockResolvedValue(user);
-    expect(await login('a@b.co', 'pw')).toEqual(user);
+    expect(await login('a@b.co', 'pw')).toBe('authenticated');
     expect(post).toHaveBeenCalledWith('/auth/login', { email: 'a@b.co', password: 'pw' });
+  });
+
+  it('login maps a 202 two-factor challenge to two-factor-required', async () => {
+    vi.mocked(post).mockResolvedValue({ twoFactorRequired: true });
+    expect(await login('a@b.co', 'pw')).toBe('two-factor-required');
+  });
+
+  it('verifyTwoFactorLogin posts the code and returns the user', async () => {
+    vi.mocked(post).mockResolvedValue(user);
+    expect(await verifyTwoFactorLogin('123456')).toEqual(user);
+    expect(post).toHaveBeenCalledWith('/auth/login/2fa', { code: '123456' });
   });
 
   it('logout posts without body', async () => {

@@ -9,7 +9,7 @@ vi.mock('../api/quizProgressApi');
 const STORAGE_KEY = 'testQuizState';
 const IDS = [10, 20, 30, 40, 50];
 const auth: AuthContextValue = {
-  status: 'authenticated', user: { id: 1, email: 'a@b.co', role: 'USER' },
+  status: 'authenticated', user: { id: 1, email: 'a@b.co', role: 'USER', twoFactorEnabled: false, twoFactorEnrollmentRequired: false },
   login: async () => {}, register: async () => {}, logout: async () => {}, refresh: async () => {},
 };
 const wrapper = ({ children }: { children: React.ReactNode }) => (

@@ -23,7 +23,7 @@ Multi-page SPA. State is component-local + localStorage; the only context is `au
 
 **Quiz-shared:** `Header`, `QuizCard`, `Feedback`, `NavigationControls`, `ExcludedModal`, `SearchModal`.
 
-**Auth:** `pages/LoginPage`, `pages/RegisterPage`, `pages/VerifyEmailPage`, `pages/ForgotPasswordPage`, `pages/ResetPasswordPage` (routes `/login`, `/register`, `/verify-email`, `/forgot-password`, `/reset-password`), `components/PasswordRequirements` (live password checklist + tip, shared by the register and reset pages), `components/ResendVerification` (email field + "send a new link", used on the register, login and verify pages), `components/UserMenu`, `auth/AuthContext` + `auth/useAuth`, `hooks/useClickOutside`.
+**Auth:** `pages/LoginPage`, `pages/RegisterPage`, `pages/VerifyEmailPage`, `pages/ForgotPasswordPage`, `pages/ResetPasswordPage`, `pages/LoginTwoFactorPage` (routes `/login`, `/register`, `/verify-email`, `/forgot-password`, `/reset-password`, `/login/2fa`), `components/PasswordRequirements` (live password checklist + tip, shared by the register and reset pages), `components/ResendVerification` (email field + "send a new link", used on the register, login and verify pages), `components/UserMenu`, `auth/AuthContext` + `auth/useAuth`, `hooks/useClickOutside`.
 
 **Other:** `AllVerbsModal`, `TutorialModal`, `ListSearchModal`, `Icons`, `UserMenu` (login/signup links or email dropdown with logout, rendered by `NavigationMenu`).
 
@@ -34,8 +34,9 @@ Native `fetch` wrapper, no external dependencies. Base URL `/api/v1`.
 | File | Purpose |
 |---|---|
 | `client.ts` | `get<T>`, `post<T>`, `put<T>`, `del<T>`; sends `credentials: 'same-origin'` and the `X-XSRF-TOKEN` header (from the `XSRF-TOKEN` cookie, via `utils/cookies.ts`) on non-GET. `ApiError(status, message, problem?)` carries the parsed `ProblemDetail` |
-| `authApi.ts` | `register` (returns nothing: `202`, no login), `verifyEmail(token)`, `resendVerification(email)`, `forgotPassword(email)`, `resetPassword(token, password)`, `login`, `logout`, `fetchCurrentUser` (401 → `null`) |
-| `problemTypes.ts` | `EMAIL_NOT_VERIFIED`, `VERIFICATION_LINK_EXPIRED`, `VERIFICATION_LINK_INVALID`, `RESET_LINK_EXPIRED`, `RESET_LINK_INVALID` and `isProblemType(error, type)` to branch on the `ProblemDetail` type suffix |
+| `authApi.ts` | `register` (returns nothing: `202`, no login), `verifyEmail(token)`, `resendVerification(email)`, `forgotPassword(email)`, `resetPassword(token, password)`, `login` (returns `'authenticated'` or `'two-factor-required'` for a `202 {twoFactorRequired: true}`), `verifyTwoFactorLogin(code)`, `logout`, `fetchCurrentUser` (401 → `null`) |
+| `twoFactorApi.ts` | `fetchTwoFactorStatus`, `startTwoFactorSetup(password)`, `confirmTwoFactorSetup(code)` (returns the one-time recovery codes), `regenerateRecoveryCodes(code)`, `disableTwoFactor(code)` under `/me/2fa` |
+| `problemTypes.ts` | `EMAIL_NOT_VERIFIED`, `VERIFICATION_LINK_EXPIRED`, `VERIFICATION_LINK_INVALID`, `RESET_LINK_EXPIRED`, `RESET_LINK_INVALID`, the 2FA types (`INVALID_TWO_FACTOR_CODE`, `TWO_FACTOR_LOGIN_EXPIRED`, `WRONG_PASSWORD`, `TWO_FACTOR_ALREADY_ENABLED`, `TWO_FACTOR_SETUP_NOT_STARTED`, `TWO_FACTOR_NOT_ENABLED`) and `isProblemType(error, type)` to branch on the `ProblemDetail` type suffix |
 | `quizProgressApi.ts` | `fetchQuizProgress(key)` (404 → `null`), `saveQuizProgress(key, doc, { keepalive })`; `QuizKey` = `phrasal-verbs` \| `grammar-i-wish-if-only`. `client.put` accepts `{ keepalive }` for saves while the page unloads |
 | `phrasalVerbsApi.ts` | Fetches phrasal verbs → `VerbEntry[]` + `BrowseVerbEntry[]` |
 | `grammarEntriesApi.ts` | Fetches grammar entries by category → `GrammarEntry[]` |
@@ -48,6 +49,10 @@ Register no longer logs the user in: `RegisterPage` shows a check-your-inbox pan
 ### Password reset
 
 `LoginPage` has a "Forgot password?" link (`forgot-password-link`) to `/forgot-password`, passing the typed email in router state. `ForgotPasswordPage` prefills it, always shows the check-your-inbox panel after `202` (`forgot-check-email`), and redirects an authenticated visitor to `/`. The emailed link opens `/reset-password?token=...`; `ResetPasswordPage` moves the token into a ref and out of the address bar, then shows `reset-status` with `data-state` `incomplete|form|submitting|success|expired|invalid`. It checks the password with `passwordViolation` (no email rule; the backend enforces it) and the confirmation field, keeps the form (and the link) on field errors and `429`, and calls `refresh()` after success because the backend closes every session. It never redirects a logged-in visitor. `ForgotPasswordPage` has `RESET_LINK_TTL_HOURS = 1`: keep it in sync with the backend `PASSWORD_RESET_TOKEN_TTL`. `passwordRules(password, email?)` omits the `no-email` rule when `email` is `undefined`.
+
+### Two-factor login
+
+`AuthContext.login` resolves to `'two-factor-required'` when the password was right but a code is needed; the visitor stays anonymous and `LoginPage` navigates to `/login/2fa` (router state `from` is kept). `LoginTwoFactorPage` calls `completeTwoFactorLogin(code)` (then `refresh()`), takes an authenticator code (`two-factor-code`) or a recovery code (`two-factor-recovery-code`, toggled by `two-factor-use-recovery`), shows `Invalid or already used code` under the field (`two-factor-error`) and an alert with a "Log in again" link when the server answers `two-factor-login-expired`. `CurrentUser` carries `twoFactorEnabled` and `twoFactorEnrollmentRequired`.
 
 ### Data-fetching Hooks (`src/hooks/`)
 

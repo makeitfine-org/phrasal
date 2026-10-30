@@ -25,8 +25,21 @@ export function resetPassword(token: string, password: string): Promise<void> {
   return post<void>('/auth/reset-password', { token, password });
 }
 
-export function login(email: string, password: string): Promise<CurrentUser> {
-  return post<CurrentUser>('/auth/login', { email, password });
+export type LoginResult = 'authenticated' | 'two-factor-required';
+
+interface LoginChallenge {
+  twoFactorRequired?: boolean;
+}
+
+/** `202 {twoFactorRequired: true}` means the password was right but a code is still needed. */
+export async function login(email: string, password: string): Promise<LoginResult> {
+  const body = await post<LoginChallenge | CurrentUser | undefined>('/auth/login', { email, password });
+  return (body as LoginChallenge | undefined)?.twoFactorRequired === true ? 'two-factor-required' : 'authenticated';
+}
+
+/** The code is a 6-digit authenticator code or a recovery code. */
+export function verifyTwoFactorLogin(code: string): Promise<CurrentUser> {
+  return post<CurrentUser>('/auth/login/2fa', { code });
 }
 
 export function logout(): Promise<void> {

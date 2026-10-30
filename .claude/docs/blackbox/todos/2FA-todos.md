@@ -1023,7 +1023,7 @@ So `make clean build` passes after every phase. **Don't release from the branch 
 
 ### 7.4 Verify and commit
 - [x] **7.4.1** `make clean build` → green (575 backend tests, 112 e2e scenarios). Deviation: 2FA setup shares the `login-per-email` bucket (5 / 5 min), and the shared admin used it up (login + setup + re-login across features), so compose sets `RATE_LIMIT_LOGIN_PER_EMAIL: "10"` and the login 429 scenario fails 11 times.
-- [ ] **7.4.2** Ask for commit approval → `feat!: require two-factor authentication for admin writes`. The scope is
+- [x] **7.4.2** Ask for commit approval → `feat!: require two-factor authentication for admin writes`. The scope is
       omitted because the commit touches backend + e2e. Add a body line `BREAKING CHANGE: admin content writes and
       /actuator need a completed 2FA step`.
 
@@ -1032,82 +1032,82 @@ So `make clean build` passes after every phase. **Don't release from the branch 
 ## Phase 8 — Frontend: API, auth context, login code step
 
 ### 8.1 Types and API
-- [ ] **8.1.1** `frontend/src/types.ts`:
-  - [ ] `CurrentUser` gets `twoFactorEnabled: boolean` and `twoFactorEnrollmentRequired: boolean`
-  - [ ] `TwoFactorStatus { enabled: boolean; enabledAt: string | null; recoveryCodesRemaining: number }`
-  - [ ] `TwoFactorSetup { secret: string; otpauthUri: string }`
-  - [ ] `RecoveryCodes { recoveryCodes: string[] }`
-  - [ ] update the test fixtures that build a `CurrentUser` (`grep -rn "role: 'USER'\|role: 'ADMIN'" frontend/src/__tests__`)
-- [ ] **8.1.2** `src/api/authApi.ts`:
-  - [ ] `export type LoginResult = 'authenticated' | 'two-factor-required'`
-  - [ ] `login(email, password): Promise<LoginResult>`: the body has `twoFactorRequired === true` →
+- [x] **8.1.1** `frontend/src/types.ts`:
+  - [x] `CurrentUser` gets `twoFactorEnabled: boolean` and `twoFactorEnrollmentRequired: boolean`
+  - [x] `TwoFactorStatus { enabled: boolean; enabledAt: string | null; recoveryCodesRemaining: number }`
+  - [x] `TwoFactorSetup { secret: string; otpauthUri: string }`
+  - [x] `RecoveryCodes { recoveryCodes: string[] }`
+  - [x] update the test fixtures that build a `CurrentUser` (`grep -rn "role: 'USER'\|role: 'ADMIN'" frontend/src/__tests__`)
+- [x] **8.1.2** `src/api/authApi.ts`:
+  - [x] `export type LoginResult = 'authenticated' | 'two-factor-required'`
+  - [x] `login(email, password): Promise<LoginResult>`: the body has `twoFactorRequired === true` →
         `'two-factor-required'`, otherwise `'authenticated'`
-  - [ ] `verifyTwoFactorLogin(code): Promise<CurrentUser>` → `POST /auth/login/2fa`
-- [ ] **8.1.3** `src/api/twoFactorApi.ts`:
+  - [x] `verifyTwoFactorLogin(code): Promise<CurrentUser>` → `POST /auth/login/2fa`
+- [x] **8.1.3** `src/api/twoFactorApi.ts`:
   - `fetchTwoFactorStatus()` → `GET /me/2fa`
   - `startTwoFactorSetup(password)` → `POST /me/2fa/setup`
   - `confirmTwoFactorSetup(code)` → `POST /me/2fa/confirm`
   - `regenerateRecoveryCodes(code)` → `POST /me/2fa/recovery-codes`
   - `disableTwoFactor(code)` → `POST /me/2fa/disable`
-- [ ] **8.1.4** `src/api/problemTypes.ts`: `INVALID_TWO_FACTOR_CODE`, `TWO_FACTOR_LOGIN_EXPIRED`, `WRONG_PASSWORD`,
+- [x] **8.1.4** `src/api/problemTypes.ts`: `INVALID_TWO_FACTOR_CODE`, `TWO_FACTOR_LOGIN_EXPIRED`, `WRONG_PASSWORD`,
       `TWO_FACTOR_ALREADY_ENABLED`, `TWO_FACTOR_SETUP_NOT_STARTED`, `TWO_FACTOR_NOT_ENABLED`.
-- [ ] **8.1.5** Tests:
-  - [ ] `src/__tests__/api/authApi.test.ts`:
+- [x] **8.1.5** Tests:
+  - [x] `src/__tests__/api/authApi.test.ts`:
     - `login` maps a `202 {twoFactorRequired: true}` body → `'two-factor-required'` and a user body → `'authenticated'`
     - `verifyTwoFactorLogin` path/method/body
-  - [ ] `src/__tests__/api/twoFactorApi.test.ts`: each function hits the right path, method and body; an `ApiError` is
+  - [x] `src/__tests__/api/twoFactorApi.test.ts`: each function hits the right path, method and body; an `ApiError` is
         rethrown
 
 ### 8.2 Auth context
-- [ ] **8.2.1** `src/auth/AuthContext.tsx`:
-  - [ ] `login(email, password): Promise<LoginResult>`: `stashAllAnonymousProgress()` as today → `authApi.login` →
+- [x] **8.2.1** `src/auth/AuthContext.tsx`:
+  - [x] `login(email, password): Promise<LoginResult>`: `stashAllAnonymousProgress()` as today → `authApi.login` →
         `'authenticated'` → `refresh()`; `'two-factor-required'` → no refresh (still anonymous); return the result
-  - [ ] new `completeTwoFactorLogin(code): Promise<void>` → `authApi.verifyTwoFactorLogin(code)` → `refresh()`
-  - [ ] the default context value gets a no-op `completeTwoFactorLogin`, and `login` resolves to `'authenticated'`
-- [ ] **8.2.2** Check that `stashAllAnonymousProgress()` is safe to call twice (a user who abandons the code step and logs
+  - [x] new `completeTwoFactorLogin(code): Promise<void>` → `authApi.verifyTwoFactorLogin(code)` → `refresh()`
+  - [x] the default context value gets a no-op `completeTwoFactorLogin`, and `login` resolves to `'authenticated'`
+- [x] **8.2.2** Check that `stashAllAnonymousProgress()` is safe to call twice (a user who abandons the code step and logs
       in again). If it isn't, guard it, and add a test in `src/__tests__/utils/` for the double call.
-- [ ] **8.2.3** `src/__tests__/auth/AuthContext.test.tsx`, new cases:
-  - [ ] `login` returning `'two-factor-required'` → status stays `anonymous`, `/me` not re-fetched
-  - [ ] `completeTwoFactorLogin` → `authenticated`
-  - [ ] a failing `completeTwoFactorLogin` rethrows and leaves the state anonymous
+- [x] **8.2.3** `src/__tests__/auth/AuthContext.test.tsx`, new cases:
+  - [x] `login` returning `'two-factor-required'` → status stays `anonymous`, `/me` not re-fetched
+  - [x] `completeTwoFactorLogin` → `authenticated`
+  - [x] a failing `completeTwoFactorLogin` rethrows and leaves the state anonymous
 
 ### 8.3 Login page
-- [ ] **8.3.1** `src/pages/LoginPage.tsx`: `'two-factor-required'` →
+- [x] **8.3.1** `src/pages/LoginPage.tsx`: `'two-factor-required'` →
       `navigate('/login/2fa', { replace: true, state: { from } })`. `'authenticated'` → as today.
-- [ ] **8.3.2** `src/__tests__/LoginPage.test.tsx`: a 2FA account navigates to `/login/2fa` and passes `from` along;
+- [x] **8.3.2** `src/__tests__/LoginPage.test.tsx`: a 2FA account navigates to `/login/2fa` and passes `from` along;
       the normal path is unchanged.
 
 ### 8.4 Code step page: `src/pages/LoginTwoFactorPage.tsx` (route `/login/2fa`)
-- [ ] **8.4.1** Layout like `LoginPage` (card, `dark:` classes, 375 px):
-  - [ ] heading "Two-factor authentication"; text "Enter the 6-digit code from your authenticator app."
-  - [ ] code input: `inputMode="numeric"`, `autoComplete="one-time-code"`, `pattern="[0-9]{6}"`, `maxLength={6}`,
+- [x] **8.4.1** Layout like `LoginPage` (card, `dark:` classes, 375 px):
+  - [x] heading "Two-factor authentication"; text "Enter the 6-digit code from your authenticator app."
+  - [x] code input: `inputMode="numeric"`, `autoComplete="one-time-code"`, `pattern="[0-9]{6}"`, `maxLength={6}`,
         `autoFocus`, `data-testid="two-factor-code"`
-  - [ ] a link-style button "Use a recovery code instead" (`two-factor-use-recovery`). It switches to a text input
+  - [x] a link-style button "Use a recovery code instead" (`two-factor-use-recovery`). It switches to a text input
         (`autoComplete="off"`, `two-factor-recovery-code`), and back ("Use the authenticator app").
-  - [ ] submit `two-factor-submit`, showing "Checking…" and disabled while pending
-- [ ] **8.4.2** Behaviour:
-  - [ ] already `authenticated` → `<Navigate to={from ?? '/'} replace />`
-  - [ ] success → `navigate(from ?? '/', { replace: true })`
-  - [ ] `invalid-two-factor-code` → field error under the input ("Invalid or already used code"), and the input is
+  - [x] submit `two-factor-submit`, showing "Checking…" and disabled while pending
+- [x] **8.4.2** Behaviour:
+  - [x] already `authenticated` → `<Navigate to={from ?? '/'} replace />`
+  - [x] success → `navigate(from ?? '/', { replace: true })`
+  - [x] `invalid-two-factor-code` → field error under the input ("Invalid or already used code"), and the input is
         cleared
-  - [ ] `two-factor-login-expired` → alert "Your sign-in timed out." + a link "Log in again" → `/login` (keep `from`)
-  - [ ] 429 → the server detail in the alert (`auth-error`)
-- [ ] **8.4.3** `src/main.tsx`: `<Route path="/login/2fa" element={<LoginTwoFactorPage />} />` inside the `PageShell`
+  - [x] `two-factor-login-expired` → alert "Your sign-in timed out." + a link "Log in again" → `/login` (keep `from`)
+  - [x] 429 → the server detail in the alert (`auth-error`)
+- [x] **8.4.3** `src/main.tsx`: `<Route path="/login/2fa" element={<LoginTwoFactorPage />} />` inside the `PageShell`
       route, before `*`.
-- [ ] **8.4.4** `src/__tests__/LoginTwoFactorPage.test.tsx` (`MemoryRouter` + a test `AuthContext` value):
-  - [ ] renders the code input with the right attributes
-  - [ ] submit calls `completeTwoFactorLogin` with the typed code, then navigates to `from`
-  - [ ] the recovery toggle switches inputs and submits the recovery code
-  - [ ] invalid code → field error, input cleared
-  - [ ] expired → alert + "Log in again" link
-  - [ ] 429 → alert with the detail
-  - [ ] the pending state disables the button
-  - [ ] an authenticated visitor is redirected
-- [ ] **8.4.5** `src/__tests__/routeReload.test.tsx`: `/login/2fa` renders inside the shell.
+- [x] **8.4.4** `src/__tests__/LoginTwoFactorPage.test.tsx` (`MemoryRouter` + a test `AuthContext` value):
+  - [x] renders the code input with the right attributes
+  - [x] submit calls `completeTwoFactorLogin` with the typed code, then navigates to `from`
+  - [x] the recovery toggle switches inputs and submits the recovery code
+  - [x] invalid code → field error, input cleared
+  - [x] expired → alert + "Log in again" link
+  - [x] 429 → alert with the detail
+  - [x] the pending state disables the button
+  - [x] an authenticated visitor is redirected
+- [x] **8.4.5** `src/__tests__/routeReload.test.tsx`: `/login/2fa` renders inside the shell.
 
 ### 8.5 Verify and commit
-- [ ] **8.5.1** `npm --prefix frontend run test:run && npm --prefix frontend run build` → green.
-- [ ] **8.5.2** `make clean build` → green. Ask for commit approval → `feat(frontend): add two-factor login step`
+- [x] **8.5.1** `npm --prefix frontend run test:run && npm --prefix frontend run build` → green.
+- [x] **8.5.2** `make clean build` → green. Ask for commit approval → `feat(frontend): add two-factor login step`
 
 ---
 

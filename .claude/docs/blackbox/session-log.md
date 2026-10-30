@@ -2152,3 +2152,59 @@
 - e2e/src/steps/auth-api.steps.ts
 - e2e/src/steps/two-factor-api.steps.ts
 <!-- end-snapshot -->
+
+<!-- git-snapshot 2026-10-30T01:01:53Z -->
+- .claude/docs/blackbox/audit.md
+- .claude/docs/blackbox/todos/2FA-todos.md
+- frontend/CLAUDE.md
+- frontend/src/__tests__/ForgotPasswordPage.test.tsx
+- frontend/src/__tests__/LoginPage.test.tsx
+- frontend/src/__tests__/QuizSync.test.tsx
+- frontend/src/__tests__/ResetPasswordPage.test.tsx
+- frontend/src/__tests__/UserMenu.test.tsx
+- frontend/src/__tests__/VerifyEmailPage.test.tsx
+- frontend/src/__tests__/api/authApi.test.ts
+- frontend/src/__tests__/auth/AuthContext.test.tsx
+- frontend/src/__tests__/hooks/useQuizProgressSync.test.tsx
+- frontend/src/__tests__/routeReload.test.tsx
+- frontend/src/__tests__/useQuizApplyState.test.tsx
+- frontend/src/api/authApi.ts
+- frontend/src/api/problemTypes.ts
+- frontend/src/auth/AuthContext.tsx
+- frontend/src/main.tsx
+- frontend/src/pages/LoginPage.tsx
+- frontend/src/types.ts
+<!-- end-snapshot -->
+
+<!-- diagram-staleness 2026-10-30T01:01:53Z -->
+⚠️  Diagrams that may need updating:
+  - docs/diagrams/auth-flow.md (auth/ was modified)
+<!-- end-diagram-staleness -->
+
+<!-- git-snapshot 2026-10-30T01:02:22Z -->
+- .claude/docs/blackbox/audit.md
+- .claude/docs/blackbox/session-log.md
+- .claude/docs/blackbox/todos/2FA-todos.md
+- frontend/CLAUDE.md
+- frontend/src/__tests__/ForgotPasswordPage.test.tsx
+- frontend/src/__tests__/LoginPage.test.tsx
+- frontend/src/__tests__/QuizSync.test.tsx
+- frontend/src/__tests__/ResetPasswordPage.test.tsx
+- frontend/src/__tests__/UserMenu.test.tsx
+- frontend/src/__tests__/VerifyEmailPage.test.tsx
+- frontend/src/__tests__/api/authApi.test.ts
+- frontend/src/__tests__/auth/AuthContext.test.tsx
+- frontend/src/__tests__/hooks/useQuizProgressSync.test.tsx
+- frontend/src/__tests__/routeReload.test.tsx
+- frontend/src/__tests__/useQuizApplyState.test.tsx
+- frontend/src/api/authApi.ts
+- frontend/src/api/problemTypes.ts
+- frontend/src/auth/AuthContext.tsx
+- frontend/src/main.tsx
+- frontend/src/pages/LoginPage.tsx
+<!-- end-snapshot -->
+
+<!-- diagram-staleness 2026-10-30T01:02:22Z -->
+⚠️  Diagrams that may need updating:
+  - docs/diagrams/auth-flow.md (auth/ was modified)
+<!-- end-diagram-staleness -->

@@ -12,7 +12,7 @@ const base: AuthContextValue = {
   status: 'anonymous', user: null,
   login: async () => {}, register: async () => {}, logout: async () => {}, refresh: async () => {},
 };
-const authed: AuthContextValue = { ...base, status: 'authenticated', user: { id: 1, email: 'a@b.co', role: 'USER' } };
+const authed: AuthContextValue = { ...base, status: 'authenticated', user: { id: 1, email: 'a@b.co', role: 'USER', twoFactorEnabled: false, twoFactorEnrollmentRequired: false } };
 
 const verbs: VerbEntry[] = [10, 20, 30].map((id, i) => ({
   id, verb: `Verb ${i}`, definition: `Def ${i}`, sentences: [`Sentence ${i}`], wordsToHide: [],

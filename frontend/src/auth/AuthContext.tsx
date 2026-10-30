@@ -9,7 +9,9 @@ export type AuthStatus = 'loading' | 'authenticated' | 'anonymous';
 export interface AuthContextValue {
   status: AuthStatus;
   user: CurrentUser | null;
-  login: (email: string, password: string) => Promise<void>;
+  /** `'two-factor-required'` means the password was right but the session starts only after `completeTwoFactorLogin`. */
+  login: (email: string, password: string) => Promise<authApi.LoginResult>;
+  completeTwoFactorLogin: (code: string) => Promise<void>;
   /** Creates the account only; it cannot log in until the emailed link is opened, so no session starts here. */
   register: (email: string, password: string) => Promise<void>;
   logout: () => Promise<void>;
@@ -22,7 +24,8 @@ const noop = async () => {};
 export const AuthContext = createContext<AuthContextValue>({
   status: 'anonymous',
   user: null,
-  login: noop,
+  login: async () => 'authenticated',
+  completeTwoFactorLogin: noop,
   register: noop,
   logout: noop,
   refresh: noop,
@@ -51,7 +54,15 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
   const login = useCallback(async (email: string, password: string) => {
     // The visitor's own progress is backed up before an account can replace it.
     stashAllAnonymousProgress();
-    await authApi.login(email, password);
+    const result = await authApi.login(email, password);
+    if (result === 'authenticated') {
+      await refresh();
+    }
+    return result;
+  }, [refresh]);
+
+  const completeTwoFactorLogin = useCallback(async (code: string) => {
+    await authApi.verifyTwoFactorLogin(code);
     await refresh();
   }, [refresh]);
 
@@ -70,8 +81,8 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
   }, [refresh]);
 
   const value = useMemo(
-    () => ({ status, user, login, register, logout, refresh }),
-    [status, user, login, register, logout, refresh],
+    () => ({ status, user, login, completeTwoFactorLogin, register, logout, refresh }),
+    [status, user, login, completeTwoFactorLogin, register, logout, refresh],
   );
 
   return <AuthContext.Provider value={value}>{children}</AuthContext.Provider>;

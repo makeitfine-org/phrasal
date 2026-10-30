@@ -9,6 +9,7 @@ import PhrasalVerbsListPage from './pages/PhrasalVerbsListPage';
 import VerbDetailPage from './pages/VerbDetailPage';
 import ParticlesPage from './pages/particles/ParticlesPage';
 import IWishPage from './pages/IWishPage';
+import LoginTwoFactorPage from './pages/LoginTwoFactorPage';
 import LoginPage from './pages/LoginPage';
 import RegisterPage from './pages/RegisterPage';
 import VerifyEmailPage from './pages/VerifyEmailPage';
@@ -36,6 +37,7 @@ ReactDOM.createRoot(document.getElementById('root')!).render(
             <Route path="/grammar" element={<GrammarPage />} />
             <Route path="/grammar/i-wish-if-only" element={<IWishPage />} />
             <Route path="/login" element={<LoginPage />} />
+            <Route path="/login/2fa" element={<LoginTwoFactorPage />} />
             <Route path="/register" element={<RegisterPage />} />
             <Route path="/verify-email" element={<VerifyEmailPage />} />
             <Route path="/forgot-password" element={<ForgotPasswordPage />} />
