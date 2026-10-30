@@ -31,16 +31,18 @@ Or step by step:
 ```
 features/
   phrasal-verbs-api/    → REST contract scenarios (@api)
-  auth-api/             → register/login/logout/rate-limit contract + email-verification.feature + password-reset.feature (@api)
+  auth-api/             → register/login/logout/rate-limit contract + email-verification.feature + password-reset.feature + two-factor.feature (@api)
   progress-api/         → per-user quiz progress contract (@api, quiz-progress.feature)
   frontend/             → browser-driven SPA scenarios (incl. auth.feature, email-verification.feature, password-reset.feature, progress-sync.feature)
 src/
   world.ts              → CustomWorld — shared state per scenario
   hooks.ts              → Before/After lifecycle
-  steps/                → Step definitions (auth-api.steps.ts: register/login/logout/rate limit; auth-ui.steps.ts: forms + user menu; quiz-progress-api.steps.ts: progress API; email-verification-api.steps.ts: verification mail/link/resend API; password-reset-api.steps.ts: forgot/reset API, reset mail and notice, rate limit; password-reset-ui.steps.ts: forgot and reset pages, opens the reset link from Mailpit; progress-sync.steps.ts: browser sync, uses the test ids `excluded-count` and `exclude-toggle`)
-  support/              → api-client.ts (cookie jar), db-client.ts, test-users.ts, mailpit-client.ts (latestMessageTo, verificationLink/Token, passwordResetLink/Token, countMessagesTo, deleteMessagesTo; `latestMessageTo` and `countMessagesTo` take an optional `subject` to tell the reset mail from the notice)
+  steps/                → Step definitions (auth-api.steps.ts: register/login/logout/rate limit; auth-ui.steps.ts: forms + user menu; quiz-progress-api.steps.ts: progress API; email-verification-api.steps.ts: verification mail/link/resend API; password-reset-api.steps.ts: forgot/reset API, reset mail and notice, rate limit; password-reset-ui.steps.ts: forgot and reset pages, opens the reset link from Mailpit; two-factor-api.steps.ts: 2FA setup/confirm, two-step login, recovery codes, disable; progress-sync.steps.ts: browser sync, uses the test ids `excluded-count` and `exclude-toggle`)
+  support/              → api-client.ts (cookie jar), db-client.ts, test-users.ts, totp.ts (otpauth: `nextAcceptedCode` picks a code the server has not seen), mailpit-client.ts (latestMessageTo, verificationLink/Token, passwordResetLink/Token, countMessagesTo, deleteMessagesTo; `latestMessageTo` and `countMessagesTo` take an optional `subject` to tell the reset mail from the notice)
 ```
 
 "Sign up through the form" steps now open the emailed link from Mailpit to verify before logging in.
 
 The world keeps `resetTokens` (every reset token requested in the scenario, newest last) so a scenario can replay an old link. `docker-compose.yml` leaves `RATE_LIMIT_FORGOT_PER_EMAIL` at its default so the `429` scenario works; use a fresh email per scenario.
+
+The world keeps `twoFactorSecret`, `recoveryCodes`, `previousRecoveryCodes` and `lastTotpStep` (a used step is rejected, so each code uses a newer one; the steps allow 65 s to wait for the clock). `docker-compose.yml` leaves `RATE_LIMIT_TWO_FACTOR_PER_USER` at its default (5 / 15 min) so the `429` scenario works; every scenario makes a fresh user.

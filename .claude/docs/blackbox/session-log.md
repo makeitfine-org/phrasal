@@ -2102,3 +2102,14 @@
 - backend/src/test/java/net/phrasal/application/mapper/UserMapperTest.java
 - backend/src/test/java/net/phrasal/application/service/AccountEmailComposerTest.java
 <!-- end-snapshot -->
+
+<!-- git-snapshot 2026-10-30T00:42:48Z -->
+- .claude/docs/blackbox/audit.md
+- .claude/docs/blackbox/todos/2FA-todos.md
+- docker-compose.yml
+- e2e/CLAUDE.md
+- e2e/package-lock.json
+- e2e/package.json
+- e2e/src/hooks.ts
+- e2e/src/world.ts
+<!-- end-snapshot -->

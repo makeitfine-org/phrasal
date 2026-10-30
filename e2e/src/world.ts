@@ -12,4 +12,8 @@ export interface PhrasalWorld extends World {
     verificationTokens: string[];
     resetTokens: string[];
     firstRegistrationResponse: AxiosResponse | null;
+    twoFactorSecret: string | null;
+    recoveryCodes: string[];
+    previousRecoveryCodes: string[];
+    lastTotpStep: number | null;
 }

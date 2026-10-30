@@ -904,22 +904,22 @@ So `make clean build` passes after every phase. **Don't release from the branch 
 ## Phase 6 — E2E: 2FA for regular users over the API
 
 ### 6.1 Support code
-- [ ] **6.1.1** `cd e2e && npm install --save-dev otpauth` (version from 0.5).
-- [ ] **6.1.2** `e2e/src/support/totp.ts`:
-  - [ ] `PERIOD_SECONDS = 30`
-  - [ ] `currentStep(now = Date.now())`
-  - [ ] `codeForStep(secret, step)` (otpauth `TOTP#generate({ timestamp: step * 30_000 })`)
-  - [ ] `async nextAcceptedCode(secret, lastUsedStep?: number): Promise<{ code: string; step: number }>`
+- [x] **6.1.1** `cd e2e && npm install --save-dev otpauth` (installed 9.5.2; the plan's "0.5" was a stale pointer).
+- [x] **6.1.2** `e2e/src/support/totp.ts`:
+  - [x] `PERIOD_SECONDS = 30`
+  - [x] `currentStep(now = Date.now())`
+  - [x] `codeForStep(secret, step)` (otpauth `TOTP#generate({ timestamp: step * 30_000 })`)
+  - [x] `async nextAcceptedCode(secret, lastUsedStep?: number): Promise<{ code: string; step: number }>`
         (decision 18): current step if `> lastUsedStep`, else `lastUsedStep + 1` if `≤ current + 1`, else wait until
         the next step (at most 30 s; the default step timeout is 30 s, so give this step `{ timeout: 65_000 }`)
-  - [ ] `normalizeSecret(text)` strips spaces (the page shows the key in groups)
-- [ ] **6.1.3** `e2e/src/world.ts`: `twoFactorSecret: string | null`, `recoveryCodes: string[]`, `lastTotpStep: number | null`.
+  - [x] `normalizeSecret(text)` strips spaces (the page shows the key in groups)
+- [x] **6.1.3** `e2e/src/world.ts`: `twoFactorSecret: string | null`, `recoveryCodes: string[]`, `lastTotpStep: number | null`.
       Reset them in `hooks.ts` `Before`.
-- [ ] **6.1.4** `e2e/src/support/mailpit-client.ts`: nothing new if `messageBySubject` / search by subject already exists
+- [x] **6.1.4** `e2e/src/support/mailpit-client.ts`: nothing new (`latestMessageTo` with `subject` already exists) if `messageBySubject` / search by subject already exists
       (task-108). Otherwise add `awaitMessage(to, subject)`.
 
 ### 6.2 Steps: `e2e/src/steps/two-factor-api.steps.ts`
-- [ ] **6.2.1**
+- [x] **6.2.1**
   - `When I start two-factor setup with my password`
   - `When I start two-factor setup with password {string}`
   - `When I confirm two-factor setup with a valid code`
@@ -937,31 +937,31 @@ So `make clean build` passes after every phase. **Don't release from the branch 
   - `Then I should receive {int} recovery codes`
   - `Then the two-factor status should be {string}` (`enabled` / `disabled`)
   - `Then I should receive the email {string}` (Mailpit, current email)
-- [ ] **6.2.2** Reuse `the response status should be {int}` and `When I request my profile`.
+- [x] **6.2.2** Reuse `the response status should be {int}` and `When I request my profile`.
 
 ### 6.3 Feature: `e2e/features/auth-api/two-factor.feature` (`@api`)
-- [ ] **6.3.1** Scenarios:
-  - [ ] enable 2FA: setup → `200`, confirm with a valid code → `200` with 10 recovery codes; status enabled; the "on"
+- [x] **6.3.1** Scenarios:
+  - [x] enable 2FA: setup → `200`, confirm with a valid code → `200` with 10 recovery codes; status enabled; the "on"
         email arrives (task-101 AC #1, #2)
-  - [ ] a wrong confirmation code → `400`, status still disabled
-  - [ ] setup with a wrong password → `400`
-  - [ ] login asks for a second factor → `202`; my profile → `401`; a valid code → `200`; my profile → `200`
+  - [x] a wrong confirmation code → `400`, status still disabled
+  - [x] setup with a wrong password → `400`
+  - [x] login asks for a second factor → `202`; my profile → `401`; a valid code → `200`; my profile → `200`
         (task-101 AC #3)
-  - [ ] the same code twice → the second one `400` (task-101 AC #4)
-  - [ ] a recovery code works once (`200`, then `400` in the next login) (task-101 AC #5)
-  - [ ] regenerated codes replace the old ones
-  - [ ] disable with a valid code → `204`; the next login → `200` with no second step; the "off" email arrives
+  - [x] the same code twice → the second one `400` (task-101 AC #4)
+  - [x] a recovery code works once (`200`, then `400` in the next login) (task-101 AC #5)
+  - [x] regenerated codes replace the old ones
+  - [x] disable with a valid code → `204`; the next login → `200` with no second step; the "off" email arrives
         (task-101 AC #6)
-  - [ ] `POST /login/2fa` without logging in first → `401`
-- [ ] **6.3.2** Rate limit: compose keeps `RATE_LIMIT_TWO_FACTOR_PER_USER` at the default (5 / 15 min). Add to
+  - [x] `POST /login/2fa` without logging in first → `401`
+- [x] **6.3.2** Rate limit (compose `RATE_LIMIT_TWO_FACTOR_PER_USER: "1000"` removed so the default applies; the confirm call also counts, so the 5th wrong code is already `429`): compose keeps `RATE_LIMIT_TWO_FACTOR_PER_USER` at the default (5 / 15 min). Add to
       `docker-compose.yml` `RATE_LIMIT_TWO_FACTOR_PER_IP: "1000"` (e2e runs from one IP, like the other per-IP limits).
-  - [ ] scenario: 6 wrong codes for one pending login → the 6th returns `429` (task-100 AC #5, 2FA part)
-- [ ] **6.3.3** `hooks.ts` `AfterAll`: no change needed. The test users are deleted, and recovery codes go with them
+  - [x] scenario: 6 wrong codes for one pending login → the 6th returns `429` (task-100 AC #5, 2FA part)
+- [x] **6.3.3** `hooks.ts` `AfterAll`: no change needed. The test users are deleted, and recovery codes go with them
       (`ON DELETE CASCADE`).
-- [ ] **6.3.4** `npm --prefix e2e run test:api` against the running stack → green.
+- [x] **6.3.4** `npm --prefix e2e run test:api` against the running stack → green.
 
 ### 6.4 Verify and commit
-- [ ] **6.4.1** `make clean build` → green (new scenario/step counts noted here). Ask for commit approval →
+- [x] **6.4.1** `make clean build` → green (110 scenarios, 834 steps; 10 new in two-factor.feature). Ask for commit approval →
       `test(e2e): cover 2FA setup, two-step login and recovery codes`
 
 ---

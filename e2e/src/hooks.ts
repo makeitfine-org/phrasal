@@ -46,6 +46,10 @@ Before(function () {
     this.verificationTokens = [];
     this.resetTokens = [];
     this.firstRegistrationResponse = null;
+    this.twoFactorSecret = null;
+    this.recoveryCodes = [];
+    this.previousRecoveryCodes = [];
+    this.lastTotpStep = null;
 });
 
 After(async function () {
