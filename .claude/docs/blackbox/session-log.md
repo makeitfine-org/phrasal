@@ -2569,3 +2569,34 @@
 - backend/src/test/java/net/phrasal/presentation/security/PendingTwoFactorLoginTest.java
 - docs/diagrams/two-factor-flow.md
 <!-- end-snapshot -->
+
+<!-- git-snapshot 2026-10-30T18:47:36Z -->
+- .claude/docs/blackbox/audit.md
+- .claude/docs/blackbox/todos/google-account-todos.md
+- .github/workflows/ci_cd.yml
+- CLAUDE.md
+- backend/CLAUDE.md
+- backend/src/main/resources/application.yml
+- docker-compose.yml
+- k8s/base/backend-configmap.yaml
+- k8s/base/backend-deployment.yaml
+- k8s/base/backend-secret.yaml
+- k8s/overlays/prod/patches/backend-configmap.yaml
+- k8s/overlays/prod/patches/secret.yaml.example
+<!-- end-snapshot -->
+
+<!-- git-snapshot 2026-10-30T18:50:51Z -->
+- .claude/docs/blackbox/audit.md
+- .claude/docs/blackbox/session-log.md
+- .claude/docs/blackbox/todos/google-account-todos.md
+- .github/workflows/ci_cd.yml
+- CLAUDE.md
+- backend/CLAUDE.md
+- backend/src/main/resources/application.yml
+- docker-compose.yml
+- k8s/base/backend-configmap.yaml
+- k8s/base/backend-deployment.yaml
+- k8s/base/backend-secret.yaml
+- k8s/overlays/prod/patches/backend-configmap.yaml
+- k8s/overlays/prod/patches/secret.yaml.example
+<!-- end-snapshot -->

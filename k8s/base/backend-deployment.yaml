@@ -101,6 +101,21 @@ spec:
             secretKeyRef:
               name: app-secrets
               key: totp.encryption-key
+        - name: GOOGLE_LOGIN_ENABLED
+          valueFrom:
+            configMapKeyRef:
+              name: app-config
+              key: google.enabled
+        - name: GOOGLE_CLIENT_ID
+          valueFrom:
+            secretKeyRef:
+              name: app-secrets
+              key: google.client-id
+        - name: GOOGLE_CLIENT_SECRET
+          valueFrom:
+            secretKeyRef:
+              name: app-secrets
+              key: google.client-secret
         livenessProbe:
           httpGet:
             path: /actuator/health/liveness

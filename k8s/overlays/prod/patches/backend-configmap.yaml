@@ -9,3 +9,4 @@ data:
   mail.port: "587"
   mail.from: "Phrasal <no-reply@phrasalbox.com>"
   app.base-url: https://phrasalbox.com
+  google.enabled: "true"

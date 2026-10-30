@@ -54,6 +54,10 @@ server:
   port: 8080
   shutdown: graceful
   forward-headers-strategy: native
+  tomcat:
+    # Location: /login, not an absolute URL built from X-Forwarded-*; nginx hard-codes port 3000 and, behind Traefik,
+    # forwards http, so the Google sign-in redirects would leave the browser's origin
+    use-relative-redirects: true
   servlet:
     session:
       timeout: ${SESSION_TIMEOUT:7d}

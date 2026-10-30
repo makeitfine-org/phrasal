@@ -9,7 +9,7 @@ e2e/        → Cucumber + Playwright acceptance tests (see e2e/CLAUDE.md)
 k8s/        → Kustomize manifests (base + dev/prod overlays)
 ansible/    → Ansible K3s provisioning + ingress-tls (cert-manager)
 aux/        → Checkstyle config, project docs, legacy scripts
-docker-compose.yml → postgres:5432, backend:8080, frontend:3000
+docker-compose.yml → postgres:5432, backend:8080, frontend:3000, mailpit:1025/8025, mock-oauth2:8090 (Google stand-in)
 skaffold.yaml → Root Skaffold config (composes backend + frontend)
 ```
 

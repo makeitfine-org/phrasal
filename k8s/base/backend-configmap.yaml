@@ -13,3 +13,5 @@ data:
   mail.port: "1025"
   mail.from: "Phrasal <no-reply@phrasalbox.com>"
   app.base-url: http://localhost:3000
+  # The dev overlay has no Google stand-in, so Google sign-in stays off (prod turns it on)
+  google.enabled: "false"

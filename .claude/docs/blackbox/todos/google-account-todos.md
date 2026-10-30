@@ -4,8 +4,8 @@ Source plan: `.claude/docs/blackbox/plans/2026-10-26 18:10 Multi-user accounts T
 (section P5). Backlog: **task-104**. It needs the Google OAuth client from **task-106** (AC #4, #5); publishing the
 consent screen stays in **task-105** (AC #6).
 
-> Status (2026-10-30): Phases 0–7 done on branch `google-sign-in`, except 0.7 (user actions in Google Cloud).
-> Phases 8–13 not started.
+> Status (2026-10-30): Phases 0–8 done on branch `google-sign-in`, except 0.7 (user actions in Google Cloud).
+> Phases 9–13 not started.
 
 Builds on what is already in `develop` (`cb933cc`):
 - password login with a pending 2FA step (`SessionAuthenticator`, `PendingTwoFactorLogin`, `POST /auth/login/2fa`)
@@ -67,7 +67,8 @@ Builds on what is already in `develop` (`cb933cc`):
      A visitor on another port (local `.env` uses 3100) would be sent back to the wrong origin.
    - In prod `APP_BASE_URL` is `https://phrasalbox.com`, which covers task-104 AC #7 without relying on headers.
    - The success and failure redirects are relative (`/`, `/login/2fa`, `/login?error=…`), so they stay on the origin
-     of the callback.
+     of the callback. This needs `server.tomcat.use-relative-redirects: true`; Boot's default makes them absolute
+     from the forwarded headers (found and fixed in 8.2.1a).
 4. **Account matching** (plan P5 and task-104):
    1. `google_subject` matches → that account.
    2. Otherwise, only if Google says `email_verified=true`: the account with that (normalized) email, if its
@@ -755,7 +756,7 @@ No new endpoint (decision 9). This phase proves the existing endpoints behave an
 ## Phase 8 — Config wiring: docker-compose, k8s, CI
 
 ### 8.1 docker-compose (dev and e2e)
-- [ ] **8.1.1** `../../../../docker-compose.yml`: new service (tag from 0.6, pinned like `axllent/mailpit:v1.32.0`):
+- [x] **8.1.1** `../../../../docker-compose.yml`: new service (tag from 0.6, pinned like `axllent/mailpit:v1.32.0`):
   ```yaml
   mock-oauth2:
     # Stands in for Google locally and in e2e, like Mailpit stands in for Brevo. Any username/claims are accepted.
@@ -767,10 +768,13 @@ No new endpoint (decision 9). This phase proves the existing endpoints behave an
     networks:
       - app-network
   ```
-  - [ ] a healthcheck only if the image has a shell or a probe (0.6); otherwise none, and the e2e `BeforeAll` waits for
+  - [x] a healthcheck only if the image has a shell or a probe (0.6); otherwise none, and the e2e `BeforeAll` waits for
         `/default/.well-known/openid-configuration` (10.1.3)
-  - [ ] the backend doesn't call the provider at startup, so no `depends_on`
-- [ ] **8.1.2** `backend.environment` (dev-only values, the comment says how to use real Google):
+        — pinned `6.1.1` (2026-10-16, the newest release at least two weeks old). Its image has `/usr/bin/wget`, so the
+        healthcheck is `["CMD", "wget", "-q", "--spider", "http://localhost:8080/isalive"]` (no shell needed). With
+        it, `docker compose up --wait` waits for the mock too.
+  - [x] the backend doesn't call the provider at startup, so no `depends_on`
+- [x] **8.1.2** `backend.environment` (dev-only values, the comment says how to use real Google):
   ```yaml
   # Google sign-in against the mock-oauth2 service. For real Google: put GOOGLE_CLIENT_ID and GOOGLE_CLIENT_SECRET in
   # .env and set the GOOGLE_*_URI variables to empty values ("GOOGLE_TOKEN_URI=").
@@ -782,45 +786,87 @@ No new endpoint (decision 9). This phase proves the existing endpoints behave an
   GOOGLE_JWK_SET_URI: ${GOOGLE_JWK_SET_URI-http://mock-oauth2:8080/default/jwks}
   GOOGLE_ISSUER_URI: ${GOOGLE_ISSUER_URI-http://mock-oauth2:8080/default}
   ```
-  - [ ] `${VAR-default}` (no colon) on purpose: an empty value in `.env` means "use Google's endpoint"
-  - [ ] the browser reaches the mock at `localhost:<port>` (authorization), the backend reaches it at `mock-oauth2:8080`
+  - [x] `${VAR-default}` (no colon) on purpose: an empty value in `.env` means "use Google's endpoint"
+  - [x] the browser reaches the mock at `localhost:<port>` (authorization), the backend reaches it at `mock-oauth2:8080`
         (token, keys); the mock puts the backend-side host into `iss`, which is why the issuer uses `mock-oauth2`
-  - [ ] `docker compose config | grep GOOGLE_` shows the expected values (checks the nested `${…}`)
-  - [ ] the local `.env` sets `APP_BASE_URL` to the frontend origin (`http://localhost:3100`); the redirect URI
-        depends on it (decision 3)
-- [ ] **8.1.3** `docker compose up -d --build --wait`, then `curl -s localhost:8180/api/v1/auth/providers` (the local
+  - [x] `docker compose config | grep GOOGLE_` shows the expected values (checks the nested `${…}`)
+        — defaults as above; `GOOGLE_TOKEN_URI= GOOGLE_AUTHORIZATION_URI=` renders `""`, which `GoogleLoginConfig`
+        treats as "no override".
+  - [x] ~~the local `.env` sets `APP_BASE_URL` to the frontend origin (`http://localhost:3100`); the redirect URI
+        depends on it (decision 3)~~ — *changed*: there is no local `.env` (the ports come from the tracked `.envrc`),
+        so compose now defaults `APP_BASE_URL` to `http://localhost:${FRONTEND_PORT:-3000}`. With `.envrc` that gives
+        `http://localhost:3100`; CI and a plain checkout keep `http://localhost:3000`. e2e uses only the token of an
+        emailed link, so the email tests don't care.
+- [x] **8.1.3** `docker compose up -d --build --wait`, then `curl -s localhost:8180/api/v1/auth/providers` (the local
       backend port) → `{"google":true}`, and `curl -sI localhost:3100/api/v1/auth/oauth2/authorization/google` →
       `302` to `http://localhost:8090/default/authorize?...&redirect_uri=http%3A%2F%2Flocalhost%3A3100%2F...`.
+      — all five services healthy; providers `{"google":true}`; the start answers `302` to
+      `http://localhost:8090/default/authorize?response_type=code&client_id=phrasal-local&scope=openid%20email%20profile&state=…&redirect_uri=http://localhost:3100/api/v1/auth/oauth2/code/google&nonce=…&code_challenge=…&code_challenge_method=S256`
+      (Spring doesn't percent-encode `redirect_uri`; it also adds PKCE, which the mock accepts).
+      - Extra curl smoke against the real mock through nginx (`localhost:3100`): POST the mock's form (`username`,
+        `claims` with `email` + `email_verified: true`) → callback `302 /` → `/auth/me` shows a new `USER` with
+        `hasPassword: false`. So `iss`, `aud`, the JWKS, the nonce and PKCE all line up with the real mock. Without
+        `email_verified` → `/login?error=google-email-unverified`; `error=access_denied` → `/login?error=google`.
+        (It left two `smoke-*@example.com` users in the local DB.)
 
 ### 8.2 nginx and Vite (check only)
-- [ ] **8.2.1** `../../../../frontend/nginx.conf`: `/api/` already reaches the backend and passes `Set-Cookie` and
+- [x] **8.2.1** `../../../../frontend/nginx.conf`: `/api/` already reaches the backend and passes `Set-Cookie` and
       `Location` unchanged. No edit: the redirect URI no longer depends on `X-Forwarded-Port` (decision 3).
-- [ ] **8.2.2** `../../../../frontend/vite.config.ts`: `/api` is proxied; with `APP_BASE_URL=http://localhost:5173` the
+      — **found a bug, fixed in the backend (inserted step 8.2.1a)**. The redirect URI is fine, but the redirects
+      *back* into the SPA were not relative as decision 3 assumed: the first smoke run answered the callback with
+      `Location: http://localhost:3000/` on the 3100 frontend.
+  - [x] **8.2.1a** *Inserted.* Cause: Boot's `server.tomcat.use-relative-redirects` defaults to `false`, so Tomcat
+        turns `sendRedirect("/")` into an absolute URL from the `X-Forwarded-*` headers (`forward-headers-strategy:
+        native`). nginx (compose and the k8s `frontend-nginx-config`) hard-codes `X-Forwarded-Port 3000` and sends
+        `X-Forwarded-Proto $scheme`, which is `http` behind Traefik. In prod every Google redirect (`/`, `/login/2fa`,
+        `/login?error=…`) would have gone to `http://phrasalbox.com:3000/…`.
+    - fix: `server.tomcat.use-relative-redirects: true` in `application.yml` (with a comment). nginx stays as it is;
+      the only other backend redirects are the same handlers'.
+    - test: new `integration/GoogleRedirectOverHttpIntegrationTest` (`RANDOM_PORT`, same context as
+      `CsrfCookieIntegrationTest`), sending `X-Forwarded-Host/Proto/Port` like nginx. (1) The callback with
+      `error=access_denied` answers `Location: /login?error=google`. Before the fix it was
+      `http://phrasal.example:3000/login?error=google`, so the test failed first. (2) The start redirect goes to the
+      provider with `redirect_uri=http://localhost:3000/…` from `APP_BASE_URL` and never the forwarded host.
+      MockMvc can't show this because it skips Tomcat.
+    - after a rebuild, the curl smoke through nginx shows `Location: /`.
+    - `backend/CLAUDE.md` Google paragraph: one sentence on the setting and the test.
+- [x] **8.2.2** `../../../../frontend/vite.config.ts`: `/api` is proxied; with `APP_BASE_URL=http://localhost:5173` the
       flow works through Vite too. Write that in the README (11.1), no code change.
+      — `'/api': BACKEND`, no change. Now that the redirects are relative, they stay on 5173 too.
 
 ### 8.3 k8s
-- [ ] **8.3.1** `../../../../k8s/base/backend-configmap.yaml`: `google.enabled: "false"` (dev overlay has no mock).
-- [ ] **8.3.2** `../../../../k8s/base/backend-secret.yaml`: `google.client-id: ""`, `google.client-secret: ""` (keep
-      the DEV-ONLY comment).
-- [ ] **8.3.3** `../../../../k8s/base/backend-deployment.yaml`: env `GOOGLE_LOGIN_ENABLED` (configMapKeyRef
+- [x] **8.3.1** `../../../../k8s/base/backend-configmap.yaml`: `google.enabled: "false"` (dev overlay has no mock).
+- [x] **8.3.2** `../../../../k8s/base/backend-secret.yaml`: `google.client-id: ""`, `google.client-secret: ""` (keep
+      the DEV-ONLY comment). — the comment also lists the two new GitHub Secrets.
+- [x] **8.3.3** `../../../../k8s/base/backend-deployment.yaml`: env `GOOGLE_LOGIN_ENABLED` (configMapKeyRef
       `google.enabled`), `GOOGLE_CLIENT_ID` / `GOOGLE_CLIENT_SECRET` (secretKeyRef `app-secrets`).
-- [ ] **8.3.4** `../../../../k8s/overlays/prod/patches/backend-configmap.yaml`: `google.enabled: "true"`.
-- [ ] **8.3.5** `../../../../k8s/overlays/prod/patches/secret.yaml.example`: `google.client-id: CHANGE_ME`,
+- [x] **8.3.4** `../../../../k8s/overlays/prod/patches/backend-configmap.yaml`: `google.enabled: "true"`.
+- [x] **8.3.5** `../../../../k8s/overlays/prod/patches/secret.yaml.example`: `google.client-id: CHANGE_ME`,
       `google.client-secret: CHANGE_ME`.
-- [ ] **8.3.6** `kubectl kustomize k8s/overlays/dev` and `kubectl kustomize k8s/overlays/prod` render (copy the example
+- [x] **8.3.6** `kubectl kustomize k8s/overlays/dev` and `kubectl kustomize k8s/overlays/prod` render (copy the example
       to `secret.yaml` locally, then delete the copy; `git status k8s` stays clean).
-- [ ] **8.3.7** `../../../../skaffold.yaml`: check only (it uses the dev overlay; Google stays off).
+      — dev: `google.enabled: "false"` and empty secret keys; prod: `"true"` and `CHANGE_ME`. The deployment has the
+      three env vars in both. The copy is deleted; `git status k8s` shows only the five edited files.
+- [x] **8.3.7** `../../../../skaffold.yaml`: check only (it uses the dev overlay; Google stays off).
+      — it doesn't use the overlay: `backend/skaffold.yaml` deploys the base YAML files directly (`rawYaml`). They are
+      consistent (the configmap has `google.enabled: "false"` and the secret has the two empty keys the deployment
+      references), so no change.
 
 ### 8.4 CI
-- [ ] **8.4.1** `../../../../.github/workflows/ci_cd.yml`, "Generate prod secret patch":
-  - [ ] env `GOOGLE_CLIENT_ID: ${{ secrets.GOOGLE_CLIENT_ID }}`, `GOOGLE_CLIENT_SECRET: ${{ secrets.GOOGLE_CLIENT_SECRET }}`
-  - [ ] guards like the TOTP one: `test -n "$GOOGLE_CLIENT_ID" || { echo "::error::GOOGLE_CLIENT_ID secret is missing"; exit 1; }`
+- [x] **8.4.1** `../../../../.github/workflows/ci_cd.yml`, "Generate prod secret patch":
+  - [x] env `GOOGLE_CLIENT_ID: ${{ secrets.GOOGLE_CLIENT_ID }}`, `GOOGLE_CLIENT_SECRET: ${{ secrets.GOOGLE_CLIENT_SECRET }}`
+  - [x] guards like the TOTP one: `test -n "$GOOGLE_CLIENT_ID" || { echo "::error::GOOGLE_CLIENT_ID secret is missing"; exit 1; }`
         and the same for the secret
-  - [ ] two `printf` lines `google.client-id` / `google.client-secret`
-- [ ] **8.4.2** e2e job: nothing to add; `docker compose up -d --wait` starts `mock-oauth2` too. Check the job's env
+  - [x] two `printf` lines `google.client-id` / `google.client-secret` (quoted, like `totp.encryption-key`)
+  - note: from now on a tagged deploy fails at this step until both GitHub Secrets exist (0.7, Phase 13).
+- [x] **8.4.2** e2e job: nothing to add; `docker compose up -d --wait` starts `mock-oauth2` too. Check the job's env
       for `APP_BASE_URL` (defaults to `http://localhost:3000`, which matches the CI frontend port).
-- [ ] **8.4.3** `make clean build` → green. Ask for commit approval →
+      — the "Start stack" step sets no `FRONTEND_PORT`, so the new compose default gives `http://localhost:3000`, the
+      same as before. The e2e step sets `FRONTEND_PORT: "3000"`. The mock's healthcheck makes `--wait` cover it.
+- [x] **8.4.3** `make clean build` → green. Ask for commit approval →
       `build: wire Google sign-in and a local stand-in provider`
+      — exit 0: backend 819 tests (+2), JaCoCo met, Checkstyle clean; frontend 1654 tests in 86 files; e2e 140
+      scenarios / 1101 steps, with `mock-oauth2` started and healthy in the stack. Commit approval asked.
 
 ---
 
@@ -983,7 +1029,8 @@ No new endpoint (decision 9). This phase proves the existing endpoints behave an
   - [ ] env table: `GOOGLE_LOGIN_ENABLED`, `GOOGLE_CLIENT_ID`, `GOOGLE_CLIENT_SECRET`, the five `GOOGLE_*_URI`
         overrides, and that the redirect URI is built from `APP_BASE_URL`
   - [ ] local dev: the `mock-oauth2` service (http://localhost:8090), what to type in its form, how to switch to real
-        Google in `.env`, and `APP_BASE_URL=http://localhost:5173` for Vite
+        Google in `.env`, and `APP_BASE_URL=http://localhost:5173` for Vite (compose defaults it to
+        `http://localhost:${FRONTEND_PORT}`, 8.1.2)
   - [ ] GitHub Secrets `GOOGLE_CLIENT_ID` / `GOOGLE_CLIENT_SECRET` before the next tagged deploy
   - [ ] "Production monitoring": `kubectl logs … | grep "Google sign-in"` (outcome counts) and the leak check from 13.6
 - [ ] **11.2** `../../../../backend/CLAUDE.md`, new section "Google Sign-In":
@@ -1010,7 +1057,10 @@ No new endpoint (decision 9). This phase proves the existing endpoints behave an
       row (append only, delete nothing in that folder):
       `| <date> | split | P5 done as task-104: own ClientRegistrationRepository behind GOOGLE_LOGIN_ENABLED + GET /auth/providers; redirect URI from APP_BASE_URL; ADMIN accounts refused; Google-only accounts set a password via reset link; mock-oauth2-server in compose; V17 instead of V13 | Works without Google creds locally/CI; no forwarded-header dependency |`
       Also mention the todo-level mutations: test-profile yml moved from 6.1.2 to 5.4.2; inserted fix in 6.2.7
-      (`PendingTwoFactorLogin.start` empties and re-keys the session instead of invalidate + new session).
+      (`PendingTwoFactorLogin.start` empties and re-keys the session instead of invalidate + new session); inserted
+      fix 8.2.1a (`server.tomcat.use-relative-redirects: true`, so the Google redirects back into the SPA ignore
+      nginx's forwarded port and scheme); 8.1.2 changed (compose derives `APP_BASE_URL` from `FRONTEND_PORT` instead
+      of a local `.env`).
 - [ ] **11.7** Backlog (MCP):
   - [ ] task-104: check off the done AC (prod ones wait for Phase 13), implementation notes, final summary
   - [ ] task-106: note that AC #4/#5 are needed for 12.3 and Phase 13; check them only after the user confirms

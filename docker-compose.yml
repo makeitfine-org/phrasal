@@ -32,6 +32,22 @@ services:
     networks:
       - app-network
 
+  mock-oauth2:
+    # Stands in for Google locally and in e2e, like Mailpit stands in for Brevo. Its login form accepts any username
+    # (the subject) and extra claims as JSON, e.g. {"email": "a@b.test", "email_verified": true}.
+    image: ghcr.io/navikt/mock-oauth2-server:6.1.1
+    ports:
+      - "${MOCK_OAUTH2_PORT:-8090}:8080"
+    environment:
+      JSON_CONFIG: '{"interactiveLogin": true}'
+    healthcheck:
+      test: ["CMD", "wget", "-q", "--spider", "http://localhost:8080/isalive"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+    networks:
+      - app-network
+
   backend:
     build:
       context: ./backend
@@ -56,7 +72,18 @@ services:
       MAIL_ENABLED: "true"
       MAIL_HOST: mailpit
       MAIL_PORT: "1025"
-      APP_BASE_URL: ${APP_BASE_URL:-http://localhost:3000}
+      # The frontend origin; email links and the Google redirect URI start with it
+      APP_BASE_URL: ${APP_BASE_URL:-http://localhost:${FRONTEND_PORT:-3000}}
+      # Google sign-in against the mock-oauth2 service. For real Google: put GOOGLE_CLIENT_ID and GOOGLE_CLIENT_SECRET in
+      # .env and set the GOOGLE_*_URI variables to empty values ("GOOGLE_TOKEN_URI="). The browser reaches the mock on
+      # localhost; the backend reaches it as mock-oauth2:8080, which is also the host the mock puts into the issuer.
+      GOOGLE_LOGIN_ENABLED: ${GOOGLE_LOGIN_ENABLED:-true}
+      GOOGLE_CLIENT_ID: ${GOOGLE_CLIENT_ID:-phrasal-local}
+      GOOGLE_CLIENT_SECRET: ${GOOGLE_CLIENT_SECRET:-phrasal-local-secret}
+      GOOGLE_AUTHORIZATION_URI: ${GOOGLE_AUTHORIZATION_URI-http://localhost:${MOCK_OAUTH2_PORT:-8090}/default/authorize}
+      GOOGLE_TOKEN_URI: ${GOOGLE_TOKEN_URI-http://mock-oauth2:8080/default/token}
+      GOOGLE_JWK_SET_URI: ${GOOGLE_JWK_SET_URI-http://mock-oauth2:8080/default/jwks}
+      GOOGLE_ISSUER_URI: ${GOOGLE_ISSUER_URI-http://mock-oauth2:8080/default}
       # e2e must not depend on api.pwnedpasswords.com
       PASSWORD_BREACH_CHECK_ENABLED: "false"
       # e2e registers many users from one IP; the per-account 2FA limit stays at its default; the per-email login limit (shared with 2FA setup) is 10 because the shared admin logs in and enrolls several times per run
