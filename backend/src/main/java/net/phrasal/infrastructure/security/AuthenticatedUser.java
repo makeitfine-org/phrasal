@@ -12,11 +12,15 @@ import java.util.List;
 /**
  * Session principal: the only user data stored in the HTTP session. Never the JPA entity.
  *
- * @param id    database id of the user
- * @param email normalized email, used as the username
- * @param role  granted role
+ * @param id               database id of the user
+ * @param email            normalized email, used as the username
+ * @param role             granted role
+ * @param twoFactorEnabled whether the account has 2FA on. A session holding this principal has passed every factor
+ *                         the account requires: the second factor was checked at login, or 2FA was enabled from this
+ *                         very session. Sessions serialized before this component existed read it as false.
  */
-public record AuthenticatedUser(Long id, String email, Role role) implements AuthenticatedPrincipal, Serializable {
+public record AuthenticatedUser(Long id, String email, Role role, boolean twoFactorEnabled)
+        implements AuthenticatedPrincipal, Serializable {
 
     @Serial
     private static final long serialVersionUID = 1L;
@@ -27,6 +31,25 @@ public record AuthenticatedUser(Long id, String email, Role role) implements Aut
     @Override
     public String getName() {
         return email;
+    }
+
+    /**
+     * Tells whether this account must enroll in 2FA before it may do admin work.
+     *
+     * @return true for an admin without 2FA
+     */
+    public boolean twoFactorEnrollmentRequired() {
+        return role == Role.ADMIN && !twoFactorEnabled;
+    }
+
+    /**
+     * Copies the principal with another 2FA state.
+     *
+     * @param enabled the new state
+     * @return the updated principal
+     */
+    public AuthenticatedUser withTwoFactor(boolean enabled) {
+        return new AuthenticatedUser(id, email, role, enabled);
     }
 
     public List<GrantedAuthority> authorities() {

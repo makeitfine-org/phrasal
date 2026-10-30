@@ -35,7 +35,9 @@ class AdminBootstrapIntegrationTest extends AbstractIntegrationTest {
 
         mockMvc.perform(get("/api/v1/auth/me").cookie(session))
                 .andExpect(status().isOk())
-                .andExpect(jsonPath("$.role").value("ADMIN"));
+                .andExpect(jsonPath("$.role").value("ADMIN"))
+                .andExpect(jsonPath("$.twoFactorEnabled").value(false))
+                .andExpect(jsonPath("$.twoFactorEnrollmentRequired").value(true));
     }
 
     @Test

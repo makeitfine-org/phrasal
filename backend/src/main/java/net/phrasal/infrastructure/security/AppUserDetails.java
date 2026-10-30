@@ -17,7 +17,8 @@ public class AppUserDetails implements UserDetails, CredentialsContainer {
     private String passwordHash;
 
     public AppUserDetails(User user) {
-        this.principal = new AuthenticatedUser(user.getId(), user.getEmail(), user.getRole());
+        this.principal = new AuthenticatedUser(user.getId(), user.getEmail(), user.getRole(),
+                user.isTwoFactorEnabled());
         this.passwordHash = user.getPasswordHash();
         this.emailVerified = user.isEmailVerified();
     }

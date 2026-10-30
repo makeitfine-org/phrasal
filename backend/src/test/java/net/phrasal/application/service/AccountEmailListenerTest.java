@@ -6,6 +6,7 @@ import ch.qos.logback.core.read.ListAppender;
 import net.phrasal.application.event.AccountExistsNoticeRequested;
 import net.phrasal.application.event.PasswordChangedNoticeRequested;
 import net.phrasal.application.event.PasswordResetEmailRequested;
+import net.phrasal.application.event.TwoFactorChangedNoticeRequested;
 import net.phrasal.application.event.VerificationEmailRequested;
 import net.phrasal.config.AppProperties;
 import net.phrasal.config.EmailVerificationProperties;
@@ -28,6 +29,7 @@ import static org.assertj.core.api.Assertions.assertThatCode;
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.Mockito.doThrow;
 import static org.mockito.Mockito.mock;
+import static org.mockito.Mockito.times;
 import static org.mockito.Mockito.verify;
 
 @DisplayName("AccountEmailListener")
@@ -145,5 +147,36 @@ class AccountEmailListenerTest {
                 .contains("7").doesNotContain(TOKEN, "a@b.com");
         assertThat(new PasswordChangedNoticeRequested(7L, "a@b.com").toString())
                 .contains("7").doesNotContain("a@b.com");
+        assertThat(new TwoFactorChangedNoticeRequested(7L, "a@b.com", true).toString())
+                .contains("7", "true").doesNotContain("a@b.com");
+    }
+
+    @Test
+    @DisplayName("sends the two-factor notice for both states, without a token")
+    void sendsTwoFactorChanged() {
+        listener.onTwoFactorChangedNoticeRequested(new TwoFactorChangedNoticeRequested(7L, "a@b.com", true));
+        listener.onTwoFactorChangedNoticeRequested(new TwoFactorChangedNoticeRequested(7L, "a@b.com", false));
+
+        ArgumentCaptor<EmailMessage> captor = ArgumentCaptor.forClass(EmailMessage.class);
+        verify(sender, times(2)).send(captor.capture());
+        assertThat(captor.getAllValues()).extracting(EmailMessage::subject).containsExactly(
+                "Two-factor authentication is on for your Phrasal account",
+                "Two-factor authentication is off for your Phrasal account");
+        assertThat(captor.getAllValues()).allSatisfy(message -> {
+            assertThat(message.to()).isEqualTo("a@b.com");
+            assertThat(message.text()).doesNotContain("token=");
+        });
+    }
+
+    @Test
+    @DisplayName("a failure while sending the two-factor notice is swallowed")
+    void swallowsTwoFactorFailure() {
+        doThrow(new MailSendException("relay down for a@b.com")).when(sender).send(any());
+
+        assertThatCode(() -> listener.onTwoFactorChangedNoticeRequested(
+                new TwoFactorChangedNoticeRequested(7L, "a@b.com", false))).doesNotThrowAnyException();
+
+        assertThat(appender.list).extracting(ILoggingEvent::getFormattedMessage)
+                .containsExactly("Account email failed userId=7: MailSendException");
     }
 }

@@ -39,14 +39,24 @@ class SessionAuthenticatorTest {
     private AuthenticationManager authenticationManager;
     @Mock
     private SecurityContextRepository securityContextRepository;
+    @Mock
+    private PendingTwoFactorLogin pendingLogin;
 
     private SessionAuthenticator authenticator() {
-        return new SessionAuthenticator(authenticationManager, securityContextRepository);
+        return new SessionAuthenticator(authenticationManager, securityContextRepository, pendingLogin);
     }
 
     private UsernamePasswordAuthenticationToken authenticatedByManager() {
+        return authenticatedByManager(false);
+    }
+
+    private UsernamePasswordAuthenticationToken authenticatedByManager(boolean twoFactor) {
         User user = new User(EMAIL, "{bcrypt}hash", Role.USER);
         ReflectionTestUtils.setField(user, "id", USER_ID);
+        if (twoFactor) {
+            user.startTwoFactorSetup("v1:x");
+            user.enableTwoFactor(java.time.LocalDateTime.of(2026, 1, 1, 0, 0), 1L);
+        }
         AppUserDetails details = new AppUserDetails(user);
         return UsernamePasswordAuthenticationToken.authenticated(details, null, details.getAuthorities());
     }
@@ -58,13 +68,15 @@ class SessionAuthenticatorTest {
         MockHttpServletRequest request = new MockHttpServletRequest();
         MockHttpServletResponse response = new MockHttpServletResponse();
 
-        UserResponse result = authenticator().login(new LoginRequest("  USER@Example.com ", "pw"), request, response);
+        LoginOutcome result = authenticator().login(new LoginRequest("  USER@Example.com ", "pw"), request, response);
 
-        assertThat(result).isEqualTo(new UserResponse(USER_ID, EMAIL, "USER"));
+        assertThat(result).isEqualTo(new LoginOutcome.Authenticated(
+                new UserResponse(USER_ID, EMAIL, "USER", false, false)));
+        verify(pendingLogin, never()).start(any(), any());
         ArgumentCaptor<SecurityContext> captor = ArgumentCaptor.forClass(SecurityContext.class);
         verify(securityContextRepository).saveContext(captor.capture(), any(), any());
         var saved = captor.getValue().getAuthentication();
-        assertThat(saved.getPrincipal()).isEqualTo(new AuthenticatedUser(USER_ID, EMAIL, Role.USER));
+        assertThat(saved.getPrincipal()).isEqualTo(new AuthenticatedUser(USER_ID, EMAIL, Role.USER, false));
         assertThat(saved.getCredentials()).isNull();
         assertThat(saved.isAuthenticated()).isTrue();
     }
@@ -104,5 +116,64 @@ class SessionAuthenticatorTest {
                 new MockHttpServletRequest(), new MockHttpServletResponse()))
                 .isInstanceOf(BadCredentialsException.class);
         verify(securityContextRepository, never()).saveContext(any(), any(), any());
+    }
+
+    @Test
+    @DisplayName("refresh changes the session id and saves a context holding the new principal")
+    void refreshReplacesPrincipal() {
+        MockHttpServletRequest request = new MockHttpServletRequest();
+        String before = request.getSession().getId();
+        AuthenticatedUser principal = new AuthenticatedUser(USER_ID, EMAIL, Role.ADMIN, true);
+
+        UserResponse result = authenticator().refresh(principal, request, new MockHttpServletResponse());
+
+        assertThat(request.getSession(false).getId()).isNotEqualTo(before);
+        assertThat(result).isEqualTo(new UserResponse(USER_ID, EMAIL, "ADMIN", true, false));
+        ArgumentCaptor<SecurityContext> captor = ArgumentCaptor.forClass(SecurityContext.class);
+        verify(securityContextRepository).saveContext(captor.capture(), any(), any());
+        assertThat(captor.getValue().getAuthentication().getPrincipal()).isEqualTo(principal);
+    }
+
+    @Test
+    @DisplayName("an account with 2FA gets a pending login and no saved context")
+    void twoFactorAccountGetsChallenge() {
+        when(authenticationManager.authenticate(any())).thenReturn(authenticatedByManager(true));
+        MockHttpServletRequest request = new MockHttpServletRequest();
+
+        LoginOutcome result = authenticator().login(new LoginRequest(EMAIL, "pw"), request,
+                new MockHttpServletResponse());
+
+        assertThat(result).isInstanceOf(LoginOutcome.TwoFactorRequired.class);
+        verify(pendingLogin).start(request, USER_ID);
+        verify(securityContextRepository, never()).saveContext(any(), any(), any());
+    }
+
+    @Test
+    @DisplayName("completing the 2FA login clears the pending state, changes the session id and saves 2FA on")
+    void completeTwoFactorLogin() {
+        MockHttpServletRequest request = new MockHttpServletRequest();
+        String before = request.getSession().getId();
+        AuthenticatedUser principal = new AuthenticatedUser(USER_ID, EMAIL, Role.USER, false);
+
+        UserResponse result = authenticator().completeTwoFactorLogin(principal, request,
+                new MockHttpServletResponse());
+
+        verify(pendingLogin).clear(request);
+        assertThat(request.getSession(false).getId()).isNotEqualTo(before);
+        assertThat(result.twoFactorEnabled()).isTrue();
+        ArgumentCaptor<SecurityContext> captor = ArgumentCaptor.forClass(SecurityContext.class);
+        verify(securityContextRepository).saveContext(captor.capture(), any(), any());
+        assertThat(captor.getValue().getAuthentication().getPrincipal())
+                .isEqualTo(new AuthenticatedUser(USER_ID, EMAIL, Role.USER, true));
+    }
+
+    @Test
+    @DisplayName("startTwoFactorChallenge opens the pending login for another sign-in flow")
+    void startTwoFactorChallenge() {
+        MockHttpServletRequest request = new MockHttpServletRequest();
+
+        authenticator().startTwoFactorChallenge(request, USER_ID);
+
+        verify(pendingLogin).start(request, USER_ID);
     }
 }

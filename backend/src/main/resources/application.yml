@@ -103,6 +103,12 @@ phrasal:
     reset-per-ip:
       limit: ${RATE_LIMIT_RESET_PER_IP:30}
       window: 5m
+    two-factor-per-ip:
+      limit: ${RATE_LIMIT_TWO_FACTOR_PER_IP:20}
+      window: 5m
+    two-factor-per-user:
+      limit: ${RATE_LIMIT_TWO_FACTOR_PER_USER:5}
+      window: 15m
   quiz-progress:
     max-state-bytes: 65536
   app:

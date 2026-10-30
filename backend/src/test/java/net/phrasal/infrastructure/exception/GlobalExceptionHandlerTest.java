@@ -2,6 +2,8 @@ package net.phrasal.infrastructure.exception;
 
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
+import org.junit.jupiter.params.ParameterizedTest;
+import org.junit.jupiter.params.provider.EnumSource;
 import org.springframework.http.HttpInputMessage;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ProblemDetail;
@@ -228,5 +230,51 @@ class GlobalExceptionHandlerTest {
         assertThat(detail.getType().toString()).endsWith("/errors/malformed-request");
         assertThat(detail.getDetail()).isEqualTo("Request body is missing or is not valid JSON")
                 .doesNotContain("secret-parser-detail");
+    }
+
+    @Test
+    @DisplayName("returns 400 invalid-two-factor-code with the code error")
+    void handleInvalidTwoFactorCode() {
+        ProblemDetail detail = handler.handleInvalidTwoFactorCode(new InvalidTwoFactorCodeException());
+
+        assertThat(detail.getStatus()).isEqualTo(HttpStatus.BAD_REQUEST.value());
+        assertThat(detail.getTitle()).isEqualTo("Invalid Code");
+        assertThat(detail.getType().toString()).endsWith("/errors/invalid-two-factor-code");
+        assertThat(detail.getProperties()).containsEntry("errors", Map.of("code", "Invalid or already used code"));
+    }
+
+    @Test
+    @DisplayName("returns 400 wrong-password with the password error")
+    void handleWrongPassword() {
+        ProblemDetail detail = handler.handleWrongPassword(new WrongPasswordException());
+
+        assertThat(detail.getStatus()).isEqualTo(HttpStatus.BAD_REQUEST.value());
+        assertThat(detail.getTitle()).isEqualTo("Wrong Password");
+        assertThat(detail.getType().toString()).endsWith("/errors/wrong-password");
+        assertThat(detail.getProperties()).containsEntry("errors",
+                Map.of("password", "Current password is incorrect"));
+    }
+
+    @ParameterizedTest
+    @EnumSource(TwoFactorStateException.Reason.class)
+    @DisplayName("returns 409 with the type of each two-factor state conflict")
+    void handleTwoFactorState(TwoFactorStateException.Reason reason) {
+        ProblemDetail detail = handler.handleTwoFactorState(new TwoFactorStateException(reason));
+
+        assertThat(detail.getStatus()).isEqualTo(HttpStatus.CONFLICT.value());
+        assertThat(detail.getTitle()).isEqualTo("Conflict");
+        assertThat(detail.getType().toString()).endsWith("/errors/" + reason.getErrorType());
+        assertThat(detail.getDetail()).isNotBlank();
+    }
+
+    @Test
+    @DisplayName("returns 401 two-factor-login-expired")
+    void handleTwoFactorLoginExpired() {
+        ProblemDetail detail = handler.handleTwoFactorLoginExpired(new TwoFactorLoginExpiredException());
+
+        assertThat(detail.getStatus()).isEqualTo(HttpStatus.UNAUTHORIZED.value());
+        assertThat(detail.getTitle()).isEqualTo("Unauthorized");
+        assertThat(detail.getType().toString()).endsWith("/errors/two-factor-login-expired");
+        assertThat(detail.getDetail()).isEqualTo("Your sign-in timed out. Log in again.");
     }
 }

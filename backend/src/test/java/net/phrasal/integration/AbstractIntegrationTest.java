@@ -1,6 +1,8 @@
 package net.phrasal.integration;
 
+import com.jayway.jsonpath.JsonPath;
 import jakarta.servlet.http.Cookie;
+import net.phrasal.integration.support.TotpTestCodes;
 import net.phrasal.integration.support.RecordingEmailSender;
 import net.phrasal.integration.support.RecordingEmailSenderConfig;
 import org.junit.jupiter.api.AfterEach;
@@ -20,9 +22,12 @@ import org.springframework.test.web.servlet.ResultActions;
 import org.springframework.test.web.servlet.request.RequestPostProcessor;
 import org.testcontainers.postgresql.PostgreSQLContainer;
 
+import java.util.List;
+
 import static org.springframework.security.test.web.servlet.request.SecurityMockMvcRequestPostProcessors.csrf;
 import static org.springframework.security.test.web.servlet.request.SecurityMockMvcRequestPostProcessors.user;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
 /**
@@ -51,6 +56,17 @@ abstract class AbstractIntegrationTest {
 
     @Autowired
     protected RecordingEmailSender mailbox;
+
+    /**
+     * A 2FA-enabled account as the tests see it.
+     *
+     * @param secret        Base32 shared secret
+     * @param recoveryCodes the ten raw recovery codes
+     * @param session       the session cookie that is valid after enabling
+     */
+    protected record TwoFactorTestAccount(String secret, List<String> recoveryCodes, Cookie session) {
+
+    }
 
     /** Drops any authentication left on the thread by a previous login so tests stay order-independent. */
     @BeforeEach
@@ -82,6 +98,45 @@ abstract class AbstractIntegrationTest {
             request.cookie(existing);
         }
         return mockMvc.perform(request).andExpect(status().isOk()).andReturn().getResponse().getCookie("SESSION");
+    }
+
+    /** Runs 2FA setup and confirm for the signed-in account and returns the secret, codes and the new cookie. */
+    protected TwoFactorTestAccount enableTwoFactor(Cookie session, String password) throws Exception {
+        String setupBody = mockMvc.perform(post("/api/v1/me/2fa/setup").cookie(session).with(csrf())
+                        .contentType(MediaType.APPLICATION_JSON).content("{\"password\":\"" + password + "\"}"))
+                .andExpect(status().isOk()).andReturn().getResponse().getContentAsString();
+        String secret = JsonPath.read(setupBody, "$.secret");
+        var confirm = mockMvc.perform(post("/api/v1/me/2fa/confirm").cookie(session).with(csrf())
+                        .contentType(MediaType.APPLICATION_JSON)
+                        .content("{\"code\":\"" + TotpTestCodes.codeNow(secret) + "\"}"))
+                .andExpect(status().isOk()).andReturn().getResponse();
+        List<String> codes = JsonPath.read(confirm.getContentAsString(), "$.recoveryCodes");
+        return new TwoFactorTestAccount(secret, codes, confirm.getCookie("SESSION"));
+    }
+
+    /**
+     * Logs in a 2FA account with its password, asserts the second factor is demanded and returns the pending cookie.
+     * An existing cookie is sent along, like a browser that still holds an older session.
+     */
+    protected Cookie loginExpectingTwoFactor(String body, Cookie existing) throws Exception {
+        var request = post("/api/v1/auth/login").contentType(MediaType.APPLICATION_JSON).content(body).with(csrf());
+        if (existing != null) {
+            request.cookie(existing);
+        }
+        return mockMvc.perform(request).andExpect(status().isAccepted())
+                .andExpect(jsonPath("$.twoFactorRequired").value(true))
+                .andReturn().getResponse().getCookie("SESSION");
+    }
+
+    /** Same as {@link #loginExpectingTwoFactor(String, Cookie)} with no earlier session. */
+    protected Cookie loginExpectingTwoFactor(String body) throws Exception {
+        return loginExpectingTwoFactor(body, null);
+    }
+
+    /** Submits the second-step code with CSRF on the pending session; the caller asserts the status. */
+    protected ResultActions submitTwoFactorCode(Cookie pending, String code) throws Exception {
+        return mockMvc.perform(post("/api/v1/auth/login/2fa").cookie(pending).with(csrf())
+                .contentType(MediaType.APPLICATION_JSON).content("{\"code\":\"" + code + "\"}"));
     }
 
     /** Reads the newest verification link sent to the address and redeems it. */

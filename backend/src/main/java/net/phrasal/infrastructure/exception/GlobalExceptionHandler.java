@@ -121,6 +121,36 @@ public class GlobalExceptionHandler {
                 "reset-link-expired", ex.getMessage());
     }
 
+    @ExceptionHandler(InvalidTwoFactorCodeException.class)
+    public ProblemDetail handleInvalidTwoFactorCode(InvalidTwoFactorCodeException ex) {
+        log.warn("Two-factor code rejected");
+        ProblemDetail problem = buildProblem(HttpStatus.BAD_REQUEST, "Invalid Code",
+                "invalid-two-factor-code", ex.getMessage());
+        problem.setProperty("errors", Map.of("code", ex.getMessage()));
+        return problem;
+    }
+
+    @ExceptionHandler(WrongPasswordException.class)
+    public ProblemDetail handleWrongPassword(WrongPasswordException ex) {
+        log.warn("Password confirmation rejected");
+        ProblemDetail problem = buildProblem(HttpStatus.BAD_REQUEST, "Wrong Password",
+                "wrong-password", ex.getMessage());
+        problem.setProperty("errors", Map.of("password", ex.getMessage()));
+        return problem;
+    }
+
+    @ExceptionHandler(TwoFactorStateException.class)
+    public ProblemDetail handleTwoFactorState(TwoFactorStateException ex) {
+        log.warn("Two-factor request rejected: {}", ex.getReason());
+        return buildProblem(HttpStatus.CONFLICT, "Conflict", ex.getReason().getErrorType(), ex.getMessage());
+    }
+
+    @ExceptionHandler(TwoFactorLoginExpiredException.class)
+    public ProblemDetail handleTwoFactorLoginExpired(TwoFactorLoginExpiredException ex) {
+        log.warn("Two-factor login rejected: no pending login");
+        return buildProblem(HttpStatus.UNAUTHORIZED, "Unauthorized", "two-factor-login-expired", ex.getMessage());
+    }
+
     @ExceptionHandler(RateLimitExceededException.class)
     public ResponseEntity<ProblemDetail> handleRateLimited(RateLimitExceededException ex) {
         log.warn("Rate limit exceeded: rule={}", ex.getRuleName());

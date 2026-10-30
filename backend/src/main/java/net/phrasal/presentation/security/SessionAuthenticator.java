@@ -29,15 +29,74 @@ public class SessionAuthenticator {
 
     private final AuthenticationManager authenticationManager;
     private final SecurityContextRepository securityContextRepository;
+    private final PendingTwoFactorLogin pendingLogin;
     private final SecurityContextHolderStrategy securityContextHolderStrategy =
             SecurityContextHolder.getContextHolderStrategy();
 
-    public UserResponse login(LoginRequest request, HttpServletRequest httpRequest,
+    /**
+     * Checks the password. An account without 2FA is signed in; an account with 2FA only gets a pending login.
+     *
+     * @param request      email and password
+     * @param httpRequest  the current request
+     * @param httpResponse the current response
+     * @return the signed-in account, or a note that the second factor is still required
+     */
+    public LoginOutcome login(LoginRequest request, HttpServletRequest httpRequest,
                               HttpServletResponse httpResponse) {
         Authentication result = authenticationManager.authenticate(
                 UsernamePasswordAuthenticationToken.unauthenticated(
                         EmailNormalizer.normalize(request.email()), request.password()));
         AuthenticatedUser principal = ((AppUserDetails) result.getPrincipal()).toAuthenticatedUser();
+        if (principal.twoFactorEnabled()) {
+            pendingLogin.start(httpRequest, principal.id());
+            log.debug("Two-factor login challenge userId={}", principal.id());
+            return new LoginOutcome.TwoFactorRequired();
+        }
+        UserResponse response = establish(principal, httpRequest, httpResponse);
+        log.info("Logged in user id={}", principal.id());
+        return new LoginOutcome.Authenticated(response);
+    }
+
+    /**
+     * Finishes a login whose second factor was accepted.
+     *
+     * @param principal    the account, rebuilt from the database
+     * @param httpRequest  the current request
+     * @param httpResponse the current response, which receives the new session cookie
+     * @return the signed-in account
+     */
+    public UserResponse completeTwoFactorLogin(AuthenticatedUser principal, HttpServletRequest httpRequest,
+                                               HttpServletResponse httpResponse) {
+        pendingLogin.clear(httpRequest);
+        return establish(principal.withTwoFactor(true), httpRequest, httpResponse);
+    }
+
+    /**
+     * Opens a pending login for a sign-in flow other than the password form, so that flow can demand the second
+     * factor too. Same effect as a password login of a 2FA account.
+     *
+     * @param httpRequest the current request
+     * @param userId      the account that already proved its first factor
+     */
+    public void startTwoFactorChallenge(HttpServletRequest httpRequest, Long userId) {
+        pendingLogin.start(httpRequest, userId);
+    }
+
+    /**
+     * Replaces the principal of the current session, e.g. after 2FA was turned on or off.
+     *
+     * @param principal    the new principal
+     * @param httpRequest  the current request
+     * @param httpResponse the current response, which receives the new session cookie
+     * @return the public view of the new principal
+     */
+    public UserResponse refresh(AuthenticatedUser principal, HttpServletRequest httpRequest,
+                                HttpServletResponse httpResponse) {
+        return establish(principal, httpRequest, httpResponse);
+    }
+
+    private UserResponse establish(AuthenticatedUser principal, HttpServletRequest httpRequest,
+                                   HttpServletResponse httpResponse) {
         Authentication token = UsernamePasswordAuthenticationToken.authenticated(
                 principal, null, principal.authorities());
 
@@ -48,8 +107,6 @@ public class SessionAuthenticator {
         context.setAuthentication(token);
         securityContextHolderStrategy.setContext(context);
         securityContextRepository.saveContext(context, httpRequest, httpResponse);
-
-        log.info("Logged in user id={}", principal.id());
-        return new UserResponse(principal.id(), principal.email(), principal.role().name());
+        return UserResponse.from(principal);
     }
 }

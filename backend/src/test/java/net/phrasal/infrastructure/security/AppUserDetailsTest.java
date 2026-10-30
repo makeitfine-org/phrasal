@@ -29,7 +29,16 @@ class AppUserDetailsTest {
     void toAuthenticatedUser_returnsRecordWithoutHash() {
         AuthenticatedUser principal = new AppUserDetails(user(Role.USER, true)).toAuthenticatedUser();
 
-        assertThat(principal).isEqualTo(new AuthenticatedUser(7L, "a@b.com", Role.USER));
+        assertThat(principal).isEqualTo(new AuthenticatedUser(7L, "a@b.com", Role.USER, false));
+    }
+
+    @Test
+    void toAuthenticatedUser_copiesTwoFactorFlag() {
+        User user = user(Role.USER, true);
+        user.startTwoFactorSetup("v1:secret");
+        user.enableTwoFactor(LocalDateTime.of(2026, 2, 1, 0, 0), 5L);
+
+        assertThat(new AppUserDetails(user).toAuthenticatedUser().twoFactorEnabled()).isTrue();
     }
 
     @Test

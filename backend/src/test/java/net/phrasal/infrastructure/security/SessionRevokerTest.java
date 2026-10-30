@@ -61,4 +61,28 @@ class SessionRevokerTest {
         verify(repository).deleteById("mine");
         verify(repository, never()).deleteById("other-users-session");
     }
+
+    @Test
+    @DisplayName("revokeOthers keeps the given session and deletes the rest")
+    void revokeOthersKeepsOne() {
+        when(repository.findByPrincipalName(EMAIL))
+                .thenReturn(Map.of("keep", mock(Session.class), "other", mock(Session.class)));
+
+        int revoked = new SessionRevoker(repository).revokeOthers(EMAIL, "keep");
+
+        assertThat(revoked).isEqualTo(1);
+        verify(repository).deleteById("other");
+        verify(repository, never()).deleteById("keep");
+    }
+
+    @Test
+    @DisplayName("revokeOthers with a null id keeps nothing")
+    void revokeOthersNullKeepsNothing() {
+        when(repository.findByPrincipalName(EMAIL))
+                .thenReturn(Map.of("s1", mock(Session.class), "s2", mock(Session.class)));
+
+        int revoked = new SessionRevoker(repository).revokeOthers(EMAIL, null);
+
+        assertThat(revoked).isEqualTo(2);
+    }
 }

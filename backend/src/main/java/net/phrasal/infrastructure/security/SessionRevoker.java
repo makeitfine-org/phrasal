@@ -26,7 +26,19 @@ public class SessionRevoker {
      * @return number of sessions deleted
      */
     public int revokeAll(String email) {
-        var ids = sessions.findByPrincipalName(email).keySet();
+        return revokeOthers(email, null);
+    }
+
+    /**
+     * Deletes the sessions of an account except one.
+     *
+     * @param email         normalized account email, the session principal name
+     * @param keepSessionId id of the session to keep, or {@code null} to keep none
+     * @return number of sessions deleted
+     */
+    public int revokeOthers(String email, String keepSessionId) {
+        var ids = sessions.findByPrincipalName(email).keySet().stream()
+                .filter(id -> !id.equals(keepSessionId)).toList();
         ids.forEach(sessions::deleteById);
         log.debug("Sessions revoked count={}", ids.size());
         return ids.size();

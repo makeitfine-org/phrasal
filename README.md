@@ -549,6 +549,8 @@ verified, so it cannot be used to find out who has an account (**breaking change
 | forgot-password per IP | `RATE_LIMIT_FORGOT_PER_IP` (per hour) | 10 |
 | forgot-password per email | `RATE_LIMIT_FORGOT_PER_EMAIL` (per hour) | 3 |
 | reset-password per IP | `RATE_LIMIT_RESET_PER_IP` (per 5 min) | 30 |
+| 2FA code attempts per IP | `RATE_LIMIT_TWO_FACTOR_PER_IP` (per 5 min) | 20 |
+| 2FA code attempts per account | `RATE_LIMIT_TWO_FACTOR_PER_USER` (per 15 min) | 5 |
 | master switch | `RATE_LIMIT_ENABLED` | `true` |
 
 docker-compose raises the per-IP limits so the e2e suite can register many users.

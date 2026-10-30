@@ -24,7 +24,7 @@ class RateLimiterTest {
 
     private RateLimiter limiter(boolean enabled) {
         return new RateLimiter(new RateLimitProperties(enabled, RULE, RULE, RULE, RULE, RULE, RULE, RULE, RULE, RULE,
-                RULE), ticker);
+                RULE, RULE, RULE), ticker);
     }
 
     @Test

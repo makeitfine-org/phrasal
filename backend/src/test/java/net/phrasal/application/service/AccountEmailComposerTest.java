@@ -10,6 +10,7 @@ import org.junit.jupiter.api.Test;
 
 import java.net.URI;
 import java.time.Duration;
+import java.util.List;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
@@ -116,6 +117,28 @@ class AccountEmailComposerTest {
         assertThat(message.subject()).isEqualTo("Your Phrasal password was changed");
         assertThat(message.text()).contains("https://phrasalbox.com/forgot-password").doesNotContain("token=");
         assertThat(message.html()).contains("https://phrasalbox.com/forgot-password").doesNotContain("token=");
+    }
+
+    @Test
+    @DisplayName("two-factor notices have the right subject, both links and no token or secret")
+    void twoFactorChanged() {
+        AccountEmailComposer composer = composer("https://phrasalbox.com", Duration.ofHours(24));
+
+        EmailMessage on = composer.twoFactorChanged("a@b.com", true);
+        EmailMessage off = composer.twoFactorChanged("a@b.com", false);
+
+        assertThat(on.subject()).isEqualTo("Two-factor authentication is on for your Phrasal account");
+        assertThat(off.subject()).isEqualTo("Two-factor authentication is off for your Phrasal account");
+        assertThat(on.text()).contains("turned on");
+        assertThat(off.text()).contains("turned off");
+        for (EmailMessage message : List.of(on, off)) {
+            assertThat(message.to()).isEqualTo("a@b.com");
+            assertThat(message.text()).contains("https://phrasalbox.com/forgot-password",
+                    "https://phrasalbox.com/account/security").doesNotContain("token=");
+            assertThat(message.html()).contains("https://phrasalbox.com/forgot-password",
+                    "https://phrasalbox.com/account/security").doesNotContain("token=", "secret=");
+            assertThat(message.text()).doesNotContainPattern("[A-Z2-7]{16,}");
+        }
     }
 
     @Test

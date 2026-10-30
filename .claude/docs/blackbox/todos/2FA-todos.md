@@ -575,110 +575,111 @@ So `make clean build` passes after every phase. **Don't release from the branch 
 ## Phase 3 — Enrollment API: status, setup, confirm
 
 ### 3.1 Principal and responses (decisions 4, 6)
-- [ ] **3.1.1** `infrastructure/security/AuthenticatedUser.java`:
-  - [ ] add the component `boolean twoFactorEnabled`; keep `serialVersionUID = 1L`
-  - [ ] Javadoc `@param twoFactorEnabled`: write down the invariant from decision 4
-  - [ ] `boolean twoFactorEnrollmentRequired()` → `role == Role.ADMIN && !twoFactorEnabled`
-  - [ ] `AuthenticatedUser withTwoFactor(boolean enabled)`, used by `confirm` and `disable`
-  - [ ] `authorities()` stays **unchanged** in this phase. Phase 7 changes it.
-- [ ] **3.1.2** `AppUserDetails`: read `user.isTwoFactorEnabled()` into the principal. Update every `new AuthenticatedUser(`
+- [x] **3.1.1** `infrastructure/security/AuthenticatedUser.java`:
+  - [x] add the component `boolean twoFactorEnabled`; keep `serialVersionUID = 1L`
+  - [x] Javadoc `@param twoFactorEnabled`: write down the invariant from decision 4
+  - [x] `boolean twoFactorEnrollmentRequired()` → `role == Role.ADMIN && !twoFactorEnabled`
+  - [x] `AuthenticatedUser withTwoFactor(boolean enabled)`, used by `confirm` and `disable`
+  - [x] `authorities()` stays **unchanged** in this phase. Phase 7 changes it.
+- [x] **3.1.2** `AppUserDetails`: read `user.isTwoFactorEnabled()` into the principal. Update every `new AuthenticatedUser(`
       call site from 0.6.
-- [ ] **3.1.3** `application/dto/UserResponse.java`: add `boolean twoFactorEnabled, boolean twoFactorEnrollmentRequired`
+- [x] **3.1.3** `application/dto/UserResponse.java`: add `boolean twoFactorEnabled, boolean twoFactorEnrollmentRequired`
       (Javadoc `@param`s), plus a static `UserResponse from(AuthenticatedUser)`. Replace the three hand-built
       `new UserResponse(…)` calls (`AuthController#me`, `SessionAuthenticator#login`, any others from 0.6) with it.
-- [ ] **3.1.4** Tests:
-  - [ ] `AuthenticatedUserTest`:
+- [x] **3.1.4** Tests:
+  - [x] `AuthenticatedUserTest`:
     - `twoFactorEnrollmentRequired` for ADMIN/USER × on/off
     - `withTwoFactor` keeps id/email/role
     - serialize → deserialize gives an equal record
-  - [ ] `AuthenticatedUserTest`: **deserializing a stream written by the old 3-component record** gives
+  - [x] `AuthenticatedUserTest`: **deserializing a stream written by the old 3-component record** gives
         `twoFactorEnabled = false`. Build the bytes once with the old class, store them as a base64 test fixture, and
         explain in a comment why the test exists (existing sessions in `spring_session`).
-  - [ ] `AppUserDetailsTest`: the 2FA flag is copied
-  - [ ] `AuthSessionIntegrationTest` / `/me`: the response has `twoFactorEnabled: false` and
+  - [x] `AppUserDetailsTest`: the 2FA flag is copied
+  - [x] `AuthSessionIntegrationTest` / `/me`: the response has `twoFactorEnabled: false` and
         `twoFactorEnrollmentRequired: false` for a user, and `true` for the bootstrapped admin
         (`AdminBootstrapIntegrationTest`)
 
 ### 3.2 DTOs
-- [ ] **3.2.1** `application/dto/TwoFactorSetupRequest.java`: `@NotBlank @Size(max = 200) String password`. Mask it in
+- [x] **3.2.1** `application/dto/TwoFactorSetupRequest.java`: `@NotBlank @Size(max = 200) String password`. Mask it in
       `toString()`.
-- [ ] **3.2.2** `application/dto/TwoFactorCodeRequest.java`: `@NotBlank @Size(max = 64) String code`. Mask it in
+- [x] **3.2.2** `application/dto/TwoFactorCodeRequest.java`: `@NotBlank @Size(max = 64) String code`. Mask it in
       `toString()`.
-- [ ] **3.2.3** `application/dto/TwoFactorSetupResponse.java`: `record (String secret, String otpauthUri)`. `toString()`
+- [x] **3.2.3** `application/dto/TwoFactorSetupResponse.java`: `record (String secret, String otpauthUri)`. `toString()`
       masks both.
-- [ ] **3.2.4** `application/dto/RecoveryCodesResponse.java`: `record (List<String> recoveryCodes)`. `toString()` shows
+- [x] **3.2.4** `application/dto/RecoveryCodesResponse.java`: `record (List<String> recoveryCodes)`. `toString()` shows
       only the count.
-- [ ] **3.2.5** `application/dto/TwoFactorStatusResponse.java`: `record (boolean enabled, LocalDateTime enabledAt, long recoveryCodesRemaining)`.
-- [ ] **3.2.6** `application/dto/TwoFactorDtosTest` (or one test per record): every masking `toString` hides the
+- [x] **3.2.5** `application/dto/TwoFactorStatusResponse.java`: `record (boolean enabled, LocalDateTime enabledAt, long recoveryCodesRemaining)`.
+- [x] **3.2.6** `application/dto/TwoFactorDtosTest` (or one test per record): every masking `toString` hides the
       secret, the code, the password and the codes; the record values round-trip.
 
 ### 3.3 Exceptions and handler (decision 13)
-- [ ] **3.3.1** `infrastructure/exception/InvalidTwoFactorCodeException` (`RuntimeException`, message
+- [x] **3.3.1** `infrastructure/exception/InvalidTwoFactorCodeException` (`RuntimeException`, message
       `Invalid or already used code`).
-- [ ] **3.3.2** `infrastructure/exception/WrongPasswordException` (message `Current password is incorrect`).
-- [ ] **3.3.3** `infrastructure/exception/TwoFactorStateException` with an enum `Reason { ALREADY_ENABLED,
+- [x] **3.3.2** `infrastructure/exception/WrongPasswordException` (message `Current password is incorrect`).
+- [x] **3.3.3** `infrastructure/exception/TwoFactorStateException` with an enum `Reason { ALREADY_ENABLED,
       SETUP_NOT_STARTED, NOT_ENABLED }`. Each reason carries its `type` and detail text, so one handler serves all three.
-- [ ] **3.3.4** `GlobalExceptionHandler`, before the catch-all, through `ProblemDetailFactory.build`:
-  - [ ] `InvalidTwoFactorCodeException` → `400`, title `Invalid Code`, type `invalid-two-factor-code`,
+- [x] **3.3.4** `GlobalExceptionHandler`, before the catch-all, through `ProblemDetailFactory.build`:
+  - [x] `InvalidTwoFactorCodeException` → `400`, title `Invalid Code`, type `invalid-two-factor-code`,
         `errors: {code: "Invalid or already used code"}`
-  - [ ] `WrongPasswordException` → `400`, title `Wrong Password`, type `wrong-password`, `errors: {password: …}`
-  - [ ] `TwoFactorStateException` → `409`, title `Conflict`, type from the reason
-- [ ] **3.3.5** `GlobalExceptionHandlerTest`: status, type, title and `errors` for each, plus each 409 reason.
+  - [x] `WrongPasswordException` → `400`, title `Wrong Password`, type `wrong-password`, `errors: {password: …}`
+  - [x] `TwoFactorStateException` → `409`, title `Conflict`, type from the reason
+- [x] **3.3.5** `GlobalExceptionHandlerTest`: status, type, title and `errors` for each, plus each 409 reason.
 
 ### 3.4 Session refresh in `SessionAuthenticator`
-- [ ] **3.4.1** Extract today's "save the principal" part of `login` into a private
+- [x] **3.4.1** Extract today's "save the principal" part of `login` into a private
       `UserResponse establish(AuthenticatedUser principal, HttpServletRequest, HttpServletResponse)`:
       `changeSessionId()` if a session exists → new context → `saveContext` → `UserResponse.from(principal)`.
       `login` calls it, so its behaviour doesn't change.
-- [ ] **3.4.2** `public UserResponse refresh(AuthenticatedUser principal, HttpServletRequest, HttpServletResponse)` →
+- [x] **3.4.2** `public UserResponse refresh(AuthenticatedUser principal, HttpServletRequest, HttpServletResponse)` →
       `establish(...)`. Javadoc: "Replaces the principal of the current session, e.g. after 2FA was turned on or off".
-- [ ] **3.4.3** `infrastructure/security/SessionRevoker`: add `int revokeOthers(String email, String keepSessionId)`.
+- [x] **3.4.3** `infrastructure/security/SessionRevoker`: add `int revokeOthers(String email, String keepSessionId)`.
       It's the same as `revokeAll`, but skips `keepSessionId`. `revokeAll` delegates with `null`.
-- [ ] **3.4.4** Tests:
-  - [ ] `SessionAuthenticatorTest`: `refresh` changes the session id and saves a context whose principal is the new record
-  - [ ] `SessionRevokerTest`: `revokeOthers` keeps the given id and deletes the rest; `null` keeps nothing
+- [x] **3.4.4** Tests:
+  - [x] `SessionAuthenticatorTest`: `refresh` changes the session id and saves a context whose principal is the new record
+  - [x] `SessionRevokerTest`: `revokeOthers` keeps the given id and deletes the rest; `null` keeps nothing
 
 ### 3.5 Service: `application/service/TwoFactorService` (part 1)
-- [ ] **3.5.1** `@Service @Transactional @RequiredArgsConstructor @Slf4j`. It injects `UserRepository`,
+- [x] **3.5.1** `@Service @Transactional @RequiredArgsConstructor @Slf4j`. It injects `UserRepository`,
       `RecoveryCodeRepository`, `AesGcmEncryptor`, `TotpVerifier`, `TwoFactorSecrets`, `RecoveryCodes`,
       `PasswordEncoder`, `TwoFactorProperties`, `Clock`, `ApplicationEventPublisher`.
-- [ ] **3.5.2** `TwoFactorStatusResponse status(Long userId)` (read-only transaction).
-- [ ] **3.5.3** `TwoFactorSetupResponse setup(Long userId, String password)`:
+- [x] **3.5.2** `TwoFactorStatusResponse status(Long userId)` (read-only transaction).
+- [x] **3.5.3** `TwoFactorSetupResponse setup(Long userId, String password)`:
   1. load the user; 2FA on → `TwoFactorStateException(ALREADY_ENABLED)`
   2. `passwordHash == null` or `!passwordEncoder.matches(password, hash)` → `WrongPasswordException`
   3. `secret = twoFactorSecrets.newSecret()`; `user.startTwoFactorSetup(encryptor.encrypt(secret, aad(userId)))`
   4. return the Base32 secret + otpauth URI (issuer from properties)
   5. `log.info("Two-factor setup started userId={}")`
-- [ ] **3.5.4** `RecoveryCodesResponse confirm(Long userId, String code)`:
+- [x] **3.5.4** `RecoveryCodesResponse confirm(Long userId, String code)`:
   1. 2FA on → `ALREADY_ENABLED`; no pending secret → `SETUP_NOT_STARTED`
   2. a code that doesn't look like TOTP → `InvalidTwoFactorCodeException` (recovery codes don't exist yet)
   3. `matchingStep(decrypt(...), code, clock.instant())` empty → `InvalidTwoFactorCodeException`
   4. `user.enableTwoFactor(now, step)`
   5. `recoveryCodeRepository.deleteAllByUserId`, then insert 10 new hashed codes
   6. `log.info("Two-factor enabled userId={}")` and return the raw codes
-- [ ] **3.5.5** `private static String aad(Long userId)` → `"user:" + userId` (one place, also used in Phase 4).
-- [ ] **3.5.6** `TwoFactorServiceTest` (Mockito, fixed `Clock`):
-  - [ ] status: off; on with 7 of 10 codes remaining
-  - [ ] setup: right password → encrypted secret stored, the response URI has the email; the stored value is not the
+- [x] **3.5.5** `private static String aad(Long userId)` → `"user:" + userId` (one place, also used in Phase 4).
+- [x] **3.5.6** `TwoFactorServiceTest` (Mockito, fixed `Clock`):
+  - [x] status: off; on with 7 of 10 codes remaining
+  - [x] setup: right password → encrypted secret stored, the response URI has the email; the stored value is not the
         Base32 secret
-  - [ ] setup negative: wrong password → `WrongPasswordException` and nothing stored; already on → 409 reason;
+  - [x] setup negative: wrong password → `WrongPasswordException` and nothing stored; already on → 409 reason;
         null password hash → `WrongPasswordException`
-  - [ ] setup twice → the second secret replaces the first
-  - [ ] confirm: a valid code (computed with `TotpVerifier#codeAt` from the stored secret) → enabled, 10 codes returned,
+  - [x] setup twice → the second secret replaces the first
+  - [x] confirm: a valid code (computed with `TotpVerifier#codeAt` from the stored secret) → enabled, 10 codes returned,
         10 hashes saved, none equal to a raw code
-  - [ ] confirm negative: wrong code; a recovery-code-shaped input; no setup; already on; decryption fails
+  - [x] confirm negative: wrong code; a recovery-code-shaped input; no setup; already on; decryption fails
         (`SecretDecryptionException`) → `InvalidTwoFactorCodeException` and an `ERROR` log line without the secret
 
 ### 3.6 Controller: `presentation/rest/TwoFactorController`
-- [ ] **3.6.1** `@RestController @RequestMapping("/api/v1/me/2fa")`, with `@AuthenticationPrincipal AuthenticatedUser user`:
-  - [ ] `GET` → `status(user.id())`
-  - [ ] `POST /setup` → `rateLimiter.check("login-per-email", …, user.email())` (decision 10), then `setup(...)`
-  - [ ] `POST /confirm` → `rateLimiter.check("two-factor-per-user", …, user.id().toString())`, then `confirm(...)`, then:
+- [x] **3.6.1** `@RestController @RequestMapping("/api/v1/me/2fa")`, with `@AuthenticationPrincipal AuthenticatedUser user`:
+  - [x] `GET` → `status(user.id())`
+  - [x] `POST /setup` → `rateLimiter.check("login-per-email", …, user.email())` (decision 10), then `setup(...)`
+  - [x] `POST /confirm` → `rateLimiter.check("two-factor-per-user", …, user.id().toString())`, then `confirm(...)`, then:
     - `sessionAuthenticator.refresh(user.withTwoFactor(true), …)`
-    - `sessionRevoker.revokeOthers(user.email(), request.getSession().getId())`. This runs **after** the refresh,
-      because the session id changed.
+    - `sessionRevoker.revokeOthers(user.email(), <id the request arrived with>)`. _Deviation:_ the plan said to use
+      the id **after** the refresh, but Spring Session renames the stored row only at request commit, so the new id
+      would delete the current row (401 on the new cookie). The id is read before the refresh instead.
     - return the codes
-- [ ] **3.6.2** `config/RateLimitProperties`: add `Rule twoFactorPerIp, Rule twoFactorPerUser` (Javadoc `@param`s).
+- [x] **3.6.2** `config/RateLimitProperties`: add `Rule twoFactorPerIp, Rule twoFactorPerUser` (Javadoc `@param`s).
       Update the call sites from 0.6. `application.yml`:
   ```yaml
       two-factor-per-ip:
@@ -689,38 +690,38 @@ So `make clean build` passes after every phase. **Don't release from the branch 
         window: 15m
   ```
   `application-test.yml`: both limits `100000`, like the others.
-- [ ] **3.6.3** No `SecurityConfig` change: `/api/v1/me/**` is already `authenticated()`. Check that an anonymous request gets
+- [x] **3.6.3** No `SecurityConfig` change: `/api/v1/me/**` is already `authenticated()`. Check that an anonymous request gets
       401 (3.7).
 
 ### 3.7 Integration tests: `integration/TwoFactorEnrollmentIntegrationTest`
-- [ ] **3.7.1** Test support:
-  - [ ] `integration/support/TotpTestCodes`: `codeNow(base32Secret)` and `nextCode(base32Secret, long lastStep)`
+- [x] **3.7.1** Test support:
+  - [x] `integration/support/TotpTestCodes`: `codeNow(base32Secret)` and `nextCode(base32Secret, long lastStep)`
         (decision 18); `stepOf(...)`
-  - [ ] `AbstractIntegrationTest#enableTwoFactor(Cookie session, String password)` → record
+  - [x] `AbstractIntegrationTest#enableTwoFactor(Cookie session, String password)` → record
         `TwoFactorTestAccount(String secret, List<String> recoveryCodes, Cookie session)`. It runs setup + confirm and
         returns the **new** session cookie.
-- [ ] **3.7.2** Cases (real session cookies + CSRF):
-  - [ ] anonymous `GET /api/v1/me/2fa` and `POST …/setup` → `401` problem+json
-  - [ ] status before setup → `enabled: false, recoveryCodesRemaining: 0`
-  - [ ] setup with the right password → `200`; the `secret` is 32 Base32 characters; the `otpauthUri` starts with
+- [x] **3.7.2** Cases (real session cookies + CSRF):
+  - [x] anonymous `GET /api/v1/me/2fa` and `POST …/setup` → `401` problem+json
+  - [x] status before setup → `enabled: false, recoveryCodesRemaining: 0`
+  - [x] setup with the right password → `200`; the `secret` is 32 Base32 characters; the `otpauthUri` starts with
         `otpauth://totp/Phrasal:` and contains the secret
-  - [ ] the DB column `totp_secret_enc` starts with `v1:` and doesn't contain the secret (task-101 AC #8)
-  - [ ] setup with a wrong password → `400 wrong-password`, `errors.password` set
-  - [ ] setup without CSRF → `403`
-  - [ ] confirm with a code from the secret → `200` with 10 codes `XXXX-XXXX-XXXX-XXXX`; status → `enabled: true,
+  - [x] the DB column `totp_secret_enc` starts with `v1:` and doesn't contain the secret (task-101 AC #8)
+  - [x] setup with a wrong password → `400 wrong-password`, `errors.password` set
+  - [x] setup without CSRF → `403`
+  - [x] confirm with a code from the secret → `200` with 10 codes `XXXX-XXXX-XXXX-XXXX`; status → `enabled: true,
         recoveryCodesRemaining: 10`; `user_recovery_codes` has 10 rows, and none holds a raw code
-  - [ ] confirm changes the session id; the old cookie → `401` on `/me`; `/me` with the new cookie →
+  - [x] confirm changes the session id; the old cookie → `401` on `/me`; `/me` with the new cookie →
         `twoFactorEnabled: true`
-  - [ ] confirm revokes the other sessions: log in a second time first (second cookie), confirm with the first → the
+  - [x] confirm revokes the other sessions: log in a second time first (second cookie), confirm with the first → the
         second cookie → `401`
-  - [ ] negative: confirm with `000000` (when it isn't the real code) → `400 invalid-two-factor-code`, still disabled
-  - [ ] negative: confirm before setup → `409 two-factor-setup-not-started`
-  - [ ] negative: setup again after confirm → `409 two-factor-already-enabled`
-  - [ ] negative: blank code / blank password → `400 Validation Error`
+  - [x] negative: confirm with `000000` (when it isn't the real code) → `400 invalid-two-factor-code`, still disabled
+  - [x] negative: confirm before setup → `409 two-factor-setup-not-started`
+  - [x] negative: setup again after confirm → `409 two-factor-already-enabled`
+  - [x] negative: blank code / blank password → `400 Validation Error`
 
 ### 3.8 Verify and commit
-- [ ] **3.8.1** `cd backend && mvn clean verify` → green, JaCoCo ≥ 85 % in every touched package.
-- [ ] **3.8.2** `make clean build` → green. Ask for commit approval →
+- [x] **3.8.1** `cd backend && mvn clean verify` → green, JaCoCo ≥ 85 % in every touched package.
+- [x] **3.8.2** `make clean build` → green. Ask for commit approval →
       `feat(backend): let users enroll in authenticator-app 2FA`
 
 ---
@@ -728,37 +729,37 @@ So `make clean build` passes after every phase. **Don't release from the branch 
 ## Phase 4 — Two-step login, recovery-code login, rate limits
 
 ### 4.1 Pending state (decision 3)
-- [ ] **4.1.1** `presentation/security/PendingTwoFactorLogin.java` (`@Component`, uses `Clock` + `TwoFactorProperties`):
-  - [ ] constants `USER_ID_ATTRIBUTE = "PENDING_2FA_USER_ID"`, `SINCE_ATTRIBUTE = "PENDING_2FA_SINCE"`
-  - [ ] `void start(HttpServletRequest, Long userId)`: invalidate the current session if there is one, create a new
+- [x] **4.1.1** `presentation/security/PendingTwoFactorLogin.java` (`@Component`, uses `Clock` + `TwoFactorProperties`):
+  - [x] constants `USER_ID_ATTRIBUTE = "PENDING_2FA_USER_ID"`, `SINCE_ATTRIBUTE = "PENDING_2FA_SINCE"`
+  - [x] `void start(HttpServletRequest, Long userId)`: invalidate the current session if there is one, create a new
         one, set both attributes
-  - [ ] `Optional<Long> userId(HttpServletRequest)`: no session, missing attributes, or older than `loginTimeout`
+  - [x] `Optional<Long> userId(HttpServletRequest)`: no session, missing attributes, or older than `loginTimeout`
         → empty, and stale attributes are removed
-  - [ ] `void clear(HttpServletRequest)`
-- [ ] **4.1.2** `PendingTwoFactorLoginTest` (`MockHttpServletRequest`, a fixed clock that the test moves forward):
-  - [ ] start → `userId` present; the old session was invalidated (`MockHttpSession#isInvalid`)
-  - [ ] after 4m59s present; after 5m01s empty, and the attributes are removed
-  - [ ] negative: no session → empty; an attribute with the wrong type → empty
-  - [ ] `clear` removes both
+  - [x] `void clear(HttpServletRequest)`
+- [x] **4.1.2** `PendingTwoFactorLoginTest` (`MockHttpServletRequest`, a fixed clock that the test moves forward):
+  - [x] start → `userId` present; the old session was invalidated (`MockHttpSession#isInvalid`)
+  - [x] after 4m59s present; after 5m01s empty, and the attributes are removed
+  - [x] negative: no session → empty; an attribute with the wrong type → empty
+  - [x] `clear` removes both
 
 ### 4.2 `SessionAuthenticator`
-- [ ] **4.2.1** `login(...)` returns a sealed `LoginOutcome`:
+- [x] **4.2.1** `login(...)` returns a sealed `LoginOutcome`:
       `record Authenticated(UserResponse user)` | `record TwoFactorRequired()`, placed next to the class.
-  - [ ] after `authenticate(...)`: `principal.twoFactorEnabled()` → `pendingLogin.start(request, principal.id())`,
+  - [x] after `authenticate(...)`: `principal.twoFactorEnabled()` → `pendingLogin.start(request, principal.id())`,
         `log.debug("Two-factor login challenge userId={}")`, return `TwoFactorRequired`. **No `saveContext`.**
-  - [ ] otherwise → `Authenticated(establish(principal, …))`, as today
-- [ ] **4.2.2** `public UserResponse completeTwoFactorLogin(AuthenticatedUser principal, HttpServletRequest, HttpServletResponse)`:
+  - [x] otherwise → `Authenticated(establish(principal, …))`, as today
+- [x] **4.2.2** `public UserResponse completeTwoFactorLogin(AuthenticatedUser principal, HttpServletRequest, HttpServletResponse)`:
       `pendingLogin.clear(request)` → `establish(principal.withTwoFactor(true), …)`. That includes `changeSessionId()`.
-- [ ] **4.2.3** `public void startTwoFactorChallenge(...)`: a public seam for task-104 (Google login). It delegates to
+- [x] **4.2.3** `public void startTwoFactorChallenge(...)`: a public seam for task-104 (Google login). It delegates to
       `pendingLogin.start`, with Javadoc saying that.
-- [ ] **4.2.4** `SessionAuthenticatorTest`:
-  - [ ] a 2FA principal → `TwoFactorRequired`, `saveContext` never called, the pending attribute set
-  - [ ] a non-2FA principal → `Authenticated`, same as today
-  - [ ] `completeTwoFactorLogin` → the pending attributes are gone, the session id changed, the saved principal has
+- [x] **4.2.4** `SessionAuthenticatorTest`:
+  - [x] a 2FA principal → `TwoFactorRequired`, `saveContext` never called, the pending attribute set
+  - [x] a non-2FA principal → `Authenticated`, same as today
+  - [x] `completeTwoFactorLogin` → the pending attributes are gone, the session id changed, the saved principal has
         `twoFactorEnabled = true`
 
 ### 4.3 Service: `TwoFactorService` (part 2)
-- [ ] **4.3.1** `enum SecondFactor { TOTP, RECOVERY_CODE }` and
+- [x] **4.3.1** `enum SecondFactor { TOTP, RECOVERY_CODE }` and
       `SecondFactor verifyCode(Long userId, String code)` (used by login, disable and regenerate):
   1. load the user; 2FA off → `TwoFactorStateException(NOT_ENABLED)`
   2. `RecoveryCodes.looksLikeTotp(code)`:
@@ -766,65 +767,68 @@ So `make clean build` passes after every phase. **Don't release from the branch 
        `userRepository.advanceTotpStep(id, step) == 1` → `TOTP`; otherwise `InvalidTwoFactorCodeException` (replay)
      - no → `recoveryCodeRepository.markUsed(userId, RecoveryCodes.hash(code), now) == 1` → `RECOVERY_CODE`;
        otherwise invalid
-- [ ] **4.3.2** `AuthenticatedUser loadPrincipal(Long userId)`: rebuilds the principal from the DB for step 2.
+- [x] **4.3.2** `AuthenticatedUser loadPrincipal(Long userId)`: rebuilds the principal from the DB for step 2.
       A missing user or 2FA turned off meanwhile → `TwoFactorLoginExpiredException` (4.4.1).
-- [ ] **4.3.3** `TwoFactorServiceTest`, new cases:
-  - [ ] a valid TOTP → `TOTP`, and `advanceTotpStep` called with the matched step
-  - [ ] the same TOTP again (`advanceTotpStep` returns 0) → invalid (task-101 AC #4)
-  - [ ] the drift code of step + 1 → accepted
-  - [ ] a valid recovery code (any case, with or without dashes) → `RECOVERY_CODE`
-  - [ ] the same recovery code again (`markUsed` returns 0) → invalid (task-101 AC #5)
-  - [ ] negative: 2FA off → `NOT_ENABLED`; a wrong code; decryption fails but a recovery code still works
+- [x] **4.3.3** `TwoFactorServiceTest`, new cases:
+  - [x] a valid TOTP → `TOTP`, and `advanceTotpStep` called with the matched step
+  - [x] the same TOTP again (`advanceTotpStep` returns 0) → invalid (task-101 AC #4)
+  - [x] the drift code of step + 1 → accepted
+  - [x] a valid recovery code (any case, with or without dashes) → `RECOVERY_CODE`
+  - [x] the same recovery code again (`markUsed` returns 0) → invalid (task-101 AC #5)
+  - [x] negative: 2FA off → `NOT_ENABLED`; a wrong code; decryption fails but a recovery code still works
 
 ### 4.4 Exception, DTO, controller
-- [ ] **4.4.1** `infrastructure/exception/TwoFactorLoginExpiredException` → `GlobalExceptionHandler` `401`, title
+- [x] **4.4.1** `infrastructure/exception/TwoFactorLoginExpiredException` → `GlobalExceptionHandler` `401`, title
       `Unauthorized`, type `two-factor-login-expired`, detail `Your sign-in timed out. Log in again.`. Add it to
       `GlobalExceptionHandlerTest`.
-- [ ] **4.4.2** `application/dto/LoginChallengeResponse.java`: `record LoginChallengeResponse(boolean twoFactorRequired)`
+- [x] **4.4.2** `application/dto/LoginChallengeResponse.java`: `record LoginChallengeResponse(boolean twoFactorRequired)`
       with a constant `REQUIRED = new LoginChallengeResponse(true)`.
-- [ ] **4.4.3** `AuthController#login` → `ResponseEntity<?>`. It switches on `LoginOutcome`: `Authenticated` →
+- [x] **4.4.3** `AuthController#login` → `ResponseEntity<?>`. It switches on `LoginOutcome`: `Authenticated` →
       `200 user`, `TwoFactorRequired` → `202 LoginChallengeResponse.REQUIRED`. The rate limits stay as they are.
-- [ ] **4.4.4** `AuthController`: `@PostMapping("/login/2fa")`:
+- [x] **4.4.4** `AuthController`: `@PostMapping("/login/2fa")`:
   1. `rateLimiter.check("two-factor-per-ip", …, remoteAddr)`
   2. `userId = pendingLogin.userId(request)`; empty → `TwoFactorLoginExpiredException`
   3. `rateLimiter.check("two-factor-per-user", …, userId.toString())`
-  4. `factor = twoFactorService.verifyCode(userId, code)`; `principal = twoFactorService.loadPrincipal(userId)`
+  4. `principal = twoFactorService.loadPrincipal(userId)`, then `factor = twoFactorService.verifyCode(userId, code)`
+     (_deviation:_ the order is swapped, so 2FA turned off meanwhile gives `401 two-factor-login-expired`, not a 409)
   5. `log.info("Logged in user id={} secondFactor={}")` → `200 sessionAuthenticator.completeTwoFactorLogin(...)`
-- [ ] **4.4.5** `SecurityConfig`: add `"/api/v1/auth/login/2fa"` to the public `POST` list.
+- [x] **4.4.5** `SecurityConfig`: add `"/api/v1/auth/login/2fa"` to the public `POST` list.
 
 ### 4.5 Integration tests: `integration/TwoFactorLoginIntegrationTest`
-- [ ] **4.5.1** Helpers in `AbstractIntegrationTest`:
-  - [ ] `Cookie loginExpectingTwoFactor(String body)` → asserts `202` and `$.twoFactorRequired == true`, returns the
+- [x] **4.5.1** Helpers in `AbstractIntegrationTest`:
+  - [x] `Cookie loginExpectingTwoFactor(String body)` → asserts `202` and `$.twoFactorRequired == true`, returns the
         pending cookie
-  - [ ] `ResultActions submitTwoFactorCode(Cookie pending, String code)`
-- [ ] **4.5.2** Cases (user with 2FA enabled through `enableTwoFactor`, then logged out):
-  - [ ] login → `202 {"twoFactorRequired": true}`, a `SESSION` cookie, **no** user fields in the body
-  - [ ] `/me` with the pending cookie → `401` (no authenticated session yet, task-101 AC #3)
-  - [ ] `GET /api/v1/me/quiz-progress/…` with the pending cookie → `401`
-  - [ ] code → `200` with email/role and `twoFactorEnabled: true`; the session id changed; `/me` with the new cookie → `200`
-  - [ ] the same code again in a fresh login → `400 invalid-two-factor-code` (replay, task-101 AC #4)
-  - [ ] a recovery code → `200`; the same recovery code in a later login → `400` (task-101 AC #5); status →
+  - [x] `ResultActions submitTwoFactorCode(Cookie pending, String code)`
+- [x] **4.5.2** Cases (user with 2FA enabled through `enableTwoFactor`, then logged out):
+  - [x] login → `202 {"twoFactorRequired": true}`, a `SESSION` cookie, **no** user fields in the body
+  - [x] `/me` with the pending cookie → `401` (no authenticated session yet, task-101 AC #3)
+  - [x] `GET /api/v1/me/quiz-progress/…` with the pending cookie → `401`
+  - [x] code → `200` with email/role and `twoFactorEnabled: true`; the session id changed; `/me` with the new cookie → `200`
+  - [x] the same code again in a fresh login → `400 invalid-two-factor-code` (replay, task-101 AC #4)
+  - [x] a recovery code → `200`; the same recovery code in a later login → `400` (task-101 AC #5); status →
         `recoveryCodesRemaining: 9`
-  - [ ] a recovery code typed in lower case without dashes → `200`
-  - [ ] wrong code → `400`, and a correct code afterwards in the same pending session → `200` (the state survives)
-  - [ ] negative: `POST /login/2fa` with no prior login → `401 two-factor-login-expired`
-  - [ ] negative: pending state older than the timeout → `401`. Use a `@TestPropertySource` with
+  - [x] a recovery code typed in lower case without dashes → `200`
+  - [x] wrong code → `400`, and a correct code afterwards in the same pending session → `200` (the state survives)
+  - [x] negative: `POST /login/2fa` with no prior login → `401 two-factor-login-expired`
+  - [x] negative: pending state older than the timeout → `401`. Use a `@TestPropertySource` with
         `phrasal.two-factor.login-timeout=1s` in a **separate small class** (`TwoFactorLoginTimeoutIntegrationTest`),
         plus Awaitility, with no `Thread.sleep`.
-  - [ ] negative: without CSRF → `403`
-  - [ ] a user **without** 2FA → login `200` as today (regression)
-  - [ ] logged in as user B on the same cookie jar, then step 1 as 2FA user A → B's session is gone (`/me` → `401`
+  - [x] negative: without CSRF → `403`
+  - [x] a user **without** 2FA → login `200` as today (regression)
+  - [x] logged in as user B on the same cookie jar, then step 1 as 2FA user A → B's session is gone (`/me` → `401`
         until A finishes; decision 3)
-  - [ ] a password reset of a 2FA user (`requestPasswordReset` + `resetPassword`) → the next login still answers `202`
+  - [x] a password reset of a 2FA user (`requestPasswordReset` + `resetPassword`) → the next login still answers `202`
         (decision 15)
-- [ ] **4.5.3** `integration/RateLimitIntegrationTest` (it already has a `@TestPropertySource`): add
-      `two-factor-per-user.limit=3` and `two-factor-per-ip.limit=5`:
-  - [ ] the 4th code attempt for one pending user → `429` + `Retry-After` (task-100 AC #5, 2FA part)
-  - [ ] a second user from the same IP still works until the per-IP limit
+- [x] **4.5.3** _Deviation:_ a separate `integration/TwoFactorRateLimitIntegrationTest` instead of
+      `RateLimitIntegrationTest` (its `register-per-ip.limit=2` blocks creating 2FA users from one IP). Properties
+      `two-factor-per-user.limit=3` and `two-factor-per-ip.limit=5`. `confirm` spends one per-user attempt, so the 3rd
+      attempt after enrolling gets 429:
+  - [x] the 4th code attempt for one pending user → `429` + `Retry-After` (task-100 AC #5, 2FA part)
+  - [x] a second user from the same IP still works until the per-IP limit
 
 ### 4.6 Verify and commit
-- [ ] **4.6.1** `cd backend && mvn clean verify` → green.
-- [ ] **4.6.2** `make clean build` → green. The existing e2e users have no 2FA, so login stays `200`. Ask for commit
+- [x] **4.6.1** `cd backend && mvn clean verify` → green.
+- [x] **4.6.2** `make clean build` → green. The existing e2e users have no 2FA, so login stays `200`. Ask for commit
       approval → `feat(backend): require a TOTP or recovery code at login for 2FA accounts`
 
 ---
@@ -832,67 +836,67 @@ So `make clean build` passes after every phase. **Don't release from the branch 
 ## Phase 5 — Disable, regenerate recovery codes, notice emails
 
 ### 5.1 Notice email (decision 16)
-- [ ] **5.1.1** `application/event/TwoFactorChangedNoticeRequested.java`:
+- [x] **5.1.1** `application/event/TwoFactorChangedNoticeRequested.java`:
       `record (Long userId, String email, boolean enabled)`, with a masking `toString()` (user id + flag only).
-- [ ] **5.1.2** `AccountEmailComposer`:
-  - [ ] constants `TWO_FACTOR_ENABLED_SUBJECT = "Two-factor authentication is on for your Phrasal account"` and
+- [x] **5.1.2** `AccountEmailComposer`:
+  - [x] constants `TWO_FACTOR_ENABLED_SUBJECT = "Two-factor authentication is on for your Phrasal account"` and
         `TWO_FACTOR_DISABLED_SUBJECT = "Two-factor authentication is off for your Phrasal account"`
-  - [ ] `EmailMessage twoFactorChanged(String to, boolean enabled)`:
+  - [x] `EmailMessage twoFactorChanged(String to, boolean enabled)`:
     - text: "Two-factor authentication was just turned on/off for your Phrasal account. If this was you, there is
       nothing to do. If it wasn't, reset your password now: <base>/forgot-password, then review
       <base>/account/security."
     - HTML through `HtmlUtils.htmlEscape`, like the other mails
-- [ ] **5.1.3** `AccountEmailListener`: `@Async @TransactionalEventListener(phase = AFTER_COMMIT) onTwoFactorChangedNoticeRequested`
+- [x] **5.1.3** `AccountEmailListener`: `@Async @TransactionalEventListener(phase = AFTER_COMMIT) onTwoFactorChangedNoticeRequested`
       → `deliver(...)`.
-- [ ] **5.1.4** `TwoFactorService#confirm` publishes the event with `enabled = true` (Phase 3 code, one line).
-- [ ] **5.1.5** Tests:
-  - [ ] `AccountEmailComposerTest`: both subjects; both links; no `token=`, no Base32-looking secret
-  - [ ] `AccountEmailListenerTest`: event → composer + sender; the sender throws → no exception escapes
-  - [ ] event `toString` test: no email
-  - [ ] `TwoFactorServiceTest#confirm`: the event is published once, with `enabled = true`
+- [x] **5.1.4** `TwoFactorService#confirm` publishes the event with `enabled = true` (Phase 3 code, one line).
+- [x] **5.1.5** Tests:
+  - [x] `AccountEmailComposerTest`: both subjects; both links; no `token=`, no Base32-looking secret
+  - [x] `AccountEmailListenerTest`: event → composer + sender; the sender throws → no exception escapes
+  - [x] event `toString` test: no email
+  - [x] `TwoFactorServiceTest#confirm`: the event is published once, with `enabled = true`
 
 ### 5.2 Service: `TwoFactorService` (part 3)
-- [ ] **5.2.1** `void disable(Long userId, String code)`:
+- [x] **5.2.1** `void disable(Long userId, String code)`:
   1. `verifyCode(userId, code)` (TOTP or recovery code; 2FA off → `NOT_ENABLED`)
   2. `user.disableTwoFactor()`; `recoveryCodeRepository.deleteAllByUserId(userId)`
   3. publish `TwoFactorChangedNoticeRequested(…, false)`; `log.info("Two-factor disabled userId={}")`
-- [ ] **5.2.2** `RecoveryCodesResponse regenerateRecoveryCodes(Long userId, String code)`:
+- [x] **5.2.2** `RecoveryCodesResponse regenerateRecoveryCodes(Long userId, String code)`:
   1. `verifyCode(userId, code)`
   2. delete the old codes, insert 10 new ones, return them
   3. `log.info("Recovery codes regenerated userId={}")` (no notice email; the codes only matter with the password
      plus a code anyway)
-- [ ] **5.2.3** Extract the "delete + insert 10 hashed codes" lines used by `confirm` and regenerate into one private
+- [x] **5.2.3** Extract the "delete + insert 10 hashed codes" lines used by `confirm` and regenerate into one private
       method.
-- [ ] **5.2.4** `TwoFactorServiceTest`:
-  - [ ] disable with a TOTP / with a recovery code → fields cleared, codes deleted, event `enabled = false`
-  - [ ] disable negative: wrong code → nothing changed, no event; 2FA off → `NOT_ENABLED`
-  - [ ] regenerate → 10 new codes, old ones deleted first; a recovery code used to regenerate is itself among the
+- [x] **5.2.4** `TwoFactorServiceTest`:
+  - [x] disable with a TOTP / with a recovery code → fields cleared, codes deleted, event `enabled = false`
+  - [x] disable negative: wrong code → nothing changed, no event; 2FA off → `NOT_ENABLED`
+  - [x] regenerate → 10 new codes, old ones deleted first; a recovery code used to regenerate is itself among the
         deleted
-  - [ ] regenerate negative: wrong code → old codes untouched
+  - [x] regenerate negative: wrong code → old codes untouched
 
 ### 5.3 Controller
-- [ ] **5.3.1** `TwoFactorController`:
-  - [ ] `POST /recovery-codes` → `two-factor-per-user` limit → `regenerateRecoveryCodes` → `200`
-  - [ ] `POST /disable` → `two-factor-per-user` limit → `disable` → `sessionAuthenticator.refresh(user.withTwoFactor(false), …)`
+- [x] **5.3.1** `TwoFactorController`:
+  - [x] `POST /recovery-codes` → `two-factor-per-user` limit → `regenerateRecoveryCodes` → `200`
+  - [x] `POST /disable` → `two-factor-per-user` limit → `disable` → `sessionAuthenticator.refresh(user.withTwoFactor(false), …)`
         → `204`
 
 ### 5.4 Integration tests: `integration/TwoFactorManagementIntegrationTest`
-- [ ] **5.4.1** Cases:
-  - [ ] regenerate with a TOTP → `200` with 10 codes that differ from the old ones; an **old** code at login → `400`;
+- [x] **5.4.1** Cases:
+  - [x] regenerate with a TOTP → `200` with 10 codes that differ from the old ones; an **old** code at login → `400`;
         a new code → `200` (task-101 AC #5)
-  - [ ] disable with a TOTP → `204`; status → `enabled: false, recoveryCodesRemaining: 0`; the next login → `200`
+  - [x] disable with a TOTP → `204`; status → `enabled: false, recoveryCodesRemaining: 0`; the next login → `200`
         straight away (no `202`); the DB secret column is `NULL` (task-101 AC #6)
-  - [ ] disable with a recovery code → `204` (the lost-phone path)
-  - [ ] after disabling, `setup` + `confirm` works again with a **new** secret, and an old code from the first secret → `400`
-  - [ ] negative: disable with a wrong code → `400`, still enabled (task-101 AC #6)
-  - [ ] negative: disable / regenerate while off → `409 two-factor-not-enabled`
-  - [ ] negative: anonymous → `401`; without CSRF → `403`
-  - [ ] mails: after confirm, `mailbox.awaitSubject(email, "Two-factor authentication is on…")`; after disable, the
+  - [x] disable with a recovery code → `204` (the lost-phone path)
+  - [x] after disabling, `setup` + `confirm` works again with a **new** secret, and an old code from the first secret → `400`
+  - [x] negative: disable with a wrong code → `400`, still enabled (task-101 AC #6)
+  - [x] negative: disable / regenerate while off → `409 two-factor-not-enabled`
+  - [x] negative: anonymous → `401`; without CSRF → `403`
+  - [x] mails: after confirm, `mailbox.awaitSubject(email, "Two-factor authentication is on…")`; after disable, the
         "off" mail. Neither contains the secret.
 
 ### 5.5 Verify and commit
-- [ ] **5.5.1** `cd backend && mvn clean verify` → green.
-- [ ] **5.5.2** `make clean build` → green. Ask for commit approval →
+- [x] **5.5.1** `cd backend && mvn clean verify` → green.
+- [x] **5.5.2** `make clean build` → green. Ask for commit approval →
       `feat(backend): disable 2FA, regenerate recovery codes, send 2FA notices`
 
 ---

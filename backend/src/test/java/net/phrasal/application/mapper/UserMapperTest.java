@@ -15,14 +15,14 @@ class UserMapperTest {
     private final UserMapper mapper = Mappers.getMapper(UserMapper.class);
 
     @Test
-    @DisplayName("toResponse maps id, email and role name without the hash")
+    @DisplayName("toResponse maps id, email, role name and 2FA flags without the hash")
     void toResponse() {
         User user = new User("a@b.com", "{bcrypt}hash", Role.ADMIN);
         user.setId(5L);
 
         UserResponse response = mapper.toResponse(user);
 
-        assertThat(response).isEqualTo(new UserResponse(5L, "a@b.com", "ADMIN"));
+        assertThat(response).isEqualTo(new UserResponse(5L, "a@b.com", "ADMIN", false, true));
     }
 
     @Test

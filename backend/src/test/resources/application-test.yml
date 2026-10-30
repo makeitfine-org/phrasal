@@ -33,5 +33,9 @@ phrasal:
       limit: 100000
     reset-per-ip:
       limit: 100000
+    two-factor-per-ip:
+      limit: 100000
+    two-factor-per-user:
+      limit: 100000
   cleanup:
     enabled: false

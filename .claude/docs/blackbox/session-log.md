@@ -2075,3 +2075,30 @@
 - .claude/hooks/notify-telegram.sh
 - .claude/settings.local.json
 <!-- end-snapshot -->
+
+<!-- git-snapshot 2026-10-30T00:03:15Z -->
+- .claude/docs/blackbox/audit.md
+<!-- end-snapshot -->
+
+<!-- git-snapshot 2026-10-30T00:30:14Z -->
+- .claude/docs/blackbox/audit.md
+- .claude/docs/blackbox/session-log.md
+- .claude/docs/blackbox/todos/2FA-todos.md
+- README.md
+- backend/pom.xml
+- backend/src/main/java/net/phrasal/application/dto/UserResponse.java
+- backend/src/main/java/net/phrasal/application/mapper/UserMapper.java
+- backend/src/main/java/net/phrasal/application/service/AccountEmailComposer.java
+- backend/src/main/java/net/phrasal/application/service/AccountEmailListener.java
+- backend/src/main/java/net/phrasal/config/RateLimitProperties.java
+- backend/src/main/java/net/phrasal/config/SecurityConfig.java
+- backend/src/main/java/net/phrasal/infrastructure/exception/GlobalExceptionHandler.java
+- backend/src/main/java/net/phrasal/infrastructure/security/AppUserDetails.java
+- backend/src/main/java/net/phrasal/infrastructure/security/AuthenticatedUser.java
+- backend/src/main/java/net/phrasal/infrastructure/security/SessionRevoker.java
+- backend/src/main/java/net/phrasal/presentation/rest/AuthController.java
+- backend/src/main/java/net/phrasal/presentation/security/SessionAuthenticator.java
+- backend/src/main/resources/application.yml
+- backend/src/test/java/net/phrasal/application/mapper/UserMapperTest.java
+- backend/src/test/java/net/phrasal/application/service/AccountEmailComposerTest.java
+<!-- end-snapshot -->

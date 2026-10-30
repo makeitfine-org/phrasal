@@ -5,6 +5,7 @@ import lombok.extern.slf4j.Slf4j;
 import net.phrasal.application.event.AccountExistsNoticeRequested;
 import net.phrasal.application.event.PasswordChangedNoticeRequested;
 import net.phrasal.application.event.PasswordResetEmailRequested;
+import net.phrasal.application.event.TwoFactorChangedNoticeRequested;
 import net.phrasal.application.event.VerificationEmailRequested;
 import net.phrasal.infrastructure.mail.EmailMessage;
 import net.phrasal.infrastructure.mail.EmailSender;
@@ -47,6 +48,12 @@ public class AccountEmailListener {
     @TransactionalEventListener(phase = TransactionPhase.AFTER_COMMIT)
     public void onPasswordChangedNoticeRequested(PasswordChangedNoticeRequested event) {
         deliver(event.userId(), composer.passwordChanged(event.email()));
+    }
+
+    @Async
+    @TransactionalEventListener(phase = TransactionPhase.AFTER_COMMIT)
+    public void onTwoFactorChangedNoticeRequested(TwoFactorChangedNoticeRequested event) {
+        deliver(event.userId(), composer.twoFactorChanged(event.email(), event.enabled()));
     }
 
     private void deliver(Long userId, EmailMessage message) {

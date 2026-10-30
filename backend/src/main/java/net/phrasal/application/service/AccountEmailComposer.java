@@ -11,8 +11,8 @@ import org.springframework.web.util.HtmlUtils;
 import java.time.Duration;
 
 /**
- * Builds the account emails (verification, account exists, password reset, password changed) as plain Java text
- * blocks; no template engine.
+ * Builds the account emails (verification, account exists, password reset, password changed, two-factor changed)
+ * as plain Java text blocks; no template engine.
  */
 @Component
 @RequiredArgsConstructor
@@ -22,6 +22,8 @@ public class AccountEmailComposer {
     static final String ACCOUNT_EXISTS_SUBJECT = "You already have a Phrasal account";
     static final String PASSWORD_RESET_SUBJECT = "Reset your Phrasal password";
     static final String PASSWORD_CHANGED_SUBJECT = "Your Phrasal password was changed";
+    static final String TWO_FACTOR_ENABLED_SUBJECT = "Two-factor authentication is on for your Phrasal account";
+    static final String TWO_FACTOR_DISABLED_SUBJECT = "Two-factor authentication is off for your Phrasal account";
 
     private static final long MINUTES_PER_HOUR = 60;
 
@@ -142,6 +144,38 @@ public class AccountEmailComposer {
                 <p>Or copy this link into your browser:<br>%1$s</p>
                 """.formatted(safeLink);
         return new EmailMessage(to, PASSWORD_CHANGED_SUBJECT, text, html);
+    }
+
+    /**
+     * Notice that 2FA was just turned on or off.
+     *
+     * @param to      recipient address
+     * @param enabled true when 2FA was turned on, false when it was turned off
+     * @return multipart message with links to the forgot-password and account security pages, and no token
+     */
+    public EmailMessage twoFactorChanged(String to, boolean enabled) {
+        String state = enabled ? "on" : "off";
+        String resetLink = appProperties.baseUrl() + "/forgot-password";
+        String securityLink = appProperties.baseUrl() + "/account/security";
+        String text = """
+                Two-factor authentication was just turned %s for your Phrasal account.
+
+                If this was you, there is nothing to do.
+
+                If it wasn't, reset your password now:
+                %s
+
+                Then review your account security settings:
+                %s
+                """.formatted(state, resetLink, securityLink);
+        String html = """
+                <p>Two-factor authentication was just turned %1$s for your Phrasal account.</p>
+                <p>If this was you, there is nothing to do.</p>
+                <p>If it wasn't, <a href="%2$s">reset your password now</a>, then review your
+                <a href="%3$s">account security settings</a>.</p>
+                <p>Or copy these links into your browser:<br>%2$s<br>%3$s</p>
+                """.formatted(state, HtmlUtils.htmlEscape(resetLink), HtmlUtils.htmlEscape(securityLink));
+        return new EmailMessage(to, enabled ? TWO_FACTOR_ENABLED_SUBJECT : TWO_FACTOR_DISABLED_SUBJECT, text, html);
     }
 
     private static String describe(Duration ttl) {
