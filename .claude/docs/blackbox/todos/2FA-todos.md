@@ -1342,8 +1342,9 @@ So `make clean build` passes after every phase. **Don't release from the branch 
 
 ## Phase 13 — Final verification
 
-- [ ] **13.1** `make clean build` → green: backend verify (JaCoCo 85 %/package, Checkstyle), frontend build + tests,
+- [x] **13.1** `make clean build` → green: backend verify (JaCoCo 85 %/package, Checkstyle), frontend build + tests,
       docker rebuild, e2e. Note the final counts here.
+      Final counts (2026-10-30): backend 575 tests, frontend 1592 tests (81 files), e2e 119 scenarios / 916 steps, all green.
 - [ ] **13.2** Manual run on http://localhost:3000 (Mailpit http://localhost:8025) **with a real authenticator app** on a
       phone:
   - [ ] register + verify a user → Account security → Turn on → scan the QR code → the code from the app works → 10
