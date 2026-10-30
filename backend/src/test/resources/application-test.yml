@@ -12,6 +12,11 @@ phrasal:
     encryption-key: KxAh196RIcnXmJtirn64B/L2d2BUL5d094kq67pJRuY=
   mail:
     enabled: false
+  google:
+    enabled: true
+    # test only, never used outside tests
+    client-id: test-client
+    client-secret: test-secret
   password:
     breach-check:
       enabled: false

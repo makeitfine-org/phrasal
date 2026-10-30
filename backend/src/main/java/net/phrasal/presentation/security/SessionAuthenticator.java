@@ -20,7 +20,7 @@ import org.springframework.stereotype.Component;
 
 /**
  * Authenticates credentials and stores the result in the HTTP session.
- * Kept in one place so other sign-in flows can reuse the session handling.
+ * Password login and Google sign-in share it, so both follow the same 2FA and session rules.
  */
 @Slf4j
 @Component
@@ -46,8 +46,23 @@ public class SessionAuthenticator {
         Authentication result = authenticationManager.authenticate(
                 UsernamePasswordAuthenticationToken.unauthenticated(
                         EmailNormalizer.normalize(request.email()), request.password()));
-        AuthenticatedUser principal = ((AppUserDetails) result.getPrincipal()).toAuthenticatedUser();
+        return signInVerified(((AppUserDetails) result.getPrincipal()).toAuthenticatedUser(), httpRequest,
+                httpResponse);
+    }
+
+    /**
+     * Signs in an account whose first factor was proven elsewhere (the password above, or Google). An account with
+     * 2FA only gets a pending login; nothing is written to the security context.
+     *
+     * @param principal    the account that proved its first factor
+     * @param httpRequest  the current request
+     * @param httpResponse the current response, which receives the new session cookie
+     * @return the signed-in account, or a note that the second factor is still required
+     */
+    public LoginOutcome signInVerified(AuthenticatedUser principal, HttpServletRequest httpRequest,
+                                       HttpServletResponse httpResponse) {
         if (principal.twoFactorEnabled()) {
+            securityContextHolderStrategy.clearContext();
             pendingLogin.start(httpRequest, principal.id());
             log.debug("Two-factor login challenge userId={}", principal.id());
             return new LoginOutcome.TwoFactorRequired();
@@ -69,17 +84,6 @@ public class SessionAuthenticator {
                                                HttpServletResponse httpResponse) {
         pendingLogin.clear(httpRequest);
         return establish(principal.withTwoFactor(true), httpRequest, httpResponse);
-    }
-
-    /**
-     * Opens a pending login for a sign-in flow other than the password form, so that flow can demand the second
-     * factor too. Same effect as a password login of a 2FA account.
-     *
-     * @param httpRequest the current request
-     * @param userId      the account that already proved its first factor
-     */
-    public void startTwoFactorChallenge(HttpServletRequest httpRequest, Long userId) {
-        pendingLogin.start(httpRequest, userId);
     }
 
     /**

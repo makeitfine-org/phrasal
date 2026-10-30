@@ -2527,3 +2527,32 @@
 - backend/src/test/java/net/phrasal/integration/AuthSessionIntegrationTest.java
 - backend/src/test/java/net/phrasal/presentation/security/SessionAuthenticatorTest.java
 <!-- end-snapshot -->
+
+<!-- git-snapshot 2026-10-30T18:15:27Z -->
+- .claude/docs/blackbox/audit.md
+- .claude/docs/blackbox/todos/google-account-todos.md
+- backend/CLAUDE.md
+- backend/src/main/java/net/phrasal/config/GoogleLoginConfig.java
+- backend/src/main/java/net/phrasal/config/SecurityConfig.java
+- backend/src/main/java/net/phrasal/presentation/security/LoginOutcome.java
+- backend/src/main/java/net/phrasal/presentation/security/SessionAuthenticator.java
+- backend/src/test/java/net/phrasal/integration/AuthProvidersIntegrationTest.java
+- backend/src/test/java/net/phrasal/integration/SecurityRulesIntegrationTest.java
+- backend/src/test/java/net/phrasal/presentation/security/SessionAuthenticatorTest.java
+- backend/src/test/resources/application-test.yml
+<!-- end-snapshot -->
+
+<!-- git-snapshot 2026-10-30T18:16:07Z -->
+- .claude/docs/blackbox/audit.md
+- .claude/docs/blackbox/session-log.md
+- .claude/docs/blackbox/todos/google-account-todos.md
+- backend/CLAUDE.md
+- backend/src/main/java/net/phrasal/config/GoogleLoginConfig.java
+- backend/src/main/java/net/phrasal/config/SecurityConfig.java
+- backend/src/main/java/net/phrasal/presentation/security/LoginOutcome.java
+- backend/src/main/java/net/phrasal/presentation/security/SessionAuthenticator.java
+- backend/src/test/java/net/phrasal/integration/AuthProvidersIntegrationTest.java
+- backend/src/test/java/net/phrasal/integration/SecurityRulesIntegrationTest.java
+- backend/src/test/java/net/phrasal/presentation/security/SessionAuthenticatorTest.java
+- backend/src/test/resources/application-test.yml
+<!-- end-snapshot -->

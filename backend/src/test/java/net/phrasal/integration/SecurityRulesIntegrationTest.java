@@ -10,6 +10,7 @@ import org.springframework.test.web.servlet.request.MockHttpServletRequestBuilde
 import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
 
 import static org.hamcrest.Matchers.endsWith;
+import static org.hamcrest.Matchers.startsWith;
 import static org.springframework.security.test.web.servlet.request.SecurityMockMvcRequestPostProcessors.csrf;
 import static org.springframework.security.test.web.servlet.request.SecurityMockMvcRequestPostProcessors.user;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
@@ -117,6 +118,48 @@ class SecurityRulesIntegrationTest extends AbstractIntegrationTest {
     void unknownPathsAreDenied() throws Exception {
         mockMvc.perform(MockMvcRequestBuilders.post("/something-else").with(csrf()))
                 .andExpect(status().isUnauthorized());
+    }
+
+    @ParameterizedTest(name = "Accept: {0}")
+    @ValueSource(strings = {MediaType.ALL_VALUE, MediaType.TEXT_HTML_VALUE})
+    @DisplayName("with Google sign-in on, an anonymous API call still gets the JSON 401, not a redirect to /login")
+    void apiStaysJsonWithGoogleOn(String accept) throws Exception {
+        mockMvc.perform(get("/api/v1/me/quiz-progress/phrasal-verbs").header("Accept", accept))
+                .andExpect(status().isUnauthorized())
+                .andExpect(header().doesNotExist("Location"))
+                .andExpect(content().contentTypeCompatibleWith(PROBLEM_JSON));
+    }
+
+    @Test
+    @DisplayName("the backend generates no login page: GET /login is denied like any unknown path")
+    void noGeneratedLoginPage() throws Exception {
+        mockMvc.perform(get("/login").header("Accept", MediaType.TEXT_HTML_VALUE))
+                .andExpect(status().isUnauthorized())
+                .andExpect(content().contentTypeCompatibleWith(PROBLEM_JSON));
+    }
+
+    @Test
+    @DisplayName("GET on the Google start URL redirects to Google")
+    void googleStartRedirects() throws Exception {
+        mockMvc.perform(get("/api/v1/auth/oauth2/authorization/google"))
+                .andExpect(status().isFound())
+                .andExpect(header().string("Location", startsWith("https://accounts.google.com/o/oauth2/v2/auth?")));
+    }
+
+    @Test
+    @DisplayName("POST on the Google start URL without a CSRF token is refused, not redirected")
+    void googleStartPostWithoutCsrf() throws Exception {
+        mockMvc.perform(MockMvcRequestBuilders.post("/api/v1/auth/oauth2/authorization/google"))
+                .andExpect(status().isForbidden())
+                .andExpect(header().doesNotExist("Location"));
+    }
+
+    @Test
+    @DisplayName("an unknown provider in the start URL goes back to the login page with the generic error")
+    void unknownProvider() throws Exception {
+        mockMvc.perform(get("/api/v1/auth/oauth2/authorization/github"))
+                .andExpect(status().isFound())
+                .andExpect(header().string("Location", "/login?error=google"));
     }
 
     @Test

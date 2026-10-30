@@ -4,8 +4,8 @@ Source plan: `.claude/docs/blackbox/plans/2026-10-26 18:10 Multi-user accounts T
 (section P5). Backlog: **task-104**. It needs the Google OAuth client from **task-106** (AC #4, #5); publishing the
 consent screen stays in **task-105** (AC #6).
 
-> Status (2026-10-30): Phases 0–3 done on branch `google-sign-in`, except 0.7 (user actions in Google Cloud).
-> Phases 4–13 not started.
+> Status (2026-10-30): Phases 0–5 done on branch `google-sign-in`, except 0.7 (user actions in Google Cloud).
+> Phases 6–13 not started.
 
 Builds on what is already in `develop` (`cb933cc`):
 - password login with a pending 2FA step (`SessionAuthenticator`, `PendingTwoFactorLogin`, `POST /auth/login/2fa`)
@@ -437,17 +437,20 @@ Builds on what is already in `develop` (`cb933cc`):
 ## Phase 4 — Application service: matching a Google identity to an account
 
 ### 4.1 Input, result, refusal
-- [ ] **4.1.1** `application/dto/GoogleIdentity.java`: `record GoogleIdentity(String subject, String email,
+- [x] **4.1.1** `application/dto/GoogleIdentity.java`: `record GoogleIdentity(String subject, String email,
       boolean emailVerified)`; `toString()` masks the email and the subject.
-- [ ] **4.1.2** `infrastructure/exception/GoogleSignInRefusedException.java` with `enum Reason { EMAIL_UNVERIFIED,
+- [x] **4.1.2** `infrastructure/exception/GoogleSignInRefusedException.java` with `enum Reason { EMAIL_UNVERIFIED,
       ACCOUNT_CONFLICT, ADMIN_ACCOUNT }` and `String code()` → `google-email-unverified`, `google-account-conflict`,
       `google-admin-account`. Never a 4xx/5xx body: it only feeds the redirect (Phase 5), so no
       `GlobalExceptionHandler` entry.
-- [ ] **4.1.3** `GoogleSignInService.Outcome` enum `{ SIGNED_IN, LINKED, CREATED }` and
+- [x] **4.1.3** `GoogleSignInService.Outcome` enum `{ SIGNED_IN, LINKED, CREATED }` and
       `record GoogleSignInResult(AuthenticatedUser principal, Outcome outcome)`, next to the service.
+      Done as `application/service/GoogleSignInResult.java` with the enum nested in it (`GoogleSignInResult.Outcome`),
+      so the record and its enum live in one file. The record is `Serializable`, because `GoogleOidcUser` (a
+      `Serializable` `DefaultOidcUser`) carries it.
 
 ### 4.2 Service
-- [ ] **4.2.1** `application/service/GoogleSignInService.java` (`@Service @Transactional @RequiredArgsConstructor @Slf4j`).
+- [x] **4.2.1** `application/service/GoogleSignInService.java` (`@Service @Transactional @RequiredArgsConstructor @Slf4j`).
       `GoogleSignInResult signIn(GoogleIdentity identity)`:
   1. blank subject or blank email → `IllegalArgumentException` (Spring maps it to the generic `google` error later)
   2. `email = EmailNormalizer.normalize(identity.email())`; longer than 254 characters → `IllegalArgumentException`
@@ -467,85 +470,119 @@ Builds on what is already in `develop` (`cb933cc`):
   8. `log.info("Google sign-in userId={} outcome={}", id, outcome)`; refusals `log.info("Google sign-in refused
      reason={}", code)`. Never the email or the subject.
   - Time comes from the injected `Clock` (`LocalDateTime.now(clock)`).
-- [ ] **4.2.2** A refused unverified-local link must not leave half-changes: the refusal checks (ADMIN, conflict) run
+  - Plus: linking also goes through `saveAndFlush`, so a unique clash while linking (the same subject linked to
+    another account at the same moment) ends in the same `IllegalStateException` instead of failing at commit.
+- [x] **4.2.2** A refused unverified-local link must not leave half-changes: the refusal checks (ADMIN, conflict) run
       before any change. Say so in a comment.
 
 ### 4.3 Tests
-- [ ] **4.3.1** `GoogleSignInServiceTest` (Mockito):
-  - [ ] known subject → `SIGNED_IN`, no save, principal fields copied (2FA flag, `passwordless`)
-  - [ ] known subject on an ADMIN → `ADMIN_ACCOUNT`
-  - [ ] unknown subject + unverified email → `EMAIL_UNVERIFIED`, `findByEmail` never called
-  - [ ] verified email of a verified account without a subject → `LINKED`, password kept
-  - [ ] verified email of an unverified account → `LINKED`, password removed, verified now, both token types invalidated
-  - [ ] verified email of an account with another subject → `ACCOUNT_CONFLICT`, nothing changed
-  - [ ] verified email of an ADMIN → `ADMIN_ACCOUNT`, nothing changed
-  - [ ] new email → `CREATED`, saved user is `USER`, verified, no hash, normalized email (`" Bob@Gmail.COM "`)
-  - [ ] `saveAndFlush` throws `DataIntegrityViolationException` → `IllegalStateException`
-  - [ ] blank subject / blank email → `IllegalArgumentException`
-  - [ ] an account with 2FA → principal `twoFactorEnabled = true`
-- [ ] **4.3.2** `integration/GoogleSignInServiceIntegrationTest` (real DB, no HTTP):
-  - [ ] create, then the same identity again → one row, `SIGNED_IN`
-  - [ ] link an unverified registered account (use `register` through MockMvc, don't verify): afterwards
+- [x] **4.3.1** `GoogleSignInServiceTest` (Mockito):
+  - [x] known subject → `SIGNED_IN`, no save, principal fields copied (2FA flag, `passwordless`)
+  - [x] known subject on an ADMIN → `ADMIN_ACCOUNT`
+  - [x] unknown subject + unverified email → `EMAIL_UNVERIFIED`, `findByEmail` never called
+  - [x] verified email of a verified account without a subject → `LINKED`, password kept
+  - [x] verified email of an unverified account → `LINKED`, password removed, verified now, both token types invalidated
+  - [x] verified email of an account with another subject → `ACCOUNT_CONFLICT`, nothing changed
+  - [x] verified email of an ADMIN → `ADMIN_ACCOUNT`, nothing changed
+  - [x] new email → `CREATED`, saved user is `USER`, verified, no hash, normalized email (`" Bob@Gmail.COM "`)
+  - [x] `saveAndFlush` throws `DataIntegrityViolationException` → `IllegalStateException`
+  - [x] blank subject / blank email → `IllegalArgumentException`
+  - [x] an account with 2FA → principal `twoFactorEnabled = true`
+- [x] **4.3.2** `integration/GoogleSignInServiceIntegrationTest` (real DB, no HTTP):
+  - [x] create, then the same identity again → one row, `SIGNED_IN`
+  - [x] link an unverified registered account (use `register` through MockMvc, don't verify): afterwards
         `password_hash IS NULL`, `email_verified_at` set, the emailed verification link answers
         `verification-link-invalid`
-  - [ ] link a verified account: its password login still works
-- [ ] **4.3.3** `mvn -q -o test -Dtest='GoogleSignInService*'` → green.
+        Corrected: `EmailVerificationService#verify` treats a spent link of a now-verified account as the usual
+        no-op (`204`), so it can't answer `verification-link-invalid`. The test asserts the `204` and checks the part
+        that matters instead: a reset link mailed before the link answers `Reset Link Invalid`, and the old password
+        gets `401`.
+  - [x] link a verified account: its password login still works
+  - [x] plus (unit): a clash while linking → `IllegalStateException`; 254 characters accepted, 255 refused;
+        `GoogleIdentity.toString` masks; the three refusal codes
+- [x] **4.3.3** `mvn -q -o test -Dtest='GoogleSignInService*'` → green (2026-10-30): 23 tests (20 unit, 3
+      integration). Checkstyle clean.
 
+- [x] **4.4** End of phase: `make clean build` green (2026-10-30, Phases 4 and 5 in one run).
 ---
 
 ## Phase 5 — Presentation: OIDC user service, handlers, security chain
 
 ### 5.1 Session handling for a first factor proven elsewhere
-- [ ] **5.1.1** `SessionAuthenticator`: `public LoginOutcome signInVerified(AuthenticatedUser principal,
+- [x] **5.1.1** `SessionAuthenticator`: `public LoginOutcome signInVerified(AuthenticatedUser principal,
       HttpServletRequest, HttpServletResponse)`:
-  - [ ] 2FA on → `securityContextHolderStrategy.clearContext()`, `pendingLogin.start(request, id)`,
+  - [x] 2FA on → `securityContextHolderStrategy.clearContext()`, `pendingLogin.start(request, id)`,
         return `TwoFactorRequired` (no `saveContext`)
-  - [ ] otherwise → `Authenticated(establish(principal, …))`
-  - [ ] make `login(...)` call it after `authenticate(...)`, so both paths share one rule
-  - [ ] `startTwoFactorChallenge` stays (or is replaced by `signInVerified`; then delete it and its Javadoc mention in
+  - [x] otherwise → `Authenticated(establish(principal, …))`
+  - [x] make `login(...)` call it after `authenticate(...)`, so both paths share one rule
+  - [x] `startTwoFactorChallenge` stays (or is replaced by `signInVerified`; then delete it and its Javadoc mention in
         `backend/CLAUDE.md`)
-- [ ] **5.1.2** `SessionAuthenticatorTest`: `signInVerified` with and without 2FA (pending attribute set and no
+        Replaced and deleted (it had no caller). `backend/CLAUDE.md` "Two-step login" now names `signInVerified`;
+        `LoginOutcome` Javadoc says "a sign-in (password or Google)".
+- [x] **5.1.2** `SessionAuthenticatorTest`: `signInVerified` with and without 2FA (pending attribute set and no
       `saveContext`; or context saved with the `AuthenticatedUser` principal and a new session id); the existing
-      `login` cases still pass.
+      `login` cases still pass. The 2FA case also proves a context set before the call (the OAuth2 token, in the
+      real flow) is cleared.
 
 ### 5.2 OIDC user service
-- [ ] **5.2.1** `presentation/security/GoogleOidcUser.java`: `extends DefaultOidcUser`, carries the
+- [x] **5.2.1** `presentation/security/GoogleOidcUser.java`: `extends DefaultOidcUser`, carries the
       `GoogleSignInResult`. Only lives during the callback request (decision 6).
-- [ ] **5.2.2** `presentation/security/GoogleOidcUserService.java` (`@Component`, implements
+      No `equals`/`hashCode` override: it is never compared, and the inherited ones (name, authorities, issuer, sub)
+      are enough.
+- [x] **5.2.2** `presentation/security/GoogleOidcUserService.java` (`@Component`, implements
       `OAuth2UserService<OidcUserRequest, OidcUser>`):
-  - [ ] delegate to a `new OidcUserService()` (userinfo off if 0.5 says it is possible)
-  - [ ] build `GoogleIdentity` from the **ID token**: `getSubject()`, `getEmail()`, `Boolean.TRUE.equals(getEmailVerified())`
-  - [ ] call `googleSignInService.signIn(identity)` and return `new GoogleOidcUser(…, result)`
-  - [ ] `GoogleSignInRefusedException` → `throw new OAuth2AuthenticationException(new OAuth2Error(reason.code()))`
-  - [ ] `IllegalArgumentException` / `IllegalStateException` → `OAuth2AuthenticationException(new OAuth2Error("google"))`
-- [ ] **5.2.3** `GoogleOidcUserServiceTest` (Mockito, a stubbed delegate or a hand-built `OidcUserRequest`):
-  - [ ] verified claims → the service gets the right identity, the result is attached
-  - [ ] `email_verified` missing → identity has `emailVerified = false`
-  - [ ] each refusal reason → `OAuth2AuthenticationException` with its code
-  - [ ] an unexpected `IllegalStateException` → code `google`
+  - [x] delegate to a `new OidcUserService()` (userinfo off if 0.5 says it is possible)
+  - [x] build `GoogleIdentity` from the **ID token**: `getSubject()`, `getEmail()`, `Boolean.TRUE.equals(getEmailVerified())`
+  - [x] call `googleSignInService.signIn(identity)` and return `new GoogleOidcUser(…, result)`
+  - [x] `GoogleSignInRefusedException` → `throw new OAuth2AuthenticationException(new OAuth2Error(reason.code()))`
+  - [x] `IllegalArgumentException` / `IllegalStateException` → `OAuth2AuthenticationException(new OAuth2Error("google"))`
+        (logged at WARN with our own message, which never holds the email or subject). Both keep the cause.
+        `GENERIC_ERROR = "google"` is a public constant there; the handlers reuse it.
+- [x] **5.2.3** `GoogleOidcUserServiceTest` (Mockito, a stubbed delegate or a hand-built `OidcUserRequest`):
+  - [x] verified claims → the service gets the right identity, the result is attached
+  - [x] `email_verified` missing → identity has `emailVerified = false`
+  - [x] each refusal reason → `OAuth2AuthenticationException` with its code
+  - [x] an unexpected `IllegalStateException` → code `google`
+  - [x] plus: `email_verified=false` → unverified; no `email` claim → the service gets `null` and its
+        `IllegalArgumentException` → `google`; the OIDC user has name = `sub`, the same ID token, `OIDC_USER` and
+        `SCOPE_openid`. Uses the real `OidcUserService` delegate with a hand-built request (userinfo off, so no
+        network). 8 tests.
 
 ### 5.3 Success and failure handlers
-- [ ] **5.3.1** `presentation/security/GoogleLoginSuccessHandler.java` (`AuthenticationSuccessHandler`):
-  - [ ] read the `GoogleSignInResult` from the `GoogleOidcUser` principal; any other principal type →
+- [x] **5.3.1** `presentation/security/GoogleLoginSuccessHandler.java` (`AuthenticationSuccessHandler`):
+  - [x] read the `GoogleSignInResult` from the `GoogleOidcUser` principal; any other principal type →
         redirect `/login?error=google` (defensive)
-  - [ ] `sessionAuthenticator.signInVerified(...)` → `Authenticated` → redirect `/`; `TwoFactorRequired` →
+  - [x] `sessionAuthenticator.signInVerified(...)` → `Authenticated` → redirect `/`; `TwoFactorRequired` →
         redirect `/login/2fa`
-  - [ ] redirects are relative paths (decision 3); constants for the three paths
-- [ ] **5.3.2** `presentation/security/GoogleLoginFailureHandler.java` (`AuthenticationFailureHandler`):
-  - [ ] an `OAuth2AuthenticationException` whose error code is one of the three refusal codes → `/login?error=<code>`
-  - [ ] anything else (cancel, missing state, bad token, I/O) → `/login?error=google`
-  - [ ] `log.info("Google sign-in failed code={}", oauth2ErrorCode)`; never the exception message at INFO (it can hold
+  - [x] redirects are relative paths (decision 3); constants for the three paths
+- [x] **5.3.2** `presentation/security/GoogleLoginFailureHandler.java` (`AuthenticationFailureHandler`):
+  - [x] an `OAuth2AuthenticationException` whose error code is one of the three refusal codes → `/login?error=<code>`
+  - [x] anything else (cancel, missing state, bad token, I/O) → `/login?error=google`
+  - [x] `log.info("Google sign-in failed code={}", oauth2ErrorCode)`; never the exception message at INFO (it can hold
         the token endpoint's answer); the stack trace only at DEBUG
-- [ ] **5.3.3** `GoogleLoginSuccessHandlerTest` / `GoogleLoginFailureHandlerTest` (`MockHttpServletRequest/Response`):
-  - [ ] success without 2FA → `302 /`, `signInVerified` called with the principal from the result
-  - [ ] success with 2FA → `302 /login/2fa`
-  - [ ] foreign principal → `302 /login?error=google`
-  - [ ] each refusal code passes through; `access_denied`, `authorization_request_not_found`, a plain
+        Plus: the code can come straight from the callback's `error` parameter, so the log gets it only when it
+        matches `[a-z0-9_-]{1,64}` (otherwise `unrecognized`; a non-OAuth2 failure logs `none`). Fixed during the
+        tests: `Set.contains(null)` on the immutable set threw for a non-OAuth2 failure.
+- [x] **5.3.3** `GoogleLoginSuccessHandlerTest` / `GoogleLoginFailureHandlerTest` (`MockHttpServletRequest/Response`):
+  - [x] success without 2FA → `302 /`, `signInVerified` called with the principal from the result
+  - [x] success with 2FA → `302 /login/2fa`
+  - [x] foreign principal → `302 /login?error=google`
+  - [x] each refusal code passes through; `access_denied`, `authorization_request_not_found`, a plain
         `BadCredentialsException` → `google`; a made-up code like `<script>` → `google`
+        Also `invalid_state_parameter`, `invalid_nonce`, `invalid_id_token`, `invalid_token_response`, `google` and
+        `google-admin-account&x=1` → `google`; two `OutputCaptureExtension` tests prove the INFO log holds the plain
+        code and never the message, and that odd codes are not copied. 3 + 15 tests.
 
 ### 5.4 Security chain
-- [ ] **5.4.1** `config/SecurityConfig`: inject `ObjectProvider<ClientRegistrationRepository>` (or a small
+- [x] **5.4.1** `config/SecurityConfig`: inject `ObjectProvider<ClientRegistrationRepository>` (or a small
       `GoogleLoginConfigurer` bean from `GoogleLoginConfig`). Only when it is available, add:
+      Done with `ObjectProvider` plus the three Google components as parameters of the `securityFilterChain` bean
+      method, not constructor fields: as fields they made a cycle (success handler → `SessionAuthenticator` →
+      `AuthenticationManager`, a bean of `SecurityConfig`). The DSL lives in a private static `googleLogin(...)`.
+      `GoogleLoginConfig` got `AUTHORIZATION_BASE_URI` and `CALLBACK_BASE_URI` (`REDIRECT_PATH` builds on it).
+      Plus: an object post-processor gives the `OAuth2AuthorizationRequestRedirectFilter` our failure handler.
+      Without it an unknown registration id (`/api/v1/auth/oauth2/authorization/github`) answers a bare `500` and logs
+      a WARN; now it redirects to `/login?error=google`.
   ```java
   .oauth2Login(oauth -> oauth
       .loginPage("/login")                                         // the SPA page; no generated backend page
@@ -557,17 +594,33 @@ Builds on what is already in `develop` (`cb933cc`):
       .successHandler(successHandler)
       .failureHandler(failureHandler))
   ```
-  - [ ] `presentation/security/NoOpAuthorizedClientRepository` (load → `null`, save/remove → nothing), with a unit test
-  - [ ] add `GET /api/v1/auth/oauth2/**` → `permitAll` next to the other public auth rules (the `GET /api/**` rule
+  - [x] `presentation/security/NoOpAuthorizedClientRepository` (load → `null`, save/remove → nothing), with a unit test
+  - [x] add `GET /api/v1/auth/oauth2/**` → `permitAll` next to the other public auth rules (the `GET /api/**` rule
         already allows it; the explicit line documents it)
-  - [ ] update the class Javadoc rule list
-- [ ] **5.4.2** `SecurityRulesIntegrationTest` (Google on in the test profile from Phase 6):
-  - [ ] anonymous `GET /api/v1/me/quiz-progress/phrasal-verbs` → still `401` problem+json, **not** a `302` to `/login`
-  - [ ] `GET /login` on the backend → not a generated login page (`404`)
-  - [ ] `POST /api/v1/auth/oauth2/authorization/google` → not a redirect (CSRF `403` or `401`; write the actual)
-- [ ] **5.4.3** `mvn -q -o test -Dtest='SessionAuthenticatorTest,GoogleOidcUserServiceTest,GoogleLogin*HandlerTest,NoOpAuthorizedClientRepositoryTest'`
+  - [x] update the class Javadoc rule list (and the rule order in `backend/CLAUDE.md`, with a paragraph on the flow)
+- [x] **5.4.2** `SecurityRulesIntegrationTest` (Google on in the test profile from Phase 6):
+      Plan mutation: the `application-test.yml` part of 6.1.2 (`phrasal.google.enabled: true`, `test-client`,
+      `test-secret`) moved here, so these tests run against the real chain now. The endpoint overrides that point at
+      `FakeGoogle` stay in 6.1.2; until then the registration has Google's real URIs, which no test calls.
+      `AuthProvidersIntegrationTest` flipped to `{"google":true}`; `GoogleLoginDisabledIntegrationTest` (own context,
+      `enabled=false`) still passes.
+  - [x] anonymous `GET /api/v1/me/quiz-progress/phrasal-verbs` → still `401` problem+json, **not** a `302` to `/login`
+        (with `Accept: */*` and with `Accept: text/html`, the case the login entry point would claim)
+  - [x] `GET /login` on the backend → not a generated login page (`404`)
+        Actual: `401` problem+json. `/login` is outside `/api/**`, so `denyAll` sends an anonymous caller to the JSON
+        entry point; no HTML page either way.
+  - [x] `POST /api/v1/auth/oauth2/authorization/google` → not a redirect (CSRF `403` or `401`; write the actual)
+        Actual: `403` (the CSRF filter runs before the redirect filter), no `Location`.
+  - [x] plus: `GET /api/v1/auth/oauth2/authorization/google` → `302` to `https://accounts.google.com/o/oauth2/v2/auth?…`
+        (the chain is wired); an unknown provider → `302 /login?error=google`
+- [x] **5.4.3** `mvn -q -o test -Dtest='SessionAuthenticatorTest,GoogleOidcUserServiceTest,GoogleLogin*HandlerTest,NoOpAuthorizedClientRepositoryTest'`
       → green. The full-flow tests follow in Phase 6.
+      2026-10-30: those 37 plus `SecurityConfigAuthenticationTest` 3; and `SecurityRulesIntegrationTest` 22,
+      `AuthProvidersIntegrationTest` 3, `GoogleLoginDisabledIntegrationTest` 4, `AuthSessionIntegrationTest` 5,
+      `AuthLoginIntegrationTest` 10, `TwoFactorLoginIntegrationTest` 12, all green. Checkstyle clean.
 
+- [x] **5.5** End of phase: `make clean build` green (2026-10-30, Phases 4 and 5 in one run). Backend 787 tests
+      (+58: 23 in Phase 4, 35 in Phase 5), JaCoCo met; frontend 1654 in 86 files; e2e 140 scenarios / 1101 steps.
 ---
 
 ## Phase 6 — Full-flow integration tests with a fake Google
@@ -595,7 +648,8 @@ provider lets MockMvc run the real redirect → callback → token → ID token 
       client-id: test-client      # test only
       client-secret: test-secret  # test only
   ```
-  and in `AbstractIntegrationTest`'s `@DynamicPropertySource`: `phrasal.google.authorization-uri`, `token-uri`,
+  (this yml part is already done, moved to 5.4.2) and in `AbstractIntegrationTest`'s `@DynamicPropertySource`:
+  `phrasal.google.authorization-uri`, `token-uri`,
   `jwk-set-uri`, `issuer-uri` (and `user-info-uri` if needed) pointing at `FakeGoogle`.
 - [ ] **6.1.3** `AbstractIntegrationTest` helpers (cookie-based, like `registerAndLogin`):
   - [ ] `GoogleRedirect startGoogleSignIn()` → `GET /api/v1/auth/oauth2/authorization/google`, expects `302`, returns

@@ -20,7 +20,9 @@ import java.util.function.Consumer;
 public class GoogleLoginConfig {
 
     static final String REGISTRATION_ID = "google";
-    static final String REDIRECT_PATH = "/api/v1/auth/oauth2/code/{registrationId}";
+    static final String AUTHORIZATION_BASE_URI = "/api/v1/auth/oauth2/authorization";
+    static final String CALLBACK_BASE_URI = "/api/v1/auth/oauth2/code/";
+    static final String REDIRECT_PATH = CALLBACK_BASE_URI + "{registrationId}";
 
     @Bean
     public ClientRegistrationRepository clientRegistrationRepository(GoogleLoginProperties google,

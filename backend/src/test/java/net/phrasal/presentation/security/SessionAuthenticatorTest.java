@@ -6,6 +6,7 @@ import net.phrasal.domain.entity.Role;
 import net.phrasal.domain.entity.User;
 import net.phrasal.infrastructure.security.AppUserDetails;
 import net.phrasal.infrastructure.security.AuthenticatedUser;
+import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
@@ -18,8 +19,11 @@ import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.BadCredentialsException;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.context.SecurityContext;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.web.context.SecurityContextRepository;
 import org.springframework.test.util.ReflectionTestUtils;
+
+import java.util.List;
 
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.assertj.core.api.Assertions.assertThatThrownBy;
@@ -41,6 +45,11 @@ class SessionAuthenticatorTest {
     private SecurityContextRepository securityContextRepository;
     @Mock
     private PendingTwoFactorLogin pendingLogin;
+
+    @AfterEach
+    void clearContext() {
+        SecurityContextHolder.clearContext();
+    }
 
     private SessionAuthenticator authenticator() {
         return new SessionAuthenticator(authenticationManager, securityContextRepository, pendingLogin);
@@ -168,12 +177,37 @@ class SessionAuthenticatorTest {
     }
 
     @Test
-    @DisplayName("startTwoFactorChallenge opens the pending login for another sign-in flow")
-    void startTwoFactorChallenge() {
+    @DisplayName("signInVerified without 2FA changes the session id and saves the AuthenticatedUser principal")
+    void signInVerifiedWithoutTwoFactor() {
         MockHttpServletRequest request = new MockHttpServletRequest();
+        String before = request.getSession().getId();
+        AuthenticatedUser principal = new AuthenticatedUser(USER_ID, EMAIL, Role.USER, false, true);
 
-        authenticator().startTwoFactorChallenge(request, USER_ID);
+        LoginOutcome result = authenticator().signInVerified(principal, request, new MockHttpServletResponse());
 
+        assertThat(result).isEqualTo(new LoginOutcome.Authenticated(
+                new UserResponse(USER_ID, EMAIL, "USER", false, false, false)));
+        assertThat(request.getSession(false).getId()).isNotEqualTo(before);
+        verify(pendingLogin, never()).start(any(), any());
+        ArgumentCaptor<SecurityContext> captor = ArgumentCaptor.forClass(SecurityContext.class);
+        verify(securityContextRepository).saveContext(captor.capture(), any(), any());
+        assertThat(captor.getValue().getAuthentication().getPrincipal()).isEqualTo(principal);
+        assertThat(SecurityContextHolder.getContext().getAuthentication().getPrincipal()).isEqualTo(principal);
+    }
+
+    @Test
+    @DisplayName("signInVerified with 2FA clears the context, opens the pending login and saves nothing")
+    void signInVerifiedWithTwoFactor() {
+        MockHttpServletRequest request = new MockHttpServletRequest();
+        SecurityContextHolder.getContext().setAuthentication(
+                UsernamePasswordAuthenticationToken.authenticated("oauth2-user", null, List.of()));
+
+        LoginOutcome result = authenticator().signInVerified(
+                new AuthenticatedUser(USER_ID, EMAIL, Role.USER, true, true), request, new MockHttpServletResponse());
+
+        assertThat(result).isInstanceOf(LoginOutcome.TwoFactorRequired.class);
         verify(pendingLogin).start(request, USER_ID);
+        verify(securityContextRepository, never()).saveContext(any(), any(), any());
+        assertThat(SecurityContextHolder.getContext().getAuthentication()).isNull();
     }
 }

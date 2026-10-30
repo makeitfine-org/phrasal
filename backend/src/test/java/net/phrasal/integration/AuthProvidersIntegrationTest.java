@@ -18,11 +18,11 @@ class AuthProvidersIntegrationTest extends AbstractIntegrationTest {
     private static final String PROVIDERS = "/api/v1/auth/providers";
 
     @Test
-    @DisplayName("providers is public and reports Google off in the default test profile")
+    @DisplayName("providers is public and reports Google on, as the test profile configures it")
     void anonymousProviders() throws Exception {
         mockMvc.perform(get(PROVIDERS))
                 .andExpect(status().isOk())
-                .andExpect(content().json("{\"google\":false}", true));
+                .andExpect(content().json("{\"google\":true}", true));
     }
 
     @Test
@@ -32,7 +32,7 @@ class AuthProvidersIntegrationTest extends AbstractIntegrationTest {
 
         mockMvc.perform(get(PROVIDERS).cookie(session))
                 .andExpect(status().isOk())
-                .andExpect(content().json("{\"google\":false}", true));
+                .andExpect(content().json("{\"google\":true}", true));
     }
 
     @Test
