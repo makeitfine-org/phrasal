@@ -1264,23 +1264,25 @@ So `make clean build` passes after every phase. **Don't release from the branch 
 
 ## Phase 11 — Config wiring check (delivery checklist)
 
-- [ ] **11.1** `docker-compose.yml`: `TOTP_ENCRYPTION_KEY` (Phase 2) and `RATE_LIMIT_TWO_FACTOR_PER_IP: "1000"` (Phase 6)
+- [x] **11.1** `docker-compose.yml`: `TOTP_ENCRYPTION_KEY` (Phase 2) and `RATE_LIMIT_TWO_FACTOR_PER_IP: "1000"` (Phase 6)
       are present. No new service.
-- [ ] **11.2** k8s:
-  - [ ] base secret + deployment env have `totp.encryption-key` / `TOTP_ENCRYPTION_KEY` (Phase 2)
-  - [ ] the prod example patch has `totp.encryption-key: CHANGE_ME`
-  - [ ] no configmap change: the rate-limit and timeout defaults are fine for prod
-- [ ] **11.3** `.github/workflows/ci_cd.yml`:
-  - [ ] the prod secret patch has the key and the empty-secret guard (Phase 2)
-  - [ ] the e2e job needs no new env (compose defaults)
-  - [ ] the backend job needs nothing (the test profile has its own key)
-- [ ] **11.4** Skaffold: `grep -n "env\|secret" skaffold.yaml backend/skaffold.yaml frontend/skaffold.yaml` → it uses the
+- [x] **11.2** k8s:
+  - [x] base secret + deployment env have `totp.encryption-key` / `TOTP_ENCRYPTION_KEY` (Phase 2)
+  - [x] the prod example patch has `totp.encryption-key: CHANGE_ME`
+  - [x] no configmap change: the rate-limit and timeout defaults are fine for prod
+- [x] **11.3** `.github/workflows/ci_cd.yml`:
+  - [x] the prod secret patch has the key and the empty-secret guard (Phase 2)
+  - [x] the e2e job needs no new env (compose defaults)
+  - [x] the backend job needs nothing (the test profile has its own key)
+- [x] **11.4** Skaffold: `grep -n "env\|secret" skaffold.yaml backend/skaffold.yaml frontend/skaffold.yaml` → it uses the
       k8s base, so nothing changes. Write the conclusion in the commit body or in this file, not in code.
-- [ ] **11.5** `frontend/nginx.conf` and `vite.config.ts`: `/api` is proxied same-origin, and the new SPA routes
+      Conclusion (2026-10-30): Skaffold only lists `k8s/base/backend-secret.yaml`, which already carries the key; no change.
+- [x] **11.5** `frontend/nginx.conf` and `vite.config.ts`: `/api` is proxied same-origin, and the new SPA routes
       (`/login/2fa`, `/account/security`) fall back to `index.html` like the others. Check with a hard reload of both
       URLs on http://localhost:3000.
-- [ ] **11.6** `kubectl kustomize k8s/overlays/dev` and `…/prod` (with the example patch copied, then deleted) render.
-- [ ] **11.7** If nothing changed in this phase, no commit is needed. Otherwise ask for approval →
+- [x] **11.6** `kubectl kustomize k8s/overlays/dev` and `…/prod` (with the example patch copied, then deleted) render.
+- [x] **11.7** If nothing changed in this phase, no commit is needed. Otherwise ask for approval →
+      Result: no file changed in Phase 11 (checks only), so no commit.
       `build: wire 2FA settings into compose, k8s and CI`
 
 ---

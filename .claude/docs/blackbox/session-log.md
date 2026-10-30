@@ -2234,3 +2234,8 @@
 - backlog/drafts/hard.md
 - e2e/CLAUDE.md
 <!-- end-snapshot -->
+
+<!-- git-snapshot 2026-10-30T07:57:05Z -->
+- .claude/docs/blackbox/audit.md
+- .claude/docs/blackbox/todos/2FA-todos.md
+<!-- end-snapshot -->
