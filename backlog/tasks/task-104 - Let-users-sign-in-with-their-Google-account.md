@@ -4,7 +4,7 @@ title: Let users sign in with their Google account
 status: To Do
 assignee: []
 created_date: '2026-10-26T17:38:00Z'
-updated_date: '2026-10-26T17:56:00Z'
+updated_date: '2026-10-30T08:05:00Z'
 labels:
   - multi-user
   - security
@@ -70,3 +70,9 @@ Many visitors would rather not create yet another password. Google sign-in gives
 - [ ] #11 README.md documents the Google setup (OAuth client, redirect URIs, env vars). backend/CLAUDE.md documents the account-linking rules.
 - [ ] #12 `make clean build` passes
 <!-- AC:END -->
+
+## Implementation Notes
+
+<!-- SECTION:NOTES:BEGIN -->
+2026-10-30: task-101 left the seam `SessionAuthenticator#startTwoFactorChallenge` for a 2FA challenge after Google sign-in. `POST /me/2fa/setup` asks for the current password, so Google-only accounts (no password) need another proof before they can enroll.
+<!-- SECTION:NOTES:END -->

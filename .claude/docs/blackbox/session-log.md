@@ -2239,3 +2239,19 @@
 - .claude/docs/blackbox/audit.md
 - .claude/docs/blackbox/todos/2FA-todos.md
 <!-- end-snapshot -->
+
+<!-- git-snapshot 2026-10-30T08:09:34Z -->
+- .claude/docs/blackbox/audit.md
+- .claude/docs/blackbox/plans/2026-10-26 18:10 Multi-user accounts TOTP 2FA and reliable storage for phrasal.md
+- .claude/docs/blackbox/todos/2FA-todos.md
+- CLAUDE.md
+- README.md
+- backend/CLAUDE.md
+- backlog/tasks/task-100 - Let-users-reset-forgotten-passwords-delete-their-account-and-protect-auth-endpoints-from-abuse.md
+- backlog/tasks/task-101 - Add-authenticator-app-2FA-TOTP-with-recovery-codes-mandatory-for-admins.md
+- backlog/tasks/task-103 - Add-sign-up-login-2FA-and-account-screens-to-the-frontend-and-sync-quiz-progress-for-logged-in-users.md
+- backlog/tasks/task-104 - Let-users-sign-in-with-their-Google-account.md
+- docs/diagrams/auth-flow.md
+- e2e/CLAUDE.md
+- frontend/CLAUDE.md
+<!-- end-snapshot -->

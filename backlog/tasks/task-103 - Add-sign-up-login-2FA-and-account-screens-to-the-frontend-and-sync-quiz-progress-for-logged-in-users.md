@@ -6,7 +6,7 @@ title: >-
 status: To Do
 assignee: []
 created_date: '2026-10-26T17:38:00Z'
-updated_date: '2026-10-29T22:47:00Z'
+updated_date: '2026-10-30T08:05:00Z'
 labels:
   - multi-user
   - frontend
@@ -73,10 +73,10 @@ Logged-in users also expect their quiz progress to follow them across devices.
 ## Acceptance Criteria
 <!-- AC:BEGIN -->
 - [ ] #1 Visitors can open Register, Verify email, Login, Forgot password and Reset password pages from the app shell. All pages work at mobile width and in dark mode.
-- [ ] #2 Login for a 2FA-enabled account moves to a code-entry step, which accepts a TOTP code or a recovery code.
+- [x] #2 Login for a 2FA-enabled account moves to a code-entry step, which accepts a TOTP code or a recovery code.
 - [ ] #3 A logged-in user sees a user menu with their email and options for Account/Security and Logout.
 - [ ] #4 On the Account/Security page a user can enable 2FA (QR code plus manual secret), see and download recovery codes once, regenerate them, disable 2FA with a code, and delete their account with password confirmation.
-- [ ] #5 An admin without 2FA is clearly prompted to enroll.
+- [x] #5 An admin without 2FA is clearly prompted to enroll.
 - [ ] #6 Backend errors (ProblemDetail, including 429 rate limits) are shown as readable messages on forms.
 - [x] #7 Anonymous users keep the current quiz behaviour with localStorage only, and no progress requests are sent.
 - [x] #8 For a logged-in user, quiz progress is saved to the server and restored after clearing localStorage or on another browser.
@@ -105,4 +105,6 @@ Done in task-107: the /verify-email page (VerifyEmailPage), the resend action (R
 2026-10-29: the Forgot password and Reset password pages, the login-page link, the shared PasswordRequirements component, Vitest tests and the browser e2e (features/frontend/password-reset.feature) are done in TASK-108 (part of AC #1, #6, #13). Still open: 2FA and account screens, AC #12 rest and #15.
 
 2026-10-29: the 2FA screens (AC #2, #4 without account deletion, #5) are planned in TASK-101's `.claude/docs/blackbox/todos/2FA-todos.md` (branch `two-factor`, Phases 8-10).
+
+2026-10-30: 2FA screens done in task-101 (branch `two-factor`, Phases 8-10): login code step (AC #2, accepts TOTP or recovery code), enrollment banner (AC #5), Account security page with QR code, recovery codes, regenerate and disable, user menu link (part of AC #3, #4, #6, #13, #14). Still open here: account deletion (rest of AC #4), AC #12 rest, #15.
 <!-- SECTION:NOTES:END -->

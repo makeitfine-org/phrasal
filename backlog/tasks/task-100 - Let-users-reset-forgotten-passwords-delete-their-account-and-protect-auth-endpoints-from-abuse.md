@@ -6,7 +6,7 @@ title: >-
 status: To Do
 assignee: []
 created_date: '2026-10-26T17:37:00Z'
-updated_date: '2026-10-29T22:47:00Z'
+updated_date: '2026-10-30T08:05:00Z'
 labels:
   - multi-user
   - security
@@ -96,4 +96,6 @@ Ready from task-107 for password reset: user_tokens table + TokenType (add PASSW
 2026-10-29: password reset is implemented in TASK-108 (branch `password-reset`; docs in README 'Password reset' and docs/diagrams/password-reset-flow.md). The AC above that cover reset (#1, #2, #3, #10 and the forgot/reset parts of #5, #9, #11) stay unchecked here and are tracked in TASK-108; the other AC are still open.
 
 2026-10-29: the 2FA-step part of AC #5 (rate limits two-factor-per-ip / two-factor-per-user) is planned in TASK-101's `.claude/docs/blackbox/todos/2FA-todos.md` (branch `two-factor`).
+
+2026-10-30: the 2FA-step rate limit (part of AC #5) is done in task-101: `two-factor-per-user` (5 / 15 min, shared by confirm, login/2fa, disable, recovery-codes) and `two-factor-per-ip` (20 / 5 min).
 <!-- SECTION:NOTES:END -->

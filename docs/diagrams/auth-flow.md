@@ -18,9 +18,10 @@ sequenceDiagram
 
     U->>B: POST /api/v1/auth/login {email, password}
     B->>B: rate limit (IP + email), authenticate
+    Note over U,B: account with 2FA: 202 and a second step, see two-factor-flow.md
     B->>B: changeSessionId (fixation protection)
     B->>DB: INSERT spring_session (principal AuthenticatedUser)
-    B-->>U: 200 {id, email, role} + Set-Cookie SESSION (HttpOnly, SameSite=Lax)
+    B-->>U: 200 {id, email, role, twoFactorEnabled, twoFactorEnrollmentRequired} + Set-Cookie SESSION (HttpOnly, SameSite=Lax)
 
     U->>B: GET /api/v1/auth/me (Cookie SESSION)
     B->>DB: load session
@@ -74,9 +75,11 @@ flowchart TD
     C -- no --> U401[401]
     C -- yes --> RO{role ADMIN?}
     RO -- no --> F403[403]
-    RO -- yes --> OK[Allow]
+    RO -- yes --> TF{2FA enabled?}
+    TF -- no --> F403
+    TF -- yes --> OK[Allow]
 ```
 
 ## Deferred
 
-TOTP 2FA, Google sign-in, ~~password reset~~ (done, see [password-reset-flow.md](password-reset-flow.md)), ~~email verification~~ (done, see [email-verification-flow.md](email-verification-flow.md)), ~~server-side quiz progress~~ (done, see [quiz-progress-flow.md](quiz-progress-flow.md)).
+~~TOTP 2FA~~ (done, see [two-factor-flow.md](two-factor-flow.md)), Google sign-in, ~~password reset~~ (done, see [password-reset-flow.md](password-reset-flow.md)), ~~email verification~~ (done, see [email-verification-flow.md](email-verification-flow.md)), ~~server-side quiz progress~~ (done, see [quiz-progress-flow.md](quiz-progress-flow.md)).

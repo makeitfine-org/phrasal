@@ -458,8 +458,9 @@ Visitors can sign up with an email and password. Content stays public to read; o
 | `POST /api/v1/auth/resend-verification` `{email}` | `202` (always, even for unknown or verified addresses) | `400` invalid body, `403` CSRF, `429` rate limited |
 | `POST /api/v1/auth/forgot-password` `{email}` | `202` + `{"message": ...}` (always, even for unknown addresses) | `400` invalid body, `403` CSRF, `429` rate limited |
 | `POST /api/v1/auth/reset-password` `{token, password}` | `204`, the password is changed and every session is closed | `400` `reset-link-invalid`, `reset-link-expired` or a password-policy error, `403` CSRF, `429` rate limited |
-| `POST /api/v1/auth/login` `{email, password}` | `200` + `{id, email, role}`, sets the `SESSION` cookie | `400` invalid body, `401` wrong email or password, `403` `email-not-verified` (right password, unconfirmed address), `429` rate limited |
-| `GET /api/v1/auth/me` | `200` + `{id, email, role}` | `401` anonymous |
+| `POST /api/v1/auth/login` `{email, password}` | `200` + `{id, email, role, twoFactorEnabled, twoFactorEnrollmentRequired}`, sets the `SESSION` cookie; `202` + `{"twoFactorRequired": true}` when the account has 2FA (see [Two-factor authentication](#two-factor-authentication-2fa)) | `400` invalid body, `401` wrong email or password, `403` `email-not-verified` (right password, unconfirmed address), `429` rate limited |
+| `POST /api/v1/auth/login/2fa` `{code}` | `200` + the user, sets a new `SESSION` cookie | `400` invalid body or `invalid-two-factor-code`, `401` `two-factor-login-expired` (or no pending login), `403` CSRF, `429` rate limited |
+| `GET /api/v1/auth/me` | `200` + `{id, email, role, twoFactorEnabled, twoFactorEnrollmentRequired}` | `401` anonymous |
 | `POST /api/v1/auth/logout` | `204`, session invalidated | - |
 
 Errors are `application/problem+json` (RFC 7807).
@@ -473,7 +474,7 @@ sync with the backend `PasswordPolicy`. Register and password reset apply the sa
 
 **Roles.** `USER` (default for sign-ups) and `ADMIN`. Anyone can `GET /api/**`. `POST`/`PUT`/`DELETE` on phrasal-verbs,
 grammar-entries and verb-details need `ADMIN` (anonymous gets `401`, a `USER` gets `403`). `/actuator/health/**` is public,
-other actuator endpoints need `ADMIN`.
+other actuator endpoints need `ADMIN`. An `ADMIN` only gets those rights after the second factor (see 2FA below).
 
 **Admin bootstrap.** The backend creates or repairs one `ADMIN` account at every start from `PHRASAL_ADMIN_EMAIL` and
 `PHRASAL_ADMIN_PASSWORD` (docker-compose dev defaults: `admin@phrasal.test` / see `docker-compose.yml`). The configured
@@ -556,12 +557,17 @@ verified, so it cannot be used to find out who has an account (**breaking change
 docker-compose raises the per-IP limits so the e2e suite can register many users.
 
 **GitHub Secrets to create before the next tagged deploy:** `PHRASAL_ADMIN_EMAIL`, `PHRASAL_ADMIN_PASSWORD`,
-`MAIL_USERNAME` and `MAIL_PASSWORD` (see [Production Deployment](#production-deployment-k3s)).
+`MAIL_USERNAME`, `MAIL_PASSWORD` and `TOTP_ENCRYPTION_KEY` (see [Production Deployment](#production-deployment-k3s) and
+[Two-factor authentication](#two-factor-authentication-2fa)).
 
-**Not yet:** 2FA and Google sign-in.
+docker-compose sets `RATE_LIMIT_LOGIN_PER_EMAIL` to 10 (2FA setup and the shared e2e admin use that budget); production
+keeps the default of 5.
+
+**Not yet:** Google sign-in.
 Flow diagrams: [`docs/diagrams/auth-flow.md`](docs/diagrams/auth-flow.md),
 [`docs/diagrams/email-verification-flow.md`](docs/diagrams/email-verification-flow.md),
-[`docs/diagrams/password-reset-flow.md`](docs/diagrams/password-reset-flow.md).
+[`docs/diagrams/password-reset-flow.md`](docs/diagrams/password-reset-flow.md),
+[`docs/diagrams/two-factor-flow.md`](docs/diagrams/two-factor-flow.md).
 
 ### Password reset
 
@@ -581,6 +587,69 @@ Flow diagrams: [`docs/diagrams/auth-flow.md`](docs/diagrams/auth-flow.md),
 
 **Local.** The reset mail shows up in Mailpit (http://localhost:8025); with `MAIL_ENABLED=false` the link is written to
 the backend log.
+
+### Two-factor authentication (2FA)
+
+Any account can protect its login with a time-based one-time password (TOTP, RFC 6238: 6 digits, 30 s, SHA-1, the
+format every authenticator app reads).
+
+**User guide.** Open the user menu → **Account security** → **Turn on**. Enter your password, scan the QR code with
+Google Authenticator, Aegis, 1Password or similar (or type the key by hand), enter the 6-digit code, then **save the 10
+recovery codes**: they are shown once and each works once. From then on, login asks for the code after the password
+(`/login/2fa`). The same page turns 2FA off or makes new recovery codes; both need a current code, and new codes replace
+the old ones.
+
+| Endpoint | Success | Errors |
+|---|---|---|
+| `GET /api/v1/me/2fa` | `200` + `{enabled, enabledAt, recoveryCodesRemaining}` | `401` anonymous |
+| `POST /api/v1/me/2fa/setup` `{password}` | `200` + `{secret, otpauthUri}` (not active yet) | `400` invalid body or `wrong-password`, `401` anonymous, `409` `two-factor-already-enabled` |
+| `POST /api/v1/me/2fa/confirm` `{code}` | `200` + `{recoveryCodes}`, turns 2FA on, rotates the session id and closes other sessions | `400` invalid body or `invalid-two-factor-code`, `401`, `409` `two-factor-setup-not-started`, `429` |
+| `POST /api/v1/me/2fa/recovery-codes` `{code}` | `200` + new `{recoveryCodes}` | `400` `invalid-two-factor-code`, `409` `two-factor-not-enabled`, `429` |
+| `POST /api/v1/me/2fa/disable` `{code}` | `204`, rotates the session id | `400` `invalid-two-factor-code`, `409` `two-factor-not-enabled`, `429` |
+| `POST /api/v1/auth/login/2fa` `{code}` | `200` + the user (an authenticator code or a recovery code) | `400` `invalid-two-factor-code`, `401` `two-factor-login-expired`, `429` |
+
+All writes need the CSRF header. After `confirm` and `disable` the client must use the new `SESSION` cookie from that
+response. `POST /auth/login` answers `202` `{"twoFactorRequired": true}` for an account with 2FA: the password was right,
+but the session is only a pending login (valid for `TWO_FACTOR_LOGIN_TIMEOUT`, default `5m`) and grants nothing until
+`login/2fa` succeeds. A code that was already used (replay) is rejected. Turning 2FA on or off sends a notice mail.
+
+**Admins.** An `ADMIN` without 2FA is treated as a plain `USER`: content writes and `/actuator/**` answer `403`, and the
+SPA shows an "enable 2FA" banner (`/auth/me` says `twoFactorEnrollmentRequired: true`). Enabling 2FA in the same session
+gives the admin rights back. Migration `V15` deleted the existing admin sessions once, so admins logged in again after the
+upgrade.
+
+**Key backup (`TOTP_ENCRYPTION_KEY`).** TOTP secrets are stored AES-256-GCM encrypted; the key is `base64` of 32 random
+bytes, and the backend does not start without it. In prod it lives only in the GitHub Secret `TOTP_ENCRYPTION_KEY` and
+your password manager. Without it a restored database backup cannot check TOTP codes (recovery codes still work, they are
+only hashed). Changing the key makes every stored secret unreadable, so every 2FA user then needs a recovery code and must
+enroll again. docker-compose, `k8s/base/backend-secret.yaml` and this README carry a dev-only key on purpose; never reuse
+it in prod.
+
+**Before the next tagged deploy:** create the key and the GitHub Secret (CI refuses to deploy with an empty one):
+
+```bash
+openssl rand -base64 32          # store the output in the password manager
+gh secret set TOTP_ENCRYPTION_KEY   # paste it at the prompt
+```
+
+**Runbook: an admin lost the phone and the recovery codes.** Reset the account's 2FA in the database, then log in with the
+password and enroll again (the admin works as a `USER` until then):
+
+```bash
+kubectl --context hetzner exec -i postgres-0 -- psql -U <username> phrasaldb <<'SQL'
+UPDATE users SET totp_secret_enc = NULL, totp_enabled_at = NULL, totp_last_step = NULL WHERE email = 'admin@example.com';
+DELETE FROM user_recovery_codes WHERE user_id = (SELECT id FROM users WHERE email = 'admin@example.com');
+SQL
+```
+
+**Rate limits.** Code attempts (`confirm`, `login/2fa`, `disable`, `recovery-codes`) count per account in one bucket
+(`RATE_LIMIT_TWO_FACTOR_PER_USER`, 5 per 15 min) and per IP (`RATE_LIMIT_TWO_FACTOR_PER_IP`, 20 per 5 min); see the table
+above. `TWO_FACTOR_ISSUER` (default `Phrasal`) is the name shown in the authenticator app.
+
+**Deferred:** 2FA for Google sign-in (task-104: `SessionAuthenticator#startTwoFactorChallenge` is the seam; `setup` asks for
+a password, so Google-only accounts need another proof) and encryption key rotation.
+
+Flow diagram: [`docs/diagrams/two-factor-flow.md`](docs/diagrams/two-factor-flow.md).
 
 ### Learning progress
 

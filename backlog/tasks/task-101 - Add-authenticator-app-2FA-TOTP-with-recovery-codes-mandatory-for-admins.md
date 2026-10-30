@@ -4,7 +4,7 @@ title: Add authenticator-app 2FA (TOTP) with recovery codes, mandatory for admin
 status: In Progress
 assignee: []
 created_date: '2026-10-26T17:37:00Z'
-updated_date: '2026-10-29T22:47:00Z'
+updated_date: '2026-10-30T08:09:00Z'
 labels:
   - multi-user
   - security
@@ -69,23 +69,27 @@ Admin accounts can change content that every visitor sees. A stolen admin passwo
 
 ## Acceptance Criteria
 <!-- AC:BEGIN -->
-- [ ] #1 A logged-in user can start 2FA setup. They receive an otpauth URI and secret, and 2FA becomes active only after they confirm a valid code.
-- [ ] #2 On confirmation the user receives 10 recovery codes, shown once. Only their hashes are stored.
-- [ ] #3 Logging in to a 2FA-enabled account with a correct password does not create an authenticated session until a valid TOTP code or unused recovery code is submitted. The pending state expires after about 5 minutes.
-- [ ] #4 A TOTP code that was already used is rejected. Codes within plus or minus one time step are accepted.
-- [ ] #5 Each recovery code works exactly once. A user can regenerate recovery codes, which invalidates the old ones.
-- [ ] #6 Disabling 2FA requires a valid current code.
-- [ ] #7 An ADMIN account without 2FA, or one that has not completed the TOTP step in the current session, gets 403 on content writes. After the TOTP step, writes succeed.
-- [ ] #8 TOTP secrets are encrypted at rest, and the database never holds a plaintext secret. The encryption key is a new secret env var wired into docker-compose, k8s base/prod and CI.
-- [ ] #9 A new Flyway migration adds the 2FA columns and the recovery code table. Existing migrations are not edited.
-- [ ] #10 Unit tests verify against RFC 6238 test vectors, plus replay, drift, encryption round-trip and recovery-code single use. Integration tests cover the full two-step login and admin enforcement.
-- [ ] #11 E2E: an admin enrolls in 2FA (codes generated in the test from the setup secret), logs in with a code, then performs CRUD successfully.
-- [ ] #12 README.md documents 2FA usage and the key backup requirement. backend/CLAUDE.md documents the 2FA design.
-- [ ] #13 `make clean build` passes
+- [x] #1 A logged-in user can start 2FA setup. They receive an otpauth URI and secret, and 2FA becomes active only after they confirm a valid code.
+- [x] #2 On confirmation the user receives 10 recovery codes, shown once. Only their hashes are stored.
+- [x] #3 Logging in to a 2FA-enabled account with a correct password does not create an authenticated session until a valid TOTP code or unused recovery code is submitted. The pending state expires after about 5 minutes.
+- [x] #4 A TOTP code that was already used is rejected. Codes within plus or minus one time step are accepted.
+- [x] #5 Each recovery code works exactly once. A user can regenerate recovery codes, which invalidates the old ones.
+- [x] #6 Disabling 2FA requires a valid current code.
+- [x] #7 An ADMIN account without 2FA, or one that has not completed the TOTP step in the current session, gets 403 on content writes. After the TOTP step, writes succeed.
+- [x] #8 TOTP secrets are encrypted at rest, and the database never holds a plaintext secret. The encryption key is a new secret env var wired into docker-compose, k8s base/prod and CI.
+- [x] #9 A new Flyway migration adds the 2FA columns and the recovery code table. Existing migrations are not edited.
+- [x] #10 Unit tests verify against RFC 6238 test vectors, plus replay, drift, encryption round-trip and recovery-code single use. Integration tests cover the full two-step login and admin enforcement.
+- [x] #11 E2E: an admin enrolls in 2FA (codes generated in the test from the setup secret), logs in with a code, then performs CRUD successfully.
+- [x] #12 README.md documents 2FA usage and the key backup requirement. backend/CLAUDE.md documents the 2FA design.
+- [x] #13 `make clean build` passes
 <!-- AC:END -->
 
 ## Implementation Notes
 
 <!-- SECTION:NOTES:BEGIN -->
 2026-10-29: implementation plan: `.claude/docs/blackbox/todos/2FA-todos.md` (branch `two-factor`). Deviations from the plan, subject to confirmation in Phase 0.4: java-otp 0.4.0 (1.0.0 does not exist); endpoints under /api/v1/me/2fa/* with POST .../disable; setup asks for the current password; on/off notice emails.
+
+2026-10-30: Phases 0-12 of `.claude/docs/blackbox/todos/2FA-todos.md` done on branch `two-factor`. Phase 0 decisions: java-otp 1.0.0 (supersedes the 0.4.0 note above) plus commons-codec; endpoints `/api/v1/me/2fa/*` with `POST .../disable`; setup needs the current password; notice mails on enable/disable. Migration V15 (also deletes admin sessions once). Seam for task-104: `SessionAuthenticator#startTwoFactorChallenge`. Open: GitHub Secret `TOTP_ENCRYPTION_KEY` must exist before the next tagged deploy (Phase 14); Phase 13 final verification. Do not tag a release from this branch before Phase 14: admin write clients now need 2FA (breaking).
+
+Docs: README section 'Two-factor authentication (2FA)', backend/frontend/e2e CLAUDE.md, docs/diagrams/two-factor-flow.md, auth-flow.md.
 <!-- SECTION:NOTES:END -->

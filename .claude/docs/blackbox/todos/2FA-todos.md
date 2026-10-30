@@ -1289,49 +1289,49 @@ So `make clean build` passes after every phase. **Don't release from the branch 
 
 ## Phase 12 — Docs, diagrams, backlog
 
-- [ ] **12.1** `README.md`: a new section "Two-factor authentication (2FA)" under "Accounts & security", and remove
+- [x] **12.1** `README.md`: a new section "Two-factor authentication (2FA)" under "Accounts & security", and remove
       "**Not yet:** 2FA" (line ~557):
-  - [ ] user guide: Account security → Turn on → scan the QR code with Google Authenticator / Aegis / 1Password →
+  - [x] user guide: Account security → Turn on → scan the QR code with Google Authenticator / Aegis / 1Password →
         enter the code → save the recovery codes
-  - [ ] the endpoint table (decision 5) with status codes, and the 202 login challenge
-  - [ ] the admin rule: ADMIN rights only after the second factor; the banner; why old admin sessions were logged out
+  - [x] the endpoint table (decision 5) with status codes, and the 202 login challenge
+  - [x] the admin rule: ADMIN rights only after the second factor; the banner; why old admin sessions were logged out
         once (V15)
-  - [ ] **key backup**: `TOTP_ENCRYPTION_KEY` (GitHub Secret + password manager). Without it, restored backups can't
+  - [x] **key backup**: `TOTP_ENCRYPTION_KEY` (GitHub Secret + password manager). Without it, restored backups can't
         check TOTP codes, but recovery codes still work. Changing the key = every 2FA user needs a recovery code.
-  - [ ] **runbook "admin lost phone and recovery codes"**: the SQL from 7.3.1 through
+  - [x] **runbook "admin lost phone and recovery codes"**: the SQL from 7.3.1 through
         `kubectl --context hetzner exec postgres-0 -- psql …`, then log in and enroll again
-  - [ ] rate limits and their env vars (decision 14); `TWO_FACTOR_LOGIN_TIMEOUT`
-  - [ ] the GitHub Secret to create before the next deploy, plus `openssl rand -base64 32`
-- [ ] **12.2** `backend/CLAUDE.md`, "Security" section:
-  - [ ] the principal invariant (decision 4) and `authorities()`
-  - [ ] the pending-login attributes and their timeout
-  - [ ] `TwoFactorService`, `TotpVerifier`, `AesGcmEncryptor`, `RecoveryCodes`, `TwoFactorSecrets`
-  - [ ] the replay rule (conditional updates)
-  - [ ] what must never be logged (decision 19)
-  - [ ] integration tests: `enableTwoFactor`, `loginExpectingTwoFactor`, `TotpTestCodes`
-- [ ] **12.3** `frontend/CLAUDE.md`: the new pages (`LoginTwoFactorPage`, `AccountSecurityPage`), `components/twoFactor/`,
+  - [x] rate limits and their env vars (decision 14); `TWO_FACTOR_LOGIN_TIMEOUT`
+  - [x] the GitHub Secret to create before the next deploy, plus `openssl rand -base64 32`
+- [x] **12.2** `backend/CLAUDE.md`, "Security" section:
+  - [x] the principal invariant (decision 4) and `authorities()`
+  - [x] the pending-login attributes and their timeout
+  - [x] `TwoFactorService`, `TotpVerifier`, `AesGcmEncryptor`, `RecoveryCodes`, `TwoFactorSecrets`
+  - [x] the replay rule (conditional updates)
+  - [x] what must never be logged (decision 19)
+  - [x] integration tests: `enableTwoFactor`, `loginExpectingTwoFactor`, `TotpTestCodes`
+- [x] **12.3** `frontend/CLAUDE.md`: the new pages (`LoginTwoFactorPage`, `AccountSecurityPage`), `components/twoFactor/`,
       `TwoFactorEnrollmentBanner`, `twoFactorApi.ts`, the `LoginResult` of `AuthContext#login`, and `qrcode` (mocked in
       Vitest).
-- [ ] **12.4** `e2e/CLAUDE.md`: `totp.ts` (`nextAcceptedCode` and why), `admin-two-factor.ts` + the BeforeAll/AfterAll
+- [x] **12.4** `e2e/CLAUDE.md`: `totp.ts` (`nextAcceptedCode` and why), `admin-two-factor.ts` + the BeforeAll/AfterAll
       reset, the new steps and features, and the `otpauth` dependency.
-- [ ] **12.5** `docs/diagrams/two-factor-flow.md` (new, blackbox policy; Mermaid):
-  - [ ] a sequence diagram: enrollment (setup with password → QR → confirm → codes → session refresh + other sessions
+- [x] **12.5** `docs/diagrams/two-factor-flow.md` (new, blackbox policy; Mermaid):
+  - [x] a sequence diagram: enrollment (setup with password → QR → confirm → codes → session refresh + other sessions
         revoked → notice mail)
-  - [ ] a sequence diagram: two-step login (password → 202 + pending session → code → changeSessionId → 200)
-  - [ ] a state diagram: anonymous → pending (5 min) → authenticated; expiry back to anonymous
-  - [ ] a flowchart: authority decision (ADMIN + 2FA → ROLE_ADMIN, otherwise ROLE_USER)
-  - [ ] a note on what's deferred (Google 2FA path, key rotation)
-- [ ] **12.6** `docs/diagrams/auth-flow.md`: strike TOTP 2FA in the "not yet" line (link to `two-factor-flow.md`) and add
+  - [x] a sequence diagram: two-step login (password → 202 + pending session → code → changeSessionId → 200)
+  - [x] a state diagram: anonymous → pending (5 min) → authenticated; expiry back to anonymous
+  - [x] a flowchart: authority decision (ADMIN + 2FA → ROLE_ADMIN, otherwise ROLE_USER)
+  - [x] a note on what's deferred (Google 2FA path, key rotation)
+- [x] **12.6** `docs/diagrams/auth-flow.md`: strike TOTP 2FA in the "not yet" line (link to `two-factor-flow.md`) and add
       the 2FA condition to the authorization flowchart.
-- [ ] **12.7** Plan file `.claude/docs/blackbox/plans/2026-10-26 18:10 Multi-user …md`: append a `## Mutations Log` row
+- [x] **12.7** Plan file `.claude/docs/blackbox/plans/2026-10-26 18:10 Multi-user …md`: append a `## Mutations Log` row
       (add only, don't delete anything in that folder):
       `| <date> | split | P4 done as task-101 + 2FA screens of task-103: java-otp 1.0.0; endpoints under /api/v1/me/2fa + POST disable; setup needs the password; confirm elevates the session; V15 instead of V12 (also deletes admin sessions) | Reuse the /me/** rule; prevent lockout via a stolen session |`
-- [ ] **12.8** Backlog (MCP):
-  - [ ] task-101: check off the AC that are done, and add implementation notes and a final summary
-  - [ ] task-103: note that the 2FA screens are done (AC #2, #5, the 2FA part of #4, #6, #13, #14); account deletion
+- [x] **12.8** Backlog (MCP):
+  - [x] task-101: check off the AC that are done, and add implementation notes and a final summary
+  - [x] task-103: note that the 2FA screens are done (AC #2, #5, the 2FA part of #4, #6, #13, #14); account deletion
         and AC #12 rest stay open
-  - [ ] task-100: note that the 2FA-step rate limit (part of AC #5) is done here
-  - [ ] task-104: note the `SessionAuthenticator#startTwoFactorChallenge` seam and that `setup` needs a password
+  - [x] task-100: note that the 2FA-step rate limit (part of AC #5) is done here
+  - [x] task-104: note the `SessionAuthenticator#startTwoFactorChallenge` seam and that `setup` needs a password
         (Google-only accounts)
   - [ ] **ask the user** before moving task-101 to `Done`
 - [ ] **12.9** Commit after approval → `docs: document two-factor authentication`
