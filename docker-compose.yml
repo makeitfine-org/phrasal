@@ -57,10 +57,11 @@ services:
       MAIL_HOST: mailpit
       MAIL_PORT: "1025"
       APP_BASE_URL: ${APP_BASE_URL:-http://localhost:3000}
-      # e2e registers many users from one IP; the per-email login and per-account 2FA limits stay at their defaults
+      # e2e registers many users from one IP; the per-account 2FA limit stays at its default; the per-email login limit (shared with 2FA setup) is 10 because the shared admin logs in and enrolls several times per run
       RATE_LIMIT_REGISTER_PER_IP: "1000"
       RATE_LIMIT_REGISTER_PER_EMAIL: "1000"
       RATE_LIMIT_LOGIN_PER_IP: "1000"
+      RATE_LIMIT_LOGIN_PER_EMAIL: "10"
       RATE_LIMIT_VERIFY_PER_IP: "1000"
       RATE_LIMIT_RESEND_PER_IP: "1000"
       RATE_LIMIT_FORGOT_PER_IP: "1000"

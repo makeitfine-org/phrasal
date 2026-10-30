@@ -969,60 +969,60 @@ So `make clean build` passes after every phase. **Don't release from the branch 
 ## Phase 7 — Admin rule: ADMIN rights only after the second factor (breaking for admin API clients)
 
 ### 7.1 Backend
-- [ ] **7.1.1** `AuthenticatedUser#authorities()`: `twoFactorEnrollmentRequired()` → `ROLE_USER`, otherwise
+- [x] **7.1.1** `AuthenticatedUser#authorities()`: `twoFactorEnrollmentRequired()` → `ROLE_USER`, otherwise
       `ROLE_<role>` (decision 4). Update the Javadoc.
-- [ ] **7.1.2** `AuthenticatedUserTest`:
-  - [ ] ADMIN + on → `ROLE_ADMIN`
-  - [ ] ADMIN + off → `ROLE_USER`
-  - [ ] USER + either → `ROLE_USER`
-- [ ] **7.1.3** `SecurityConfig`: no rule change. Write a class Javadoc line: "ADMIN authority requires a completed
+- [x] **7.1.2** `AuthenticatedUserTest` (also `AppUserDetailsTest`: an ADMIN without 2FA now maps to `ROLE_USER`):
+  - [x] ADMIN + on → `ROLE_ADMIN`
+  - [x] ADMIN + off → `ROLE_USER`
+  - [x] USER + either → `ROLE_USER`
+- [x] **7.1.3** `SecurityConfig`: no rule change. Write a class Javadoc line: "ADMIN authority requires a completed
       second factor, see `AuthenticatedUser#authorities`".
 
 ### 7.2 Integration tests
-- [ ] **7.2.1** `AdminBootstrapIntegrationTest` (it uses the real admin from `@TestPropertySource`):
-  - [ ] `adminLogin`: `/me` → `role: ADMIN`, `twoFactorEnrollmentRequired: true`
-  - [ ] `adminCanWrite` becomes `adminNeedsTwoFactorToWrite`:
+- [x] **7.2.1** `AdminBootstrapIntegrationTest` (disable returns a refreshed cookie, the test uses it; it uses the real admin from `@TestPropertySource`):
+  - [x] `adminLogin`: `/me` → `role: ADMIN`, `twoFactorEnrollmentRequired: true`
+  - [x] `adminCanWrite` becomes `adminNeedsTwoFactorToWrite`:
     1. login → `200`
     2. `POST /api/v1/phrasal-verbs` → `403`
     3. `enableTwoFactor` → new cookie
     4. POST → `201`
     5. log out, log in → `202`, code → `200`, POST → `201`
     (task-101 AC #7)
-  - [ ] `GET /actuator/metrics` with the unenrolled admin → `403`, after enrollment → `200`
-  - [ ] after `disable`, the same session → POST `403`, and `/me` → `twoFactorEnrollmentRequired: true`
-  - [ ] `adminResetThenRestart` and `adminOwnProgress` still pass. Adjust them if they need ADMIN rights. Keep the
+  - [x] `GET /actuator/metrics` with the unenrolled admin → `403`, after enrollment → `200`
+  - [x] after `disable`, the same session → POST `403`, and `/me` → `twoFactorEnrollmentRequired: true`
+  - [x] `adminResetThenRestart` and `adminOwnProgress` still pass. Adjust them if they need ADMIN rights. Keep the
         admin's 2FA state per test independent: disable at the end, or reset it through `JdbcTemplate` in
         `@AfterEach`.
-  - [ ] the bootstrap re-run (`AdminAccountInitializer`) leaves `totp_secret_enc` / `totp_enabled_at` unchanged
+  - [x] the bootstrap re-run (`AdminAccountInitializer`) leaves `totp_secret_enc` / `totp_enabled_at` unchanged
         (decision 15)
-- [ ] **7.2.2** `SecurityRulesIntegrationTest`: the mock `user().roles("ADMIN")` cases stay. They test the URL rules, not
+- [x] **7.2.2** `SecurityRulesIntegrationTest`: the mock `user().roles("ADMIN")` cases stay. They test the URL rules, not
       the principal. Add a comment pointing to `AdminBootstrapIntegrationTest` for the 2FA rule.
-- [ ] **7.2.3** `cd backend && mvn clean verify` → green.
+- [x] **7.2.3** `cd backend && mvn clean verify` → green (575 tests, run inside `make clean build`).
 
 ### 7.3 E2E admin step (decision 18)
-- [ ] **7.3.1** `e2e/src/support/admin-two-factor.ts`:
-  - [ ] `async resetAdminTwoFactor()`: `createDbClient()`, then
+- [x] **7.3.1** `e2e/src/support/admin-two-factor.ts`:
+  - [x] `async resetAdminTwoFactor()`: `createDbClient()`, then
         `UPDATE users SET totp_secret_enc = NULL, totp_enabled_at = NULL, totp_last_step = NULL WHERE email = $1` and
         `DELETE FROM user_recovery_codes WHERE user_id = (SELECT id FROM users WHERE email = $1)`, in try/finally
-  - [ ] a module-level `adminState: { secret: string; lastStep: number } | null`, cleared by the reset
-- [ ] **7.3.2** `hooks.ts`: call `resetAdminTwoFactor()` in `BeforeAll` (a clean start after an aborted run) and in
+  - [x] a module-level `adminState: { secret: string; lastStep: number } | null`, cleared by the reset
+- [x] **7.3.2** `hooks.ts`: call `resetAdminTwoFactor()` in `BeforeAll` (a clean start after an aborted run) and in
       `AfterAll` (developers can still log in as the dev admin by hand).
-- [ ] **7.3.3** `auth-api.steps.ts` → `Given I am logged in as the admin`:
-  - [ ] login → `200` (no 2FA yet) → `POST /me/2fa/setup` with the admin password → `confirm` with
+- [x] **7.3.3** `auth-api.steps.ts` → `Given I am logged in as the admin`:
+  - [x] login → `200` (no 2FA yet) → `POST /me/2fa/setup` with the admin password → `confirm` with
         `nextAcceptedCode` → store `adminState` → the cookie jar now holds the elevated session
-  - [ ] login → `202` (2FA already on in this run) → `POST /auth/login/2fa` with `nextAcceptedCode(adminState.secret,
+  - [x] login → `202` (2FA already on in this run) → `POST /auth/login/2fa` with `nextAcceptedCode(adminState.secret,
         adminState.lastStep)` → `200`; update `lastStep`
-  - [ ] assert `/me` → `role: ADMIN, twoFactorEnrollmentRequired: false`
-- [ ] **7.3.4** New step `Given I am logged in as the admin without two-factor`: `resetAdminTwoFactor()`, then login →
+  - [x] assert `/me` → `role: ADMIN, twoFactorEnrollmentRequired: false`
+- [x] **7.3.4** New step `Given I am logged in as the admin without two-factor`: `resetAdminTwoFactor()`, then login →
       `200`.
-- [ ] **7.3.5** `features/phrasal-verbs-api/crud.feature`:
-  - [ ] new scenario "Admin without two-factor cannot create a phrasal verb" → `403` (task-101 AC #7)
-  - [ ] "Admin creates a phrasal verb" stays → `201`, now through the 2FA step (task-101 AC #11, API part)
-- [ ] **7.3.6** `features/auth-api/two-factor.feature`: add "Admin signs in with a code and edits content":
+- [x] **7.3.5** `features/phrasal-verbs-api/crud.feature`:
+  - [x] new scenario "Admin without two-factor cannot create a phrasal verb" → `403` (task-101 AC #7)
+  - [x] "Admin creates a phrasal verb" stays → `201`, now through the 2FA step (task-101 AC #11, API part)
+- [x] **7.3.6** `features/auth-api/two-factor.feature`: add "Admin signs in with a code and edits content":
       login → `202` → code → `200` → create → `201` (task-101 AC #11).
 
 ### 7.4 Verify and commit
-- [ ] **7.4.1** `make clean build` → green.
+- [x] **7.4.1** `make clean build` → green (575 backend tests, 112 e2e scenarios). Deviation: 2FA setup shares the `login-per-email` bucket (5 / 5 min), and the shared admin used it up (login + setup + re-login across features), so compose sets `RATE_LIMIT_LOGIN_PER_EMAIL: "10"` and the login 429 scenario fails 11 times.
 - [ ] **7.4.2** Ask for commit approval → `feat!: require two-factor authentication for admin writes`. The scope is
       omitted because the commit touches backend + e2e. Add a body line `BREAKING CHANGE: admin content writes and
       /actuator need a completed 2FA step`.

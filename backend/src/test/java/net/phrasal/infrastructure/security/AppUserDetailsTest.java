@@ -13,12 +13,12 @@ class AppUserDetailsTest {
     private static final String HASH = "{bcrypt}hash";
 
     @Test
-    void accessors_exposeEmailHashAuthoritiesAndEnabled() {
+    void accessors_exposeEmailHashAuthoritiesAndEnabled_adminWithoutTwoFactorIsUser() {
         AppUserDetails details = new AppUserDetails(user(Role.ADMIN, true));
 
         assertThat(details.getUsername()).isEqualTo("a@b.com");
         assertThat(details.getPassword()).isEqualTo(HASH);
-        assertThat(details.getAuthorities()).extracting("authority").containsExactly("ROLE_ADMIN");
+        assertThat(details.getAuthorities()).extracting("authority").containsExactly("ROLE_USER");
         assertThat(details.isEnabled()).isTrue();
         assertThat(details.isAccountNonExpired()).isTrue();
         assertThat(details.isAccountNonLocked()).isTrue();

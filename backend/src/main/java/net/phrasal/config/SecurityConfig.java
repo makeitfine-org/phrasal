@@ -31,7 +31,8 @@ import org.springframework.session.web.http.DefaultCookieSerializer;
 
 /**
  * Access rules: public reads, ADMIN-only writes, per-user {@code /api/v1/me/**} for any signed-in user,
- * SPA-style CSRF and problem+json 401/403 responses.
+ * SPA-style CSRF and problem+json 401/403 responses. ADMIN authority requires a completed second factor, see
+ * {@code AuthenticatedUser#authorities}.
  */
 @Configuration
 @EnableWebSecurity

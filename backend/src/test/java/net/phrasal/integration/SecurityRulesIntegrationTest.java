@@ -19,6 +19,8 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
+// The mock user().roles("ADMIN") cases test the URL rules, not the principal. The rule that an admin needs a
+// completed second factor is covered by AdminBootstrapIntegrationTest.
 @DisplayName("Security rules integration")
 class SecurityRulesIntegrationTest extends AbstractIntegrationTest {
 

@@ -2,6 +2,8 @@ import { Given, When, Then } from '@cucumber/cucumber';
 import { strict as assert } from 'assert';
 import { PhrasalWorld } from '../world';
 import { verificationToken } from '../support/mailpit-client';
+import { adminState, rememberAdminTwoFactor, resetAdminTwoFactor } from '../support/admin-two-factor';
+import { nextAcceptedCode } from '../support/totp';
 import { TEST_PASSWORD, adminCredentials, uniqueEmail } from '../support/test-users';
 
 const AUTH = '/api/v1/auth';
@@ -28,8 +30,38 @@ function currentEmail(world: PhrasalWorld): string {
     return world.currentEmail!;
 }
 
-Given('I am logged in as the admin', async function (this: PhrasalWorld) {
+/** Admin writes need a completed second factor: enroll on the first use in a run, answer the code step after that. */
+async function elevateAdmin(world: PhrasalWorld, password: string) {
+    if (adminState === null) {
+        assert.equal(world.lastResponse!.status, 200, 'Admin login failed');
+        const setup = await world.apiClient.post('/api/v1/me/2fa/setup', { password });
+        assert.equal(setup.status, 200, 'Admin two-factor setup failed');
+        const { code, step } = await nextAcceptedCode(setup.data.secret);
+        const confirm = await world.apiClient.post('/api/v1/me/2fa/confirm', { code });
+        assert.equal(confirm.status, 200, 'Admin two-factor confirmation failed');
+        rememberAdminTwoFactor({ secret: setup.data.secret, lastStep: step });
+    } else {
+        assert.equal(world.lastResponse!.status, 202, 'Admin login should ask for a second factor');
+        const { code, step } = await nextAcceptedCode(adminState.secret, adminState.lastStep);
+        world.lastResponse = await world.apiClient.post(`${AUTH}/login/2fa`, { code });
+        assert.equal(world.lastResponse.status, 200, 'Admin second factor failed');
+        adminState.lastStep = step;
+    }
+    world.lastResponse = await world.apiClient.get(`${AUTH}/me`);
+    assert.equal(world.lastResponse.data.role, 'ADMIN');
+    assert.equal(world.lastResponse.data.twoFactorEnrollmentRequired, false);
+}
+
+Given('I am logged in as the admin', { timeout: 65_000 }, async function (this: PhrasalWorld) {
     const { email, password } = adminCredentials();
+    this.currentEmail = email;
+    await login(this, email, password);
+    await elevateAdmin(this, password);
+});
+
+Given('I am logged in as the admin without two-factor', async function (this: PhrasalWorld) {
+    const { email, password } = adminCredentials();
+    await resetAdminTwoFactor();
     this.currentEmail = email;
     await login(this, email, password);
     assert.equal(this.lastResponse!.status, 200, 'Admin login failed');

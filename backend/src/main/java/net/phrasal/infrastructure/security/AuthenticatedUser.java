@@ -52,7 +52,14 @@ public record AuthenticatedUser(Long id, String email, Role role, boolean twoFac
         return new AuthenticatedUser(id, email, role, enabled);
     }
 
+    /**
+     * Authorities of the session. An admin without a completed second factor only gets {@code ROLE_USER}, so
+     * admin-only endpoints answer 403 until the account has 2FA on.
+     *
+     * @return the granted authorities
+     */
     public List<GrantedAuthority> authorities() {
-        return List.of(new SimpleGrantedAuthority(ROLE_PREFIX + role.name()));
+        Role effective = twoFactorEnrollmentRequired() ? Role.USER : role;
+        return List.of(new SimpleGrantedAuthority(ROLE_PREFIX + effective.name()));
     }
 }

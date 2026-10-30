@@ -97,3 +97,13 @@ Feature: Two-factor authentication API
     And I log in again with the current email and password
     And I submit 6 wrong two-factor codes
     Then the response status should be 429
+
+  Scenario: Admin signs in with a code and edits content
+    Given I am logged in as the admin
+    When I log out
+    And I log in again as the admin
+    Then the login should ask for a second factor
+    When I submit the admin two-factor code
+    Then the response status should be 200
+    When I create a phrasal verb with verb "E2E admin verb" and definition "Created after a 2FA login"
+    Then the response status should be 201

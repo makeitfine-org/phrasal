@@ -4986,3 +4986,17 @@ On phase completion `make clean build` must pass successfully.
 ## 2026-10-30T00:42:59Z
 git add all changes and commit them with suitable message
 ---
+
+## 2026-10-30T00:43:32Z
+Implement functionality from @.claude/docs/blackbox/todos/2FA-todos.md Phases: 7.               
+Don't forget to check off implemented boxes.
+On phase completion `make clean build` must pass successfully.
+---
+
+## 2026-10-30T00:55:19Z
+I'd like to exectue few separate prompt one by one to claude, include few "/compact" commands. how's better to do that? Maybe with some sh script or recommend somethin?
+---
+
+## 2026-10-30T00:55:43Z
+git add all changes and commit them with suitable message
+---

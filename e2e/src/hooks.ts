@@ -4,6 +4,7 @@ import { ApiClient } from './support/api-client';
 import { createDbClient } from './support/db-client';
 import { deleteMessagesTo } from './support/mailpit-client';
 import { TEST_EMAIL_PATTERN } from './support/test-users';
+import { resetAdminTwoFactor } from './support/admin-two-factor';
 import dotenv from 'dotenv';
 
 dotenv.config();
@@ -15,10 +16,12 @@ setDefaultTimeout(30_000);
 let browser: Browser | null = null;
 
 BeforeAll(async function () {
+    await resetAdminTwoFactor();
     browser = await chromium.launch({ headless: true });
 });
 
 AfterAll(async function () {
+    await resetAdminTwoFactor();
     if (browser) {
         await browser.close();
         browser = null;

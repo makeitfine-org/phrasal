@@ -1,12 +1,16 @@
 package net.phrasal.integration;
 
 import jakarta.servlet.http.Cookie;
+import net.phrasal.integration.support.TotpTestCodes;
+import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import net.phrasal.application.service.AdminAccountInitializer;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
+import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.test.context.TestPropertySource;
+import org.springframework.test.web.servlet.ResultActions;
 
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.springframework.security.test.web.servlet.request.SecurityMockMvcRequestPostProcessors.csrf;
@@ -26,7 +30,27 @@ class AdminBootstrapIntegrationTest extends AbstractIntegrationTest {
     @Autowired
     private AdminAccountInitializer initializer;
 
+    @Autowired
+    private JdbcTemplate jdbc;
+
+    private static final String PASSWORD = "bootstrap-admin-pass";
+    private static final String CREATE_VERB = "{\"verb\":\"Boot up\",\"definition\":\"To start a computer\","
+            + "\"sentences\":[\"Boot up the laptop.\"],\"wordsToHide\":[\"boot up\"]}";
     private static final String BODY = "{\"email\":\"admin@it.test\",\"password\":\"bootstrap-admin-pass\"}";
+
+    /** The admin outlives every test, so its 2FA state must not leak into the next one. */
+    @AfterEach
+    void resetAdminTwoFactor() {
+        jdbc.update("DELETE FROM user_recovery_codes WHERE user_id = (SELECT id FROM users WHERE email = ?)",
+                "admin@it.test");
+        jdbc.update("UPDATE users SET totp_secret_enc = NULL, totp_enabled_at = NULL, totp_last_step = NULL "
+                + "WHERE email = ?", "admin@it.test");
+    }
+
+    private ResultActions createVerb(Cookie session) throws Exception {
+        return mockMvc.perform(post("/api/v1/phrasal-verbs").cookie(session).with(csrf())
+                .contentType(MediaType.APPLICATION_JSON).content(CREATE_VERB));
+    }
 
     @Test
     @DisplayName("bootstrapped admin can log in and /me reports ADMIN")
@@ -41,15 +65,59 @@ class AdminBootstrapIntegrationTest extends AbstractIntegrationTest {
     }
 
     @Test
-    @DisplayName("admin session cookie can create a phrasal verb")
-    void adminCanWrite() throws Exception {
+    @DisplayName("admin needs two-factor to write: 403 first, 201 after enrolling and after a 2FA login")
+    void adminNeedsTwoFactorToWrite() throws Exception {
         Cookie session = login(BODY, null);
+        createVerb(session).andExpect(status().isForbidden());
 
-        mockMvc.perform(post("/api/v1/phrasal-verbs").cookie(session).with(csrf())
-                        .contentType(MediaType.APPLICATION_JSON)
-                        .content("{\"verb\":\"Boot up\",\"definition\":\"To start a computer\","
-                                + "\"sentences\":[\"Boot up the laptop.\"],\"wordsToHide\":[\"boot up\"]}"))
-                .andExpect(status().isCreated());
+        TwoFactorTestAccount account = enableTwoFactor(session, PASSWORD);
+        createVerb(account.session()).andExpect(status().isCreated());
+
+        mockMvc.perform(post("/api/v1/auth/logout").cookie(account.session()).with(csrf()));
+        Cookie pending = loginExpectingTwoFactor(BODY);
+        String code = TotpTestCodes.nextCode(account.secret(), TotpTestCodes.currentStep());
+        Cookie elevated = submitTwoFactorCode(pending, code).andExpect(status().isOk())
+                .andReturn().getResponse().getCookie("SESSION");
+        createVerb(elevated).andExpect(status().isCreated());
+    }
+
+    @Test
+    @DisplayName("actuator metrics: 403 for the unenrolled admin, 200 after enrollment")
+    void metricsNeedTwoFactor() throws Exception {
+        Cookie session = login(BODY, null);
+        mockMvc.perform(get("/actuator/metrics").cookie(session)).andExpect(status().isForbidden());
+
+        TwoFactorTestAccount account = enableTwoFactor(session, PASSWORD);
+        mockMvc.perform(get("/actuator/metrics").cookie(account.session())).andExpect(status().isOk());
+    }
+
+    @Test
+    @DisplayName("disabling 2FA drops the same session back to USER rights")
+    void disableRemovesAdminRights() throws Exception {
+        TwoFactorTestAccount account = enableTwoFactor(login(BODY, null), PASSWORD);
+        String code = TotpTestCodes.nextCode(account.secret(), TotpTestCodes.currentStep());
+
+        Cookie refreshed = mockMvc.perform(post("/api/v1/me/2fa/disable").cookie(account.session()).with(csrf())
+                        .contentType(MediaType.APPLICATION_JSON).content("{\"code\":\"" + code + "\"}"))
+                .andExpect(status().isNoContent()).andReturn().getResponse().getCookie("SESSION");
+
+        createVerb(refreshed).andExpect(status().isForbidden());
+        mockMvc.perform(get("/api/v1/auth/me").cookie(refreshed))
+                .andExpect(jsonPath("$.twoFactorEnrollmentRequired").value(true));
+    }
+
+    @Test
+    @DisplayName("the bootstrap re-run keeps the admin's 2FA enrollment")
+    void bootstrapKeepsTwoFactor() throws Exception {
+        enableTwoFactor(login(BODY, null), PASSWORD);
+        String before = jdbc.queryForObject(
+                "SELECT totp_secret_enc || totp_enabled_at FROM users WHERE email = 'admin@it.test'", String.class);
+
+        initializer.run(null);
+
+        String after = jdbc.queryForObject(
+                "SELECT totp_secret_enc || totp_enabled_at FROM users WHERE email = 'admin@it.test'", String.class);
+        assertThat(after).isEqualTo(before);
     }
 
     @Test

@@ -24,6 +24,11 @@ Feature: Phrasal Verbs API CRUD
     When I create a phrasal verb with verb "Test out" and definition "To test something"
     Then the response status should be 403
 
+  Scenario: Admin without two-factor cannot create a phrasal verb
+    Given I am logged in as the admin without two-factor
+    When I create a phrasal verb with verb "Test out" and definition "To test something"
+    Then the response status should be 403
+
   Scenario: Admin creates a phrasal verb
     Given I am logged in as the admin
     When I create a phrasal verb with verb "E2E admin verb" and definition "Created by the admin scenario"

@@ -46,3 +46,5 @@ src/
 The world keeps `resetTokens` (every reset token requested in the scenario, newest last) so a scenario can replay an old link. `docker-compose.yml` leaves `RATE_LIMIT_FORGOT_PER_EMAIL` at its default so the `429` scenario works; use a fresh email per scenario.
 
 The world keeps `twoFactorSecret`, `recoveryCodes`, `previousRecoveryCodes` and `lastTotpStep` (a used step is rejected, so each code uses a newer one; the steps allow 65 s to wait for the clock). `docker-compose.yml` leaves `RATE_LIMIT_TWO_FACTOR_PER_USER` at its default (5 / 15 min) so the `429` scenario works; every scenario makes a fresh user.
+
+`docker-compose.yml` sets `RATE_LIMIT_LOGIN_PER_EMAIL` to 10 (2FA setup shares that budget and the shared admin logs in several times per run), so the login `429` scenario fails 11 times. `Given I am logged in as the admin` enrolls the dev admin in 2FA on first use and answers the code step later (`support/admin-two-factor.ts` keeps the secret; `BeforeAll`/`AfterAll` reset the admin's 2FA in SQL); `...without two-factor` resets it first.

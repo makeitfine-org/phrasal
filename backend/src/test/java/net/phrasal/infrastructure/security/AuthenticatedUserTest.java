@@ -21,18 +21,26 @@ class AuthenticatedUserTest {
     private static final String PRE_2FA_STREAM = "rO0ABXNyADVuZXQucGhyYXNhbC5pbmZyYXN0cnVjdHVyZS5zZWN1cml0eS5BdXRoZW50aWNhdGVkVXNlcgAAAAAAAAABAgADTAAFZW1haWx0ABJMamF2YS9sYW5nL1N0cmluZztMAAJpZHQAEExqYXZhL2xhbmcvTG9uZztMAARyb2xldAAgTG5ldC9waHJhc2FsL2RvbWFpbi9lbnRpdHkvUm9sZTt4cHQAD29sZEBleGFtcGxlLmNvbXNyAA5qYXZhLmxhbmcuTG9uZzuL5JDMjyPfAgABSgAFdmFsdWV4cgAQamF2YS5sYW5nLk51bWJlcoaslR0LlOCLAgAAeHAAAAAAAAAACX5yAB5uZXQucGhyYXNhbC5kb21haW4uZW50aXR5LlJvbGUAAAAAAAAAABIAAHhyAA5qYXZhLmxhbmcuRW51bQAAAAAAAAAAEgAAeHB0AAVBRE1JTg==";
 
     @Test
-    void authorities_user_hasRoleUser() {
-        AuthenticatedUser user = new AuthenticatedUser(1L, "a@b.com", Role.USER, false);
+    void authorities_userWithOrWithoutTwoFactor_hasRoleUser() {
+        for (boolean twoFactor : new boolean[] {false, true}) {
+            AuthenticatedUser user = new AuthenticatedUser(1L, "a@b.com", Role.USER, twoFactor);
 
-        assertThat(user.authorities()).extracting("authority").containsExactly("ROLE_USER");
+            assertThat(user.authorities()).extracting("authority").containsExactly("ROLE_USER");
+        }
     }
 
     @Test
-    void authorities_admin_hasRoleAdmin() {
-        AuthenticatedUser admin = new AuthenticatedUser(2L, "admin@b.com", Role.ADMIN, false);
+    void authorities_adminWithTwoFactor_hasRoleAdmin() {
+        AuthenticatedUser admin = new AuthenticatedUser(2L, "admin@b.com", Role.ADMIN, true);
 
         assertThat(admin.authorities()).extracting("authority").containsExactly("ROLE_ADMIN");
-        assertThat(admin.authorities()).extracting("authority").doesNotContain("ROLE_USER");
+    }
+
+    @Test
+    void authorities_adminWithoutTwoFactor_hasOnlyRoleUser() {
+        AuthenticatedUser admin = new AuthenticatedUser(2L, "admin@b.com", Role.ADMIN, false);
+
+        assertThat(admin.authorities()).extracting("authority").containsExactly("ROLE_USER");
     }
 
     @Test

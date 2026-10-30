@@ -74,5 +74,5 @@ Feature: Authentication API
 
   Scenario: Repeated failed logins are rate limited
     Given a registered user exists
-    When I fail to log in 6 times
+    When I fail to log in 11 times
     Then the response status should be 429

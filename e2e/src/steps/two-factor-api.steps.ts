@@ -1,7 +1,8 @@
 import { Given, When, Then } from '@cucumber/cucumber';
 import { strict as assert } from 'assert';
 import { PhrasalWorld } from '../world';
-import { TEST_PASSWORD } from '../support/test-users';
+import { TEST_PASSWORD, adminCredentials } from '../support/test-users';
+import { adminState } from '../support/admin-two-factor';
 import { latestMessageTo } from '../support/mailpit-client';
 import { codeForStep, nextAcceptedCode } from '../support/totp';
 
@@ -90,6 +91,18 @@ When('I submit a valid two-factor code', { timeout: CODE_STEP_TIMEOUT_MS }, asyn
 When('I submit the same two-factor code again', async function (this: PhrasalWorld) {
     assert.ok(this.lastTotpStep !== null, 'No two-factor code was used yet');
     await submitSecondFactor(this, codeForStep(secret(this), this.lastTotpStep!));
+});
+
+When('I log in again as the admin', async function (this: PhrasalWorld) {
+    const { email, password } = adminCredentials();
+    this.lastResponse = await this.apiClient.post(`${AUTH}/login`, { email, password });
+});
+
+When('I submit the admin two-factor code', { timeout: CODE_STEP_TIMEOUT_MS }, async function (this: PhrasalWorld) {
+    assert.ok(adminState, 'The admin has no two-factor state: log in as the admin first');
+    const { code, step } = await nextAcceptedCode(adminState!.secret, adminState!.lastStep);
+    adminState!.lastStep = step;
+    await submitSecondFactor(this, code);
 });
 
 When('I submit two-factor code {string}', async function (this: PhrasalWorld, code: string) {

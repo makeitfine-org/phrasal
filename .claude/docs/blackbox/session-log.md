@@ -2113,3 +2113,42 @@
 - e2e/src/hooks.ts
 - e2e/src/world.ts
 <!-- end-snapshot -->
+
+<!-- git-snapshot 2026-10-30T00:54:25Z -->
+- .claude/docs/blackbox/audit.md
+- .claude/docs/blackbox/todos/2FA-todos.md
+- backend/src/main/java/net/phrasal/config/SecurityConfig.java
+- backend/src/main/java/net/phrasal/infrastructure/security/AuthenticatedUser.java
+- backend/src/test/java/net/phrasal/infrastructure/security/AppUserDetailsTest.java
+- backend/src/test/java/net/phrasal/infrastructure/security/AuthenticatedUserTest.java
+- backend/src/test/java/net/phrasal/integration/AdminBootstrapIntegrationTest.java
+- backend/src/test/java/net/phrasal/integration/SecurityRulesIntegrationTest.java
+- docker-compose.yml
+- e2e/CLAUDE.md
+- e2e/features/auth-api/auth.feature
+- e2e/features/auth-api/two-factor.feature
+- e2e/features/phrasal-verbs-api/crud.feature
+- e2e/src/hooks.ts
+- e2e/src/steps/auth-api.steps.ts
+- e2e/src/steps/two-factor-api.steps.ts
+<!-- end-snapshot -->
+
+<!-- git-snapshot 2026-10-30T00:55:30Z -->
+- .claude/docs/blackbox/audit.md
+- .claude/docs/blackbox/session-log.md
+- .claude/docs/blackbox/todos/2FA-todos.md
+- backend/src/main/java/net/phrasal/config/SecurityConfig.java
+- backend/src/main/java/net/phrasal/infrastructure/security/AuthenticatedUser.java
+- backend/src/test/java/net/phrasal/infrastructure/security/AppUserDetailsTest.java
+- backend/src/test/java/net/phrasal/infrastructure/security/AuthenticatedUserTest.java
+- backend/src/test/java/net/phrasal/integration/AdminBootstrapIntegrationTest.java
+- backend/src/test/java/net/phrasal/integration/SecurityRulesIntegrationTest.java
+- docker-compose.yml
+- e2e/CLAUDE.md
+- e2e/features/auth-api/auth.feature
+- e2e/features/auth-api/two-factor.feature
+- e2e/features/phrasal-verbs-api/crud.feature
+- e2e/src/hooks.ts
+- e2e/src/steps/auth-api.steps.ts
+- e2e/src/steps/two-factor-api.steps.ts
+<!-- end-snapshot -->
