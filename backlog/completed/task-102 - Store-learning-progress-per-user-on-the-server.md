@@ -1,10 +1,10 @@
 ---
 id: TASK-102
 title: Store learning progress per user on the server
-status: In Progress
+status: Done
 assignee: []
 created_date: '2026-10-26T17:38:00Z'
-updated_date: '2026-10-28T10:46:00Z'
+updated_date: '2026-10-31T15:05:00Z'
 labels:
   - multi-user
   - backend
@@ -65,7 +65,7 @@ task-87 (versioning localStorage state).
 - [x] #2 Anonymous requests to the progress endpoints return 401 ProblemDetail.
 - [x] #3 A user cannot read or overwrite another user's progress.
 - [x] #4 Unknown quiz keys are rejected with 400. Payloads above the size limit, or that are not JSON objects, are rejected with 400.
-- [ ] #5 Deleting a user account removes their progress.
+- [x] #5 Deleting a user account removes their progress.
 - [x] #6 The global is_learned column, its index, the `learned` query parameter and the isLearned field in API responses are removed. All existing anonymous content GETs still work.
 - [x] #7 New Flyway migrations add the progress table and drop is_learned. Existing migrations are not edited.
 - [x] #8 Unit and integration tests cover save/read, 404 before the first save, 401, cross-user isolation, key whitelist and size limit. Existing PhrasalVerb tests are updated for the removed field. JaCoCo 85% per package is met.
@@ -84,4 +84,6 @@ Implemented 2026-10-28 on branch `quiz-progress` (V11 drops is_learned, V12 crea
 AC #5: covered by `ON DELETE CASCADE` + a repository test; the account deletion endpoint is task-100.
 
 Docs: README 'Learning progress', backend/CLAUDE.md, docs/diagrams/quiz-progress-flow.md. `make clean build` green (248 backend tests, 64 Vitest files, 61 e2e scenarios).
+
+2026-10-31: AC #5 checked: account deletion (POST /api/v1/me/delete, TASK-100) removes the user row and ON DELETE CASCADE removes the progress.
 <!-- SECTION:NOTES:END -->

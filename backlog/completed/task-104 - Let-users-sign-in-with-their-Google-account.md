@@ -1,10 +1,10 @@
 ---
 id: TASK-104
 title: Let users sign in with their Google account
-status: In Progress
+status: Done
 assignee: []
 created_date: '2026-10-26T17:38:00Z'
-updated_date: '2026-10-30T19:13:00Z'
+updated_date: '2026-10-31T15:05:00Z'
 labels:
   - multi-user
   - security
@@ -63,12 +63,12 @@ Many visitors would rather not create yet another password. Google sign-in gives
 - [x] #4 When a Google login links to an existing unverified local account, that account's password is removed.
 - [x] #5 A Google login to an account with 2FA enabled requires the TOTP or recovery code step before a session is created.
 - [x] #6 A cancelled or failed Google login returns the user to the login page with a readable error.
-- [ ] #7 In production the OAuth redirect URI uses https and the real domain.
+- [x] #7 In production the OAuth redirect URI uses https and the real domain.
 - [x] #8 A new Flyway migration stores the Google subject per user. Existing migrations are not edited.
 - [x] #9 Google client id and secret env vars are wired into docker-compose (optional locally), k8s base/prod and CI. docker-compose wires a mock-oauth2-server stand-in provider for local dev and e2e; the k8s dev overlay keeps Google sign-in off. No secrets are committed.
 - [x] #10 Integration tests cover the new-user, link-by-verified-email, unverified-email refusal and 2FA-pending branches. Vitest covers the button.
 - [x] #11 README.md documents the Google setup (OAuth client, redirect URIs, env vars). backend/CLAUDE.md documents the account-linking rules.
-- [ ] #12 `make clean build` passes
+- [x] #12 `make clean build` passes
 - [x] #13 `GET /api/v1/auth/providers` reports whether Google sign-in is on; the button is hidden when it is off
 - [x] #14 Google sign-in to an ADMIN account is refused with a readable error
 - [x] #15 An account without a password can set one through the emailed reset link from the account security page
@@ -88,4 +88,6 @@ Many visitors would rather not create yet another password. Google sign-in gives
 - **Local dev/e2e:** `mock-oauth2-server` in docker-compose (like Mailpit for Brevo). k8s dev overlay keeps Google off.
 
 2026-10-30: Implemented on branch google-sign-in (Phases 0-11 of .claude/docs/blackbox/todos/google-account-todos.md). Tests: backend integration (FakeGoogle), Vitest for the button, error texts and set-password panel, and 13 e2e scenarios against mock-oauth2. Docs: README 'Sign in with Google', backend/CLAUDE.md, e2e/CLAUDE.md, docs/diagrams/google-sign-in-flow.md. AC #7 (prod https redirect URI), #12 (final make clean build) and the real-Google check wait for Phase 12/13 and task-106 AC #4/#5.
+
+2026-10-31: AC #7 checked: production /api/v1/auth/oauth2/authorization/google redirects to Google with redirect_uri https://phrasalbox.com/api/v1/auth/oauth2/code/google. AC #12: `make clean build` green on main.
 <!-- SECTION:NOTES:END -->

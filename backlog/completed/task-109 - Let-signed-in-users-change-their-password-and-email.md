@@ -1,10 +1,10 @@
 ---
 id: TASK-109
 title: Let signed-in users change their password and email
-status: In Progress
+status: Done
 assignee: []
 created_date: '2026-10-30T11:34:00Z'
-updated_date: '2026-10-30T13:56:00Z'
+updated_date: '2026-10-31T15:05:00Z'
 labels:
   - multi-user
   - security

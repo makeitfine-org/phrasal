@@ -3,10 +3,10 @@ id: TASK-99
 title: >-
   Let visitors register and log in with email + password; restrict content edits
   to admins
-status: In Progress
+status: Done
 assignee: []
 created_date: '2026-10-26T17:37:00Z'
-updated_date: '2026-10-27T20:23:00Z'
+updated_date: '2026-10-31T15:05:00Z'
 labels:
   - multi-user
   - security

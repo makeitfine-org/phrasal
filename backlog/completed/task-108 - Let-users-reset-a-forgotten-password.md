@@ -1,10 +1,10 @@
 ---
 id: TASK-108
 title: Let users reset a forgotten password
-status: In Progress
+status: Done
 assignee: []
 created_date: '2026-10-29T17:16:00Z'
-updated_date: '2026-10-29T19:23:00Z'
+updated_date: '2026-10-31T15:05:00Z'
 labels:
   - multi-user
   - security
@@ -50,7 +50,7 @@ task-100 keeps HIBP, honeypot, account deletion, the 2FA step limit and the Trae
 - [x] #6 E2E: a forgot-password scenario receives the email via Mailpit, resets the password and logs in with the new one (API and browser).
 - [x] #7 Frontend has Forgot password and Reset password pages and a login-page link, with Vitest tests.
 - [x] #8 README.md, backend/CLAUDE.md, frontend/CLAUDE.md and e2e/CLAUDE.md document the flow and rate limits.
-- [ ] #9 `make clean build` passes
+- [x] #9 `make clean build` passes
 <!-- AC:END -->
 
 ## Implementation Notes

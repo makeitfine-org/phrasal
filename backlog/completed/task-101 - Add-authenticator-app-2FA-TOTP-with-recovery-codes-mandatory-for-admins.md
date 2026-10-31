@@ -1,10 +1,10 @@
 ---
 id: TASK-101
 title: Add authenticator-app 2FA (TOTP) with recovery codes, mandatory for admins
-status: In Progress
+status: Done
 assignee: []
 created_date: '2026-10-26T17:37:00Z'
-updated_date: '2026-10-30T08:09:00Z'
+updated_date: '2026-10-31T15:05:00Z'
 labels:
   - multi-user
   - security

@@ -3,10 +3,10 @@ id: TASK-100
 title: >-
   Let users reset forgotten passwords, delete their account, and protect auth
   endpoints from abuse
-status: In Progress
+status: Done
 assignee: []
 created_date: '2026-10-26T17:37:00Z'
-updated_date: '2026-10-30T13:56:00Z'
+updated_date: '2026-10-31T15:05:00Z'
 labels:
   - multi-user
   - security
@@ -72,16 +72,16 @@ Account deletion requires re-entering the password and removes all of the user's
 
 ## Acceptance Criteria
 <!-- AC:BEGIN -->
-- [ ] #1 A user can request a password-reset email and set a new password via the link. The link works once only and expires.
-- [ ] #2 Forgot-password returns identical responses for existing and non-existing emails.
-- [ ] #3 After a successful password reset, all of the user's other sessions are invalidated.
+- [x] #1 A user can request a password-reset email and set a new password via the link. The link works once only and expires.
+- [x] #2 Forgot-password returns identical responses for existing and non-existing emails.
+- [x] #3 After a successful password reset, all of the user's other sessions are invalidated.
 - [x] #4 Register and reset reject passwords found in the breached-password check. If the check service is unreachable, the request is allowed.
 - [x] #5 Repeated attempts on register, login, forgot-password and the 2FA step beyond the configured limits return 429 ProblemDetail, per client IP and per email.
 - [x] #6 A registration that fills the honeypot field is silently ignored and does not create an account.
 - [x] #7 A logged-in user can delete their account after confirming their password. Their user row and all dependent data are removed.
 - [x] #8 Behind Traefik in K3s, the backend sees the real client IP, verified in backend logs. The change is codified in the Ansible k3s role.
 - [x] #9 Unit and integration tests cover: token single-use and expiry, session invalidation on reset, the 429 limits, the breached-password rejection (checker mocked) and account deletion.
-- [ ] #10 E2E: a forgot-password scenario receives the email via Mailpit, resets the password and logs in with the new one.
+- [x] #10 E2E: a forgot-password scenario receives the email via Mailpit, resets the password and logs in with the new one.
 - [x] #11 README.md and backend/CLAUDE.md document the rate limits and password policy. ansible/README.md documents the Traefik change.
 - [x] #12 `make clean build` passes
 <!-- AC:END -->
@@ -104,4 +104,6 @@ Ready from task-107 for password reset: user_tokens table + TokenType (add PASSW
 2026-10-30: change password and change email are a separate task, TASK-109; it shares the `reauth-per-user` limit with account deletion.
 
 2026-10-30: implemented on branch `account-settings` (commits 96903e9, 98b9568 plus the docs commit): HIBP `BreachedPasswordChecker` + `PasswordBreachGuard` (fails open, 2s timeout, off in test/compose); honeypot `RegisterRequest.website`; `POST /api/v1/me/delete` (password + 2FA code when on; ADMIN gets 403); `RateLimiter` logs every 429 (rule name, client IP only for *-per-ip rules); limits reviewed, no gaps; `reauth-per-user` and `email-change-per-email` added. AC #8: code and ansible/README proof instructions done; the real prod proof is Phase 11 of account-funcs-todos.md. Docs: README 'Account settings', backend/frontend/e2e CLAUDE.md, docs/diagrams/account-management-flow.md. AC #12 is checked after the Phase 10 build.
+
+2026-10-31: AC #1, #2, #3, #10 checked: password reset shipped in TASK-108 (AuthController /forgot-password and /reset-password, e2e password-reset.feature). `make clean build` green on main.
 <!-- SECTION:NOTES:END -->

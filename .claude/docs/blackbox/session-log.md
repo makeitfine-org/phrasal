@@ -2829,3 +2829,32 @@
 - frontend/src/pages/RegisterPage.tsx
 - reg.png
 <!-- end-snapshot -->
+
+<!-- git-snapshot 2026-10-31T02:14:11Z -->
+- .claude/docs/blackbox/audit.md
+<!-- end-snapshot -->
+
+<!-- git-snapshot 2026-10-31T02:14:43Z -->
+- .claude/docs/blackbox/audit.md
+- .claude/docs/blackbox/session-log.md
+<!-- end-snapshot -->
+
+<!-- git-snapshot 2026-10-31T14:41:59Z -->
+- .claude/docs/blackbox/audit.md
+- .claude/docs/blackbox/session-log.md
+<!-- end-snapshot -->
+
+<!-- git-snapshot 2026-10-31T15:05:39Z -->
+- .claude/docs/blackbox/audit.md
+- .claude/docs/blackbox/session-log.md
+- backlog/tasks/task-100 - Let-users-reset-forgotten-passwords-delete-their-account-and-protect-auth-endpoints-from-abuse.md
+- backlog/tasks/task-101 - Add-authenticator-app-2FA-TOTP-with-recovery-codes-mandatory-for-admins.md
+- backlog/tasks/task-102 - Store-learning-progress-per-user-on-the-server.md
+- backlog/tasks/task-103 - Add-sign-up-login-2FA-and-account-screens-to-the-frontend-and-sync-quiz-progress-for-logged-in-users.md
+- backlog/tasks/task-104 - Let-users-sign-in-with-their-Google-account.md
+- backlog/tasks/task-107 - Email-verification-for-registered-accounts.md
+- backlog/tasks/task-108 - Let-users-reset-a-forgotten-password.md
+- backlog/tasks/task-109 - Let-signed-in-users-change-their-password-and-email.md
+- backlog/tasks/task-110 - Add-a-public-privacy-policy-page-privacy-for-Google-app-publishing.md
+- backlog/tasks/task-99 - Let-visitors-register-and-log-in-with-email-password-restrict-content-edits-to-admins.md
+<!-- end-snapshot -->

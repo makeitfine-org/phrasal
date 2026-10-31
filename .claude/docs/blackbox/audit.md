@@ -5696,3 +5696,28 @@ did task-110 done?
 ## 2026-10-31T02:04:38Z
 git add all changes and commit them with suitable message
 ---
+
+## 2026-10-31T02:14:02Z
+Check what is the last release version now and output without applying or code changing anything for the new one: tag, description and steps for git applying.
+---
+
+## 2026-10-31T02:14:31Z
+execute steps: 2, 3
+---
+
+## 2026-10-31T14:41:50Z
+file:///home/ilaptop/Pictures/Screenshots/Screenshot%20from%202026-10-31%2015-40-47.png
+file:///home/ilaptop/Pictures/Screenshots/Screenshot%20from%202026-10-31%2015-40-34.png
+file:///home/ilaptop/Pictures/Screenshots/Screenshot%20from%202026-10-31%2015-40-14.png
+
+how can I fix this issue and to get verification successful by google.
+---
+
+## 2026-10-31T15:03:35Z
+Analyze the project for checking all the tasks from @backlog/tasks/ and define what of them are already implemented.
+That what are implemented must be changed with "done" status and moved to @backlog/completed/ folder
+---
+
+## 2026-10-31T15:10:49Z
+git add all changes and commit them with suitable message
+---

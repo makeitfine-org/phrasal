@@ -3,10 +3,10 @@ id: TASK-103
 title: >-
   Add sign-up, login, 2FA and account screens to the frontend, and sync quiz
   progress for logged-in users
-status: To Do
+status: Done
 assignee: []
 created_date: '2026-10-26T17:38:00Z'
-updated_date: '2026-10-30T19:13:00Z'
+updated_date: '2026-10-31T15:05:00Z'
 labels:
   - multi-user
   - frontend
@@ -72,9 +72,9 @@ Logged-in users also expect their quiz progress to follow them across devices.
 
 ## Acceptance Criteria
 <!-- AC:BEGIN -->
-- [ ] #1 Visitors can open Register, Verify email, Login, Forgot password and Reset password pages from the app shell. All pages work at mobile width and in dark mode.
+- [x] #1 Visitors can open Register, Verify email, Login, Forgot password and Reset password pages from the app shell. All pages work at mobile width and in dark mode.
 - [x] #2 Login for a 2FA-enabled account moves to a code-entry step, which accepts a TOTP code or a recovery code.
-- [ ] #3 A logged-in user sees a user menu with their email and options for Account/Security and Logout.
+- [x] #3 A logged-in user sees a user menu with their email and options for Account/Security and Logout.
 - [x] #4 On the Account/Security page a user can enable 2FA (QR code plus manual secret), see and download recovery codes once, regenerate them, disable 2FA with a code, and delete their account with password confirmation.
 - [x] #5 An admin without 2FA is clearly prompted to enroll.
 - [x] #6 Backend errors (ProblemDetail, including 429 rate limits) are shown as readable messages on forms.
@@ -83,10 +83,10 @@ Logged-in users also expect their quiz progress to follow them across devices.
 - [x] #9 On a user's first login, existing local quiz progress is uploaded to their account.
 - [x] #10 Saved progress references content by stable IDs. Adding or removing a verb does not shift other verbs' mastered or excluded state.
 - [x] #11 The frontend no longer reads or types the removed isLearned field. Every verb from the API enters the quiz pool unless it is excluded in the visitor's own progress (local or server).
-- [ ] #12 frontend/CLAUDE.md is updated: auth context allowed, React 19, new pages, hooks and API files. README.md describes the user-facing auth features.
+- [x] #12 frontend/CLAUDE.md is updated: auth context allowed, React 19, new pages, hooks and API files. README.md describes the user-facing auth features.
 - [x] #13 Vitest tests exist for each new page and hook, for the API client's CSRF and 401 handling, and for sync debounce, first-login import and index-to-ID mapping.
-- [ ] #14 E2E: features/frontend/auth.feature covers register, verify via Mailpit, login and logout. A progress-sync feature verifies that progress survives clearing localStorage for a logged-in user.
-- [ ] #15 `make clean build` passes
+- [x] #14 E2E: features/frontend/auth.feature covers register, verify via Mailpit, login and logout. A progress-sync feature verifies that progress survives clearing localStorage for a logged-in user.
+- [x] #15 `make clean build` passes
 <!-- AC:END -->
 
 ## Implementation Notes
@@ -113,4 +113,6 @@ Done in task-107: the /verify-email page (VerifyEmailPage), the resend action (R
 2026-10-30: account deletion screen (DeleteAccountSection, rest of AC #4), Change password / Change email sections and /confirm-email-change page are done on branch `account-settings` with Vitest tests and e2e (AC #4, #6, #13 checked). Still open here: AC #1, #3, #12, #14, #15.
 
 2026-10-30: the Continue with Google button, error texts and the set-password panel (outside this task's scope) shipped with task-104 on branch google-sign-in.
+
+2026-10-31: remaining AC checked: UserMenu shows Log in / Sign up, and for a logged-in user the email, Account security and Log out; frontend/CLAUDE.md and README 'Accounts & security' are updated; auth.feature and progress-sync.feature cover the e2e flows; `make clean build` green on main.
 <!-- SECTION:NOTES:END -->

@@ -1,10 +1,10 @@
 ---
 id: TASK-107
 title: Email verification for registered accounts
-status: In Progress
+status: Done
 assignee: []
 created_date: '2026-10-27T20:22:00Z'
-updated_date: '2026-10-28T16:32:00Z'
+updated_date: '2026-10-31T15:05:00Z'
 labels:
   - multi-user
   - security
@@ -49,7 +49,7 @@ Scope:
 - [x] #5 Mail settings and the app base URL are wired into docker-compose.yml, k8s/base configmap/secret, the prod secret generation and .github/workflows/ci_cd.yml.
 - [x] #6 Unit and integration tests cover verify, resend and the no-enumeration rule. JaCoCo 85% per package is met.
 - [x] #7 README.md, backend/CLAUDE.md and e2e/CLAUDE.md document the verification flow and local Mailpit usage.
-- [ ] #8 `make clean build` passes
+- [x] #8 `make clean build` passes
 <!-- AC:END -->
 
 ## Implementation Notes
