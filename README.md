@@ -800,12 +800,46 @@ Account security shows "Set a password" for it: the button emails the reset link
 `forgot-password` flow), and the link sets the password and signs everyone out. Until then the change-password,
 change-email, delete and 2FA-enable forms are hidden (their endpoints answer `400 wrong-password`).
 
-**Google Cloud setup** (task-106; once per environment): a project with the OAuth consent screen (app name, support email,
-authorized domain `phrasalbox.com`, scopes `openid`, `email`, `profile`), in *Testing* mode with your Google account as a
-test user, and an OAuth client of type *Web application* with these redirect URIs: `https://phrasalbox.com/api/v1/auth/oauth2/code/google`,
-and the same path on `http://localhost:3000`, `http://localhost:3100` and `http://localhost:5173`. Publishing the consent
-screen is task-105. Keep the client id and secret in the password manager and in GitHub Secrets; never commit them or paste
-them into a chat.
+**Google Cloud setup** (task-106; once per environment). Keep the client id and secret in the password manager and in
+GitHub Secrets (`GOOGLE_CLIENT_ID`, `GOOGLE_CLIENT_SECRET`); never commit them or paste them into a chat. The console
+labels change from time to time; the steps below match the Google Auth Platform screens.
+
+1. **Project.** Open https://console.cloud.google.com, pick the project in the top bar (or **New project**, for example
+   `phrasal`) and check that its name is the one shown before each step.
+2. **Consent screen.** ☰ → **APIs & Services** → **OAuth consent screen** (opens **Google Auth Platform**); click **Get
+   started** if it is not configured yet. The wizard has four steps:
+   - *App Information*: app name `Phrasal` (shown to users on Google's consent screen) and a user support email.
+   - *Audience*: **External**. **Internal** only works for a Google Workspace organization. The app starts in *Testing*.
+   - *Contact Information*: an email for Google's project notices.
+   - *Finish*: accept the Google API Services User Data Policy, then **Create**.
+3. **Branding** (left menu): under *Authorized domains* add `phrasalbox.com` (no `https://`, no path). The app logo is
+   optional; skip it, because a logo can trigger extra verification. The home page, privacy policy and terms links are
+   optional in *Testing*, and Google may ask for them when you publish.
+4. **Data Access** (left menu) → **Add or remove scopes**: tick only `openid`, `.../auth/userinfo.email` and
+   `.../auth/userinfo.profile` (or paste them under *Manually add scopes*), **Update**, then **Save**. They appear under
+   *Your non-sensitive scopes*; *Your sensitive scopes* stays empty. Do not add any other scope (Gmail, Drive, ...): that
+   would require Google's verification.
+5. **Audience** (left menu) → *Test users* → **Add users**: your Google account and anyone else who must sign in while the
+   app is in *Testing* (up to 100). Everyone else sees Google's "access blocked" page.
+6. **Clients** (left menu) → **Create client**:
+   - *Application type*: **Web application**; *Name*: for example `phrasal-web` (only you see it).
+   - *Authorized JavaScript origins*: leave empty (the backend, not the browser, talks to Google's token endpoint).
+   - *Authorized redirect URIs*: `https://phrasalbox.com/api/v1/auth/oauth2/code/google`. The scheme, host and path must
+     match exactly: https, no trailing slash, no query. The backend builds the URI from `APP_BASE_URL`, and a mismatch
+     gives `redirect_uri_mismatch`. For a local check against real Google add the same path on the origins you use:
+     `http://localhost:3000`, `http://localhost:3100`, `http://localhost:5173` (Google allows `http` only for `localhost`).
+   - **Create**.
+7. **Save the credentials.** The dialog shows the *Client ID* (ends with `.apps.googleusercontent.com`) and the *Client
+   secret*. Copy both into the password manager at once. Later the client's details page still shows the secret and lets
+   you add a new one. If you download the JSON, keep it outside the repository and delete it after use.
+8. **GitHub Secrets**: *Settings* → *Secrets and variables* → *Actions* → **New repository secret** (or the `production`
+   environment's secrets, next to `DB_PASSWORD`): `GOOGLE_CLIENT_ID` and `GOOGLE_CLIENT_SECRET`. The deploy step fails
+   without them.
+9. **Publishing** (task-105, when everyone should be able to sign in): **Audience** → **Publish app** → **Confirm**. With
+   only the three scopes above Google usually needs no review, but it may ask for a privacy policy link, a home page
+   link or proof of the domain (Google Search Console). Test users keep working after publishing.
+10. **Check**: the client's redirect URI is exactly the https one above, the type is *Web application*, and *Audience*
+    shows the publishing status you expect.
 
 | Variable | Default | Meaning |
 |---|---|---|

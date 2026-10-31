@@ -5505,3 +5505,60 @@ If this event is something the user would act on now, send a PushNotification. R
 ## 2026-10-30T23:26:52Z
 git add all changes and commit them with suitable message
 ---
+
+## 2026-10-30T23:28:48Z
+Before deploy to production what should I do?
+
+
+
+<pasted_content id="d2ac">
+13.1 Prerequisites:
+GitHub Secrets GOOGLE_CLIENT_ID and GOOGLE_CLIENT_SECRET exist (the deploy now fails without them, 8.4.1)
+TOTP_ENCRYPTION_KEY exists too (task-101 Phase 14 is still open; the same deploy needs it)
+the prod redirect URI https://phrasalbox.com/api/v1/auth/oauth2/code/google is on the OAuth client
+the consent screen is still in Testing mode: only its test users can sign in until task-105 AC #6 publishes it (others see Google's "access blocked" page). With only openid, email and profile the publish usually needs no Google review; check the console.
+</pasted_content id="d2ac">
+
+
+Write steps with explanations.
+---
+
+## 2026-10-30T23:33:35Z
+
+
+<pasted_content id="d2ac">
+A. Google Cloud (Google Cloud Console, APIs & Services)
+
+  1. OAuth client: open Credentials → your Web application client. This is todo 0.7. If it doesn't exist yet, create it as type "Web application".
+  2. Authorized redirect URIs: add exactly https://phrasalbox.com/api/v1/auth/oauth2/code/google.
+     - The backend builds this URI from APP_BASE_URL, so any mismatch gives Google's redirect_uri_mismatch error.
+     - Check the scheme, the host and the absence of a trailing slash.
+     - You can add http://localhost:3100/api/v1/auth/oauth2/code/google too, for the real-Google local check (12.3).
+  3. Consent screen (Google Auth Platform → Audience):
+     - Scopes should be only openid, email and profile. These are non-sensitive, so no Google verification is normally needed.
+     - Testing mode: only the listed test users can sign in. Add your own Google account (and anyone else) there. Everyone else sees "access blocked".
+     - To open it to everyone: use "Publish app". That is task-105 AC #6, and you can do it now or after the smoke test. Check the console for any extra requirement, such as a privacy-policy
+       URL or an authorized domain (phrasalbox.com).
+     - Authorized domains: add phrasalbox.com.
+</pasted_content id="d2ac">
+
+
+Write all steps in details, what should I do and where to go.
+---
+
+## 2026-10-30T23:44:15Z
+file:///home/ilaptop/Pictures/Screenshots/Screenshot%20from%202026-10-31%2000-43-22.png
+file:///home/ilaptop/Pictures/Screenshots/Screenshot%20from%202026-10-31%2000-43-44.png
+---
+
+## 2026-10-30T23:52:19Z
+file:///home/ilaptop/Pictures/Screenshots/Screenshot%20from%202026-10-31%2000-52-00.png
+---
+
+## 2026-10-31T00:12:07Z
+Add to README "Google Cloud (Google Cloud Console, APIs & Services)" config steps with details.
+---
+
+## 2026-10-31T00:20:03Z
+git add all changes and commit them with suitable message
+---
