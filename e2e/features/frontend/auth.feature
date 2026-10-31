@@ -54,3 +54,8 @@ Feature: Accounts in the browser
     When I navigate to the phrasal verbs quiz
     Then I should see a quiz input field
     And I should see the "Log in" link in the navigation
+
+  Scenario: The privacy policy is public
+    When I open the privacy policy while logged out
+    Then I should see the heading "Privacy Policy"
+    And I should see a link to "info@phrasalbox.com"

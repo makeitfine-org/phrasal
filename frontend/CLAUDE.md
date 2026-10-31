@@ -25,6 +25,8 @@ Multi-page SPA. State is component-local + localStorage; the only context is `au
 
 **Auth:** `pages/LoginPage`, `pages/RegisterPage`, `pages/VerifyEmailPage`, `pages/ForgotPasswordPage`, `pages/ResetPasswordPage`, `pages/LoginTwoFactorPage` (routes `/login`, `/register`, `/verify-email`, `/forgot-password`, `/reset-password`, `/login/2fa`), `components/PasswordRequirements` (live password checklist + tip, shared by the register and reset pages), `components/ResendVerification` (email field + "send a new link", used on the register, login and verify pages), `components/GoogleSignInButton` (see "Sign in with Google"), `components/UserMenu`, `auth/AuthContext` + `auth/useAuth`, `auth/useAuthProviders`, `auth/googleErrors`, `hooks/useClickOutside`.
 
+**Legal:** `pages/PrivacyPage` (public `/privacy`, test id `privacy-page`; exports `PRIVACY_CONTACT_EMAIL` and `PRIVACY_UPDATED`). Linked from `LoginPage` and `RegisterPage` (`privacy-link`). The URL is what the Google consent screen (Branding) points to: keep the text in step with what the backend stores.
+
 **Other:** `AllVerbsModal`, `TutorialModal`, `ListSearchModal`, `Icons`, `UserMenu` (login/signup links or email dropdown with logout, rendered by `NavigationMenu`).
 
 ### API Client (`src/api/`)

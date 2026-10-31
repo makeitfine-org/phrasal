@@ -133,6 +133,9 @@ export default function RegisterPage() {
       <p className="mt-4 text-sm text-gray-600 dark:text-gray-400">
         Already have an account? <Link to="/login" className={linkClass}>Log in</Link>
       </p>
+      <p className="mt-2 text-sm text-gray-600 dark:text-gray-400">
+        By signing up you agree to the <Link to="/privacy" data-testid="privacy-link" className={linkClass}>Privacy Policy</Link>.
+      </p>
     </main>
   );
 }

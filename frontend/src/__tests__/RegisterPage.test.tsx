@@ -54,6 +54,11 @@ describe('RegisterPage', () => {
     expect(screen.getByRole('link', { name: 'Log in' })).toHaveAttribute('href', '/login');
   });
 
+  it('links to the privacy policy', () => {
+    renderPage(ctx());
+    expect(screen.getByTestId('privacy-link')).toHaveAttribute('href', '/privacy');
+  });
+
   it('frames the rules and the tip together in one rounded yellow box', () => {
     renderPage(ctx());
     const box = screen.getByTestId('password-requirements');

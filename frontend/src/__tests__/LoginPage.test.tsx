@@ -82,6 +82,11 @@ describe('LoginPage', () => {
     expect(screen.getByRole('link', { name: 'Sign up' })).toHaveAttribute('href', '/register');
   });
 
+  it('links to the privacy policy', () => {
+    renderPage(ctx());
+    expect(screen.getByTestId('privacy-link')).toHaveAttribute('href', '/privacy');
+  });
+
   it('navigates to the code step and passes from along', async () => {
     const value = ctx({ login: vi.fn().mockResolvedValue('two-factor-required') });
     renderPage(value, { pathname: '/login', state: { from: '/grammar' } });

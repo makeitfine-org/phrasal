@@ -69,3 +69,8 @@ Then('I should see at least one particle section', async function (this: Phrasal
     await section.waitFor({ timeout: 10000 });
     assert.ok(await section.isVisible(), 'Expected at least one particle section');
 });
+
+When('I open the privacy policy while logged out', async function (this: PhrasalWorld) {
+    await this.page!.goto(`${FRONTEND_URL}/privacy`);
+    await this.page!.waitForSelector('[data-testid="privacy-page"]', { timeout: 10000 });
+});

@@ -5600,3 +5600,99 @@ fix
 ## 2026-10-31T00:30:15Z
 git add all changes and commit them with suitable message
 ---
+
+## 2026-10-31T00:45:19Z
+Check what is the last release version now and output without applying or code changing anything for the new one: tag, description and steps for git applying.
+---
+
+## 2026-10-31T00:45:58Z
+execute steps: 2, 3
+---
+
+## 2026-10-31T01:00:52Z
+question to you: when I sign up log in by email and password, I can delete my account, but when I sign up or log in with Google account, there is no such functionality like deleting account. Why, or is it normal?
+---
+
+## 2026-10-31T01:12:10Z
+I have setting for only 2 test users in google:
+
+iridiumelemento@gmail.com
+but I also sign-up/login to google account with other emails: iridiumelemento@gmail.com
+
+Why, shouldn't it be forbidden?
+---
+
+## 2026-10-31T01:12:25Z
+I have setting for only 2 test users in google:
+file:///home/ilaptop/Pictures/Screenshots/Screenshot%20from%202026-10-31%2002-09-21.png
+iridiumelemento@gmail.com
+but I also sign-up/login to google account with other emails: iridiumelemento@gmail.com
+
+Why, shouldn't it be forbidden?
+---
+
+## 2026-10-31T01:13:07Z
+I have setting for only 2 test users in google:
+file:///home/ilaptop/Pictures/Screenshots/Screenshot%20from%202026-10-31%2002-09-21.png
+iridiumelemento@gmail.com
+but on producation on phrasalbox.com I also can sign-up/login to google account with other emails: iridiumelemento@gmail.com
+
+Why, shouldn't it be forbidden?
+---
+
+## 2026-10-31T01:18:57Z
+what the sent to test users if "Nothing in our code restricts who can sign in. Any verified Google account can create a user once Google lets it through. If you want a restriction on our side too, such as an email
+  allowlist, that's a separate feature." I thought only that 2 users can sign-in/login?
+what that 2 users can do, which is not allowed to others?
+---
+
+## 2026-10-31T01:21:58Z
+I don't understand, be short and laconic
+---
+
+## 2026-10-31T01:25:49Z
+I'd like to publish an application. what should I click here:
+file:///home/ilaptop/Pictures/Screenshots/Screenshot%20from%202026-10-31%2002-25-04.png
+file:///home/ilaptop/Pictures/Screenshots/Screenshot%20from%202026-10-31%2002-24-58.png
+file:///home/ilaptop/Pictures/Screenshots/Screenshot%20from%202026-10-31%2002-24-22.png
+---
+
+## 2026-10-31T01:40:44Z
+file:///home/ilaptop/Pictures/Screenshots/Screenshot%20from%202026-10-31%2002-39-33.png
+how to get all that fields?
+---
+
+## 2026-10-31T01:44:28Z
+yes
+---
+
+## 2026-10-31T01:49:39Z
+<task-notification>
+<task-id>buibomj9f</task-id>
+<tool-use-id>toolu_012MZ9TviqMzUXyyNMBBnDft</tool-use-id>
+<output-file>/tmp/claude-1000/-home-ilaptop-dev-projects-my-phrasal/7c9081a0-cf9c-4383-ae67-f55837d203a9/tasks/buibomj9f.output</output-file>
+<status>completed</status>
+<summary>Background command "source .envrc 2&gt;/dev/null; LOG=/tmp/claude-1000/-home-ilaptop-dev-projects-my-phrasal/6a739ec9-168c-4ad0-9d67-f9fd0c236e74/scratchpad/p13.log; (make clean build &gt; $LOG 2&gt;&amp;1; echo "EXIT $?" &gt;&gt; $LOG) &amp;
+echo started" completed (exit code 0)</summary>
+</task-notification>
+---
+
+## 2026-10-31T01:54:04Z
+<task-notification>
+<task-id>b8kq7jzff</task-id>
+<tool-use-id>toolu_012qCDWczQMFnG3VrkhYE1YM</tool-use-id>
+<output-file>/tmp/claude-1000/-home-ilaptop-dev-projects-my-phrasal/7c9081a0-cf9c-4383-ae67-f55837d203a9/tasks/b8kq7jzff.output</output-file>
+<status>completed</status>
+<summary>Monitor "Wait for make clean build EXIT line" stream ended</summary>
+<event>EXIT 0</event>
+If this event is something the user would act on now, send a PushNotification. Routine or benign output doesn't need one.
+</task-notification>
+---
+
+## 2026-10-31T01:55:35Z
+did task-110 done?
+---
+
+## 2026-10-31T02:04:38Z
+git add all changes and commit them with suitable message
+---

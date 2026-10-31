@@ -123,6 +123,9 @@ export default function LoginPage() {
       <p className="mt-4 text-sm text-gray-600 dark:text-gray-400">
         No account? <Link to="/register" className={linkClass}>Sign up</Link>
       </p>
+      <p className="mt-2 text-sm text-gray-600 dark:text-gray-400">
+        <Link to="/privacy" data-testid="privacy-link" className={linkClass}>Privacy Policy</Link>
+      </p>
     </main>
   );
 }

@@ -690,6 +690,10 @@ Flow diagrams: [`docs/diagrams/auth-flow.md`](docs/diagrams/auth-flow.md),
 [`docs/diagrams/two-factor-flow.md`](docs/diagrams/two-factor-flow.md),
 [`docs/diagrams/account-management-flow.md`](docs/diagrams/account-management-flow.md).
 
+### Privacy policy
+
+The public privacy policy is at `/privacy` (no login), linked from the login and register pages. Google needs its URL (`https://phrasalbox.com/privacy`) and the home page URL on the consent screen before the app can leave Testing. Keep its text in step with the data the backend stores.
+
 ### Password reset
 
 "Forgot password?" on the login page opens `/forgot-password`; the emailed link opens `/reset-password?token=...`.
