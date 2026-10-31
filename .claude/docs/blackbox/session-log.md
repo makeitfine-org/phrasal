@@ -2721,3 +2721,8 @@
 - .claude/docs/blackbox/session-log.md
 - README.md
 <!-- end-snapshot -->
+
+<!-- git-snapshot 2026-10-31T00:27:36Z -->
+- .claude/docs/blackbox/audit.md
+- e2e/package-lock.json
+<!-- end-snapshot -->
